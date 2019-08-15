@@ -1,0 +1,26 @@
+/* breakpoint definition - use this mixin where appropriate */
+@mixin respond-to($media) {
+    @if $media == handhelds {
+        // 30 * 16px = 480px
+        @media only screen and (max-width: 750px) { @content; }
+    }
+    @else if $media == screens {
+        // 80 em on 16px fontsize -> 1280px
+        @media only screen and (min-width: 1440px) { @content; }
+    }
+}
+
+
+@mixin centered($width) {
+    width: $width;
+    margin: 0 auto;
+    padding: 0;
+}
+
+@mixin clearfix() {
+    &::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+}

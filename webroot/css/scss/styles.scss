@@ -1,0 +1,37 @@
+
+
+/* Color scheme */
+$clarin_blue	: #2387aa;
+$dariah_blue	: #2387aa;
+$blue			: $dariah_blue;
+$green			: #6b8743;
+
+
+
+
+/* general text formatting */
+$text-color     : #000;
+$em-color       : #333;
+$line-height    : 1.7em;
+
+
+/* base layout & responsive sizing */
+
+/* amount of space to reserve for scrollbars, lateral whitespace */
+$scrollbar	: 17px;
+$max_width  : 90em;    // 1440px
+$whitespace : 2vh;      // relative to height, so padding does not change on resize
+
+
+
+
+
+@import "mixins";
+
+@import "basics";
+
+@import "home_layout";
+
+
+
+

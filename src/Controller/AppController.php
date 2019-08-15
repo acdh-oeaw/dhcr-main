@@ -64,8 +64,6 @@ class AppController extends Controller
 	
 	public function beforeRender(Event $event) {
 		parent::beforeRender($event);
-		
-		$this->viewBuilder()->setClassName('Json');
 	}
 	
 	
