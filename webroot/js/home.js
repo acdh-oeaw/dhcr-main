@@ -1,6 +1,9 @@
 
 
 $(document).ready( function() {
+
+
+    /*
     var height = $(window).height();
     var width = $(window).width();
     $.ajax({
@@ -11,4 +14,5 @@ $(document).ready( function() {
             $('#container').html(response);
         }
     });
+    */
 });

@@ -61,6 +61,13 @@ use Cake\Utility\Security;
 //         ->toServer();
 // }
 
+
+
+Configure::write('api.baseUrl', 'https://dhcr-api.acdh-dev.oeaw.ac.at/');
+Configure::write('api.baseUrl', 'localhost/api/v1');
+
+
+
 /*
  * Read configuration file and inject configuration into various
  * CakePHP classes.
