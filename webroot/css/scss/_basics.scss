@@ -7,10 +7,16 @@
     box-sizing: border-box;
 }
 
-/* for baron custom scrollbar Mac OS X support */
-::-webkit-scrollbar {
-    width: 0;
+/*
+.scroll-container {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+    }
 }
+*/
+
 
 body {
     font-family: 'Assistant', Verdana, Helvetica, Arial, Sans-Serif;

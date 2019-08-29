@@ -1,79 +1,56 @@
 
 
 body.home {
-    position: relative;
     height: 100vh;
-    width: 100vw;
-    @include clearfix;
+    width: calc(100% - 20px);
+    padding-bottom: $whitespace;
 
     #header {
         width: 100%;
         height: 130px;
-        margin-bottom: 20px;
-        background-color: $blue
+        margin-bottom: $whitespace;
+        background-color: $blue;
+
+        @include respond-to(screens) {
+            min-width: $break_point;
+        }
     }
 
-    #flex-container {
-        display: flex;
-        flex-wrap: nowrap;
-        align-items: stretch;
-        position: absolute;
-        top: 150px;
-        bottom: 20px;
-        width: 100%;
+    #container {
+
+        @include respond-to(screens) {
+            display: flex;
+            flex-wrap: nowrap;
+            align-items: stretch;
+            justify-content: space-between;
+            position: relative;
+            top: 0px;
+            height: calc(100% - 140px);
+            min-width: $break_point;
+        }
 
         #table {
-            width: 50%;
-            min-width: 500px;
-            background-color: #ccc;
-            //overflow: hidden;
-            div {
-                background-color: #000;
+            background-color: #555;
+            padding: 10px;
+
+            @include respond-to(screens) {
+                flex: 1 0 500px;
+                margin-right: $whitespace;
+            }
+
+            .long {
+                background-color: #eee;
                 height: 200%;
-                width: 50%;
+                //width: 50%;
             }
         }
         #map {
-            width: 50%;
+            flex: 1 1 220px;
             background-color: $green;
-            right: $whitespace;
         }
         #table, #map {
 
         }
     }
-}
-
-
-.baron._macosx .baron__track {
-    opacity: 0;
-    position: absolute;
-    z-index: 3;
-    top: 2px;
-    bottom: 2px;
-    right: 2px;
-    width: 0;
-}
-.baron._macosx._scrollbar .baron__track {
-    opacity: 1;
-}
-.baron._macosx .baron__bar {
-    position: absolute;
-    z-index: 1;
-    width: 6px;
-    border-radius: 3px;
-    background: #333;
-    opacity: 0;
-    transition: .1s opacity .4s linear;
-    pointer-events: auto;
-}
-.baron._dragging .baron__bar {
-    /*opacity: 1;*/
-}
-.baron._macosx .baron__bar:hover,
-.baron._scrolling .baron__bar {
-    transition-duration: 0s;
-    transition-delay: 0s;
-    opacity: .5;
 }
 

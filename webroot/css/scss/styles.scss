@@ -19,7 +19,8 @@ $line-height    : 1.7em;
 
 /* amount of space to reserve for lateral whitespace */
 $max_width  : 90em;    // 1440px
-$whitespace : 2vh;      // relative to height, so padding does not change on resize
+$break_point: 750px;
+$whitespace : 10px;      // relative to height, so padding does not change on resize
 
 
 
@@ -29,6 +30,12 @@ $whitespace : 2vh;      // relative to height, so padding does not change on res
 @import "basics";
 
 @import "home_layout";
+
+@import "slick";
+
+@import "leaflet";
+
+@import "markercluster";
 
 
 
