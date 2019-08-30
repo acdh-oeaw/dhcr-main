@@ -1,7 +1,11 @@
+
+'use strict';
+
 class Scrollable {
 
   defaults() {
     return {
+      //selector: '#table',
       thumbWidth: 9,
       thumbColor: '#00aa00',
       trackWidth: 1,

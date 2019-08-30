@@ -30,7 +30,6 @@ body.home {
         }
 
         #table {
-            background-color: #555;
             padding: 10px;
 
             @include respond-to(screens) {
@@ -38,10 +37,13 @@ body.home {
                 margin-right: $whitespace;
             }
 
-            .long {
-                background-color: #eee;
-                height: 200%;
-                //width: 50%;
+            .error {
+                height: 100%;
+            }
+            .loading {
+                // create loader gif as background
+                height: 100%;
+                font-size: 0;
             }
         }
         #map {
