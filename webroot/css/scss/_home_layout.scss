@@ -17,25 +17,39 @@ body.home {
     }
 
     #container {
+        height: calc(100% - 140px);
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: stretch;
+        justify-content: space-between;
+        position: relative;
+        top: 0px;
+        overflow: hidden;
 
-        @include respond-to(screens) {
-            display: flex;
-            flex-wrap: nowrap;
-            align-items: stretch;
-            justify-content: space-between;
-            position: relative;
-            top: 0px;
-            height: calc(100% - 140px);
+        &.screens {
             min-width: $break_point;
-        }
 
-        #table {
-            padding: 10px;
-
-            @include respond-to(screens) {
+            #table {
                 flex: 1 0 500px;
                 margin-right: $whitespace;
             }
+            #map {
+                flex: 1 1 220px;
+            }
+        }
+        &.mobile {
+            width: 100%;
+            #table, #map {
+                width: 100%;
+                flex: 0 0 100%;
+            }
+        }
+
+
+
+        #table {
+            padding: 1px;
+
 
             .error {
                 height: 100%;
@@ -47,8 +61,7 @@ body.home {
             }
         }
         #map {
-            flex: 1 1 220px;
-            background-color: $green;
+
         }
         #table, #map {
 

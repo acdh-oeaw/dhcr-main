@@ -3,20 +3,19 @@
 
 class Table {
 
-    constructor(selector) {
+    constructor(elm) {
         // store the native DOM element, not jQuery
-        this.element = $(selector)[0];
+        this.element = elm;
         this.entries = {};
     }
 
     setData(courses) {
         if(courses.length == 0) {
             this.setErrorMessage('Your query returned no results.');
+            return;
         }
-
         // remove all content
         $(this.element).empty();
-
         for(let k in courses) {
             let entry = $('<div></div>').addClass('entry');
             entry.append('<h1>' + courses[k].name + '</h1>');

@@ -9,7 +9,8 @@ class Scrollable {
       thumbWidth: 9,
       thumbColor: '#00aa00',
       trackWidth: 1,
-      trackColor: '#1b6d85'
+      trackColor: '#1b6d85',
+      contentContainerClass: 'scroll-container'
     }
   }
 
@@ -21,6 +22,7 @@ class Scrollable {
     this.thumbColor = options.thumbColor;
     this.trackWidth = options.trackWidth;
     this.trackColor = options.trackColor;
+    this.contentContainerClass = options.contentContainerClass;
 
     this.dragging = false;
     this.lastY = 0;
@@ -42,14 +44,13 @@ class Scrollable {
       overflow: 'hidden'
     });
 
-    let padding = this.paddingTop + this.paddingBottom;
     this.track = document.createElement("div");
     this.track.classList.add("track");
     let offsetRight = 0;
     if(this.trackWidth < this.thumbWidth) offsetRight = (this.thumbWidth - this.trackWidth) / 2;
     Object.assign(this.track.style, {
       width: this.trackWidth + 'px',
-      height: this.element.clientHeight - padding + 'px',
+      height: this.element.clientHeight - this.paddingTop - this.paddingBottom + 'px',
       backgroundColor: this.trackColor,
       right: offsetRight + this.paddingRight / 2 + 'px',
       position: 'absolute',
@@ -74,14 +75,14 @@ class Scrollable {
     });
 
     this.container = document.createElement('div');
-    this.container.classList.add('scroll-container');
+    this.container.classList.add(this.contentContainerClass);
 
     this.container.innerHTML = this.element.innerHTML;
     this.element.innerHTML = this.container.outerHTML;
-    this.element.insertBefore(this.thumb, this.element.firstChild);
-    this.element.insertBefore(this.track, this.element.firstChild);
+    this.element.insertBefore(this.thumb, this.element.firstElementChild);
+    this.element.insertBefore(this.track, this.element.firstElementChild);
     // pick the rendered element from the DOM to retrieve proper box sizing!
-    this.container = this.element.lastChild;
+    this.container = this.element.lastElementChild;
 
     // We are on Safari, where we need to use the sticky trick!
     if (getComputedStyle(this.element).webkitOverflowScrolling) {
@@ -117,7 +118,12 @@ class Scrollable {
     window.addEventListener("resize", f.bind(this));
 
     // updateSize will test for scrollable content and will enable/disable the scroller
-    this.updateSize();
+    //this.updateSize();
+    // make first call to updateSize programmatically in App class
+  }
+
+  getContentContainer() {
+      return this.container;
   }
 
 
@@ -180,7 +186,9 @@ class Scrollable {
     Object.assign(this.container.style, style);
 
     let newScrollbarWidth = Scrollable.getSystemScrollbarWidth();
+
     if(this.systemScrollbarWidth != newScrollbarWidth) {
+      // after zooming, recalculate the negative margin effect, as scrollbar width changes
       this.systemScrollbarWidth = newScrollbarWidth;
       this.margin = 50 + this.systemScrollbarWidth + this.paddingRight;
       this.backPadding = this.margin + this.trackWidth - this.systemScrollbarWidth;
@@ -198,9 +206,10 @@ class Scrollable {
       // test for prior state
       if(!this.scrollState) this.enable();
       this.thumbScaling = maxTopOffset / maxScrollTop;
-      this.thumb.style.height = `${thumbHeight}px`
+      this.thumb.style.height = `${thumbHeight}px`;
+      this.track.style.height = this.element.clientHeight - this.paddingTop - this.paddingBottom + 'px';
     }else{
-      if(this.scrollState) this.disable()
+      if(this.scrollState) this.disable();
     }
   }
 
@@ -209,7 +218,7 @@ class Scrollable {
     let scrollHeight = this.container.scrollHeight;
     let maxScrollTop = scrollHeight - viewport.height;
 
-    return (maxScrollTop >= 1)
+    return (maxScrollTop >= 1);
   }
 
 
@@ -228,6 +237,7 @@ class Scrollable {
   }
 
   static getSystemScrollbarWidth() {
+      // if no scrollbar is present, we need to trigger display of the scrollbar for this test
       let height = document.body.style.height;
       let overflow = document.body.style.overflowY;
       document.body.style.height = '200vh';

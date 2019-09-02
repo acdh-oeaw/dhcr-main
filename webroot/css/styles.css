@@ -16,7 +16,7 @@
   padding: 0;
   box-sizing: border-box; }
 
-/*
+/* test for system scrollbar width would not work using this
 .scroll-container {
     scrollbar-width: none;
     &::-webkit-scrollbar {
@@ -78,7 +78,7 @@ em {
   font-style: normal; }
 
 a {
-  color: #2387aa;
+  color: #1E6BA3;
   text-decoration: none; }
   a:hover {
     text-decoration: underline; }
@@ -91,7 +91,7 @@ a {
   border-radius: 0.5em;
   border: 3px solid transparent;
   text-align: center;
-  background-color: #2387aa;
+  background-color: #1E6BA3;
   color: #fff;
   font-weight: bold;
   margin: 3em 0; }
@@ -121,34 +121,38 @@ body.home {
     width: 100%;
     height: 130px;
     margin-bottom: 10px;
-    background-color: #2387aa; }
+    background-color: #1E6BA3; }
     @media only screen and (min-width: 751px) {
       body.home #header {
         min-width: 750px; } }
-  @media only screen and (min-width: 751px) {
-    body.home #container {
-      display: flex;
-      flex-wrap: nowrap;
-      align-items: stretch;
-      justify-content: space-between;
-      position: relative;
-      top: 0px;
-      height: calc(100% - 140px);
-      min-width: 750px; } }
-  body.home #container #table {
-    padding: 10px; }
-    @media only screen and (min-width: 751px) {
-      body.home #container #table {
+  body.home #container {
+    height: calc(100% - 140px);
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+    position: relative;
+    top: 0px;
+    overflow: hidden; }
+    body.home #container.screens {
+      min-width: 750px; }
+      body.home #container.screens #table {
         flex: 1 0 500px;
-        margin-right: 10px; } }
-    body.home #container #table .error {
-      height: 100%; }
-    body.home #container #table .loading {
-      height: 100%;
-      font-size: 0; }
-  body.home #container #map {
-    flex: 1 1 220px;
-    background-color: #6b8743; }
+        margin-right: 10px; }
+      body.home #container.screens #map {
+        flex: 1 1 220px; }
+    body.home #container.mobile {
+      width: 100%; }
+      body.home #container.mobile #table, body.home #container.mobile #map {
+        width: 100%;
+        flex: 0 0 100%; }
+    body.home #container #table {
+      padding: 1px; }
+      body.home #container #table .error {
+        height: 100%; }
+      body.home #container #table .loading {
+        height: 100%;
+        font-size: 0; }
 
 /* Slider */
 .slick-slider {
