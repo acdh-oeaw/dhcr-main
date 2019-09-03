@@ -123,40 +123,44 @@ hr {
 #header {
   font-size: 12px;
   padding: 0;
-  margin-bottom: 2px;
+  margin: 0;
   position: relative;
   overflow: hidden;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
-  height: auto; }
+  height: 10vw;
+  min-height: 80px;
+  max-height: 110px; }
   #header #logo {
-    width: 430px;
-    flex-shrink: 0; }
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden; }
     #header #logo img {
       display: block;
       float: left;
-      margin: 10px; }
+      margin: 10px;
+      margin-left: 0; }
     #header #logo .title {
       min-height: 61px;
       margin: 0;
-      margin-left: 10px;
       width: auto;
-      padding: 10px; }
+      padding: 10px;
+      float: left; }
       #header #logo .title h1 {
         margin: 12px 0 0;
         font-weight: bold;
         text-transform: uppercase; }
       #header #logo .title a {
         text-decoration: none;
-        font-size: 2em; }
+        font-size: 1em; }
       #header #logo .title span#h1 {
         color: #61A845;
         font-family: bebas, sans-serif;
         font-size: 45px;
         vertical-align: bottom;
-        line-height: 30px;
+        line-height: 1em;
         font-weight: normal;
         letter-spacing: 0; }
       #header #logo .title span#h2 {
@@ -166,14 +170,15 @@ hr {
         color: #1E6BA3; }
       #header #logo .title #h2, #header #logo .title #h3 {
         letter-spacing: 3px;
-        font-family: metropolis, sans-serif; }
+        font-family: metropolis, sans-serif;
+        font-size: 24px; }
 
 body.home {
   height: 100vh;
   width: calc(100% - 20px);
   padding-bottom: 10px; }
   body.home #container {
-    height: calc(100% - 140px);
+    height: calc(100% - 12vw);
     display: flex;
     flex-wrap: nowrap;
     align-items: stretch;

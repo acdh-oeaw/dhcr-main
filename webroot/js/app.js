@@ -47,6 +47,7 @@ class App {
             this.slider.updateSize();
         }
         this.scrollable.updateSize();
+        this.resizeHeader();
     }
 
     applyMobileLayout() {
@@ -80,6 +81,17 @@ class App {
             this.setCourses();
         }).fail(function() {
             this.table.setError('Failure while loading data.');
+        });
+    }
+
+    resizeHeader() {
+        let hHeight = $('#header').height();
+        let lHeight = $('#logo').height();
+        let scale = hHeight / lHeight;
+        console.log(hHeight / lHeight);
+        $('#logo').css({
+            transform: 'scale(' + scale + ')',
+            transformOrigin: '0 0'
         });
     }
 
