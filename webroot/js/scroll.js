@@ -6,10 +6,10 @@ class Scrollable {
   defaults() {
     return {
       //selector: '#table',
-      thumbWidth: 9,
-      thumbColor: '#00aa00',
+      thumbWidth: 7,
+      thumbColor: '#1E6BA3',
       trackWidth: 1,
-      trackColor: '#1b6d85',
+      trackColor: '#4A4A4A',
       contentContainerClass: 'scroll-container'
     }
   }

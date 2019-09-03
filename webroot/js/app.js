@@ -26,7 +26,11 @@ class App {
         this.table = new Table(this.scrollable.getContentContainer());
 
         // load data
-        this.getCourses()
+        this.getCourses();
+
+        this.map.map.setMaxZoom(3);
+        this.map.map.locate({setView: true});
+        this.map.map.setMaxZoom(18);
 
         window.addEventListener('resize', function () {
             this.resizeListener();

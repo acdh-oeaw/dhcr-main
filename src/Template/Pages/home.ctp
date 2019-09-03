@@ -42,7 +42,21 @@ $this->layout = false;
     </head>
     <body class="home">
         <div id="header">
-        
+            <div id="logo">
+                <?= $this->Html->image('CLARIN-DARIAH-joint-logo.jpg', [
+                    'url' => '/',
+                    'alt' => 'CLARIN-DARIAH joint logo',
+                    'width' => 115,
+                    'height' => 90]) ?>
+                <div class="title">
+                    <h1>
+                        <a href="<?= Router::url('/') ?>">
+                            <span id="h1">Digital Humanities</span><br>
+                            <span id="h2">Course</span><span id="h3">Registry</span>
+                        </a>
+                     </h1>
+                </div>
+            </div>
         </div>
         <div id="container">
             

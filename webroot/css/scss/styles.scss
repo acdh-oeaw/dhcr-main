@@ -24,15 +24,24 @@ $break_point: 750px;
 $whitespace : 10px;      // relative to height, so padding does not change on resize
 
 
+@font-face {
+    font-family: metropolis;
+    src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+}
+@font-face {
+    font-family: bebas;
+    src: url(../fonts/bebas_neue/BebasNeue-Regular.otf);
+}
+
 
 
 @import "mixins";
 
 @import "basics";
 
-@import "home_layout";
+@import "header";
 
-@import "slick";
+@import "home_layout";
 
 //@import "leaflet";
 
