@@ -49,12 +49,20 @@ class App {
         $('#container').addClass('mobile');
         $('#container').removeClass('screens');
         $('#container').css('min-width', 'initial');
+        let control = document.createElement('div');
+        control.classList.add('mobile');
+        control.id = 'slide-control';
+        control.addEventListener('click', function() {
+            this.slider.toggle();
+        }.bind(this));
+        $('#container').append(control);
     }
 
     applyScreenLayout() {
         $('#container').addClass('screens');
         $('#container').removeClass('mobile');
         $('#container').css('min-width', this.breakPoint);
+        $('#slide-control').remove();
     }
 
     getCourses() {

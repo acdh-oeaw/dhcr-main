@@ -10,10 +10,6 @@ body.home {
         height: 130px;
         margin-bottom: $whitespace;
         background-color: $blue;
-
-        @include respond-to(screens) {
-            min-width: $break_point;
-        }
     }
 
     #container {
@@ -42,6 +38,23 @@ body.home {
             #table, #map {
                 width: 100%;
                 flex: 0 0 100%;
+                position: relative;
+            }
+
+            #slide-control {
+                position: absolute;
+                height: 50px;
+                width: 40px;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                margin: 0 auto;
+                background-color: #4A4A4A;
+                z-index: 500;
+                cursor: pointer;
+                &:hover {
+                    background-color: #d58512;
+                }
             }
         }
 

@@ -122,9 +122,6 @@ body.home {
     height: 130px;
     margin-bottom: 10px;
     background-color: #1E6BA3; }
-    @media only screen and (min-width: 751px) {
-      body.home #header {
-        min-width: 750px; } }
   body.home #container {
     height: calc(100% - 140px);
     display: flex;
@@ -145,7 +142,21 @@ body.home {
       width: 100%; }
       body.home #container.mobile #table, body.home #container.mobile #map {
         width: 100%;
-        flex: 0 0 100%; }
+        flex: 0 0 100%;
+        position: relative; }
+      body.home #container.mobile #slide-control {
+        position: absolute;
+        height: 50px;
+        width: 40px;
+        bottom: 10px;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        background-color: #4A4A4A;
+        z-index: 500;
+        cursor: pointer; }
+        body.home #container.mobile #slide-control:hover {
+          background-color: #d58512; }
     body.home #container #table {
       padding: 1px; }
       body.home #container #table .error {
