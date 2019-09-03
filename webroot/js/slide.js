@@ -5,12 +5,16 @@ class Slider {
     constructor(elm) {
         this.sliding = false;
         this.element = elm;
-        this.element.style.marginLeft = 0;
+        this.slide = this.element.firstElementChild;
+        this.slide.style.marginLeft = 0;
         this.viewportWidth = parseInt(this.element.clientWidth);
     }
 
     updateSize() {
         this.viewportWidth = parseInt(this.element.clientWidth);
+        if(parseInt(this.slide.style.marginLeft) != 0) {
+            this.slide.style.marginLeft = - this.viewportWidth + 'px';
+        }
     }
 
     toggle() {
@@ -18,18 +22,19 @@ class Slider {
         this.sliding = true;
 
         let margin = 0;
-        let slide = this.element.firstElementChild;
-        if (parseInt(this.element.style.marginLeft) == 0) {
+        if (parseInt(this.slide.style.marginLeft) == 0) {
             margin = - this.viewportWidth;
         }
 
-        $(this.element).animate( {
+        $(this.slide).animate( {
             "margin-left": margin + "px"
-        }, 500, function() { this.sliding = false }.bind(this));
+        }, 500, function() {
+            this.sliding = false;
+        }.bind(this));
     }
 
     reset() {
-        this.element.style.marginLeft = 0;
+        this.slide.style.marginLeft = 0;
     }
 }
 

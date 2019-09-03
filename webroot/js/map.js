@@ -18,6 +18,10 @@ class Map {
         this.map.addEventListener('mouseout', function() {
             this.map.scrollWheelZoom.disable();
         }.bind(this));
+        window.addEventListener('resize', function () {
+            this.map.invalidateSize();
+        }.bind(this));
+
         // markers is set as a lookup table to get a single course record by ID
         this.markers = {};
     }
