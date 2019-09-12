@@ -43,16 +43,14 @@ use Cake\Routing\Route\DashedRoute;
  * constructor in your `src/Application.php` file to change this behavior.
  *
  */
-Router::defaultRouteClass(\Cake\Routing\Route\InflectedRoute::class);
-
-Router::extensions(['json']);
+Router::defaultRouteClass(\Cake\Routing\Route\DashedRoute::class);
 
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
         'httpOnly' => true
     ]));
-
+    
     /**
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered via `Application::routes()` with `registerMiddleware()`
@@ -64,7 +62,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
+    $routes->connect('/', ['controller' => 'Courses', 'action' => 'index']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.

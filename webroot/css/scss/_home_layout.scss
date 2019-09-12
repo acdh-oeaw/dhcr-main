@@ -2,14 +2,9 @@
 
 body.home {
     height: 100vh;
-    width: calc(100% - 20px);
-    padding-bottom: $whitespace;
-
-
 
     #container {
-        //height: calc(100% - 140px);
-        height: calc(100% - 12vw);
+        height: calc(100% - 144px);
         display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -17,26 +12,40 @@ body.home {
         position: relative;
         top: 0px;
         overflow: hidden;
+        //padding: $whitespace 0 0;
 
-        &.screens {
+        @include respond-to(screens){
             min-width: $break_point;
 
             #table {
                 flex: 1 0 500px;
-                margin-right: $whitespace;
+                border-top: 2px solid $blue;
+                margin-right: 15px;
+                padding-top: 10px;
             }
             #map {
                 flex: 1 1 220px;
             }
+            #slide-control {
+                display: none;
+            }
         }
-        &.mobile {
+        @include respond-to(handhelds){
             width: 100%;
-            #table, #map {
+            min-width: initial;
+
+            #map {
                 width: 100%;
                 flex: 0 0 100%;
             }
 
+            #table {
+                padding: 0 0 0 13px;
+                flex: 0 0 calc(100% - 10px);
+                margin-right: 10px;
+            }
             #slide-control {
+                display: block;
                 position: absolute;
                 height: 50px;
                 width: 40px;
@@ -53,27 +62,7 @@ body.home {
             }
         }
 
-
-
-        #table {
-            padding: 1px;
-
-
-            .error {
-                height: 100%;
-            }
-            .loading {
-                // create loader gif as background
-                height: 100%;
-                font-size: 0;
-            }
-        }
-        #map {
-
-        }
-        #table, #map {
-
-        }
+        @import "course_table";
     }
 }
 

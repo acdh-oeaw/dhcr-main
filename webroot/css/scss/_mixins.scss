@@ -9,11 +9,11 @@
 @mixin respond-to($media) {
     @if $media == handhelds {
         // 30 * 16px = 480px
-        @media only screen and (max-width: 750px) { @content; }
+        @media only screen and (max-width: $break_point) { @content; }
     }
     @else if $media == screens {
         // 80 em on 16px fontsize -> 1280px
-        @media only screen and (min-width: 751px) { @content; }
+        @media only screen and (min-width: $break_point + 1) { @content; }
     }
 }
 

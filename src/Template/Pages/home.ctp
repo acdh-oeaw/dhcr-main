@@ -57,6 +57,10 @@ $this->layout = false;
                      </h1>
                 </div>
             </div>
+            <div id="menu">
+                <button class="blue">Info</button>
+                <button>Login</button>
+            </div>
         </div>
         <div id="container">
             

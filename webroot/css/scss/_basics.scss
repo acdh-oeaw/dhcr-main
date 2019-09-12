@@ -20,37 +20,64 @@
 
 
 body {
-    font-family: 'Assistant', Verdana, Helvetica, Arial, Sans-Serif;
+    font-family: Helvetica, Verdana, Arial, Sans-Serif;
+    font-size: 18px;
+    line-height: 1.44;
+    font-weight: 300;
+    letter-spacing: -0.17px;
     color: $text-color;
-    padding: 0 $whitespace;
 
+    padding: 0 $whitespace;
     max-width: $max_width;
     background-color: #fff;
     margin: 0 auto;
+    width: calc(100% - 20px);
+
+    @include respond-to(handhelds) {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 300;
+        letter-spacing: normal;
+
+        padding: 0;
+        margin: 0;
+        max-width: initial;
+        width: 100%;
+    }
+    padding-bottom: $whitespace;
 }
 
 
 
 h1 {
-    font-size: 1.25em;
-    letter-spacing: 0.08em;
-    font-weight: normal;
+    font-family: metropolis;
+    font-size: 40px;
+    font-weight: bold;
+    line-height: 1.5;
+    color: $blue;
+    @include respond-to(handhelds) {
+        font-size: 24px;
+        line-height: normal;
+    }
 }
 h2 {
-    font-size: 1em;
-    font-weight: bold;
-    margin: 1em 0 0em;
-    text-align: left;
-    line-height: $line-height;
+    font-family: bebas;
+    font-size: 30px;
+    font-weight: normal;
+    line-height: 0.8;
+    color: $blue;
 }
 h3 {
-    font-size: 0.9em;
-    font-weight: normal;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin: 1em 0 0em;
+    font-family: metropolis;
+    font-size: 20px;
+    font-weight: bold;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: $blue;
 }
-h1,h2,h3 {
+h1,h2,h3,h4 {
     &:first-child {
         margin-top: 0;
     }
@@ -91,21 +118,33 @@ a {
     }
 }
 
-.button {
-    display: block;
-    text-decoration: none;
-    -webkit-border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    border-radius: 0.5em;
-    border: 3px solid transparent;
+button, .button {
+    &.blue {
+        background-color: $blue;
+        color: #fff;
+        &:hover {
+            background-color: $blue;
+        }
+    }
+    height: 46px;
+    border-radius: 24px;
+    border: solid 2px $blue;
+    background-color: transparent;
+    font-family: bebas;
+    font-size: 24px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
     text-align: center;
-    background-color: $blue;
-    color: #fff;
-    font-weight: bold;
-    margin: 3em 0;
+    color: $blue;
+    text-transform: uppercase;
+    padding: 2px 30px 0;
     &:hover {
-        border: 3px solid #ddd;
+        border: 2px solid #ddd;
         text-decoration: none;
+        background-color: #eee;
     }
     a:hover {
         text-decoration: none;
@@ -124,3 +163,35 @@ hr {
 
 .right  { text-align: right;  }
 .center { text-align: center; }
+.clearfix {
+    @include clearfix;
+}
+
+
+.tooltip {
+    position: relative;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: 130%;
+        left: 20%;
+        background: #ffcb66;
+        padding: 5px 15px;
+        color: black;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        white-space: nowrap;
+        opacity: 0;
+        -webkit-transition: all 0.4s ease;
+        -moz-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+}
+.tooltip:hover:after {
+    bottom: 100%;
+    opacity: 1;
+}

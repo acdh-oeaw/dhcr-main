@@ -21,21 +21,11 @@ class CoursesController extends AppController
      * @return \Cake\Http\Response|void
      */
     public function index() {
-     	$this->Courses->evaluateQuery($this->request->getQuery());
-		$courses = $this->Courses->getResults();
-		
-		$this->set('courses', $courses);
-        $this->set('_serialize', 'courses');
+     	// do nothing particular...
     }
     
     
-    public function count() {
-		$this->Courses->evaluateQuery($this->request->getQuery());
-		$result = ['course_count' => $this->Courses->countResults()];
-		
-		$this->set('count', $result);
-		$this->set('_serialize', 'count');
-	}
+    
 
     /**
      * View method
@@ -53,7 +43,8 @@ class CoursesController extends AppController
 		]);
         
         if(empty($course)) {
-			throw new RecordNotFoundException();
+			$this->Flash->set('The record you are looking for is not available.');
+			$this->redirect('/');
 		}
         
         $this->set('course', $course);

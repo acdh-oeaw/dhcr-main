@@ -1,0 +1,81 @@
+
+
+#table {
+    .error {
+        height: 100%;
+    }
+    .loading {
+        // create loader gif as background
+        height: 100%;
+        font-size: 0;
+    }
+
+    table {
+        white-space: normal;
+        font-size: 11px;
+        table-layout: fixed;
+        //width: 100%;
+        margin-right: 5px;
+        position: relative;
+        th, td {
+            border-bottom: 1px solid $light-gray;
+            overflow: hidden;
+        }
+        td {
+            padding: 0 8px 4px 0;
+            vertical-align: center;
+            &:last-child {
+                padding-right: 0;
+            }
+            span {
+                &.recurring {
+                    color: transparent;
+                    height: 15px;
+                    width: 15px;
+                    //overflow: hidden;
+                    display: inline-block;
+                    background: url("../img/repeat.png") center/contain no-repeat;
+                    vertical-align: middle;
+                }
+            }
+        }
+        tr:last-child td {
+            border: none;
+        }
+        th {
+            &.name { width: 25%; }
+            &.university { width: 25%; }
+            &.location { width: 20%; }
+            &.period { width: 20%; }
+            &.type { width: 10%; }
+
+            font-family: bebas;
+            font-size: 24px;
+            font-weight: normal;
+            text-align: left;
+            color: $blue;
+            margin-left: 5px;
+            white-space: nowrap;
+            &:last-child {
+                margin-left: 0;
+            }
+            span {
+                width: 10px;
+                height: 10px;
+                display: inline-block;
+                position: relative;
+                left: 5px;
+                bottom: 5px;
+                transform: rotate(45deg);
+                border: 2px solid $blue;
+                border-top: none;
+                border-left: none;
+                cursor: pointer;
+                &:hover {
+                    transform: rotate(-135deg);
+                    bottom: 1px;
+                }
+            }
+        }
+    }
+}

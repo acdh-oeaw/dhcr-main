@@ -9,7 +9,7 @@ class Scrollable {
       thumbWidth: 7,
       thumbColor: '#1E6BA3',
       trackWidth: 1,
-      trackColor: '#4A4A4A',
+      trackColor: '#6d7278',
       contentContainerClass: 'scroll-container'
     }
   }
@@ -35,10 +35,10 @@ class Scrollable {
     this.paddingTop = parseInt(outerStyles.getPropertyValue('padding-top'));
     this.paddingBottom = parseInt(outerStyles.getPropertyValue('padding-bottom'));
     this.paddingRight = parseInt(outerStyles.getPropertyValue('padding-right'));
-    this.margin = 50 + this.systemScrollbarWidth + this.paddingRight;
-    this.backPadding = this.margin + this.trackWidth - this.systemScrollbarWidth;
+    this.margin = 50 + this.systemScrollbarWidth;
+    this.backPadding = this.margin + this.trackWidth - this.systemScrollbarWidth + this.paddingRight;
     if(this.thumbWidth > this.trackWidth)
-      this.backPadding = this.margin + this.thumbWidth - this.systemScrollbarWidth;
+      this.backPadding = this.margin + this.thumbWidth - this.systemScrollbarWidth + this.paddingRight;
     Object.assign(this.element.style, {
       position: 'relative',
       overflow: 'hidden'
@@ -175,11 +175,11 @@ class Scrollable {
       height: '100%'
     });
 
-    let viewport = this.container.getBoundingClientRect();
     let scrollHeight = this.container.scrollHeight;
-    let maxScrollTop = scrollHeight - viewport.height;
-    let thumbHeight = Math.pow(viewport.height, 2) / scrollHeight;
-    let maxTopOffset = viewport.height - thumbHeight;
+    let maxScrollTop = scrollHeight - this.container.clientHeight;
+    let thumbHeight = parseInt(this.track.style.height) * this.container.clientHeight / scrollHeight;
+    //let thumbHeight = Math.pow(this.container.clientHeight, 2) / scrollHeight;
+    let maxTopOffset = this.container.clientHeight - thumbHeight;
 
     let test = this.isScrollable();
     // revert styles after test isScrollable
@@ -205,9 +205,15 @@ class Scrollable {
     if(test) {
       // test for prior state
       if(!this.scrollState) this.enable();
+      // if outer styles have changed...
+      let outerStyles = window.getComputedStyle(this.element, null);
+      this.paddingTop = parseInt(outerStyles.getPropertyValue('padding-top'));
+      this.paddingBottom = parseInt(outerStyles.getPropertyValue('padding-bottom'));
       this.thumbScaling = maxTopOffset / maxScrollTop;
+      //this.thumbScaling = thumbHeight / this.container.clientHeight;
       this.thumb.style.height = `${thumbHeight}px`;
       this.track.style.height = this.element.clientHeight - this.paddingTop - this.paddingBottom + 'px';
+      this.updateScrollPosition();
     }else{
       if(this.scrollState) this.disable();
     }
@@ -233,7 +239,7 @@ class Scrollable {
       ? thumbScrollTop
       : maxScrollTop;
 
-    this.thumb.style.top = thumbScrollTop + this.paddingTop + 'px'
+    this.thumb.style.top = thumbScrollTop + this.paddingTop + 'px';
   }
 
   static getSystemScrollbarWidth() {

@@ -40,34 +40,14 @@ class App {
     resizeListener() {
         // we should test for #container innerWidth
         if(document.getElementById('container').clientWidth > this.breakPoint) {
-            this.applyScreenLayout();
+            //this.applyScreenLayout();
             this.slider.reset();
         }else{
-            this.applyMobileLayout();
+            //this.applyMobileLayout();
             this.slider.updateSize();
         }
         this.scrollable.updateSize();
-        this.resizeHeader();
-    }
-
-    applyMobileLayout() {
-        $('#container').addClass('mobile');
-        $('#container').removeClass('screens');
-        $('#container').css('min-width', 'initial');
-        let control = document.createElement('div');
-        control.classList.add('mobile');
-        control.id = 'slide-control';
-        control.addEventListener('click', function() {
-            this.slider.toggle();
-        }.bind(this));
-        $('#container').append(control);
-    }
-
-    applyScreenLayout() {
-        $('#container').addClass('screens');
-        $('#container').removeClass('mobile');
-        $('#container').css('min-width', this.breakPoint);
-        $('#slide-control').remove();
+        //this.updateSize();
     }
 
     getCourses() {
@@ -84,14 +64,16 @@ class App {
         });
     }
 
-    resizeHeader() {
-        let hHeight = $('#header').height();
-        let lHeight = $('#logo').height();
-        let scale = hHeight / lHeight;
-        console.log(hHeight / lHeight);
+    updateSize() {
+        // calculate logo height and scaling
+        /*let scale = $('#header').height() / $('#logo').height();
         $('#logo').css({
             transform: 'scale(' + scale + ')',
             transformOrigin: '0 0'
+        });*/
+        // dynamically adjust container height
+        $('#container').css({
+            height: $('body').height() - $('#header').outerHeight()
         });
     }
 
@@ -108,6 +90,8 @@ class App {
     setCourses() {
         this.map.setMarkers(this.data);
         this.table.setData(this.data);
+        //let callback = this.scrollable.updateSize.bind(this.scrollable);
+        //setTimeout(callback, 3000);
         this.scrollable.updateSize();
     }
 }

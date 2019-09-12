@@ -1,17 +1,19 @@
 
 
-/* Color scheme */
+/* Color schema */
 $clarin_blue	: #2387aa;
 $dariah_blue	: #1E6BA3;
 $blue			: $dariah_blue;
 $green			: #61A845;
-$gray           : #4A4A4A;
+$red            : #dc7979;
+$gray           : #6d7278;
+$light-gray     : #d8d8d8;
 
 
 
 
 /* general text formatting */
-$text-color     : #000;
+$text-color     : $gray;
 $em-color       : #333;
 $line-height    : 1.7em;
 

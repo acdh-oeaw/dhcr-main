@@ -2,42 +2,54 @@
 
 
 #header {
-    font-size: 12px;
-    padding: 0;
-    margin: 0;
+    //font-size: 12px;
     position: relative;
     overflow: hidden;
-    display: flex;
+    width: calc(100% - 54px);
+    margin: 27px;         // top margin is sticking out of body, padding makes the box height shrink
+    display: inline-flex;   // hack...
     justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-
-    height: 10vw;
-    min-height: 80px;
-    max-height: 110px;
+    align-items: center;
+    flex-wrap: nowrap;    // dynamic height calculation won't work with 'nowrap'
+    height: auto;
+    @include respond-to(handhelds) {
+        margin: 13px;
+        width: calc(100% - 30px);
+        padding: 0 2px 13px 10px;
+        border-bottom: 2px solid $blue;
+    }
 
     #logo {
         flex-shrink: 0;
         white-space: nowrap;
         overflow: hidden;
-        img {
-            display: block;
-            float: left;
-            margin: 10px;
-            margin-left: 0;
+        a.img {
+            @include respond-to(handhelds) {
+                display: none;
+            }
+            img {
+                display: block;
+                float: left;
+                margin: 0;
+            }
         }
-
+        @include respond-to(handhelds) {
+            transform: scale(0.8);
+            transform-origin: left center;
+        }
         .title {
             min-height: 61px;
-            margin: 0;
             width: auto;
-            padding: 10px;
             float: left;
-
+            @include respond-to(screens) {
+                margin-left: 10px;
+            }
             h1 {
                 margin: 12px 0 0;
                 font-weight: bold;
                 text-transform: uppercase;
+                line-height: normal;
+                font-size: 0;
             }
             a {
                 //color: $header_font_color;
@@ -65,6 +77,35 @@
                 letter-spacing: 3px;
                 font-family: metropolis, sans-serif;
                 font-size: 24px;
+            }
+        }
+    }
+
+    #menu {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: 100%;
+        width: auto;
+
+        button {
+            // generic button defined in _basics
+            margin: 0 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            &:first-child {
+                margin-left: 0;
+            }
+            @include respond-to(handhelds) {
+                font-size: 24px;
+                width: 50px;
+                height: 50px;
+                padding: 2px 0 0;
+                margin: 0;
+                &#login-button {
+                    display: none;
+                }
             }
         }
     }
