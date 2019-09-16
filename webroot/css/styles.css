@@ -114,7 +114,8 @@ button, .button {
   text-align: center;
   color: #1E6BA3;
   text-transform: uppercase;
-  padding: 2px 30px 0; }
+  padding: 2px 30px 0;
+  cursor: pointer; }
   button.blue, .button.blue {
     background-color: #1E6BA3;
     color: #fff; }
@@ -266,7 +267,8 @@ body.home {
   max-width: 90rem;
   background-color: #fff;
   margin: 0 auto;
-  width: calc(100% - 2 * 10px); }
+  width: calc(100% - 2 * 10px);
+  overflow: hidden; }
   @media only screen and (max-width: 750px) {
     body.home {
       font-size: 16px;
@@ -277,7 +279,7 @@ body.home {
       margin: 0;
       max-width: initial;
       width: 100%; } }
-  body.home #overlay {
+  body.home .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -287,26 +289,26 @@ body.home {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: transparent; }
-    body.home #overlay .overlay-container {
+    body.home .overlay .overlay-container {
       margin: 0 auto;
       min-height: 100vh;
       width: calc(100vw - 15px);
       padding: 100px 140px 150px 140px;
       max-width: 90rem;
       background-color: #fff; }
-      body.home #overlay .overlay-container.transparent {
+      body.home .overlay .overlay-container.transparent {
         background: rgba(0, 0, 0, 0.4);
         height: 300px; }
-      body.home #overlay .overlay-container:last-child {
+      body.home .overlay .overlay-container:last-child {
         min-height: 100vh;
         box-sizing: border-box; }
-      body.home #overlay .overlay-container h1 {
+      body.home .overlay .overlay-container h1 {
         font-weight: bold;
         text-transform: uppercase;
         line-height: normal; }
-      body.home #overlay .overlay-container a {
+      body.home .overlay .overlay-container a {
         text-decoration: none; }
-      body.home #overlay .overlay-container span#h1 {
+      body.home .overlay .overlay-container span#h1 {
         color: #61A845;
         font-family: bebas, sans-serif;
         font-size: 67.5px;
@@ -314,23 +316,23 @@ body.home {
         line-height: 1;
         font-weight: normal;
         letter-spacing: 0; }
-      body.home #overlay .overlay-container span#h2 {
+      body.home .overlay .overlay-container span#h2 {
         color: #2387aa;
         margin-right: 22.5px; }
-      body.home #overlay .overlay-container span#h3 {
+      body.home .overlay .overlay-container span#h3 {
         color: #1E6BA3; }
-      body.home #overlay .overlay-container #h2, body.home #overlay .overlay-container #h3 {
+      body.home .overlay .overlay-container #h2, body.home .overlay .overlay-container #h3 {
         letter-spacing: 4.5px;
         font-family: metropolis, sans-serif;
         font-size: 36px; }
       @media only screen and (max-width: 750px) {
-        body.home #overlay .overlay-container h1 {
+        body.home .overlay .overlay-container h1 {
           font-weight: bold;
           text-transform: uppercase;
           line-height: normal; }
-        body.home #overlay .overlay-container a {
+        body.home .overlay .overlay-container a {
           text-decoration: none; }
-        body.home #overlay .overlay-container span#h1 {
+        body.home .overlay .overlay-container span#h1 {
           color: #61A845;
           font-family: bebas, sans-serif;
           font-size: 45px;
@@ -338,19 +340,19 @@ body.home {
           line-height: 1;
           font-weight: normal;
           letter-spacing: 0; }
-        body.home #overlay .overlay-container span#h2 {
+        body.home .overlay .overlay-container span#h2 {
           color: #2387aa;
           margin-right: 15px; }
-        body.home #overlay .overlay-container span#h3 {
+        body.home .overlay .overlay-container span#h3 {
           color: #1E6BA3; }
-        body.home #overlay .overlay-container #h2, body.home #overlay .overlay-container #h3 {
+        body.home .overlay .overlay-container #h2, body.home .overlay .overlay-container #h3 {
           letter-spacing: 3px;
           font-family: metropolis, sans-serif;
           font-size: 24px; } }
-      body.home #overlay .overlay-container h1 {
+      body.home .overlay .overlay-container h1 {
         margin: 0 auto 80px;
         text-align: center; }
-      body.home #overlay .overlay-container .img, body.home #overlay .overlay-container img {
+      body.home .overlay .overlay-container .img, body.home .overlay .overlay-container img {
         float: left;
         display: block;
         clear: both;
@@ -360,35 +362,35 @@ body.home {
         min-width: 180px;
         height: auto; }
         @media only screen and (max-width: 750px) {
-          body.home #overlay .overlay-container .img, body.home #overlay .overlay-container img {
+          body.home .overlay .overlay-container .img, body.home .overlay .overlay-container img {
             width: 200px;
             float: none;
             margin: 0 auto 50px; } }
-      body.home #overlay .overlay-container p {
+      body.home .overlay .overlay-container p {
         font-size: 1.7vw;
         line-height: 1.5;
         color: #1E6BA3; }
-        body.home #overlay .overlay-container p em {
+        body.home .overlay .overlay-container p em {
           font-weight: bold; }
         @media only screen and (min-width: 1270px) {
-          body.home #overlay .overlay-container p {
+          body.home .overlay .overlay-container p {
             font-size: 24px; } }
         @media only screen and (max-width: 750px) {
-          body.home #overlay .overlay-container p {
+          body.home .overlay .overlay-container p {
             font-size: 17px; } }
-      body.home #overlay .overlay-container .flex-item {
+      body.home .overlay .overlay-container .flex-item {
         width: 45%; }
-        body.home #overlay .overlay-container .flex-item h2 {
+        body.home .overlay .overlay-container .flex-item h2 {
           font-size: 50px;
           text-align: center;
           margin-bottom: 65px; }
-        body.home #overlay .overlay-container .flex-item p {
+        body.home .overlay .overlay-container .flex-item p {
           color: #1E6BA3;
           font-size: 24px;
           line-height: 1.25; }
-        body.home #overlay .overlay-container .flex-item button {
+        body.home .overlay .overlay-container .flex-item button {
           float: left; }
-          body.home #overlay .overlay-container .flex-item button.blue {
+          body.home .overlay .overlay-container .flex-item button.blue {
             float: right; }
   body.home #container {
     height: calc(100% - 144px);

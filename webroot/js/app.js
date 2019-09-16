@@ -35,6 +35,16 @@ class App {
         window.addEventListener('resize', function () {
             this.resizeListener();
         }.bind(this));
+
+        if(document.cookie.hideIntro) {
+            // renew the cookie on each pageview, so pagevisits after one year will be seen as first-timers
+            this.setintroCookie();
+        }
+        let f = function() { this.hideIntro() }.bind(this);
+        let start = document.getElementById('start');
+        if(start != undefined) {
+            start.addEventListener('click', f);
+        }
     }
 
     resizeListener() {
@@ -93,5 +103,26 @@ class App {
         //let callback = this.scrollable.updateSize.bind(this.scrollable);
         //setTimeout(callback, 3000);
         this.scrollable.updateSize();
+    }
+
+    hideIntro() {
+        $('#intro').animate({'height': 0}, 1000, function() {
+            $('#info-button').animate({borderWidth: '10px'}, 300, function() {
+                $('#info-button').animate({borderWidth: '2px'}, 300);
+            });
+            // one year
+            let expiry = new Date(Date.now() + 31536000);
+            document.cookie = "hideIntro=true; expires="+expiry.toUTCString()+";";
+        }.bind(this));
+    }
+
+    setintroCookie() {
+        // one year
+        let expiry = new Date(Date.now() + 31536000);
+        document.cookie = "hideIntro=true; expires="+expiry.toUTCString()+";";
+    }
+
+    delCookie() {
+       document.cookie = "hideIntro=";
     }
 }

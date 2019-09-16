@@ -7,6 +7,7 @@ body.home {
     background-color: #fff;
     margin: 0 auto;
     width: calc(100% - 2 * #{$whitespace});
+    overflow: hidden;
     @include respond-to(handhelds) {
         font-size: 16px;
         line-height: 1.5;
