@@ -21,7 +21,7 @@ $line-height    : 1.7em;
 /* base layout & responsive sizing */
 
 /* amount of space to reserve for lateral whitespace */
-$max_width  : 90em;    // 1440px
+$max_width  : 90rem;    // 1440px
 $break_point: 750px;
 $whitespace : 10px;      // relative to height, so padding does not change on resize
 
@@ -43,7 +43,7 @@ $whitespace : 10px;      // relative to height, so padding does not change on re
 
 @import "header";
 
-@import "home_layout";
+@import "home-layout";
 
 //@import "leaflet";
 

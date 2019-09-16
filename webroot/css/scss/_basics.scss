@@ -26,25 +26,6 @@ body {
     font-weight: 300;
     letter-spacing: -0.17px;
     color: $text-color;
-
-    padding: 0 $whitespace;
-    max-width: $max_width;
-    background-color: #fff;
-    margin: 0 auto;
-    width: calc(100% - 20px);
-
-    @include respond-to(handhelds) {
-        font-size: 16px;
-        line-height: 1.5;
-        font-weight: 300;
-        letter-spacing: normal;
-
-        padding: 0;
-        margin: 0;
-        max-width: initial;
-        width: 100%;
-    }
-    padding-bottom: $whitespace;
 }
 
 
@@ -194,4 +175,14 @@ hr {
 .tooltip:hover:after {
     bottom: 100%;
     opacity: 1;
+}
+
+.flex-columns {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    .flex-item {
+
+    }
 }

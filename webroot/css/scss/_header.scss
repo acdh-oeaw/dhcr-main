@@ -44,39 +44,9 @@
             @include respond-to(screens) {
                 margin-left: 10px;
             }
+            @include logo-text(1);
             h1 {
                 margin: 12px 0 0;
-                font-weight: bold;
-                text-transform: uppercase;
-                line-height: normal;
-                font-size: 0;
-            }
-            a {
-                //color: $header_font_color;
-                text-decoration: none;
-                font-size: 1em;
-            }
-
-            span#h1 {
-                color: $green;
-                font-family: bebas, sans-serif;
-                font-size: 45px;
-                vertical-align: bottom;
-                line-height: 1em;
-                font-weight: normal;
-                letter-spacing: 0;
-            }
-            span#h2 {
-                color: $clarin_blue;
-                margin-right: 15px;
-            }
-            span#h3 {
-                color: $dariah_blue;
-            }
-            #h2,#h3 {
-                letter-spacing: 3px;
-                font-family: metropolis, sans-serif;
-                font-size: 24px;
             }
         }
     }

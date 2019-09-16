@@ -18,6 +18,40 @@
 }
 
 
+@mixin logo-text($scale) {
+    h1 {
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: normal;
+        //display: inline-block;
+    }
+    a {
+        text-decoration: none;
+    }
+    span#h1 {
+        color: $green;
+        font-family: bebas, sans-serif;
+        font-size: $scale * 45px;
+        vertical-align: bottom;
+        line-height: 1;
+        font-weight: normal;
+        letter-spacing: 0;
+    }
+    span#h2 {
+        color: $clarin_blue;
+        margin-right: $scale * 15px;
+    }
+    span#h3 {
+        color: $dariah_blue;
+    }
+    #h2,#h3 {
+        letter-spacing: $scale * 3px;
+        font-family: metropolis, sans-serif;
+        font-size: $scale * 24px;
+    }
+}
+
+
 @mixin centered($width) {
     width: $width;
     margin: 0 auto;

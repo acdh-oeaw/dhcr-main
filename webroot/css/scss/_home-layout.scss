@@ -2,9 +2,26 @@
 
 body.home {
     height: 100vh;
+    padding: 0 $whitespace $whitespace;
+    max-width: $max_width;
+    background-color: #fff;
+    margin: 0 auto;
+    width: calc(100% - 2 * #{$whitespace});
+    @include respond-to(handhelds) {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 300;
+        letter-spacing: normal;
+        padding: 0;
+        margin: 0;
+        max-width: initial;
+        width: 100%;
+    }
+
+    @import "intro";
 
     #container {
-        height: calc(100% - 144px);
+        height: calc(100% - 144px);     // better way to calculate header height?
         display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -12,7 +29,6 @@ body.home {
         position: relative;
         top: 0px;
         overflow: hidden;
-        //padding: $whitespace 0 0;
 
         @include respond-to(screens){
             min-width: $break_point;
@@ -21,7 +37,7 @@ body.home {
                 flex: 1 0 500px;
                 border-top: 2px solid $blue;
                 margin-right: 15px;
-                padding-top: 10px;
+                padding-top: $whitespace;
             }
             #map {
                 flex: 1 1 220px;
@@ -41,7 +57,7 @@ body.home {
 
             #table {
                 padding: 0 0 0 13px;
-                flex: 0 0 calc(100% - 10px);
+                flex: 0 0 calc(100% - 2 * #{$whitespace});
                 margin-right: 10px;
             }
             #slide-control {
@@ -62,7 +78,7 @@ body.home {
             }
         }
 
-        @import "course_table";
+        @import "course-table";
     }
 }
 
