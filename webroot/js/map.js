@@ -28,9 +28,29 @@ class Map {
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
             //disableClusteringAtZoom: 14,
-            showCoverageOnHover: true,
+            showCoverageOnHover: false,
             zoomToBoundsOnClick: true,
-            maxClusterRadius: 30
+            maxClusterRadius: 30,
+            iconCreateFunction: function(cluster) {
+                let childCount = cluster.getChildCount();
+                let c = ' marker-cluster-';
+                let size = 40;
+                if (childCount < 10) {
+                    c += 'small';
+                    size = 40;
+                } else if (childCount < 100) {
+                    c += 'medium';
+                    size = 50;
+                } else {
+                    c += 'large';
+                    size = 60
+                }
+                return new L.DivIcon({
+                    html: '<div><span>' + childCount + '</span></div>',
+                    className: 'marker-cluster' + c,
+                    iconSize: new L.Point(size, size)
+                });
+            }
         });
         for(let k in courses) {
             let marker = L.marker([courses[k].lat, courses[k].lon], {title: courses[k].name});
