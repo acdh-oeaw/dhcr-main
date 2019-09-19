@@ -2,7 +2,7 @@
 
 body.home {
     height: 100vh;
-    padding: 0 $whitespace $whitespace;
+    padding: 0 $whitespace;
     max-width: $max_width;
     background-color: #fff;
     margin: 0 auto;
@@ -50,6 +50,7 @@ body.home {
         @include respond-to(handhelds){
             width: 100%;
             min-width: initial;
+            position: initial;
 
             #map {
                 width: 100%;
@@ -57,24 +58,76 @@ body.home {
             }
 
             #table {
-                padding: 0 0 0 13px;
-                flex: 0 0 calc(100% - 2 * #{$whitespace});
-                margin-right: 10px;
+                padding: 0 5px 0 $whitespace;
+                flex: 0 0 calc(100% - #{$whitespace});
+                margin-right: $whitespace + 30px;       // make sure the scrollbar width is moved over
+                &::after {
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    height: 50px;
+                    background-image: linear-gradient(to bottom, transparent, #fff);
+                    border-bottom: 2px solid $blue;
+                    content: "";
+                }
             }
             #slide-control {
                 display: block;
                 position: absolute;
                 height: 50px;
-                width: 40px;
+                width: 50px;
                 bottom: 10px;
                 left: 0;
                 right: 0;
                 margin: 0 auto;
-                background-color: #4A4A4A;
+                background: url("../img/slide-toggle.png") left top no-repeat;
+                background-size: cover;
                 z-index: 500;
                 cursor: pointer;
+                transition: transform 0.3s;
                 &:hover {
-                    background-color: #d58512;
+                    transform: scale(1.1, 1.1);
+                }
+            }
+        }
+
+        .leaflet-popup {
+            .leaflet-popup-tip, .leaflet-popup-content-wrapper {
+                background-color: $blue;
+            }
+            .leaflet-popup-content {
+                p {
+                    color: #fff;
+                    font-family: metropolis;
+                    font-size: 11px;
+                    position: relative;
+                    margin: 0.7em 0;
+                    width: 100%;
+                }
+                h1 {
+                    color: #fff;
+                    font-family: metropolis;
+                    font-size: 11px;
+                    font-weight: bold;
+                    margin: 0.8em 0;
+                }
+                a.details {
+                    color: transparent;
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    transform: rotate(45deg);
+                    border: solid 3px #fff;
+                    border-bottom: none;
+                    border-left:none;
+                    position: relative;
+                    left: calc(100% - 7px);
+                    border-radius: 1px;
+                    transition: transform 0.3s;
+                    &:hover {
+                        transform: scale(1.5) rotate(45deg);
+                        border-radius: 2px;
+                    }
                 }
             }
         }

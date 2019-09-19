@@ -4,7 +4,7 @@
 #header {
     //font-size: 12px;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     width: calc(100% - 54px);
     margin: 27px;         // top margin is sticking out of body, padding makes the box height shrink
     display: inline-flex;   // hack...
@@ -14,8 +14,8 @@
     height: auto;
     @include respond-to(handhelds) {
         margin: 13px;
-        width: calc(100% - 30px);
-        padding: 0 2px 13px 10px;
+        width: calc(100% - 50px);
+        padding: 0 12px 13px 12px;
         border-bottom: 2px solid $blue;
     }
 
@@ -69,8 +69,9 @@
             }
             @include respond-to(handhelds) {
                 font-size: 24px;
-                width: 50px;
-                height: 50px;
+                width: 58px;
+                height: 58px;
+                border-radius: 29px;
                 padding: 2px 0 0;
                 margin: 0;
                 &#login-button {

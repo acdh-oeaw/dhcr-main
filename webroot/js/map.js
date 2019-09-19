@@ -3,11 +3,25 @@
 
 class Map {
 
-    constructor(htmlIdentifier) {
-        this.apiKey = 'pk.eyJ1IjoiaGFzaG1pY2giLCJhIjoiY2lxaGQ4eW01MDA5cWhybmhhOGpxODN1aiJ9.FS8KOKVrd6i-8Nd8q1XMmg';
+    defaults() {
+        return {
+            apiKey:  'pass key using constructor options',
+            htmlIdentifier: 'map'
+        };
+    }
 
-        this.map = L.map(htmlIdentifier, {
-            worldCopyJump: true
+    constructor(options) {
+        if(typeof options == 'object')
+            options = Object.assign(this.defaults(), options);
+        else options = this.defaults();
+
+        for(var key in options) {
+            this[key] = options[key];
+        }
+
+        this.map = L.map(this.htmlIdentifier, {
+            worldCopyJump: true,
+            maxZoom: 18
         });
         this.map.setView([50.000, 10.189551], 4);
         L.tileLayer('https://api.mapbox.com/styles/v1/'
@@ -30,7 +44,7 @@ class Map {
             //disableClusteringAtZoom: 14,
             showCoverageOnHover: false,
             zoomToBoundsOnClick: true,
-            maxClusterRadius: 30,
+            maxClusterRadius: 50,
             iconCreateFunction: function(cluster) {
                 let childCount = cluster.getChildCount();
                 let c = ' marker-cluster-';
@@ -53,15 +67,31 @@ class Map {
             }
         });
         for(let k in courses) {
-            let marker = L.marker([courses[k].lat, courses[k].lon], {title: courses[k].name});
+            let course = courses[k];
+            let icon = L.icon({
+                iconUrl: 'leaflet/images/dhcr-marker-icon.png',
+                iconRetinaUrl: 'leaflet/images/dhcr-marker-icon-2x.png',
+                iconSize:     [25, 37], // size of the icon
+                iconAnchor:   [12, 37], // point of the icon which will correspond to marker's location
+                popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
+            });
+            let marker = L.marker([course.lat, course.lon], {
+                title: course.name,
+                icon: icon
+            });
 
             // prepare html content
-            //marker.bindPopup(courses[k].content);
+            let content = '<h1>' + course.name + '</h1>'
+                + '<p>' + course.institution.name + ',<br />'
+                + course.department + '.</p>'
+                + '<p>Type: ' + course.course_type.name + '</p>'
+                + '<p><a class="details" href="/courses/view/' + course.id + '">Show details</a></p>';
+            marker.bindPopup(content);
 
             this.cluster.addLayer(marker);
-            this.markers[courses[k].id] = {
+            this.markers[course.id] = {
                 marker: marker,
-                course: courses[k]
+                course: course
             };
         }
 

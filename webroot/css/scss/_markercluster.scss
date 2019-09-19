@@ -19,6 +19,7 @@
     border: 5px solid rgba(256,256,256,0.5);
     background-color: $blue;
     display: flex !important;
+    flex-wrap: nowrap;
     justify-content: center;
     align-items: center;
     // make the bg shine through border or not:
@@ -26,17 +27,29 @@
     div {
         text-align: center;
         color: #fff;
-        font: 12px "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        line-height: 1;
+
     }
 }
 .marker-cluster-large {
     border-radius: 30px;
+    span {
+        font-size: 24px
+    }
 }
 .marker-cluster-medium {
     border-radius: 25px;
+    span {
+        font-size: 20px
+    }
 }
 .marker-cluster-small {
     border-radius: 20px;
+    span {
+        font-size: 15px
+    }
 }
 
 

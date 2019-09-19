@@ -7,6 +7,7 @@ class Slider {
         this.element = elm;
         this.slide = this.element.firstElementChild;
         this.slide.style.marginLeft = 0;
+        this.cssMargin = parseInt(window.getComputedStyle(this.slide).getPropertyValue('margin-right'));
         this.viewportWidth = parseInt(this.element.clientWidth);
         this.control = document.getElementById("slide-control");
         this.control.addEventListener('click', function() {
@@ -16,8 +17,9 @@ class Slider {
 
     updateSize() {
         this.viewportWidth = parseInt(this.element.clientWidth);
+        this.cssMargin = parseInt(window.getComputedStyle(this.slide).getPropertyValue('margin-right'));
         if(parseInt(this.slide.style.marginLeft) != 0) {
-            this.slide.style.marginLeft = - this.viewportWidth + 'px';
+            this.slide.style.marginLeft = - (this.viewportWidth + this.cssMargin) + 'px';
         }
     }
 
@@ -26,15 +28,17 @@ class Slider {
         this.sliding = true;
 
         let margin = 0;
-        let cssMargin = parseInt(window.getComputedStyle(this.slide).getPropertyValue('margin-right'));
+        let iconPosition = 'left';
         if (parseInt(this.slide.style.marginLeft) == 0) {
-            margin = - (this.viewportWidth + cssMargin);
+            margin = - (this.viewportWidth + this.cssMargin);
+            iconPosition = 'right';
         }
 
         $(this.slide).animate( {
             "margin-left": margin + "px"
         }, 500, function() {
             this.sliding = false;
+            this.control.style.backgroundPositionX = iconPosition;
         }.bind(this));
     }
 

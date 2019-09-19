@@ -6,31 +6,33 @@ class App {
     defaults() {
         return {
             apiUrl:     'http://localhost/DH-API/',
+            mapApiKey:  'pass key using constructor options',
             filter:     { recent: true },
             breakPoint: '750px'
         };
     }
 
-    constructor() {
-        this.apiUrl = 'http://localhost/DH-API/';
-        this.filter = {
-            recent: true
-        };
-        this.breakPoint = 750;
+    constructor(options) {
+        if(typeof options == 'object')
+            options = Object.assign(this.defaults(), options);
+        else options = this.defaults();
+
+        for(var key in options) {
+            this[key] = options[key];
+        }
 
         // apply layout first, then populate blocks
         this.slider = new Slider(document.getElementById('container'));
         this.scrollable = new Scrollable(document.getElementById('table'));
         this.resizeListener();
-        this.map = new Map('map');
+        this.map = new Map({
+            htmlIdentifier: 'map',
+            apiKey: this.mapApiKey
+        });
         this.table = new Table(this.scrollable.getContentContainer());
 
         // load data
         this.getCourses();
-
-        this.map.map.setMaxZoom(3);
-        this.map.map.locate({setView: true});
-        this.map.map.setMaxZoom(18);
 
         window.addEventListener('resize', function () {
             this.resizeListener();
@@ -50,14 +52,33 @@ class App {
     resizeListener() {
         // we should test for #container innerWidth
         if(document.getElementById('container').clientWidth > this.breakPoint) {
-            //this.applyScreenLayout();
+            this.layout = 'screen';
             this.slider.reset();
         }else{
-            //this.applyMobileLayout();
+            this.layout = 'mobile';
             this.slider.updateSize();
         }
         this.scrollable.updateSize();
-        //this.updateSize();
+        this.updateSize();
+    }
+
+    updateSize() {
+        let bottom = 10;
+        if(this.layout == 'mobile') bottom = 35;
+        $('#container').css({
+            // get header outer height including margins (true)
+            height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
+        });
+    }
+
+    filterToQuery() {
+        let retval = '';
+        $.each(this.filter, function(key, value) {
+            if(retval == '') retval = '?';
+            else retval += '&';
+            retval += key + '=' + value;
+        });
+        return retval;
     }
 
     getCourses() {
@@ -74,29 +95,6 @@ class App {
         });
     }
 
-    updateSize() {
-        // calculate logo height and scaling
-        /*let scale = $('#header').height() / $('#logo').height();
-        $('#logo').css({
-            transform: 'scale(' + scale + ')',
-            transformOrigin: '0 0'
-        });*/
-        // dynamically adjust container height
-        $('#container').css({
-            height: $('body').height() - $('#header').outerHeight()
-        });
-    }
-
-    filterToQuery() {
-        let retval = '';
-        $.each(this.filter, function(key, value) {
-            if(retval == '') retval = '?';
-            else retval += '&';
-            retval += key + '=' + value;
-        });
-        return retval;
-    }
-
     setCourses() {
         this.map.setMarkers(this.data);
         this.table.setData(this.data);
@@ -107,9 +105,8 @@ class App {
 
     hideIntro() {
         $('#intro').animate({'height': 0}, 1000, function() {
-            $('#info-button').animate({borderWidth: '10px'}, 300, function() {
-                $('#info-button').animate({borderWidth: '2px'}, 300);
-            });
+            $('#info-button').addClass('animate');
+            $('#info-button').removeClass('animate');
             // one year
             let expiry = new Date(Date.now() + 31536000);
             document.cookie = "hideIntro=true; expires="+expiry.toUTCString()+";";

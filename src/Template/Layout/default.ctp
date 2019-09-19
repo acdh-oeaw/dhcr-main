@@ -79,6 +79,6 @@ use Cake\Routing\Router;
         <script src="<?= Router::url('/js/map.js', true) ?>" type="application/javascript"></script>
         <script src="<?= Router::url('/js/table.js', true) ?>" type="application/javascript"></script>
         <script src="<?= Router::url('/js/app.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/home.js', true) ?>" type="application/javascript"></script>
+        <?= $this->element('script') ?>
     </body>
 </html>

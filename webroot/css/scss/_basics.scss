@@ -103,9 +103,6 @@ button, .button {
     &.blue {
         background-color: $blue;
         color: #fff;
-        &:hover {
-            background-color: $blue;
-        }
     }
     height: 46px;
     border-radius: 24px;
@@ -123,10 +120,9 @@ button, .button {
     text-transform: uppercase;
     padding: 2px 30px 0;
     cursor: pointer;
-    &:hover {
-        border: 2px solid #ddd;
-        text-decoration: none;
-        background-color: #eee;
+    transition: all 0.3s;
+    &:hover, &.animate {
+        transform: scale(1.1);
     }
     a:hover {
         text-decoration: none;

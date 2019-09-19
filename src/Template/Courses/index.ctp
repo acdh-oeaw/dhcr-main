@@ -5,4 +5,5 @@
 
 <div id="map"></div>
 
+
 <div id="slide-control"></div>
