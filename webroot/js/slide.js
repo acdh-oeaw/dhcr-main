@@ -44,6 +44,7 @@ class Slider {
 
     reset() {
         this.slide.style.marginLeft = 0;
+        this.control.style.backgroundPositionX = 'left';
     }
 }
 

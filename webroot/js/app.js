@@ -8,7 +8,7 @@ class App {
             apiUrl:     'http://localhost/DH-API/',
             mapApiKey:  'pass key using constructor options',
             filter:     { recent: true },
-            breakPoint: '750px'
+            breakPoint: 750
         };
     }
 
@@ -24,6 +24,15 @@ class App {
         // apply layout first, then populate blocks
         this.slider = new Slider(document.getElementById('container'));
         this.scrollable = new Scrollable(document.getElementById('table'));
+        this.intro = document.getElementById('intro');
+        let f = function() { this.hideIntro() }.bind(this);
+        if(this.intro != undefined) {
+            // the intro page is loaded
+            this.scroll_listener = function() {
+                this.scrollListener()
+            }.bind(this);
+            document.getElementById('start').addEventListener('click', f);
+        }
         this.resizeListener();
         this.map = new Map({
             htmlIdentifier: 'map',
@@ -43,16 +52,6 @@ class App {
             // renew the cookie on each pageview, so pagevisits after one year will be seen as first-timers
             this.setintroCookie();
         }
-        let f = function() { this.hideIntro() }.bind(this);
-        let start = document.getElementById('start');
-        if(start != undefined) {
-            // the intro page is loaded
-            start.addEventListener('click', f);
-            // activate the map/table slider while overscrolling
-            document.getElementById('intro').addEventListener('scroll', function() {
-                this.scrollListener()
-            }.bind(this));
-        }
     }
 
     scrollListener() {
@@ -63,6 +62,7 @@ class App {
             let iconPosition = 'left';
             let margin = 1.5 * (intro.getBoundingClientRect().top - container.offsetTop);
             if(margin <= maxMargin) {
+                this.slider.slide.style.marginLeft = 0;
                 margin = maxMargin;
                 iconPosition = 'right';
             }
@@ -77,10 +77,17 @@ class App {
         // we should test for #container innerWidth
         if(document.getElementById('container').clientWidth > this.breakPoint) {
             this.layout = 'screen';
+            if(this.intro != undefined) {
+                this.intro.removeEventListener('scroll', this.scroll_listener);
+            }
             this.slider.reset();
         }else{
             this.layout = 'mobile';
             this.slider.updateSize();
+            if(this.intro != undefined) {
+                // activate the map/table slider while overscrolling
+                this.intro.addEventListener('scroll', this.scroll_listener);
+            }
         }
         this.scrollable.updateSize();
         this.updateSize();
