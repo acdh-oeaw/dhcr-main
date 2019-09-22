@@ -57,7 +57,7 @@ use Cake\Routing\Router;
                 </div>
             </div>
             <div id="menu">
-                <button class="blue" id="info-button">Info</button>
+                <?= $this->Html->link('Info', '/pages/info', ['class' => 'blue button', 'id' => 'info-button']); ?>
                 <button id="login-button">Login</button>
             </div>
         </div>

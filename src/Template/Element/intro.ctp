@@ -13,7 +13,7 @@ use Cake\Routing\Router;
         <?= $this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo-big.png', [
             'alt' => 'CLARIN-DARIAH joint logo',
             'width' => 256,
-            'height' => 200]), '/', ['escape' => false, 'class' => 'img']) ?>
+            'height' => 200]), '/', ['escape' => false, 'class' => 'clarin-dariah-logo']) ?>
         <p>
             The Digital Humanities Course Registry is a joint effort of two
             European research infrastructures:
@@ -24,7 +24,7 @@ use Cake\Routing\Router;
             field of digital humanities worldwide.
         </p>
     </div>
-    <div class="overlay-container transparent"></div>
+    <div class="overlay-container transparent" id="transparent"></div>
     <div class="overlay-container flex-columns">
         <div class="flex-item">
             <h2>Students</h2>
@@ -43,7 +43,11 @@ use Cake\Routing\Router;
         </div>
     </div>
     <div class="overlay-container flex-columns">
-        <div class="flex-item"><button class="blue" id="start">Go to Start</button></div>
-        <div class="flex-item"><button>More Information</button></div>
+        <div class="flex-item">
+            <button class="blue" id="start">Go to Start</button>
+        </div>
+        <div class="flex-item">
+            <?= $this->Html->link('More Information', '/pages/info', ['class' => 'button']) ?>
+        </div>
     </div>
 </div>

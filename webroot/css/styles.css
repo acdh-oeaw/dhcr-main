@@ -23,15 +23,6 @@
   box-sizing: border-box;
   font-size: 14px; }
 
-/* test for system scrollbar width would not work using this
-.scroll-container {
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-        width: 0;
-    }
-}
-*/
 body {
   font-family: Helvetica, Verdana, Arial, Sans-Serif;
   font-size: 18px;
@@ -101,6 +92,7 @@ a {
 
 button, .button {
   height: 46px;
+  display: inline-block;
   border-radius: 24px;
   border: solid 2px #1E6BA3;
   background-color: transparent;
@@ -112,6 +104,7 @@ button, .button {
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
+  text-decoration: none;
   color: #1E6BA3;
   text-transform: uppercase;
   padding: 2px 30px 0;
@@ -121,9 +114,11 @@ button, .button {
     background-color: #1E6BA3;
     color: #fff; }
   button:hover, button.animate, .button:hover, .button.animate {
-    transform: scale(1.1); }
-  button a:hover, .button a:hover {
+    transform: scale(1.1);
     text-decoration: none; }
+
+.button {
+  padding-top: 7px; }
 
 hr {
   height: 2px;
@@ -171,7 +166,17 @@ hr {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  justify-content: space-between; }
+  justify-content: space-around; }
+  .flex-columns .flex-item {
+    flex: 0 1 45%;
+    min-width: 300px;
+    padding: 0 15px; }
+  @media only screen and (max-width: 750px) {
+    .flex-columns {
+      display: block; }
+      .flex-columns .flex-item {
+        margin-bottom: 3em;
+        min-width: initial; } }
 
 #header {
   position: relative;
@@ -220,22 +225,22 @@ hr {
       #header #logo .title span#h1 {
         color: #61A845;
         font-family: bebas, sans-serif;
-        font-size: 45px;
+        font-size: 49.5px;
         vertical-align: bottom;
         line-height: 1;
         font-weight: normal;
         letter-spacing: 0; }
       #header #logo .title span#h2 {
         color: #2387aa;
-        margin-right: 15px; }
+        margin-right: 16.5px; }
       #header #logo .title span#h3 {
         color: #1E6BA3; }
       #header #logo .title #h2, #header #logo .title #h3 {
-        letter-spacing: 3px;
+        letter-spacing: 3.3px;
         font-family: metropolis, sans-serif;
-        font-size: 24px; }
+        font-size: 26.4px; }
       #header #logo .title h1 {
-        margin: 12px 0 0; }
+        margin: 7px 0 0; }
   #header #menu {
     display: flex;
     justify-content: flex-end;
@@ -289,107 +294,158 @@ body.home {
     background-color: transparent; }
     body.home .overlay .overlay-container {
       margin: 0 auto;
-      min-height: 100vh;
       width: calc(100vw - 15px);
       padding: 100px 135px 150px 135px;
       max-width: 90rem;
+      min-height: 100vh;
       background-color: #fff; }
+      @media only screen and (max-width: 1000px) {
+        body.home .overlay .overlay-container {
+          padding: 90px 100px 100px; } }
+      @media only screen and (max-width: 885px) {
+        body.home .overlay .overlay-container {
+          padding: 80px 70px 80px; } }
+      @media only screen and (max-width: 750px) {
+        body.home .overlay .overlay-container {
+          padding: 50px 30px 50px; } }
       body.home .overlay .overlay-container.transparent {
         background: rgba(0, 0, 0, 0.4);
-        height: 300px; }
+        height: 90vh; }
       body.home .overlay .overlay-container:last-child {
         min-height: 100vh;
         box-sizing: border-box; }
-      body.home .overlay .overlay-container h1 {
-        font-weight: bold;
-        text-transform: uppercase;
-        line-height: normal; }
-      body.home .overlay .overlay-container a {
-        text-decoration: none; }
-      body.home .overlay .overlay-container span#h1 {
-        color: #61A845;
-        font-family: bebas, sans-serif;
-        font-size: 67.5px;
-        vertical-align: bottom;
-        line-height: 1;
-        font-weight: normal;
-        letter-spacing: 0; }
-      body.home .overlay .overlay-container span#h2 {
-        color: #2387aa;
-        margin-right: 22.5px; }
-      body.home .overlay .overlay-container span#h3 {
-        color: #1E6BA3; }
-      body.home .overlay .overlay-container #h2, body.home .overlay .overlay-container #h3 {
-        letter-spacing: 4.5px;
-        font-family: metropolis, sans-serif;
-        font-size: 36px; }
-      @media only screen and (max-width: 750px) {
-        body.home .overlay .overlay-container h1 {
-          font-weight: bold;
-          text-transform: uppercase;
-          line-height: normal; }
-        body.home .overlay .overlay-container a {
-          text-decoration: none; }
-        body.home .overlay .overlay-container span#h1 {
-          color: #61A845;
-          font-family: bebas, sans-serif;
-          font-size: 45px;
-          vertical-align: bottom;
-          line-height: 1;
-          font-weight: normal;
-          letter-spacing: 0; }
-        body.home .overlay .overlay-container span#h2 {
-          color: #2387aa;
-          margin-right: 15px; }
-        body.home .overlay .overlay-container span#h3 {
-          color: #1E6BA3; }
-        body.home .overlay .overlay-container #h2, body.home .overlay .overlay-container #h3 {
-          letter-spacing: 3px;
-          font-family: metropolis, sans-serif;
-          font-size: 24px; } }
-      body.home .overlay .overlay-container h1 {
-        margin: 0 auto 80px;
-        text-align: center; }
-      body.home .overlay .overlay-container .img, body.home .overlay .overlay-container img {
-        float: left;
-        display: block;
-        clear: both;
-        margin-right: 50px;
-        width: 23vw;
-        max-width: 256px;
-        min-width: 180px;
-        height: auto; }
-        @media only screen and (max-width: 750px) {
-          body.home .overlay .overlay-container .img, body.home .overlay .overlay-container img {
-            width: 200px;
-            float: none;
-            margin: 0 auto 50px; } }
-      body.home .overlay .overlay-container p {
-        font-size: 1.7vw;
-        line-height: 1.5;
-        color: #1E6BA3; }
-        body.home .overlay .overlay-container p em {
-          font-weight: bold; }
-        @media only screen and (min-width: 1270px) {
-          body.home .overlay .overlay-container p {
-            font-size: 24px; } }
-        @media only screen and (max-width: 750px) {
-          body.home .overlay .overlay-container p {
-            font-size: 17px; } }
-      body.home .overlay .overlay-container .flex-item {
-        width: 45%; }
-        body.home .overlay .overlay-container .flex-item h2 {
-          font-size: 50px;
-          text-align: center;
-          margin-bottom: 65px; }
-        body.home .overlay .overlay-container .flex-item p {
-          color: #1E6BA3;
-          font-size: 24px;
-          line-height: 1.25; }
-        body.home .overlay .overlay-container .flex-item button {
-          float: left; }
-          body.home .overlay .overlay-container .flex-item button.blue {
-            float: right; }
+  body.home #intro .clarin-dariah-logo, body.home #page-head .clarin-dariah-logo {
+    float: left;
+    display: block;
+    clear: both;
+    margin-right: 50px;
+    width: auto; }
+    body.home #intro .clarin-dariah-logo img, body.home #page-head .clarin-dariah-logo img {
+      display: block;
+      width: 23vw;
+      max-width: 256px;
+      min-width: 120px;
+      height: auto; }
+@media only screen and (min-width: 751px) and (min-width: 1001px) {
+  body.home #intro h1, body.home #page-head h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: normal; }
+  body.home #intro a, body.home #page-head a {
+    text-decoration: none; }
+  body.home #intro span#h1, body.home #page-head span#h1 {
+    color: #61A845;
+    font-family: bebas, sans-serif;
+    font-size: 90px;
+    vertical-align: bottom;
+    line-height: 1;
+    font-weight: normal;
+    letter-spacing: 0; }
+  body.home #intro span#h2, body.home #page-head span#h2 {
+    color: #2387aa;
+    margin-right: 30px; }
+  body.home #intro span#h3, body.home #page-head span#h3 {
+    color: #1E6BA3; }
+  body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+    letter-spacing: 6px;
+    font-family: metropolis, sans-serif;
+    font-size: 48px; } }
+@media only screen and (min-width: 751px) and (max-width: 1000px) {
+  body.home #intro h1, body.home #page-head h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: normal; }
+  body.home #intro a, body.home #page-head a {
+    text-decoration: none; }
+  body.home #intro span#h1, body.home #page-head span#h1 {
+    color: #61A845;
+    font-family: bebas, sans-serif;
+    font-size: 9vw;
+    vertical-align: bottom;
+    line-height: 1;
+    font-weight: normal;
+    letter-spacing: 0; }
+  body.home #intro span#h2, body.home #page-head span#h2 {
+    color: #2387aa;
+    margin-right: 3vw; }
+  body.home #intro span#h3, body.home #page-head span#h3 {
+    color: #1E6BA3; }
+  body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+    letter-spacing: 0.6vw;
+    font-family: metropolis, sans-serif;
+    font-size: 4.8vw; } }
+
+  @media only screen and (max-width: 750px) {
+    body.home #intro h1, body.home #page-head h1 {
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: normal; }
+    body.home #intro a, body.home #page-head a {
+      text-decoration: none; }
+    body.home #intro span#h1, body.home #page-head span#h1 {
+      color: #61A845;
+      font-family: bebas, sans-serif;
+      font-size: 12vw;
+      vertical-align: bottom;
+      line-height: 1;
+      font-weight: normal;
+      letter-spacing: 0; }
+    body.home #intro span#h2, body.home #page-head span#h2 {
+      color: #2387aa;
+      margin-right: 4vw; }
+    body.home #intro span#h3, body.home #page-head span#h3 {
+      color: #1E6BA3; }
+    body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+      letter-spacing: 0.8vw;
+      font-family: metropolis, sans-serif;
+      font-size: 6.4vw; } }
+  @media only screen and (max-width: 690px) {
+    body.home #intro .clarin-dariah-logo, body.home #page-head .clarin-dariah-logo {
+      float: none;
+      display: block;
+      width: min-content;
+      margin: 0 auto 50px; }
+      body.home #intro .clarin-dariah-logo img, body.home #page-head .clarin-dariah-logo img {
+        height: 120px;
+        width: auto; } }
+  body.home #intro h1, body.home #page-head h1 {
+    margin: 0 auto 80px;
+    text-align: center; }
+  body.home #intro p, body.home #page-head p {
+    font-size: 1.7vw;
+    line-height: 1.5;
+    color: #1E6BA3; }
+    body.home #intro p em, body.home #page-head p em {
+      font-weight: bold; }
+    @media only screen and (min-width: 1270px) {
+      body.home #intro p, body.home #page-head p {
+        font-size: 24px; } }
+    @media only screen and (max-width: 750px) {
+      body.home #intro p, body.home #page-head p {
+        font-size: 17px; } }
+  body.home #intro .flex-item h2, body.home #page-head .flex-item h2 {
+    font-size: 50px;
+    text-align: center;
+    margin-bottom: 65px; }
+  body.home #intro .flex-item p, body.home #page-head .flex-item p {
+    color: #1E6BA3;
+    font-size: 20px;
+    line-height: 1.25; }
+    @media only screen and (min-width: 1270px) {
+      body.home #intro .flex-item p, body.home #page-head .flex-item p {
+        font-size: 24px; } }
+    @media only screen and (max-width: 750px) {
+      body.home #intro .flex-item p, body.home #page-head .flex-item p {
+        font-size: 17px;
+        flex: 1 1 45%; } }
+    @media only screen and (max-width: 400px) {
+      body.home #intro .flex-item p, body.home #page-head .flex-item p {
+        font-size: 15px; } }
+  body.home #intro .flex-item button, body.home #intro .flex-item .button, body.home #page-head .flex-item button, body.home #page-head .flex-item .button {
+    margin: 0 auto;
+    display: block;
+    width: min-content;
+    white-space: nowrap; }
   body.home #container {
     height: calc(100% - 144px);
     display: flex;

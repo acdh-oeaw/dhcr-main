@@ -1,4 +1,11 @@
 
+@mixin overlay-container($p-top,$p-right,$p-bottom,$p-left) {
+    margin: 0 auto;
+    width: calc(100vw - #{$whitespace});
+    padding: $p-top $p-right $p-bottom $p-left;
+    max-width: $max_width;
+}
+
 
 .overlay {
     position: fixed;
@@ -12,82 +19,118 @@
     background-color: transparent;
 
     .overlay-container {
-        margin: 0 auto;
+        @include overlay-container(100px, 150px - $whitespace, 150px, 150px - $whitespace);
         min-height: 100vh;
-        width: calc(100vw - 15px);
-        // should be 2 * $whitespace, but as scrollbar does not resize on zoom, contents are not covered
-        // now works up to 80% zoom
-        padding: 100px 150px - $whitespace 150px 150px - $whitespace;
-        max-width: $max_width;          // - additional framing space
         background-color: #fff;
+
+        @media only screen and (max-width: 1000px) {
+            padding: 90px 100px 100px;
+        }
+
+        @media only screen and (max-width: 885px) {
+            padding: 80px 70px 80px;
+        }
+
+        @include respond-to(handhelds) {
+            padding: 50px 30px 50px;
+        }
+
         &.transparent {
             // make the app visible through opaque overlay
             background:rgba(0,0,0,0.4);
-            height: 300px;
+            height: 90vh;
         }
         &:last-child {
             min-height: 100vh;
             box-sizing: border-box;
         }
-        @include logo-text(1.5);
-        @include respond-to(handhelds) {
-            @include logo-text(1);
-        }
-        h1 {
-            margin: 0 auto 80px;
-            text-align: center;
-        }
-        .img,img {
-            float: left;
+    }
+}
+
+#intro, #page-head {
+    .clarin-dariah-logo {
+        float: left;
+        display: block;
+        clear: both;
+        margin-right: 50px;
+        width: auto;
+        img {
             display: block;
-            clear: both;
-            margin-right: 50px;
             width: 23vw;
             max-width: 256px;
-            min-width: 180px;
+            min-width: 120px;
             height: auto;
-            @include respond-to(handhelds) {
-                width: 200px;
-                float: none;
-                margin: 0 auto 50px;
+        }
+    }
+    @include respond-to(screens) {
+        @media only screen and (min-width: 1001px) {
+            @include logo-text-scaled(2);
+        }
+        @media only screen and (max-width: 1000px) {
+            @include logo-text-vwr(0.6);
+        }
+    }
+    @include respond-to(handhelds) {
+        @include logo-text-vwr(0.8);
+    }
+    @media only screen and (max-width: 690px) {
+        .clarin-dariah-logo {
+            float: none;
+            display: block;
+            width: min-content;
+            margin: 0 auto 50px;
+            img {
+                height: 120px;
+                width: auto;
             }
         }
+    }
+    h1 {
+        margin: 0 auto 80px;
+        text-align: center;
+    }
+
+    p {
+        //font-size: 24px;
+        font-size: 1.7vw;
+        line-height: 1.5;
+        color: $blue;
+        em {
+            font-weight: bold;
+        }
+        @media only screen and (min-width: 1270px) {
+            font-size: 24px;
+        }
+        @include respond-to(handhelds) {
+            font-size: 17px;
+        }
+    }
+    .flex-item {
+        h2 {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 65px;
+        }
         p {
-            //font-size: 24px;
-            font-size: 1.7vw;
-            line-height: 1.5;
             color: $blue;
-            em {
-                font-weight: bold;
-            }
+            font-size: 20px;
+            line-height: 1.25;
             @media only screen and (min-width: 1270px) {
                 font-size: 24px;
             }
-            @media only screen and (max-width: 890px) {
-                //font-size: 17px;
-            }
             @include respond-to(handhelds) {
                 font-size: 17px;
+                flex: 1 1 45%;
+            }
+            @media only screen and (max-width: 400px) {
+                font-size: 15px;
             }
         }
-        .flex-item {
-            width: 45%;
-            h2 {
-                font-size: 50px;
-                text-align: center;
-                margin-bottom: 65px;
-            }
-            p {
-                color: $blue;
-                font-size: 24px;
-                line-height: 1.25;
-            }
-            button {
-                float: left;
-                &.blue {
-                    float: right;
-                }
-            }
+        button, .button {
+            margin: 0 auto;
+            display: block;
+            width: min-content;
+            white-space: nowrap;
         }
     }
 }

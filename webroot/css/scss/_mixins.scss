@@ -1,3 +1,40 @@
+
+
+/* Color schema */
+$clarin_blue	: #2387aa;
+$dariah_blue	: #1E6BA3;
+$blue			: $dariah_blue;
+$green			: #61A845;
+$red            : #dc7979;
+$gray           : #6d7278;
+$light-gray     : #d8d8d8;
+
+
+
+
+/* general text formatting */
+$text-color     : $gray;
+$em-color       : #333;
+$line-height    : 1.7em;
+
+
+/* base layout & responsive sizing */
+
+/* amount of space to reserve for lateral whitespace */
+$max_width  : 90rem;    // 1440px
+$break_point: 750px;
+$whitespace : 15px;      // relative to height, so padding does not change on resize
+
+
+@font-face {
+    font-family: metropolis;
+    src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+}
+@font-face {
+    font-family: bebas;
+    src: url(../fonts/bebas_neue/BebasNeue-Regular.otf);
+}
+
 /* breakpoint definition - use this mixin where appropriate */
 /*
 1080 - 1280
@@ -18,12 +55,12 @@
 }
 
 
-@mixin logo-text($scale) {
+
+@mixin logo-text-scaled($scale) {
     h1 {
         font-weight: bold;
         text-transform: uppercase;
         line-height: normal;
-        //display: inline-block;
     }
     a {
         text-decoration: none;
@@ -51,12 +88,38 @@
     }
 }
 
-
-@mixin centered($width) {
-    width: $width;
-    margin: 0 auto;
-    padding: 0;
+@mixin logo-text-vwr($scale) {
+    h1 {
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: normal;
+    }
+    a {
+        text-decoration: none;
+    }
+    span#h1 {
+        color: $green;
+        font-family: bebas, sans-serif;
+        font-size: $scale * 15vw;
+        vertical-align: bottom;
+        line-height: 1;
+        font-weight: normal;
+        letter-spacing: 0;
+    }
+    span#h2 {
+        color: $clarin_blue;
+        margin-right: $scale * 5vw;
+    }
+    span#h3 {
+        color: $dariah_blue;
+    }
+    #h2,#h3 {
+        letter-spacing: $scale * 1vw;
+        font-family: metropolis, sans-serif;
+        font-size: $scale * 8vw;
+    }
 }
+
 
 @mixin clearfix() {
     &::after {

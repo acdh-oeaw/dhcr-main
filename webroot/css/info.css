@@ -1,0 +1,365 @@
+/* Color schema */
+/* general text formatting */
+/* base layout & responsive sizing */
+/* amount of space to reserve for lateral whitespace */
+@font-face {
+  font-family: metropolis;
+  src: url(../fonts/metropolis/Metropolis-SemiBold.otf); }
+@font-face {
+  font-family: bebas;
+  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
+/* breakpoint definition - use this mixin where appropriate */
+/*
+1080 - 1280
+
+720 - 800
+
+320
+*/
+/* basic styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px; }
+
+body {
+  font-family: Helvetica, Verdana, Arial, Sans-Serif;
+  font-size: 18px;
+  line-height: 1.44;
+  font-weight: 300;
+  letter-spacing: -0.17px;
+  color: #6d7278; }
+
+h1 {
+  font-family: metropolis;
+  font-size: 40px;
+  font-weight: bold;
+  line-height: 1.5;
+  color: #1E6BA3; }
+  @media only screen and (max-width: 750px) {
+    h1 {
+      font-size: 24px;
+      line-height: normal; } }
+
+h2 {
+  font-family: bebas;
+  font-size: 30px;
+  font-weight: normal;
+  line-height: 0.8;
+  color: #1E6BA3; }
+
+h3 {
+  font-family: metropolis;
+  font-size: 20px;
+  font-weight: bold;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #1E6BA3; }
+
+h1:first-child, h2:first-child, h3:first-child, h4:first-child {
+  margin-top: 0; }
+
+p {
+  margin-bottom: 1.2em;
+  text-align: left;
+  line-height: 1.7em; }
+
+ul, ol {
+  margin-bottom: 0.6em;
+  margin-left: 1em; }
+  ul li, ol li {
+    line-height: 1.7em;
+    margin-bottom: 0.3em; }
+
+img {
+  outline: none; }
+
+em {
+  font-size: 0.9em;
+  font-weight: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-style: normal; }
+
+a {
+  color: #1E6BA3;
+  text-decoration: none; }
+  a:hover {
+    text-decoration: underline; }
+
+button, .button {
+  height: 46px;
+  display: inline-block;
+  border-radius: 24px;
+  border: solid 2px #1E6BA3;
+  background-color: transparent;
+  font-family: bebas;
+  font-size: 24px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  text-decoration: none;
+  color: #1E6BA3;
+  text-transform: uppercase;
+  padding: 2px 30px 0;
+  cursor: pointer;
+  transition: all 0.3s; }
+  button.blue, .button.blue {
+    background-color: #1E6BA3;
+    color: #fff; }
+  button:hover, button.animate, .button:hover, .button.animate {
+    transform: scale(1.1);
+    text-decoration: none; }
+
+.button {
+  padding-top: 7px; }
+
+hr {
+  height: 2px;
+  color: #6d7278;
+  border: none;
+  margin: 0; }
+
+.right {
+  text-align: right; }
+
+.center {
+  text-align: center; }
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table; }
+
+.tooltip {
+  position: relative;
+  text-decoration: none;
+  cursor: pointer; }
+  .tooltip:after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 130%;
+    left: 20%;
+    background: #ffcb66;
+    padding: 5px 15px;
+    color: black;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    -webkit-transition: all 0.4s ease;
+    -moz-transition: all 0.4s ease;
+    transition: all 0.4s ease; }
+
+.tooltip:hover:after {
+  bottom: 100%;
+  opacity: 1; }
+
+.flex-columns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-around; }
+  .flex-columns .flex-item {
+    flex: 0 1 45%;
+    min-width: 300px;
+    padding: 0 15px; }
+  @media only screen and (max-width: 750px) {
+    .flex-columns {
+      display: block; }
+      .flex-columns .flex-item {
+        margin-bottom: 3em;
+        min-width: initial; } }
+
+body.info {
+  padding: 0 15px;
+  max-width: 90rem;
+  background-color: #fff;
+  margin: 0 auto;
+  width: calc(100% - 2 * 15px);
+  overflow: hidden; }
+  @media only screen and (max-width: 750px) {
+    body.info {
+      font-size: 16px;
+      line-height: 1.5;
+      font-weight: 300;
+      letter-spacing: normal;
+      padding: 0;
+      margin: 0;
+      max-width: initial;
+      width: 100%; } }
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: transparent; }
+  .overlay .overlay-container {
+    margin: 0 auto;
+    width: calc(100vw - 15px);
+    padding: 100px 135px 150px 135px;
+    max-width: 90rem;
+    min-height: 100vh;
+    background-color: #fff; }
+    @media only screen and (max-width: 1000px) {
+      .overlay .overlay-container {
+        padding: 90px 100px 100px; } }
+    @media only screen and (max-width: 885px) {
+      .overlay .overlay-container {
+        padding: 80px 70px 80px; } }
+    @media only screen and (max-width: 750px) {
+      .overlay .overlay-container {
+        padding: 50px 30px 50px; } }
+    .overlay .overlay-container.transparent {
+      background: rgba(0, 0, 0, 0.4);
+      height: 90vh; }
+    .overlay .overlay-container:last-child {
+      min-height: 100vh;
+      box-sizing: border-box; }
+
+#intro .clarin-dariah-logo, #page-head .clarin-dariah-logo {
+  float: left;
+  display: block;
+  clear: both;
+  margin-right: 50px;
+  width: auto; }
+  #intro .clarin-dariah-logo img, #page-head .clarin-dariah-logo img {
+    display: block;
+    width: 23vw;
+    max-width: 256px;
+    min-width: 120px;
+    height: auto; }
+@media only screen and (min-width: 751px) and (min-width: 1001px) {
+  #intro h1, #page-head h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: normal; }
+  #intro a, #page-head a {
+    text-decoration: none; }
+  #intro span#h1, #page-head span#h1 {
+    color: #61A845;
+    font-family: bebas, sans-serif;
+    font-size: 90px;
+    vertical-align: bottom;
+    line-height: 1;
+    font-weight: normal;
+    letter-spacing: 0; }
+  #intro span#h2, #page-head span#h2 {
+    color: #2387aa;
+    margin-right: 30px; }
+  #intro span#h3, #page-head span#h3 {
+    color: #1E6BA3; }
+  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+    letter-spacing: 6px;
+    font-family: metropolis, sans-serif;
+    font-size: 48px; } }
+@media only screen and (min-width: 751px) and (max-width: 1000px) {
+  #intro h1, #page-head h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: normal; }
+  #intro a, #page-head a {
+    text-decoration: none; }
+  #intro span#h1, #page-head span#h1 {
+    color: #61A845;
+    font-family: bebas, sans-serif;
+    font-size: 9vw;
+    vertical-align: bottom;
+    line-height: 1;
+    font-weight: normal;
+    letter-spacing: 0; }
+  #intro span#h2, #page-head span#h2 {
+    color: #2387aa;
+    margin-right: 3vw; }
+  #intro span#h3, #page-head span#h3 {
+    color: #1E6BA3; }
+  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+    letter-spacing: 0.6vw;
+    font-family: metropolis, sans-serif;
+    font-size: 4.8vw; } }
+
+@media only screen and (max-width: 750px) {
+  #intro h1, #page-head h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    line-height: normal; }
+  #intro a, #page-head a {
+    text-decoration: none; }
+  #intro span#h1, #page-head span#h1 {
+    color: #61A845;
+    font-family: bebas, sans-serif;
+    font-size: 12vw;
+    vertical-align: bottom;
+    line-height: 1;
+    font-weight: normal;
+    letter-spacing: 0; }
+  #intro span#h2, #page-head span#h2 {
+    color: #2387aa;
+    margin-right: 4vw; }
+  #intro span#h3, #page-head span#h3 {
+    color: #1E6BA3; }
+  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+    letter-spacing: 0.8vw;
+    font-family: metropolis, sans-serif;
+    font-size: 6.4vw; } }
+@media only screen and (max-width: 690px) {
+  #intro .clarin-dariah-logo, #page-head .clarin-dariah-logo {
+    float: none;
+    display: block;
+    width: min-content;
+    margin: 0 auto 50px; }
+    #intro .clarin-dariah-logo img, #page-head .clarin-dariah-logo img {
+      height: 120px;
+      width: auto; } }
+#intro h1, #page-head h1 {
+  margin: 0 auto 80px;
+  text-align: center; }
+#intro p, #page-head p {
+  font-size: 1.7vw;
+  line-height: 1.5;
+  color: #1E6BA3; }
+  #intro p em, #page-head p em {
+    font-weight: bold; }
+  @media only screen and (min-width: 1270px) {
+    #intro p, #page-head p {
+      font-size: 24px; } }
+  @media only screen and (max-width: 750px) {
+    #intro p, #page-head p {
+      font-size: 17px; } }
+#intro .flex-item h2, #page-head .flex-item h2 {
+  font-size: 50px;
+  text-align: center;
+  margin-bottom: 65px; }
+#intro .flex-item p, #page-head .flex-item p {
+  color: #1E6BA3;
+  font-size: 20px;
+  line-height: 1.25; }
+  @media only screen and (min-width: 1270px) {
+    #intro .flex-item p, #page-head .flex-item p {
+      font-size: 24px; } }
+  @media only screen and (max-width: 750px) {
+    #intro .flex-item p, #page-head .flex-item p {
+      font-size: 17px;
+      flex: 1 1 45%; } }
+  @media only screen and (max-width: 400px) {
+    #intro .flex-item p, #page-head .flex-item p {
+      font-size: 15px; } }
+#intro .flex-item button, #intro .flex-item .button, #page-head .flex-item button, #page-head .flex-item .button {
+  margin: 0 auto;
+  display: block;
+  width: min-content;
+  white-space: nowrap; }
+
+/*# sourceMappingURL=info.css.map */

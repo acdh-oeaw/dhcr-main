@@ -8,16 +8,6 @@
     font-size: 14px;
 }
 
-/* test for system scrollbar width would not work using this
-.scroll-container {
-    scrollbar-width: none;
-    &::-webkit-scrollbar {
-        display: none;
-        width: 0;
-    }
-}
-*/
-
 
 body {
     font-family: Helvetica, Verdana, Arial, Sans-Serif;
@@ -105,6 +95,7 @@ button, .button {
         color: #fff;
     }
     height: 46px;
+    display: inline-block;
     border-radius: 24px;
     border: solid 2px $blue;
     background-color: transparent;
@@ -116,6 +107,7 @@ button, .button {
     line-height: normal;
     letter-spacing: normal;
     text-align: center;
+    text-decoration: none;
     color: $blue;
     text-transform: uppercase;
     padding: 2px 30px 0;
@@ -123,10 +115,11 @@ button, .button {
     transition: all 0.3s;
     &:hover, &.animate {
         transform: scale(1.1);
-    }
-    a:hover {
         text-decoration: none;
     }
+}
+.button {
+    padding-top: 7px;
 }
 
 hr {
@@ -178,8 +171,18 @@ hr {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: space-around;
     .flex-item {
-
+        // define a minimum column width
+        flex: 0 1 45%;  // assume 2 columns
+        min-width: 300px;
+        padding: 0 $whitespace;
+    }
+    @include respond-to(handhelds) {
+        display: block;
+        .flex-item {
+            margin-bottom: 3em;
+            min-width: initial;
+        }
     }
 }

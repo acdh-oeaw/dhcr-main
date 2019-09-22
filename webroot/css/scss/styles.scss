@@ -1,40 +1,5 @@
 
 
-/* Color schema */
-$clarin_blue	: #2387aa;
-$dariah_blue	: #1E6BA3;
-$blue			: $dariah_blue;
-$green			: #61A845;
-$red            : #dc7979;
-$gray           : #6d7278;
-$light-gray     : #d8d8d8;
-
-
-
-
-/* general text formatting */
-$text-color     : $gray;
-$em-color       : #333;
-$line-height    : 1.7em;
-
-
-/* base layout & responsive sizing */
-
-/* amount of space to reserve for lateral whitespace */
-$max_width  : 90rem;    // 1440px
-$break_point: 750px;
-$whitespace : 15px;      // relative to height, so padding does not change on resize
-
-
-@font-face {
-    font-family: metropolis;
-    src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
-}
-@font-face {
-    font-family: bebas;
-    src: url(../fonts/bebas_neue/BebasNeue-Regular.otf);
-}
-
 
 
 @import "mixins";

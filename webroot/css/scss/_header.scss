@@ -44,9 +44,11 @@
             @include respond-to(screens) {
                 margin-left: 10px;
             }
-            @include logo-text(1);
+
+            @include logo-text-scaled(1.1);
+
             h1 {
-                margin: 12px 0 0;
+                margin: 7px 0 0;
             }
         }
     }

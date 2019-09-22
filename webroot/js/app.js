@@ -38,6 +38,7 @@ class App {
             this.resizeListener();
         }.bind(this));
 
+        // intro related code
         if(document.cookie.hideIntro) {
             // renew the cookie on each pageview, so pagevisits after one year will be seen as first-timers
             this.setintroCookie();
@@ -45,7 +46,30 @@ class App {
         let f = function() { this.hideIntro() }.bind(this);
         let start = document.getElementById('start');
         if(start != undefined) {
+            // the intro page is loaded
             start.addEventListener('click', f);
+            // activate the map/table slider while overscrolling
+            document.getElementById('intro').addEventListener('scroll', function() {
+                this.scrollListener()
+            }.bind(this));
+        }
+    }
+
+    scrollListener() {
+        let container = document.getElementById('container');
+        let intro = document.getElementById('transparent');
+        if(intro.getBoundingClientRect().top <= container.offsetTop) {
+            let maxMargin = - (this.slider.viewportWidth + this.slider.cssMargin);
+            let iconPosition = 'left';
+            let margin = 1.5 * (intro.getBoundingClientRect().top - container.offsetTop);
+            if(margin <= maxMargin) {
+                margin = maxMargin;
+                iconPosition = 'right';
+            }
+            if(margin > 0) margin = 0;
+
+            this.slider.slide.style.marginLeft = margin + 'px';
+            this.slider.control.style.backgroundPositionX = iconPosition;
         }
     }
 
@@ -98,15 +122,16 @@ class App {
     setCourses() {
         this.map.setMarkers(this.data);
         this.table.setData(this.data);
-        //let callback = this.scrollable.updateSize.bind(this.scrollable);
-        //setTimeout(callback, 3000);
         this.scrollable.updateSize();
     }
 
     hideIntro() {
-        $('#intro').animate({'height': 0}, 1000, function() {
+        $('#intro').animate({
+            'left': '100vw'
+        }, 1000, function() {
+            // animate doesn't handle scaling operations, thus an animated class adding hack is used
             $('#info-button').addClass('animate');
-            $('#info-button').removeClass('animate');
+            setTimeout(function() {$('#info-button').removeClass('animate')}, 300);
             // one year
             let expiry = new Date(Date.now() + 31536000);
             document.cookie = "hideIntro=true; expires="+expiry.toUTCString()+";";

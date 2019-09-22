@@ -1,0 +1,26 @@
+
+
+@import "mixins";
+
+@import "basics";
+
+body.info {
+    padding: 0 $whitespace;
+    max-width: $max_width;
+    background-color: #fff;
+    margin: 0 auto;
+    width: calc(100% - 2 * #{$whitespace});
+    overflow: hidden;
+    @include respond-to(handhelds) {
+        font-size: 16px;
+        line-height: 1.5;
+        font-weight: 300;
+        letter-spacing: normal;
+        padding: 0;
+        margin: 0;
+        max-width: initial;
+        width: 100%;
+    }
+}
+
+@import "intro";
