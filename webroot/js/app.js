@@ -28,8 +28,8 @@ class App {
         let f = function() { this.hideIntro() }.bind(this);
         if(this.intro != undefined) {
             // the intro page is loaded
-            this.scroll_listener = function() {
-                this.scrollListener()
+            this.scrollListener = function() {
+                this.introScrollAnimationListener()
             }.bind(this);
             document.getElementById('start').addEventListener('click', f);
         }
@@ -54,7 +54,7 @@ class App {
         }
     }
 
-    scrollListener() {
+    introScrollAnimationListener() {
         let container = document.getElementById('container');
         let intro = document.getElementById('transparent');
         if(intro.getBoundingClientRect().top <= container.offsetTop) {
@@ -78,7 +78,7 @@ class App {
         if(document.getElementById('container').clientWidth > this.breakPoint) {
             this.layout = 'screen';
             if(this.intro != undefined) {
-                this.intro.removeEventListener('scroll', this.scroll_listener);
+                this.intro.removeEventListener('scroll', this.scrollListener);
             }
             this.slider.reset();
         }else{
@@ -86,7 +86,7 @@ class App {
             this.slider.updateSize();
             if(this.intro != undefined) {
                 // activate the map/table slider while overscrolling
-                this.intro.addEventListener('scroll', this.scroll_listener);
+                this.intro.addEventListener('scroll', this.scrollListener);
             }
         }
         this.scrollable.updateSize();

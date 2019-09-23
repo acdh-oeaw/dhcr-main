@@ -27,8 +27,8 @@ class Scrollable {
     this.dragging = false;
     this.lastY = 0;
 
-    // store the element the behavior is created on, get important box dimensions like padding
-    // content will be moved to an inner container, while scrollbar is created in the outer element
+    // store the container the behavior is created on, get important box dimensions like padding
+    // content will be moved to an inner container, while scrollbar is created in the outer container
     this.element = elm;
     let outerStyles = window.getComputedStyle(this.element, null);
     this.systemScrollbarWidth = Scrollable.getSystemScrollbarWidth();
@@ -81,7 +81,7 @@ class Scrollable {
     this.element.innerHTML = this.container.outerHTML;
     this.element.insertBefore(this.thumb, this.element.firstElementChild);
     this.element.insertBefore(this.track, this.element.firstElementChild);
-    // pick the rendered element from the DOM to retrieve proper box sizing!
+    // pick the rendered container from the DOM to retrieve proper box sizing!
     this.container = this.element.lastElementChild;
 
     // We are on Safari, where we need to use the sticky trick!
@@ -126,7 +126,6 @@ class Scrollable {
       return this.container;
   }
 
-
   dragStart(event) {
     this.dragging = true;
     this.container.style.pointerEvents = "none";
@@ -137,7 +136,6 @@ class Scrollable {
             ? event.clientY
             : event.touches[0].clientY
   }
-
 
   dragMove(event) {
     if (!this.dragging) return;
