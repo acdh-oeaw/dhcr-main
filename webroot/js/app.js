@@ -116,13 +116,19 @@ class App {
         this.table.setLoader();
         $.ajax({
             url: this.apiUrl + 'courses/index' + this.filterToQuery(),
+            accept: 'application/json',
+            method: 'GET',
             cache: true,
             context: this,
+            crossDomain: true
         }).done(function( data ) {
             this.data = data;
             this.setCourses();
-        }).fail(function() {
-            this.table.setError('Failure while loading data.');
+        }).fail(function (jqXHR, textStatus, errorThrown) {
+            //var test = $.parseJSON(jqXHR.responseText);
+            //var test2 = $.parseJSON(test.d);
+            //console.log(test2[0].Name);
+            console.log(jqXHR);
         });
     }
 

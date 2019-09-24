@@ -7,6 +7,7 @@ class Table {
         // store the native DOM element, not jQuery
         this.element = elm;
         this.entries = {};
+        this.months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
     }
 
     setData(courses) {
@@ -22,7 +23,7 @@ class Table {
                 $('<th class="name">Name <span></span></th>'),
                 $('<th class="university">University <span></span></th>'),
                 $('<th class="location">Location <span></span></th>'),
-                $('<th class="period">Period <span></span></th>'),
+                $('<th class="period">Date <span></span></th>'),
                 $('<th class="type">Type <span></span></th>')
             )
         );
@@ -44,9 +45,10 @@ class Table {
         duration = '';
         for(let i = 0; split.length > i; i++) {
             let date = new Date(split[i].trim())
-            //if(date < new Date()) continue;     // omit past dates
+            if(i + 1 < split.length && date < new Date()) continue;     // omit past dates except for the last one
             if(duration != '') duration += ', ';
-            duration += split[i].trim();
+            duration += date.getDay() + ' ' + this.months[date.getMonth()];
+            if(!course.recurring) duration += date.getFullYear();
         }
         if(duration != '') duration += ' ';
         if(course.recurring) duration += '<span class="recurring tooltip" data-tooltip="recurring course">recurring</span>';
@@ -59,8 +61,8 @@ class Table {
         tr.append(
             $('<td class="name">' + course.name + '</td>'),
             $('<td class="university">' + course.institution.name + '</td>'),
-            $('<td class="location">' + course.country.name + ',<br />' + course.city.name + '</td>'),
-            $('<td class="enrollment">' + duration + '</td>'),
+            $('<td class="location">' + course.city.name + ',<br />' + course.country.name + '</td>'),
+            $('<td class="period">' + duration + '</td>'),
             $('<td class="type">' + type + '</td>')
         );
         return tr;

@@ -79,10 +79,10 @@ img {
 
 em {
   font-size: 0.9em;
-  font-weight: normal;
-  text-transform: uppercase;
+  font-weight: bold;
   letter-spacing: 0.08em;
-  font-style: normal; }
+  font-style: normal;
+  white-space: nowrap; }
 
 a {
   color: #1E6BA3;
@@ -144,11 +144,11 @@ hr {
   .tooltip:after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 130%;
-    left: 20%;
-    background: #ffcb66;
+    bottom: -50%;
+    left: -250%;
+    background: #1E6BA3;
     padding: 5px 15px;
-    color: black;
+    color: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -156,10 +156,10 @@ hr {
     opacity: 0;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease; }
+    transition: all 0.4s ease;
+    z-index: 3000; }
 
 .tooltip:hover:after {
-  bottom: 100%;
   opacity: 1; }
 
 .flex-columns {
@@ -208,7 +208,7 @@ body.info {
   background-color: transparent; }
   .overlay .overlay-container {
     margin: 0 auto;
-    width: calc(100vw - 15px);
+    width: 100%;
     padding: 100px 135px 150px 135px;
     max-width: 90rem;
     min-height: 100vh;
@@ -330,8 +330,6 @@ body.info {
   font-size: 1.7vw;
   line-height: 1.5;
   color: #1E6BA3; }
-  #intro p em, #page-head p em {
-    font-weight: bold; }
   @media only screen and (min-width: 1270px) {
     #intro p, #page-head p {
       font-size: 24px; } }

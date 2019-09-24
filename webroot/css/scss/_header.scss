@@ -15,7 +15,7 @@
     @include respond-to(handhelds) {
         margin: 13px;
         width: calc(100% - 50px);
-        padding: 0 12px 13px 12px;
+        padding: 0 10px 13px 8px;
         border-bottom: 2px solid $blue;
     }
 
@@ -33,19 +33,22 @@
                 margin: 0;
             }
         }
+        /*
         @include respond-to(handhelds) {
-            transform: scale(0.8);
+            transform: scale(0.6);
             transform-origin: left center;
-        }
+        }*/
         .title {
             min-height: 61px;
             width: auto;
             float: left;
             @include respond-to(screens) {
                 margin-left: 10px;
+                @include logo-text-scaled(1.1);
             }
-
-            @include logo-text-scaled(1.1);
+            @include respond-to(handhelds) {
+                @include logo-text-vwr(0.45);
+            }
 
             h1 {
                 margin: 7px 0 0;
@@ -60,7 +63,7 @@
         height: 100%;
         width: auto;
 
-        button {
+        button, .button {
             // generic button defined in _basics
             margin: 0 10px;
             &:last-child {
@@ -72,10 +75,14 @@
             @include respond-to(handhelds) {
                 font-size: 24px;
                 width: 58px;
-                height: 58px;
+                height: 57px;
                 border-radius: 29px;
-                padding: 2px 0 0;
+                padding-left: 0;
+                padding-right: 0;
                 margin: 0;
+                &#info-button {
+                    padding-top: 12px;
+                }
                 &#login-button {
                     display: none;
                 }

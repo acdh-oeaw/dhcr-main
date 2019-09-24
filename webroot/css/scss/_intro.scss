@@ -1,7 +1,7 @@
 
 @mixin overlay-container($p-top,$p-right,$p-bottom,$p-left) {
     margin: 0 auto;
-    width: calc(100vw - #{$whitespace});
+    width: 100%;
     padding: $p-top $p-right $p-bottom $p-left;
     max-width: $max_width;
 }
@@ -95,9 +95,6 @@
         font-size: 1.7vw;
         line-height: 1.5;
         color: $blue;
-        em {
-            font-weight: bold;
-        }
         @media only screen and (min-width: 1270px) {
             font-size: 24px;
         }

@@ -14,12 +14,17 @@
         white-space: normal;
         font-size: 11px;
         table-layout: fixed;
-        //width: 100%;
+        width: 100%;
         margin-right: 5px;
         position: relative;
         th, td {
             border-bottom: 1px solid $light-gray;
             overflow: hidden;
+            &.university {
+                @include respond-to(handhelds) {
+                    display: none;
+                }
+            }
         }
         td {
             padding: 0 8px 4px 0;
@@ -48,6 +53,13 @@
             &.location { width: 20%; }
             &.period { width: 20%; }
             &.type { width: 10%; }
+            @include respond-to(handhelds) {
+                &.name { width: 30%; }
+                //&.university { width: 25%; }
+                &.location { width: 25%; }
+                &.period { width: 20%; }
+                &.type { width: 25%; }
+            }
 
             font-family: bebas;
             font-size: 24px;

@@ -16,7 +16,7 @@ use Cake\Core\Configure;
 
         app = new App({
             mapApiKey: map_api_key,
-            apiBaseUrl: api_base_url
+            apiUrl: api_base_url
         });
 
     });

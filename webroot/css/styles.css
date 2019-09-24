@@ -79,10 +79,10 @@ img {
 
 em {
   font-size: 0.9em;
-  font-weight: normal;
-  text-transform: uppercase;
+  font-weight: bold;
   letter-spacing: 0.08em;
-  font-style: normal; }
+  font-style: normal;
+  white-space: nowrap; }
 
 a {
   color: #1E6BA3;
@@ -144,11 +144,11 @@ hr {
   .tooltip:after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: 130%;
-    left: 20%;
-    background: #ffcb66;
+    bottom: -50%;
+    left: -250%;
+    background: #1E6BA3;
     padding: 5px 15px;
-    color: black;
+    color: #fff;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
@@ -156,10 +156,10 @@ hr {
     opacity: 0;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease; }
+    transition: all 0.4s ease;
+    z-index: 3000; }
 
 .tooltip:hover:after {
-  bottom: 100%;
   opacity: 1; }
 
 .flex-columns {
@@ -192,12 +192,17 @@ hr {
     #header {
       margin: 13px;
       width: calc(100% - 50px);
-      padding: 0 12px 13px 12px;
+      padding: 0 10px 13px 8px;
       border-bottom: 2px solid #1E6BA3; } }
   #header #logo {
     flex-shrink: 0;
     white-space: nowrap;
-    overflow: hidden; }
+    overflow: hidden;
+    /*
+    @include respond-to(handhelds) {
+        transform: scale(0.6);
+        transform-origin: left center;
+    }*/ }
     @media only screen and (max-width: 750px) {
       #header #logo a.img {
         display: none; } }
@@ -205,40 +210,60 @@ hr {
       display: block;
       float: left;
       margin: 0; }
-    @media only screen and (max-width: 750px) {
-      #header #logo {
-        transform: scale(0.8);
-        transform-origin: left center; } }
     #header #logo .title {
       min-height: 61px;
       width: auto;
       float: left; }
       @media only screen and (min-width: 751px) {
         #header #logo .title {
-          margin-left: 10px; } }
-      #header #logo .title h1 {
-        font-weight: bold;
-        text-transform: uppercase;
-        line-height: normal; }
-      #header #logo .title a {
-        text-decoration: none; }
-      #header #logo .title span#h1 {
-        color: #61A845;
-        font-family: bebas, sans-serif;
-        font-size: 49.5px;
-        vertical-align: bottom;
-        line-height: 1;
-        font-weight: normal;
-        letter-spacing: 0; }
-      #header #logo .title span#h2 {
-        color: #2387aa;
-        margin-right: 16.5px; }
-      #header #logo .title span#h3 {
-        color: #1E6BA3; }
-      #header #logo .title #h2, #header #logo .title #h3 {
-        letter-spacing: 3.3px;
-        font-family: metropolis, sans-serif;
-        font-size: 26.4px; }
+          margin-left: 10px; }
+          #header #logo .title h1 {
+            font-weight: bold;
+            text-transform: uppercase;
+            line-height: normal; }
+          #header #logo .title a {
+            text-decoration: none; }
+          #header #logo .title span#h1 {
+            color: #61A845;
+            font-family: bebas, sans-serif;
+            font-size: 49.5px;
+            vertical-align: bottom;
+            line-height: 1;
+            font-weight: normal;
+            letter-spacing: 0; }
+          #header #logo .title span#h2 {
+            color: #2387aa;
+            margin-right: 16.5px; }
+          #header #logo .title span#h3 {
+            color: #1E6BA3; }
+          #header #logo .title #h2, #header #logo .title #h3 {
+            letter-spacing: 3.3px;
+            font-family: metropolis, sans-serif;
+            font-size: 26.4px; } }
+      @media only screen and (max-width: 750px) {
+        #header #logo .title h1 {
+          font-weight: bold;
+          text-transform: uppercase;
+          line-height: normal; }
+        #header #logo .title a {
+          text-decoration: none; }
+        #header #logo .title span#h1 {
+          color: #61A845;
+          font-family: bebas, sans-serif;
+          font-size: 6.75vw;
+          vertical-align: bottom;
+          line-height: 1;
+          font-weight: normal;
+          letter-spacing: 0; }
+        #header #logo .title span#h2 {
+          color: #2387aa;
+          margin-right: 2.25vw; }
+        #header #logo .title span#h3 {
+          color: #1E6BA3; }
+        #header #logo .title #h2, #header #logo .title #h3 {
+          letter-spacing: 0.45vw;
+          font-family: metropolis, sans-serif;
+          font-size: 3.6vw; } }
       #header #logo .title h1 {
         margin: 7px 0 0; }
   #header #menu {
@@ -247,21 +272,24 @@ hr {
     align-items: center;
     height: 100%;
     width: auto; }
-    #header #menu button {
+    #header #menu button, #header #menu .button {
       margin: 0 10px; }
-      #header #menu button:last-child {
+      #header #menu button:last-child, #header #menu .button:last-child {
         margin-right: 0; }
-      #header #menu button:first-child {
+      #header #menu button:first-child, #header #menu .button:first-child {
         margin-left: 0; }
       @media only screen and (max-width: 750px) {
-        #header #menu button {
+        #header #menu button, #header #menu .button {
           font-size: 24px;
           width: 58px;
-          height: 58px;
+          height: 57px;
           border-radius: 29px;
-          padding: 2px 0 0;
+          padding-left: 0;
+          padding-right: 0;
           margin: 0; }
-          #header #menu button#login-button {
+          #header #menu button#info-button, #header #menu .button#info-button {
+            padding-top: 12px; }
+          #header #menu button#login-button, #header #menu .button#login-button {
             display: none; } }
 
 body.home {
@@ -294,7 +322,7 @@ body.home {
     background-color: transparent; }
     body.home .overlay .overlay-container {
       margin: 0 auto;
-      width: calc(100vw - 15px);
+      width: 100%;
       padding: 100px 135px 150px 135px;
       max-width: 90rem;
       min-height: 100vh;
@@ -415,8 +443,6 @@ body.home {
     font-size: 1.7vw;
     line-height: 1.5;
     color: #1E6BA3; }
-    body.home #intro p em, body.home #page-head p em {
-      font-weight: bold; }
     @media only screen and (min-width: 1270px) {
       body.home #intro p, body.home #page-head p {
         font-size: 24px; } }
@@ -543,11 +569,15 @@ body.home {
       white-space: normal;
       font-size: 11px;
       table-layout: fixed;
+      width: 100%;
       margin-right: 5px;
       position: relative; }
       body.home #container #table table th, body.home #container #table table td {
         border-bottom: 1px solid #d8d8d8;
         overflow: hidden; }
+        @media only screen and (max-width: 750px) {
+          body.home #container #table table th.university, body.home #container #table table td.university {
+            display: none; } }
       body.home #container #table table td {
         padding: 0 8px 4px 0;
         vertical-align: center; }
@@ -580,6 +610,15 @@ body.home {
           width: 20%; }
         body.home #container #table table th.type {
           width: 10%; }
+        @media only screen and (max-width: 750px) {
+          body.home #container #table table th.name {
+            width: 30%; }
+          body.home #container #table table th.location {
+            width: 25%; }
+          body.home #container #table table th.period {
+            width: 20%; }
+          body.home #container #table table th.type {
+            width: 25%; } }
         body.home #container #table table th:last-child {
           margin-left: 0; }
         body.home #container #table table th span {

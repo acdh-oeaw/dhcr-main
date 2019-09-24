@@ -69,16 +69,15 @@ use Cake\Routing\Router;
         </div>
         
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
-        <script src="<?= Router::url('/js/jquery-3.4.1.min.js', true) ?>" type="application/javascript"></script>
+        <?= $this->Html->script('jquery-3.4.1.min.js') ?>
         
-        <script src="<?= Router::url('/leaflet/leaflet.js', true) ?>" type="application/javascript"></script>
+        <!--<script src="<?= Router::url('/leaflet/leaflet.js', true) ?>" type="application/javascript"></script>-->
+        <?= $this->Html->script('/leaflet/leaflet') ?>
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
-        <script src="<?= Router::url('/leaflet/leaflet.markercluster.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/scroll.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/slide.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/map.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/table.js', true) ?>" type="application/javascript"></script>
-        <script src="<?= Router::url('/js/app.js', true) ?>" type="application/javascript"></script>
+        <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
+        
+        <?= $this->Html->script(['scroll','slide','map','table','app']) ?>
+        
         <?= $this->element('script') ?>
     </body>
 </html>

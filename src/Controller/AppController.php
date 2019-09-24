@@ -45,7 +45,9 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
-        
+    
+        // Set the Cache-Control as private for 3600 seconds
+        $this->response = $this->response->withSharable(true, 3600);
         
         $this->loadComponent('Flash');
 
