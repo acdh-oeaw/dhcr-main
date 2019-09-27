@@ -30,7 +30,7 @@ class Slider {
         }.bind(this);
     }
 
-    // dragging is not a good idea on a map!!!
+    // dragging is not a good idea on a map!!! further problem is the toggle control...
     enable() {
         this.container.addEventListener('mousedown', this.dragStartListener, { passive: true });
         window.addEventListener('mousemove', this.dragMoveListener);

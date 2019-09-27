@@ -23,7 +23,7 @@ class Map {
             worldCopyJump: true,
             maxZoom: 18
         });
-        this.map.setView([50.000, 10.189551], 4);
+
         L.tileLayer('https://api.mapbox.com/styles/v1/'
             + 'hashmich/ciqhed3uq001ae6niop4onov3/tiles/256/{z}/{x}/{y}?access_token='
             + this.apiKey).addTo(this.map);
@@ -35,10 +35,12 @@ class Map {
 
         // markers is set as a lookup table to get a single course record by ID
         this.markers = {};
+        this.id = false;
     }
 
 
     setMarkers(courses) {
+        this.markers = {};
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
             //disableClusteringAtZoom: 14,
@@ -85,7 +87,7 @@ class Map {
                 + '<p>' + course.institution.name + ',<br />'
                 + course.department + '.</p>'
                 + '<p>Type: ' + course.course_type.name + '</p>'
-                + '<p><a class="details" href="/courses/view/' + course.id + '">Show details</a></p>';
+                + '<button class="show_view" data-id="' + course.id + '">Show details</button>';
             marker.bindPopup(content);
 
             this.cluster.addLayer(marker);
@@ -94,22 +96,38 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
+        if($.isEmptyObject(app.filter)) {
+            let zoom = this.map.getZoom();
+            this.map.locate({setView: true, maxZoom: zoom});
+        }
+
+        this.map.on('popupopen', function() {
+            $('.show_view').on('click', function(e) {
+                let id = $(e.target).attr('data-id');
+                app.setView(id);
+            })
+        });
     }
 
     openMarker(id) {
         this.cluster.zoomToShowLayer(this.markers[id], function() {
             this.markers[id].openPopup();
+            this.id = id;
         }.bind(this));
+        /*
+        $('#show-view').click(function (e) {
+            let id = e.target.attr('data-id');
+            app.setView(id);
+        });
+
+         */
     }
 
-    closeMarker(id) {
-        for(let k in markers) {
-            if(id == markers[k].id) {
-                markers[k].marker.closePopup();
-                this.fitBounds(12);
-                break;
-            }
-        }
+    closeMarker() {
+        if(!this.id) return;
+        this.markers[this.id].closePopup();
+        this.fitBounds(12);
+        this.id = false;
     }
 
     fitBounds(maxZoom = 18) {

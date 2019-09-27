@@ -10,7 +10,7 @@ class Table {
         this.months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
     }
 
-    setData(courses) {
+    setTable(courses) {
         if(courses.length == 0) {
             this.setErrorMessage('Your query returned no results.');
             return;
@@ -55,27 +55,29 @@ class Table {
     }
 
     getTiming(course, dateSeparator = ', ', recurringSeparator = ', ', durationSeparator = '<br />') {
-        let split = course.start_date.split(/[;,]/);
-        let duration = '';
-        let lastMonth;
-        for (let i = 0; split.length > i; i++) {
-            let date = new Date(split[i].trim())
-            if ((!course.recurring && date < new Date()) || (course.recurring && lastMonth == date.getMonth())) continue;     // omit past dates except for recurring starts
-            lastMonth = date.getMonth()
-            if (duration != '') duration += dateSeparator;
-            let day = (date.getDay() == 0) ? 1 : date.getDay();
-            duration += day + ' ' + this.months[date.getMonth()];
-            if (!course.recurring) duration += ' ' + date.getFullYear();
+        let result = '';
+        if(course.start_date) {
+            let split = course.start_date.split(/[;,]/);
+            let lastMonth;
+            for (let i = 0; split.length > i; i++) {
+                let date = new Date(split[i].trim())
+                if ((!course.recurring && date < new Date()) || (course.recurring && lastMonth == date.getMonth())) continue;     // omit past dates except for recurring starts
+                lastMonth = date.getMonth()
+                if (result != '') result += dateSeparator;
+                let day = (date.getDay() == 0) ? 1 : date.getDay();
+                result += day + ' ' + this.months[date.getMonth()];
+                if (!course.recurring) result += ' ' + date.getFullYear();
+            }
         }
-        if (course.recurring) {
-            if (duration != '') duration += recurringSeparator;
-            duration += '<span class="recurring tooltip" data-tooltip="recurring">recurring</span>';
+        if(course.recurring) {
+            if (result != '') result += recurringSeparator;
+            result += '<span class="recurring tooltip" data-tooltip="recurring">recurring</span>';
         }
-        if (course.duration != null) {
-            if (duration != '') duration += durationSeparator;
-            duration += course.duration + ' ' + course.course_duration_unit.name;
+        if(course.duration) {
+            if (result != '') result += durationSeparator;
+            result += course.duration + ' ' + course.course_duration_unit.name;
         }
-        return duration;
+        return result;
     }
 
     createView(course) {
@@ -104,9 +106,11 @@ class Table {
         let online = (course.online) ? '<div class="flex-item"><p class="term">Online</p><p class="data">yes</p></div>' : '';
         el.append($('<div class="flex-columns">' + language + online + '</div>'));
 
-        let back = '<a class="button flex-item" href="' + BASE_URL + '">Back to List</a>';
-        let share = '<button class="button blue flex-item">Share</button>';
-        el.append($('<div class="flex-columns">' + back + share + '</div>'));
+        let back = $('<button class="flex-item back">Back to List</button>').on('click', function() {
+            app.closeView()
+        });
+        let share = $('<button class="sharing blue flex-item">Share</button>');
+        el.append($('<div class="flex-columns"></div>').append(back, share));
 
         el.append($('<hr />'));
 

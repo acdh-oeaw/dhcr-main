@@ -7,10 +7,10 @@ class App {
         return {
             apiUrl:     'http://localhost/DH-API/',
             mapApiKey:  'pass key using constructor options',
-            filter:     { recent: true },
+            filter:     {},
             breakPoint: 750,
             id: false,
-            view: 'index',
+            action: 'index',
             layout: 'screen'
         };
     }
@@ -52,11 +52,14 @@ class App {
         });
         this.table = new Table(this.scrollable.getContentContainer());
 
+        this.status = 'index';
         // load data
-        if(this.view == 'index')
+        if(this.action == 'index')
             this.getCourses();
-        if(this.view == 'view')
+        if(this.action == 'view') {
             this.getCourse();
+            this.status = 'view';
+        }
 
         window.addEventListener('resize', function () {
             this.resizeListener();
@@ -97,11 +100,9 @@ class App {
                 this.intro.removeEventListener('scroll', this.scrollListener);
             }
             this.slider.reset();
-            //this.slider.disable();
         }else{
             this.layout = 'mobile';
             this.slider.updateSize();
-            //this.slider.enable();
             if(this.intro != undefined) {
                 // activate the map/table slider while overscrolling
                 this.intro.addEventListener('scroll', this.scrollListener);
@@ -121,12 +122,17 @@ class App {
     }
 
     filterToQuery() {
+        if($.isEmptyObject(this.filter))
+            this.filter = { recent: true }
+        if(this.filter.recent == false)
+            delete this.filter.recent;
         let retval = '';
         $.each(this.filter, function(key, value) {
             if(retval == '') retval = '?';
             else retval += '&';
             retval += key + '=' + value;
         });
+        delete this.filter.recent;
         return retval;
     }
 
@@ -141,12 +147,10 @@ class App {
         }).done(function( data ) {
             this.data = {};
             this.data[data.id] = data;
-            this.setCourses();
+            this.map.setMarkers(this.data);
             this.setView();
+            this.scrollable.updateSize();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            //var test = $.parseJSON(jqXHR.responseText);
-            //var test2 = $.parseJSON(test.d);
-            //console.log(test2[0].Name);
             console.log(jqXHR);
         });
     }
@@ -165,27 +169,39 @@ class App {
             for(var i = 0; data.length > i; i++) {
                 this.data[data[i].id] = data[i];
             }
-            this.setCourses();
+            this.map.setMarkers(this.data);
+            this.setTable();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            //var test = $.parseJSON(jqXHR.responseText);
-            //var test2 = $.parseJSON(test.d);
-            //console.log(test2[0].Name);
             console.log(jqXHR);
         });
     }
 
-    setCourses() {
-        this.map.setMarkers(this.data);
-        this.table.setData(this.data);
+    setTable() {
+        this.table.setTable(this.data);
+        this.map.closeMarker();
         this.scrollable.updateSize();
+        this.status = 'index';
     }
 
     setView(id) {
         id = id || this.id;
-        let course = this.data[id];
-        this.table.createView(course);
+        this.table.createView(this.data[id]);
         this.map.openMarker(id);
         this.scrollable.updateSize();
+        this.status = 'view';
+        if(this.layout == 'mobile') {
+            this.slider.setPosition('table');
+        }
+    }
+
+    closeView() {
+        if(this.action == 'index') {
+            this.setTable();
+        }
+        if(this.action == 'view') {
+            // reload
+            this.window.location = BASE_URL;
+        }
     }
 
     hideIntro() {
