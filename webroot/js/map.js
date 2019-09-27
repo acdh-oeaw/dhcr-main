@@ -69,8 +69,8 @@ class Map {
         for(let k in courses) {
             let course = courses[k];
             let icon = L.icon({
-                iconUrl: 'leaflet/images/dhcr-marker-icon.png',
-                iconRetinaUrl: 'leaflet/images/dhcr-marker-icon-2x.png',
+                iconUrl: BASE_URL + 'leaflet/images/dhcr-marker-icon.png',
+                iconRetinaUrl: BASE_URL + 'leaflet/images/dhcr-marker-icon-2x.png',
                 iconSize:     [25, 37], // size of the icon
                 iconAnchor:   [12, 37], // point of the icon which will correspond to marker's location
                 popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
@@ -89,10 +89,7 @@ class Map {
             marker.bindPopup(content);
 
             this.cluster.addLayer(marker);
-            this.markers[course.id] = {
-                marker: marker,
-                course: course
-            };
+            this.markers[course.id] = marker;
         }
 
         this.map.addLayer(this.cluster);
@@ -100,9 +97,9 @@ class Map {
     }
 
     openMarker(id) {
-        this.cluster.zoomToShowLayer(this.markers[id].marker, function() {
-            this.markers[k].marker.openPopup();
-        });
+        this.cluster.zoomToShowLayer(this.markers[id], function() {
+            this.markers[id].openPopup();
+        }.bind(this));
     }
 
     closeMarker(id) {

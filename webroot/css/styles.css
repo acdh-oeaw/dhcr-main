@@ -122,7 +122,7 @@ button, .button {
 
 hr {
   height: 2px;
-  color: #6d7278;
+  background-color: #1E6BA3;
   border: none;
   margin: 0; }
 
@@ -144,8 +144,8 @@ hr {
   .tooltip:after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: -50%;
-    left: -250%;
+    bottom: -0.35em;
+    left: -2.5em;
     background: #1E6BA3;
     padding: 5px 15px;
     color: #fff;
@@ -156,8 +156,7 @@ hr {
     opacity: 0;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    z-index: 3000; }
+    transition: all 0.4s ease; }
 
 .tooltip:hover:after {
   opacity: 1; }
@@ -338,7 +337,7 @@ body.home {
           padding: 50px 30px 50px; } }
       body.home .overlay .overlay-container.transparent {
         background: rgba(0, 0, 0, 0.4);
-        height: 90vh; }
+        height: 80vh; }
       body.home .overlay .overlay-container:last-child {
         min-height: 100vh;
         box-sizing: border-box; }
@@ -481,6 +480,34 @@ body.home {
     position: relative;
     top: 0px;
     overflow: hidden; }
+    body.home #container #view h1 {
+      font-size: 40px;
+      font-family: metropolis;
+      font-weight: bold; }
+      @media only screen and (max-width: 750px) {
+        body.home #container #view h1 {
+          font-size: 30px; } }
+    body.home #container #view .subtitle {
+      font-style: italic; }
+    body.home #container #view .strong {
+      font-weight: bold;
+      margin-bottom: 0.3em; }
+    body.home #container #view hr {
+      margin: 2em 0; }
+    body.home #container #view .flex-columns {
+      justify-content: space-between; }
+      body.home #container #view .flex-columns .flex-item {
+        padding: 0; }
+        body.home #container #view .flex-columns .flex-item .term {
+          color: #1E6BA3;
+          font-weight: bold;
+          width: 40%;
+          float: left;
+          padding-right: 1em;
+          box-sizing: border-box; }
+        body.home #container #view .flex-columns .flex-item .data {
+          float: left;
+          width: 60%; }
     @media only screen and (min-width: 751px) {
       body.home #container {
         min-width: 750px; }
@@ -529,6 +556,8 @@ body.home {
           transition: transform 0.3s; }
           body.home #container #slide-control:hover {
             transform: scale(1.1, 1.1); } }
+    body.home #container .leaflet-popup .leaflet-popup-close-button {
+      display: none; }
     body.home #container .leaflet-popup .leaflet-popup-tip, body.home #container .leaflet-popup .leaflet-popup-content-wrapper {
       background-color: #1E6BA3; }
     body.home #container .leaflet-popup .leaflet-popup-content p {
@@ -607,9 +636,9 @@ body.home {
         body.home #container #table table th.location {
           width: 20%; }
         body.home #container #table table th.period {
-          width: 20%; }
+          width: 15%; }
         body.home #container #table table th.type {
-          width: 10%; }
+          width: 15%; }
         @media only screen and (max-width: 750px) {
           body.home #container #table table th.name {
             width: 30%; }

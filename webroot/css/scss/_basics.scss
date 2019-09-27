@@ -124,7 +124,7 @@ button, .button {
 
 hr {
     height: 2px;
-    color: $text-color;
+    background-color: $blue;
     border: none;
     margin: 0;
 }
@@ -147,8 +147,8 @@ hr {
     &:after {
         content: attr(data-tooltip);
         position: absolute;
-        bottom: -50%;
-        left: -250%;
+        bottom: -0.35em;
+        left: -2.5em;
         background: $blue;
         padding: 5px 15px;
         color: #fff;
@@ -160,11 +160,9 @@ hr {
         -webkit-transition: all 0.4s ease;
         -moz-transition: all 0.4s ease;
         transition: all 0.4s ease;
-        z-index: 3000;
     }
 }
 .tooltip:hover:after {
-    //bottom: 0%;
     opacity: 1;
 }
 

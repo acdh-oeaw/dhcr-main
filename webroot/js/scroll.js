@@ -195,7 +195,7 @@ class Scrollable {
       if(this.scrollState) {
           Object.assign(this.container.style, {
               marginRight: -this.margin + 'px',
-              paddingRight: this.backpadding + 'px'
+              paddingRight: this.backpadding + 10 + 'px'
           });
       }
     }
@@ -281,7 +281,7 @@ class Scrollable {
       overflowX: 'hidden',
       overflowY: 'scroll',
       marginRight: - this.margin + 'px',
-      paddingRight: this.backPadding + 'px',
+      paddingRight: this.backPadding + 10 + 'px',
       height: '100%',
       webkitOverflowScrolling: 'touch'
     });

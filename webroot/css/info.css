@@ -122,7 +122,7 @@ button, .button {
 
 hr {
   height: 2px;
-  color: #6d7278;
+  background-color: #1E6BA3;
   border: none;
   margin: 0; }
 
@@ -144,8 +144,8 @@ hr {
   .tooltip:after {
     content: attr(data-tooltip);
     position: absolute;
-    bottom: -50%;
-    left: -250%;
+    bottom: -0.35em;
+    left: -2.5em;
     background: #1E6BA3;
     padding: 5px 15px;
     color: #fff;
@@ -156,8 +156,7 @@ hr {
     opacity: 0;
     -webkit-transition: all 0.4s ease;
     -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease;
-    z-index: 3000; }
+    transition: all 0.4s ease; }
 
 .tooltip:hover:after {
   opacity: 1; }
@@ -224,7 +223,7 @@ body.info {
         padding: 50px 30px 50px; } }
     .overlay .overlay-container.transparent {
       background: rgba(0, 0, 0, 0.4);
-      height: 90vh; }
+      height: 80vh; }
     .overlay .overlay-container:last-child {
       min-height: 100vh;
       box-sizing: border-box; }

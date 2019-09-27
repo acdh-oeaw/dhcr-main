@@ -51,8 +51,8 @@
             &.name { width: 25%; }
             &.university { width: 25%; }
             &.location { width: 20%; }
-            &.period { width: 20%; }
-            &.type { width: 10%; }
+            &.period { width: 15%; }
+            &.type { width: 15%; }
             @include respond-to(handhelds) {
                 &.name { width: 30%; }
                 //&.university { width: 25%; }
