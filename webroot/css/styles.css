@@ -92,10 +92,11 @@ a {
 
 button, .button {
   height: 46px;
+  outline: none;
   display: inline-block;
   border-radius: 24px;
   border: solid 2px #1E6BA3;
-  background-color: transparent;
+  background-color: #fff;
   font-family: bebas;
   font-size: 24px;
   font-weight: normal;
@@ -107,13 +108,13 @@ button, .button {
   text-decoration: none;
   color: #1E6BA3;
   text-transform: uppercase;
-  padding: 2px 30px 0;
+  padding: 2px 20px 0;
   cursor: pointer;
   transition: all 0.3s; }
   button.blue, .button.blue {
     background-color: #1E6BA3;
     color: #fff; }
-  button:hover, button.animate, .button:hover, .button.animate {
+  button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
 
@@ -137,29 +138,21 @@ hr {
   clear: both;
   display: table; }
 
-.tooltip {
-  position: relative;
-  text-decoration: none;
-  cursor: pointer; }
-  .tooltip:after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -0.35em;
-    left: -2.5em;
-    background: #1E6BA3;
-    padding: 5px 15px;
-    color: #fff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    white-space: nowrap;
-    opacity: 0;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease; }
+.recurring {
+  background: url("../img/repeat.png") left bottom/contain no-repeat;
+  padding-left: 1.4em;
+  padding-bottom: 0.2em;
+  line-height: 0.85em;
+  font-size: inherit;
+  display: inline-block; }
 
-.tooltip:hover:after {
-  opacity: 1; }
+table .recurring {
+  color: transparent;
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  background: url("../img/repeat.png") center/contain no-repeat;
+  vertical-align: middle; }
 
 .flex-columns {
   display: flex;
@@ -170,12 +163,42 @@ hr {
     flex: 0 1 45%;
     min-width: 300px;
     padding: 0 15px; }
+    .flex-columns .flex-item.single-col {
+      flex: 0 1 90%; }
   @media only screen and (max-width: 750px) {
     .flex-columns {
       display: block; }
       .flex-columns .flex-item {
         margin-bottom: 3em;
         min-width: initial; } }
+
+.grid-container {
+  display: grid;
+  grid-column-gap: 4%;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]); }
+  @media only screen and (max-width: 980px) {
+    .grid-container {
+      grid-template-columns: [col-start] 100% [col-end]; } }
+  .grid-container .item {
+    display: grid;
+    grid-column-gap: 5%;
+    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end]; }
+    .grid-container .item .term {
+      overflow: hidden; }
+    .grid-container .item .data {
+      grid-column-end: span 1;
+      overflow: hidden; }
+    .grid-container .item.single-col {
+      grid-column: col-start 1 / col-end -1;
+      grid-column-gap: 2%;
+      grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]); }
+      @media only screen and (max-width: 980px) {
+        .grid-container .item.single-col {
+          grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+          grid-column-gap: 5%; } }
+      .grid-container .item.single-col .data {
+        grid-column: col-middle 1 / col-end -1; }
 
 #header {
   position: relative;
@@ -291,7 +314,10 @@ hr {
           #header #menu button#login-button, #header #menu .button#login-button {
             display: none; } }
 
-body.home {
+body.view .leaflet-marker-icon {
+  cursor: default; }
+
+body.index, body.view {
   height: 100vh;
   padding: 0 15px;
   max-width: 90rem;
@@ -300,7 +326,7 @@ body.home {
   width: calc(100% - 2 * 15px);
   overflow: hidden; }
   @media only screen and (max-width: 750px) {
-    body.home {
+    body.index, body.view {
       font-size: 16px;
       line-height: 1.5;
       font-weight: 300;
@@ -309,7 +335,7 @@ body.home {
       margin: 0;
       max-width: initial;
       width: 100%; } }
-  body.home .overlay {
+  body.index .overlay, body.view .overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -319,48 +345,47 @@ body.home {
     overflow-x: hidden;
     overflow-y: auto;
     background-color: transparent; }
-    body.home .overlay .overlay-container {
+    body.index .overlay .overlay-container, body.view .overlay .overlay-container {
       margin: 0 auto;
       width: 100%;
       padding: 100px 135px 150px 135px;
       max-width: 90rem;
-      min-height: 100vh;
       background-color: #fff; }
       @media only screen and (max-width: 1000px) {
-        body.home .overlay .overlay-container {
+        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
           padding: 90px 100px 100px; } }
       @media only screen and (max-width: 885px) {
-        body.home .overlay .overlay-container {
+        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
           padding: 80px 70px 80px; } }
       @media only screen and (max-width: 750px) {
-        body.home .overlay .overlay-container {
+        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
           padding: 50px 30px 50px; } }
-      body.home .overlay .overlay-container.transparent {
+      body.index .overlay .overlay-container.transparent, body.view .overlay .overlay-container.transparent {
         background: rgba(0, 0, 0, 0.4);
-        height: 80vh; }
-      body.home .overlay .overlay-container:last-child {
+        height: 90vh; }
+      body.index .overlay .overlay-container:last-child, body.index .overlay .overlay-container:first-child, body.view .overlay .overlay-container:last-child, body.view .overlay .overlay-container:first-child {
         min-height: 100vh;
         box-sizing: border-box; }
-  body.home #intro .clarin-dariah-logo, body.home #page-head .clarin-dariah-logo {
+  body.index #intro .clarin-dariah-logo, body.index #page-head .clarin-dariah-logo, body.view #intro .clarin-dariah-logo, body.view #page-head .clarin-dariah-logo {
     float: left;
     display: block;
     clear: both;
     margin-right: 50px;
     width: auto; }
-    body.home #intro .clarin-dariah-logo img, body.home #page-head .clarin-dariah-logo img {
+    body.index #intro .clarin-dariah-logo img, body.index #page-head .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img, body.view #page-head .clarin-dariah-logo img {
       display: block;
       width: 23vw;
       max-width: 256px;
       min-width: 120px;
       height: auto; }
 @media only screen and (min-width: 751px) and (min-width: 1001px) {
-  body.home #intro h1, body.home #page-head h1 {
+  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  body.home #intro a, body.home #page-head a {
+  body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
     text-decoration: none; }
-  body.home #intro span#h1, body.home #page-head span#h1 {
+  body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 90px;
@@ -368,23 +393,23 @@ body.home {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  body.home #intro span#h2, body.home #page-head span#h2 {
+  body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
     color: #2387aa;
     margin-right: 30px; }
-  body.home #intro span#h3, body.home #page-head span#h3 {
+  body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
     color: #1E6BA3; }
-  body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+  body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
     letter-spacing: 6px;
     font-family: metropolis, sans-serif;
     font-size: 48px; } }
 @media only screen and (min-width: 751px) and (max-width: 1000px) {
-  body.home #intro h1, body.home #page-head h1 {
+  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  body.home #intro a, body.home #page-head a {
+  body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
     text-decoration: none; }
-  body.home #intro span#h1, body.home #page-head span#h1 {
+  body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 9vw;
@@ -392,24 +417,24 @@ body.home {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  body.home #intro span#h2, body.home #page-head span#h2 {
+  body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
     color: #2387aa;
     margin-right: 3vw; }
-  body.home #intro span#h3, body.home #page-head span#h3 {
+  body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
     color: #1E6BA3; }
-  body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+  body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
     letter-spacing: 0.6vw;
     font-family: metropolis, sans-serif;
     font-size: 4.8vw; } }
 
   @media only screen and (max-width: 750px) {
-    body.home #intro h1, body.home #page-head h1 {
+    body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
       font-weight: bold;
       text-transform: uppercase;
       line-height: normal; }
-    body.home #intro a, body.home #page-head a {
+    body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
       text-decoration: none; }
-    body.home #intro span#h1, body.home #page-head span#h1 {
+    body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
       color: #61A845;
       font-family: bebas, sans-serif;
       font-size: 12vw;
@@ -417,61 +442,90 @@ body.home {
       line-height: 1;
       font-weight: normal;
       letter-spacing: 0; }
-    body.home #intro span#h2, body.home #page-head span#h2 {
+    body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
       color: #2387aa;
       margin-right: 4vw; }
-    body.home #intro span#h3, body.home #page-head span#h3 {
+    body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
       color: #1E6BA3; }
-    body.home #intro #h2, body.home #intro #h3, body.home #page-head #h2, body.home #page-head #h3 {
+    body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
       letter-spacing: 0.8vw;
       font-family: metropolis, sans-serif;
-      font-size: 6.4vw; } }
-  @media only screen and (max-width: 690px) {
-    body.home #intro .clarin-dariah-logo, body.home #page-head .clarin-dariah-logo {
+      font-size: 6.4vw; }
+    body.index #intro .clarin-dariah-logo, body.index #page-head .clarin-dariah-logo, body.view #intro .clarin-dariah-logo, body.view #page-head .clarin-dariah-logo {
       float: none;
       display: block;
       width: min-content;
       margin: 0 auto 50px; }
-      body.home #intro .clarin-dariah-logo img, body.home #page-head .clarin-dariah-logo img {
+      body.index #intro .clarin-dariah-logo img, body.index #page-head .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img, body.view #page-head .clarin-dariah-logo img {
         height: 120px;
         width: auto; } }
-  body.home #intro h1, body.home #page-head h1 {
+  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
     margin: 0 auto 80px;
     text-align: center; }
-  body.home #intro p, body.home #page-head p {
-    font-size: 1.7vw;
+  body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+    font-size: 1.95vw;
     line-height: 1.5;
     color: #1E6BA3; }
-    @media only screen and (min-width: 1270px) {
-      body.home #intro p, body.home #page-head p {
+    @media only screen and (min-width: 1127px) {
+      body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
         font-size: 24px; } }
     @media only screen and (max-width: 750px) {
-      body.home #intro p, body.home #page-head p {
-        font-size: 17px; } }
-  body.home #intro .flex-item h2, body.home #page-head .flex-item h2 {
+      body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+        font-size: 24px;
+        text-align: center;
+        margin: 0 auto 1em;
+        max-width: 430px; } }
+  @media only screen and (max-width: 750px) and (max-width: 690px) {
+    body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+      font-size: 20px; } }
+  @media only screen and (max-width: 750px) and (max-width: 400px) {
+    body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+      font-size: 17px; } }
+
+  body.index #intro .flex-item h2, body.index #page-head .flex-item h2, body.view #intro .flex-item h2, body.view #page-head .flex-item h2 {
     font-size: 50px;
     text-align: center;
-    margin-bottom: 65px; }
-  body.home #intro .flex-item p, body.home #page-head .flex-item p {
+    margin-bottom: 1em;
+    margin-top: 1.5em; }
+  body.index #intro .flex-item .illustration, body.index #page-head .flex-item .illustration, body.view #intro .flex-item .illustration, body.view #page-head .flex-item .illustration {
+    display: block;
+    height: auto;
+    width: calc(100% - 20px);
+    margin-right: 15px;
+    margin-left: 5px;
+    margin-bottom: 50px; }
+  @media only screen and (max-width: 750px) {
+    body.index #intro .flex-item .illustration, body.index #page-head .flex-item .illustration, body.view #intro .flex-item .illustration, body.view #page-head .flex-item .illustration {
+      width: calc(100% - 10vw);
+      max-width: 400px;
+      margin: 0 auto 4em; } }
+  body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
     color: #1E6BA3;
-    font-size: 20px;
+    font-size: 1.95vw;
     line-height: 1.25; }
-    @media only screen and (min-width: 1270px) {
-      body.home #intro .flex-item p, body.home #page-head .flex-item p {
+    @media only screen and (min-width: 1127px) {
+      body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
         font-size: 24px; } }
     @media only screen and (max-width: 750px) {
-      body.home #intro .flex-item p, body.home #page-head .flex-item p {
-        font-size: 17px;
-        flex: 1 1 45%; } }
-    @media only screen and (max-width: 400px) {
-      body.home #intro .flex-item p, body.home #page-head .flex-item p {
-        font-size: 15px; } }
-  body.home #intro .flex-item button, body.home #intro .flex-item .button, body.home #page-head .flex-item button, body.home #page-head .flex-item .button {
-    margin: 0 auto;
+      body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+        font-size: 24px;
+        text-align: center;
+        flex: 1 1 45%;
+        margin: 0 auto 5em;
+        max-width: 430px; } }
+  @media only screen and (max-width: 750px) and (max-width: 690px) {
+    body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+      font-size: 20px; } }
+  @media only screen and (max-width: 750px) and (max-width: 400px) {
+    body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+      font-size: 17px; } }
+
+  body.index #intro .flex-item button, body.index #intro .flex-item .button, body.index #page-head .flex-item button, body.index #page-head .flex-item .button, body.view #intro .flex-item button, body.view #intro .flex-item .button, body.view #page-head .flex-item button, body.view #page-head .flex-item .button {
+    margin: 40px auto 0;
     display: block;
     width: min-content;
     white-space: nowrap; }
-  body.home #container {
+  body.index #container, body.view #container {
     height: calc(100% - 144px);
     display: flex;
     flex-wrap: nowrap;
@@ -480,59 +534,113 @@ body.home {
     position: relative;
     top: 0px;
     overflow: hidden; }
-    body.home #container #view h1 {
-      font-size: 40px;
+    body.index #container #view h1, body.view #container #view h1 {
+      font-size: 35px;
       font-family: metropolis;
-      font-weight: bold; }
+      font-weight: bold;
+      margin: 0 0 0.5em;
+      padding-top: 1em; }
       @media only screen and (max-width: 750px) {
-        body.home #container #view h1 {
+        body.index #container #view h1, body.view #container #view h1 {
           font-size: 30px; } }
-    body.home #container #view .subtitle {
-      font-style: italic; }
-    body.home #container #view .strong {
+    body.index #container #view .subtitle, body.view #container #view .subtitle {
+      font-style: italic;
+      font-size: 20px; }
+      @media only screen and (max-width: 750px) {
+        body.index #container #view .subtitle, body.view #container #view .subtitle {
+          font-size: 14px; } }
+    body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a, body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a {
+      font-size: 18px; }
+      @media only screen and (max-width: 750px) {
+        body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a, body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a {
+          font-size: 16px; } }
+    body.index #container #view .strong, body.view #container #view .strong {
       font-weight: bold;
       margin-bottom: 0.3em; }
-    body.home #container #view hr {
-      margin: 2em 0; }
-    body.home #container #view .flex-columns {
-      justify-content: space-between; }
-      body.home #container #view .flex-columns .flex-item {
-        padding: 0; }
-        body.home #container #view .flex-columns .flex-item .term {
+    body.index #container #view .text, body.view #container #view .text {
+      white-space: pre-line;
+      margin-bottom: 2em; }
+    body.index #container #view hr, body.view #container #view hr {
+      margin-bottom: 2em; }
+      @media only screen and (max-width: 750px) {
+        body.index #container #view hr, body.view #container #view hr {
+          display: none; } }
+      body.index #container #view hr:last-child, body.view #container #view hr:last-child {
+        margin-bottom: 0; }
+        body.index #container #view hr:last-child::after, body.view #container #view hr:last-child::after {
+          content: "";
+          display: block;
+          height: 5em; }
+    body.index #container #view #locationMap, body.view #container #view #locationMap {
+      height: 300px;
+      width: 100%;
+      margin: 3em 0 3em;
+      clear: both; }
+      @media only screen and (min-width: 751px) {
+        body.index #container #view #locationMap, body.view #container #view #locationMap {
+          display: none; } }
+      body.index #container #view #locationMap .leaflet-marker-icon, body.view #container #view #locationMap .leaflet-marker-icon {
+        cursor: grab; }
+    body.index #container #view .buttons, body.view #container #view .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 2em 0;
+      padding: 0 0 2em;
+      border-bottom: 2px solid #1E6BA3; }
+      @media only screen and (max-width: 400px) {
+        body.index #container #view .buttons, body.view #container #view .buttons {
+          justify-content: center; } }
+      body.index #container #view .buttons button, body.view #container #view .buttons button {
+        padding: 2px 20px 0;
+        flex: 0 0 25%;
+        min-width: 155px;
+        margin: 0 10px 20px 10px; }
+        @media only screen and (max-width: 400px) {
+          body.index #container #view .buttons button, body.view #container #view .buttons button {
+            margin-left: 0;
+            margin-right: 0; } }
+        body.index #container #view .buttons button:first-child, body.view #container #view .buttons button:first-child {
+          margin-left: 0; }
+        body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate {
+          transform: scale(1.05);
+          transform-origin: left center;
+          text-decoration: none; }
+    body.index #container #view .grid-container, body.view #container #view .grid-container {
+      margin-bottom: 1em; }
+      body.index #container #view .grid-container .item, body.view #container #view .grid-container .item {
+        padding: 0;
+        margin-bottom: 0.15em; }
+        body.index #container #view .grid-container .item p, body.view #container #view .grid-container .item p {
+          margin-bottom: 0.3em; }
+        body.index #container #view .grid-container .item .term, body.view #container #view .grid-container .item .term {
           color: #1E6BA3;
-          font-weight: bold;
-          width: 40%;
-          float: left;
-          padding-right: 1em;
-          box-sizing: border-box; }
-        body.home #container #view .flex-columns .flex-item .data {
-          float: left;
-          width: 60%; }
+          font-weight: bold; }
     @media only screen and (min-width: 751px) {
-      body.home #container {
+      body.index #container, body.view #container {
         min-width: 750px; }
-        body.home #container #table {
+        body.index #container #table, body.view #container #table {
           flex: 1 0 500px;
           border-top: 2px solid #1E6BA3;
           margin-right: 15px;
           padding-top: 15px; }
-        body.home #container #map {
+        body.index #container #map, body.view #container #map {
           flex: 1 1 220px; }
-        body.home #container #slide-control {
+        body.index #container #slide-control, body.view #container #slide-control {
           display: none; } }
     @media only screen and (max-width: 750px) {
-      body.home #container {
+      body.index #container, body.view #container {
         width: 100%;
         min-width: initial;
         position: initial; }
-        body.home #container #map {
+        body.index #container #map, body.view #container #map {
           width: 100%;
           flex: 0 0 100%; }
-        body.home #container #table {
+        body.index #container #table, body.view #container #table {
           padding: 0 5px 0 15px;
           flex: 0 0 calc(100% - 15px);
           margin-right: 45px; }
-          body.home #container #table::after {
+          body.index #container #table::after, body.view #container #table::after {
             position: absolute;
             bottom: 0;
             width: 100%;
@@ -540,7 +648,7 @@ body.home {
             background-image: linear-gradient(to bottom, transparent, #fff);
             border-bottom: 2px solid #1E6BA3;
             content: ""; }
-        body.home #container #slide-control {
+        body.index #container #slide-control, body.view #container #slide-control {
           display: block;
           position: absolute;
           height: 50px;
@@ -554,26 +662,26 @@ body.home {
           z-index: 500;
           cursor: pointer;
           transition: transform 0.3s; }
-          body.home #container #slide-control:hover {
+          body.index #container #slide-control:hover, body.view #container #slide-control:hover {
             transform: scale(1.1, 1.1); } }
-    body.home #container .leaflet-popup .leaflet-popup-close-button {
+    body.index #container .leaflet-popup .leaflet-popup-close-button, body.view #container .leaflet-popup .leaflet-popup-close-button {
       display: none; }
-    body.home #container .leaflet-popup .leaflet-popup-tip, body.home #container .leaflet-popup .leaflet-popup-content-wrapper {
+    body.index #container .leaflet-popup .leaflet-popup-tip, body.index #container .leaflet-popup .leaflet-popup-content-wrapper, body.view #container .leaflet-popup .leaflet-popup-tip, body.view #container .leaflet-popup .leaflet-popup-content-wrapper {
       background-color: #1E6BA3; }
-    body.home #container .leaflet-popup .leaflet-popup-content p {
+    body.index #container .leaflet-popup .leaflet-popup-content p, body.view #container .leaflet-popup .leaflet-popup-content p {
       color: #fff;
       font-family: metropolis;
       font-size: 11px;
       position: relative;
       margin: 0.7em 0;
       width: 100%; }
-    body.home #container .leaflet-popup .leaflet-popup-content h1 {
+    body.index #container .leaflet-popup .leaflet-popup-content h1, body.view #container .leaflet-popup .leaflet-popup-content h1 {
       color: #fff;
       font-family: metropolis;
       font-size: 11px;
       font-weight: bold;
       margin: 0.8em 0; }
-    body.home #container .leaflet-popup .leaflet-popup-content a.details {
+    body.index #container .leaflet-popup .leaflet-popup-content a.details, body.view #container .leaflet-popup .leaflet-popup-content a.details {
       color: transparent;
       display: block;
       width: 10px;
@@ -586,42 +694,35 @@ body.home {
       left: calc(100% - 7px);
       border-radius: 1px;
       transition: transform 0.3s; }
-      body.home #container .leaflet-popup .leaflet-popup-content a.details:hover {
+      body.index #container .leaflet-popup .leaflet-popup-content a.details:hover, body.view #container .leaflet-popup .leaflet-popup-content a.details:hover {
         transform: scale(1.5) rotate(45deg);
         border-radius: 2px; }
-    body.home #container #table .error {
+    body.index #container #table .error, body.view #container #table .error {
       height: 100%; }
-    body.home #container #table .loading {
+    body.index #container #table .loading, body.view #container #table .loading {
       height: 100%;
       font-size: 0; }
-    body.home #container #table table {
+    body.index #container #table table, body.view #container #table table {
       white-space: normal;
       font-size: 11px;
       table-layout: fixed;
       width: 100%;
       margin-right: 5px;
       position: relative; }
-      body.home #container #table table th, body.home #container #table table td {
+      body.index #container #table table th, body.index #container #table table td, body.view #container #table table th, body.view #container #table table td {
         border-bottom: 1px solid #d8d8d8;
         overflow: hidden; }
         @media only screen and (max-width: 750px) {
-          body.home #container #table table th.university, body.home #container #table table td.university {
+          body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
-      body.home #container #table table td {
+      body.index #container #table table td, body.view #container #table table td {
         padding: 0 8px 4px 0;
         vertical-align: center; }
-        body.home #container #table table td:last-child {
+        body.index #container #table table td:last-child, body.view #container #table table td:last-child {
           padding-right: 0; }
-        body.home #container #table table td span.recurring {
-          color: transparent;
-          height: 15px;
-          width: 15px;
-          display: inline-block;
-          background: url("../img/repeat.png") center/contain no-repeat;
-          vertical-align: middle; }
-      body.home #container #table table tr:last-child td {
+      body.index #container #table table tr:last-child td, body.view #container #table table tr:last-child td {
         border: none; }
-      body.home #container #table table th {
+      body.index #container #table table th, body.view #container #table table th {
         font-family: bebas;
         font-size: 24px;
         font-weight: normal;
@@ -629,28 +730,28 @@ body.home {
         color: #1E6BA3;
         margin-left: 5px;
         white-space: nowrap; }
-        body.home #container #table table th.name {
+        body.index #container #table table th.name, body.view #container #table table th.name {
           width: 25%; }
-        body.home #container #table table th.university {
+        body.index #container #table table th.university, body.view #container #table table th.university {
           width: 25%; }
-        body.home #container #table table th.location {
+        body.index #container #table table th.location, body.view #container #table table th.location {
           width: 20%; }
-        body.home #container #table table th.period {
+        body.index #container #table table th.period, body.view #container #table table th.period {
           width: 15%; }
-        body.home #container #table table th.type {
+        body.index #container #table table th.type, body.view #container #table table th.type {
           width: 15%; }
         @media only screen and (max-width: 750px) {
-          body.home #container #table table th.name {
+          body.index #container #table table th.name, body.view #container #table table th.name {
             width: 30%; }
-          body.home #container #table table th.location {
+          body.index #container #table table th.location, body.view #container #table table th.location {
             width: 25%; }
-          body.home #container #table table th.period {
+          body.index #container #table table th.period, body.view #container #table table th.period {
             width: 20%; }
-          body.home #container #table table th.type {
+          body.index #container #table table th.type, body.view #container #table table th.type {
             width: 25%; } }
-        body.home #container #table table th:last-child {
+        body.index #container #table table th:last-child, body.view #container #table table th:last-child {
           margin-left: 0; }
-        body.home #container #table table th span {
+        body.index #container #table table th span, body.view #container #table table th span {
           width: 10px;
           height: 10px;
           display: inline-block;
@@ -662,7 +763,7 @@ body.home {
           border-top: none;
           border-left: none;
           cursor: pointer; }
-          body.home #container #table table th span:hover {
+          body.index #container #table table th span:hover, body.view #container #table table th span:hover {
             transform: rotate(-135deg);
             bottom: 1px; }
 

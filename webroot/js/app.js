@@ -10,14 +10,14 @@ class App {
             filter:     {},
             breakPoint: 750,
             id: false,
-            action: 'index',
+            action: 'index',    // the controller action called. the app will behave differently...
             layout: 'screen'
         };
     }
 
     constructor(options) {
         this.data = {};
-        this.layout = this.view = this.id = this.filter = null;
+        this.layout = this.action = this.id = this.filter = null;
         this.mapApiKey = this.apiUrl = this.breakPoint = null;
 
         if(typeof options == 'object')
@@ -45,7 +45,7 @@ class App {
             }.bind(this);
             document.getElementById('start').addEventListener('click', f);
         }
-        this.resizeListener();
+
         this.map = new Map({
             htmlIdentifier: 'map',
             apiKey: this.mapApiKey
@@ -58,12 +58,15 @@ class App {
             this.getCourses();
         if(this.action == 'view') {
             this.getCourse();
+            $('#intro').css({display: 'none'});
             this.status = 'view';
         }
 
         window.addEventListener('resize', function () {
             this.resizeListener();
         }.bind(this));
+
+        this.resizeListener();
 
         // intro related code
         if(Cookies.get('hideIntro') == 'true') {
@@ -78,7 +81,7 @@ class App {
         if(intro.getBoundingClientRect().top <= container.offsetTop) {
             let maxMargin = - (this.slider.viewportWidth + this.slider.cssMargin);
             let iconPosition = 'left';
-            let margin = 1.5 * (intro.getBoundingClientRect().top - container.offsetTop);
+            let margin = 1.8 * (intro.getBoundingClientRect().top - container.offsetTop);
             if(margin <= maxMargin) {
                 // "map" state
                 this.slider.slide.style.marginLeft = 0;
@@ -108,12 +111,12 @@ class App {
                 this.intro.addEventListener('scroll', this.scrollListener);
             }
         }
-        this.scrollable.updateSize();
         this.updateSize();
+        this.scrollable.updateSize();
     }
 
     updateSize() {
-        let bottom = 10;
+        let bottom = 20;
         if(this.layout == 'mobile') bottom = 35;
         $('#container').css({
             // get header outer height including margins (true)
@@ -136,6 +139,7 @@ class App {
         return retval;
     }
 
+    // called on view action only
     getCourse() {
         $.ajax({
             url: this.apiUrl + 'courses/view/' + this.id,
@@ -147,9 +151,8 @@ class App {
         }).done(function( data ) {
             this.data = {};
             this.data[data.id] = data;
-            this.map.setMarkers(this.data);
+            this.map.setMarkers(this.data, false);
             this.setView();
-            this.scrollable.updateSize();
         }).fail(function (jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
         });
@@ -186,7 +189,8 @@ class App {
     setView(id) {
         id = id || this.id;
         this.table.createView(this.data[id]);
-        this.map.openMarker(id);
+        if(this.action == 'index') this.map.openMarker(id);
+        if(this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
         this.scrollable.updateSize();
         this.status = 'view';
         if(this.layout == 'mobile') {
@@ -200,7 +204,7 @@ class App {
         }
         if(this.action == 'view') {
             // reload
-            this.window.location = BASE_URL;
+            window.location = BASE_URL;
         }
     }
 

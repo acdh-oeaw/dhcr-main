@@ -14,40 +14,44 @@ use Cake\Routing\Router;
             'alt' => 'CLARIN-DARIAH joint logo',
             'width' => 256,
             'height' => 200]), '/', ['escape' => false, 'class' => 'clarin-dariah-logo']) ?>
-        <p>
+        <p class="intent">
             The Digital Humanities Course Registry is a joint effort of two
             European research infrastructures:
             <em>CLARIN ERIC</em> and <em>DARIAH-EU</em>.
         </p>
-        <p>
+        <p class="intent">
             It provides a curated database of teaching activities in the
             field of digital humanities worldwide.
         </p>
     </div>
     <div class="overlay-container transparent" id="transparent"></div>
-    <div class="overlay-container flex-columns">
-        <div class="flex-item">
-            <h2>Students</h2>
-            <p>
-                Students can find information about programmes and courses
-                in digital humanities offered in various places and universities.
-            </p>
+    <div class="overlay-container">
+        <div class="flex-columns">
+            <div class="flex-item">
+                <h2>Students</h2>
+                <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
+                <p>
+                    Students can find information about programmes and courses
+                    in digital humanities offered in various places and universities.
+                </p>
+            </div>
+            <div class="flex-item">
+                <h2>Lecturers</h2>
+                <?= $this->Html->image('lecturers.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
+                <p>
+                    Lecturers or programme directors can promote their teaching
+                    activities on the platform. <br />
+                    To add data, lecturers need to sign in.
+                </p>
+            </div>
         </div>
-        <div class="flex-item">
-            <h2>Lecturers</h2>
-            <p>
-                Lecturers or administrators can promote their teaching
-                activities on the platform. <br />
-                To add data, lecturers need to sign in.
-            </p>
-        </div>
-    </div>
-    <div class="overlay-container flex-columns">
-        <div class="flex-item">
-            <button class="blue" id="start">Go to Start</button>
-        </div>
-        <div class="flex-item">
-            <?= $this->Html->link('More Information', '/pages/info', ['class' => 'button']) ?>
+        <div class="flex-columns">
+            <div class="flex-item">
+                <button class="blue" id="start">Go to Start</button>
+            </div>
+            <div class="flex-item">
+                <?= $this->Html->link('More Information', '/pages/info', ['class' => 'button']) ?>
+            </div>
         </div>
     </div>
 </div>

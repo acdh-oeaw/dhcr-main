@@ -32,17 +32,7 @@
             &:last-child {
                 padding-right: 0;
             }
-            span {
-                &.recurring {
-                    color: transparent;
-                    height: 15px;
-                    width: 15px;
-                    //overflow: hidden;
-                    display: inline-block;
-                    background: url("../img/repeat.png") center/contain no-repeat;
-                    vertical-align: middle;
-                }
-            }
+
         }
         tr:last-child td {
             border: none;

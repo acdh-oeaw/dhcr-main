@@ -20,7 +20,6 @@
 
     .overlay-container {
         @include overlay-container(100px, 150px - $whitespace, 150px, 150px - $whitespace);
-        min-height: 100vh;
         background-color: #fff;
 
         @media only screen and (max-width: 1000px) {
@@ -38,9 +37,9 @@
         &.transparent {
             // make the app visible through opaque overlay
             background:rgba(0,0,0,0.4);
-            height: 80vh;
+            height: 90vh;
         }
-        &:last-child {
+        &:last-child, &:first-child {
             min-height: 100vh;
             box-sizing: border-box;
         }
@@ -72,8 +71,6 @@
     }
     @include respond-to(handhelds) {
         @include logo-text-vwr(0.8);
-    }
-    @media only screen and (max-width: 690px) {
         .clarin-dariah-logo {
             float: none;
             display: block;
@@ -89,42 +86,73 @@
         margin: 0 auto 80px;
         text-align: center;
     }
-
-    p {
-        //font-size: 24px;
-        font-size: 1.7vw;
+    p.intent {
+        font-size: 1.95vw;
         line-height: 1.5;
         color: $blue;
-        @media only screen and (min-width: 1270px) {
+        @media only screen and (min-width: 1127px) {
             font-size: 24px;
         }
         @include respond-to(handhelds) {
-            font-size: 17px;
+            font-size: 24px;
+            text-align: center;
+            margin: 0 auto 1em;
+            max-width: 430px;
+            @media only screen and (max-width: 690px) {
+                font-size: 20px;
+            }
+            @media only screen and (max-width: 400px) {
+                font-size: 17px;
+            }
         }
     }
+
     .flex-item {
+        // students & lecturers
         h2 {
             font-size: 50px;
             text-align: center;
-            margin-bottom: 65px;
+            margin-bottom: 1em;
+            margin-top: 1.5em;
+        }
+        .illustration {
+            display: block;
+            height: auto;
+            width: calc(100% - 20px);
+            margin-right: 15px;
+            margin-left: 5px;
+            margin-bottom: 50px
+        }
+        @include respond-to(handhelds) {
+            .illustration {
+                width: calc(100% - 10vw);
+                max-width: 400px;
+                margin: 0 auto 4em;
+            }
         }
         p {
             color: $blue;
-            font-size: 20px;
+            font-size: 1.95vw;
             line-height: 1.25;
-            @media only screen and (min-width: 1270px) {
+            @media only screen and (min-width: 1127px) {
                 font-size: 24px;
             }
             @include respond-to(handhelds) {
-                font-size: 17px;
+                font-size: 24px;
+                text-align: center;
                 flex: 1 1 45%;
-            }
-            @media only screen and (max-width: 400px) {
-                font-size: 15px;
+                margin: 0 auto 5em;
+                max-width: 430px;
+                @media only screen and (max-width: 690px) {
+                    font-size: 20px;
+                }
+                @media only screen and (max-width: 400px) {
+                    font-size: 17px;
+                }
             }
         }
         button, .button {
-            margin: 0 auto;
+            margin: 40px auto 0;
             display: block;
             width: min-content;
             white-space: nowrap;

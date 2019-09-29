@@ -35,9 +35,9 @@ use Cake\Routing\Router;
         <?= $this->Html->meta('icon') ?>
     </head>
     
-    <body class="home">
+    <body class="<?= $this->request->getParam('action') ?>">
         <?php
-        if(!$this->request->getCookie('hideIntro'))
+        if(!$this->request->getCookie('hideIntro') AND $this->request->getParam('action') == 'index')
             echo $this->element('intro');
         ?>
         
@@ -80,7 +80,7 @@ use Cake\Routing\Router;
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
         
-        <?= $this->Html->script(['scroll','slide','map','table','app']) ?>
+        <?= $this->Html->script(['scroll','slide','map','table','helper','app']) ?>
         
         <?= $this->element('script') ?>
     </body>

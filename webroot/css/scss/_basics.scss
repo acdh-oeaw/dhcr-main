@@ -95,10 +95,11 @@ button, .button {
         color: #fff;
     }
     height: 46px;
+    outline: none;
     display: inline-block;
     border-radius: 24px;
     border: solid 2px $blue;
-    background-color: transparent;
+    background-color: #fff;
     font-family: bebas;
     font-size: 24px;
     font-weight: normal;
@@ -110,10 +111,10 @@ button, .button {
     text-decoration: none;
     color: $blue;
     text-transform: uppercase;
-    padding: 2px 30px 0;
+    padding: 2px 20px 0;
     cursor: pointer;
     transition: all 0.3s;
-    &:hover, &.animate {
+    &:hover, &.animate, &.focus {
         transform: scale(1.1);
         text-decoration: none;
     }
@@ -139,32 +140,26 @@ hr {
 }
 
 
-.tooltip {
-    position: relative;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:after {
-        content: attr(data-tooltip);
-        position: absolute;
-        bottom: -0.35em;
-        left: -2.5em;
-        background: $blue;
-        padding: 5px 15px;
-        color: #fff;
-        -webkit-border-radius: 10px;
-        -moz-border-radius: 10px;
-        border-radius: 10px;
-        white-space: nowrap;
-        opacity: 0;
-        -webkit-transition: all 0.4s ease;
-        -moz-transition: all 0.4s ease;
-        transition: all 0.4s ease;
+.recurring {
+    background: url("../img/repeat.png") left bottom/contain no-repeat;
+    padding-left: 1.4em;
+    padding-bottom: 0.2em;
+    line-height: 0.85em;
+    font-size: inherit;
+    display: inline-block;
+}
+table {
+    .recurring {
+        color: transparent;
+        height: 15px;
+        width: 15px;
+        //overflow: hidden;
+        display: inline-block;
+        background: url("../img/repeat.png") center/contain no-repeat;
+        vertical-align: middle;
     }
 }
-.tooltip:hover:after {
-    opacity: 1;
-}
+
 
 .flex-columns {
     display: flex;
@@ -176,6 +171,9 @@ hr {
         flex: 0 1 45%;  // assume 2 columns
         min-width: 300px;
         padding: 0 $whitespace;
+        &.single-col {
+            flex: 0 1 90%;
+        }
     }
     @include respond-to(handhelds) {
         display: block;
@@ -185,3 +183,42 @@ hr {
         }
     }
 }
+
+$grid-break: 980px;
+.grid-container {
+    display: grid;
+    grid-column-gap: 4%;
+    grid-auto-flow: row;
+    grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]);
+    @media only screen and (max-width: $grid-break) {
+        grid-template-columns: [col-start] 100% [col-end];
+    }
+    .item {
+        display: grid;
+        grid-column-gap: 5%;
+        grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+        .term {
+            overflow: hidden;
+        }
+        .data {
+            grid-column-end: span 1;
+            overflow: hidden;
+        }
+        // default span is one, but not for single-colums: span from first to last line
+        &.single-col {
+            grid-column: col-start 1 / col-end -1;
+            grid-column-gap: 2%;
+            // account for the gap
+            grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
+            @media only screen and (max-width: $grid-break) {
+                grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+                grid-column-gap: 5%;
+            }
+            // data spans all columns except for the first
+            .data {
+                grid-column: col-middle 1 / col-end -1;
+            }
+        }
+    }
+}
+

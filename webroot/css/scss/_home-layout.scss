@@ -1,6 +1,10 @@
+body.view {
+    .leaflet-marker-icon {
+        cursor: default;
+    }
+}
 
-
-body.home {
+body.index, body.view {
     height: 100vh;
     padding: 0 $whitespace;
     max-width: $max_width;
@@ -31,44 +35,7 @@ body.home {
         top: 0px;
         overflow: hidden;
 
-        #view {
-            h1 {
-                font-size: 40px;
-                font-family: metropolis;
-                font-weight: bold;
-                @include respond-to(handhelds) {
-                    font-size: 30px;
-                }
-            }
-            .subtitle {
-                font-style: italic;
-            }
-            .strong {
-                font-weight: bold;
-                margin-bottom: 0.3em;
-            }
-            hr {
-                margin: 2em 0;
-            }
-            .flex-columns {
-                justify-content: space-between;
-                .flex-item {
-                    padding: 0;
-                    .term {
-                        color: $blue;
-                        font-weight: bold;
-                        width: 40%;
-                        float: left;
-                        padding-right: 1em;
-                        box-sizing: border-box;
-                    }
-                    .data {
-                        float: left;
-                        width: 60%;
-                    }
-                }
-            }
-        }
+        @import "view";
 
         @include respond-to(screens){
             min-width: $break_point;

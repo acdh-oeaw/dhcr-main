@@ -1,0 +1,102 @@
+#view {
+    h1 {
+        font-size: 35px;
+        font-family: metropolis;
+        font-weight: bold;
+        margin: 0 0 0.5em;
+        padding-top: 1em;   // for margin sticking out of containing box problem
+        @include respond-to(handhelds) {
+            font-size: 30px;
+        }
+    }
+    .subtitle {
+        font-style: italic;
+        font-size: 20px;
+        @include respond-to(handhelds) {
+            font-size: 14px;
+        }
+    }
+    .text, .term, .data, a {
+        font-size: 18px;
+        @include respond-to(handhelds) {
+            font-size: 16px;
+        }
+    }
+    .strong {
+        font-weight: bold;
+        margin-bottom: 0.3em;
+    }
+    .text {
+        white-space: pre-line;
+        margin-bottom: 2em;
+    }
+    hr {
+        @include respond-to(handhelds) {
+            display: none;
+        }
+        margin-bottom: 2em;
+        &:last-child {
+            margin-bottom: 0;
+            &::after {
+                content: "";
+                display: block;
+                height: 5em;
+            }
+        }
+    }
+    #locationMap {
+        @include respond-to(screens) {
+            display: none;
+        }
+        height: 300px;
+        width: 100%;
+        margin: 3em 0 3em;
+        clear: both;
+        .leaflet-marker-icon {
+            cursor: grab;
+        }
+    }
+    .buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin: 2em 0;
+        padding: 0 0 2em;
+        border-bottom: 2px solid $blue;
+        @include respond-to(x-small) {
+            justify-content: center;
+        }
+        button {
+            padding: 2px 20px 0;
+            flex: 0 0 25%;
+            min-width: 155px;
+            margin: 0 10px 20px 10px;
+            @include respond-to(x-small) {
+                margin-left: 0;
+                margin-right: 0;
+            }
+            &:first-child {
+                margin-left: 0;
+            }
+            &:hover, &.animate {
+                transform: scale(1.05);
+                transform-origin: left center;
+                text-decoration: none;
+            }
+        }
+    }
+    .grid-container {
+        margin-bottom: 1em;
+        .item {
+            padding: 0;
+            margin-bottom: 0.15em;
+            p {
+                margin-bottom: 0.3em;
+            }
+            .term {
+                color: $blue;
+                font-weight: bold;
+            }
+        }
+    }
+}

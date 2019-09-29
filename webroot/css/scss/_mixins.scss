@@ -44,13 +44,22 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 320
 */
 @mixin respond-to($media) {
-    @if $media == handhelds {
-        // 30 * 16px = 480px
+    @if $media == x-small {
+        // smallest iPhone 350px
+        @media only screen and (max-width: 400px) { @content; }
+    }
+    @else if $media == handhelds {
+        // 500 - 700px
         @media only screen and (max-width: $break_point) { @content; }
     }
+    // default
     @else if $media == screens {
-        // 80 em on 16px fontsize -> 1280px
+        // tablets & small laptops
         @media only screen and (min-width: $break_point + 1) { @content; }
+    }
+    @else if $media == x-large {
+        // 80 em on 16px fontsize -> 1280px
+        @media only screen and (min-width: 1280px) { @content; }
     }
 }
 

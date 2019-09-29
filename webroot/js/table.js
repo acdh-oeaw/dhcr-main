@@ -7,7 +7,6 @@ class Table {
         // store the native DOM element, not jQuery
         this.element = elm;
         this.entries = {};
-        this.months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
     }
 
     setTable(courses) {
@@ -37,7 +36,7 @@ class Table {
 
     createTableRow(course) {
         let tr = $('<tr></tr>');
-        let duration = this.getTiming(course, ',<br />', ' ', '<br />');
+        let duration = ViewHelper.getTiming(course, ',<br />', ' ', '<br />');
         let type = course.course_type.name;
         if (course.online) type += ' <span class="online">online</span>';
         let limit = 59;
@@ -54,35 +53,33 @@ class Table {
         return tr;
     }
 
-    getTiming(course, dateSeparator = ', ', recurringSeparator = ', ', durationSeparator = '<br />') {
-        let result = '';
-        if(course.start_date) {
-            let split = course.start_date.split(/[;,]/);
-            let lastMonth;
-            for (let i = 0; split.length > i; i++) {
-                let date = new Date(split[i].trim())
-                if ((!course.recurring && date < new Date()) || (course.recurring && lastMonth == date.getMonth())) continue;     // omit past dates except for recurring starts
-                lastMonth = date.getMonth()
-                if (result != '') result += dateSeparator;
-                let day = (date.getDay() == 0) ? 1 : date.getDay();
-                result += day + ' ' + this.months[date.getMonth()];
-                if (!course.recurring) result += ' ' + date.getFullYear();
-            }
-        }
-        if(course.recurring) {
-            if (result != '') result += recurringSeparator;
-            result += '<span class="recurring tooltip" data-tooltip="recurring">recurring</span>';
-        }
-        if(course.duration) {
-            if (result != '') result += durationSeparator;
-            result += course.duration + ' ' + course.course_duration_unit.name;
-        }
-        return result;
-    }
+
 
     createView(course) {
         let el = $('<div id="view"></div>');
-        let timing = this.getTiming(course, ', ', ', ', '<br />');
+        let helper = new ViewHelper();
+        let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
+
+        let backActionLabel = (app.action == 'view') ? 'Go to Start' : 'Back to List';
+        let back = $('<button class="back">' + backActionLabel + '</button>')
+            .on('click', function() {app.closeView()});
+        let share = $('<button class="blue sharing">Share</button>')
+            .on('click', function(e) {
+                if (navigator.share) {
+                    console.log('navi')
+                    navigator.share({
+                        title: 'The Digital Humanities Course Registry',
+                        text: course.name,
+                        url: BASE_URL + 'courses/view/' + course.id
+                    }).then(() => {
+                        console.log('Thanks for sharing!');
+                    }).catch(console.error);
+                } else {
+                    shareDialog.classList.add('is-open');
+                    console.log('fallback')
+                }
+            });
+        el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));
         el.append($('<p class="subtitle">' + course.course_type.name + ', ' + timing + '</p>'));
@@ -93,29 +90,44 @@ class Table {
 
         el.append($('<hr />'));
 
-        let country = '<div class="flex-item"><p class="term">Country</p><p class="data">' + course.country.name + '</p></div>';
-        let city = '<div class="flex-item"><p class="term">City</p><p class="data">' + course.city.name + '</p></div>';
-        el.append($('<div class="flex-columns">' + country + city + '</div>'));
-        let uni = '<div class="flex-item"><p class="term">University</p><p class="data">' + course.institution.name + '</p></div>';
-        let dep = '<div class="flex-item"><p class="term">Department</p><p class="data">' + course.department + '</p></div>';
-        el.append($('<div class="flex-columns">' + uni + dep + '</div>'));
-        let lecturer = '<div class="flex-item"><p class="term">Lecturer</p><p class="data">' + course.contact_name + '</p></div>';
-        let credits = '<div class="flex-item"><p class="term">Credits</p><p class="data">' + course.ects + '</p></div>';
-        el.append($('<div class="flex-columns">' + lecturer + credits + '</div>'));
-        let language = '<div class="flex-item"><p class="term">Language</p><p class="data">' + course.language.name + '</p></div>';
-        let online = (course.online) ? '<div class="flex-item"><p class="term">Online</p><p class="data">yes</p></div>' : '';
-        el.append($('<div class="flex-columns">' + language + online + '</div>'));
+        helper.createTermData('Country', course.country.name).createGridItem();
+        helper.createTermData('City', course.city.name).createGridItem();
 
-        let back = $('<button class="flex-item back">Back to List</button>').on('click', function() {
-            app.closeView()
-        });
-        let share = $('<button class="sharing blue flex-item">Share</button>');
-        el.append($('<div class="flex-columns"></div>').append(back, share));
+        helper.createTermData('University', course.institution.name).createGridItem();
+        helper.createTermData('Department', course.department).createGridItem();
+
+        helper.createTermData('Lecturer', course.contact_name).createGridItem();
+        helper.createTermData('Credits', course.ects).createGridItem();
+
+        helper.createTermData('Language', course.language.name).createGridItem();
+        if(course.online) helper.createTermData('Online', 'yes').createGridItem();
+
+        if(course.info_url.length > 0 && course.info_url != 'null') {
+            let link = ViewHelper.createLink(course.info_url);
+            helper.createTermData('Website', link).createGridItem('single-col');
+        }
+        el.append($(helper.createGridContainer().result));
+
+        let location = $('<div id="locationMap"></div>');
+        el.append(location);
 
         el.append($('<hr />'));
 
         $(this.element).empty();
         $(this.element).append(el);
+
+        // init map after adding it to document
+        let map = new Map({
+            htmlIdentifier: 'locationMap',
+            apiKey: app.mapApiKey,
+            scrollWheelZoom: false
+        });
+        let id = course.id;
+        map.setMarkers({id: course}, false);
+        map.map.setView([course.lat, course.lon], 5);
+        map.map.on('focus', function() { map.map.scrollWheelZoom.enable(); });
+        map.map.on('mouseout', function() { map.map.scrollWheelZoom.disable()});
+        map.map.on('blur', function() { map.map.scrollWheelZoom.disable()});
     }
 
     setErrorMessage(msg) {

@@ -92,10 +92,11 @@ a {
 
 button, .button {
   height: 46px;
+  outline: none;
   display: inline-block;
   border-radius: 24px;
   border: solid 2px #1E6BA3;
-  background-color: transparent;
+  background-color: #fff;
   font-family: bebas;
   font-size: 24px;
   font-weight: normal;
@@ -107,13 +108,13 @@ button, .button {
   text-decoration: none;
   color: #1E6BA3;
   text-transform: uppercase;
-  padding: 2px 30px 0;
+  padding: 2px 20px 0;
   cursor: pointer;
   transition: all 0.3s; }
   button.blue, .button.blue {
     background-color: #1E6BA3;
     color: #fff; }
-  button:hover, button.animate, .button:hover, .button.animate {
+  button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
 
@@ -137,29 +138,21 @@ hr {
   clear: both;
   display: table; }
 
-.tooltip {
-  position: relative;
-  text-decoration: none;
-  cursor: pointer; }
-  .tooltip:after {
-    content: attr(data-tooltip);
-    position: absolute;
-    bottom: -0.35em;
-    left: -2.5em;
-    background: #1E6BA3;
-    padding: 5px 15px;
-    color: #fff;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    white-space: nowrap;
-    opacity: 0;
-    -webkit-transition: all 0.4s ease;
-    -moz-transition: all 0.4s ease;
-    transition: all 0.4s ease; }
+.recurring {
+  background: url("../img/repeat.png") left bottom/contain no-repeat;
+  padding-left: 1.4em;
+  padding-bottom: 0.2em;
+  line-height: 0.85em;
+  font-size: inherit;
+  display: inline-block; }
 
-.tooltip:hover:after {
-  opacity: 1; }
+table .recurring {
+  color: transparent;
+  height: 15px;
+  width: 15px;
+  display: inline-block;
+  background: url("../img/repeat.png") center/contain no-repeat;
+  vertical-align: middle; }
 
 .flex-columns {
   display: flex;
@@ -170,12 +163,42 @@ hr {
     flex: 0 1 45%;
     min-width: 300px;
     padding: 0 15px; }
+    .flex-columns .flex-item.single-col {
+      flex: 0 1 90%; }
   @media only screen and (max-width: 750px) {
     .flex-columns {
       display: block; }
       .flex-columns .flex-item {
         margin-bottom: 3em;
         min-width: initial; } }
+
+.grid-container {
+  display: grid;
+  grid-column-gap: 4%;
+  grid-auto-flow: row;
+  grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]); }
+  @media only screen and (max-width: 980px) {
+    .grid-container {
+      grid-template-columns: [col-start] 100% [col-end]; } }
+  .grid-container .item {
+    display: grid;
+    grid-column-gap: 5%;
+    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end]; }
+    .grid-container .item .term {
+      overflow: hidden; }
+    .grid-container .item .data {
+      grid-column-end: span 1;
+      overflow: hidden; }
+    .grid-container .item.single-col {
+      grid-column: col-start 1 / col-end -1;
+      grid-column-gap: 2%;
+      grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]); }
+      @media only screen and (max-width: 980px) {
+        .grid-container .item.single-col {
+          grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+          grid-column-gap: 5%; } }
+      .grid-container .item.single-col .data {
+        grid-column: col-middle 1 / col-end -1; }
 
 body.info {
   padding: 0 15px;
@@ -210,7 +233,6 @@ body.info {
     width: 100%;
     padding: 100px 135px 150px 135px;
     max-width: 90rem;
-    min-height: 100vh;
     background-color: #fff; }
     @media only screen and (max-width: 1000px) {
       .overlay .overlay-container {
@@ -223,8 +245,8 @@ body.info {
         padding: 50px 30px 50px; } }
     .overlay .overlay-container.transparent {
       background: rgba(0, 0, 0, 0.4);
-      height: 80vh; }
-    .overlay .overlay-container:last-child {
+      height: 90vh; }
+    .overlay .overlay-container:last-child, .overlay .overlay-container:first-child {
       min-height: 100vh;
       box-sizing: border-box; }
 
@@ -312,8 +334,7 @@ body.info {
   #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
     letter-spacing: 0.8vw;
     font-family: metropolis, sans-serif;
-    font-size: 6.4vw; } }
-@media only screen and (max-width: 690px) {
+    font-size: 6.4vw; }
   #intro .clarin-dariah-logo, #page-head .clarin-dariah-logo {
     float: none;
     display: block;
@@ -325,36 +346,66 @@ body.info {
 #intro h1, #page-head h1 {
   margin: 0 auto 80px;
   text-align: center; }
-#intro p, #page-head p {
-  font-size: 1.7vw;
+#intro p.intent, #page-head p.intent {
+  font-size: 1.95vw;
   line-height: 1.5;
   color: #1E6BA3; }
-  @media only screen and (min-width: 1270px) {
-    #intro p, #page-head p {
+  @media only screen and (min-width: 1127px) {
+    #intro p.intent, #page-head p.intent {
       font-size: 24px; } }
   @media only screen and (max-width: 750px) {
-    #intro p, #page-head p {
+    #intro p.intent, #page-head p.intent {
+      font-size: 24px;
+      text-align: center;
+      margin: 0 auto 1em;
+      max-width: 430px; } }
+  @media only screen and (max-width: 750px) and (max-width: 690px) {
+    #intro p.intent, #page-head p.intent {
+      font-size: 20px; } }
+  @media only screen and (max-width: 750px) and (max-width: 400px) {
+    #intro p.intent, #page-head p.intent {
       font-size: 17px; } }
+
 #intro .flex-item h2, #page-head .flex-item h2 {
   font-size: 50px;
   text-align: center;
-  margin-bottom: 65px; }
+  margin-bottom: 1em;
+  margin-top: 1.5em; }
+#intro .flex-item .illustration, #page-head .flex-item .illustration {
+  display: block;
+  height: auto;
+  width: calc(100% - 20px);
+  margin-right: 15px;
+  margin-left: 5px;
+  margin-bottom: 50px; }
+@media only screen and (max-width: 750px) {
+  #intro .flex-item .illustration, #page-head .flex-item .illustration {
+    width: calc(100% - 10vw);
+    max-width: 400px;
+    margin: 0 auto 4em; } }
 #intro .flex-item p, #page-head .flex-item p {
   color: #1E6BA3;
-  font-size: 20px;
+  font-size: 1.95vw;
   line-height: 1.25; }
-  @media only screen and (min-width: 1270px) {
+  @media only screen and (min-width: 1127px) {
     #intro .flex-item p, #page-head .flex-item p {
       font-size: 24px; } }
   @media only screen and (max-width: 750px) {
     #intro .flex-item p, #page-head .flex-item p {
-      font-size: 17px;
-      flex: 1 1 45%; } }
-  @media only screen and (max-width: 400px) {
+      font-size: 24px;
+      text-align: center;
+      flex: 1 1 45%;
+      margin: 0 auto 5em;
+      max-width: 430px; } }
+  @media only screen and (max-width: 750px) and (max-width: 690px) {
     #intro .flex-item p, #page-head .flex-item p {
-      font-size: 15px; } }
+      font-size: 20px; } }
+  @media only screen and (max-width: 750px) and (max-width: 400px) {
+    #intro .flex-item p, #page-head .flex-item p {
+      font-size: 17px; } }
+
 #intro .flex-item button, #intro .flex-item .button, #page-head .flex-item button, #page-head .flex-item .button {
-  margin: 0 auto;
+  margin: 40px auto 0;
   display: block;
   width: min-content;
   white-space: nowrap; }

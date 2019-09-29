@@ -6,11 +6,16 @@ class Map {
     defaults() {
         return {
             apiKey:  'pass key using constructor options',
-            htmlIdentifier: 'map'
+            htmlIdentifier: 'map',
+            maxZoom: 18,
+            scrollWheelZoom: true
         };
     }
 
     constructor(options) {
+        this.apiKey = this.htmlIdentifier = this.maxZoom = null;
+        this.scrollWheelZoom = null;
+
         if(typeof options == 'object')
             options = Object.assign(this.defaults(), options);
         else options = this.defaults();
@@ -21,7 +26,8 @@ class Map {
 
         this.map = L.map(this.htmlIdentifier, {
             worldCopyJump: true,
-            maxZoom: 18
+            maxZoom: 18,
+            scrollWheelZoom: this.scrollWheelZoom
         });
 
         L.tileLayer('https://api.mapbox.com/styles/v1/'
@@ -30,7 +36,8 @@ class Map {
 
         window.addEventListener('resize', function () {
             this.map.invalidateSize();
-            this.fitBounds();
+            if(app.action == 'index')
+                this.fitBounds();
         }.bind(this));
 
         // markers is set as a lookup table to get a single course record by ID
@@ -39,7 +46,8 @@ class Map {
     }
 
 
-    setMarkers(courses) {
+    setMarkers(courses, createPopups) {
+        createPopups = (typeof createPopups == "undefined") ? true : createPopups;
         this.markers = {};
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
@@ -82,13 +90,15 @@ class Map {
                 icon: icon
             });
 
-            // prepare html content
-            let content = '<h1>' + course.name + '</h1>'
-                + '<p>' + course.institution.name + ',<br />'
-                + course.department + '.</p>'
-                + '<p>Type: ' + course.course_type.name + '</p>'
-                + '<button class="show_view" data-id="' + course.id + '">Show details</button>';
-            marker.bindPopup(content);
+            if(createPopups) {
+                // prepare html content
+                let content = '<h1>' + course.name + '</h1>'
+                    + '<p>' + course.institution.name + ',<br />'
+                    + course.department + '.</p>'
+                    + '<p>Type: ' + course.course_type.name + '</p>'
+                    + '<button class="show_view" data-id="' + course.id + '">Show details</button>';
+                marker.bindPopup(content);
+            }
 
             this.cluster.addLayer(marker);
             this.markers[course.id] = marker;
@@ -96,7 +106,7 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if($.isEmptyObject(app.filter)) {
+        if($.isEmptyObject(app.filter) && createPopups) {
             let zoom = this.map.getZoom();
             this.map.locate({setView: true, maxZoom: zoom});
         }
