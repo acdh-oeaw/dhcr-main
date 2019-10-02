@@ -175,6 +175,10 @@ table {
             flex: 0 1 90%;
         }
     }
+    .flex-item.triple {
+        flex: 0 1 30%;
+        min-width: 200px;
+    }
     @include respond-to(handhelds) {
         display: block;
         .flex-item {

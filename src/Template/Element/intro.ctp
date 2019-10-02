@@ -32,7 +32,7 @@ use Cake\Routing\Router;
                 <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
                 <p>
                     Students can find information about programmes and courses
-                    in digital humanities offered in various places and universities.
+                    in digital humanities, offered in various places and universities.
                 </p>
             </div>
             <div class="flex-item">
@@ -40,17 +40,17 @@ use Cake\Routing\Router;
                 <?= $this->Html->image('lecturers.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
                 <p>
                     Lecturers or programme directors can promote their teaching
-                    activities on the platform. <br />
+                    activities on the platform.
                     To add data, lecturers need to sign in.
                 </p>
             </div>
         </div>
-        <div class="flex-columns">
+        <div class="flex-columns buttons">
             <div class="flex-item">
-                <button class="blue" id="start">Go to Start</button>
+                <button class="left blue" id="start">Go to Start</button>
             </div>
             <div class="flex-item">
-                <?= $this->Html->link('More Information', '/pages/info', ['class' => 'button']) ?>
+                <?= $this->Html->link('More Information', '/pages/info', ['class' => 'right button']) ?>
             </div>
         </div>
     </div>

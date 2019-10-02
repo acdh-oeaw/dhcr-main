@@ -165,6 +165,9 @@ table .recurring {
     padding: 0 15px; }
     .flex-columns .flex-item.single-col {
       flex: 0 1 90%; }
+  .flex-columns .flex-item.triple {
+    flex: 0 1 30%;
+    min-width: 200px; }
   @media only screen and (max-width: 750px) {
     .flex-columns {
       display: block; }
@@ -366,26 +369,26 @@ body.index, body.view {
       body.index .overlay .overlay-container:last-child, body.index .overlay .overlay-container:first-child, body.view .overlay .overlay-container:last-child, body.view .overlay .overlay-container:first-child {
         min-height: 100vh;
         box-sizing: border-box; }
-  body.index #intro .clarin-dariah-logo, body.index #page-head .clarin-dariah-logo, body.view #intro .clarin-dariah-logo, body.view #page-head .clarin-dariah-logo {
+  body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
     float: left;
     display: block;
     clear: both;
     margin-right: 50px;
     width: auto; }
-    body.index #intro .clarin-dariah-logo img, body.index #page-head .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img, body.view #page-head .clarin-dariah-logo img {
+    body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
       display: block;
       width: 23vw;
       max-width: 256px;
       min-width: 120px;
       height: auto; }
 @media only screen and (min-width: 751px) and (min-width: 1001px) {
-  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
+  body.index #intro h1, body.view #intro h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
+  body.index #intro a, body.view #intro a {
     text-decoration: none; }
-  body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
+  body.index #intro span#h1, body.view #intro span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 90px;
@@ -393,23 +396,23 @@ body.index, body.view {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
+  body.index #intro span#h2, body.view #intro span#h2 {
     color: #2387aa;
     margin-right: 30px; }
-  body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
+  body.index #intro span#h3, body.view #intro span#h3 {
     color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
+  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
     letter-spacing: 6px;
     font-family: metropolis, sans-serif;
     font-size: 48px; } }
 @media only screen and (min-width: 751px) and (max-width: 1000px) {
-  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
+  body.index #intro h1, body.view #intro h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
+  body.index #intro a, body.view #intro a {
     text-decoration: none; }
-  body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
+  body.index #intro span#h1, body.view #intro span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 9vw;
@@ -417,24 +420,24 @@ body.index, body.view {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
+  body.index #intro span#h2, body.view #intro span#h2 {
     color: #2387aa;
     margin-right: 3vw; }
-  body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
+  body.index #intro span#h3, body.view #intro span#h3 {
     color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
+  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
     letter-spacing: 0.6vw;
     font-family: metropolis, sans-serif;
     font-size: 4.8vw; } }
 
   @media only screen and (max-width: 750px) {
-    body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
+    body.index #intro h1, body.view #intro h1 {
       font-weight: bold;
       text-transform: uppercase;
       line-height: normal; }
-    body.index #intro a, body.index #page-head a, body.view #intro a, body.view #page-head a {
+    body.index #intro a, body.view #intro a {
       text-decoration: none; }
-    body.index #intro span#h1, body.index #page-head span#h1, body.view #intro span#h1, body.view #page-head span#h1 {
+    body.index #intro span#h1, body.view #intro span#h1 {
       color: #61A845;
       font-family: bebas, sans-serif;
       font-size: 12vw;
@@ -442,52 +445,73 @@ body.index, body.view {
       line-height: 1;
       font-weight: normal;
       letter-spacing: 0; }
-    body.index #intro span#h2, body.index #page-head span#h2, body.view #intro span#h2, body.view #page-head span#h2 {
+    body.index #intro span#h2, body.view #intro span#h2 {
       color: #2387aa;
       margin-right: 4vw; }
-    body.index #intro span#h3, body.index #page-head span#h3, body.view #intro span#h3, body.view #page-head span#h3 {
+    body.index #intro span#h3, body.view #intro span#h3 {
       color: #1E6BA3; }
-    body.index #intro #h2, body.index #intro #h3, body.index #page-head #h2, body.index #page-head #h3, body.view #intro #h2, body.view #intro #h3, body.view #page-head #h2, body.view #page-head #h3 {
+    body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
       letter-spacing: 0.8vw;
       font-family: metropolis, sans-serif;
       font-size: 6.4vw; }
-    body.index #intro .clarin-dariah-logo, body.index #page-head .clarin-dariah-logo, body.view #intro .clarin-dariah-logo, body.view #page-head .clarin-dariah-logo {
+    body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
       float: none;
       display: block;
       width: min-content;
       margin: 0 auto 50px; }
-      body.index #intro .clarin-dariah-logo img, body.index #page-head .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img, body.view #page-head .clarin-dariah-logo img {
+      body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
         height: 120px;
         width: auto; } }
-  body.index #intro h1, body.index #page-head h1, body.view #intro h1, body.view #page-head h1 {
+  body.index #intro h1, body.view #intro h1 {
     margin: 0 auto 80px;
     text-align: center; }
-  body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+  body.index #intro p.intent, body.view #intro p.intent {
     font-size: 1.95vw;
     line-height: 1.5;
     color: #1E6BA3; }
     @media only screen and (min-width: 1127px) {
-      body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+      body.index #intro p.intent, body.view #intro p.intent {
         font-size: 24px; } }
     @media only screen and (max-width: 750px) {
-      body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+      body.index #intro p.intent, body.view #intro p.intent {
         font-size: 24px;
         text-align: center;
         margin: 0 auto 1em;
         max-width: 430px; } }
   @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+    body.index #intro p.intent, body.view #intro p.intent {
       font-size: 20px; } }
   @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro p.intent, body.index #page-head p.intent, body.view #intro p.intent, body.view #page-head p.intent {
+    body.index #intro p.intent, body.view #intro p.intent {
       font-size: 17px; } }
 
-  body.index #intro .flex-item h2, body.index #page-head .flex-item h2, body.view #intro .flex-item h2, body.view #page-head .flex-item h2 {
+  body.index #intro .flex-columns.buttons, body.view #intro .flex-columns.buttons {
+    margin-top: 30vh; }
+    body.index #intro .flex-columns.buttons .flex-item, body.view #intro .flex-columns.buttons .flex-item {
+      position: relative; }
+      body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
+        position: absolute;
+        display: block;
+        width: min-content;
+        white-space: nowrap;
+        min-width: 200px;
+        padding: 2px 20px 0; }
+        body.index #intro .flex-columns.buttons .flex-item button.left, body.index #intro .flex-columns.buttons .flex-item .button.left, body.view #intro .flex-columns.buttons .flex-item button.left, body.view #intro .flex-columns.buttons .flex-item .button.left {
+          right: 20px; }
+        body.index #intro .flex-columns.buttons .flex-item button.right, body.index #intro .flex-columns.buttons .flex-item .button.right, body.view #intro .flex-columns.buttons .flex-item button.right, body.view #intro .flex-columns.buttons .flex-item .button.right {
+          left: 20px; }
+        @media only screen and (max-width: 750px) {
+          body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
+            margin: 0 auto 3em;
+            position: static; } }
+      body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item .button {
+        padding-top: 7px; }
+  body.index #intro .flex-item h2, body.view #intro .flex-item h2 {
     font-size: 50px;
     text-align: center;
     margin-bottom: 1em;
     margin-top: 1.5em; }
-  body.index #intro .flex-item .illustration, body.index #page-head .flex-item .illustration, body.view #intro .flex-item .illustration, body.view #page-head .flex-item .illustration {
+  body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
     display: block;
     height: auto;
     width: calc(100% - 20px);
@@ -495,36 +519,31 @@ body.index, body.view {
     margin-left: 5px;
     margin-bottom: 50px; }
   @media only screen and (max-width: 750px) {
-    body.index #intro .flex-item .illustration, body.index #page-head .flex-item .illustration, body.view #intro .flex-item .illustration, body.view #page-head .flex-item .illustration {
+    body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
       width: calc(100% - 10vw);
       max-width: 400px;
       margin: 0 auto 4em; } }
-  body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+  body.index #intro .flex-item p, body.view #intro .flex-item p {
     color: #1E6BA3;
     font-size: 1.95vw;
     line-height: 1.25; }
     @media only screen and (min-width: 1127px) {
-      body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+      body.index #intro .flex-item p, body.view #intro .flex-item p {
         font-size: 24px; } }
     @media only screen and (max-width: 750px) {
-      body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+      body.index #intro .flex-item p, body.view #intro .flex-item p {
         font-size: 24px;
         text-align: center;
         flex: 1 1 45%;
         margin: 0 auto 5em;
         max-width: 430px; } }
   @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+    body.index #intro .flex-item p, body.view #intro .flex-item p {
       font-size: 20px; } }
   @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro .flex-item p, body.index #page-head .flex-item p, body.view #intro .flex-item p, body.view #page-head .flex-item p {
+    body.index #intro .flex-item p, body.view #intro .flex-item p {
       font-size: 17px; } }
 
-  body.index #intro .flex-item button, body.index #intro .flex-item .button, body.index #page-head .flex-item button, body.index #page-head .flex-item .button, body.view #intro .flex-item button, body.view #intro .flex-item .button, body.view #page-head .flex-item button, body.view #page-head .flex-item .button {
-    margin: 40px auto 0;
-    display: block;
-    width: min-content;
-    white-space: nowrap; }
   body.index #container, body.view #container {
     height: calc(100% - 144px);
     display: flex;

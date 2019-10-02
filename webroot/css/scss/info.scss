@@ -5,22 +5,210 @@
 @import "basics";
 
 body.info {
-    padding: 0 $whitespace;
-    max-width: $max_width;
+    padding: 10vw $whitespace;
+    max-width: 1000px;
     background-color: #fff;
     margin: 0 auto;
     width: calc(100% - 2 * #{$whitespace});
-    overflow: hidden;
+    position: relative;
+}
+
+#page-head {
+    .back.button {
+        position: relative;
+        top: 0;
+        left: 0;
+        margin-bottom: 2em;
+    }
+    .clarin-dariah-logo {
+        float: left;
+        display: block;
+        clear: both;
+        margin-right: 50px;
+        width: auto;
+
+        img {
+            display: block;
+            width: 23vw;
+            max-width: 256px;
+            min-width: 120px;
+            height: auto;
+        }
+    }
+
+    @include respond-to(screens) {
+        @media only screen and (min-width: 1001px) {
+            @include logo-text-scaled(2);
+        }
+        @media only screen and (max-width: 1000px) {
+            @include logo-text-vwr(0.6);
+        }
+    }
     @include respond-to(handhelds) {
-        font-size: 16px;
+        @include logo-text-vwr(0.8);
+        .clarin-dariah-logo {
+            float: none;
+            display: block;
+            width: min-content;
+            margin: 0 auto 50px;
+
+            img {
+                height: 120px;
+                width: auto;
+            }
+        }
+    }
+
+    h1 {
+        margin: 0 auto 80px;
+        text-align: center;
+    }
+
+    p.intent {
+        font-size: 1.95vw;
         line-height: 1.5;
-        font-weight: 300;
-        letter-spacing: normal;
-        padding: 0;
-        margin: 0;
-        max-width: initial;
-        width: 100%;
+        color: $blue;
+        text-align: center;
+        @media only screen and (min-width: 1127px) {
+            font-size: 24px;
+        }
+        @include respond-to(handhelds) {
+            font-size: 24px;
+            text-align: center;
+            margin: 0 auto 1em;
+            max-width: 430px;
+            @media only screen and (max-width: 690px) {
+                font-size: 20px;
+            }
+            @media only screen and (max-width: 400px) {
+                font-size: 17px;
+            }
+        }
     }
 }
 
-@import "intro";
+#accordeon {
+    .accordeon-item {
+        h2 {
+            border-top: 2px solid $light-gray;
+            padding: 0.7em 0;
+            font-family: metropolis, sans-serif;
+            font-weight: bold;
+            font-size: 40px;
+            text-transform: none;
+            cursor: pointer;
+            &:hover {
+
+            }
+        }
+        &:not(.open) {
+            .item-content {
+                height: 0;
+                overflow: hidden;
+            }
+            &:last-child h2 {
+                border-bottom: 2px solid $light-gray;
+            }
+        }
+        &.open {
+            .item-content {
+                padding: 2em 0 3em;
+                height: auto;
+            }
+            &:last-child .item-content {
+                border-bottom: 2px solid $light-gray;
+            }
+        }
+        .item-content {
+            h3 {
+                font-family: bebas, sans-serif;
+                font-weight: bold;
+                font-size: 30px;
+                letter-spacing: 0.05em;
+                margin-bottom: 1.3em;
+            }
+            p {
+                font-size: 18px;
+                font-family: metropolis, sans-serif;
+                color: $gray;
+            }
+            hr {
+                margin: 2em 0;
+            }
+            .flex-columns {
+                justify-content: space-between;
+                .flex-item {
+                    &:first-child {
+                        padding-left: 0;
+                    }
+                    &:last-child {
+                        padding-right: 0;
+                    }
+                    .illustration {
+                        display: block;
+                        height: auto;
+                        width: 80%;
+                        margin: 0 auto 3em;
+                    }
+                    .buttons {
+                        display: flex;
+                        flex-wrap: wrap;
+                        justify-content: space-between;
+                        margin: 5em 0 2em;
+                        padding: 0;
+                        @include respond-to(handhelds) {
+                            justify-content: space-around;
+                        }
+                        @include respond-to(x-small) {
+                            justify-content: center;
+                        }
+                        button, .button {
+                            padding: 2px 20px 0;
+                            flex: 0 0 25%;
+                            min-width: 155px;
+                            margin: 0 10px 20px 10px;
+                            @include respond-to(x-small) {
+                                margin-left: 0;
+                                margin-right: 0;
+                            }
+                            &:first-child {
+                                margin-left: 0;
+                            }
+                            &:hover, &.animate {
+                                transform: scale(1.05);
+                                transform-origin: left center;
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                    h4 {
+                        font-family: metropolis, sans-serif;
+                        font-size: 20px;
+                        font-weight: bold;
+                        text-transform: none;
+                        color: $blue;
+                        margin-bottom: 1.5em;
+                    }
+                    .iframe-container {
+                        overflow: hidden;
+                        //padding-top: 56.25%;
+                        position: relative;
+                        img.ratio {
+                            display: block;
+                            width: 100%;
+                            height: auto;
+                        }
+                        iframe {
+                            border: 0;
+                            height: 100%;
+                            left: 0;
+                            position: absolute;
+                            top: 0;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

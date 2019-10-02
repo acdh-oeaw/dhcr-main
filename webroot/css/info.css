@@ -165,6 +165,9 @@ table .recurring {
     padding: 0 15px; }
     .flex-columns .flex-item.single-col {
       flex: 0 1 90%; }
+  .flex-columns .flex-item.triple {
+    flex: 0 1 30%;
+    min-width: 200px; }
   @media only screen and (max-width: 750px) {
     .flex-columns {
       display: block; }
@@ -201,75 +204,38 @@ table .recurring {
         grid-column: col-middle 1 / col-end -1; }
 
 body.info {
-  padding: 0 15px;
-  max-width: 90rem;
+  padding: 10vw 15px;
+  max-width: 1000px;
   background-color: #fff;
   margin: 0 auto;
   width: calc(100% - 2 * 15px);
-  overflow: hidden; }
-  @media only screen and (max-width: 750px) {
-    body.info {
-      font-size: 16px;
-      line-height: 1.5;
-      font-weight: 300;
-      letter-spacing: normal;
-      padding: 0;
-      margin: 0;
-      max-width: initial;
-      width: 100%; } }
+  position: relative; }
 
-.overlay {
-  position: fixed;
+#page-head .back.button {
+  position: relative;
   top: 0;
   left: 0;
-  z-index: 2000;
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: transparent; }
-  .overlay .overlay-container {
-    margin: 0 auto;
-    width: 100%;
-    padding: 100px 135px 150px 135px;
-    max-width: 90rem;
-    background-color: #fff; }
-    @media only screen and (max-width: 1000px) {
-      .overlay .overlay-container {
-        padding: 90px 100px 100px; } }
-    @media only screen and (max-width: 885px) {
-      .overlay .overlay-container {
-        padding: 80px 70px 80px; } }
-    @media only screen and (max-width: 750px) {
-      .overlay .overlay-container {
-        padding: 50px 30px 50px; } }
-    .overlay .overlay-container.transparent {
-      background: rgba(0, 0, 0, 0.4);
-      height: 90vh; }
-    .overlay .overlay-container:last-child, .overlay .overlay-container:first-child {
-      min-height: 100vh;
-      box-sizing: border-box; }
-
-#intro .clarin-dariah-logo, #page-head .clarin-dariah-logo {
+  margin-bottom: 2em; }
+#page-head .clarin-dariah-logo {
   float: left;
   display: block;
   clear: both;
   margin-right: 50px;
   width: auto; }
-  #intro .clarin-dariah-logo img, #page-head .clarin-dariah-logo img {
+  #page-head .clarin-dariah-logo img {
     display: block;
     width: 23vw;
     max-width: 256px;
     min-width: 120px;
     height: auto; }
 @media only screen and (min-width: 751px) and (min-width: 1001px) {
-  #intro h1, #page-head h1 {
+  #page-head h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  #intro a, #page-head a {
+  #page-head a {
     text-decoration: none; }
-  #intro span#h1, #page-head span#h1 {
+  #page-head span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 90px;
@@ -277,23 +243,23 @@ body.info {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  #intro span#h2, #page-head span#h2 {
+  #page-head span#h2 {
     color: #2387aa;
     margin-right: 30px; }
-  #intro span#h3, #page-head span#h3 {
+  #page-head span#h3 {
     color: #1E6BA3; }
-  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+  #page-head #h2, #page-head #h3 {
     letter-spacing: 6px;
     font-family: metropolis, sans-serif;
     font-size: 48px; } }
 @media only screen and (min-width: 751px) and (max-width: 1000px) {
-  #intro h1, #page-head h1 {
+  #page-head h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  #intro a, #page-head a {
+  #page-head a {
     text-decoration: none; }
-  #intro span#h1, #page-head span#h1 {
+  #page-head span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 9vw;
@@ -301,24 +267,24 @@ body.info {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  #intro span#h2, #page-head span#h2 {
+  #page-head span#h2 {
     color: #2387aa;
     margin-right: 3vw; }
-  #intro span#h3, #page-head span#h3 {
+  #page-head span#h3 {
     color: #1E6BA3; }
-  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+  #page-head #h2, #page-head #h3 {
     letter-spacing: 0.6vw;
     font-family: metropolis, sans-serif;
     font-size: 4.8vw; } }
 
 @media only screen and (max-width: 750px) {
-  #intro h1, #page-head h1 {
+  #page-head h1 {
     font-weight: bold;
     text-transform: uppercase;
     line-height: normal; }
-  #intro a, #page-head a {
+  #page-head a {
     text-decoration: none; }
-  #intro span#h1, #page-head span#h1 {
+  #page-head span#h1 {
     color: #61A845;
     font-family: bebas, sans-serif;
     font-size: 12vw;
@@ -326,88 +292,135 @@ body.info {
     line-height: 1;
     font-weight: normal;
     letter-spacing: 0; }
-  #intro span#h2, #page-head span#h2 {
+  #page-head span#h2 {
     color: #2387aa;
     margin-right: 4vw; }
-  #intro span#h3, #page-head span#h3 {
+  #page-head span#h3 {
     color: #1E6BA3; }
-  #intro #h2, #intro #h3, #page-head #h2, #page-head #h3 {
+  #page-head #h2, #page-head #h3 {
     letter-spacing: 0.8vw;
     font-family: metropolis, sans-serif;
     font-size: 6.4vw; }
-  #intro .clarin-dariah-logo, #page-head .clarin-dariah-logo {
+  #page-head .clarin-dariah-logo {
     float: none;
     display: block;
     width: min-content;
     margin: 0 auto 50px; }
-    #intro .clarin-dariah-logo img, #page-head .clarin-dariah-logo img {
+    #page-head .clarin-dariah-logo img {
       height: 120px;
       width: auto; } }
-#intro h1, #page-head h1 {
+#page-head h1 {
   margin: 0 auto 80px;
   text-align: center; }
-#intro p.intent, #page-head p.intent {
+#page-head p.intent {
   font-size: 1.95vw;
   line-height: 1.5;
-  color: #1E6BA3; }
+  color: #1E6BA3;
+  text-align: center; }
   @media only screen and (min-width: 1127px) {
-    #intro p.intent, #page-head p.intent {
+    #page-head p.intent {
       font-size: 24px; } }
   @media only screen and (max-width: 750px) {
-    #intro p.intent, #page-head p.intent {
+    #page-head p.intent {
       font-size: 24px;
       text-align: center;
       margin: 0 auto 1em;
       max-width: 430px; } }
   @media only screen and (max-width: 750px) and (max-width: 690px) {
-    #intro p.intent, #page-head p.intent {
+    #page-head p.intent {
       font-size: 20px; } }
   @media only screen and (max-width: 750px) and (max-width: 400px) {
-    #intro p.intent, #page-head p.intent {
+    #page-head p.intent {
       font-size: 17px; } }
 
-#intro .flex-item h2, #page-head .flex-item h2 {
-  font-size: 50px;
-  text-align: center;
-  margin-bottom: 1em;
-  margin-top: 1.5em; }
-#intro .flex-item .illustration, #page-head .flex-item .illustration {
-  display: block;
-  height: auto;
-  width: calc(100% - 20px);
-  margin-right: 15px;
-  margin-left: 5px;
-  margin-bottom: 50px; }
-@media only screen and (max-width: 750px) {
-  #intro .flex-item .illustration, #page-head .flex-item .illustration {
-    width: calc(100% - 10vw);
-    max-width: 400px;
-    margin: 0 auto 4em; } }
-#intro .flex-item p, #page-head .flex-item p {
-  color: #1E6BA3;
-  font-size: 1.95vw;
-  line-height: 1.25; }
-  @media only screen and (min-width: 1127px) {
-    #intro .flex-item p, #page-head .flex-item p {
-      font-size: 24px; } }
-  @media only screen and (max-width: 750px) {
-    #intro .flex-item p, #page-head .flex-item p {
-      font-size: 24px;
-      text-align: center;
-      flex: 1 1 45%;
-      margin: 0 auto 5em;
-      max-width: 430px; } }
-  @media only screen and (max-width: 750px) and (max-width: 690px) {
-    #intro .flex-item p, #page-head .flex-item p {
-      font-size: 20px; } }
-  @media only screen and (max-width: 750px) and (max-width: 400px) {
-    #intro .flex-item p, #page-head .flex-item p {
-      font-size: 17px; } }
-
-#intro .flex-item button, #intro .flex-item .button, #page-head .flex-item button, #page-head .flex-item .button {
-  margin: 40px auto 0;
-  display: block;
-  width: min-content;
-  white-space: nowrap; }
+#accordeon .accordeon-item h2 {
+  border-top: 2px solid #d8d8d8;
+  padding: 0.7em 0;
+  font-family: metropolis, sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  text-transform: none;
+  cursor: pointer; }
+#accordeon .accordeon-item:not(.open) .item-content {
+  height: 0;
+  overflow: hidden; }
+#accordeon .accordeon-item:not(.open):last-child h2 {
+  border-bottom: 2px solid #d8d8d8; }
+#accordeon .accordeon-item.open .item-content {
+  padding: 2em 0 3em;
+  height: auto; }
+#accordeon .accordeon-item.open:last-child .item-content {
+  border-bottom: 2px solid #d8d8d8; }
+#accordeon .accordeon-item .item-content h3 {
+  font-family: bebas, sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.3em; }
+#accordeon .accordeon-item .item-content p {
+  font-size: 18px;
+  font-family: metropolis, sans-serif;
+  color: #6d7278; }
+#accordeon .accordeon-item .item-content hr {
+  margin: 2em 0; }
+#accordeon .accordeon-item .item-content .flex-columns {
+  justify-content: space-between; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item:first-child {
+    padding-left: 0; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item:last-child {
+    padding-right: 0; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item .illustration {
+    display: block;
+    height: auto;
+    width: 80%;
+    margin: 0 auto 3em; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 5em 0 2em;
+    padding: 0; }
+    @media only screen and (max-width: 750px) {
+      #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons {
+        justify-content: space-around; } }
+    @media only screen and (max-width: 400px) {
+      #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons {
+        justify-content: center; } }
+    #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button {
+      padding: 2px 20px 0;
+      flex: 0 0 25%;
+      min-width: 155px;
+      margin: 0 10px 20px 10px; }
+      @media only screen and (max-width: 400px) {
+        #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button {
+          margin-left: 0;
+          margin-right: 0; } }
+      #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button:first-child, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button:first-child {
+        margin-left: 0; }
+      #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button:hover, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button.animate, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button:hover, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button.animate {
+        transform: scale(1.05);
+        transform-origin: left center;
+        text-decoration: none; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item h4 {
+    font-family: metropolis, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: none;
+    color: #1E6BA3;
+    margin-bottom: 1.5em; }
+  #accordeon .accordeon-item .item-content .flex-columns .flex-item .iframe-container {
+    overflow: hidden;
+    position: relative; }
+    #accordeon .accordeon-item .item-content .flex-columns .flex-item .iframe-container img.ratio {
+      display: block;
+      width: 100%;
+      height: auto; }
+    #accordeon .accordeon-item .item-content .flex-columns .flex-item .iframe-container iframe {
+      border: 0;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%; }
 
 /*# sourceMappingURL=info.css.map */

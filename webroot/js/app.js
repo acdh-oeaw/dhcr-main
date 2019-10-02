@@ -154,7 +154,7 @@ class App {
             this.map.setMarkers(this.data, false);
             this.setView();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
+            this.handleError(jqXHR);
         });
     }
 
@@ -175,7 +175,7 @@ class App {
             this.map.setMarkers(this.data);
             this.setTable();
         }).fail(function (jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
+            this.handleError(jqXHR);
         });
     }
 
@@ -230,5 +230,7 @@ class App {
         Cookies.remove('hideIntro');
     }
 
-
+    handleError(data) {
+        console.log(data);
+    }
 }

@@ -46,7 +46,7 @@
     }
 }
 
-#intro, #page-head {
+#intro {
     .clarin-dariah-logo {
         float: left;
         display: block;
@@ -107,6 +107,35 @@
         }
     }
 
+    .flex-columns.buttons {
+        margin-top: 30vh;
+        .flex-item {
+            position: relative;
+            button, .button {
+                position: absolute;
+                &.left {
+                    right: 20px;
+                }
+                &.right {
+                    left: 20px;
+                }
+                display: block;
+                width: min-content;
+                white-space: nowrap;
+                min-width: 200px;
+                padding: 2px 20px 0;
+                @include respond-to(handhelds) {
+                    // no flex anymore
+                    margin: 0 auto 3em;
+                    position: static;
+                }
+            }
+            .button {
+                padding-top: 7px;
+            }
+        }
+    }
+
     .flex-item {
         // students & lecturers
         h2 {
@@ -150,12 +179,6 @@
                     font-size: 17px;
                 }
             }
-        }
-        button, .button {
-            margin: 40px auto 0;
-            display: block;
-            width: min-content;
-            white-space: nowrap;
         }
     }
 }
