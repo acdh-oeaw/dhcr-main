@@ -3,10 +3,11 @@
 
 class Table {
 
-    constructor(elm) {
+    constructor(elm, app) {
         // store the native DOM element, not jQuery
         this.element = elm;
         this.entries = {};
+        this.app = app;
     }
 
     setTable(courses) {
@@ -60,9 +61,9 @@ class Table {
         let helper = new ViewHelper();
         let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
 
-        let backActionLabel = (app.action == 'view') ? 'Go to Start' : 'Back to List';
+        let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
         let back = $('<button class="back">' + backActionLabel + '</button>')
-            .on('click', function() {app.closeView()});
+            .on('click', function() {this.app.closeView()});
         let share = $('<button class="blue sharing">Share</button>')
             .on('click', function(e) {
                 if (navigator.share) {
@@ -119,7 +120,7 @@ class Table {
         // init map after adding it to document
         let map = new Map({
             htmlIdentifier: 'locationMap',
-            apiKey: app.mapApiKey,
+            apiKey: this.app.mapApiKey,
             scrollWheelZoom: false
         });
         let id = course.id;

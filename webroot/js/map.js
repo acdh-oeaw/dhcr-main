@@ -14,7 +14,7 @@ class Map {
 
     constructor(options) {
         this.apiKey = this.htmlIdentifier = this.maxZoom = null;
-        this.scrollWheelZoom = null;
+        this.app = this.scrollWheelZoom = null;
 
         if(typeof options == 'object')
             options = Object.assign(this.defaults(), options);
@@ -36,7 +36,7 @@ class Map {
 
         window.addEventListener('resize', function () {
             this.map.invalidateSize();
-            if(app.action == 'index')
+            if(this.app.action == 'index')
                 this.fitBounds();
         }.bind(this));
 
@@ -106,15 +106,16 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if($.isEmptyObject(app.filter) && createPopups) {
+        if(!this.app.filter.isLocated() && createPopups) {
             let zoom = this.map.getZoom();
+            // locate to user location
             this.map.locate({setView: true, maxZoom: zoom});
         }
 
         this.map.on('popupopen', function() {
             $('.show_view').on('click', function(e) {
                 let id = $(e.target).attr('data-id');
-                app.setView(id);
+                this.app.setView(id);
             })
         });
     }
@@ -127,7 +128,7 @@ class Map {
         /*
         $('#show-view').click(function (e) {
             let id = e.target.attr('data-id');
-            app.setView(id);
+            this.app.setView(id);
         });
 
          */

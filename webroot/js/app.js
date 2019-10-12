@@ -48,9 +48,12 @@ class App {
 
         this.map = new Map({
             htmlIdentifier: 'map',
-            apiKey: this.mapApiKey
+            apiKey: this.mapApiKey,
+            app: this
         });
-        this.table = new Table(this.scrollable.getContentContainer());
+        this.table = new Table(this.scrollable.getContentContainer(), this);
+
+        this.filter = new Filter(this);
 
         this.status = 'index';
         // load data
@@ -124,21 +127,6 @@ class App {
         });
     }
 
-    filterToQuery() {
-        if($.isEmptyObject(this.filter))
-            this.filter = { recent: true }
-        if(this.filter.recent == false)
-            delete this.filter.recent;
-        let retval = '';
-        $.each(this.filter, function(key, value) {
-            if(retval == '') retval = '?';
-            else retval += '&';
-            retval += key + '=' + value;
-        });
-        delete this.filter.recent;
-        return retval;
-    }
-
     // called on view action only
     getCourse() {
         $.ajax({
@@ -161,7 +149,7 @@ class App {
     getCourses() {
         this.table.setLoader();
         $.ajax({
-            url: this.apiUrl + 'courses/index' + this.filterToQuery(),
+            url: this.apiUrl + 'courses/index' + this.filter.getQuery(),
             accept: 'application/json',
             method: 'GET',
             cache: true,

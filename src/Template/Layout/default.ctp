@@ -80,7 +80,7 @@ use Cake\Routing\Router;
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
         
-        <?= $this->Html->script(['scroll','slide','map','table','helper','app']) ?>
+        <?= $this->Html->script(['scroll','slide','map','filter','table','helper','app']) ?>
         
         <?= $this->element('script') ?>
     </body>
