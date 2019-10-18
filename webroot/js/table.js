@@ -17,6 +17,9 @@ class Table {
         }
         // remove all content
         $(this.element).empty();
+        // create filter
+        $(this.element).append(this.app.filter.createHtml());
+        // create table
         let table = $('<table></table>');
         table.append(
             $('<tr></tr>').append(

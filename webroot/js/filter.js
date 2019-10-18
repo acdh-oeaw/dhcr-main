@@ -224,13 +224,21 @@ class Filter {
     }
 
     createSelector(category) {
-        let retval = '';
+        let retval = '<ul>';
         Object.keys(this[category]).forEach(function(id,index) {
             if(!this.selected[category].hasOwnProperty(id)) {
                 retval += this.createSelectorOption(category, id);
             }
         });
-        return retval;
+        return retval += '</ul>';
+    }
+
+    createHtml() {
+        let el = $('<div id="filter"></div>');
+        el.append(this.createSelector('countries'));
+        el.append(this.createSelector('cities'));
+        el.append(this.createSelector('institutions'));
+        return el;
     }
 
     createSelection(category) {

@@ -20,8 +20,7 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
-  font-size: 14px; }
+  box-sizing: border-box; }
 
 body {
   font-family: Helvetica, Verdana, Arial, Sans-Serif;
@@ -74,6 +73,15 @@ ul, ol {
     line-height: 1.7em;
     margin-bottom: 0.3em; }
 
+dl dt, dl dd {
+  font-size: 16px;
+  font-family: metropolis, sans-serif;
+  font-weight: bold;
+  color: #1E6BA3;
+  display: block; }
+dl dd {
+  font-weight: normal; }
+
 img {
   outline: none; }
 
@@ -94,6 +102,7 @@ button, .button {
   height: 46px;
   outline: none;
   display: inline-block;
+  position: relative;
   border-radius: 24px;
   border: solid 2px #1E6BA3;
   background-color: #fff;
@@ -117,6 +126,23 @@ button, .button {
   button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
+  button.back::before, button.continue::after, .button.back::before, .button.continue::after {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    position: relative;
+    left: 0;
+    bottom: 2px;
+    transform: rotate(135deg);
+    border: 3px solid #fff;
+    border-top: none;
+    border-left: none;
+    content: '';
+    margin-right: 5px; }
+  button.continue::after, .button.continue::after {
+    transform: rotate(-45deg);
+    margin-right: 0;
+    margin-left: 5px; }
 
 .button {
   padding-top: 7px; }
@@ -163,8 +189,10 @@ table .recurring {
     flex: 0 1 45%;
     min-width: 300px;
     padding: 0 15px; }
-    .flex-columns .flex-item.single-col {
-      flex: 0 1 90%; }
+    .flex-columns .flex-item.wide {
+      flex: 0 1 60%; }
+    .flex-columns .flex-item.narrow {
+      flex: 0 1 30%; }
   .flex-columns .flex-item.triple {
     flex: 0 1 30%;
     min-width: 200px; }
@@ -173,7 +201,8 @@ table .recurring {
       display: block; }
       .flex-columns .flex-item {
         margin-bottom: 3em;
-        min-width: initial; } }
+        min-width: initial;
+        padding: 0; } }
 
 .grid-container {
   display: grid;

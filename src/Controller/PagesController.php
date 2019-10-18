@@ -38,7 +38,32 @@ class PagesController extends AppController
 	
 	
 	
-	
+	public function info() {
+        $this->loadModel('Users');
+        $this->loadModel('Countries');
+        
+        $moderators = $this->Users->find('all', array(
+            'contain' => array('Countries'),
+            'conditions' => array('Users.user_role_id' => 2),
+            'order' => array('Countries.name' => 'asc')
+        ))->toList();
+        
+        $userAdmins = $this->Users->find('all', array(
+            'contain' => array(),
+            'conditions' => array('Users.user_admin' => 1)
+        ));
+        $country_ids = array();
+        if($moderators) foreach($moderators as $mod) {
+            if(!empty($mod['country_id']) AND !in_array($mod['country_id'], $country_ids))
+                $country_ids[] = $mod['country_id'];
+        }
+        $countries = $this->Countries->find('list')
+            ->order(['Countries.name ASC'])
+            ->where(['Countries.id IN' => $country_ids])
+            ->toArray();
+            debug($countries);
+        $this->set(compact('countries', 'moderators', 'userAdmins'));
+    }
 	
 	
 	/**

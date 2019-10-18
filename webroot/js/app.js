@@ -51,9 +51,8 @@ class App {
             apiKey: this.mapApiKey,
             app: this
         });
-        this.table = new Table(this.scrollable.getContentContainer(), this);
-
         this.filter = new Filter(this);
+        this.table = new Table(this.scrollable.getContentContainer(), this);
 
         this.status = 'index';
         // load data

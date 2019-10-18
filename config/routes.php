@@ -67,6 +67,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
+    $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
     /**
@@ -88,7 +89,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * You can remove these routes once you've connected the
      * routes you want in your application.
      */
-    $routes->fallbacks(\Cake\Routing\Route\InflectedRoute::class);
+    $routes->fallbacks(\Cake\Routing\Route\DashedRoute::class);
 });
 
 /**
