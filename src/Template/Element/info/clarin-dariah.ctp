@@ -3,11 +3,16 @@
         <p>
             Creating opportunities for collaboration across disciplines and borders
             is a key feature of research infrastructures.
-            As such, CLARIN and DARIAH offer platforms, conferences and workshops,
+            As such,
+            <?= $this->Html->link('CLARIN', 'https://www.clarin.eu/',
+                ['escape' => false, 'target' => '_blank']); ?> and
+            <?= $this->Html->link('DARIAH', 'https://www.dariah.eu/',
+            ['escape' => false, 'target' => '_blank']); ?>
+            offer platforms, conferences and workshops,
             where researchers from various countries and disciplines meet each other.
         </p>
         <p>
-            Within DARIAH, a number of working groups has been established about
+            Within DARIAH, a number of working groups have been established about
             strategic areas such as Artificial Intelligence and Music, GeoHumanities or
             Women Writers in History. These working groups form a vital link between
             the infrastructure and the scientific community. The DHCR working group aims

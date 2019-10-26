@@ -24,10 +24,16 @@ class Map {
             this[key] = options[key];
         }
 
+        let corner1 = L.latLng(90, 360),
+            corner2 = L.latLng(-90, -360),
+            maxBounds = L.latLngBounds(corner1, corner2);
+
         this.map = L.map(this.htmlIdentifier, {
             worldCopyJump: true,
-            maxZoom: 18,
-            scrollWheelZoom: this.scrollWheelZoom
+            maxZoom: this.maxZoom,
+            scrollWheelZoom: this.scrollWheelZoom,
+            maxBounds: maxBounds,
+            maxBoundsViscosity: 0.9
         });
 
         L.tileLayer('https://api.mapbox.com/styles/v1/'

@@ -146,6 +146,16 @@ class App {
     }
 
     getCourses() {
+        // check for preset object served on pageload to speed up loading time
+        if(typeof json_courses != 'undefined' && this.filter.isEmpty()) {
+            this.data = {};
+            for(var i = 0; json_courses.length > i; i++) {
+                this.data[json_courses[i].id] = json_courses[i];
+            }
+            this.map.setMarkers(this.data);
+            this.setTable();
+            return;
+        }
         this.table.setLoader();
         $.ajax({
             url: this.apiUrl + 'courses/index' + this.filter.getQuery(),

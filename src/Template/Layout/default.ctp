@@ -43,10 +43,10 @@ use Cake\Routing\Router;
         
         <div id="header">
             <div id="logo">
-                <?= $this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo.jpg', [
+                <?php /*$this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo.jpg', [
                     'alt' => 'CLARIN-DARIAH joint logo',
                     'width' => 115,
-                    'height' => 90]), '/', ['escape' => false, 'class' => 'img']) ?>
+                    'height' => 90]), '/', ['escape' => false, 'class' => 'img'])*/ ?>
                 <div class="title">
                     <h1>
                         <a href="<?= Router::url('/') ?>">

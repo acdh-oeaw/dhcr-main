@@ -280,12 +280,40 @@ class Filter {
     }
 
     isLocated() {
-        if(Object.keys(this.selected.countries) > 0)
+        if(Object.keys(this.selected.countries).length > 0)
             return true;
-        if(Object.keys(this.selected.cities) > 0)
+        if(Object.keys(this.selected.cities).length > 0)
             return true;
-        if(Object.keys(this.selected.institutions) > 0)
+        if(Object.keys(this.selected.institutions).length > 0)
             return true;
         return false;
+    }
+
+    isEmpty() {
+        if(Object.keys(this.selected.countries).length > 0)
+            return false;
+        if(Object.keys(this.selected.cities).length > 0)
+            return false;
+        if(Object.keys(this.selected.institutions).length > 0)
+            return false;
+        if(Object.keys(this.selected.languages).length > 0)
+            return false;
+        if(Object.keys(this.selected.disciplines).length > 0)
+            return false;
+        if(Object.keys(this.selected.techniques).length > 0)
+            return false;
+        if(Object.keys(this.selected.objects).length > 0)
+            return false;
+        if(this.selected.recent == false)
+            return false;
+        if(this.selected.online != null)
+            return false;
+        if(this.selected.start != null)
+            return false;
+        if(this.selected.end != null)
+            return false;
+        if(this.selected.sort != null)
+            return false;
+        return true;
     }
 }

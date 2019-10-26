@@ -23,10 +23,11 @@ class Accordeon {
 
     closeAll() {
         $('.accordeon-item.open').removeClass('open');
+        this.removeHash();
     }
 
     clickHandler(handle) {
-        // this.closeAll();
+        this.closeAll();
         this.toggleItem(handle);
     }
 

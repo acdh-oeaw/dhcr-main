@@ -269,31 +269,29 @@ table .recurring {
       width: auto;
       float: left; }
       @media only screen and (min-width: 751px) {
-        #header #logo .title {
-          margin-left: 10px; }
-          #header #logo .title h1 {
-            font-weight: bold;
-            text-transform: uppercase;
-            line-height: normal; }
-          #header #logo .title a {
-            text-decoration: none; }
-          #header #logo .title span#h1 {
-            color: #61A845;
-            font-family: bebas, sans-serif;
-            font-size: 49.5px;
-            vertical-align: bottom;
-            line-height: 1;
-            font-weight: normal;
-            letter-spacing: 0; }
-          #header #logo .title span#h2 {
-            color: #2387aa;
-            margin-right: 16.5px; }
-          #header #logo .title span#h3 {
-            color: #1E6BA3; }
-          #header #logo .title #h2, #header #logo .title #h3 {
-            letter-spacing: 3.3px;
-            font-family: metropolis, sans-serif;
-            font-size: 26.4px; } }
+        #header #logo .title h1 {
+          font-weight: bold;
+          text-transform: uppercase;
+          line-height: normal; }
+        #header #logo .title a {
+          text-decoration: none; }
+        #header #logo .title span#h1 {
+          color: #61A845;
+          font-family: bebas, sans-serif;
+          font-size: 49.5px;
+          vertical-align: bottom;
+          line-height: 1;
+          font-weight: normal;
+          letter-spacing: 0; }
+        #header #logo .title span#h2 {
+          color: #2387aa;
+          margin-right: 16.5px; }
+        #header #logo .title span#h3 {
+          color: #1E6BA3; }
+        #header #logo .title #h2, #header #logo .title #h3 {
+          letter-spacing: 3.3px;
+          font-family: metropolis, sans-serif;
+          font-size: 26.4px; } }
       @media only screen and (max-width: 750px) {
         #header #logo .title h1 {
           font-weight: bold;

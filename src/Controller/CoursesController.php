@@ -17,7 +17,9 @@ class CoursesController extends AppController
 {
     
     public function index() {
-     	// do nothing particular...
+        $this->Courses->evaluateQuery($this->request->getQuery());
+        $courses = $this->Courses->getResults();
+        $this->set('courses', $courses);
     }
     
     

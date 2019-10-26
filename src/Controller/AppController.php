@@ -48,8 +48,6 @@ class AppController extends Controller
     
         // Set the Cache-Control as private for 3600 seconds
         $this->response = $this->response->withSharable(true, 3600);
-        /*$this->response = $this->response->cors($this->request)
-            ->allowOrigin(['*.doubleclick.net']);*/
         
         $this->loadComponent('Flash');
 

@@ -43,7 +43,7 @@
             width: auto;
             float: left;
             @include respond-to(screens) {
-                margin-left: 10px;
+                //margin-left: 10px;
                 @include logo-text-scaled(1.1);
             }
             @include respond-to(handhelds) {
