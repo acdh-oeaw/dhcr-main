@@ -1,3 +1,7 @@
+<?php
+use Cake\Core\Configure;
+?>
+
 <div class="flex-columns">
     <div class="flex-item">
         <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
@@ -38,8 +42,10 @@
             on URLs provided with the data.
         </p>
         <div class="buttons">
-            <button id="login">Login</button>
-            <button id="register" class="blue">Register</button>
+            <?= $this->Html->link('Login', Configure::read('ops.baseUrl').'users/login',
+                ['class' => 'button', 'id' => 'login-button']) ?>
+            <?= $this->Html->link('Register', Configure::read('ops.baseUrl').'users/register',
+                ['class' => 'blue button', 'id' => 'register-button']) ?>
         </div>
     </div>
 </div>

@@ -47,7 +47,7 @@ use Cake\Routing\Router;
         </div>
         <div class="flex-columns buttons">
             <div class="flex-item">
-                <button class="left blue" id="start">Go to Start</button>
+                <?= $this->Html->link('Go to Start', '/', ['class' => 'left blue button', 'id' => 'start']) ?>
             </div>
             <div class="flex-item">
                 <?= $this->Html->link('More Information', '/pages/info', ['class' => 'right button']) ?>

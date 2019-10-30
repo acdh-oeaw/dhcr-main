@@ -1,5 +1,6 @@
 
 'use strict';
+// requires Cookies: /npm/js-cookie@2.2.1/src/js.cookie.js
 
 class App {
 
@@ -37,11 +38,14 @@ class App {
         this.slider = new Slider(document.getElementById('container'));
         this.scrollable = new Scrollable(document.getElementById('table'));
         this.intro = document.getElementById('intro');
-        let f = function() { this.hideIntro() }.bind(this);
         if(this.intro != undefined) {
             // the intro page is loaded
             this.scrollListener = function() {
                 this.introScrollAnimationListener()
+            }.bind(this);
+            let f = function(e) {
+                e.preventDefault();
+                this.hideIntro();
             }.bind(this);
             document.getElementById('start').addEventListener('click', f);
         }

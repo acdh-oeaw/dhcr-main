@@ -523,7 +523,7 @@ body.index, body.view {
       font-size: 17px; } }
 
   body.index #intro .flex-columns.buttons, body.view #intro .flex-columns.buttons {
-    margin-top: 30vh; }
+    margin-top: 10vh; }
     body.index #intro .flex-columns.buttons .flex-item, body.view #intro .flex-columns.buttons .flex-item {
       position: relative; }
       body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {

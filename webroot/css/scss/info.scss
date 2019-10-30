@@ -222,7 +222,7 @@ body.info {
             hr {
                 margin: 2em 0;
             }
-            a {
+            a:not(.button) {
                 color: $gray;
                 text-decoration: underline;
                 font-size: inherit;
@@ -289,7 +289,7 @@ body.info {
                             justify-content: center;
                         }
                         button, .button {
-                            padding: 2px 20px 0;
+                            //padding: 2px 20px 0;
                             flex: 0 0 25%;
                             min-width: 155px;
                             margin: 0 10px 20px 10px;
@@ -304,6 +304,11 @@ body.info {
                                 transform: scale(1.05);
                                 transform-origin: left center;
                                 text-decoration: none;
+                            }
+                            &:last-child {
+                                &:hover, &.animate {
+                                    transform-origin: right center;
+                                }
                             }
                         }
                     }

@@ -501,11 +501,11 @@ body.info {
   color: #6d7278; }
 #accordeon .accordeon-item .item-content hr {
   margin: 2em 0; }
-#accordeon .accordeon-item .item-content a {
+#accordeon .accordeon-item .item-content a:not(.button) {
   color: #6d7278;
   text-decoration: underline;
   font-size: inherit; }
-  #accordeon .accordeon-item .item-content a:hover {
+  #accordeon .accordeon-item .item-content a:not(.button):hover {
     color: #1E6BA3; }
 #accordeon .accordeon-item .item-content .css-columns {
   column-count: 2;
@@ -559,7 +559,6 @@ body.info {
       #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons {
         justify-content: center; } }
     #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button {
-      padding: 2px 20px 0;
       flex: 0 0 25%;
       min-width: 155px;
       margin: 0 10px 20px 10px; }
@@ -573,6 +572,8 @@ body.info {
         transform: scale(1.05);
         transform-origin: left center;
         text-decoration: none; }
+      #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button:last-child:hover, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons button:last-child.animate, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button:last-child:hover, #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons .button:last-child.animate {
+        transform-origin: right center; }
   #accordeon .accordeon-item .item-content .flex-columns .flex-item .iframe-container {
     overflow: hidden;
     position: relative; }
