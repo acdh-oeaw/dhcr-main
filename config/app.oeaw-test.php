@@ -3,7 +3,7 @@ return [
     // custom variables
     'api' => [
         //'baseUrl' => 'http://localhost/DH-API/'
-        'baseUrl' => 'https://dhcr-api.acdh-dev.oeaw.ac.at/'
+        'baseUrl' => 'https://dev-dhcr.clarin-dariah.eu/api/'
     ],
     'map' => [
         'apiKey' => 'pk.eyJ1IjoiaGFzaG1pY2giLCJhIjoiY2lxaGQ4eW01MDA5cWhybmhhOGpxODN1aiJ9.FS8KOKVrd6i-8Nd8q1XMmg'
@@ -23,7 +23,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
     /**
      * Configure basic information about the application.

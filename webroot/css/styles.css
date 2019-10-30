@@ -4,10 +4,18 @@
 /* amount of space to reserve for lateral whitespace */
 @font-face {
   font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-SemiBold.otf); }
+  src: url(../fonts/metropolis/Metropolis-Regular.otf); }
+@font-face {
+  font-family: metropolis;
+  src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+  font-weight: bold; }
 @font-face {
   font-family: bebas;
   src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
+@font-face {
+  font-family: bebas;
+  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
+  font-weight: bold; }
 /* breakpoint definition - use this mixin where appropriate */
 /*
 1080 - 1280
@@ -23,15 +31,14 @@
   box-sizing: border-box; }
 
 body {
-  font-family: Helvetica, Verdana, Arial, Sans-Serif;
+  font-family: metropolis, Sans-Serif;
   font-size: 18px;
   line-height: 1.44;
-  font-weight: 300;
+  font-weight: normal;
   letter-spacing: -0.17px;
   color: #6d7278; }
 
 h1 {
-  font-family: metropolis;
   font-size: 40px;
   font-weight: bold;
   line-height: 1.5;
@@ -49,7 +56,6 @@ h2 {
   color: #1E6BA3; }
 
 h3 {
-  font-family: metropolis;
   font-size: 20px;
   font-weight: bold;
   font-style: normal;
@@ -120,9 +126,6 @@ button, .button {
   padding: 2px 20px 0;
   cursor: pointer;
   transition: all 0.3s; }
-  button.blue, .button.blue {
-    background-color: #1E6BA3;
-    color: #fff; }
   button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
@@ -134,11 +137,18 @@ button, .button {
     left: 0;
     bottom: 2px;
     transform: rotate(135deg);
-    border: 3px solid #fff;
+    border: 3px solid #1E6BA3;
     border-top: none;
     border-left: none;
     content: '';
     margin-right: 5px; }
+  button.blue, .button.blue {
+    background-color: #1E6BA3;
+    color: #fff; }
+    button.blue.back::before, button.blue.continue::after, .button.blue.back::before, .button.blue.continue::after {
+      border: 3px solid #fff;
+      border-top: none;
+      border-left: none; }
   button.continue::after, .button.continue::after {
     transform: rotate(-45deg);
     margin-right: 0;
@@ -595,10 +605,10 @@ body.index, body.view {
       @media only screen and (max-width: 750px) {
         body.index #container #view .subtitle, body.view #container #view .subtitle {
           font-size: 14px; } }
-    body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a, body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a {
+    body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
       font-size: 18px; }
       @media only screen and (max-width: 750px) {
-        body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a, body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a {
+        body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
           font-size: 16px; } }
     body.index #container #view .strong, body.view #container #view .strong {
       font-weight: bold;
@@ -637,27 +647,28 @@ body.index, body.view {
       @media only screen and (max-width: 400px) {
         body.index #container #view .buttons, body.view #container #view .buttons {
           justify-content: center; } }
-      body.index #container #view .buttons button, body.view #container #view .buttons button {
-        padding: 2px 20px 0;
+      body.index #container #view .buttons button, body.index #container #view .buttons .button, body.view #container #view .buttons button, body.view #container #view .buttons .button {
         flex: 0 0 25%;
         min-width: 155px;
         margin: 0 10px 20px 10px; }
         @media only screen and (max-width: 400px) {
-          body.index #container #view .buttons button, body.view #container #view .buttons button {
+          body.index #container #view .buttons button, body.index #container #view .buttons .button, body.view #container #view .buttons button, body.view #container #view .buttons .button {
             margin-left: 0;
             margin-right: 0; } }
-        body.index #container #view .buttons button:first-child, body.view #container #view .buttons button:first-child {
-          margin-left: 0; }
-        body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate {
+        body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.index #container #view .buttons .button:hover, body.index #container #view .buttons .button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate, body.view #container #view .buttons .button:hover, body.view #container #view .buttons .button.animate {
           transform: scale(1.05);
           transform-origin: left center;
           text-decoration: none; }
+          body.index #container #view .buttons button:hover.sharing, body.index #container #view .buttons button.animate.sharing, body.index #container #view .buttons .button:hover.sharing, body.index #container #view .buttons .button.animate.sharing, body.view #container #view .buttons button:hover.sharing, body.view #container #view .buttons button.animate.sharing, body.view #container #view .buttons .button:hover.sharing, body.view #container #view .buttons .button.animate.sharing {
+            transform-origin: right center; }
     body.index #container #view .grid-container, body.view #container #view .grid-container {
       margin-bottom: 1em; }
       body.index #container #view .grid-container .item, body.view #container #view .grid-container .item {
         padding: 0;
         margin-bottom: 0.15em; }
-        body.index #container #view .grid-container .item p, body.view #container #view .grid-container .item p {
+        body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
+          margin-top: 0.3em; }
+        body.index #container #view .grid-container .item .term, body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .term, body.view #container #view .grid-container .item .data {
           margin-bottom: 0.3em; }
         body.index #container #view .grid-container .item .term, body.view #container #view .grid-container .item .term {
           color: #1E6BA3;
@@ -757,7 +768,8 @@ body.index, body.view {
       position: relative; }
       body.index #container #table table th, body.index #container #table table td, body.view #container #table table th, body.view #container #table table td {
         border-bottom: 1px solid #d8d8d8;
-        overflow: hidden; }
+        overflow: hidden;
+        font-family: Helvetica, Verdana, Arial, Sans-Serif; }
         @media only screen and (max-width: 750px) {
           body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
@@ -855,5 +867,19 @@ body.index, body.view {
   border-radius: 20px; }
   .marker-cluster-small span {
     font-size: 15px; }
+
+.leaflet-popup-content {
+  margin: 15px; }
+  .leaflet-popup-content::after {
+    content: "";
+    clear: both;
+    display: table; }
+  .leaflet-popup-content .show_view.button, .leaflet-popup-content button.show_view {
+    height: 23px;
+    border-radius: 12px;
+    font-size: 12px;
+    padding: 3px 15px 0;
+    margin: 0;
+    float: right; }
 
 /*# sourceMappingURL=styles.css.map */

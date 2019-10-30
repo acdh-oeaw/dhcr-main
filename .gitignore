@@ -2,6 +2,7 @@
 ##########################
 /config/app.php
 /config/app.dev.php
+/config/app.*
 /config/.env
 /logs/*
 /tmp/*

@@ -56,8 +56,9 @@ class App {
 
         this.status = 'index';
         // load data
-        if(this.action == 'index')
+        if(this.action == 'index') {
             this.getCourses();
+        }
         if(this.action == 'view') {
             this.getCourse();
             $('#intro').css({display: 'none'});
@@ -128,6 +129,13 @@ class App {
 
     // called on view action only
     getCourse() {
+        if(typeof json_course != 'undefined') {
+            this.data = {};
+            this.data[json_course.id] = json_course;
+            this.map.setMarkers(this.data, false);
+            this.setView();
+            return;
+        }
         $.ajax({
             url: this.apiUrl + 'courses/view/' + this.id,
             accept: 'application/json',

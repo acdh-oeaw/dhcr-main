@@ -9,10 +9,10 @@
 
 
 body {
-    font-family: Helvetica, Verdana, Arial, Sans-Serif;
+    font-family: metropolis, Sans-Serif;
     font-size: 18px;
     line-height: 1.44;
-    font-weight: 300;
+    font-weight: normal;
     letter-spacing: -0.17px;
     color: $text-color;
 }
@@ -20,7 +20,6 @@ body {
 
 
 h1 {
-    font-family: metropolis;
     font-size: 40px;
     font-weight: bold;
     line-height: 1.5;
@@ -38,7 +37,6 @@ h2 {
     color: $blue;
 }
 h3 {
-    font-family: metropolis;
     font-size: 20px;
     font-weight: bold;
     font-style: normal;
@@ -101,10 +99,6 @@ a {
 }
 
 button, .button {
-    &.blue {
-        background-color: $blue;
-        color: #fff;
-    }
     height: 46px;
     outline: none;
     display: inline-block;
@@ -138,12 +132,22 @@ button, .button {
         left: 0;
         bottom: 2px;
         transform: rotate(135deg);
-        border: 3px solid #fff;
+        border: 3px solid $blue;
         border-top: none;
         border-left: none;
         content: '';
         margin-right: 5px;
     }
+    &.blue {
+        background-color: $blue;
+        color: #fff;
+        &.back::before, &.continue::after {
+            border: 3px solid #fff;
+            border-top: none;
+            border-left: none;
+        }
+    }
+
     &.continue::after {
         transform: rotate(-45deg);
         margin-right: 0;
@@ -223,6 +227,8 @@ table {
     }
 }
 
+
+// only used in /courses/view so far
 $grid-break: 980px;
 .grid-container {
     display: grid;

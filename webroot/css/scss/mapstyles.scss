@@ -53,3 +53,16 @@
 }
 
 
+
+.leaflet-popup-content {
+    @include clearfix;
+    margin: 15px;
+    .show_view.button, button.show_view {
+        height: 23px;
+        border-radius: 12px;
+        font-size: 12px;
+        padding: 3px 15px 0;
+        margin: 0;
+        float: right;
+    }
+}

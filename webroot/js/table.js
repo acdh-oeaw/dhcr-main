@@ -65,10 +65,11 @@ class Table {
         let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
 
         let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
-        let back = $('<button class="back">' + backActionLabel + '</button>')
+        let back = $('<a class="back button" href="' + BASE_URL + '">' + backActionLabel + '</a>')
             .on('click', function() {this.app.closeView()});
-        let share = $('<button class="blue sharing">Share</button>')
+        let share = $('<a class="blue sharing button" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
             .on('click', function(e) {
+                e.preventDefault();
                 if (navigator.share) {
                     console.log('navi')
                     navigator.share({
@@ -101,17 +102,20 @@ class Table {
         helper.createTermData('Department', course.department).createGridItem();
 
         helper.createTermData('Lecturer', course.contact_name).createGridItem();
-        helper.createTermData('Credits', course.ects).createGridItem();
+        helper.createTermData('Credits (ECTS)', course.ects).createGridItem();
 
         helper.createTermData('Language', course.language.name).createGridItem();
-        if(course.online) helper.createTermData('Online', 'yes').createGridItem();
+        if(course.online) helper.createTermData('Online Course', 'yes').createGridItem();
+
+        helper.createTermData('Record Id', course.id).createGridItem();
 
         if(course.info_url.length > 0 && course.info_url != 'null') {
             let link = ViewHelper.createLink(course.info_url);
-            helper.createTermData('Website', link).createGridItem('single-col');
+            helper.createTermData('Information', link).createGridItem('single-col');
         }
         el.append($(helper.createGridContainer().result));
 
+        // locationMap is a second map only shown on mobile devices
         let location = $('<div id="locationMap"></div>');
         el.append(location);
 
@@ -120,15 +124,17 @@ class Table {
         $(this.element).empty();
         $(this.element).append(el);
 
-        // init map after adding it to document
+        // init mobile auxiliary map after adding it to document
         let map = new Map({
             htmlIdentifier: 'locationMap',
             apiKey: this.app.mapApiKey,
-            scrollWheelZoom: false
+            scrollWheelZoom: false,
+            app: this.app
         });
         let id = course.id;
         map.setMarkers({id: course}, false);
         map.map.setView([course.lat, course.lon], 5);
+        map.map.on('click', function() { map.map.scrollWheelZoom.enable(); });
         map.map.on('focus', function() { map.map.scrollWheelZoom.enable(); });
         map.map.on('mouseout', function() { map.map.scrollWheelZoom.disable()});
         map.map.on('blur', function() { map.map.scrollWheelZoom.disable()});

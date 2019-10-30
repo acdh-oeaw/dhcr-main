@@ -16,7 +16,7 @@
             font-size: 14px;
         }
     }
-    .text, .term, .data, a {
+    .text, .term, .data, a:not(.button) {
         font-size: 18px;
         @include respond-to(handhelds) {
             font-size: 16px;
@@ -66,8 +66,7 @@
         @include respond-to(x-small) {
             justify-content: center;
         }
-        button {
-            padding: 2px 20px 0;
+        button, .button {
             flex: 0 0 25%;
             min-width: 155px;
             margin: 0 10px 20px 10px;
@@ -75,13 +74,13 @@
                 margin-left: 0;
                 margin-right: 0;
             }
-            &:first-child {
-                margin-left: 0;
-            }
             &:hover, &.animate {
                 transform: scale(1.05);
                 transform-origin: left center;
                 text-decoration: none;
+                &.sharing {
+                    transform-origin: right center;
+                }
             }
         }
     }
@@ -90,7 +89,10 @@
         .item {
             padding: 0;
             margin-bottom: 0.15em;
-            p {
+            &.single-col {
+                margin-top: 0.3em;
+            }
+            .term, .data {
                 margin-bottom: 0.3em;
             }
             .term {

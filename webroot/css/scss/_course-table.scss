@@ -20,6 +20,7 @@
         th, td {
             border-bottom: 1px solid $light-gray;
             overflow: hidden;
+            font-family: Helvetica, Verdana, Arial, Sans-Serif;
             &.university {
                 @include respond-to(handhelds) {
                     display: none;

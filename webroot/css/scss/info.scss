@@ -211,10 +211,12 @@ body.info {
                         font-weight: normal;
                     }
                 }
+                a {
+                    color: $blue;
+                }
             }
             p {
                 font-size: 18px;
-                font-family: metropolis, sans-serif;
                 color: $gray;
             }
             hr {

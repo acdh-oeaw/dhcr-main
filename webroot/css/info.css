@@ -4,10 +4,18 @@
 /* amount of space to reserve for lateral whitespace */
 @font-face {
   font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-SemiBold.otf); }
+  src: url(../fonts/metropolis/Metropolis-Regular.otf); }
+@font-face {
+  font-family: metropolis;
+  src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+  font-weight: bold; }
 @font-face {
   font-family: bebas;
   src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
+@font-face {
+  font-family: bebas;
+  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
+  font-weight: bold; }
 /* breakpoint definition - use this mixin where appropriate */
 /*
 1080 - 1280
@@ -23,15 +31,14 @@
   box-sizing: border-box; }
 
 body {
-  font-family: Helvetica, Verdana, Arial, Sans-Serif;
+  font-family: metropolis, Sans-Serif;
   font-size: 18px;
   line-height: 1.44;
-  font-weight: 300;
+  font-weight: normal;
   letter-spacing: -0.17px;
   color: #6d7278; }
 
 h1 {
-  font-family: metropolis;
   font-size: 40px;
   font-weight: bold;
   line-height: 1.5;
@@ -49,7 +56,6 @@ h2 {
   color: #1E6BA3; }
 
 h3 {
-  font-family: metropolis;
   font-size: 20px;
   font-weight: bold;
   font-style: normal;
@@ -120,9 +126,6 @@ button, .button {
   padding: 2px 20px 0;
   cursor: pointer;
   transition: all 0.3s; }
-  button.blue, .button.blue {
-    background-color: #1E6BA3;
-    color: #fff; }
   button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
@@ -134,11 +137,18 @@ button, .button {
     left: 0;
     bottom: 2px;
     transform: rotate(135deg);
-    border: 3px solid #fff;
+    border: 3px solid #1E6BA3;
     border-top: none;
     border-left: none;
     content: '';
     margin-right: 5px; }
+  button.blue, .button.blue {
+    background-color: #1E6BA3;
+    color: #fff; }
+    button.blue.back::before, button.blue.continue::after, .button.blue.back::before, .button.blue.continue::after {
+      border: 3px solid #fff;
+      border-top: none;
+      border-left: none; }
   button.continue::after, .button.continue::after {
     transform: rotate(-45deg);
     margin-right: 0;
@@ -484,9 +494,10 @@ body.info {
   @media only screen and (max-width: 400px) {
     #accordeon .accordeon-item .item-content#imprint-content h3 {
       font-weight: normal; } }
+#accordeon .accordeon-item .item-content#imprint-content a {
+  color: #1E6BA3; }
 #accordeon .accordeon-item .item-content p {
   font-size: 18px;
-  font-family: metropolis, sans-serif;
   color: #6d7278; }
 #accordeon .accordeon-item .item-content hr {
   margin: 2em 0; }

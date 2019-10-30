@@ -8,13 +8,14 @@ class Map {
             apiKey:  'pass key using constructor options',
             htmlIdentifier: 'map',
             maxZoom: 18,
+            minZoom: 1,
             scrollWheelZoom: true
         };
     }
 
     constructor(options) {
         this.apiKey = this.htmlIdentifier = this.maxZoom = null;
-        this.app = this.scrollWheelZoom = null;
+        this.minZoom = this.app = this.scrollWheelZoom = null;
 
         if(typeof options == 'object')
             options = Object.assign(this.defaults(), options);
@@ -31,9 +32,10 @@ class Map {
         this.map = L.map(this.htmlIdentifier, {
             worldCopyJump: true,
             maxZoom: this.maxZoom,
+            minZoom: this.minZoom,
             scrollWheelZoom: this.scrollWheelZoom,
             maxBounds: maxBounds,
-            maxBoundsViscosity: 0.9
+            maxBoundsViscosity: 1
         });
 
         L.tileLayer('https://api.mapbox.com/styles/v1/'
@@ -102,7 +104,9 @@ class Map {
                     + '<p>' + course.institution.name + ',<br />'
                     + course.department + '.</p>'
                     + '<p>Type: ' + course.course_type.name + '</p>'
-                    + '<button class="show_view" data-id="' + course.id + '">Show details</button>';
+                    + '<a class="show_view button" data-id="' + course.id
+                    + '" href="' + BASE_URL + 'courses/view/' + course.id
+                    + '">Show details</a>';
                 marker.bindPopup(content);
             }
 
@@ -122,8 +126,9 @@ class Map {
             $('.show_view').on('click', function(e) {
                 let id = $(e.target).attr('data-id');
                 this.app.setView(id);
-            })
-        });
+                e.preventDefault();
+            }.bind(this))
+        }.bind(this));
     }
 
     openMarker(id) {
@@ -131,13 +136,6 @@ class Map {
             this.markers[id].openPopup();
             this.id = id;
         }.bind(this));
-        /*
-        $('#show-view').click(function (e) {
-            let id = e.target.attr('data-id');
-            this.app.setView(id);
-        });
-
-         */
     }
 
     closeMarker() {
@@ -151,6 +149,7 @@ class Map {
         this.map.options.maxZoom = maxZoom;
         this.map.options.minZoom = 2;
         this.map.fitBounds(this.cluster.getBounds(), {padding: [10, 10]});
+        this.map.options.minZoom = this.minZoom;
     }
 
 }

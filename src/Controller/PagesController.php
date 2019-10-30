@@ -61,7 +61,6 @@ class PagesController extends AppController
             ->order(['Countries.name ASC'])
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
-            debug($countries);
         $this->set(compact('countries', 'moderators', 'userAdmins'));
     }
 	

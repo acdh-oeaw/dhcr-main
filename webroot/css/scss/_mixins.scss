@@ -28,11 +28,22 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 
 @font-face {
     font-family: metropolis;
+    //src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+    src: url(../fonts/metropolis/Metropolis-Regular.otf);
+}
+@font-face {
+    font-family: metropolis;
     src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+    font-weight: bold;
 }
 @font-face {
     font-family: bebas;
     src: url(../fonts/bebas_neue/BebasNeue-Regular.otf);
+}
+@font-face {
+    font-family: bebas;
+    src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
+    font-weight: bold;
 }
 
 /* breakpoint definition - use this mixin where appropriate */

@@ -24,7 +24,19 @@ class CoursesController extends AppController
     
     
     public function view($id = null) {
-		$this->render('index');
+        $course = $this->Courses->get($id, [
+            'contain' => $this->Courses->containments,
+            'conditions' => [
+                'Courses.active' => true
+            ]
+        ]);
+    
+        if(empty($course)) {
+            throw new RecordNotFoundException();
+        }
+    
+        $this->set('course', $course);
+        $this->render('index');
     }
 
     
