@@ -125,7 +125,7 @@ class Map {
         this.map.on('popupopen', function() {
             $('.show_view').on('click', function(e) {
                 let id = $(e.target).attr('data-id');
-                this.app.setView(id);
+                this.app.setCourse(id);
                 e.preventDefault();
             }.bind(this))
         }.bind(this));

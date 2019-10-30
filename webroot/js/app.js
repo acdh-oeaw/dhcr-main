@@ -56,7 +56,7 @@ class App {
             app: this
         });
         this.filter = new Filter(this);
-        this.table = new Table(this.scrollable.getContentContainer(), this);
+        this.view = new View(this.scrollable.getContentContainer(), this);
 
         this.status = 'index';
         // load data
@@ -137,7 +137,7 @@ class App {
             this.data = {};
             this.data[json_course.id] = json_course;
             this.map.setMarkers(this.data, false);
-            this.setView();
+            this.setCourse();
             return;
         }
         $.ajax({
@@ -151,7 +151,7 @@ class App {
             this.data = {};
             this.data[data.id] = data;
             this.map.setMarkers(this.data, false);
-            this.setView();
+            this.setCourse();
         }).fail(function (jqXHR, textStatus, errorThrown) {
             this.handleError(jqXHR);
         });
@@ -168,7 +168,7 @@ class App {
             this.setTable();
             return;
         }
-        this.table.setLoader();
+        this.view.setLoader();
         $.ajax({
             url: this.apiUrl + 'courses/index' + this.filter.getQuery(),
             accept: 'application/json',
@@ -189,15 +189,15 @@ class App {
     }
 
     setTable() {
-        this.table.setTable(this.data);
+        this.view.createTable(this.data);
         this.map.closeMarker();
         this.scrollable.updateSize();
         this.status = 'index';
     }
 
-    setView(id) {
+    setCourse(id) {
         id = id || this.id;
-        this.table.createView(this.data[id]);
+        this.view.createView(this.data[id]);
         if(this.action == 'index') this.map.openMarker(id);
         if(this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
         this.scrollable.updateSize();

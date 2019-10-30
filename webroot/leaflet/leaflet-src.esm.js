@@ -3161,7 +3161,7 @@ var Map = Evented.extend({
 
 	// @section Methods for modifying map state
 
-	// @method setView(center: LatLng, zoom: Number, options?: Zoom/pan options): this
+	// @method setCourse(center: LatLng, zoom: Number, options?: Zoom/pan options): this
 	// Sets the view of the map (geographical center and zoom) with the given
 	// animation options.
 	setView: function (center, zoom, options) {
@@ -3629,7 +3629,7 @@ var Map = Evented.extend({
 		options = this._locateOptions = extend({
 			timeout: 10000,
 			watch: false
-			// setView: false
+			// setCourse: false
 			// maxZoom: <Number>
 			// maximumAge: 0
 			// enableHighAccuracy: false
@@ -3658,7 +3658,7 @@ var Map = Evented.extend({
 	// @method stopLocate(): this
 	// Stops watching location previously initiated by `map.locate({watch: true})`
 	// and aborts resetting the map view if map.locate was called with
-	// `{setView: true}`.
+	// `{setCourse: true}`.
 	stopLocate: function () {
 		if (navigator.geolocation && navigator.geolocation.clearWatch) {
 			navigator.geolocation.clearWatch(this._locationWatchId);

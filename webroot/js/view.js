@@ -1,7 +1,7 @@
 
 'use strict';
 
-class Table {
+class View {
 
     constructor(elm, app) {
         // store the native DOM element, not jQuery
@@ -10,7 +10,7 @@ class Table {
         this.app = app;
     }
 
-    setTable(courses) {
+    createTable(courses) {
         if(courses.length == 0) {
             this.setErrorMessage('Your query returned no results.');
             return;
@@ -66,7 +66,10 @@ class Table {
 
         let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
         let back = $('<a class="back button" href="' + BASE_URL + '">' + backActionLabel + '</a>')
-            .on('click', function() {this.app.closeView()});
+            .on('click', function(e) {
+                e.preventDefault();
+                this.app.closeView();
+            }.bind(this));
         let share = $('<a class="blue sharing button" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
             .on('click', function(e) {
                 e.preventDefault();
@@ -83,7 +86,7 @@ class Table {
                     shareDialog.classList.add('is-open');
                     console.log('fallback')
                 }
-            });
+            }.bind(this));
         el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));

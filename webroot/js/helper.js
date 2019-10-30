@@ -9,9 +9,8 @@ class ViewHelper {
     }
 
     constructor(result = '', collection = []) {
-        this._result = result;
-        this._collection = collection;
-        //this.months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+        this._result = result;  // the resulting html string
+        this._collection = collection;  // collection of html string items to wrap in a container
     }
 
     reset() {
