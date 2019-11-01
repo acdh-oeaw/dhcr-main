@@ -1,10 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
+
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\Event\Event;
-use http\Exception\BadHeaderException;
 
 /**
  * Courses Controller
@@ -17,9 +15,30 @@ class CoursesController extends AppController
 {
     
     public function index() {
-        $this->Courses->evaluateQuery($this->request->getQuery());
+        $query = $this->request->getQuery();
+        $this->Courses->evaluateQuery($query);
         $courses = $this->Courses->getResults();
-        $this->set('courses', $courses);
+    
+        $this->loadModel('Countries');
+        $this->loadModel('Cities');
+        $this->loadModel('Institutions');
+        
+        // get filter option lists
+        $countriesQuery = ['course_count' => true];
+        $this->Countries->evaluateQuery($countriesQuery);
+        $countries = $this->Countries->getCountries();
+        
+        $citiesQuery = ['course_count' => true, 'group' => true];
+        if(!empty($query['country_id'])) $citiesQuery['country_id'] = $query['country_id'];
+        $this->Cities->evaluateQuery($citiesQuery);
+        $cities = $this->Cities->getCities();
+        
+        $institutionsQuery = ['course_count' => true, 'group' => true];
+        if(!empty($query['country_id'])) $institutionsQuery['country_id'] = $query['country_id'];
+        $this->Institutions->evaluateQuery($institutionsQuery);
+        $institutions = $this->Institutions->getInstitutions();
+        
+        $this->set(compact('courses','countries','cities','institutions'));
     }
     
     

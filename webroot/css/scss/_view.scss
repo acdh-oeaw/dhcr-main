@@ -1,25 +1,25 @@
 #view {
     h1 {
-        font-size: 35px;
+        font-size: 25px;
         font-family: metropolis;
         font-weight: bold;
         margin: 0 0 0.5em;
         padding-top: 1em;   // for margin sticking out of containing box problem
         @include respond-to(handhelds) {
-            font-size: 30px;
+            font-size: 20px;
         }
     }
     .subtitle {
         font-style: italic;
-        font-size: 20px;
+        font-size: 18px;
         @include respond-to(handhelds) {
             font-size: 14px;
         }
     }
     .text, .term, .data, a:not(.button) {
-        font-size: 18px;
+        font-size: 16px;
         @include respond-to(handhelds) {
-            font-size: 16px;
+            font-size: 14px;
         }
     }
     .strong {

@@ -1,7 +1,7 @@
 
 
 /* Color schema */
-$clarin_blue	: #2387aa;
+$clarin_blue	: #07426e;  //2387aa
 $dariah_blue	: #1E6BA3;
 $blue			: $dariah_blue;
 $green			: #61A845;
@@ -72,6 +72,21 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
         // 80 em on 16px fontsize -> 1280px
         @media only screen and (min-width: 1280px) { @content; }
     }
+}
+
+
+
+@mixin reset-select {
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 5px 12px;
+    font-family: metropolis;
+    &::-ms-expand { display: none; }
+    &:focus::-ms-value { background-color: transparent; }
 }
 
 

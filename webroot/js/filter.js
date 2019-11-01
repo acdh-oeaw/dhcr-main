@@ -8,9 +8,7 @@ class Filter {
         this.app = app;
 
         this.institutions       = {};
-        this._institutions      = {};
         this.cities             = {};
-        this._cities            = {};
         this.countries          = {};
         this.languages          = {};
         this.disciplines        = {};
@@ -19,7 +17,7 @@ class Filter {
         this.types              = {};
 
         this.selected = {
-            'institutions'    : {},
+            'institutions'      : {},
             'cities'            : {},
             'countries'         : {},
             'languages'         : {},
@@ -35,7 +33,7 @@ class Filter {
         };
         // a mapping for the query keys
         this.mapping = {
-            'instititutions'    : 'institution_id',
+            'institutions'    : 'institution_id',
             'cities'            : 'city_id',
             'countries'         : 'country_id',
             'languages'         : 'language_id',
@@ -49,68 +47,51 @@ class Filter {
             'end'               : 'end_date',
             'sort'              : 'sort'
         };
-    }
 
-    getInstitutions() {
-        $.ajax({
-            url: this.app.apiUrl + 'institutions/index?sort_count&group',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.institutions = {};
-            this._institutions = data;
-            for(var i = 0; data.length > i; i++) {
-                // country level
-                for(var n = 0; data[i].length > n; n++) {
-                    this.institutions[data[i][n].id] = data[i][n];
-                }
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
-    }
+        this.getCountries();
+        this.getCities();
+        this.getInstitutions();
 
-    getCities() {
-        $.ajax({
-            url: this.app.apiUrl + 'cities/index?sort_count&group',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.cities = {};
-            this._cities = data;
-            for(var i = 0; data.length > i; i++) {
-                // country level
-                for(var n = 0; data[i].length > n; n++) {
-                    this.cities[data[i][n].id] = data[i][n];
-                }
+        //TODO: evaluate query -> selected!!!
+        let pattern = /[0-9]|^[0-9]+[0-9,]*[0-9]+$/g;
+        for(let category in this.selected) {
+            let value = Filter.getParameterByName(this.mapping[category]);
+            if(typeof this.selected[category] == 'object' && pattern.test(value)) {
+                value = value.split(',');
+                value.forEach(function(id) {
+                    if(typeof this[category][id] != 'undefined')
+                        this.selected[category][id] = this[category][id].name;
+                }.bind(this));
             }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        }
     }
 
     getCountries() {
-        $.ajax({
-            url: this.app.apiUrl + 'countries/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.countries = {};
-            for(var i = 0; data.length > i; i++) {
-                this.countries[data[i].id] = data[i];
+        this.countries = {};
+        for(let i = 0; countries.length > i; i++) {
+            if(countries[i].course_count > 0)
+                this.countries[countries[i].id] = countries[i];
+        }
+    }
+
+    getCities() {
+        this.cities = {};
+        for(let country in cities) {
+            for(let i = 0; cities[country].length > i; i++) {
+                if(cities[country][i].course_count > 0)
+                    this.cities[cities[country][i].id] = cities[country][i];
             }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        }
+    }
+
+    getInstitutions() {
+        this.institutions = {};
+        for(let country in institutions) {
+            for(let i = 0; institutions[country].length > i; i++) {
+                if(institutions[country][i].course_count > 0)
+                    this.institutions[institutions[country][i].id] = institutions[country][i];
+            }
+        }
     }
 
     getDisciplines() {
@@ -220,25 +201,50 @@ class Filter {
 
     createSelectorOption(category, id) {
         let label = this[category][id].name + ' (' + this[category][id].course_count + ')';
-        return '<li class="select" data-category="' + category + '" data-id="' + id + '">' + label + '</li>';
+        return '<option class="filter-option" '
+            + 'data-category="' + category + '" data-id="'
+            + id + '">' + label + '</option>';
     }
 
     createSelector(category) {
-        let retval = '<ul>';
-        Object.keys(this[category]).forEach(function(id,index) {
-            if(!this.selected[category].hasOwnProperty(id)) {
+        if(category == 'cities' || category == 'institutions') return;
+        let retval = '<div class="styled-select selected"><select>';
+        retval += '<option selected disabled hidden>Choose Country</option>';
+        for(let i = 0; window[category].length > i; i++) {
+            let id = window[category][i].id;
+            if(typeof this[category][id] != 'undefined' && !this.selected[category].hasOwnProperty(id)) {
                 retval += this.createSelectorOption(category, id);
             }
-        });
-        return retval += '</ul>';
+        }
+        retval += '</select></div>';
+        if(!this.isEmpty(category)) {
+            retval += '<ul class="selection">';
+            for(let id in this.selected[category]) {
+                retval += '<li>' + this.selected[category][id] + '</li>';
+            }
+            retval += '</ul>';
+        }
+        return retval;
     }
 
     createHtml() {
-        let el = $('<div id="filter"></div>');
-        el.append(this.createSelector('countries'));
-        el.append(this.createSelector('cities'));
-        el.append(this.createSelector('institutions'));
-        return el;
+        let filter = $('<div id="filter"></div>');
+        let form = $('<form></form>');
+        form.append(this.createSelector('countries'));
+        form.append(this.createSelector('cities'));
+        form.append(this.createSelector('institutions'));
+        filter.append(form);
+        return filter;
+    }
+
+    addHandler() {
+        $('select').on('change', function(e) {
+            let selection = $("option:selected", e.target);
+            let id = selection.attr('data-id');
+            let category = selection.attr('data-category');
+            this.selected[category][id] = this[category][id].name;
+            window.location = BASE_URL + this.getQuery();
+        }.bind(this));
     }
 
     createSelection(category) {
@@ -289,7 +295,12 @@ class Filter {
         return false;
     }
 
-    isEmpty() {
+    isEmpty(category) {
+        if(typeof category != 'undefined') {
+            if(Object.keys(this.selected[category]).length > 0)
+                return false;
+            return true;
+        }
         if(Object.keys(this.selected.countries).length > 0)
             return false;
         if(Object.keys(this.selected.cities).length > 0)
@@ -315,5 +326,15 @@ class Filter {
         if(this.selected.sort != null)
             return false;
         return true;
+    }
+
+    static getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 }

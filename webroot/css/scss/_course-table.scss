@@ -7,12 +7,26 @@
     .loading {
         // create loader gif as background
         height: 100%;
+        width: 100%;
         font-size: 0;
+        background: url("../img/loading.gif") center/contain no-repeat;
     }
 
     table {
         white-space: normal;
         font-size: 11px;
+        @include respond-to(handhelds) {
+            font-size: 12px;
+        }
+        @include respond-to(x-small) {
+            font-size: 11px;
+        }
+        @media only screen and (min-width: 1350px) {
+            font-size: 12px;
+        }
+        @media only screen and (min-width: 1500px) {
+            font-size: 14px;
+        }
         table-layout: fixed;
         width: 100%;
         margin-right: 5px;

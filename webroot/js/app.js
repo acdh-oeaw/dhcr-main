@@ -55,12 +55,13 @@ class App {
             apiKey: this.mapApiKey,
             app: this
         });
-        this.filter = new Filter(this);
+
         this.view = new View(this.scrollable.getContentContainer(), this);
 
         this.status = 'index';
         // load data
         if(this.action == 'index') {
+            this.filter = new Filter(this);
             this.getCourses();
         }
         if(this.action == 'view') {
@@ -131,43 +132,31 @@ class App {
         });
     }
 
-    // called on view action only
     getCourse() {
-        if(typeof json_course != 'undefined') {
+        // called on view action only, show error if no data available
+        if(typeof course != 'undefined') {
             this.data = {};
-            this.data[json_course.id] = json_course;
+            this.data[course.id] = course;
             this.map.setMarkers(this.data, false);
             this.setCourse();
             return;
         }
-        $.ajax({
-            url: this.apiUrl + 'courses/view/' + this.id,
-            accept: 'application/json',
-            method: 'GET',
-            cache: false,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.data = {};
-            this.data[data.id] = data;
-            this.map.setMarkers(this.data, false);
-            this.setCourse();
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.handleError(jqXHR);
-        });
+        // course is not found
+        this.handleError('The record you are looking for does not exist');
     }
 
     getCourses() {
         // check for preset object served on pageload to speed up loading time
-        if(typeof json_courses != 'undefined' && this.filter.isEmpty()) {
+        if(typeof courses != 'undefined' && this.filter.isEmpty()) {
             this.data = {};
-            for(var i = 0; json_courses.length > i; i++) {
-                this.data[json_courses[i].id] = json_courses[i];
+            for(var i = 0; courses.length > i; i++) {
+                this.data[courses[i].id] = courses[i];
             }
             this.map.setMarkers(this.data);
             this.setTable();
             return;
         }
+        // reload data if filter is set
         this.view.setLoader();
         $.ajax({
             url: this.apiUrl + 'courses/index' + this.filter.getQuery(),
@@ -241,5 +230,7 @@ class App {
 
     handleError(data) {
         console.log(data);
+        let msg = (typeof data == 'string') ? data : 'Something went wrong';
+        this.view.setErrorMessage(msg);
     }
 }

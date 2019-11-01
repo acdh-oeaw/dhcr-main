@@ -32,10 +32,10 @@
 
 body {
   font-family: metropolis, Sans-Serif;
-  font-size: 18px;
-  line-height: 1.44;
+  font-size: 16px;
+  line-height: 1.5;
   font-weight: normal;
-  letter-spacing: -0.17px;
+  letter-spacing: normal;
   color: #6d7278; }
 
 h1 {
@@ -175,8 +175,8 @@ hr {
   display: table; }
 
 .recurring {
-  background: url("../img/repeat.png") left bottom/contain no-repeat;
-  padding-left: 1.4em;
+  background: url("../img/repeat.png") right bottom/contain no-repeat;
+  padding-right: 1.4em;
   padding-bottom: 0.2em;
   line-height: 0.85em;
   font-size: inherit;
@@ -246,7 +246,7 @@ form label {
   font-weight: bold;
   color: #1E6BA3; }
 form input, form textarea, form select {
-  border: 2px solid #1E6BA3;
+  border: 1px solid #1E6BA3;
   border-radius: 4px;
   background-color: #fff;
   -ms-box-sizing: border-box;
@@ -255,7 +255,18 @@ form input, form textarea, form select {
   box-sizing: border-box;
   padding: 4px; }
 form select {
-  padding: 0; }
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+  cursor: pointer;
+  background-color: transparent;
+  padding: 5px 12px;
+  font-family: metropolis; }
+  form select::-ms-expand {
+    display: none; }
+  form select:focus::-ms-value {
+    background-color: transparent; }
 form .input {
   display: flex;
   justify-content: space-between;
@@ -266,6 +277,9 @@ form .input {
   form .input input, form .input textarea, form .input select {
     flex: 0 0 50%;
     margin-bottom: 0.5em; }
+
+html {
+  scroll-behavior: smooth; }
 
 body.info {
   padding: 10vw 15px;
@@ -308,7 +322,7 @@ body.info {
     font-weight: normal;
     letter-spacing: 0; }
   #page-head span#h2 {
-    color: #2387aa;
+    color: #07426e;
     margin-right: 30px; }
   #page-head span#h3 {
     color: #1E6BA3; }
@@ -332,7 +346,7 @@ body.info {
     font-weight: normal;
     letter-spacing: 0; }
   #page-head span#h2 {
-    color: #2387aa;
+    color: #07426e;
     margin-right: 3vw; }
   #page-head span#h3 {
     color: #1E6BA3; }
@@ -357,7 +371,7 @@ body.info {
     font-weight: normal;
     letter-spacing: 0; }
   #page-head span#h2 {
-    color: #2387aa;
+    color: #07426e;
     margin-right: 4vw; }
   #page-head span#h3 {
     color: #1E6BA3; }
@@ -403,13 +417,13 @@ body.info {
   padding: 0.8em 2em 0.6em 0;
   font-family: metropolis, sans-serif;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 25px;
   text-transform: none;
   cursor: pointer;
   position: relative; }
   @media only screen and (max-width: 750px) {
     #accordeon .accordeon-item > h2 {
-      font-size: 30px; } }
+      font-size: 22px; } }
   @media only screen and (max-width: 400px) {
     #accordeon .accordeon-item > h2 {
       font-size: 25px; } }
@@ -430,9 +444,12 @@ body.info {
   #accordeon .accordeon-item > h2:hover {
     color: #6d7278; }
     #accordeon .accordeon-item > h2:hover::after {
-      border-color: #6d7278; }
+      border-color: #6d7278;
+      transform: rotate(225deg);
+      bottom: 0.55em; }
 #accordeon .accordeon-item:not(.open) .item-content {
-  height: 0;
+  max-height: 0;
+  transition: max-height 0.5s ease-out;
   overflow: hidden; }
 #accordeon .accordeon-item:not(.open):last-child h2 {
   border-bottom: 2px solid #d8d8d8; }
@@ -441,7 +458,8 @@ body.info {
   bottom: 0.55em; }
 #accordeon .accordeon-item.open .item-content {
   padding: 2em 0 3em;
-  height: auto; }
+  max-height: 5000px;
+  transition: max-height 0.5s ease-in; }
 #accordeon .accordeon-item.open:last-child .item-content {
   border-bottom: 2px solid #d8d8d8; }
 #accordeon .accordeon-item .item-content h3 {

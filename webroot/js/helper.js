@@ -109,8 +109,7 @@ class ViewHelper {
         }
         if(course.recurring) {
             if (result != '') result += recurringSeparator;
-            let recurring = (verbose) ? '(recurring)' : 'recurring';
-            result += '<span class="recurring">' + recurring + '</span>';
+            result += '<span class="recurring">recurring</span>';
         }
         if(course.duration) {
             if (result != '') result += durationSeparator;

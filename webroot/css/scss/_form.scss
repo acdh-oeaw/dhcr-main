@@ -6,7 +6,7 @@ form {
         color: $blue;
     }
     input,textarea,select {
-        border: 2px solid $blue;
+        border: 1px solid $blue;
         border-radius: 4px;
         background-color: #fff;
         -ms-box-sizing:border-box;
@@ -16,7 +16,7 @@ form {
         padding: 4px;
     }
     select {
-        padding: 0;
+        @include reset-select;
     }
     .input {
         display: flex;

@@ -6,6 +6,10 @@
 
 @import "form";
 
+html {
+    scroll-behavior: smooth;
+}
+
 body.info {
     padding: 10vw $whitespace;
     max-width: 1000px;
@@ -97,12 +101,12 @@ body.info {
             padding: 0.8em 2em 0.6em 0;
             font-family: metropolis, sans-serif;
             font-weight: bold;
-            font-size: 40px;
+            font-size: 25px;
             text-transform: none;
             cursor: pointer;
             position: relative;
             @include respond-to(handhelds) {
-                font-size: 30px;
+                font-size: 22px;
             }
             @include respond-to(x-small) {
                 font-size: 25px;
@@ -126,12 +130,15 @@ body.info {
                 color: $gray;
                 &::after {
                     border-color: $gray;
+                    transform: rotate(225deg);
+                    bottom: 0.55em;
                 }
             }
         }
         &:not(.open) {
             .item-content {
-                height: 0;
+                max-height: 0;
+                transition: max-height 0.5s ease-out;
                 overflow: hidden;
             }
             &:last-child h2 {
@@ -147,7 +154,8 @@ body.info {
             }
             .item-content {
                 padding: 2em 0 3em;
-                height: auto;
+                max-height: 5000px;
+                transition: max-height 0.5s ease-in;
             }
             &:last-child .item-content {
                 border-bottom: 2px solid $light-gray;

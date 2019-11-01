@@ -13,10 +13,6 @@ body.index, body.view {
     width: calc(100% - 2 * #{$whitespace});
     overflow: hidden;
     @include respond-to(handhelds) {
-        font-size: 16px;
-        line-height: 1.5;
-        font-weight: 300;
-        letter-spacing: normal;
         padding: 0;
         margin: 0;
         max-width: initial;
@@ -42,9 +38,18 @@ body.index, body.view {
 
             #table {
                 flex: 1 0 500px;
-                border-top: 2px solid $blue;
                 margin-right: 15px;
                 padding-top: $whitespace;
+                position: relative;
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    display: block;
+                    height: 2px;
+                    background-color: $blue;
+                    width: calc(100% - 16px);   // scrollbar width and padding, align with filter box
+                }
             }
             #map {
                 flex: 1 1 220px;
@@ -72,9 +77,15 @@ body.index, body.view {
                     bottom: 0;
                     width: 100%;
                     height: 50px;
-                    background-image: linear-gradient(to bottom, transparent, #fff);
+                    background-image: -webkit-linear-gradient(rgba(255,255,255, 0), #fff);
+                    background-image: linear-gradient(rgba(255,255,255, 0), #fff);
                     border-bottom: 2px solid $blue;
                     content: "";
+                    z-index: 1000;
+                    pointer-events: none;
+                }
+                .thumb, .track {
+                    z-index: 10000;
                 }
             }
             #slide-control {
@@ -88,55 +99,11 @@ body.index, body.view {
                 margin: 0 auto;
                 background: url("../img/slide-toggle.png") left top no-repeat;
                 background-size: cover;
-                z-index: 500;
+                z-index: 10000;
                 cursor: pointer;
                 transition: transform 0.3s;
                 &:hover {
                     transform: scale(1.1, 1.1);
-                }
-            }
-        }
-
-        .leaflet-popup {
-            .leaflet-popup-close-button {
-                display: none;
-            }
-            .leaflet-popup-tip, .leaflet-popup-content-wrapper {
-                background-color: $blue;
-            }
-            .leaflet-popup-content {
-                p {
-                    color: #fff;
-                    font-family: metropolis;
-                    font-size: 11px;
-                    position: relative;
-                    margin: 0.7em 0;
-                    width: 100%;
-                }
-                h1 {
-                    color: #fff;
-                    font-family: metropolis;
-                    font-size: 11px;
-                    font-weight: bold;
-                    margin: 0.8em 0;
-                }
-                a.details {
-                    color: transparent;
-                    display: block;
-                    width: 10px;
-                    height: 10px;
-                    transform: rotate(45deg);
-                    border: solid 3px #fff;
-                    border-bottom: none;
-                    border-left:none;
-                    position: relative;
-                    left: calc(100% - 7px);
-                    border-radius: 1px;
-                    transition: transform 0.3s;
-                    &:hover {
-                        transform: scale(1.5) rotate(45deg);
-                        border-radius: 2px;
-                    }
                 }
             }
         }

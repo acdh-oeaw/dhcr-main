@@ -5,6 +5,10 @@ return [
         //'baseUrl' => 'http://localhost/DH-API/'
         'baseUrl' => 'https://dev-dhcr.clarin-dariah.eu/api/'
     ],
+    'ops' => [
+        //'baseUrl' => 'http://localhost/DH/',
+        'baseUrl' => 'https://dev-dhcr.clarin-dariah.eu/ops/'
+    ],
     'map' => [
         'apiKey' => 'pk.eyJ1IjoiaGFzaG1pY2giLCJhIjoiY2lxaGQ4eW01MDA5cWhybmhhOGpxODN1aiJ9.FS8KOKVrd6i-8Nd8q1XMmg'
     ],

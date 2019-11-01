@@ -61,20 +61,6 @@ $this->layout = false;
                 </div>
             </div>
     
-            <div class="accordeon-item" id="technical-documentation">
-                <h2>Technical Documentation</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/docs') ?>
-                </div>
-            </div>
-    
-            <div class="accordeon-item" id="clarin-dariah">
-                <h2>CLARIN & DARIAH</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/clarin-dariah') ?>
-                </div>
-            </div>
-    
             <div class="accordeon-item" id="contact">
                 <h2>Contact Us</h2>
                 <div class="item-content">
@@ -82,7 +68,21 @@ $this->layout = false;
                 </div>
             </div>
     
-            <div class="accordeon-item" id="contact">
+            <div class="accordeon-item" id="downloads">
+                <h2>Publications and Data</h2>
+                <div class="item-content">
+                    <?= $this->Element('info/downloads') ?>
+                </div>
+            </div>
+    
+            <div class="accordeon-item" id="clarin-dariah">
+                <h2>CLARIN and DARIAH</h2>
+                <div class="item-content">
+                    <?= $this->Element('info/clarin-dariah') ?>
+                </div>
+            </div>
+    
+            <div class="accordeon-item" id="credits">
                 <h2>Credits</h2>
                 <div class="item-content">
                     <?= $this->Element('info/credits'); ?>

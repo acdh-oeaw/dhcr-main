@@ -27,15 +27,21 @@ class Accordeon {
     }
 
     clickHandler(handle) {
+        let item = $(handle).closest('.accordeon-item');
+        let wasOpen = (item.hasClass('open')) ? true : false;
         this.closeAll();
-        this.toggleItem(handle);
+        if(!wasOpen) this.openItem(handle);
     }
 
     openItem(handle) {
         let item = $(handle).closest('.accordeon-item');
         item.addClass('open');
         this.removeHash();
-        window.location.hash = $(item).attr('id');
+
+        if(history.pushState)
+            history.pushState(null, null, '#' + $(item).attr('id'));
+        else
+            window.location.hash = $(item).attr('id');
     }
 
     openHash(hash) {

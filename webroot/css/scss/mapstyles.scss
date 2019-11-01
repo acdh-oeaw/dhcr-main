@@ -54,15 +54,57 @@
 
 
 
-.leaflet-popup-content {
-    @include clearfix;
-    margin: 15px;
-    .show_view.button, button.show_view {
-        height: 23px;
-        border-radius: 12px;
-        font-size: 12px;
-        padding: 3px 15px 0;
-        margin: 0;
-        float: right;
+.leaflet-popup {
+    .leaflet-popup-close-button {
+        display: none;
+    }
+    .leaflet-popup-tip, .leaflet-popup-content-wrapper {
+        background-color: $blue;
+    }
+    .leaflet-popup-content {
+        @include clearfix;
+        margin: 15px;
+        .show_view.button, button.show_view {
+            height: 23px;
+            border-radius: 12px;
+            font-size: 12px;
+            padding: 3px 15px 0;
+            margin: 0;
+            float: right;
+            &::after {
+                width: 5px;
+                height: 5px;
+                display: inline-block;
+                position: relative;
+                left: 0;
+                bottom: 1px;
+                border: 2px solid $blue;
+                border-top: none;
+                border-left: none;
+                content: '';
+                transform: rotate(-45deg);
+                margin-left: 5px;
+            }
+            transition: transform 0.3s;
+            &:hover {
+                transform: scale(1.1);
+                transform-origin: right center;
+            }
+        }
+        p {
+            color: #fff;
+            font-family: metropolis;
+            font-size: 11px;
+            position: relative;
+            margin: 0.7em 0;
+            width: 100%;
+        }
+        h1 {
+            color: #fff;
+            font-family: metropolis;
+            font-size: 11px;
+            font-weight: bold;
+            margin: 0.8em 0;
+        }
     }
 }

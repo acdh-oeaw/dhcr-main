@@ -123,10 +123,13 @@ class Map {
         }
 
         this.map.on('popupopen', function() {
+
+            //TODO: animate table to scroll to record and open (prevent when triggered by table click)
+
             $('.show_view').on('click', function(e) {
+                e.preventDefault();
                 let id = $(e.target).attr('data-id');
                 this.app.setCourse(id);
-                e.preventDefault();
             }.bind(this))
         }.bind(this));
     }

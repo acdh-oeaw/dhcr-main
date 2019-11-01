@@ -1,0 +1,94 @@
+
+
+#filter {
+    padding-bottom: $whitespace;
+    border-bottom: 2px solid $blue;
+    margin-bottom: 15px;
+    @include clearfix;
+
+    form {
+        .styled-select {
+            overflow-x: hidden;
+            width: auto;
+            display: inline-block;
+            float: left;
+            border-radius: 14px;
+            border: 2px solid $blue;
+            position: relative;
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 8px;
+                height: 8px;
+                right: 15px;
+                top: 7px;
+                border: 2px solid $blue;
+                border-top: none;
+                border-left: none;
+                transform: rotate(45deg);
+                cursor: pointer;
+                pointer-events: none;
+            }
+            &:hover::after {
+                transform: rotate(225deg);
+            }
+            select {
+                @include reset-select;
+                height: 28px;
+                border: none;
+                font-size: 12px;
+                line-height: 13px;
+                font-weight: bold;
+                color: $blue;
+            }
+            &.selected {
+                border: none;
+                &::after {
+                    border-color: #fff;
+                    top: 8px;
+                }
+                select {
+                    color: #fff;
+                    background-color: $blue;
+                    height: 32px;
+                    padding: 7px 14px;
+                }
+            }
+        }
+        ul.selection {
+            list-style: none;
+            li {
+                display: inline-block;
+                float: left;
+                border: 2px solid $blue;
+                border-radius: 14px;
+                padding: 9px 15px 7px 30px;
+                margin-left: 1em;
+                font-size: 12px;
+                line-height: 13px;
+                font-weight: bold;
+                color: $blue;
+                position: relative;
+                cursor: pointer;
+                &::before {
+                    pointer-events: none;
+                    content: 'X';
+                    position: absolute;
+                    color: $gray;
+                    padding: 9px 5px 7px;
+                    left: 0;
+                    top: 0;
+                    border-right: 1px solid $gray;
+                    border-radius: 14px 0 0 14px;
+                }
+                &:hover {
+                    &::before {
+                        background-color: $light-gray;
+                        color: black;
+                    }
+                }
+            }
+        }
+    }
+}

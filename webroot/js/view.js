@@ -15,10 +15,10 @@ class View {
             this.setErrorMessage('Your query returned no results.');
             return;
         }
-        // remove all content
-        $(this.element).empty();
+        this.clearView();
         // create filter
         $(this.element).append(this.app.filter.createHtml());
+        this.app.filter.addHandler();
         // create table
         let table = $('<table></table>');
         table.append(
@@ -91,7 +91,7 @@ class View {
 
         el.append($('<h1>' + course.name + '</h1>'));
         el.append($('<p class="subtitle">' + course.course_type.name + ', ' + timing + '</p>'));
-        if(course.description.length > 0)
+        if(course.description != null && course.description.length > 0)
             el.append($('<div class="text"><p class="strong">Description:</p>' + course.description + '</div>'));
         if(course.access_requirements.length > 0)
             el.append($('<div class="text"><p class="strong">Access Requirements:</p>' + course.access_requirements + '</div>'));
@@ -114,7 +114,7 @@ class View {
 
         if(course.info_url.length > 0 && course.info_url != 'null') {
             let link = ViewHelper.createLink(course.info_url);
-            helper.createTermData('Information', link).createGridItem('single-col');
+            helper.createTermData('Source URL', link).createGridItem('single-col');
         }
         el.append($(helper.createGridContainer().result));
 
@@ -145,15 +145,18 @@ class View {
 
     setErrorMessage(msg) {
         msg = msg || 'Something went wrong';
-        $(this.element).empty();
-        let error = $('<div></div>').addClass('error').text(msg);
-        $(this.element).append(error);
+        $(this.element).empty().removeClass('loading');
+        $(this.element).addClass('error').text(msg);
     }
 
     setLoader() {
         $(this.element).empty();
-        let loader = $('<div></div>').addClass('loading').text('loading...');
-        $(this.element).append(loader);
+        $(this.element).addClass('loading').text('loading...');
     }
+
+    clearView() {
+        $(this.element).empty().removeClass('loading');
+    }
+
 
 }

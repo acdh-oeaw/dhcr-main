@@ -10,10 +10,10 @@
 
 body {
     font-family: metropolis, Sans-Serif;
-    font-size: 18px;
-    line-height: 1.44;
+    font-size: 16px;
+    line-height: 1.5;
     font-weight: normal;
-    letter-spacing: -0.17px;
+    letter-spacing: normal;
     color: $text-color;
 }
 
@@ -176,8 +176,8 @@ hr {
 
 
 .recurring {
-    background: url("../img/repeat.png") left bottom/contain no-repeat;
-    padding-left: 1.4em;
+    background: url("../img/repeat.png") right bottom/contain no-repeat;
+    padding-right: 1.4em;
     padding-bottom: 0.2em;
     line-height: 0.85em;
     font-size: inherit;
