@@ -261,7 +261,6 @@ form select {
   outline: none;
   cursor: pointer;
   background-color: transparent;
-  padding: 5px 12px;
   font-family: metropolis; }
   form select::-ms-expand {
     display: none; }
@@ -420,7 +419,8 @@ body.info {
   font-size: 25px;
   text-transform: none;
   cursor: pointer;
-  position: relative; }
+  position: relative;
+  transition: all 0.2s; }
   @media only screen and (max-width: 750px) {
     #accordeon .accordeon-item > h2 {
       font-size: 22px; } }
@@ -445,7 +445,8 @@ body.info {
     color: #6d7278; }
     #accordeon .accordeon-item > h2:hover::after {
       border-color: #6d7278;
-      transform: rotate(225deg);
+      transform: scale(1.2) rotate(45deg);
+      transform-origin: 100% center;
       bottom: 0.55em; }
 #accordeon .accordeon-item:not(.open) .item-content {
   max-height: 0;

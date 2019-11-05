@@ -83,7 +83,6 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    padding: 5px 12px;
     font-family: metropolis;
     &::-ms-expand { display: none; }
     &:focus::-ms-value { background-color: transparent; }

@@ -159,7 +159,7 @@ class App {
         // reload data if filter is set
         this.view.setLoader();
         $.ajax({
-            url: this.apiUrl + 'courses/index' + this.filter.getQuery(),
+            url: this.apiUrl + 'courses/index' + this.filter.createQuery(),
             accept: 'application/json',
             method: 'GET',
             cache: true,

@@ -48,20 +48,34 @@ class Filter {
             'sort'              : 'sort'
         };
 
+        // fill the hash tables from the global option lists
         this.getCountries();
         this.getCities();
         this.getInstitutions();
 
-        //TODO: evaluate query -> selected!!!
+        // evaluate query parameters to fill this.selected
+        this.evaluateQuery();
+
+        this.helper = new FilterHelper(this.app, this);
+    }
+
+    evaluateQuery() {
         let pattern = /[0-9]|^[0-9]+[0-9,]*[0-9]+$/g;
         for(let category in this.selected) {
             let value = Filter.getParameterByName(this.mapping[category]);
+
+            // countries, cities, institutions, languages, disciplines, techniques, objects
             if(typeof this.selected[category] == 'object' && pattern.test(value)) {
                 value = value.split(',');
                 value.forEach(function(id) {
                     if(typeof this[category][id] != 'undefined')
                         this.selected[category][id] = this[category][id].name;
                 }.bind(this));
+            }
+
+            // online, start, end, sort
+            if(category == 'online') {
+
             }
         }
     }
@@ -184,83 +198,10 @@ class Filter {
         });
     }
 
-
-    listenerSelect(category, id) {
-        if(!(id in this.selected[category])) {
-            this.selected[category][id] = this[category][id];
-            delete this[category][id]
-        }
-    }
-
-    listenerUnselect(category, id) {
-        if(id in this.selected[category]) {
-            this[category][id] = this.selected[category][id];
-            delete this.selected[category][id];
-        }
-    }
-
-    createSelectorOption(category, id) {
-        let label = this[category][id].name + ' (' + this[category][id].course_count + ')';
-        return '<option class="filter-option" '
-            + 'data-category="' + category + '" data-id="'
-            + id + '">' + label + '</option>';
-    }
-
-    createSelector(category) {
-        if(category == 'cities' || category == 'institutions') return;
-        let retval = '<div class="styled-select selected"><select>';
-        retval += '<option selected disabled hidden>Choose Country</option>';
-        for(let i = 0; window[category].length > i; i++) {
-            let id = window[category][i].id;
-            if(typeof this[category][id] != 'undefined' && !this.selected[category].hasOwnProperty(id)) {
-                retval += this.createSelectorOption(category, id);
-            }
-        }
-        retval += '</select></div>';
-        if(!this.isEmpty(category)) {
-            retval += '<ul class="selection">';
-            for(let id in this.selected[category]) {
-                retval += '<li>' + this.selected[category][id] + '</li>';
-            }
-            retval += '</ul>';
-        }
-        return retval;
-    }
-
-    createHtml() {
-        let filter = $('<div id="filter"></div>');
-        let form = $('<form></form>');
-        form.append(this.createSelector('countries'));
-        form.append(this.createSelector('cities'));
-        form.append(this.createSelector('institutions'));
-        filter.append(form);
-        return filter;
-    }
-
-    addHandler() {
-        $('select').on('change', function(e) {
-            let selection = $("option:selected", e.target);
-            let id = selection.attr('data-id');
-            let category = selection.attr('data-category');
-            this.selected[category][id] = this[category][id].name;
-            window.location = BASE_URL + this.getQuery();
-        }.bind(this));
-    }
-
-    createSelection(category) {
-        let result = '';
-        let catSelection = this.selected[category];
-        // categoryName: <ul>
-        Object.keys(catSelection).forEach(function(id,index) {
-            result += '<li><span class="unselect" data-category="' + category + '"></span>' + catSelection[id].name + '</li>';
-        });
-        // </ul> ?
-        return result;
-    }
-
-    getQuery() {
+    createQuery() {
         let retval = '';
         Object.keys(this.selected).forEach(function(category,index) {
+            if(category == 'recent') return;    // recent is implicitly set TRUE in CoursesController
             let value = getValue(this.selected[category]);
             if(value !== null) {
                 if(retval == '') retval = '?';
@@ -297,8 +238,15 @@ class Filter {
 
     isEmpty(category) {
         if(typeof category != 'undefined') {
-            if(Object.keys(this.selected[category]).length > 0)
-                return false;
+            if(typeof this.selected[category] == 'object') {
+                if(Object.keys(this.selected[category]).length > 0)
+                    return false;
+            }else{
+                if(category != 'recent' && this.selected[category])
+                    return false;
+                if(category == 'recent' && this.selected.recent === false)
+                    return false;
+            }
             return true;
         }
         if(Object.keys(this.selected.countries).length > 0)

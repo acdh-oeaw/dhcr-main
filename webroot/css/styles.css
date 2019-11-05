@@ -935,9 +935,11 @@ body.index, body.view {
       border-left: none;
       transform: rotate(45deg);
       cursor: pointer;
-      pointer-events: none; }
+      pointer-events: none;
+      transition: all 0.3s ease; }
     #filter form .styled-select:hover::after {
-      transform: rotate(225deg); }
+      transform: rotate(225deg);
+      top: 11px; }
     #filter form .styled-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -945,9 +947,9 @@ body.index, body.view {
       outline: none;
       cursor: pointer;
       background-color: transparent;
-      padding: 5px 12px;
       font-family: metropolis;
       height: 28px;
+      padding: 7px 12px 5px;
       border: none;
       font-size: 12px;
       line-height: 13px;
@@ -957,43 +959,60 @@ body.index, body.view {
         display: none; }
       #filter form .styled-select select:focus::-ms-value {
         background-color: transparent; }
-    #filter form .styled-select.selected {
-      border: none; }
-      #filter form .styled-select.selected::after {
-        border-color: #fff;
-        top: 8px; }
-      #filter form .styled-select.selected select {
-        color: #fff;
-        background-color: #1E6BA3;
-        height: 32px;
-        padding: 7px 14px; }
-  #filter form ul.selection {
+  #filter form #selectors::after {
+    content: "";
+    clear: both;
+    display: table; }
+  #filter form #selectors .styled-select {
+    float: left; }
+  #filter form #selection::after {
+    content: "";
+    clear: both;
+    display: table; }
+  #filter form #selection .styled-select {
+    border: none;
+    clear: both;
+    float: left; }
+    #filter form #selection .styled-select::after {
+      border-color: #fff;
+      top: 8px; }
+    #filter form #selection .styled-select:hover::after {
+      top: 13px; }
+    #filter form #selection .styled-select select {
+      color: #fff;
+      background-color: #1E6BA3;
+      height: 32px;
+      padding: 7px 14px; }
+  #filter form #selection ul {
     list-style: none; }
-    #filter form ul.selection li {
+    #filter form #selection ul li {
       display: inline-block;
       float: left;
       border: 2px solid #1E6BA3;
       border-radius: 14px;
-      padding: 9px 15px 7px 30px;
+      padding: 8px 15px 7px 30px;
       margin-left: 1em;
       font-size: 12px;
       line-height: 13px;
       font-weight: bold;
-      color: #1E6BA3;
+      color: white;
+      background-color: #1E6BA3;
       position: relative;
       cursor: pointer; }
-      #filter form ul.selection li::before {
+      #filter form #selection ul li::before {
         pointer-events: none;
-        content: 'X';
+        content: '';
         position: absolute;
-        color: #6d7278;
-        padding: 9px 5px 7px;
-        left: 0;
-        top: 0;
-        border-right: 1px solid #6d7278;
-        border-radius: 14px 0 0 14px; }
-      #filter form ul.selection li:hover::before {
-        background-color: #d8d8d8;
-        color: black; }
+        display: block;
+        box-sizing: border-box;
+        width: 10px;
+        height: 10px;
+        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+        transition: all 0.3s ease;
+        top: 9px;
+        left: 9px; }
+      #filter form #selection ul li:hover::before {
+        transform: rotate(90deg); }
 
 /*# sourceMappingURL=styles.css.map */

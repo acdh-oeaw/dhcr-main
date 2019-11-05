@@ -105,6 +105,7 @@ body.info {
             text-transform: none;
             cursor: pointer;
             position: relative;
+            transition: all 0.2s;
             @include respond-to(handhelds) {
                 font-size: 22px;
             }
@@ -130,7 +131,8 @@ body.info {
                 color: $gray;
                 &::after {
                     border-color: $gray;
-                    transform: rotate(225deg);
+                    transform: scale(1.2) rotate(45deg);
+                    transform-origin: 100% center;
                     bottom: 0.55em;
                 }
             }

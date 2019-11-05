@@ -16,9 +16,10 @@ class View {
             return;
         }
         this.clearView();
+
         // create filter
-        $(this.element).append(this.app.filter.createHtml());
-        this.app.filter.addHandler();
+        this.app.filter.helper.createHtml(this.element);
+
         // create table
         let table = $('<table></table>');
         table.append(

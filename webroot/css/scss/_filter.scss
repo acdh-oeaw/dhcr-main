@@ -29,24 +29,41 @@
                 transform: rotate(45deg);
                 cursor: pointer;
                 pointer-events: none;
+                transition: all 0.3s ease;
             }
             &:hover::after {
                 transform: rotate(225deg);
+                top: 11px;
             }
             select {
                 @include reset-select;
                 height: 28px;
+                padding: 7px 12px 5px;
                 border: none;
                 font-size: 12px;
                 line-height: 13px;
                 font-weight: bold;
                 color: $blue;
             }
-            &.selected {
+        }
+        #selectors {
+            @include clearfix;
+            .styled-select {
+                float: left;
+            }
+        }
+        #selection {
+            @include clearfix;
+            .styled-select {
                 border: none;
+                clear: both;
+                float: left;
                 &::after {
                     border-color: #fff;
                     top: 8px;
+                }
+                &:hover::after {
+                    top: 13px;
                 }
                 select {
                     color: #fff;
@@ -55,37 +72,40 @@
                     padding: 7px 14px;
                 }
             }
-        }
-        ul.selection {
-            list-style: none;
-            li {
-                display: inline-block;
-                float: left;
-                border: 2px solid $blue;
-                border-radius: 14px;
-                padding: 9px 15px 7px 30px;
-                margin-left: 1em;
-                font-size: 12px;
-                line-height: 13px;
-                font-weight: bold;
-                color: $blue;
-                position: relative;
-                cursor: pointer;
-                &::before {
-                    pointer-events: none;
-                    content: 'X';
-                    position: absolute;
-                    color: $gray;
-                    padding: 9px 5px 7px;
-                    left: 0;
-                    top: 0;
-                    border-right: 1px solid $gray;
-                    border-radius: 14px 0 0 14px;
-                }
-                &:hover {
+            ul {
+                list-style: none;
+                li {
+                    display: inline-block;
+                    float: left;
+                    border: 2px solid $blue;
+                    border-radius: 14px;
+                    padding: 8px 15px 7px 30px;
+                    margin-left: 1em;
+                    font-size: 12px;
+                    line-height: 13px;
+                    font-weight: bold;
+                    color: white;
+                    background-color: $blue;
+                    position: relative;
+                    cursor: pointer;
                     &::before {
-                        background-color: $light-gray;
-                        color: black;
+                        pointer-events: none;
+                        content: '';
+                        position: absolute;
+                        display:block;
+                        box-sizing:border-box;
+                        width:10px;
+                        height:10px;
+                        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%,  white 56%,transparent 56%, transparent 100%);
+                        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+                        transition: all 0.3s ease;
+                        top: 9px;
+                        left: 9px;
+                    }
+                    &:hover {
+                        &::before {
+                            transform: rotate(90deg);
+                        }
                     }
                 }
             }
