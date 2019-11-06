@@ -52,6 +52,11 @@ class Filter {
         this.getCountries();
         this.getCities();
         this.getInstitutions();
+        this.getTypes();
+        this.getLanguages();
+        this.getDisciplines();
+        this.getTechniques();
+        this.getObjects();
 
         // evaluate query parameters to fill this.selected
         this.evaluateQuery();
@@ -109,93 +114,43 @@ class Filter {
     }
 
     getDisciplines() {
-        $.ajax({
-            url: this.app.apiUrl + 'disciplines/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.disciplines = {};
-            for(var i = 0; data.length > i; i++) {
-                this.disciplines[data[i].id] = data[i];
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        this.disciplines = {};
+        for (let i = 0; disciplines.length > i; i++) {
+            if (disciplines[i].course_count > 0)
+                this.disciplines[disciplines[i].id] = disciplines[i];
+        }
     }
 
     getTechniques() {
-        $.ajax({
-            url: this.app.apiUrl + 'techniques/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.techniques = {};
-            for(var i = 0; data.length > i; i++) {
-                this.techniques[data[i].id] = data[i];
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        this.techniques = {};
+        for (let i = 0; techniques.length > i; i++) {
+            if (techniques[i].course_count > 0)
+                this.techniques[techniques[i].id] = techniques[i];
+        }
     }
 
     getObjects() {
-        $.ajax({
-            url: this.app.apiUrl + 'objects/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.objects = {};
-            for(var i = 0; data.length > i; i++) {
-                this.objects[data[i].id] = data[i];
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        this.objects = {};
+        for (let i = 0; objects.length > i; i++) {
+            if (objects[i].course_count > 0)
+                this.objects[objects[i].id] = objects[i];
+        }
     }
 
     getLanguages() {
-        $.ajax({
-            url: this.app.apiUrl + 'languages/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.languages = {};
-            for(var i = 0; data.length > i; i++) {
-                this.languages[data[i].id] = data[i];
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        this.languages = {};
+        for (let i = 0; languages.length > i; i++) {
+            if (languages[i].course_count > 0)
+                this.languages[languages[i].id] = languages[i];
+        }
     }
 
     getTypes() {
-        $.ajax({
-            url: this.app.apiUrl + 'types/index?sort_count',
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.types = {};
-            for(var i = 0; data.length > i; i++) {
-                this.types[data[i].id] = data[i];
-            }
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.app.handleError(jqXHR);
-        });
+        this.types = {};
+        for (let i = 0; types.length > i; i++) {
+            if (types[i].course_count > 0)
+                this.types[types[i].id] = types[i];
+        }
     }
 
     createQuery() {

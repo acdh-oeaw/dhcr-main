@@ -1,7 +1,6 @@
 
 
 #filter {
-    padding-bottom: $whitespace;
     border-bottom: 2px solid $blue;
     margin-bottom: 15px;
     @include clearfix;
@@ -15,6 +14,8 @@
             border-radius: 14px;
             border: 2px solid $blue;
             position: relative;
+            margin-bottom: 1em;
+            margin-right: 1em;
             &::after {
                 content: '';
                 display: block;
@@ -22,7 +23,7 @@
                 width: 8px;
                 height: 8px;
                 right: 15px;
-                top: 7px;
+                top: 8px;
                 border: 2px solid $blue;
                 border-top: none;
                 border-left: none;
@@ -44,6 +45,9 @@
                 line-height: 13px;
                 font-weight: bold;
                 color: $blue;
+                //min-width: 120px;
+                //max-width: 200px;
+                width: 180px;
             }
         }
         #selectors {
@@ -60,7 +64,7 @@
                 float: left;
                 &::after {
                     border-color: #fff;
-                    top: 8px;
+                    top: 9px;
                 }
                 &:hover::after {
                     top: 13px;
@@ -70,6 +74,7 @@
                     background-color: $blue;
                     height: 32px;
                     padding: 7px 14px;
+                    width: 184px;
                 }
             }
             ul {
@@ -81,6 +86,7 @@
                     border-radius: 14px;
                     padding: 8px 15px 7px 30px;
                     margin-left: 1em;
+                    margin-bottom: 1em;
                     font-size: 12px;
                     line-height: 13px;
                     font-weight: bold;
@@ -88,6 +94,9 @@
                     background-color: $blue;
                     position: relative;
                     cursor: pointer;
+                    &:first-child {
+                        margin-left: 0;
+                    }
                     &::before {
                         pointer-events: none;
                         content: '';

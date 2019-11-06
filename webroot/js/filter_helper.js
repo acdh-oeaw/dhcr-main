@@ -27,6 +27,26 @@ class FilterHelper {
             selection.append(this.createSelector('institutions'));
             selection.append(this.createSelection('institutions'));
         }
+        if(!this.filter.isEmpty('disciplines')) {
+            selection.append(this.createSelector('disciplines'));
+            selection.append(this.createSelection('disciplines'));
+        }
+        if(!this.filter.isEmpty('techniques')) {
+            selection.append(this.createSelector('techniques'));
+            selection.append(this.createSelection('techniques'));
+        }
+        if(!this.filter.isEmpty('objects')) {
+            selection.append(this.createSelector('objects'));
+            selection.append(this.createSelection('objects'));
+        }
+        if(!this.filter.isEmpty('languages')) {
+            selection.append(this.createSelector('languages'));
+            selection.append(this.createSelection('languages'));
+        }
+        if(!this.filter.isEmpty('types')) {
+            selection.append(this.createSelector('types'));
+            selection.append(this.createSelection('types'));
+        }
 
         let selectors = $('<div id="selectors"></div>');
         if(this.filter.isEmpty('countries')) selectors.append(this.createSelector('countries'));
@@ -36,13 +56,18 @@ class FilterHelper {
                 if(this.filter.isEmpty('institutions')) selectors.append(this.createSelector('institutions'));
             }
         }
+        if(this.filter.isEmpty('types')) selectors.append(this.createSelector('types'));
+        if(this.filter.isEmpty('disciplines')) selectors.append(this.createSelector('disciplines'));
+        if(this.filter.isEmpty('languages')) selectors.append(this.createSelector('languages'));
+        if(this.filter.isEmpty('techniques')) selectors.append(this.createSelector('techniques'));
+        if(this.filter.isEmpty('objects')) selectors.append(this.createSelector('objects'));
 
         form.append(selection, selectors);
         filter.append(form);
 
         // handlers can only be added after appending markup
         $(element).append(filter);
-        this.addHandler();
+        this.addHandlers();
     }
 
     createSelector(category) {
@@ -50,9 +75,14 @@ class FilterHelper {
         if(category == 'countries') choose = 'Choose Country';
         if(category == 'cities') choose = 'Choose City';
         if(category == 'institutions') choose = 'Choose Institution';
+        if(category == 'types') choose = 'Choose Type';
+        if(category == 'disciplines') choose = 'Choose Discipline';
+        if(category == 'languages') choose = 'Choose Language';
+        if(category == 'techniques') choose = 'Choose Technique';
+        if(category == 'objects') choose = 'Choose Object';
 
         let wrapper = $('<div></div>').addClass('styled-select');
-        let select = $('<select></select>');
+        let select = $('<select></select>').addClass('filter');
         select.append('<option selected disabled hidden>' + choose + '</option>');
 
         // loop through raw object to keep order of elements
@@ -104,34 +134,44 @@ class FilterHelper {
         if(typeof this.filter.selected[category] == 'object') {
             let selection = $('<ul></ul>');
             for(let id in this.filter.selected[category]) {
-                selection.append($('<li></li>').text(this.filter.selected[category][id]));
+                let item = $('<li></li>')
+                    .addClass('selection-item')
+                    .attr('data-category', category).attr('data-id', id)
+                    .text(this.filter.selected[category][id]);
+                selection.append(item);
             }
             return selection[0];
         }
         return '';
     }
 
-    listenerSelect(category, id) {
-        if(!(id in this.filter.selected[category])) {
-            this.filter.selected[category][id] = this.filter[category][id].name;
-            delete this.filter[category][id]
-        }
-    }
-
-    listenerUnselect(category, id) {
-        if(id in this.filter.selected[category]) {
-            this.filter[category][id] = this.filter.selected[category][id];
-            delete this.filter.selected[category][id];
-        }
-    }
-
-    addHandler() {
-        $('select').on('change', function(e) {
+    selectEvent() {
+        $('select.filter').on('change', function(e) {
             let selection = $("option:selected", e.target);
             let id = selection.attr('data-id');
             let category = selection.attr('data-category');
-            this.listenerSelect(category, id);
+            if(!(id in this.filter.selected[category])) {
+                this.filter.selected[category][id] = this.filter[category][id].name;
+                delete this.filter[category][id]
+            }
             window.location = BASE_URL + this.filter.createQuery();
         }.bind(this));
+    }
+
+    unselectEvent() {
+        $('li.selection-item').on('click', function(e) {
+            let category = $(e.target).attr('data-category');
+            let id = $(e.target).attr('data-id');
+            if(id in this.filter.selected[category]) {
+                this.filter[category][id] = this.filter.selected[category][id];
+                delete this.filter.selected[category][id];
+            }
+            window.location = BASE_URL + this.filter.createQuery();
+        }.bind(this));
+    }
+
+    addHandlers() {
+        this.selectEvent();
+        this.unselectEvent();
     }
 }

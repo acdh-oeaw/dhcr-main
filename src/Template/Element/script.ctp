@@ -26,6 +26,16 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
         echo 'var cities = ' . json_encode($cities, $jsonOptions). ';';
     if(!empty($institutions))
         echo 'var institutions = ' . json_encode($institutions, $jsonOptions). ';';
+    if(!empty($languages))
+        echo 'var languages = ' . json_encode($languages, $jsonOptions). ';';
+    if(!empty($types))
+        echo 'var types = ' . json_encode($types, $jsonOptions). ';';
+    if(!empty($disciplines))
+        echo 'var disciplines = ' . json_encode($disciplines, $jsonOptions). ';';
+    if(!empty($techniques))
+        echo 'var techniques = ' . json_encode($techniques, $jsonOptions). ';';
+    if(!empty($objects))
+        echo 'var objects = ' . json_encode($objects, $jsonOptions). ';';
     
     ?>
 

@@ -907,7 +907,6 @@ body.index, body.view {
     margin: 0.8em 0; }
 
 #filter {
-  padding-bottom: 15px;
   border-bottom: 2px solid #1E6BA3;
   margin-bottom: 15px; }
   #filter::after {
@@ -921,7 +920,9 @@ body.index, body.view {
     float: left;
     border-radius: 14px;
     border: 2px solid #1E6BA3;
-    position: relative; }
+    position: relative;
+    margin-bottom: 1em;
+    margin-right: 1em; }
     #filter form .styled-select::after {
       content: '';
       display: block;
@@ -929,7 +930,7 @@ body.index, body.view {
       width: 8px;
       height: 8px;
       right: 15px;
-      top: 7px;
+      top: 8px;
       border: 2px solid #1E6BA3;
       border-top: none;
       border-left: none;
@@ -954,7 +955,8 @@ body.index, body.view {
       font-size: 12px;
       line-height: 13px;
       font-weight: bold;
-      color: #1E6BA3; }
+      color: #1E6BA3;
+      width: 180px; }
       #filter form .styled-select select::-ms-expand {
         display: none; }
       #filter form .styled-select select:focus::-ms-value {
@@ -975,14 +977,15 @@ body.index, body.view {
     float: left; }
     #filter form #selection .styled-select::after {
       border-color: #fff;
-      top: 8px; }
+      top: 9px; }
     #filter form #selection .styled-select:hover::after {
       top: 13px; }
     #filter form #selection .styled-select select {
       color: #fff;
       background-color: #1E6BA3;
       height: 32px;
-      padding: 7px 14px; }
+      padding: 7px 14px;
+      width: 184px; }
   #filter form #selection ul {
     list-style: none; }
     #filter form #selection ul li {
@@ -992,6 +995,7 @@ body.index, body.view {
       border-radius: 14px;
       padding: 8px 15px 7px 30px;
       margin-left: 1em;
+      margin-bottom: 1em;
       font-size: 12px;
       line-height: 13px;
       font-weight: bold;
@@ -999,6 +1003,8 @@ body.index, body.view {
       background-color: #1E6BA3;
       position: relative;
       cursor: pointer; }
+      #filter form #selection ul li:first-child {
+        margin-left: 0; }
       #filter form #selection ul li::before {
         pointer-events: none;
         content: '';

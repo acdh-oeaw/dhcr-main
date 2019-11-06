@@ -24,10 +24,14 @@ class CoursesController extends AppController
         $this->loadModel('Countries');
         $this->loadModel('Cities');
         $this->loadModel('Institutions');
+        $this->loadModel('Languages');
+        $this->loadModel('CourseTypes');
+        $this->loadModel('Disciplines');
+        $this->loadModel('TadirahTechniques');
+        $this->loadModel('TadirahObjects');
         
         // get filter option lists
-        $countriesQuery = ['course_count' => true];
-        $this->Countries->evaluateQuery($countriesQuery);
+        $this->Countries->evaluateQuery(['course_count' => true]);
         $countries = $this->Countries->getCountries();
         
         $citiesQuery = ['course_count' => true, 'group' => true];
@@ -39,8 +43,25 @@ class CoursesController extends AppController
         if(!empty($query['country_id'])) $institutionsQuery['country_id'] = $query['country_id'];
         $this->Institutions->evaluateQuery($institutionsQuery);
         $institutions = $this->Institutions->getInstitutions();
+    
+        $this->CourseTypes->evaluateQuery(['course_count' => true]);
+        $types = $this->CourseTypes->getCourseTypes();
+    
+        $this->Languages->evaluateQuery(['course_count' => true]);
+        $languages = $this->Languages->getLanguages();
+    
+        $this->Disciplines->evaluateQuery(['course_count' => true]);
+        $disciplines = $this->Disciplines->getDisciplines();
         
-        $this->set(compact('courses','countries','cities','institutions'));
+        $this->TadirahTechniques->evaluateQuery(['course_count' => true]);
+        $techniques = $this->TadirahTechniques->getTadirahTechniques();
+        
+        $this->TadirahObjects->evaluateQuery(['course_count' => true]);
+        $objects = $this->TadirahObjects->getTadirahObjects();
+        
+        $this->set(compact('courses',
+            'countries','cities','institutions','types',
+            'languages','disciplines','techniques','objects'));
     }
     
     
