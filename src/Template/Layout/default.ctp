@@ -43,18 +43,7 @@ use Cake\Routing\Router;
         
         <div id="header">
             <div id="logo">
-                <?php /*$this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo.jpg', [
-                    'alt' => 'CLARIN-DARIAH joint logo',
-                    'width' => 115,
-                    'height' => 90]), '/', ['escape' => false, 'class' => 'img'])*/ ?>
-                <div class="title">
-                    <h1>
-                        <a href="<?= Router::url('/') ?>">
-                            <span id="h1">Digital Humanities</span><br>
-                            <span id="h2">Course</span><span id="h3">Registry</span>
-                        </a>
-                    </h1>
-                </div>
+                <?= $this->Html->image('logo-500.png', ['url' => '/','width' => '300px']); ?>
             </div>
             <div id="menu">
                 <?= $this->Html->link('Info', '/pages/info', ['class' => 'blue button', 'id' => 'info-button']) ?>

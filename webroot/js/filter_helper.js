@@ -13,6 +13,11 @@ class FilterHelper {
         let filter = $('<div id="filter"></div>');
         let form = $('<form></form>');
 
+        if(!this.filter.isEmpty()) {
+            filter.addClass('not-empty');
+            filter.append($('<a href="' + BASE_URL + '" id="reset">Clear Filters</a>'));
+        }
+
         let selection = $('<div id="selection"></div>');
         // get all non-empty selections first
         if(!this.filter.isEmpty('countries')) {
@@ -62,7 +67,7 @@ class FilterHelper {
         if(this.filter.isEmpty('techniques')) selectors.append(this.createSelector('techniques'));
         if(this.filter.isEmpty('objects')) selectors.append(this.createSelector('objects'));
 
-        form.append(selection, selectors);
+        form.append(selection, selectors, this.createPresenceTypeSelector());
         filter.append(form);
 
         // handlers can only be added after appending markup
@@ -75,7 +80,7 @@ class FilterHelper {
         if(category == 'countries') choose = 'Choose Country';
         if(category == 'cities') choose = 'Choose City';
         if(category == 'institutions') choose = 'Choose Institution';
-        if(category == 'types') choose = 'Choose Type';
+        if(category == 'types') choose = 'Choose Education';
         if(category == 'disciplines') choose = 'Choose Discipline';
         if(category == 'languages') choose = 'Choose Language';
         if(category == 'techniques') choose = 'Choose Technique';
@@ -145,6 +150,20 @@ class FilterHelper {
         return '';
     }
 
+    createPresenceTypeSelector() {
+        let list = $('<ul id="presence-type"></ul>');
+        let online = $('<li></li>').text('online').attr('data-value', 'true');
+        let presence = $('<li></li>').text('presence').attr('data-value', 'false');
+        let both = $('<li></li>').text('both').attr('data-value', 'null');
+        if(this.filter.selected.online === null) both.addClass('selected');
+        if(this.filter.selected.online === false) presence.addClass('selected');
+        if(this.filter.selected.online === true) online.addClass('selected');
+        list.append(online);
+        list.append(presence);
+        list.append(both);
+        return list[0];
+    }
+
     selectEvent() {
         $('select.filter').on('change', function(e) {
             let selection = $("option:selected", e.target);
@@ -170,8 +189,18 @@ class FilterHelper {
         }.bind(this));
     }
 
+    presenceTypeEvent() {
+        $('#presence-type li:not(.selected)').on('click', function(e) {
+            let value = $(e.target).attr('data-value');
+            if(value == 'null') value = null;
+            this.filter.selected.online = value;
+            window.location = BASE_URL + this.filter.createQuery();
+        }.bind(this));
+    }
+
     addHandlers() {
         this.selectEvent();
         this.unselectEvent();
+        this.presenceTypeEvent();
     }
 }

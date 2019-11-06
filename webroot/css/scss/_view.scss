@@ -59,20 +59,25 @@
     .buttons {
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
-        margin: 2em 0;
-        padding: 0 0 2em;
+        justify-content: space-around;
+        margin: 20px - $whitespace 0;
+        padding: 0 0;
         border-bottom: 2px solid $blue;
         @include respond-to(x-small) {
             justify-content: center;
         }
         button, .button {
             flex: 0 0 25%;
-            min-width: 155px;
+            min-width: 160px;
             margin: 0 10px 20px 10px;
-            @include respond-to(x-small) {
-                margin-left: 0;
-                margin-right: 0;
+            box-sizing: border-box;
+            height: 30px;
+            font-size: 20px;
+            border-radius: 15px;
+            padding-top: 2px;
+            &::before {
+                height: 7px;
+                width: 7px;
             }
             &:hover, &.animate {
                 transform: scale(1.05);

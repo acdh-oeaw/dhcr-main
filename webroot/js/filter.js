@@ -16,21 +16,8 @@ class Filter {
         this.objects            = {};
         this.types              = {};
 
-        this.selected = {
-            'institutions'      : {},
-            'cities'            : {},
-            'countries'         : {},
-            'languages'         : {},
-            'disciplines'       : {},
-            'techniques'        : {},
-            'objects'           : {},
-            'types'             : {},
-            'recent'            : true,
-            'online'            : null,
-            'start'             : null,
-            'end'               : null,
-            'sort'              : null
-        };
+        this.selected = {};
+        this.initSelection();
         // a mapping for the query keys
         this.mapping = {
             'institutions'    : 'institution_id',
@@ -80,7 +67,10 @@ class Filter {
 
             // online, start, end, sort
             if(category == 'online') {
-
+                if(value == 'true' || value == 'false') {
+                    if(value == 'true') this.selected.online = (value == 'true');
+                    if(value == 'false') this.selected.online = !(value == 'false');
+                }
             }
         }
     }
@@ -239,5 +229,23 @@ class Filter {
         if (!results) return null;
         if (!results[2]) return '';
         return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    initSelection() {
+        this.selected = {
+            'institutions'      : {},
+            'cities'            : {},
+            'countries'         : {},
+            'languages'         : {},
+            'disciplines'       : {},
+            'techniques'        : {},
+            'objects'           : {},
+            'types'             : {},
+            'recent'            : true,
+            'online'            : null,
+            'start'             : null,
+            'end'               : null,
+            'sort'              : null
+        };
     }
 }

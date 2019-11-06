@@ -18,6 +18,7 @@ class CoursesController extends AppController
         $query = $this->request->getQuery();
         if(!isset($query['recent']) OR ($query['recent'] !== false AND $query['recent'] != 'false'))
             $query['recent'] = true;
+        debug($query);
         $this->Courses->evaluateQuery($query);
         $courses = $this->Courses->getResults();
     

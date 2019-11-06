@@ -6,7 +6,7 @@
     position: relative;
     overflow: visible;
     width: calc(100% - 54px);
-    margin: 27px;         // top margin is sticking out of body, padding makes the box height shrink
+    margin: 1rem 3px;         // top margin is sticking out of body, padding makes the box height shrink
     display: inline-flex;   // hack...
     justify-content: space-between;
     align-items: center;
@@ -23,36 +23,9 @@
         flex-shrink: 0;
         white-space: nowrap;
         overflow: hidden;
-        a.img {
-            @include respond-to(handhelds) {
-                display: none;
-            }
-            img {
-                display: block;
-                float: left;
-                margin: 0;
-            }
-        }
-        /*
-        @include respond-to(handhelds) {
-            transform: scale(0.6);
-            transform-origin: left center;
-        }*/
-        .title {
-            min-height: 61px;
-            width: auto;
-            float: left;
-            @include respond-to(screens) {
-                //margin-left: 10px;
-                @include logo-text-scaled(1.1);
-            }
-            @include respond-to(handhelds) {
-                @include logo-text-vwr(0.45);
-            }
-
-            h1 {
-                margin: 7px 0 0;
-            }
+        a {
+            display: block;
+            line-height: 0;
         }
     }
 

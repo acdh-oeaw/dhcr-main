@@ -246,7 +246,7 @@ table .recurring {
   position: relative;
   overflow: visible;
   width: calc(100% - 54px);
-  margin: 27px;
+  margin: 1rem 3px;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -261,73 +261,10 @@ table .recurring {
   #header #logo {
     flex-shrink: 0;
     white-space: nowrap;
-    overflow: hidden;
-    /*
-    @include respond-to(handhelds) {
-        transform: scale(0.6);
-        transform-origin: left center;
-    }*/ }
-    @media only screen and (max-width: 750px) {
-      #header #logo a.img {
-        display: none; } }
-    #header #logo a.img img {
+    overflow: hidden; }
+    #header #logo a {
       display: block;
-      float: left;
-      margin: 0; }
-    #header #logo .title {
-      min-height: 61px;
-      width: auto;
-      float: left; }
-      @media only screen and (min-width: 751px) {
-        #header #logo .title h1 {
-          font-weight: bold;
-          text-transform: uppercase;
-          line-height: normal; }
-        #header #logo .title a {
-          text-decoration: none; }
-        #header #logo .title span#h1 {
-          color: #61A845;
-          font-family: bebas, sans-serif;
-          font-size: 49.5px;
-          vertical-align: bottom;
-          line-height: 1;
-          font-weight: normal;
-          letter-spacing: 0; }
-        #header #logo .title span#h2 {
-          color: #07426e;
-          margin-right: 16.5px; }
-        #header #logo .title span#h3 {
-          color: #1E6BA3; }
-        #header #logo .title #h2, #header #logo .title #h3 {
-          letter-spacing: 3.3px;
-          font-family: metropolis, sans-serif;
-          font-size: 26.4px; } }
-      @media only screen and (max-width: 750px) {
-        #header #logo .title h1 {
-          font-weight: bold;
-          text-transform: uppercase;
-          line-height: normal; }
-        #header #logo .title a {
-          text-decoration: none; }
-        #header #logo .title span#h1 {
-          color: #61A845;
-          font-family: bebas, sans-serif;
-          font-size: 6.75vw;
-          vertical-align: bottom;
-          line-height: 1;
-          font-weight: normal;
-          letter-spacing: 0; }
-        #header #logo .title span#h2 {
-          color: #07426e;
-          margin-right: 2.25vw; }
-        #header #logo .title span#h3 {
-          color: #1E6BA3; }
-        #header #logo .title #h2, #header #logo .title #h3 {
-          letter-spacing: 0.45vw;
-          font-family: metropolis, sans-serif;
-          font-size: 3.6vw; } }
-      #header #logo .title h1 {
-        margin: 7px 0 0; }
+      line-height: 0; }
   #header #menu {
     display: flex;
     justify-content: flex-end;
@@ -636,21 +573,25 @@ body.index, body.view {
     body.index #container #view .buttons, body.view #container #view .buttons {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
-      margin: 2em 0;
-      padding: 0 0 2em;
+      justify-content: space-around;
+      margin: 5px 0;
+      padding: 0 0;
       border-bottom: 2px solid #1E6BA3; }
       @media only screen and (max-width: 400px) {
         body.index #container #view .buttons, body.view #container #view .buttons {
           justify-content: center; } }
       body.index #container #view .buttons button, body.index #container #view .buttons .button, body.view #container #view .buttons button, body.view #container #view .buttons .button {
         flex: 0 0 25%;
-        min-width: 155px;
-        margin: 0 10px 20px 10px; }
-        @media only screen and (max-width: 400px) {
-          body.index #container #view .buttons button, body.index #container #view .buttons .button, body.view #container #view .buttons button, body.view #container #view .buttons .button {
-            margin-left: 0;
-            margin-right: 0; } }
+        min-width: 160px;
+        margin: 0 10px 20px 10px;
+        box-sizing: border-box;
+        height: 30px;
+        font-size: 20px;
+        border-radius: 15px;
+        padding-top: 2px; }
+        body.index #container #view .buttons button::before, body.index #container #view .buttons .button::before, body.view #container #view .buttons button::before, body.view #container #view .buttons .button::before {
+          height: 7px;
+          width: 7px; }
         body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.index #container #view .buttons .button:hover, body.index #container #view .buttons .button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate, body.view #container #view .buttons .button:hover, body.view #container #view .buttons .button.animate {
           transform: scale(1.05);
           transform-origin: left center;
@@ -908,11 +849,41 @@ body.index, body.view {
 
 #filter {
   border-bottom: 2px solid #1E6BA3;
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+  padding-top: calc(1rem - 15px);
+  position: relative; }
   #filter::after {
     content: "";
     clear: both;
     display: table; }
+  #filter #reset {
+    position: absolute;
+    top: -0.3em;
+    right: 0.1em;
+    color: #1E6BA3;
+    font-weight: bold;
+    cursor: pointer; }
+    #filter #reset::after {
+      pointer-events: none;
+      content: '';
+      position: relative;
+      display: inline-block;
+      box-sizing: border-box;
+      width: 0.8em;
+      height: 0.8em;
+      border-radius: 100%;
+      border: 2px solid #1E6BA3;
+      background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
+      background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
+      transition: all 0.3s ease;
+      top: 2px;
+      margin-left: 8px; }
+    #filter #reset:hover {
+      text-decoration: none; }
+      #filter #reset:hover::after {
+        transform: rotate(90deg); }
+  #filter.not-empty form {
+    padding-top: 1em; }
   #filter form .styled-select {
     overflow-x: hidden;
     width: auto;
@@ -921,8 +892,8 @@ body.index, body.view {
     border-radius: 14px;
     border: 2px solid #1E6BA3;
     position: relative;
-    margin-bottom: 1em;
-    margin-right: 1em; }
+    margin-bottom: 1rem;
+    margin-right: 1rem; }
     #filter form .styled-select::after {
       content: '';
       display: block;
@@ -930,7 +901,7 @@ body.index, body.view {
       width: 8px;
       height: 8px;
       right: 15px;
-      top: 8px;
+      top: 7px;
       border: 2px solid #1E6BA3;
       border-top: none;
       border-left: none;
@@ -940,7 +911,7 @@ body.index, body.view {
       transition: all 0.3s ease; }
     #filter form .styled-select:hover::after {
       transform: rotate(225deg);
-      top: 11px; }
+      top: 10px; }
     #filter form .styled-select select {
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -949,7 +920,7 @@ body.index, body.view {
       cursor: pointer;
       background-color: transparent;
       font-family: metropolis;
-      height: 28px;
+      height: 26px;
       padding: 7px 12px 5px;
       border: none;
       font-size: 12px;
@@ -977,13 +948,13 @@ body.index, body.view {
     float: left; }
     #filter form #selection .styled-select::after {
       border-color: #fff;
-      top: 9px; }
+      top: 8px; }
     #filter form #selection .styled-select:hover::after {
-      top: 13px; }
+      top: 12px; }
     #filter form #selection .styled-select select {
       color: #fff;
       background-color: #1E6BA3;
-      height: 32px;
+      height: 30px;
       padding: 7px 14px;
       width: 184px; }
   #filter form #selection ul {
@@ -993,9 +964,9 @@ body.index, body.view {
       float: left;
       border: 2px solid #1E6BA3;
       border-radius: 14px;
-      padding: 8px 15px 7px 30px;
-      margin-left: 1em;
-      margin-bottom: 1em;
+      padding: 7px 20px 6px 30px;
+      margin-left: 1rem;
+      margin-bottom: 1rem;
       font-size: 12px;
       line-height: 13px;
       font-weight: bold;
@@ -1016,9 +987,38 @@ body.index, body.view {
         background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
         background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
         transition: all 0.3s ease;
-        top: 9px;
-        left: 9px; }
+        top: 8px;
+        left: 12px; }
       #filter form #selection ul li:hover::before {
         transform: rotate(90deg); }
+  #filter form #presence-type {
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 0;
+    margin-bottom: 1rem;
+    border: 2px solid #1E6BA3;
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    width: 184px; }
+    #filter form #presence-type li {
+      font-size: 12px;
+      font-weight: bold;
+      color: #1E6BA3;
+      cursor: pointer;
+      padding: 3px 8px 2px;
+      margin: 0; }
+      #filter form #presence-type li:first-child {
+        padding-left: 15px; }
+      #filter form #presence-type li:last-child {
+        padding-right: 15px; }
+      #filter form #presence-type li.selected {
+        background-color: #1E6BA3;
+        color: white;
+        cursor: default; }
 
 /*# sourceMappingURL=styles.css.map */

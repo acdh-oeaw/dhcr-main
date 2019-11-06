@@ -116,7 +116,7 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if(!this.app.filter.isLocated() && createPopups) {
+        if(Object.entries(this.app.filter).length > 0 && !this.app.filter.isLocated() && createPopups) {
             let zoom = this.map.getZoom();
             // locate to user location
             this.map.locate({setView: true, maxZoom: zoom});
