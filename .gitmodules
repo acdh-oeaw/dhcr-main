@@ -1,0 +1,4 @@
+[submodule "src/Model"]
+	path = src/Model
+	url = https://github.com/hashmich/DHCR-Core
+	branch = master
