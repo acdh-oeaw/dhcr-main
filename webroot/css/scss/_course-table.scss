@@ -41,6 +41,12 @@
                 }
             }
         }
+        tr.course-row {
+            cursor: pointer;
+            &:hover {
+                background: $light-gray;
+            }
+        }
         td {
             padding: 0 8px 4px 0;
             vertical-align: center;

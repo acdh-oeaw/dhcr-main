@@ -37,10 +37,70 @@ class View {
             table.append(row);
         }
         $(this.element).append(table);
+        this.addTableClickHandler();
+    }
+
+    addTableClickHandler() {
+        $('.course-row').on('click', function(e) {
+            let targetRow = $(e.delegateTarget);
+            let id = targetRow.attr('data-id');
+            if(this.toggleRow(id))
+                this.app.map.openMarker(id);
+            else
+                this.app.map.closeMarker();
+        }.bind(this));
+    }
+
+    toggleRow(id) {
+        // TODO: scroll to top
+        $('.expansion-row').remove();
+        if(typeof id != 'undefined') {
+            let targetRow = $('tr[data-id=' + id + ']');
+            $('.expanded[data-id!=' + id + ']').removeClass('expanded');
+            targetRow.toggleClass('expanded');
+            if(targetRow.hasClass('expanded')) {
+                // opening
+                let course = this.app.data[id];
+                let expansion = this.createExpansionRow(course);
+                targetRow.after(expansion);
+                return true;
+            }
+        }else{
+            // close all
+            $('.expanded').removeClass('expanded');
+        }
+        return false;
+    }
+
+    openRow(id) {
+        if(typeof id != 'undefined') {
+            let targetRow = $('tr[data-id=' + id + ']');
+            if(!targetRow.hasClass('expanded')) {
+                // remove others
+                $('.expansion-row').remove();
+                $('.expanded').removeClass('expanded');
+                // opening
+                targetRow.addClass('expanded');
+                let course = this.app.data[id];
+                let expansion = this.createExpansionRow(course);
+                targetRow.after(expansion);
+                return true;
+            }
+        }
+    }
+
+    createExpansionRow(course) {
+        let mediaQuery = window.matchMedia('(max-width: ' + this.app.breakPoint + 'px)');
+        let colspan = 5;
+        if(mediaQuery.matches) colspan = 4;
+        let content = $('<td></td>').attr('colspan', colspan);
+        content.append(this.createSharingButton('blue', course));
+        let expansionRow = $('<tr></tr>').addClass('expansion-row').append(content);
+        return expansionRow[0];
     }
 
     createTableRow(course) {
-        let tr = $('<tr></tr>');
+        let tr = $('<tr></tr>').addClass('course-row').attr('data-id', course.id);
         let duration = ViewHelper.getTiming(course, ',<br />', ' ', '<br />');
         let type = course.course_type.name;
         if (course.online) type += ' <span class="online">online</span>';
@@ -55,23 +115,12 @@ class View {
             $('<td class="period">' + duration + '</td>'),
             $('<td class="type">' + type + '</td>')
         );
-        return tr;
+        return tr[0];
     }
 
-
-
-    createView(course) {
-        let el = $('<div id="view"></div>');
-        let helper = new ViewHelper();
-        let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
-
-        let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
-        let back = $('<a class="back button" href="' + BASE_URL + '">' + backActionLabel + '</a>')
-            .on('click', function(e) {
-                e.preventDefault();
-                this.app.closeView();
-            }.bind(this));
-        let share = $('<a class="blue sharing button" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
+    createSharingButton(classes, course) {
+        classes = (typeof classes == 'undefined' || classes == '') ? 'sharing button' : classes + ' sharing button';
+        let share = $('<a class="' + classes + '" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
             .on('click', function(e) {
                 e.preventDefault();
                 if (navigator.share) {
@@ -88,6 +137,21 @@ class View {
                     console.log('fallback')
                 }
             }.bind(this));
+        return share[0];
+    }
+
+    createView(course) {
+        let el = $('<div id="view"></div>');
+        let helper = new ViewHelper();
+        let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
+
+        let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
+        let back = $('<a class="back button" href="' + BASE_URL + '">' + backActionLabel + '</a>')
+            .on('click', function(e) {
+                e.preventDefault();
+                this.app.closeView();
+            }.bind(this));
+        let share = this.createSharingButton('blue', course);
         el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));

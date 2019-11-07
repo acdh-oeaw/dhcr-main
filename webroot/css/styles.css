@@ -704,6 +704,10 @@ body.index, body.view {
         @media only screen and (max-width: 750px) {
           body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
+      body.index #container #table table tr.course-row, body.view #container #table table tr.course-row {
+        cursor: pointer; }
+        body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover {
+          background: #d8d8d8; }
       body.index #container #table table td, body.view #container #table table td {
         padding: 0 8px 4px 0;
         vertical-align: center; }

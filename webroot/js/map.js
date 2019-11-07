@@ -59,7 +59,7 @@ class Map {
         this.markers = {};
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
-            //disableClusteringAtZoom: 14,
+            disableClusteringAtZoom: 18,
             showCoverageOnHover: false,
             zoomToBoundsOnClick: true,
             maxClusterRadius: 50,
@@ -108,6 +108,9 @@ class Map {
                     + '" href="' + BASE_URL + 'courses/view/' + course.id
                     + '">Show details</a>';
                 marker.bindPopup(content);
+                marker.on('click', function(e) {
+                    this.app.view.openRow(course.id);
+                }.bind(this));
             }
 
             this.cluster.addLayer(marker);
@@ -122,15 +125,12 @@ class Map {
             this.map.locate({setView: true, maxZoom: zoom});
         }
 
-        this.map.on('popupopen', function() {
-
-            //TODO: animate table to scroll to record and open (prevent when triggered by table click)
-
+        this.map.on('popupopen', function(e) {
             $('.show_view').on('click', function(e) {
                 e.preventDefault();
                 let id = $(e.target).attr('data-id');
                 this.app.setCourse(id);
-            }.bind(this))
+            }.bind(this));
         }.bind(this));
     }
 
@@ -144,15 +144,17 @@ class Map {
     closeMarker() {
         if(!this.id) return;
         this.markers[this.id].closePopup();
-        this.fitBounds(12);
+        //this.fitBounds();
+        this.map.zoomOut(3);
         this.id = false;
     }
 
-    fitBounds(maxZoom = 18) {
-        this.map.options.maxZoom = maxZoom;
+    fitBounds() {
+        this.map.options.maxZoom = 12;
         this.map.options.minZoom = 2;
         this.map.fitBounds(this.cluster.getBounds(), {padding: [10, 10]});
         this.map.options.minZoom = this.minZoom;
+        this.map.options.maxZoom = this.maxZoom;
     }
 
 }
