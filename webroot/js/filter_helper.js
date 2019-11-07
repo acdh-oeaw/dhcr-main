@@ -19,6 +19,8 @@ class FilterHelper {
         }
 
         let selection = $('<div id="selection"></div>');
+        selection.append(this.createPresenceTypeSelector());
+
         // get all non-empty selections first
         if(!this.filter.isEmpty('countries')) {
             selection.append(this.createSelector('countries'));
@@ -67,7 +69,7 @@ class FilterHelper {
         if(this.filter.isEmpty('techniques')) selectors.append(this.createSelector('techniques'));
         if(this.filter.isEmpty('objects')) selectors.append(this.createSelector('objects'));
 
-        form.append(selection, selectors, this.createPresenceTypeSelector());
+        form.append(selection, selectors);
         filter.append(form);
 
         // handlers can only be added after appending markup
@@ -137,7 +139,7 @@ class FilterHelper {
 
     createSelection(category) {
         if(typeof this.filter.selected[category] == 'object') {
-            let selection = $('<ul></ul>');
+            let selection = $('<ul></ul>').addClass('selection');
             for(let id in this.filter.selected[category]) {
                 let item = $('<li></li>')
                     .addClass('selection-item')
@@ -152,12 +154,13 @@ class FilterHelper {
 
     createPresenceTypeSelector() {
         let list = $('<ul id="presence-type"></ul>');
-        let online = $('<li></li>').text('online').attr('data-value', 'true');
-        let presence = $('<li></li>').text('presence').attr('data-value', 'false');
-        let both = $('<li></li>').text('both').attr('data-value', 'null');
+        let online = $('<li></li>').text('online').attr('data-value', 'true').addClass('option');
+        let presence = $('<li></li>').text('physical').attr('data-value', 'false').addClass('option');
+        let both = $('<li></li>').text('both').attr('data-value', 'null').addClass('option');
         if(this.filter.selected.online === null) both.addClass('selected');
         if(this.filter.selected.online === false) presence.addClass('selected');
         if(this.filter.selected.online === true) online.addClass('selected');
+        list.append($('<li>Presence Type</li>').addClass('label'));
         list.append(online);
         list.append(presence);
         list.append(both);
@@ -190,7 +193,9 @@ class FilterHelper {
     }
 
     presenceTypeEvent() {
-        $('#presence-type li:not(.selected)').on('click', function(e) {
+        $('#presence-type li.option:not(.selected)').on('click', function(e) {
+            $('#presence-type li.selected').removeClass('selected');
+            $(e.target).addClass('selected');
             let value = $(e.target).attr('data-value');
             if(value == 'null') value = null;
             this.filter.selected.online = value;

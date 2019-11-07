@@ -957,9 +957,9 @@ body.index, body.view {
       height: 30px;
       padding: 7px 14px;
       width: 184px; }
-  #filter form #selection ul {
+  #filter form #selection ul.selection {
     list-style: none; }
-    #filter form #selection ul li {
+    #filter form #selection ul.selection li {
       display: inline-block;
       float: left;
       border: 2px solid #1E6BA3;
@@ -974,9 +974,9 @@ body.index, body.view {
       background-color: #1E6BA3;
       position: relative;
       cursor: pointer; }
-      #filter form #selection ul li:first-child {
+      #filter form #selection ul.selection li:first-child {
         margin-left: 0; }
-      #filter form #selection ul li::before {
+      #filter form #selection ul.selection li::before {
         pointer-events: none;
         content: '';
         position: absolute;
@@ -989,7 +989,7 @@ body.index, body.view {
         transition: all 0.3s ease;
         top: 8px;
         left: 12px; }
-      #filter form #selection ul li:hover::before {
+      #filter form #selection ul.selection li:hover::before {
         transform: rotate(90deg); }
   #filter form #presence-type {
     list-style: none;
@@ -1004,21 +1004,26 @@ body.index, body.view {
     overflow: hidden;
     padding: 0;
     box-sizing: border-box;
-    width: 184px; }
+    width: 280px; }
     #filter form #presence-type li {
       font-size: 12px;
       font-weight: bold;
       color: #1E6BA3;
-      cursor: pointer;
       padding: 3px 8px 2px;
       margin: 0; }
-      #filter form #presence-type li:first-child {
-        padding-left: 15px; }
-      #filter form #presence-type li:last-child {
+    #filter form #presence-type li.label {
+      padding-left: 15px; }
+    #filter form #presence-type li.option {
+      cursor: pointer;
+      padding: 3px 8px 2px; }
+      #filter form #presence-type li.option:last-child {
         padding-right: 15px; }
-      #filter form #presence-type li.selected {
+      #filter form #presence-type li.option.selected {
         background-color: #1E6BA3;
         color: white;
         cursor: default; }
+      #filter form #presence-type li.option:hover {
+        background-color: #1E6BA3;
+        color: white; }
 
 /*# sourceMappingURL=styles.css.map */

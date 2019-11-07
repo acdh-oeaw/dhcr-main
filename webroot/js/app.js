@@ -61,6 +61,7 @@ class App {
         this.status = 'index';
         // load data
         if(this.action == 'index') {
+            this.view.setLoader();
             this.filter = new Filter(this);
             this.getCourses();
         }
@@ -134,47 +135,33 @@ class App {
 
     getCourse() {
         // called on view action only, show error if no data available
-        if(typeof course != 'undefined') {
+        if(typeof course != 'undefined' && Object.keys(course).length > 0) {
             this.data = {};
             this.data[course.id] = course;
             this.map.setMarkers(this.data, false);
             this.setCourse();
-            return;
+        }else{
+            // course is not found
+            this.handleError('The record you are looking for does not exist');
         }
-        // course is not found
-        this.handleError('The record you are looking for does not exist');
     }
 
     getCourses() {
         // check for preset object served on pageload to speed up loading time
-        if(typeof courses != 'undefined' && this.filter.isEmpty()) {
-            this.data = {};
-            for(var i = 0; courses.length > i; i++) {
-                this.data[courses[i].id] = courses[i];
+        if(typeof courses != 'undefined') {
+            if (courses.length > 0) {
+                this.data = {};
+                for (var i = 0; courses.length > i; i++) {
+                    this.data[courses[i].id] = courses[i];
+                }
+                this.map.setMarkers(this.data);
+                this.setTable();
+            }else{
+                this.handleError('No course matches your filter conditions.')
             }
-            this.map.setMarkers(this.data);
-            this.setTable();
-            return;
+        }else{
+            this.handleError('Sorry, something went definitely wrong.')
         }
-        // reload data if filter is set
-        this.view.setLoader();
-        $.ajax({
-            url: this.apiUrl + 'courses/index' + this.filter.createQuery(),
-            accept: 'application/json',
-            method: 'GET',
-            cache: true,
-            context: this,
-            crossDomain: true
-        }).done(function( data ) {
-            this.data = {};
-            for(var i = 0; data.length > i; i++) {
-                this.data[data[i].id] = data[i];
-            }
-            this.map.setMarkers(this.data);
-            this.setTable();
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-            this.handleError(jqXHR);
-        });
     }
 
     setTable() {

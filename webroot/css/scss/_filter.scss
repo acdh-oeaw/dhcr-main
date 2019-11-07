@@ -115,7 +115,7 @@
                     width: 184px;
                 }
             }
-            ul {
+            ul.selection {
                 list-style: none;
                 li {
                     display: inline-block;
@@ -170,18 +170,21 @@
             overflow: hidden;
             padding: 0;
             box-sizing: border-box;
-            width: 184px;
+            //width: 184px;
+            width: 280px;
             li {
-                //margin: 0 15px;
                 font-size: 12px;
                 font-weight: bold;
                 color: $blue;
-                cursor: pointer;
                 padding: 3px 8px 2px;
                 margin: 0;
-                &:first-child {
-                    padding-left: 15px;
-                }
+            }
+            li.label {
+                padding-left: 15px;
+            }
+            li.option {
+                cursor: pointer;
+                padding: 3px 8px 2px;
                 &:last-child {
                     padding-right: 15px;
                 }
@@ -189,6 +192,10 @@
                     background-color: $blue;
                     color: white;
                     cursor: default;
+                }
+                &:hover {
+                    background-color: $blue;
+                    color: white;
                 }
             }
         }
