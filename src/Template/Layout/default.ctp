@@ -36,11 +36,6 @@ use Cake\Routing\Router;
     </head>
     
     <body class="<?= $this->request->getParam('action') ?>">
-        <?php
-        if(!$this->request->getCookie('hideIntro') AND $this->request->getParam('action') == 'index')
-            echo $this->element('intro');
-        ?>
-        
         <div id="header">
             <div id="logo">
                 <?= $this->Html->image('logo-500.png', ['url' => '/','width' => '300px']); ?>
