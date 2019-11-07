@@ -6,12 +6,12 @@ class View {
     constructor(elm, app) {
         // store the native DOM element, not jQuery
         this.element = elm;
-        this.entries = {};
         this.app = app;
     }
 
-    createTable(courses) {
-        if(courses.length == 0) {
+    createTable() {
+        // check the global courses variable
+        if(typeof courses == 'undefined' || courses.length == 0) {
             this.setErrorMessage('Your query returned no results.');
             return;
         }
@@ -31,9 +31,9 @@ class View {
                 $('<th class="type">Type <span></span></th>')
             )
         );
-        for(let k in courses) {
-            let row = this.createTableRow(courses[k]);
-            this.entries[courses[k].id] = row;
+        for(let i = 0; courses.length > i; i++) {
+            let id = courses[i].id;
+            let row = this.createTableRow(this.app.data[id]);
             table.append(row);
         }
         $(this.element).append(table);

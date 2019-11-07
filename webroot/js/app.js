@@ -165,7 +165,7 @@ class App {
     }
 
     setTable() {
-        this.view.createTable(this.data);
+        this.view.createTable();
         this.map.closeMarker();
         this.scrollable.updateSize();
         this.status = 'index';

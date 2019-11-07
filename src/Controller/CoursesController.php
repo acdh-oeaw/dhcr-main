@@ -18,6 +18,8 @@ class CoursesController extends AppController
         $query = $this->request->getQuery();
         if(!isset($query['recent']) OR ($query['recent'] !== false AND $query['recent'] != 'false'))
             $query['recent'] = true;
+        if(!isset($query['sort']))
+            $query['sort'] = 'Courses.updated:desc';
         $this->Courses->evaluateQuery($query);
         $courses = $this->Courses->getResults();
     
