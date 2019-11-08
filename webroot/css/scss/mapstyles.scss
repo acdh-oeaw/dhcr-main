@@ -64,31 +64,47 @@
     .leaflet-popup-content {
         @include clearfix;
         margin: 15px;
-        .show_view.button, button.show_view {
+        .buttons {
+            @include clearfix;
+            min-width: 280px;
+        }
+        .button, button {
             height: 23px;
             border-radius: 12px;
             font-size: 12px;
             padding: 3px 15px 0;
             margin: 0;
             float: right;
-            &::after {
-                width: 5px;
-                height: 5px;
-                display: inline-block;
-                position: relative;
-                left: 0;
-                bottom: 1px;
-                border: 2px solid $blue;
-                border-top: none;
-                border-left: none;
-                content: '';
-                transform: rotate(-45deg);
-                margin-left: 5px;
-            }
+            display: inline-block;
+            margin-left: 15px;
             transition: transform 0.3s;
             &:hover {
                 transform: scale(1.1);
                 transform-origin: right center;
+            }
+            @include respond-to(screens) {
+                &.show_table {
+                    display: none;
+                }
+                &.sharing {
+                    display: none;
+                }
+            }
+            &.show_view {
+                &::after {
+                    width: 5px;
+                    height: 5px;
+                    display: inline-block;
+                    position: relative;
+                    left: 0;
+                    bottom: 1px;
+                    border: 2px solid $blue;
+                    border-top: none;
+                    border-left: none;
+                    content: '';
+                    transform: rotate(-45deg);
+                    margin-left: 5px;
+                }
             }
         }
         p {

@@ -118,4 +118,58 @@ class ViewHelper {
         return result;
     }
 
+    static createSharingButton(classes, course) {
+        classes = (typeof classes == 'undefined' || classes == '') ? 'sharing button' : classes + ' sharing button';
+        let share = $('<a class="' + classes + '" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
+            .on('click', function(e) {
+                e.preventDefault();
+                if (navigator.share) {
+                    console.log('navi')
+                    navigator.share({
+                        title: 'The Digital Humanities Course Registry',
+                        text: course.name,
+                        url: BASE_URL + 'courses/view/' + course.id
+                    }).then(() => {
+                        console.log('Thanks for sharing!');
+                    }).catch(console.error);
+                } else {
+                    shareDialog.classList.add('is-open');
+                    console.log('fallback')
+                }
+            }.bind(this));
+        return share[0];
+    }
+
+    createPopup(course) {
+        let a = $('<a></a>').text('Show Details')
+            .attr('data-id', course.id)
+            .attr('href', BASE_URL + 'courses/view/' + course.id)
+            .addClass('show_view button');
+        let buttons = $('<div></div>').addClass('buttons');
+        this._collection = [];
+        this._result = '';
+        this._collection.push($('<h1></h1>').text(course.name));
+        this._collection.push($('<p></p>').html(course.institution.name + ',<br />' + course.department + '.'));
+        this._collection.push($('<p></p>').text('Type: ' + course.course_type.name));
+        buttons.append(a);
+        buttons.append($('<button></button>').text('Share').addClass('sharing'));
+        buttons.append($('<button></button>').text('Table').addClass('show_table'));
+        this._collection.push(buttons);
+        return this.concat();
+    }
+
+    static concat(collection) {
+        let retval = '';
+        collection.forEach(function(node) {
+            if(node instanceof jQuery) retval += node.prop('outerHTML');
+            if(typeof node == 'string') retval += node;
+            if(typeof node.outerHTML === 'string') retval += node.outerHTML;
+        });
+        return retval;
+    }
+
+    concat() {
+        this._result = ViewHelper.concat(this._collection);
+        return this._result;
+    }
 }

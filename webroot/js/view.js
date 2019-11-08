@@ -62,14 +62,22 @@ class View {
                 // opening
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
-                targetRow.after(expansion);
-                return true;
+                targetRow.after(expansion);     // insert
+                $('.show_view').on('click', function(e) {
+                    e.preventDefault();
+                    let id = $(e.target).attr('data-id');
+                    this.app.setCourse(id);
+                }.bind(this));
+                $('.show_map').on('click', function(e) {
+                    this.app.slider.setPosition('map')
+                }.bind(this));
+                return true;    // wheter or not to open popups on map
             }
         }else{
             // close all
             $('.expanded').removeClass('expanded');
         }
-        return false;
+        return false;   // no popups
     }
 
     openRow(id) {
@@ -90,11 +98,16 @@ class View {
     }
 
     createExpansionRow(course) {
-        let mediaQuery = window.matchMedia('(max-width: ' + this.app.breakPoint + 'px)');
         let colspan = 5;
-        if(mediaQuery.matches) colspan = 4;
+        if(this.app.layout == 'mobile') colspan = 4;    // possible using css directly?
         let content = $('<td></td>').attr('colspan', colspan);
-        content.append(this.createSharingButton('blue', course));
+        let share = ViewHelper.createSharingButton('blue', course);
+        let onMap = $('<button></button>').text('Show on Map').addClass('show_map');
+        let details = $('<a></a>').text('Show Details')
+                .addClass('show_view button')
+                .attr('data-id', course.id)
+                .attr('href', BASE_URL + 'courses/view/' + course.id);
+        content.append(details,share,onMap);
         let expansionRow = $('<tr></tr>').addClass('expansion-row').append(content);
         return expansionRow[0];
     }
@@ -118,28 +131,6 @@ class View {
         return tr[0];
     }
 
-    createSharingButton(classes, course) {
-        classes = (typeof classes == 'undefined' || classes == '') ? 'sharing button' : classes + ' sharing button';
-        let share = $('<a class="' + classes + '" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
-            .on('click', function(e) {
-                e.preventDefault();
-                if (navigator.share) {
-                    console.log('navi')
-                    navigator.share({
-                        title: 'The Digital Humanities Course Registry',
-                        text: course.name,
-                        url: BASE_URL + 'courses/view/' + course.id
-                    }).then(() => {
-                        console.log('Thanks for sharing!');
-                    }).catch(console.error);
-                } else {
-                    shareDialog.classList.add('is-open');
-                    console.log('fallback')
-                }
-            }.bind(this));
-        return share[0];
-    }
-
     createView(course) {
         let el = $('<div id="view"></div>');
         let helper = new ViewHelper();
@@ -151,7 +142,7 @@ class View {
                 e.preventDefault();
                 this.app.closeView();
             }.bind(this));
-        let share = this.createSharingButton('blue', course);
+        let share = ViewHelper.createSharingButton('blue', course);
         el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));

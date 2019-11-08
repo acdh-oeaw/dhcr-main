@@ -105,8 +105,8 @@ class App {
     }
 
     resizeListener() {
-        // we should test for #container innerWidth
-        if(document.getElementById('container').clientWidth > this.breakPoint) {
+        let mediaQuery = window.matchMedia('(max-width: ' + this.breakPoint + 'px)');
+        if(!mediaQuery.matches)  {
             this.layout = 'screen';
             if(this.intro != undefined) {
                 this.intro.removeEventListener('scroll', this.scrollListener);

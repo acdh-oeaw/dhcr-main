@@ -1,6 +1,7 @@
 
 'use strict';
 
+
 class Map {
 
     defaults() {
@@ -84,6 +85,7 @@ class Map {
                 });
             }
         });
+        let helper = new ViewHelper();
         for(let k in courses) {
             let course = courses[k];
             let icon = L.icon({
@@ -95,19 +97,16 @@ class Map {
             });
             let marker = L.marker([course.lat, course.lon], {
                 title: course.name,
-                icon: icon
+                icon: icon,
+                // TODO: doesn't do a thing:
+                //autoPanPaddingTopLeft: L.point(20,20),
+                //autoPanPaddingBottomRight: L.Point(20, 100),
+                //closeButton: false
             });
 
             if(createPopups) {
                 // prepare html content
-                let content = '<h1>' + course.name + '</h1>'
-                    + '<p>' + course.institution.name + ',<br />'
-                    + course.department + '.</p>'
-                    + '<p>Type: ' + course.course_type.name + '</p>'
-                    + '<a class="show_view button" data-id="' + course.id
-                    + '" href="' + BASE_URL + 'courses/view/' + course.id
-                    + '">Show details</a>';
-                marker.bindPopup(content);
+                marker.bindPopup(helper.createPopup(course));
                 marker.on('click', function(e) {
                     this.app.view.openRow(course.id);
                 }.bind(this));
@@ -131,6 +130,9 @@ class Map {
                 let id = $(e.target).attr('data-id');
                 this.app.setCourse(id);
             }.bind(this));
+            $('.show_table').on('click', function(e) {
+                this.app.slider.setPosition('table')
+            }.bind(this));
         }.bind(this));
     }
 
@@ -144,7 +146,6 @@ class Map {
     closeMarker() {
         if(!this.id) return;
         this.markers[this.id].closePopup();
-        //this.fitBounds();
         this.map.zoomOut(3);
         this.id = false;
     }
