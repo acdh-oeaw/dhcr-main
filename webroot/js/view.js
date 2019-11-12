@@ -81,14 +81,7 @@ class View {
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
                 targetRow.after(expansion);     // insert
-                $('.show_view').on('click', function(e) {
-                    e.preventDefault();
-                    let id = $(e.target).attr('data-id');
-                    this.app.setCourse(id);
-                }.bind(this));
-                $('.show_map').on('click', function(e) {
-                    this.app.slider.setPosition('map')
-                }.bind(this));
+                this.addExpansionHandlers();
                 return true;    // wheter or not to open popups on map
             }
         }else{
@@ -110,10 +103,22 @@ class View {
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
                 targetRow.after(expansion);
+                this.addExpansionHandlers();
             }
             return true;
         }
         return false;
+    }
+
+    addExpansionHandlers() {
+        $('.show_view').on('click', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            this.app.setCourse(id);
+        }.bind(this));
+        $('.show_map').on('click', function(e) {
+            this.app.slider.setPosition('map')
+        }.bind(this));
     }
 
     createExpansionRow(course) {
