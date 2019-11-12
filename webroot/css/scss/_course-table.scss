@@ -35,21 +35,40 @@
             border-bottom: 1px solid $light-gray;
             overflow: hidden;
             font-family: Helvetica, Verdana, Arial, Sans-Serif;
+            height: 41px;
             &.university {
                 @include respond-to(handhelds) {
                     display: none;
                 }
             }
         }
-        tr.course-row {
-            cursor: pointer;
-            &:hover {
-                background: $light-gray;
+        tr {
+            &.course-row {
+                cursor: pointer;
+                &:hover {
+                    background: $light-gray;
+                }
+            }
+            &.expansion-row {
+                button, .button {
+                    margin-right: 1em;
+                    &:hover {
+                        transform-origin: left center;
+                    }
+                    @include respond-to(screens) {
+                        &.show_map {
+                            display: none;
+                        }
+                    }
+                }
             }
         }
+        .expanded, .expanded + .expansion-row {
+            background-color: #F2F2F2;
+        }
         td {
-            padding: 0 8px 4px 0;
-            vertical-align: center;
+            padding: 4px 8px 4px 2px;
+            vertical-align: middle;
             &:last-child {
                 padding-right: 0;
             }

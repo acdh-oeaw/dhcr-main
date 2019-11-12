@@ -109,7 +109,7 @@ button, .button {
   outline: none;
   display: inline-block;
   position: relative;
-  border-radius: 24px;
+  border-radius: 23px;
   border: solid 2px #1E6BA3;
   background-color: #fff;
   font-family: bebas;
@@ -153,6 +153,20 @@ button, .button {
     transform: rotate(-45deg);
     margin-right: 0;
     margin-left: 5px; }
+  button.x-small, .button.x-small {
+    height: 23px;
+    border-radius: 12px;
+    font-size: 12px;
+    padding: 3px 15px 0; }
+    button.x-small:hover, .button.x-small:hover {
+      transform: scale(1.05); }
+  button.small, .button.small {
+    height: 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding-top: 2px; }
+    button.small:hover, button.small.animate, .button.small:hover, .button.small.animate {
+      transform: scale(1.05); }
 
 .button {
   padding-top: 7px; }
@@ -213,34 +227,6 @@ table .recurring {
         margin-bottom: 3em;
         min-width: initial;
         padding: 0; } }
-
-.grid-container {
-  display: grid;
-  grid-column-gap: 4%;
-  grid-auto-flow: row;
-  grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]); }
-  @media only screen and (max-width: 980px) {
-    .grid-container {
-      grid-template-columns: [col-start] 100% [col-end]; } }
-  .grid-container .item {
-    display: grid;
-    grid-column-gap: 5%;
-    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end]; }
-    .grid-container .item .term {
-      overflow: hidden; }
-    .grid-container .item .data {
-      grid-column-end: span 1;
-      overflow: hidden; }
-    .grid-container .item.single-col {
-      grid-column: col-start 1 / col-end -1;
-      grid-column-gap: 2%;
-      grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]); }
-      @media only screen and (max-width: 980px) {
-        .grid-container .item.single-col {
-          grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-          grid-column-gap: 5%; } }
-      .grid-container .item.single-col .data {
-        grid-column: col-middle 1 / col-end -1; }
 
 form label {
   font-weight: bold;

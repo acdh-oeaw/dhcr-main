@@ -124,27 +124,35 @@ class ViewHelper {
             .on('click', function(e) {
                 e.preventDefault();
                 if (navigator.share) {
-                    console.log('navi')
                     navigator.share({
                         title: 'The Digital Humanities Course Registry',
                         text: course.name,
                         url: BASE_URL + 'courses/view/' + course.id
                     }).then(() => {
-                        console.log('Thanks for sharing!');
+                        //console.log('Thanks for sharing!');
                     }).catch(console.error);
                 } else {
-                    shareDialog.classList.add('is-open');
-                    console.log('fallback')
+                    ViewHelper.createSharingDialog(course);
                 }
             }.bind(this));
-        return share[0];
+        return share;
+    }
+
+    static createSharingDialog(course) {
+        let wrapper = $('<div></div>').attr('id', 'sharing-wrapper');
+        let content = $('<div></div>').attr('id', 'sharing-content');
+        let input = $('<input>').attr('id', 'sharing-link').val(BASE_URL + 'courses/view/' + course.id);
+        let button = $('<button>Copy Link</button>').attr('id', 'copy-link');
+        content.append(input, button);
+        wrapper.append(content);
+        return wrapper;
     }
 
     createPopup(course) {
         let a = $('<a></a>').text('Show Details')
             .attr('data-id', course.id)
             .attr('href', BASE_URL + 'courses/view/' + course.id)
-            .addClass('show_view button');
+            .addClass('show_view button x-small');
         let buttons = $('<div></div>').addClass('buttons');
         this._collection = [];
         this._result = '';
@@ -152,8 +160,8 @@ class ViewHelper {
         this._collection.push($('<p></p>').html(course.institution.name + ',<br />' + course.department + '.'));
         this._collection.push($('<p></p>').text('Type: ' + course.course_type.name));
         buttons.append(a);
-        buttons.append($('<button></button>').text('Share').addClass('sharing'));
-        buttons.append($('<button></button>').text('Table').addClass('show_table'));
+        buttons.append($('<button></button>').text('Share').addClass('sharing x-small'));
+        buttons.append($('<button></button>').text('Table').addClass('show_table x-small'));
         this._collection.push(buttons);
         return this.concat();
     }

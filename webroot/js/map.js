@@ -98,17 +98,19 @@ class Map {
             let marker = L.marker([course.lat, course.lon], {
                 title: course.name,
                 icon: icon,
-                // TODO: doesn't do a thing:
-                //autoPanPaddingTopLeft: L.point(20,20),
-                //autoPanPaddingBottomRight: L.Point(20, 100),
-                //closeButton: false
+                // autoPanPadding doesn't seem to have any effect
+                autoPanPaddingTopLeft: [20,20],
+                autoPanPaddingBottomRight: [20,100],
+                closeButton: false
             });
 
             if(createPopups) {
                 // prepare html content
                 marker.bindPopup(helper.createPopup(course));
                 marker.on('click', function(e) {
-                    this.app.view.openRow(course.id);
+                    this.app.hash.push(course.id);
+                    if(this.app.view.openRow(course.id))
+                        this.app.view.scrollToRow(course.id);
                 }.bind(this));
             }
 

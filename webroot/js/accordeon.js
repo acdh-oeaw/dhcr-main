@@ -15,15 +15,16 @@ class Accordeon {
             }.bind(this));
         }
 
-        let hash = window.location.hash.substr(1);
-        if(hash.length > 0) {
-            this.openHash(hash);
+        this.hash = new Hash();
+        if(this.hash.fragment.length > 0) {
+            $('#' + this.hash.fragment).addClass('open');
+            //location.href = '#' + this.hash.fragment;
         }
     }
 
     closeAll() {
         $('.accordeon-item.open').removeClass('open');
-        this.removeHash();
+        this.hash.remove();
     }
 
     clickHandler(handle) {
@@ -36,38 +37,14 @@ class Accordeon {
     openItem(handle) {
         let item = $(handle).closest('.accordeon-item');
         item.addClass('open');
-        this.removeHash();
 
-        if(history.pushState)
-            history.pushState(null, null, '#' + $(item).attr('id'));
-        else
-            window.location.hash = $(item).attr('id');
-    }
-
-    openHash(hash) {
-        $('#' + hash).addClass('open');
-        location.href = '#' + hash;
-    }
-
-    removeHash () {
-        // https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-r/5298684#5298684
-        let scrollV, scrollH, loc = window.location;
-        if ("pushState" in history) {
-            history.pushState("", document.title, loc.pathname + loc.search);
-        }else{
-            // Prevent scrolling by storing the page's current scroll offset
-            scrollV = document.body.scrollTop;
-            scrollH = document.body.scrollLeft;
-            loc.hash = "";
-            // Restore the scroll offset, should be flicker free
-            document.body.scrollTop = scrollV;
-            document.body.scrollLeft = scrollH;
-        }
+        this.hash.remove();
+        this.hash.push($(item).attr('id'));
     }
 
     closeItem(handle) {
         $(handle).closest('.accordeon-item').removeClass('open');
-        this.removeHash();
+        this.hash.remove();
     }
 
     toggleItem(handle) {

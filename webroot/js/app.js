@@ -29,6 +29,8 @@ class App {
             this[key] = options[key];
         }
 
+        this.hash = new Hash();
+
         setTimeout(function(){
             // This hides the address bar:
             window.scrollTo(0, 1);
@@ -108,12 +110,14 @@ class App {
         let mediaQuery = window.matchMedia('(max-width: ' + this.breakPoint + 'px)');
         if(!mediaQuery.matches)  {
             this.layout = 'screen';
+            $('.expansion-row td').attr('colspan', 5);
             if(this.intro != undefined) {
                 this.intro.removeEventListener('scroll', this.scrollListener);
             }
             this.slider.reset();
         }else{
             this.layout = 'mobile';
+            $('.expansion-row td').attr('colspan', 4);
             this.slider.updateSize();
             if(this.intro != undefined) {
                 // activate the map/table slider while overscrolling
@@ -165,8 +169,8 @@ class App {
     }
 
     setTable() {
-        this.view.createTable();
         this.map.closeMarker();
+        this.view.createTable();
         this.scrollable.updateSize();
         this.status = 'index';
     }

@@ -35,7 +35,7 @@ class Filter {
             'sort'              : 'sort'
         };
 
-        // fill the hash tables from the global option lists
+        // fill the fragment tables from the global option lists
         this.getCountries();
         this.getCities();
         this.getInstitutions();

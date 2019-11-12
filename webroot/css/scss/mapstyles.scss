@@ -69,17 +69,12 @@
             min-width: 280px;
         }
         .button, button {
-            height: 23px;
-            border-radius: 12px;
-            font-size: 12px;
-            padding: 3px 15px 0;
             margin: 0;
             float: right;
             display: inline-block;
             margin-left: 15px;
             transition: transform 0.3s;
             &:hover {
-                transform: scale(1.1);
                 transform-origin: right center;
             }
             @include respond-to(screens) {

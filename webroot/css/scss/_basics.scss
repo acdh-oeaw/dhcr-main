@@ -103,7 +103,7 @@ button, .button {
     outline: none;
     display: inline-block;
     position: relative;
-    border-radius: 24px;
+    border-radius: 23px;
     border: solid 2px $blue;
     background-color: #fff;
     font-family: bebas;
@@ -147,11 +147,28 @@ button, .button {
             border-left: none;
         }
     }
-
     &.continue::after {
         transform: rotate(-45deg);
         margin-right: 0;
         margin-left: 5px;
+    }
+    &.x-small {
+        height: 23px;
+        border-radius: 12px;
+        font-size: 12px;
+        padding: 3px 15px 0;
+        &:hover {
+            transform: scale(1.05);
+        }
+    }
+    &.small {
+        height: 30px;
+        font-size: 20px;
+        border-radius: 15px;
+        padding-top: 2px;
+        &:hover, &.animate {
+            transform: scale(1.05);
+        }
     }
 }
 .button {
@@ -227,43 +244,4 @@ table {
     }
 }
 
-
-// only used in /courses/view so far
-$grid-break: 980px;
-.grid-container {
-    display: grid;
-    grid-column-gap: 4%;
-    grid-auto-flow: row;
-    grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]);
-    @media only screen and (max-width: $grid-break) {
-        grid-template-columns: [col-start] 100% [col-end];
-    }
-    .item {
-        display: grid;
-        grid-column-gap: 5%;
-        grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-        .term {
-            overflow: hidden;
-        }
-        .data {
-            grid-column-end: span 1;
-            overflow: hidden;
-        }
-        // default span is one, but not for single-colums: span from first to last line
-        &.single-col {
-            grid-column: col-start 1 / col-end -1;
-            grid-column-gap: 2%;
-            // account for the gap
-            grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
-            @media only screen and (max-width: $grid-break) {
-                grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-                grid-column-gap: 5%;
-            }
-            // data spans all columns except for the first
-            .data {
-                grid-column: col-middle 1 / col-end -1;
-            }
-        }
-    }
-}
 

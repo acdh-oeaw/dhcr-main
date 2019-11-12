@@ -71,16 +71,11 @@
             min-width: 160px;
             margin: 0 10px 20px 10px;
             box-sizing: border-box;
-            height: 30px;
-            font-size: 20px;
-            border-radius: 15px;
-            padding-top: 2px;
             &::before {
                 height: 7px;
                 width: 7px;
             }
             &:hover, &.animate {
-                transform: scale(1.05);
                 transform-origin: left center;
                 text-decoration: none;
                 &.sharing {
@@ -89,21 +84,56 @@
             }
         }
     }
+
+    $grid-break: 980px;
     .grid-container {
+        display: grid;
+        grid-column-gap: 4%;
+        grid-auto-flow: row;
+        grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]);
         margin-bottom: 1em;
+        @media only screen and (max-width: $grid-break) {
+            grid-template-columns: [col-start] 100% [col-end];
+        }
         .item {
+            display: grid;
+            grid-column-gap: 5%;
+            grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
             padding: 0;
             margin-bottom: 0.15em;
-            &.single-col {
-                margin-top: 0.3em;
-            }
             .term, .data {
                 margin-bottom: 0.3em;
             }
             .term {
+                overflow: hidden;
                 color: $blue;
                 font-weight: bold;
             }
+            .data {
+                grid-column-end: span 1;
+                overflow: hidden;
+            }
+            // default span is one, but not for single-colums: span from first to last line
+            &.single-col {
+                grid-column: col-start 1 / col-end -1;
+                grid-column-gap: 2%;
+                // account for the gap
+                grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
+                margin-top: 0.3em;
+                @media only screen and (max-width: $grid-break) {
+                    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+                    grid-column-gap: 5%;
+                }
+                // data spans all columns except for the first
+                .data {
+                    grid-column: col-middle 1 / col-end -1;
+                }
+            }
         }
+    }
+
+
+    .grid-container {
+
     }
 }

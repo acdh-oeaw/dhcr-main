@@ -38,24 +38,42 @@ class View {
         }
         $(this.element).append(table);
         this.addTableClickHandler();
+        if(this.app.hash.fragment.length > 0 && !isNaN(this.app.hash.fragment)) {
+            let id = this.app.hash.fragment;
+            if(this.openRow(id)) {
+                this.scrollToRow(id);
+                // we need a timeout to wait until map has stopped moving (and closing open popups)
+                setTimeout(function(){
+                    this.app.map.openMarker(id);
+                }.bind(this), 1000);
+            }
+        }
+    }
+
+    scrollToRow(id) {
+        let childPos = document.getElementById('course-row-' + id).offsetTop;
+        $(this.element).animate({scrollTop: childPos}, 1000 );
     }
 
     addTableClickHandler() {
         $('.course-row').on('click', function(e) {
             let targetRow = $(e.delegateTarget);
             let id = targetRow.attr('data-id');
-            if(this.toggleRow(id))
+            if(this.toggleRow(id)) {
                 this.app.map.openMarker(id);
-            else
+                this.app.hash.push(id);
+            }else {
                 this.app.map.closeMarker();
+                this.app.hash.remove();
+            }
         }.bind(this));
     }
 
     toggleRow(id) {
-        // TODO: scroll to top
         $('.expansion-row').remove();
         if(typeof id != 'undefined') {
             let targetRow = $('tr[data-id=' + id + ']');
+            // close all others
             $('.expanded[data-id!=' + id + ']').removeClass('expanded');
             targetRow.toggleClass('expanded');
             if(targetRow.hasClass('expanded')) {
@@ -81,7 +99,7 @@ class View {
     }
 
     openRow(id) {
-        if(typeof id != 'undefined') {
+        if(typeof id != 'undefined' && id > 0 && !isNaN(id)) {
             let targetRow = $('tr[data-id=' + id + ']');
             if(!targetRow.hasClass('expanded')) {
                 // remove others
@@ -92,28 +110,28 @@ class View {
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
                 targetRow.after(expansion);
-                return true;
             }
+            return true;
         }
+        return false;
     }
 
     createExpansionRow(course) {
-        let colspan = 5;
-        if(this.app.layout == 'mobile') colspan = 4;    // possible using css directly?
+        let colspan = (this.app.layout == 'mobile') ? 4 : 5;
         let content = $('<td></td>').attr('colspan', colspan);
-        let share = ViewHelper.createSharingButton('blue', course);
-        let onMap = $('<button></button>').text('Show on Map').addClass('show_map');
+        let share = ViewHelper.createSharingButton('blue small', course);
+        let onMap = $('<button></button>').text('Show on Map').addClass('show_map small');
         let details = $('<a></a>').text('Show Details')
-                .addClass('show_view button')
+                .addClass('show_view button small')
                 .attr('data-id', course.id)
                 .attr('href', BASE_URL + 'courses/view/' + course.id);
-        content.append(details,share,onMap);
+        content.append(details, share, onMap);
         let expansionRow = $('<tr></tr>').addClass('expansion-row').append(content);
         return expansionRow[0];
     }
 
     createTableRow(course) {
-        let tr = $('<tr></tr>').addClass('course-row').attr('data-id', course.id);
+        let tr = $('<tr></tr>').addClass('course-row').attr('data-id', course.id).attr('id', 'course-row-' + course.id);
         let duration = ViewHelper.getTiming(course, ',<br />', ' ', '<br />');
         let type = course.course_type.name;
         if (course.online) type += ' <span class="online">online</span>';
@@ -137,12 +155,12 @@ class View {
         let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
 
         let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
-        let back = $('<a class="back button" href="' + BASE_URL + '">' + backActionLabel + '</a>')
+        let back = $('<a class="back button small" href="' + BASE_URL + '">' + backActionLabel + '</a>')
             .on('click', function(e) {
                 e.preventDefault();
                 this.app.closeView();
             }.bind(this));
-        let share = ViewHelper.createSharingButton('blue', course);
+        let share = ViewHelper.createSharingButton('blue small', course);
         el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));
@@ -182,6 +200,9 @@ class View {
 
         $(this.element).empty();
         $(this.element).append(el);
+
+        this.app.scrollable.top();
+        this.app.hash.push(course.id);
 
         // init mobile auxiliary map after adding it to document
         let map = new Map({

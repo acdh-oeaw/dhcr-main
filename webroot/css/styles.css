@@ -109,7 +109,7 @@ button, .button {
   outline: none;
   display: inline-block;
   position: relative;
-  border-radius: 24px;
+  border-radius: 23px;
   border: solid 2px #1E6BA3;
   background-color: #fff;
   font-family: bebas;
@@ -153,6 +153,20 @@ button, .button {
     transform: rotate(-45deg);
     margin-right: 0;
     margin-left: 5px; }
+  button.x-small, .button.x-small {
+    height: 23px;
+    border-radius: 12px;
+    font-size: 12px;
+    padding: 3px 15px 0; }
+    button.x-small:hover, .button.x-small:hover {
+      transform: scale(1.05); }
+  button.small, .button.small {
+    height: 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding-top: 2px; }
+    button.small:hover, button.small.animate, .button.small:hover, .button.small.animate {
+      transform: scale(1.05); }
 
 .button {
   padding-top: 7px; }
@@ -213,34 +227,6 @@ table .recurring {
         margin-bottom: 3em;
         min-width: initial;
         padding: 0; } }
-
-.grid-container {
-  display: grid;
-  grid-column-gap: 4%;
-  grid-auto-flow: row;
-  grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]); }
-  @media only screen and (max-width: 980px) {
-    .grid-container {
-      grid-template-columns: [col-start] 100% [col-end]; } }
-  .grid-container .item {
-    display: grid;
-    grid-column-gap: 5%;
-    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end]; }
-    .grid-container .item .term {
-      overflow: hidden; }
-    .grid-container .item .data {
-      grid-column-end: span 1;
-      overflow: hidden; }
-    .grid-container .item.single-col {
-      grid-column: col-start 1 / col-end -1;
-      grid-column-gap: 2%;
-      grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]); }
-      @media only screen and (max-width: 980px) {
-        .grid-container .item.single-col {
-          grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-          grid-column-gap: 5%; } }
-      .grid-container .item.single-col .data {
-        grid-column: col-middle 1 / col-end -1; }
 
 #header {
   position: relative;
@@ -584,32 +570,50 @@ body.index, body.view {
         flex: 0 0 25%;
         min-width: 160px;
         margin: 0 10px 20px 10px;
-        box-sizing: border-box;
-        height: 30px;
-        font-size: 20px;
-        border-radius: 15px;
-        padding-top: 2px; }
+        box-sizing: border-box; }
         body.index #container #view .buttons button::before, body.index #container #view .buttons .button::before, body.view #container #view .buttons button::before, body.view #container #view .buttons .button::before {
           height: 7px;
           width: 7px; }
         body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.index #container #view .buttons .button:hover, body.index #container #view .buttons .button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate, body.view #container #view .buttons .button:hover, body.view #container #view .buttons .button.animate {
-          transform: scale(1.05);
           transform-origin: left center;
           text-decoration: none; }
           body.index #container #view .buttons button:hover.sharing, body.index #container #view .buttons button.animate.sharing, body.index #container #view .buttons .button:hover.sharing, body.index #container #view .buttons .button.animate.sharing, body.view #container #view .buttons button:hover.sharing, body.view #container #view .buttons button.animate.sharing, body.view #container #view .buttons .button:hover.sharing, body.view #container #view .buttons .button.animate.sharing {
             transform-origin: right center; }
     body.index #container #view .grid-container, body.view #container #view .grid-container {
+      display: grid;
+      grid-column-gap: 4%;
+      grid-auto-flow: row;
+      grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]);
       margin-bottom: 1em; }
+      @media only screen and (max-width: 980px) {
+        body.index #container #view .grid-container, body.view #container #view .grid-container {
+          grid-template-columns: [col-start] 100% [col-end]; } }
       body.index #container #view .grid-container .item, body.view #container #view .grid-container .item {
+        display: grid;
+        grid-column-gap: 5%;
+        grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
         padding: 0;
         margin-bottom: 0.15em; }
-        body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
-          margin-top: 0.3em; }
         body.index #container #view .grid-container .item .term, body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .term, body.view #container #view .grid-container .item .data {
           margin-bottom: 0.3em; }
         body.index #container #view .grid-container .item .term, body.view #container #view .grid-container .item .term {
+          overflow: hidden;
           color: #1E6BA3;
           font-weight: bold; }
+        body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .data {
+          grid-column-end: span 1;
+          overflow: hidden; }
+        body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
+          grid-column: col-start 1 / col-end -1;
+          grid-column-gap: 2%;
+          grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
+          margin-top: 0.3em; }
+          @media only screen and (max-width: 980px) {
+            body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
+              grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+              grid-column-gap: 5%; } }
+          body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
+            grid-column: col-middle 1 / col-end -1; }
     @media only screen and (min-width: 751px) {
       body.index #container, body.view #container {
         min-width: 750px; }
@@ -700,7 +704,8 @@ body.index, body.view {
       body.index #container #table table th, body.index #container #table table td, body.view #container #table table th, body.view #container #table table td {
         border-bottom: 1px solid #d8d8d8;
         overflow: hidden;
-        font-family: Helvetica, Verdana, Arial, Sans-Serif; }
+        font-family: Helvetica, Verdana, Arial, Sans-Serif;
+        height: 41px; }
         @media only screen and (max-width: 750px) {
           body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
@@ -708,9 +713,18 @@ body.index, body.view {
         cursor: pointer; }
         body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover {
           background: #d8d8d8; }
+      body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button {
+        margin-right: 1em; }
+        body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover {
+          transform-origin: left center; }
+        @media only screen and (min-width: 751px) {
+          body.index #container #table table tr.expansion-row button.show_map, body.index #container #table table tr.expansion-row .button.show_map, body.view #container #table table tr.expansion-row button.show_map, body.view #container #table table tr.expansion-row .button.show_map {
+            display: none; } }
+      body.index #container #table table .expanded, body.index #container #table table .expanded + .expansion-row, body.view #container #table table .expanded, body.view #container #table table .expanded + .expansion-row {
+        background-color: #F2F2F2; }
       body.index #container #table table td, body.view #container #table table td {
-        padding: 0 8px 4px 0;
-        vertical-align: center; }
+        padding: 4px 8px 4px 2px;
+        vertical-align: middle; }
         body.index #container #table table td:last-child, body.view #container #table table td:last-child {
           padding-right: 0; }
       body.index #container #table table tr:last-child td, body.view #container #table table tr:last-child td {
@@ -820,17 +834,12 @@ body.index, body.view {
       clear: both;
       display: table; }
   .leaflet-popup .leaflet-popup-content .button, .leaflet-popup .leaflet-popup-content button {
-    height: 23px;
-    border-radius: 12px;
-    font-size: 12px;
-    padding: 3px 15px 0;
     margin: 0;
     float: right;
     display: inline-block;
     margin-left: 15px;
     transition: transform 0.3s; }
     .leaflet-popup .leaflet-popup-content .button:hover, .leaflet-popup .leaflet-popup-content button:hover {
-      transform: scale(1.1);
       transform-origin: right center; }
     @media only screen and (min-width: 751px) {
       .leaflet-popup .leaflet-popup-content .button.show_table, .leaflet-popup .leaflet-popup-content button.show_table {
