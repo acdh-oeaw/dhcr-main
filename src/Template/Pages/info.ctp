@@ -45,9 +45,19 @@ $this->layout = false;
                     <span id="h2">Course</span><span id="h3">Registry</span>
                 </a>
             </h1>
+    
+            <?= $this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo-big.png', [
+                'alt' => 'CLARIN-DARIAH joint logo',
+                'width' => 256,
+                'height' => 200]), '/', ['escape' => false, 'class' => 'clarin-dariah-logo']) ?>
             <p class="intent">
-                The Digital Humanities Course Registry (DHCR) provides a curated database
-                of teaching activities in the field of digital humanities worldwide.
+                The Digital Humanities Course Registry (DHCR) is a joint effort of two
+                European research infrastructures:
+                <em>CLARIN ERIC</em> and <em>DARIAH-EU</em>.
+            </p>
+            <p class="intent">
+                It provides a curated database of teaching activities in the
+                field of digital humanities worldwide.
             </p>
         </div>
         
@@ -97,7 +107,7 @@ $this->layout = false;
         </div>
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
-        <?= $this->Html->script(['accordeon', 'cookie']) ?>
+        <?= $this->Html->script(['accordeon','cookie','hash']) ?>
         
         <script type="application/javascript">
             $(document).ready( function() {
