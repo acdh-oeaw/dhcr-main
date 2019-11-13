@@ -1,27 +1,23 @@
 <div class="flex-columns">
     <div class="flex-item wide">
         <p>
-            Creating opportunities for collaboration across disciplines and borders
-            is a key feature of research infrastructures.
-            As such,
-            <?= $this->Html->link('CLARIN', 'https://www.clarin.eu/',
+            The DH Course Registry (DHCR) is a joint effort of two European research infrastructures:
+            <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/',
                 ['escape' => false, 'target' => '_blank']); ?> and
-            <?= $this->Html->link('DARIAH', 'https://www.dariah.eu/',
-            ['escape' => false, 'target' => '_blank']); ?>
-            offer platforms, conferences and workshops,
-            where researchers from various countries and disciplines meet each other.
+            <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/',
+                ['escape' => false, 'target' => '_blank']); ?>.
         </p>
         <p>
-            Within DARIAH, a number of working groups have been established about
-            strategic areas such as Artificial Intelligence and Music, GeoHumanities or
-            Women Writers in History. These working groups form a vital link between
-            the infrastructure and the scientific community. The DHCR working group aims
-            to create a link between research, academic teaching and the student community.
+            Research infrastructures (RIs) are legal entities that offer technical and social
+            infrastructures in a more stable and sustainable way than short-term research projects.
+            They also play an important role in educating new generations of researchers.
         </p>
         <p>
-            Both CLARIN and DARIAH are a European Research Infrastructure Consortium (ERIC),
-            a legal entity for infrastructures on a non-economic basis. The DHCR will be
-            further developed and maintained as a collaboration of the two ERICs.
+            One of the instruments for the maintenance of the DHCR is the DHCR working
+            group in DARIAH, which aims to link research, academic teaching and the student community.
+        </p>
+        <p>
+            The DHCR will be maintained and further developed these two European RIs (ERICs).
         </p>
     </div>
     <div class="flex-item narrow">

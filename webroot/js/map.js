@@ -124,18 +124,10 @@ class Map {
             let zoom = this.map.getZoom();
             // locate to user location
             this.map.locate({setView: true, maxZoom: zoom});
+            this.map.on('locationfound', function() {
+                this.map.stopLocate();
+            }.bind(this));
         }
-
-        this.map.on('popupopen', function(e) {
-            $('.show_view').on('click', function(e) {
-                e.preventDefault();
-                let id = $(e.target).attr('data-id');
-                this.app.setCourse(id);
-            }.bind(this));
-            $('.show_table').on('click', function(e) {
-                this.app.slider.setPosition('table')
-            }.bind(this));
-        }.bind(this));
     }
 
     openMarker(id) {

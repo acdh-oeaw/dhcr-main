@@ -157,7 +157,7 @@ button, .button {
     height: 23px;
     border-radius: 12px;
     font-size: 12px;
-    padding: 3px 15px 0; }
+    padding: 2px 15px 0; }
     button.x-small:hover, .button.x-small:hover {
       transform: scale(1.05); }
   button.small, .button.small {
@@ -170,6 +170,9 @@ button, .button {
 
 .button {
   padding-top: 7px; }
+
+.button.x-small {
+  padding-top: 3px; }
 
 hr {
   height: 2px;
@@ -614,6 +617,25 @@ body.index, body.view {
               grid-column-gap: 5%; } }
           body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
             grid-column: col-middle 1 / col-end -1; }
+    body.index #container .footer, body.view #container .footer {
+      font-family: metropolis, Sans-Serif;
+      font-size: 14px;
+      color: #1E6BA3; }
+      body.index #container .footer::after, body.view #container .footer::after {
+        content: "";
+        clear: both;
+        display: table; }
+      body.index #container .footer p, body.view #container .footer p {
+        margin: 0;
+        line-height: 1; }
+      body.index #container .footer .imprint, body.index #container .footer .license, body.view #container .footer .imprint, body.view #container .footer .license {
+        font-weight: bold; }
+      body.index #container .footer .imprint, body.view #container .footer .imprint {
+        float: left; }
+      body.index #container .footer .copyright, body.index #container .footer .license, body.view #container .footer .copyright, body.view #container .footer .license {
+        float: right; }
+      body.index #container .footer .license, body.view #container .footer .license {
+        margin-left: 0.5em; }
     @media only screen and (min-width: 751px) {
       body.index #container, body.view #container {
         min-width: 750px; }
@@ -630,18 +652,30 @@ body.index, body.view {
             height: 2px;
             background-color: #1E6BA3;
             width: calc(100% - 16px); }
+        body.index #container #map-wrapper, body.view #container #map-wrapper {
+          flex: 1 1 220px;
+          position: relative;
+          height: 100%; }
         body.index #container #map, body.view #container #map {
-          flex: 1 1 220px; }
-        body.index #container #slide-control, body.view #container #slide-control {
+          height: calc(100% - 2em); }
+        body.index #container #map-footer, body.view #container #map-footer {
+          width: 100%;
+          bottom: 0;
+          position: absolute; }
+        body.index #container #slide-control, body.index #container #container-footer, body.view #container #slide-control, body.view #container #container-footer {
           display: none; } }
     @media only screen and (max-width: 750px) {
       body.index #container, body.view #container {
         width: 100%;
         min-width: initial;
         position: initial; }
-        body.index #container #map, body.view #container #map {
+        body.index #container #map-wrapper, body.view #container #map-wrapper {
           width: 100%;
           flex: 0 0 100%; }
+        body.index #container #map, body.view #container #map {
+          height: 100%; }
+        body.index #container #map-footer, body.view #container #map-footer {
+          display: none; }
         body.index #container #table, body.view #container #table {
           padding: 0 5px 0 15px;
           flex: 0 0 calc(100% - 15px);
@@ -664,7 +698,7 @@ body.index, body.view {
           position: absolute;
           height: 50px;
           width: 50px;
-          bottom: 10px;
+          bottom: 15px;
           left: 0;
           right: 0;
           margin: 0 auto;
@@ -674,7 +708,16 @@ body.index, body.view {
           cursor: pointer;
           transition: transform 0.3s; }
           body.index #container #slide-control:hover, body.view #container #slide-control:hover {
-            transform: scale(1.1, 1.1); } }
+            transform: scale(1.1, 1.1); }
+        body.index #container #container-footer, body.view #container #container-footer {
+          display: block;
+          position: absolute;
+          width: calc(100% - 30px);
+          margin: 0 auto;
+          bottom: 10px;
+          left: 0;
+          right: 0;
+          z-index: 10000; } }
     body.index #container #table .error, body.view #container #table .error {
       height: 100%; }
     body.index #container #table .loading, body.view #container #table .loading {

@@ -157,7 +157,7 @@ button, .button {
     height: 23px;
     border-radius: 12px;
     font-size: 12px;
-    padding: 3px 15px 0; }
+    padding: 2px 15px 0; }
     button.x-small:hover, .button.x-small:hover {
       transform: scale(1.05); }
   button.small, .button.small {
@@ -170,6 +170,9 @@ button, .button {
 
 .button {
   padding-top: 7px; }
+
+.button.x-small {
+  padding-top: 3px; }
 
 hr {
   height: 2px;
@@ -381,6 +384,10 @@ body.info {
   color: #1E6BA3;
   text-align: center;
   margin-bottom: 4em; }
+  #page-head p.intent a {
+    font-weight: bold; }
+    #page-head p.intent a:hover {
+      text-decoration: underline; }
   @media only screen and (min-width: 1127px) {
     #page-head p.intent {
       font-size: 24px; } }

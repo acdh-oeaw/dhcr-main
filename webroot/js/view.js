@@ -51,8 +51,9 @@ class View {
     }
 
     scrollToRow(id) {
-        let childPos = document.getElementById('course-row-' + id).offsetTop;
-        $(this.element).animate({scrollTop: childPos}, 1000 );
+        let row = document.getElementById('course-row-' + id);
+        if(typeof row != 'undefined' && row)
+            $(this.element).animate({scrollTop: row.offsetTop}, 1000 );
     }
 
     addTableClickHandler() {
@@ -115,6 +116,7 @@ class View {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
             this.app.setCourse(id);
+            this.app.map.openMarker(id);
         }.bind(this));
         $('.show_map').on('click', function(e) {
             this.app.slider.setPosition('map')

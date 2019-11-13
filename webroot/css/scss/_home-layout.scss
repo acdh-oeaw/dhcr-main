@@ -22,7 +22,7 @@ body.index, body.view {
     @import "intro";
 
     #container {
-        height: calc(100% - 144px);     // better way to calculate header height?
+        height: calc(100% - 144px);     // recalculated by App.updateSize() to get actual header size & margins
         display: flex;
         flex-wrap: nowrap;
         align-items: stretch;
@@ -32,6 +32,29 @@ body.index, body.view {
         overflow: hidden;
 
         @import "view";
+
+        .footer {
+            font-family: metropolis, Sans-Serif;
+            font-size: 14px;
+            color: $blue;
+            @include clearfix;
+            p {
+                margin: 0;
+                line-height: 1;
+            }
+            .imprint, .license {
+                font-weight: bold;
+            }
+            .imprint {
+                float: left;
+            }
+            .copyright, .license {
+                float: right;
+            }
+            .license {
+                margin-left: 0.5em;
+            }
+        }
 
         @include respond-to(screens){
             min-width: $break_point;
@@ -51,10 +74,22 @@ body.index, body.view {
                     width: calc(100% - 16px);   // scrollbar width and padding, align with filter box
                 }
             }
-            #map {
+
+            #map-wrapper {
                 flex: 1 1 220px;
+                position: relative;
+                height: 100%;
             }
-            #slide-control {
+            #map {
+                height: calc(100% - 2em);
+            }
+            #map-footer {
+                width: 100%;
+                bottom: 0;
+                position: absolute;
+            }
+
+            #slide-control, #container-footer {
                 display: none;
             }
         }
@@ -63,9 +98,15 @@ body.index, body.view {
             min-width: initial;
             position: initial;
 
-            #map {
+            #map-wrapper {
                 width: 100%;
                 flex: 0 0 100%;
+            }
+            #map {
+                height: 100%;
+            }
+            #map-footer {
+                display: none;
             }
 
             #table {
@@ -93,7 +134,7 @@ body.index, body.view {
                 position: absolute;
                 height: 50px;
                 width: 50px;
-                bottom: 10px;
+                bottom: 15px;
                 left: 0;
                 right: 0;
                 margin: 0 auto;
@@ -105,6 +146,17 @@ body.index, body.view {
                 &:hover {
                     transform: scale(1.1, 1.1);
                 }
+            }
+
+            #container-footer {
+                display: block;
+                position: absolute;
+                width: calc(100% - #{2 * $whitespace});
+                margin: 0 auto;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                z-index: 10000;
             }
         }
 

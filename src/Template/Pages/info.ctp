@@ -51,13 +51,16 @@ $this->layout = false;
                 'width' => 256,
                 'height' => 200]), '/', ['escape' => false, 'class' => 'clarin-dariah-logo']) ?>
             <p class="intent">
-                The Digital Humanities Course Registry (DHCR) is a joint effort of two
-                European research infrastructures:
-                <em>CLARIN ERIC</em> and <em>DARIAH-EU</em>.
+                The Digital Humanities Course Registry (DHCR) is a curated platform that
+                provides an overview of the growing range of teaching activities in
+                the field of digital humanities available worldwide.
             </p>
             <p class="intent">
-                It provides a curated database of teaching activities in the
-                field of digital humanities worldwide.
+                The platform is a joint effort of two European research infrastructures: <br />
+                <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/',
+                    ['escape' => false, 'target' => '_blank']); ?> and
+                <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/',
+                    ['escape' => false, 'target' => '_blank']); ?>.
             </p>
         </div>
         

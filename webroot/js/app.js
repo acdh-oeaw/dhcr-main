@@ -66,6 +66,15 @@ class App {
             this.view.setLoader();
             this.filter = new Filter(this);
             this.getCourses();
+
+            $('#map .show_view').on('click', function(e) {
+                e.preventDefault();
+                let id = $(e.target).attr('data-id');
+                this.setCourse(id);
+            }.bind(this));
+            $('#map .show_table').on('click', function(e) {
+                this.slider.setPosition('table')
+            }.bind(this));
         }
         if(this.action == 'view') {
             this.getCourse();
@@ -130,7 +139,7 @@ class App {
 
     updateSize() {
         let bottom = 20;
-        if(this.layout == 'mobile') bottom = 35;
+        if(this.layout == 'mobile') bottom = 40;
         $('#container').css({
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
@@ -178,7 +187,7 @@ class App {
     setCourse(id) {
         id = id || this.id;
         this.view.createView(this.data[id]);
-        if(this.action == 'index') this.map.openMarker(id);
+        if(this.action == 'index' && this.status == 'view') this.map.openMarker(id);
         if(this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
         this.scrollable.updateSize();
         this.status = 'view';

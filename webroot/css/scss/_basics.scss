@@ -156,7 +156,7 @@ button, .button {
         height: 23px;
         border-radius: 12px;
         font-size: 12px;
-        padding: 3px 15px 0;
+        padding: 2px 15px 0;
         &:hover {
             transform: scale(1.05);
         }
@@ -173,6 +173,9 @@ button, .button {
 }
 .button {
     padding-top: 7px;
+}
+.button.x-small {
+    padding-top: 3px;
 }
 
 hr {
