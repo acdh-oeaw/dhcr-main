@@ -67,8 +67,10 @@ use Cake\Routing\Router;
         <?= $this->Html->script('/leaflet/leaflet') ?>
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
+
+        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         
-        <?= $this->Html->script(['scroll','hash','slide','map','filter','filter_helper','view','view_helper','app']) ?>
+        <?= $this->Html->script(['scroll','hash','slide','sharing','map','filter','filter_helper','view','view_helper','app']) ?>
         
         <?= $this->element('script') ?>
     </body>

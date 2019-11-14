@@ -7,6 +7,43 @@ class View {
         // store the native DOM element, not jQuery
         this.element = elm;
         this.app = app;
+
+        this.addHandlers();
+    }
+
+    addHandlers() {
+        // table row expansion
+        $(document).on('click', '#table .course-row', function(e) {
+            let targetRow = $(e.target).closest('.course-row');
+            let id = targetRow.attr('data-id');
+
+            if(this.toggleRow(id)) {
+                this.app.map.openMarker(id);
+                this.app.hash.push(id);
+            }else{
+                this.app.map.closeMarker();
+                this.app.hash.remove();
+            }
+        }.bind(this));
+
+        // table row expansion handlers
+        $(document).on('click', '#table .show_view', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            this.app.setCourse(id);
+            this.app.map.openMarker(id);
+        }.bind(this));
+        $(document).on('click', '#table .show_map', function(e) {
+            let id = $(e.target).attr('data-id');
+            this.app.slider.setPosition('map');
+            this.app.map.openMarker(id);    // should already be open
+        }.bind(this));
+
+        // close view
+        $(document).on('click', '.close_view', function(e) {
+            e.preventDefault();
+            this.closeView();
+        }.bind(this));
     }
 
     createTable() {
@@ -65,7 +102,8 @@ class View {
             if(targetRow.hasClass('expanded')) {
                 // opening
                 let course = this.app.data[id];
-                let expansion = this.createExpansionRow(course);
+                let colspan = (this.app.layout == 'screen') ? 5 : 4;
+                let expansion = ViewHelper.createExpansionRow(course, colspan);
                 targetRow.after(expansion);     // insert
                 return true;    // wheter or not to open popups on map
             }
@@ -170,10 +208,11 @@ class View {
             htmlIdentifier: 'locationMap',
             apiKey: this.app.mapApiKey,
             scrollWheelZoom: false,
-            app: this.app
+            app: this.app,
+            popups: false
         });
         let id = course.id;
-        map.setMarkers({id: course}, false);
+        map.setMarkers({id: course});
         map.map.setView([course.lat, course.lon], 5);
         map.map.on('click', function() { map.map.scrollWheelZoom.enable(); });
         map.map.on('focus', function() { map.map.scrollWheelZoom.enable(); });
@@ -194,6 +233,16 @@ class View {
 
     clearView() {
         $(this.element).empty().removeClass('loading');
+    }
+
+    closeView() {
+        if(this.app.action == 'index') {
+            this.app.setTable();
+        }
+        if(this.app.action == 'view') {
+            // reload
+            window.location = BASE_URL;
+        }
     }
 
 

@@ -10,13 +10,15 @@ class Map {
             htmlIdentifier: 'map',
             maxZoom: 18,
             minZoom: 1,
-            scrollWheelZoom: true
+            scrollWheelZoom: true,
+            popups: true
         };
     }
 
     constructor(options) {
         this.apiKey = this.htmlIdentifier = this.maxZoom = null;
         this.minZoom = this.app = this.scrollWheelZoom = null;
+        this.popups = true;
 
         if(typeof options == 'object')
             options = Object.assign(this.defaults(), options);
@@ -52,15 +54,26 @@ class Map {
         // markers is set as a lookup table to get a single course record by ID
         this.markers = {};
         this.id = false;
+        if(this.popups) this.addHandlers();
     }
 
+    addHandlers() {
+        // map popup handlers
+        $(document).on('click', '#map .show_view', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            this.app.setCourse(id);
+        }.bind(this));
+        $(document).on('click', '#map .show_table', function(e) {
+            this.app.slider.setPosition('table');
+        }.bind(this));
+    }
 
-    setMarkers(courses, createPopups) {
-        createPopups = (typeof createPopups == "undefined") ? true : createPopups;
+    setMarkers(courses) {
         this.markers = {};
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
-            disableClusteringAtZoom: 18,
+            disableClusteringAtZoom: this.maxZoom,
             showCoverageOnHover: false,
             zoomToBoundsOnClick: true,
             maxClusterRadius: 50,
@@ -104,7 +117,7 @@ class Map {
                 closeButton: false
             });
 
-            if(createPopups) {
+            if(this.popups) {
                 // prepare html content
                 marker.bindPopup(helper.createPopup(course));
                 marker.on('click', function(e) {
@@ -120,7 +133,7 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if(Object.entries(this.app.filter).length > 0 && !this.app.filter.isLocated() && createPopups) {
+        if(Object.entries(this.app.filter).length > 0 && !this.app.filter.isLocated() && this.popups) {
             let zoom = this.map.getZoom();
             // locate to user location
             this.map.locate({setView: true, maxZoom: zoom});
@@ -140,7 +153,12 @@ class Map {
     closeMarker() {
         if(!this.id) return;
         this.markers[this.id].closePopup();
-        this.map.zoomOut(3);
+        let zoom = this.map.getZoom();
+        let delta = 0;
+        if(zoom >= 5) delta = 3;
+        if(zoom >= 10) delta = 5;
+        if(zoom >= 15) delta = 10
+        this.map.zoomOut(delta);
         this.id = false;
     }
 

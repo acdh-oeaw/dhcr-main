@@ -30,6 +30,7 @@ class App {
         }
 
         this.hash = new Hash();
+        this.sharing = new Sharing(this);
 
         setTimeout(function(){
             // This hides the address bar:
@@ -66,7 +67,6 @@ class App {
         }.bind(this));
 
         this.resizeListener();
-        this.addHandlers();
     }
 
     resizeListener() {
@@ -91,72 +91,6 @@ class App {
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
         });
-    }
-
-    addHandlers() {
-        // for elements not present in DOM, use $(document).on(event, selector, handler);
-        // table row expansion
-        $('.course-row').on('click', function(e) {
-            let targetRow = $(e.delegateTarget);
-            let id = targetRow.attr('data-id');
-            if(this.view.toggleRow(id)) {
-                this.map.openMarker(id);
-                this.hash.push(id);
-            }else {
-                this.map.closeMarker();
-                this.hash.remove();
-            }
-        }.bind(this));
-
-        // table row expansion handlers
-        $(document).on('click', '#table .show_view', function(e) {
-            e.preventDefault();
-            let id = $(e.target).attr('data-id');
-            this.setCourse(id);
-            this.map.openMarker(id);
-        }.bind(this));
-        $(document).on('click', '#table .show_map', function(e) {
-            let id = $(e.target).attr('data-id');
-            this.slider.setPosition('map');
-            this.map.openMarker(id);    // should already be open
-        }.bind(this));
-
-        // map popup handlers
-        $(document).on('click', '#map .show_view', function(e) {
-            e.preventDefault();
-            let id = $(e.target).attr('data-id');
-            this.setCourse(id);
-        }.bind(this));
-        $(document).on('click', '#map .show_table', function(e) {
-            this.slider.setPosition('table')
-        }.bind(this));
-
-        // sharing
-        $(document).on('click', '.sharing.button', function(e) {
-            e.preventDefault();
-            let id = $(e.target).attr('data-id');
-            if (navigator.share) {
-                navigator.share({
-                    title: 'The Digital Humanities Course Registry',
-                    text: course.name,
-                    url: BASE_URL + 'courses/view/' + id
-                }).then(() => {
-                    //console.log('Thanks for sharing!');
-                }).catch(console.error);
-            } else {
-                $('body').append(Sharing.createSharingDialog(this.data[id]));
-            }
-        }.bind(this));
-        $(document).on('click', '#sharing-wrapper', function(e) {
-            if($(e.target).is('#sharing-wrapper, #sharing-wrapper .close'))
-                $('#sharing-wrapper').remove();
-        });
-
-        // close view
-        $(document).on('click', '.close_view', function(e) {
-            e.preventDefault();
-            this.app.closeView();
-        }.bind(this));
     }
 
     getCourse() {
@@ -206,16 +140,6 @@ class App {
         this.status = 'view';
         if(this.layout == 'mobile') {
             this.slider.setPosition('table');
-        }
-    }
-
-    closeView() {
-        if(this.action == 'index') {
-            this.setTable();
-        }
-        if(this.action == 'view') {
-            // reload
-            window.location = BASE_URL;
         }
     }
 

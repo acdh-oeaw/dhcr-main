@@ -9,16 +9,23 @@ class Accordeon {
     constructor(identifier) {
         this.element = document.getElementById(identifier);
         this.handles = $(this.element).find(".accordeon-item > h2");
+
+
+        this.hash = new Hash();
+        // open current fragment, if any
+        if(this.hash.fragment.length > 0) {
+            $('#' + this.hash.fragment).addClass('open');
+            location.href = '#' + this.hash.fragment;   // scroll page to section
+        }
+
+        this.addHandlers();
+    }
+
+    addHandlers() {
         for(let i = 0; this.handles.length > i; i++) {
             $(this.handles[i]).click(function() {
                 this.clickHandler(this.handles[i]);
             }.bind(this));
-        }
-
-        this.hash = new Hash();
-        if(this.hash.fragment.length > 0) {
-            $('#' + this.hash.fragment).addClass('open');
-            location.href = '#' + this.hash.fragment;   // scroll page to section
         }
     }
 
