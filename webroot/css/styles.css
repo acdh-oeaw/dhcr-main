@@ -331,7 +331,7 @@ body.index, body.view {
     align-items: stretch;
     justify-content: space-between;
     position: relative;
-    top: 0px;
+    top: 0;
     overflow: hidden; }
     body.index #container #view h1, body.view #container #view h1 {
       font-size: 25px;
