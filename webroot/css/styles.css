@@ -265,7 +265,7 @@ table .recurring {
     #header {
       margin: 13px;
       width: calc(100% - 50px);
-      padding: 0 10px 13px 8px;
+      padding: 0 3px 13px 3px;
       border-bottom: 2px solid #1E6BA3; } }
   #header #logo {
     flex-shrink: 0;
@@ -274,6 +274,13 @@ table .recurring {
     #header #logo a {
       display: block;
       line-height: 0; }
+      #header #logo a img {
+        width: 300px;
+        height: auto; }
+        @media only screen and (max-width: 750px) {
+          #header #logo a img {
+            width: 40vw;
+            min-width: 180px; } }
   #header #menu {
     display: flex;
     justify-content: flex-end;
@@ -288,15 +295,15 @@ table .recurring {
         margin-left: 0; }
       @media only screen and (max-width: 750px) {
         #header #menu button, #header #menu .button {
-          font-size: 24px;
-          width: 58px;
-          height: 57px;
+          font-size: 23px;
+          width: 50px;
+          height: 50px;
           border-radius: 29px;
           padding-left: 0;
           padding-right: 0;
           margin: 0; }
           #header #menu button#info-button, #header #menu .button#info-button {
-            padding-top: 12px; }
+            padding-top: 10px; }
           #header #menu button#login-button, #header #menu .button#login-button {
             display: none; } }
 
@@ -317,212 +324,6 @@ body.index, body.view {
       margin: 0;
       max-width: initial;
       width: 100%; } }
-  body.index .overlay, body.view .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: transparent; }
-    body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-      margin: 0 auto;
-      width: 100%;
-      padding: 100px 135px 150px 135px;
-      max-width: 90rem;
-      background-color: #fff; }
-      @media only screen and (max-width: 1000px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 90px 100px 100px; } }
-      @media only screen and (max-width: 885px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 80px 70px 80px; } }
-      @media only screen and (max-width: 750px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 50px 30px 50px; } }
-      body.index .overlay .overlay-container.transparent, body.view .overlay .overlay-container.transparent {
-        background: rgba(0, 0, 0, 0.4);
-        height: 90vh; }
-      body.index .overlay .overlay-container:last-child, body.index .overlay .overlay-container:first-child, body.view .overlay .overlay-container:last-child, body.view .overlay .overlay-container:first-child {
-        min-height: 100vh;
-        box-sizing: border-box; }
-  body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
-    float: left;
-    display: block;
-    clear: both;
-    margin-right: 50px;
-    width: auto; }
-    body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
-      display: block;
-      width: 23vw;
-      max-width: 256px;
-      min-width: 120px;
-      height: auto; }
-@media only screen and (min-width: 751px) and (min-width: 1001px) {
-  body.index #intro h1, body.view #intro h1 {
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: normal; }
-  body.index #intro a, body.view #intro a {
-    text-decoration: none; }
-  body.index #intro span#h1, body.view #intro span#h1 {
-    color: #61A845;
-    font-family: bebas, sans-serif;
-    font-size: 90px;
-    vertical-align: bottom;
-    line-height: 1;
-    font-weight: normal;
-    letter-spacing: 0; }
-  body.index #intro span#h2, body.view #intro span#h2 {
-    color: #07426e;
-    margin-right: 30px; }
-  body.index #intro span#h3, body.view #intro span#h3 {
-    color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-    letter-spacing: 6px;
-    font-family: metropolis, sans-serif;
-    font-size: 48px; } }
-@media only screen and (min-width: 751px) and (max-width: 1000px) {
-  body.index #intro h1, body.view #intro h1 {
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: normal; }
-  body.index #intro a, body.view #intro a {
-    text-decoration: none; }
-  body.index #intro span#h1, body.view #intro span#h1 {
-    color: #61A845;
-    font-family: bebas, sans-serif;
-    font-size: 9vw;
-    vertical-align: bottom;
-    line-height: 1;
-    font-weight: normal;
-    letter-spacing: 0; }
-  body.index #intro span#h2, body.view #intro span#h2 {
-    color: #07426e;
-    margin-right: 3vw; }
-  body.index #intro span#h3, body.view #intro span#h3 {
-    color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-    letter-spacing: 0.6vw;
-    font-family: metropolis, sans-serif;
-    font-size: 4.8vw; } }
-
-  @media only screen and (max-width: 750px) {
-    body.index #intro h1, body.view #intro h1 {
-      font-weight: bold;
-      text-transform: uppercase;
-      line-height: normal; }
-    body.index #intro a, body.view #intro a {
-      text-decoration: none; }
-    body.index #intro span#h1, body.view #intro span#h1 {
-      color: #61A845;
-      font-family: bebas, sans-serif;
-      font-size: 12vw;
-      vertical-align: bottom;
-      line-height: 1;
-      font-weight: normal;
-      letter-spacing: 0; }
-    body.index #intro span#h2, body.view #intro span#h2 {
-      color: #07426e;
-      margin-right: 4vw; }
-    body.index #intro span#h3, body.view #intro span#h3 {
-      color: #1E6BA3; }
-    body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-      letter-spacing: 0.8vw;
-      font-family: metropolis, sans-serif;
-      font-size: 6.4vw; }
-    body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
-      float: none;
-      display: block;
-      width: min-content;
-      margin: 0 auto 50px; }
-      body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
-        height: 120px;
-        width: auto; } }
-  body.index #intro h1, body.view #intro h1 {
-    margin: 0 auto 80px;
-    text-align: center; }
-  body.index #intro p.intent, body.view #intro p.intent {
-    font-size: 1.95vw;
-    line-height: 1.5;
-    color: #1E6BA3; }
-    @media only screen and (min-width: 1127px) {
-      body.index #intro p.intent, body.view #intro p.intent {
-        font-size: 24px; } }
-    @media only screen and (max-width: 750px) {
-      body.index #intro p.intent, body.view #intro p.intent {
-        font-size: 24px;
-        text-align: center;
-        margin: 0 auto 1em;
-        max-width: 430px; } }
-  @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro p.intent, body.view #intro p.intent {
-      font-size: 20px; } }
-  @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro p.intent, body.view #intro p.intent {
-      font-size: 17px; } }
-
-  body.index #intro .flex-columns.buttons, body.view #intro .flex-columns.buttons {
-    margin-top: 10vh; }
-    body.index #intro .flex-columns.buttons .flex-item, body.view #intro .flex-columns.buttons .flex-item {
-      position: relative; }
-      body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
-        position: absolute;
-        display: block;
-        width: min-content;
-        white-space: nowrap;
-        min-width: 200px;
-        padding: 2px 20px 0; }
-        body.index #intro .flex-columns.buttons .flex-item button.left, body.index #intro .flex-columns.buttons .flex-item .button.left, body.view #intro .flex-columns.buttons .flex-item button.left, body.view #intro .flex-columns.buttons .flex-item .button.left {
-          right: 20px; }
-        body.index #intro .flex-columns.buttons .flex-item button.right, body.index #intro .flex-columns.buttons .flex-item .button.right, body.view #intro .flex-columns.buttons .flex-item button.right, body.view #intro .flex-columns.buttons .flex-item .button.right {
-          left: 20px; }
-        @media only screen and (max-width: 750px) {
-          body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
-            margin: 0 auto 3em;
-            position: static; } }
-      body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item .button {
-        padding-top: 7px; }
-  body.index #intro .flex-item h2, body.view #intro .flex-item h2 {
-    font-size: 50px;
-    text-align: center;
-    margin-bottom: 1em;
-    margin-top: 1.5em; }
-  body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
-    display: block;
-    height: auto;
-    width: calc(100% - 20px);
-    margin-right: 15px;
-    margin-left: 5px;
-    margin-bottom: 50px; }
-  @media only screen and (max-width: 750px) {
-    body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
-      width: calc(100% - 10vw);
-      max-width: 400px;
-      margin: 0 auto 4em; } }
-  body.index #intro .flex-item p, body.view #intro .flex-item p {
-    color: #1E6BA3;
-    font-size: 1.95vw;
-    line-height: 1.25; }
-    @media only screen and (min-width: 1127px) {
-      body.index #intro .flex-item p, body.view #intro .flex-item p {
-        font-size: 24px; } }
-    @media only screen and (max-width: 750px) {
-      body.index #intro .flex-item p, body.view #intro .flex-item p {
-        font-size: 24px;
-        text-align: center;
-        flex: 1 1 45%;
-        margin: 0 auto 5em;
-        max-width: 430px; } }
-  @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro .flex-item p, body.view #intro .flex-item p {
-      font-size: 20px; } }
-  @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro .flex-item p, body.view #intro .flex-item p {
-      font-size: 17px; } }
-
   body.index #container, body.view #container {
     height: calc(100% - 144px);
     display: flex;
@@ -693,7 +494,7 @@ body.index, body.view {
             z-index: 1000;
             pointer-events: none; }
           body.index #container #table .thumb, body.index #container #table .track, body.view #container #table .thumb, body.view #container #table .track {
-            z-index: 10000; }
+            z-index: 1000; }
         body.index #container #slide-control, body.view #container #slide-control {
           display: block;
           position: absolute;

@@ -19,8 +19,6 @@ body.index, body.view {
         width: 100%;
     }
 
-    @import "intro";
-
     #container {
         height: calc(100% - 144px);     // recalculated by App.updateSize() to get actual header size & margins
         display: flex;
@@ -103,7 +101,7 @@ body.index, body.view {
                     pointer-events: none;
                 }
                 .thumb, .track {
-                    z-index: 10000;
+                    z-index: 1000;
                 }
             }
             #slide-control {

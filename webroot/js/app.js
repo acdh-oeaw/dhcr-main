@@ -39,18 +39,6 @@ class App {
         // apply layout first, then populate blocks
         this.slider = new Slider(document.getElementById('container'));
         this.scrollable = new Scrollable(document.getElementById('table'));
-        this.intro = document.getElementById('intro');
-        if(this.intro != undefined) {
-            // the intro page is loaded
-            this.scrollListener = function() {
-                this.introScrollAnimationListener()
-            }.bind(this);
-            let f = function(e) {
-                e.preventDefault();
-                this.hideIntro();
-            }.bind(this);
-            document.getElementById('start').addEventListener('click', f);
-        }
 
         this.map = new Map({
             htmlIdentifier: 'map',
@@ -78,7 +66,6 @@ class App {
         }
         if(this.action == 'view') {
             this.getCourse();
-            $('#intro').css({display: 'none'});
             this.status = 'view';
         }
 
@@ -87,32 +74,6 @@ class App {
         }.bind(this));
 
         this.resizeListener();
-
-        // intro related code
-        if(Cookies.get('hideIntro') == 'true') {
-            // renew the cookie on each pageview, so pagevisits after one year will be seen as first-timers
-            this.setintroCookie();
-        }
-    }
-
-    introScrollAnimationListener() {
-        let container = document.getElementById('container');
-        let intro = document.getElementById('transparent');
-        if(intro.getBoundingClientRect().top <= container.offsetTop) {
-            let maxMargin = - (this.slider.viewportWidth + this.slider.cssMargin);
-            let iconPosition = 'left';
-            let margin = 1.8 * (intro.getBoundingClientRect().top - container.offsetTop);
-            if(margin <= maxMargin) {
-                // "map" state
-                this.slider.slide.style.marginLeft = 0;
-                margin = maxMargin;
-                iconPosition = 'right';
-            }
-            if(margin > 0) margin = 0;
-
-            this.slider.slide.style.marginLeft = margin + 'px';
-            this.slider.control.style.backgroundPositionX = iconPosition;
-        }
     }
 
     resizeListener() {
@@ -120,18 +81,11 @@ class App {
         if(!mediaQuery.matches)  {
             this.layout = 'screen';
             $('.expansion-row td').attr('colspan', 5);
-            if(this.intro != undefined) {
-                this.intro.removeEventListener('scroll', this.scrollListener);
-            }
             this.slider.reset();
         }else{
             this.layout = 'mobile';
             $('.expansion-row td').attr('colspan', 4);
             this.slider.updateSize();
-            if(this.intro != undefined) {
-                // activate the map/table slider while overscrolling
-                this.intro.addEventListener('scroll', this.scrollListener);
-            }
         }
         this.updateSize();
         this.scrollable.updateSize();
@@ -204,28 +158,6 @@ class App {
             // reload
             window.location = BASE_URL;
         }
-    }
-
-    hideIntro() {
-        $('#intro').animate({
-            'left': '100vw'
-        }, 1000, function() {
-            // animate doesn't handle scaling operations, thus an animated class adding hack is used
-            $('#info-button').addClass('animate');
-            setTimeout(function() {$('#info-button').removeClass('animate')}, 300);
-            // one year
-            let expiry = new Date(Date.now() + 31536000);
-            document.cookie = "hideIntro=true; expires="+expiry.toUTCString()+";";
-        }.bind(this));
-    }
-
-    setintroCookie() {
-        // one year
-        Cookies.set('hideIntro', 'true', {expires: 365});
-    }
-
-    delCookie() {
-        Cookies.remove('hideIntro');
     }
 
     handleError(data) {
