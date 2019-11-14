@@ -1,1099 +1,194 @@
-/* Color schema */
-/* general text formatting */
-/* base layout & responsive sizing */
-/* amount of space to reserve for lateral whitespace */
-@font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-Regular.otf); }
-@font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
-  font-weight: bold; }
-@font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
-@font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
-  font-weight: bold; }
-/* breakpoint definition - use this mixin where appropriate */
 /*
-1080 - 1280
+Error: Undefined mixin 'logo-text-scaled'.
+        on line 66 of scss/_intro.scss, in `logo-text-scaled'
+        from line 66 of scss/_intro.scss, in `@content'
+        from line 69 of scss/_mixins.scss, in `respond-to'
+        from line 64 of scss/_intro.scss
+        from line 22 of scss/_home-layout.scss
+        from line 11 of scss/styles.scss
 
-720 - 800
-
-320
+Backtrace:
+scss/_intro.scss:66:in `logo-text-scaled'
+scss/_intro.scss:66:in `@content'
+scss/_mixins.scss:69:in `respond-to'
+scss/_intro.scss:64
+scss/_home-layout.scss:22
+scss/styles.scss:11
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:348:in `block in visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `block in with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:524:in `visit_media'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:381:in `block (3 levels) in visit_content'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:381:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:381:in `block (2 levels) in visit_content'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:380:in `block in visit_content'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `block in with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:376:in `visit_content'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:524:in `visit_media'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:298:in `block (2 levels) in visit_if'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:298:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:298:in `block in visit_if'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:297:in `visit_if'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:301:in `visit_if'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:301:in `visit_if'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:363:in `block (4 levels) in visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:363:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:363:in `block (3 levels) in visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:363:in `block (2 levels) in visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:84:in `perform_arguments'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:358:in `block in visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `block in with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:98:in `with_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:346:in `visit_mixin'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `block (2 levels) in visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `block in visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:438:in `visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:88:in `block in with_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:88:in `with_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `block (2 levels) in visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:440:in `block in visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:438:in `visit_rule'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:88:in `block in with_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:88:in `with_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `block in with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:135:in `with_frame'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/stack.rb:79:in `with_base'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `map'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/base.rb:36:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/root_node.rb:36:in `css_tree'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:209:in `each'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:443:in `on_file_changed'
+/var/lib/gems/2.5.0/gems/sass-3.7.3/lib/sass/plugin/compiler.rb:320:in `block in watch'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/config.rb:23:in `call'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:115:in `_process_changes'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:19:in `block in loop_for'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop_for'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:84:in `_wait_for_changes'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:42:in `block in setup'
+/var/lib/gems/2.5.0/gems/sass-listen-4.0.0/lib/sass-listen/internals/thread_pool.rb:6:in `block in add'
 */
-/* basic styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box; }
-
-body {
-  font-family: metropolis, Sans-Serif;
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: normal;
-  letter-spacing: normal;
-  color: #6d7278; }
-
-h1 {
-  font-size: 40px;
-  font-weight: bold;
-  line-height: 1.5;
-  color: #1E6BA3; }
-  @media only screen and (max-width: 750px) {
-    h1 {
-      font-size: 24px;
-      line-height: normal; } }
-
-h2 {
-  font-family: bebas;
-  font-size: 30px;
-  font-weight: normal;
-  line-height: 0.8;
-  color: #1E6BA3; }
-
-h3 {
-  font-size: 20px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  color: #1E6BA3; }
-
-h1:first-child, h2:first-child, h3:first-child, h4:first-child {
-  margin-top: 0; }
-
-p {
-  margin-bottom: 1.2em;
-  text-align: left;
-  line-height: 1.7em; }
-
-ul, ol {
-  margin-bottom: 0.6em;
-  margin-left: 1em; }
-  ul li, ol li {
-    line-height: 1.7em;
-    margin-bottom: 0.3em; }
-
-dl dt, dl dd {
-  font-size: 16px;
-  font-family: metropolis, sans-serif;
-  font-weight: bold;
-  color: #1E6BA3;
-  display: block; }
-dl dd {
-  font-weight: normal; }
-
-img {
-  outline: none; }
-
-em {
-  font-size: 0.9em;
-  font-weight: bold;
-  letter-spacing: 0.08em;
-  font-style: normal;
-  white-space: nowrap; }
-
-a {
-  color: #1E6BA3;
-  text-decoration: none; }
-  a:hover {
-    text-decoration: underline; }
-
-button, .button {
-  height: 46px;
-  outline: none;
-  display: inline-block;
-  position: relative;
-  border-radius: 23px;
-  border: solid 2px #1E6BA3;
-  background-color: #fff;
-  font-family: bebas, Sans-Serif;
-  font-size: 24px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  text-decoration: none;
-  color: #1E6BA3;
-  text-transform: uppercase;
-  padding: 2px 20px 0;
-  cursor: pointer;
-  transition: all 0.3s; }
-  button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
-    transform: scale(1.1);
-    text-decoration: none; }
-  button.back::before, button.continue::after, .button.back::before, .button.continue::after {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    position: relative;
-    left: 0;
-    bottom: 2px;
-    transform: rotate(135deg);
-    border: 3px solid #1E6BA3;
-    border-top: none;
-    border-left: none;
-    content: '';
-    margin-right: 5px; }
-  button.blue, .button.blue {
-    background-color: #1E6BA3;
-    color: #fff; }
-    button.blue.back::before, button.blue.continue::after, .button.blue.back::before, .button.blue.continue::after {
-      border: 3px solid #fff;
-      border-top: none;
-      border-left: none; }
-  button.continue::after, .button.continue::after {
-    transform: rotate(-45deg);
-    margin-right: 0;
-    margin-left: 5px; }
-  button.x-small, .button.x-small {
-    height: 23px;
-    border-radius: 12px;
-    font-size: 12px;
-    padding: 2px 15px 0; }
-    button.x-small:hover, .button.x-small:hover {
-      transform: scale(1.05); }
-  button.small, .button.small {
-    height: 30px;
-    font-size: 20px;
-    border-radius: 15px;
-    padding-top: 2px; }
-    button.small:hover, button.small.animate, .button.small:hover, .button.small.animate {
-      transform: scale(1.05); }
-
-.button {
-  padding-top: 7px; }
-
-.button.x-small {
-  padding-top: 3px; }
-
-hr {
-  height: 2px;
-  background-color: #1E6BA3;
-  border: none;
-  margin: 0; }
-
-.right {
-  text-align: right; }
-
-.center {
-  text-align: center; }
-
-.clearfix::after {
-  content: "";
-  clear: both;
-  display: table; }
-
-.recurring {
-  background: url("../img/repeat.png") right bottom/contain no-repeat;
-  padding-right: 1.4em;
-  padding-bottom: 0.2em;
-  line-height: 0.85em;
-  font-size: inherit;
-  display: inline-block; }
-
-table .recurring {
-  color: transparent;
-  height: 15px;
-  width: 15px;
-  display: inline-block;
-  background: url("../img/repeat.png") center/contain no-repeat;
-  vertical-align: middle; }
-
-.flex-columns {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  justify-content: space-around; }
-  .flex-columns .flex-item {
-    flex: 0 1 45%;
-    min-width: 300px;
-    padding: 0 15px; }
-    .flex-columns .flex-item.wide {
-      flex: 0 1 60%; }
-    .flex-columns .flex-item.narrow {
-      flex: 0 1 30%; }
-  .flex-columns .flex-item.triple {
-    flex: 0 1 30%;
-    min-width: 200px; }
-  @media only screen and (max-width: 750px) {
-    .flex-columns {
-      display: block; }
-      .flex-columns .flex-item {
-        margin-bottom: 3em;
-        min-width: initial;
-        padding: 0; } }
-
-.footer {
-  font-family: metropolis, Sans-Serif;
-  font-size: 14px;
-  color: #1E6BA3; }
-  .footer::after {
-    content: "";
-    clear: both;
-    display: table; }
-  .footer p {
-    margin: 0;
-    line-height: 1; }
-  .footer .imprint, .footer .license {
-    font-weight: bold; }
-  .footer .imprint {
-    float: left; }
-  .footer .copyright, .footer .license {
-    float: right; }
-  .footer .license {
-    margin-left: 0.5em; }
-
-#header {
-  position: relative;
-  overflow: visible;
-  width: calc(100% - 54px);
-  margin: 1rem 3px;
-  display: inline-flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: nowrap;
-  height: auto; }
-  @media only screen and (max-width: 750px) {
-    #header {
-      margin: 13px;
-      width: calc(100% - 50px);
-      padding: 0 10px 13px 8px;
-      border-bottom: 2px solid #1E6BA3; } }
-  #header #logo {
-    flex-shrink: 0;
-    white-space: nowrap;
-    overflow: hidden; }
-    #header #logo a {
-      display: block;
-      line-height: 0; }
-  #header #menu {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 100%;
-    width: auto; }
-    #header #menu button, #header #menu .button {
-      margin: 0 10px; }
-      #header #menu button:last-child, #header #menu .button:last-child {
-        margin-right: 0; }
-      #header #menu button:first-child, #header #menu .button:first-child {
-        margin-left: 0; }
-      @media only screen and (max-width: 750px) {
-        #header #menu button, #header #menu .button {
-          font-size: 24px;
-          width: 58px;
-          height: 57px;
-          border-radius: 29px;
-          padding-left: 0;
-          padding-right: 0;
-          margin: 0; }
-          #header #menu button#info-button, #header #menu .button#info-button {
-            padding-top: 12px; }
-          #header #menu button#login-button, #header #menu .button#login-button {
-            display: none; } }
-
-body.view .leaflet-marker-icon {
-  cursor: default; }
-
-body.index, body.view {
-  height: 100vh;
-  padding: 0 15px;
-  max-width: 90rem;
-  background-color: #fff;
-  margin: 0 auto;
-  width: calc(100% - 2 * 15px);
-  overflow: hidden; }
-  @media only screen and (max-width: 750px) {
-    body.index, body.view {
-      padding: 0;
-      margin: 0;
-      max-width: initial;
-      width: 100%; } }
-  body.index .overlay, body.view .overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 2000;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-color: transparent; }
-    body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-      margin: 0 auto;
-      width: 100%;
-      padding: 100px 135px 150px 135px;
-      max-width: 90rem;
-      background-color: #fff; }
-      @media only screen and (max-width: 1000px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 90px 100px 100px; } }
-      @media only screen and (max-width: 885px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 80px 70px 80px; } }
-      @media only screen and (max-width: 750px) {
-        body.index .overlay .overlay-container, body.view .overlay .overlay-container {
-          padding: 50px 30px 50px; } }
-      body.index .overlay .overlay-container.transparent, body.view .overlay .overlay-container.transparent {
-        background: rgba(0, 0, 0, 0.4);
-        height: 90vh; }
-      body.index .overlay .overlay-container:last-child, body.index .overlay .overlay-container:first-child, body.view .overlay .overlay-container:last-child, body.view .overlay .overlay-container:first-child {
-        min-height: 100vh;
-        box-sizing: border-box; }
-  body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
-    float: left;
-    display: block;
-    clear: both;
-    margin-right: 50px;
-    width: auto; }
-    body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
-      display: block;
-      width: 23vw;
-      max-width: 256px;
-      min-width: 120px;
-      height: auto; }
-@media only screen and (min-width: 751px) and (min-width: 1001px) {
-  body.index #intro h1, body.view #intro h1 {
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: normal; }
-  body.index #intro a, body.view #intro a {
-    text-decoration: none; }
-  body.index #intro span#h1, body.view #intro span#h1 {
-    color: #61A845;
-    font-family: bebas, sans-serif;
-    font-size: 90px;
-    vertical-align: bottom;
-    line-height: 1;
-    font-weight: normal;
-    letter-spacing: 0; }
-  body.index #intro span#h2, body.view #intro span#h2 {
-    color: #07426e;
-    margin-right: 30px; }
-  body.index #intro span#h3, body.view #intro span#h3 {
-    color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-    letter-spacing: 6px;
-    font-family: metropolis, sans-serif;
-    font-size: 48px; } }
-@media only screen and (min-width: 751px) and (max-width: 1000px) {
-  body.index #intro h1, body.view #intro h1 {
-    font-weight: bold;
-    text-transform: uppercase;
-    line-height: normal; }
-  body.index #intro a, body.view #intro a {
-    text-decoration: none; }
-  body.index #intro span#h1, body.view #intro span#h1 {
-    color: #61A845;
-    font-family: bebas, sans-serif;
-    font-size: 9vw;
-    vertical-align: bottom;
-    line-height: 1;
-    font-weight: normal;
-    letter-spacing: 0; }
-  body.index #intro span#h2, body.view #intro span#h2 {
-    color: #07426e;
-    margin-right: 3vw; }
-  body.index #intro span#h3, body.view #intro span#h3 {
-    color: #1E6BA3; }
-  body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-    letter-spacing: 0.6vw;
-    font-family: metropolis, sans-serif;
-    font-size: 4.8vw; } }
-
-  @media only screen and (max-width: 750px) {
-    body.index #intro h1, body.view #intro h1 {
-      font-weight: bold;
-      text-transform: uppercase;
-      line-height: normal; }
-    body.index #intro a, body.view #intro a {
-      text-decoration: none; }
-    body.index #intro span#h1, body.view #intro span#h1 {
-      color: #61A845;
-      font-family: bebas, sans-serif;
-      font-size: 12vw;
-      vertical-align: bottom;
-      line-height: 1;
-      font-weight: normal;
-      letter-spacing: 0; }
-    body.index #intro span#h2, body.view #intro span#h2 {
-      color: #07426e;
-      margin-right: 4vw; }
-    body.index #intro span#h3, body.view #intro span#h3 {
-      color: #1E6BA3; }
-    body.index #intro #h2, body.index #intro #h3, body.view #intro #h2, body.view #intro #h3 {
-      letter-spacing: 0.8vw;
-      font-family: metropolis, sans-serif;
-      font-size: 6.4vw; }
-    body.index #intro .clarin-dariah-logo, body.view #intro .clarin-dariah-logo {
-      float: none;
-      display: block;
-      width: min-content;
-      margin: 0 auto 50px; }
-      body.index #intro .clarin-dariah-logo img, body.view #intro .clarin-dariah-logo img {
-        height: 120px;
-        width: auto; } }
-  body.index #intro h1, body.view #intro h1 {
-    margin: 0 auto 80px;
-    text-align: center; }
-  body.index #intro p.intent, body.view #intro p.intent {
-    font-size: 1.95vw;
-    line-height: 1.5;
-    color: #1E6BA3; }
-    @media only screen and (min-width: 1127px) {
-      body.index #intro p.intent, body.view #intro p.intent {
-        font-size: 24px; } }
-    @media only screen and (max-width: 750px) {
-      body.index #intro p.intent, body.view #intro p.intent {
-        font-size: 24px;
-        text-align: center;
-        margin: 0 auto 1em;
-        max-width: 430px; } }
-  @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro p.intent, body.view #intro p.intent {
-      font-size: 20px; } }
-  @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro p.intent, body.view #intro p.intent {
-      font-size: 17px; } }
-
-  body.index #intro .flex-columns.buttons, body.view #intro .flex-columns.buttons {
-    margin-top: 10vh; }
-    body.index #intro .flex-columns.buttons .flex-item, body.view #intro .flex-columns.buttons .flex-item {
-      position: relative; }
-      body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
-        position: absolute;
-        display: block;
-        width: min-content;
-        white-space: nowrap;
-        min-width: 200px;
-        padding: 2px 20px 0; }
-        body.index #intro .flex-columns.buttons .flex-item button.left, body.index #intro .flex-columns.buttons .flex-item .button.left, body.view #intro .flex-columns.buttons .flex-item button.left, body.view #intro .flex-columns.buttons .flex-item .button.left {
-          right: 20px; }
-        body.index #intro .flex-columns.buttons .flex-item button.right, body.index #intro .flex-columns.buttons .flex-item .button.right, body.view #intro .flex-columns.buttons .flex-item button.right, body.view #intro .flex-columns.buttons .flex-item .button.right {
-          left: 20px; }
-        @media only screen and (max-width: 750px) {
-          body.index #intro .flex-columns.buttons .flex-item button, body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item button, body.view #intro .flex-columns.buttons .flex-item .button {
-            margin: 0 auto 3em;
-            position: static; } }
-      body.index #intro .flex-columns.buttons .flex-item .button, body.view #intro .flex-columns.buttons .flex-item .button {
-        padding-top: 7px; }
-  body.index #intro .flex-item h2, body.view #intro .flex-item h2 {
-    font-size: 50px;
-    text-align: center;
-    margin-bottom: 1em;
-    margin-top: 1.5em; }
-  body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
-    display: block;
-    height: auto;
-    width: calc(100% - 20px);
-    margin-right: 15px;
-    margin-left: 5px;
-    margin-bottom: 50px; }
-  @media only screen and (max-width: 750px) {
-    body.index #intro .flex-item .illustration, body.view #intro .flex-item .illustration {
-      width: calc(100% - 10vw);
-      max-width: 400px;
-      margin: 0 auto 4em; } }
-  body.index #intro .flex-item p, body.view #intro .flex-item p {
-    color: #1E6BA3;
-    font-size: 1.95vw;
-    line-height: 1.25; }
-    @media only screen and (min-width: 1127px) {
-      body.index #intro .flex-item p, body.view #intro .flex-item p {
-        font-size: 24px; } }
-    @media only screen and (max-width: 750px) {
-      body.index #intro .flex-item p, body.view #intro .flex-item p {
-        font-size: 24px;
-        text-align: center;
-        flex: 1 1 45%;
-        margin: 0 auto 5em;
-        max-width: 430px; } }
-  @media only screen and (max-width: 750px) and (max-width: 690px) {
-    body.index #intro .flex-item p, body.view #intro .flex-item p {
-      font-size: 20px; } }
-  @media only screen and (max-width: 750px) and (max-width: 400px) {
-    body.index #intro .flex-item p, body.view #intro .flex-item p {
-      font-size: 17px; } }
-
-  body.index #container, body.view #container {
-    height: calc(100% - 144px);
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: stretch;
-    justify-content: space-between;
-    position: relative;
-    top: 0px;
-    overflow: hidden; }
-    body.index #container #view h1, body.view #container #view h1 {
-      font-size: 25px;
-      font-family: metropolis;
-      font-weight: bold;
-      margin: 0 0 0.5em;
-      padding-top: 1em; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #view h1, body.view #container #view h1 {
-          font-size: 20px; } }
-    body.index #container #view .subtitle, body.view #container #view .subtitle {
-      font-style: italic;
-      font-size: 18px; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #view .subtitle, body.view #container #view .subtitle {
-          font-size: 14px; } }
-    body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
-      font-size: 16px; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
-          font-size: 14px; } }
-    body.index #container #view .strong, body.view #container #view .strong {
-      font-weight: bold;
-      margin-bottom: 0.3em; }
-    body.index #container #view .text, body.view #container #view .text {
-      white-space: pre-line;
-      margin-bottom: 2em; }
-    body.index #container #view hr, body.view #container #view hr {
-      margin-bottom: 2em; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #view hr, body.view #container #view hr {
-          display: none; } }
-      body.index #container #view hr:last-child, body.view #container #view hr:last-child {
-        margin-bottom: 0; }
-        body.index #container #view hr:last-child::after, body.view #container #view hr:last-child::after {
-          content: "";
-          display: block;
-          height: 5em; }
-    body.index #container #view #locationMap, body.view #container #view #locationMap {
-      height: 300px;
-      width: 100%;
-      margin: 3em 0 3em;
-      clear: both; }
-      @media only screen and (min-width: 751px) {
-        body.index #container #view #locationMap, body.view #container #view #locationMap {
-          display: none; } }
-      body.index #container #view #locationMap .leaflet-marker-icon, body.view #container #view #locationMap .leaflet-marker-icon {
-        cursor: grab; }
-    body.index #container #view .buttons, body.view #container #view .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-around;
-      margin: 5px 0;
-      padding: 0 0;
-      border-bottom: 2px solid #1E6BA3; }
-      @media only screen and (max-width: 400px) {
-        body.index #container #view .buttons, body.view #container #view .buttons {
-          justify-content: center; } }
-      body.index #container #view .buttons button, body.index #container #view .buttons .button, body.view #container #view .buttons button, body.view #container #view .buttons .button {
-        flex: 0 0 25%;
-        min-width: 160px;
-        margin: 0 10px 20px 10px;
-        box-sizing: border-box; }
-        body.index #container #view .buttons button::before, body.index #container #view .buttons .button::before, body.view #container #view .buttons button::before, body.view #container #view .buttons .button::before {
-          height: 7px;
-          width: 7px; }
-        body.index #container #view .buttons button:hover, body.index #container #view .buttons button.animate, body.index #container #view .buttons .button:hover, body.index #container #view .buttons .button.animate, body.view #container #view .buttons button:hover, body.view #container #view .buttons button.animate, body.view #container #view .buttons .button:hover, body.view #container #view .buttons .button.animate {
-          transform-origin: left center;
-          text-decoration: none; }
-          body.index #container #view .buttons button:hover.sharing, body.index #container #view .buttons button.animate.sharing, body.index #container #view .buttons .button:hover.sharing, body.index #container #view .buttons .button.animate.sharing, body.view #container #view .buttons button:hover.sharing, body.view #container #view .buttons button.animate.sharing, body.view #container #view .buttons .button:hover.sharing, body.view #container #view .buttons .button.animate.sharing {
-            transform-origin: right center; }
-    body.index #container #view .grid-container, body.view #container #view .grid-container {
-      display: grid;
-      grid-column-gap: 4%;
-      grid-auto-flow: row;
-      grid-template-columns: repeat(auto-fit, [col-start] minmax(250px, 48%) [col-end]);
-      margin-bottom: 1em; }
-      @media only screen and (max-width: 980px) {
-        body.index #container #view .grid-container, body.view #container #view .grid-container {
-          grid-template-columns: [col-start] 100% [col-end]; } }
-      body.index #container #view .grid-container .item, body.view #container #view .grid-container .item {
-        display: grid;
-        grid-column-gap: 5%;
-        grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-        padding: 0;
-        margin-bottom: 0.15em; }
-        body.index #container #view .grid-container .item .term, body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .term, body.view #container #view .grid-container .item .data {
-          margin-bottom: 0.3em; }
-        body.index #container #view .grid-container .item .term, body.view #container #view .grid-container .item .term {
-          overflow: hidden;
-          color: #1E6BA3;
-          font-weight: bold; }
-        body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .data {
-          grid-column-end: span 1;
-          overflow: hidden; }
-        body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
-          grid-column: col-start 1 / col-end -1;
-          grid-column-gap: 2%;
-          grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
-          margin-top: 0.3em; }
-          @media only screen and (max-width: 980px) {
-            body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
-              grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
-              grid-column-gap: 5%; } }
-          body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
-            grid-column: col-middle 1 / col-end -1; }
-    @media only screen and (min-width: 751px) {
-      body.index #container, body.view #container {
-        min-width: 750px; }
-        body.index #container #table, body.view #container #table {
-          flex: 1 0 500px;
-          margin-right: 15px;
-          padding-top: 15px;
-          position: relative; }
-          body.index #container #table:before, body.view #container #table:before {
-            content: '';
-            position: absolute;
-            top: 0;
-            display: block;
-            height: 2px;
-            background-color: #1E6BA3;
-            width: calc(100% - 16px); }
-        body.index #container #map-wrapper, body.view #container #map-wrapper {
-          flex: 1 1 220px;
-          position: relative;
-          height: 100%; }
-        body.index #container #map, body.view #container #map {
-          height: calc(100% - 2em); }
-        body.index #container #map-footer, body.view #container #map-footer {
-          width: 100%;
-          bottom: 0;
-          position: absolute; }
-        body.index #container #slide-control, body.index #container #container-footer, body.view #container #slide-control, body.view #container #container-footer {
-          display: none; } }
-    @media only screen and (max-width: 750px) {
-      body.index #container, body.view #container {
-        width: 100%;
-        min-width: initial;
-        position: initial; }
-        body.index #container #map-wrapper, body.view #container #map-wrapper {
-          width: 100%;
-          flex: 0 0 100%; }
-        body.index #container #map, body.view #container #map {
-          height: 100%; }
-        body.index #container #map-footer, body.view #container #map-footer {
-          display: none; }
-        body.index #container #table, body.view #container #table {
-          padding: 0 5px 0 15px;
-          flex: 0 0 calc(100% - 15px);
-          margin-right: 45px; }
-          body.index #container #table::after, body.view #container #table::after {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 50px;
-            background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0), #fff);
-            background-image: linear-gradient(rgba(255, 255, 255, 0), #fff);
-            border-bottom: 2px solid #1E6BA3;
-            content: "";
-            z-index: 1000;
-            pointer-events: none; }
-          body.index #container #table .thumb, body.index #container #table .track, body.view #container #table .thumb, body.view #container #table .track {
-            z-index: 10000; }
-        body.index #container #slide-control, body.view #container #slide-control {
-          display: block;
-          position: absolute;
-          height: 50px;
-          width: 50px;
-          bottom: 15px;
-          left: 0;
-          right: 0;
-          margin: 0 auto;
-          background: url("../img/slide-toggle.png") left top no-repeat;
-          background-size: cover;
-          z-index: 10000;
-          cursor: pointer;
-          transition: transform 0.3s; }
-          body.index #container #slide-control:hover, body.view #container #slide-control:hover {
-            transform: scale(1.1, 1.1); }
-        body.index #container #container-footer, body.view #container #container-footer {
-          display: block;
-          position: absolute;
-          width: calc(100% - 30px);
-          margin: 0 auto;
-          bottom: 10px;
-          left: 0;
-          right: 0;
-          z-index: 10000; } }
-    body.index #container #table .error, body.view #container #table .error {
-      height: 100%; }
-    body.index #container #table .loading, body.view #container #table .loading {
-      height: 100%;
-      width: 100%;
-      font-size: 0;
-      background: url("../img/loading.gif") center/contain no-repeat; }
-    body.index #container #table table, body.view #container #table table {
-      white-space: normal;
-      font-size: 11px;
-      table-layout: fixed;
-      width: 100%;
-      margin-right: 5px;
-      position: relative; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #table table, body.view #container #table table {
-          font-size: 12px; } }
-      @media only screen and (max-width: 400px) {
-        body.index #container #table table, body.view #container #table table {
-          font-size: 11px; } }
-      @media only screen and (min-width: 1350px) {
-        body.index #container #table table, body.view #container #table table {
-          font-size: 12px; } }
-      @media only screen and (min-width: 1500px) {
-        body.index #container #table table, body.view #container #table table {
-          font-size: 14px; } }
-      body.index #container #table table th, body.index #container #table table td, body.view #container #table table th, body.view #container #table table td {
-        border-bottom: 1px solid #d8d8d8;
-        overflow: hidden;
-        font-family: Helvetica, Verdana, Arial, Sans-Serif;
-        height: 41px; }
-        @media only screen and (max-width: 750px) {
-          body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
-            display: none; } }
-      body.index #container #table table tr.course-row, body.view #container #table table tr.course-row {
-        cursor: pointer; }
-        body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover {
-          background: #d8d8d8; }
-      body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button {
-        margin-right: 1em; }
-        body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover {
-          transform-origin: left center; }
-        @media only screen and (min-width: 751px) {
-          body.index #container #table table tr.expansion-row button.show_map, body.index #container #table table tr.expansion-row .button.show_map, body.view #container #table table tr.expansion-row button.show_map, body.view #container #table table tr.expansion-row .button.show_map {
-            display: none; } }
-      body.index #container #table table .expanded, body.index #container #table table .expanded + .expansion-row, body.view #container #table table .expanded, body.view #container #table table .expanded + .expansion-row {
-        background-color: #F2F2F2; }
-      body.index #container #table table td, body.view #container #table table td {
-        padding: 4px 8px 4px 2px;
-        vertical-align: middle; }
-        body.index #container #table table td:last-child, body.view #container #table table td:last-child {
-          padding-right: 0; }
-      body.index #container #table table tr:last-child td, body.view #container #table table tr:last-child td {
-        border: none; }
-      body.index #container #table table th, body.view #container #table table th {
-        font-family: bebas;
-        font-size: 24px;
-        font-weight: normal;
-        text-align: left;
-        color: #1E6BA3;
-        margin-left: 5px;
-        white-space: nowrap; }
-        body.index #container #table table th.name, body.view #container #table table th.name {
-          width: 25%; }
-        body.index #container #table table th.university, body.view #container #table table th.university {
-          width: 25%; }
-        body.index #container #table table th.location, body.view #container #table table th.location {
-          width: 20%; }
-        body.index #container #table table th.period, body.view #container #table table th.period {
-          width: 15%; }
-        body.index #container #table table th.type, body.view #container #table table th.type {
-          width: 15%; }
-        @media only screen and (max-width: 750px) {
-          body.index #container #table table th.name, body.view #container #table table th.name {
-            width: 30%; }
-          body.index #container #table table th.location, body.view #container #table table th.location {
-            width: 25%; }
-          body.index #container #table table th.period, body.view #container #table table th.period {
-            width: 20%; }
-          body.index #container #table table th.type, body.view #container #table table th.type {
-            width: 25%; } }
-        body.index #container #table table th:last-child, body.view #container #table table th:last-child {
-          margin-left: 0; }
-        body.index #container #table table th span, body.view #container #table table th span {
-          width: 10px;
-          height: 10px;
-          display: inline-block;
-          position: relative;
-          left: 5px;
-          bottom: 5px;
-          transform: rotate(45deg);
-          border: 2px solid #1E6BA3;
-          border-top: none;
-          border-left: none;
-          cursor: pointer; }
-          body.index #container #table table th span:hover, body.view #container #table table th span:hover {
-            transform: rotate(-135deg);
-            bottom: 1px; }
-
-/* MarkerCluster.css - Spider */
-.leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
-  -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in;
-  -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in;
-  -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in;
-  transition: transform 0.3s ease-out, opacity 0.3s ease-in; }
-
-.leaflet-cluster-spider-leg {
-  /* stroke-dashoffset (duration and function) should match with leaflet-marker-icon transform in order to track it exactly */
-  -webkit-transition: -webkit-stroke-dashoffset 0.3s ease-out, -webkit-stroke-opacity 0.3s ease-in;
-  -moz-transition: -moz-stroke-dashoffset 0.3s ease-out, -moz-stroke-opacity 0.3s ease-in;
-  -o-transition: -o-stroke-dashoffset 0.3s ease-out, -o-stroke-opacity 0.3s ease-in;
-  transition: stroke-dashoffset 0.3s ease-out, stroke-opacity 0.3s ease-in; }
-
-.marker-cluster {
-  border: 5px solid rgba(255, 255, 255, 0.5);
-  background-color: #1E6BA3;
-  display: flex !important;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center; }
-  .marker-cluster div {
-    text-align: center;
-    color: #fff;
-    font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
-    font-weight: bold;
-    line-height: 1; }
-
-.marker-cluster-large {
-  border-radius: 30px; }
-  .marker-cluster-large span {
-    font-size: 24px; }
-
-.marker-cluster-medium {
-  border-radius: 25px; }
-  .marker-cluster-medium span {
-    font-size: 20px; }
-
-.marker-cluster-small {
-  border-radius: 20px; }
-  .marker-cluster-small span {
-    font-size: 15px; }
-
-.leaflet-popup .leaflet-popup-close-button {
-  display: none; }
-.leaflet-popup .leaflet-popup-tip, .leaflet-popup .leaflet-popup-content-wrapper {
-  background-color: #1E6BA3; }
-.leaflet-popup .leaflet-popup-content {
-  margin: 15px; }
-  .leaflet-popup .leaflet-popup-content::after {
-    content: "";
-    clear: both;
-    display: table; }
-  .leaflet-popup .leaflet-popup-content .buttons {
-    min-width: 280px; }
-    .leaflet-popup .leaflet-popup-content .buttons::after {
-      content: "";
-      clear: both;
-      display: table; }
-  .leaflet-popup .leaflet-popup-content .button, .leaflet-popup .leaflet-popup-content button {
-    margin: 0;
-    float: right;
-    display: inline-block;
-    margin-left: 15px;
-    transition: transform 0.3s; }
-    .leaflet-popup .leaflet-popup-content .button:hover, .leaflet-popup .leaflet-popup-content button:hover {
-      transform-origin: right center; }
-    @media only screen and (min-width: 751px) {
-      .leaflet-popup .leaflet-popup-content .button.show_table, .leaflet-popup .leaflet-popup-content button.show_table {
-        display: none; }
-      .leaflet-popup .leaflet-popup-content .button.sharing, .leaflet-popup .leaflet-popup-content button.sharing {
-        display: none; } }
-    .leaflet-popup .leaflet-popup-content .button.show_view::after, .leaflet-popup .leaflet-popup-content button.show_view::after {
-      width: 5px;
-      height: 5px;
-      display: inline-block;
-      position: relative;
-      left: 0;
-      bottom: 1px;
-      border: 2px solid #1E6BA3;
-      border-top: none;
-      border-left: none;
-      content: '';
-      transform: rotate(-45deg);
-      margin-left: 5px; }
-  .leaflet-popup .leaflet-popup-content p {
-    color: #fff;
-    font-family: metropolis;
-    font-size: 11px;
-    position: relative;
-    margin: 0.7em 0;
-    width: 100%; }
-  .leaflet-popup .leaflet-popup-content h1 {
-    color: #fff;
-    font-family: metropolis;
-    font-size: 11px;
-    font-weight: bold;
-    margin: 0.8em 0; }
-
-#filter {
-  border-bottom: 2px solid #1E6BA3;
-  margin-bottom: 15px;
-  padding-top: calc(1rem - 15px);
-  position: relative; }
-  #filter::after {
-    content: "";
-    clear: both;
-    display: table; }
-  #filter #reset {
-    position: absolute;
-    top: -0.3em;
-    right: 0.1em;
-    color: #1E6BA3;
-    font-weight: bold;
-    cursor: pointer; }
-    #filter #reset::after {
-      pointer-events: none;
-      content: '';
-      position: relative;
-      display: inline-block;
-      box-sizing: border-box;
-      width: 0.8em;
-      height: 0.8em;
-      border-radius: 100%;
-      border: 2px solid #1E6BA3;
-      background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
-      background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
-      transition: all 0.3s ease;
-      top: 2px;
-      margin-left: 8px; }
-    #filter #reset:hover {
-      text-decoration: none; }
-      #filter #reset:hover::after {
-        transform: rotate(90deg); }
-  #filter.not-empty form {
-    padding-top: 1em; }
-  #filter form .styled-select {
-    overflow-x: hidden;
-    width: auto;
-    display: inline-block;
-    float: left;
-    border-radius: 14px;
-    border: 2px solid #1E6BA3;
-    position: relative;
-    margin-bottom: 1rem;
-    margin-right: 1rem; }
-    #filter form .styled-select::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      right: 15px;
-      top: 7px;
-      border: 2px solid #1E6BA3;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg);
-      cursor: pointer;
-      pointer-events: none;
-      transition: all 0.3s ease; }
-    #filter form .styled-select:hover::after {
-      transform: rotate(225deg);
-      top: 10px; }
-    #filter form .styled-select select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
-      cursor: pointer;
-      background-color: transparent;
-      font-family: metropolis;
-      height: 26px;
-      padding: 7px 12px 5px;
-      border: none;
-      font-size: 12px;
-      line-height: 13px;
-      font-weight: bold;
-      color: #1E6BA3;
-      width: 180px; }
-      #filter form .styled-select select::-ms-expand {
-        display: none; }
-      #filter form .styled-select select:focus::-ms-value {
-        background-color: transparent; }
-  #filter form #selectors::after {
-    content: "";
-    clear: both;
-    display: table; }
-  #filter form #selectors .styled-select {
-    float: left; }
-  #filter form #selection::after {
-    content: "";
-    clear: both;
-    display: table; }
-  #filter form #selection .styled-select {
-    border: none;
-    clear: both;
-    float: left; }
-    #filter form #selection .styled-select::after {
-      border-color: #fff;
-      top: 8px; }
-    #filter form #selection .styled-select:hover::after {
-      top: 12px; }
-    #filter form #selection .styled-select select {
-      color: #fff;
-      background-color: #1E6BA3;
-      height: 30px;
-      padding: 7px 14px;
-      width: 184px; }
-  #filter form #selection ul.selection {
-    list-style: none; }
-    #filter form #selection ul.selection li {
-      display: inline-block;
-      float: left;
-      border: 2px solid #1E6BA3;
-      border-radius: 14px;
-      padding: 7px 20px 6px 30px;
-      margin-left: 1rem;
-      margin-bottom: 1rem;
-      font-size: 12px;
-      line-height: 13px;
-      font-weight: bold;
-      color: white;
-      background-color: #1E6BA3;
-      position: relative;
-      cursor: pointer; }
-      #filter form #selection ul.selection li:first-child {
-        margin-left: 0; }
-      #filter form #selection ul.selection li::before {
-        pointer-events: none;
-        content: '';
-        position: absolute;
-        display: block;
-        box-sizing: border-box;
-        width: 10px;
-        height: 10px;
-        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-        transition: all 0.3s ease;
-        top: 8px;
-        left: 12px; }
-      #filter form #selection ul.selection li:hover::before {
-        transform: rotate(90deg); }
-  #filter form #presence-type {
-    list-style: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    margin: 0;
-    margin-bottom: 1rem;
-    border: 2px solid #1E6BA3;
-    border-radius: 14px;
-    overflow: hidden;
-    padding: 0;
-    box-sizing: border-box;
-    width: 280px; }
-    #filter form #presence-type li {
-      font-size: 12px;
-      font-weight: bold;
-      color: #1E6BA3;
-      padding: 3px 8px 2px;
-      margin: 0; }
-    #filter form #presence-type li.label {
-      padding-left: 15px; }
-    #filter form #presence-type li.option {
-      cursor: pointer;
-      padding: 3px 8px 2px; }
-      #filter form #presence-type li.option:last-child {
-        padding-right: 15px; }
-      #filter form #presence-type li.option.selected {
-        background-color: #1E6BA3;
-        color: white;
-        cursor: default; }
-      #filter form #presence-type li.option:hover {
-        background-color: #1E6BA3;
-        color: white; }
-
-/*# sourceMappingURL=styles.css.map */
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Undefined mixin 'logo-text-scaled'.\A         on line 66 of scss/_intro.scss, in `logo-text-scaled'\A         from line 66 of scss/_intro.scss, in `@content'\A         from line 69 of scss/_mixins.scss, in `respond-to'\A         from line 64 of scss/_intro.scss\A         from line 22 of scss/_home-layout.scss\A         from line 11 of scss/styles.scss"; }

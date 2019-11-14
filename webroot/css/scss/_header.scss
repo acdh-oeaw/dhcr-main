@@ -15,7 +15,7 @@
     @include respond-to(handhelds) {
         margin: 13px;
         width: calc(100% - 50px);
-        padding: 0 10px 13px 8px;
+        padding: 0 3px 13px 3px;
         border-bottom: 2px solid $blue;
     }
 
@@ -26,6 +26,14 @@
         a {
             display: block;
             line-height: 0;
+            img {
+                width: 300px;
+                height: auto;
+                @include respond-to(handhelds) {
+                    width: 40vw;
+                    min-width: 180px;
+                }
+            }
         }
     }
 
@@ -46,15 +54,15 @@
                 margin-left: 0;
             }
             @include respond-to(handhelds) {
-                font-size: 24px;
-                width: 58px;
-                height: 57px;
+                font-size: 23px;
+                width: 50px;
+                height: 50px;
                 border-radius: 29px;
                 padding-left: 0;
                 padding-right: 0;
                 margin: 0;
                 &#info-button {
-                    padding-top: 12px;
+                    padding-top: 10px;
                 }
                 &#login-button {
                     display: none;

@@ -75,7 +75,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 }
 
 
-
+// mixin to suppress default styles for select-boxes
 @mixin reset-select {
     -webkit-appearance:none;
     -moz-appearance:none;
@@ -86,73 +86,6 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     font-family: metropolis;
     &::-ms-expand { display: none; }
     &:focus::-ms-value { background-color: transparent; }
-}
-
-
-
-
-@mixin logo-text-scaled($scale) {
-    h1 {
-        font-weight: bold;
-        text-transform: uppercase;
-        line-height: normal;
-    }
-    a {
-        text-decoration: none;
-    }
-    span#h1 {
-        color: $green;
-        font-family: bebas, sans-serif;
-        font-size: $scale * 45px;
-        vertical-align: bottom;
-        line-height: 1;
-        font-weight: normal;
-        letter-spacing: 0;
-    }
-    span#h2 {
-        color: $clarin_blue;
-        margin-right: $scale * 15px;
-    }
-    span#h3 {
-        color: $dariah_blue;
-    }
-    #h2,#h3 {
-        letter-spacing: $scale * 3px;
-        font-family: metropolis, sans-serif;
-        font-size: $scale * 24px;
-    }
-}
-
-@mixin logo-text-vwr($scale) {
-    h1 {
-        font-weight: bold;
-        text-transform: uppercase;
-        line-height: normal;
-    }
-    a {
-        text-decoration: none;
-    }
-    span#h1 {
-        color: $green;
-        font-family: bebas, sans-serif;
-        font-size: $scale * 15vw;
-        vertical-align: bottom;
-        line-height: 1;
-        font-weight: normal;
-        letter-spacing: 0;
-    }
-    span#h2 {
-        color: $clarin_blue;
-        margin-right: $scale * 5vw;
-    }
-    span#h3 {
-        color: $dariah_blue;
-    }
-    #h2,#h3 {
-        letter-spacing: $scale * 1vw;
-        font-family: metropolis, sans-serif;
-        font-size: $scale * 8vw;
-    }
 }
 
 

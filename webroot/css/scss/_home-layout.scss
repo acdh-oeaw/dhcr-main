@@ -103,7 +103,7 @@ body.index, body.view {
                     pointer-events: none;
                 }
                 .thumb, .track {
-                    z-index: 10000;
+                    z-index: 1000;
                 }
             }
             #slide-control {

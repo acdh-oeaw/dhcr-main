@@ -38,7 +38,10 @@ use Cake\Routing\Router;
     <body class="<?= $this->request->getParam('action') ?>">
         <div id="header">
             <div id="logo">
-                <?= $this->Html->image('logo-500.png', ['url' => '/','width' => '300px']); ?>
+                <?= $this->Html->image('logo-300.png', [
+                    'url' => '/',
+                    'alt' => 'Digital Humanities Course Registry (logo)'
+                ]); ?>
             </div>
             <div id="menu">
                 <?= $this->Html->link('Info', '/pages/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
