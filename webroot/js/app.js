@@ -54,19 +54,11 @@ class App {
             this.view.setLoader();
             this.filter = new Filter(this);
             this.getCourses();
-
-            $('#map .show_view').on('click', function(e) {
-                e.preventDefault();
-                let id = $(e.target).attr('data-id');
-                this.setCourse(id);
-            }.bind(this));
-            $('#map .show_table').on('click', function(e) {
-                this.slider.setPosition('table')
-            }.bind(this));
         }
         if(this.action == 'view') {
             this.getCourse();
             this.status = 'view';
+            this.hash.remove();
         }
 
         window.addEventListener('resize', function () {
@@ -74,6 +66,7 @@ class App {
         }.bind(this));
 
         this.resizeListener();
+        this.addHandlers();
     }
 
     resizeListener() {
@@ -98,6 +91,43 @@ class App {
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
         });
+    }
+
+    addHandlers() {
+        // for elements not present in DOM, use $(document).on(event, selector, handler);
+        // table row expansion
+        $('.course-row').on('click', function(e) {
+            let targetRow = $(e.delegateTarget);
+            let id = targetRow.attr('data-id');
+            if(this.view.toggleRow(id)) {
+                this.map.openMarker(id);
+                this.hash.push(id);
+            }else {
+                this.map.closeMarker();
+                this.hash.remove();
+            }
+        }.bind(this));
+
+        // table row expansion handlers
+        $(document).on('click', '#table .show_view', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            this.setCourse(id);
+            this.map.openMarker(id);
+        }.bind(this));
+        $(document).on('click', '#table .show_map', function(e) {
+            this.slider.setPosition('map')
+        }.bind(this));
+
+        // map popup handlers
+        $(document).on('click', '#map .show_view', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            this.setCourse(id);
+        }.bind(this));
+        $(document).on('click', '#map .show_table', function(e) {
+            this.slider.setPosition('table')
+        }.bind(this));
     }
 
     getCourse() {

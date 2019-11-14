@@ -101,7 +101,8 @@ class Map {
                 // autoPanPadding doesn't seem to have any effect
                 autoPanPaddingTopLeft: [20,20],
                 autoPanPaddingBottomRight: [20,100],
-                closeButton: false
+                closeButton: false,
+                courseId: course.id
             });
 
             if(createPopups) {

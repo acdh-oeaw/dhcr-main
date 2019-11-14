@@ -37,7 +37,6 @@ class View {
             table.append(row);
         }
         $(this.element).append(table);
-        this.addTableClickHandler();
         if(this.app.hash.fragment.length > 0 && !isNaN(this.app.hash.fragment)) {
             let id = this.app.hash.fragment;
             if(this.openRow(id)) {
@@ -45,7 +44,7 @@ class View {
                 // we need a timeout to wait until map has stopped moving (and closing open popups)
                 setTimeout(function(){
                     this.app.map.openMarker(id);
-                }.bind(this), 1000);
+                }.bind(this), 1500);
             }
         }
     }
@@ -54,20 +53,6 @@ class View {
         let row = document.getElementById('course-row-' + id);
         if(typeof row != 'undefined' && row)
             $(this.element).animate({scrollTop: row.offsetTop}, 1000 );
-    }
-
-    addTableClickHandler() {
-        $('.course-row').on('click', function(e) {
-            let targetRow = $(e.delegateTarget);
-            let id = targetRow.attr('data-id');
-            if(this.toggleRow(id)) {
-                this.app.map.openMarker(id);
-                this.app.hash.push(id);
-            }else {
-                this.app.map.closeMarker();
-                this.app.hash.remove();
-            }
-        }.bind(this));
     }
 
     toggleRow(id) {
@@ -82,7 +67,6 @@ class View {
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
                 targetRow.after(expansion);     // insert
-                this.addExpansionHandlers();
                 return true;    // wheter or not to open popups on map
             }
         }else{
@@ -104,23 +88,10 @@ class View {
                 let course = this.app.data[id];
                 let expansion = this.createExpansionRow(course);
                 targetRow.after(expansion);
-                this.addExpansionHandlers();
             }
             return true;
         }
         return false;
-    }
-
-    addExpansionHandlers() {
-        $('.show_view').on('click', function(e) {
-            e.preventDefault();
-            let id = $(e.target).attr('data-id');
-            this.app.setCourse(id);
-            this.app.map.openMarker(id);
-        }.bind(this));
-        $('.show_map').on('click', function(e) {
-            this.app.slider.setPosition('map')
-        }.bind(this));
     }
 
     createExpansionRow(course) {
