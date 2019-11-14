@@ -1,0 +1,23 @@
+
+
+#sharing-wrapper {
+    position: fixed;
+    z-index: 1000000;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    #sharing-content {
+        width: 90%;
+        max-width: 700px;
+        height: auto;
+        background-color: white;
+        padding: 30px;
+        border-radius: 15px;
+    }
+}

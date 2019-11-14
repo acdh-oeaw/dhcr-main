@@ -118,38 +118,8 @@ class ViewHelper {
         return result;
     }
 
-    static createSharingButton(classes, course) {
-        classes = (typeof classes == 'undefined' || classes == '') ? 'sharing button' : classes + ' sharing button';
-        let share = $('<a class="' + classes + '" href="' + BASE_URL + 'courses/view/' + course.id + '">Share</a>')
-            .on('click', function(e) {
-                e.preventDefault();
-                if (navigator.share) {
-                    navigator.share({
-                        title: 'The Digital Humanities Course Registry',
-                        text: course.name,
-                        url: BASE_URL + 'courses/view/' + course.id
-                    }).then(() => {
-                        //console.log('Thanks for sharing!');
-                    }).catch(console.error);
-                } else {
-                    ViewHelper.createSharingDialog(course);
-                }
-            }.bind(this));
-        return share;
-    }
-
-    static createSharingDialog(course) {
-        let wrapper = $('<div></div>').attr('id', 'sharing-wrapper');
-        let content = $('<div></div>').attr('id', 'sharing-content');
-        let input = $('<input>').attr('id', 'sharing-link').val(BASE_URL + 'courses/view/' + course.id);
-        let button = $('<button>Copy Link</button>').attr('id', 'copy-link');
-        content.append(input, button);
-        wrapper.append(content);
-        return wrapper;
-    }
-
     createPopup(course) {
-        let a = $('<a></a>').text('Show Details')
+        let details = $('<a></a>').text('Show Details')
             .attr('data-id', course.id)
             .attr('href', BASE_URL + 'courses/view/' + course.id)
             .addClass('show_view button x-small');
@@ -159,11 +129,26 @@ class ViewHelper {
         this._collection.push($('<h1></h1>').text(course.name));
         this._collection.push($('<p></p>').html(course.institution.name + ',<br />' + course.department + '.'));
         this._collection.push($('<p></p>').text('Type: ' + course.course_type.name));
-        buttons.append(a);
+        buttons.append(details);
         buttons.append($('<button></button>').text('Share').addClass('sharing x-small'));
-        buttons.append($('<button></button>').text('Table').addClass('show_table x-small'));
+        buttons.append($('<button></button>').text('Table').addClass('show_table x-small back'));
         this._collection.push(buttons);
         return this.concat();
+    }
+
+    static createExpansionRow(course, colspan) {
+        let content = $('<td></td>').attr('colspan', colspan);
+        let share = Sharing.createSharingButton('blue small', course);
+        let onMap = $('<button></button>').text('Show on Map')
+            .addClass('show_map small')
+            .attr('data-id', course.id);
+        let details = $('<a></a>').text('Show Details')
+            .addClass('show_view button small')
+            .attr('data-id', course.id)
+            .attr('href', BASE_URL + 'courses/view/' + course.id);
+        content.append(details, share, onMap);
+        let expansionRow = $('<tr></tr>').addClass('expansion-row').append(content);
+        return expansionRow;
     }
 
     static concat(collection) {

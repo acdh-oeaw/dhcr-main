@@ -86,7 +86,7 @@ class App {
 
     updateSize() {
         let bottom = 20;
-        if(this.layout == 'mobile') bottom = 40;
+        if(this.layout == 'mobile') bottom += parseInt($('#slide-control').css('bottom')) + 5;
         $('#container').css({
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
@@ -116,7 +116,9 @@ class App {
             this.map.openMarker(id);
         }.bind(this));
         $(document).on('click', '#table .show_map', function(e) {
-            this.slider.setPosition('map')
+            let id = $(e.target).attr('data-id');
+            this.slider.setPosition('map');
+            this.map.openMarker(id);    // should already be open
         }.bind(this));
 
         // map popup handlers
@@ -127,6 +129,33 @@ class App {
         }.bind(this));
         $(document).on('click', '#map .show_table', function(e) {
             this.slider.setPosition('table')
+        }.bind(this));
+
+        // sharing
+        $(document).on('click', '.sharing.button', function(e) {
+            e.preventDefault();
+            let id = $(e.target).attr('data-id');
+            if (navigator.share) {
+                navigator.share({
+                    title: 'The Digital Humanities Course Registry',
+                    text: course.name,
+                    url: BASE_URL + 'courses/view/' + id
+                }).then(() => {
+                    //console.log('Thanks for sharing!');
+                }).catch(console.error);
+            } else {
+                $('body').append(Sharing.createSharingDialog(this.data[id]));
+            }
+        }.bind(this));
+        $(document).on('click', '#sharing-wrapper', function(e) {
+            if($(e.target).is('#sharing-wrapper, #sharing-wrapper .close'))
+                $('#sharing-wrapper').remove();
+        });
+
+        // close view
+        $(document).on('click', '.close_view', function(e) {
+            e.preventDefault();
+            this.app.closeView();
         }.bind(this));
     }
 

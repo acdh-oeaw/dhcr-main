@@ -86,26 +86,13 @@ class View {
                 // opening
                 targetRow.addClass('expanded');
                 let course = this.app.data[id];
-                let expansion = this.createExpansionRow(course);
+                let colspan = (this.app.layout == 'mobile') ? 4 : 5;
+                let expansion = ViewHelper.createExpansionRow(course, colspan);
                 targetRow.after(expansion);
             }
             return true;
         }
         return false;
-    }
-
-    createExpansionRow(course) {
-        let colspan = (this.app.layout == 'mobile') ? 4 : 5;
-        let content = $('<td></td>').attr('colspan', colspan);
-        let share = ViewHelper.createSharingButton('blue small', course);
-        let onMap = $('<button></button>').text('Show on Map').addClass('show_map small');
-        let details = $('<a></a>').text('Show Details')
-                .addClass('show_view button small')
-                .attr('data-id', course.id)
-                .attr('href', BASE_URL + 'courses/view/' + course.id);
-        content.append(details, share, onMap);
-        let expansionRow = $('<tr></tr>').addClass('expansion-row').append(content);
-        return expansionRow[0];
     }
 
     createTableRow(course) {
@@ -133,12 +120,8 @@ class View {
         let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);
 
         let backActionLabel = (this.app.action == 'view') ? 'Go to Start' : 'Back to List';
-        let back = $('<a class="back button small" href="' + BASE_URL + '">' + backActionLabel + '</a>')
-            .on('click', function(e) {
-                e.preventDefault();
-                this.app.closeView();
-            }.bind(this));
-        let share = ViewHelper.createSharingButton('blue small', course);
+        let back = $('<a class="back button small close_view" href="' + BASE_URL + '">' + backActionLabel + '</a>');
+        let share = Sharing.createSharingButton('blue small', course);
         el.append($('<div class="buttons"></div>').append(back, share));
 
         el.append($('<h1>' + course.name + '</h1>'));
