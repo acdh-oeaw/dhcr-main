@@ -18,8 +18,16 @@ class Accordeon {
         this.hash = new Hash();
         if(this.hash.fragment.length > 0) {
             $('#' + this.hash.fragment).addClass('open');
-            //location.href = '#' + this.hash.fragment;
+            location.href = '#' + this.hash.fragment;   // scroll page to section
         }
+    }
+
+    openHash(hash) {
+        this.closeAll();
+        this.hash.push(hash);
+        $('#' + hash).addClass('open');
+        // scroll page to location
+        location.href = '#' + hash;
     }
 
     closeAll() {

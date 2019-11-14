@@ -28,3 +28,4 @@
             'https://www.dariah.eu/',
             ['escape' => false, 'target' => '_blank']) ?>
     </div>
+</div>

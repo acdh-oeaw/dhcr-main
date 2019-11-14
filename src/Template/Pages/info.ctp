@@ -108,6 +108,17 @@ $this->layout = false;
             </div>
             
         </div>
+
+        <div id="footer" class="footer">
+            <p class="imprint"><?= $this->Html->link('Imprint',
+                    '/pages/info/#imprint') ?></p>
+            <p class="license"><?= $this->Html->link('CC-BY 4.0',
+                    'https://creativecommons.org/licenses/by/4.0/',
+                    ['target' => '_blank']) ?></p>
+            <p class="copyright">&copy;2014-<?= date('Y') ?></p>
+        </div>
+        
+        
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
         <?= $this->Html->script(['accordeon','cookie','hash']) ?>
@@ -115,8 +126,12 @@ $this->layout = false;
         <script type="application/javascript">
             $(document).ready( function() {
                 Cookies.set('hideIntro', 'true', {expires: 365});
-                new Accordeon('accordeon');
+                let accordeon = new Accordeon('accordeon');
                 $('#imprint-content').load('https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=7435');
+                $('#footer .imprint').on('click', function(e) {
+                    e.preventDefault();
+                    accordeon.openHash('imprint');
+                });
             });
         </script>
     </body>

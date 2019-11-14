@@ -231,6 +231,26 @@ table .recurring {
         min-width: initial;
         padding: 0; } }
 
+.footer {
+  font-family: metropolis, Sans-Serif;
+  font-size: 14px;
+  color: #1E6BA3; }
+  .footer::after {
+    content: "";
+    clear: both;
+    display: table; }
+  .footer p {
+    margin: 0;
+    line-height: 1; }
+  .footer .imprint, .footer .license {
+    font-weight: bold; }
+  .footer .imprint {
+    float: left; }
+  .footer .copyright, .footer .license {
+    float: right; }
+  .footer .license {
+    margin-left: 0.5em; }
+
 #header {
   position: relative;
   overflow: visible;
@@ -617,25 +637,6 @@ body.index, body.view {
               grid-column-gap: 5%; } }
           body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
             grid-column: col-middle 1 / col-end -1; }
-    body.index #container .footer, body.view #container .footer {
-      font-family: metropolis, Sans-Serif;
-      font-size: 14px;
-      color: #1E6BA3; }
-      body.index #container .footer::after, body.view #container .footer::after {
-        content: "";
-        clear: both;
-        display: table; }
-      body.index #container .footer p, body.view #container .footer p {
-        margin: 0;
-        line-height: 1; }
-      body.index #container .footer .imprint, body.index #container .footer .license, body.view #container .footer .imprint, body.view #container .footer .license {
-        font-weight: bold; }
-      body.index #container .footer .imprint, body.view #container .footer .imprint {
-        float: left; }
-      body.index #container .footer .copyright, body.index #container .footer .license, body.view #container .footer .copyright, body.view #container .footer .license {
-        float: right; }
-      body.index #container .footer .license, body.view #container .footer .license {
-        margin-left: 0.5em; }
     @media only screen and (min-width: 751px) {
       body.index #container, body.view #container {
         min-width: 750px; }

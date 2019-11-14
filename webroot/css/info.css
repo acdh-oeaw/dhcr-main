@@ -231,6 +231,26 @@ table .recurring {
         min-width: initial;
         padding: 0; } }
 
+.footer {
+  font-family: metropolis, Sans-Serif;
+  font-size: 14px;
+  color: #1E6BA3; }
+  .footer::after {
+    content: "";
+    clear: both;
+    display: table; }
+  .footer p {
+    margin: 0;
+    line-height: 1; }
+  .footer .imprint, .footer .license {
+    font-weight: bold; }
+  .footer .imprint {
+    float: left; }
+  .footer .copyright, .footer .license {
+    float: right; }
+  .footer .license {
+    margin-left: 0.5em; }
+
 form label {
   font-weight: bold;
   color: #1E6BA3; }
@@ -600,5 +620,8 @@ body.info {
       position: absolute;
       top: 0;
       width: 100%; }
+
+#footer {
+  margin: 100px 0 0; }
 
 /*# sourceMappingURL=info.css.map */

@@ -247,4 +247,25 @@ table {
     }
 }
 
-
+.footer {
+    font-family: metropolis, Sans-Serif;
+    font-size: 14px;
+    color: $blue;
+    @include clearfix;
+    p {
+        margin: 0;
+        line-height: 1;
+    }
+    .imprint, .license {
+        font-weight: bold;
+    }
+    .imprint {
+        float: left;
+    }
+    .copyright, .license {
+        float: right;
+    }
+    .license {
+        margin-left: 0.5em;
+    }
+}
