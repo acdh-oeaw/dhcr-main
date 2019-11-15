@@ -155,7 +155,7 @@ class FilterHelper {
     createPresenceTypeSelector() {
         let list = $('<ul id="presence-type"></ul>');
         let online = $('<li></li>').text('online').attr('data-value', 'true').addClass('option');
-        let presence = $('<li></li>').text('physical').attr('data-value', 'false').addClass('option');
+        let presence = $('<li></li>').text('campus').attr('data-value', 'false').addClass('option');
         let both = $('<li></li>').text('both').attr('data-value', 'null').addClass('option');
         if(this.filter.selected.online === null) both.addClass('selected');
         if(this.filter.selected.online === false) presence.addClass('selected');

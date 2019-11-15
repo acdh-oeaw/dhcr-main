@@ -42,16 +42,8 @@ body.info {
         }
     }
 
-    @include respond-to(screens) {
-        @media only screen and (min-width: 1001px) {
-            @include logo-text-scaled(2);
-        }
-        @media only screen and (max-width: 1000px) {
-            @include logo-text-vwr(0.6);
-        }
-    }
+
     @include respond-to(handhelds) {
-        @include logo-text-vwr(0.8);
         .clarin-dariah-logo {
             float: none;
             display: block;
@@ -197,6 +189,26 @@ body.info {
                     font-weight: normal;
                 }
             }
+
+            ul.custom-bullets.css-columns {
+                column-gap: 2em;
+                @media only screen and (max-width: 530px) {
+                    column-count: 1;
+                }
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                li {
+                    padding-left: 1em;
+                    text-indent: -1em;
+                }
+                li::before {
+                    content: "• ";
+                    color: $blue;
+                }
+            }
+
+
             &#imprint-content {
                 h2 {
                     // style as h3
@@ -237,6 +249,7 @@ body.info {
             }
             hr {
                 margin: 2em 0;
+                background-color: $light-gray;
             }
             a:not(.button) {
                 color: $gray;
@@ -330,7 +343,6 @@ body.info {
                     }
                     .iframe-container {
                         overflow: hidden;
-                        //padding-top: 56.25%;
                         position: relative;
                         img.ratio {
                             display: block;

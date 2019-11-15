@@ -26,13 +26,30 @@ use Cake\Routing\Router;
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+        <meta property="og:url"           content="<?= Router::url('/', true) ?>" />
+        <meta property="og:type"          content="website" />
+        <meta property="og:title"         content="The Digital Humanities Course Registry" />
+        <meta property="og:description"   content="The Digital Humanities Course Registry is a curated
+                platform that provides an overview of the growing range of
+                teaching activities in the field of digital humanities worldwide." />
+        <meta property="og:image"         content="<?= Router::url('/img/badge-500.png', true) ?>" />
         
         <?= $this->Html->css('styles.css') ?>
         <?= $this->Html->css('/leaflet/leaflet.css') ?>
         
         
         <title>Digital Humanities Course Registry</title>
-        <?= $this->Html->meta('icon') ?>
+    
+        <link rel="apple-touch-icon" sizes="180x180" href="<?= Router::url('/apple-touch-icon.png?v=kPv24zPR6') ?>">
+        <link rel="icon" type="image/png" sizes="32x32" href="<?= Router::url('/favicon-32x32.png?v=kPv24zPR6') ?>">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?= Router::url('/favicon-16x16.png?v=kPv24zPR6') ?>">
+        <link rel="manifest" href="<?= Router::url('/site.webmanifest?v=kPv24zPR6') ?>">
+        <link rel="mask-icon" href="<?= Router::url('/safari-pinned-tab.svg?v=kPv24zPR6') ?>" color="#5bbad5">
+        <link rel="shortcut icon" href="<?= Router::url('/favicon.ico?v=kPv24zPR6') ?>">
+        <meta name="msapplication-TileColor" content="#00aba9">
+        <meta name="theme-color" content="#ffffff">
+        
     </head>
     
     <body class="<?= $this->request->getParam('action') ?>">
@@ -67,11 +84,24 @@ use Cake\Routing\Router;
         <?= $this->Html->script('/leaflet/leaflet') ?>
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
-
-        <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
         
         <?= $this->Html->script(['scroll','hash','slide','sharing','map','filter','filter_helper','view','view_helper','app']) ?>
         
         <?= $this->element('script') ?>
+
+        <script type="text/javascript">
+            var _paq = _paq || [];
+            // tracker methods like "setCustomDimension" should be called before "trackPageView"
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+
+            (function() {
+                var u="//matomo.acdh.oeaw.ac.at/";
+                _paq.push(['setTrackerUrl', u+'piwik.php']);
+                _paq.push(['setSiteId', '21']);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
     </body>
 </html>

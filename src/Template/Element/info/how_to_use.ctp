@@ -7,38 +7,38 @@ use Cake\Core\Configure;
         <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
         <h3>Students</h3>
         <p>
-            Starting a university programme in digital humanities
-            or want to study one semester abroad,
-            students can find information about programmes
-            and courses offered in various places and universities.
+            Do you want to start a university programme in digital humanities
+            or want to study one semester abroad?
+            Find all information about programmes and courses offered in
+            various places and universities here on the DHCR.
         </p>
         <p>
-            The collection of courses and programs can be searched without registration.
-            To hold only useful and most up-to-date content, all data in the DHCR
-            is actively maintained by the lecturers or departments themselves.
-            Courses can be searched based on location, disciplines, research techniques
-            or objects and degrees awarded.
+            The collection of courses and programmes can be viewed without registration.
+            To ensure all content is up to date, all data in the DHCR is actively
+            maintained by the lecturers or departments themselves.
+            You can search for courses based on different criteria, for example
+            location, disciplines, or degrees awarded.
         </p>
         <p>
-            Historical data or very specific queries can be retrieved using
-            the open DHCR-API for research or programme decisions.
-            The DHCR is collecting course data starting from 2014.
+            The DHCR has been collecting course data since 2014.
+            Historical data or very specific queries can be retrieved using the open
+            <?= $this->Html->link('DHCR-API', Configure::read('api.baseUrl'), ['target' => '_blank']) ?>.
         </p>
     </div>
     <div class="flex-item">
         <?= $this->Html->image('lecturers.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
         <h3>Lecturers</h3>
         <p>
-            Lecturers or progamm administrators can promote their DH-related
+            Lecturers or progamme administrators can promote their DH-related
             teaching activities on the Digital Humanities Course Registry.
             To add data, lecturers need to sign in. We require all data
             contributors to actively maintain their data at least once per year.
         </p>
         <p>
             The system will regularly send out email reminders, whenever a data set
-            is about to expire. Course data not revised for one and half a year
+            is about to expire. Course data that is not revised for one and a half year
             will disappear from the public listing and remains archived
-            for later research. The system also performs regular link checking
+            for later research. The system also performs a regular link checking
             on URLs provided with the data.
         </p>
         <div class="buttons">
@@ -48,6 +48,20 @@ use Cake\Core\Configure;
                 ['class' => 'blue button', 'id' => 'register-button']) ?>
         </div>
     </div>
+</div>
+<hr>
+<div class="">
+    <h3>What type of courses can be submitted?</h3>
+    <ul class="custom-bullets css-columns">
+        <li>Online courses</li>
+        <li>On-site courses</li>
+        <li>One-off workshops or recurring courses</li>
+        <li>BA or MA programmes</li>
+        <li>PhD programmes or seminars</li>
+        <li>Courses or modules</li>
+        <li>Training of professionals (continuing education)</li>
+        <li>Summer schools within DH</li>
+    </ul>
 </div>
 <hr />
 <div class="flex-columns">

@@ -33,7 +33,7 @@ $this->layout = false;
         <?= $this->Html->css('info.css') ?>
         
         
-        <title>DH Course Registry - Information</title>
+        <title>Digital Humanities Course Registry - Information</title>
         <?= $this->Html->meta('icon') ?>
     </head>
     <body class="info">

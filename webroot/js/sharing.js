@@ -8,19 +8,48 @@ class Sharing {
         this.addHandlers();
     }
 
+    static createSharingButton(classes, course) {
+        classes = (typeof classes == 'undefined' || typeof classes != 'string' || classes == '')
+            ? 'sharing button'
+            : classes + ' sharing button';
+        let share = $('<a></a>').addClass(classes).text('Share')
+            .attr('href', BASE_URL + 'courses/view/' + course.id)
+            .attr('data-id', course.id);
+        return share;
+    }
+
+    static createSharingDialog(course) {
+        let wrapper = $('<div></div>').attr('id', 'sharing-wrapper');
+        let content = $('<div></div>').attr('id', 'sharing-content');
+        let close = $('<span>Close</span>').addClass('close');
+        let headline = $('<h1>Share this course</h1>');
+        let title = $('<p></p>').html('<span>Title: </span>' + course.name).addClass('title');
+
+        content.append(close,headline, Sharing.createCopyToClipboard(course));
+
+        let mail = Sharing.createMail(course);
+        let twitter = Sharing.createTwitter(course);
+        let fb = Sharing.createFaceBook(course);
+        content.append($('<div></div>').addClass('row').append(mail, twitter));
+        content.append($('<div></div>').addClass('row').append(fb));
+
+        wrapper.append(content);
+        return wrapper;
+    }
+
     addHandlers() {
         // open dialogue
         $(document).on('click', '.sharing.button', function(e) {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
             let course = this.app.data[id];
-            let body = '\n' + course.name
-                + '\n' + course.institution.name + ', ' + course.department
-                + '\n' + course.city.name + ', ' + course.country.name;
+            let body = "\n" + course.name
+                + "\n" + course.institution.name + ", " + course.department
+                + "\n" + course.city.name + ", " + course.country.name;
             if(navigator.share) {
                 navigator.share({
                     title: 'The Digital Humanities Course Registry',
-                    text: 'Look at this this DH course: ' + body,
+                    text: "Look at this this DH course: " + body,
                     url: BASE_URL + 'courses/view/' + id
                 }).then(() => {
                     //console.log('Thanks for sharing!');
@@ -40,6 +69,15 @@ class Sharing {
         $(document).on('click', '#copy-link', function(e) {
             this.copyLink();
         }.bind(this));
+    }
+
+    static createCopyToClipboard(course) {
+        let tooltip = $('<span></span>').addClass('tooltiptext').attr('id', 'copy-tooltip');
+        let input = $('<input>').attr('id', 'sharing-link').val(BASE_URL + 'courses/view/' + course.id);
+        let button = $('<button></button>').attr('id', 'copy-link')
+            .addClass('small blue tooltip')
+            .text('Copy').append(tooltip);
+        return $('<div></div>').addClass('copy_to_clipboard row').append(input, button);
     }
 
     copyLink() {
@@ -62,33 +100,6 @@ class Sharing {
         }, 1000);
     }
 
-    static createSharingButton(classes, course) {
-        classes = (typeof classes == 'undefined' || typeof classes != 'string' || classes == '')
-            ? 'sharing button'
-            : classes + ' sharing button';
-        let share = $('<a></a>').addClass(classes).text('Share')
-            .attr('href', BASE_URL + 'courses/view/' + course.id)
-            .attr('data-id', course.id);
-        return share;
-    }
-
-    static createSharingDialog(course) {
-        let wrapper = $('<div></div>').attr('id', 'sharing-wrapper');
-        let content = $('<div></div>').attr('id', 'sharing-content');
-        let close = $('<span>Close</span>').addClass('close');
-        let headline = $('<h1>Share this course</h1>');
-        let title = $('<p></p>').html('<span>Title: </span>' + course.name).addClass('title');
-
-        content.append(close,headline, Sharing.createCopyToClipboard(course));
-
-        let mail = Sharing.createMail(course);
-        let twitter = Sharing.createTwitter(course);
-        content.append($('<div></div>').addClass('row').append(mail, twitter));
-
-        wrapper.append(content);
-        return wrapper;
-    }
-
     static createMail(course) {
         let body = BASE_URL + 'courses/view/' + course.id + '\n\n' + course.name
             + '\n\n' + course.institution.name + ', ' + course.department
@@ -101,28 +112,55 @@ class Sharing {
         return button;
     }
 
+    // function for opening sharing links in a new window/popup
+    // https://stackoverflow.com/questions/26547292/how-create-a-facebook-share-button-without-sdk-or-custom-app-id
+    static openURLInPopup(url, windowId, width, height) {
+        if (typeof(width) == "undefined") {
+            width = 800;
+            height = 600;
+        }
+        if (typeof(height) == "undefined") {
+            height = 600;
+        }
+        window.open(url, windowId || 'window' + Math.floor(Math.random() * 10000 + 1), width, height, 'menubar=0,location=0,toolbar=0,status=0,scrollbars=1');
+    }
+
     static createTwitter(course) {
         let url = '&url=' + BASE_URL + 'courses/view/' + course.id;
-        let body = course.name
-            + '\n' + course.institution.name + ', ' + course.department
-            + '\n' + course.city.name + ', ' + course.country.name;
-        let href = 'https://twitter.com/intent/tweet?text=' + body + url;
+        let body = 'Look at this Course at in the Digital Humanities Course Registry:'
+            + '\nTitle: ' + course.name
+            + '\nAt: ' + course.institution.name + ', ' + course.department
+            + '\nIn: ' + course.city.name + ', ' + course.country.name;
+        let hashtags = '&hashtags=DHCR';
+        let href = 'https://twitter.com/intent/tweet?text=' + body + hashtags + url;
 
         let button = $('<a></a>').addClass('sharing-option')
             .attr('href', encodeURI(href))
             .attr('target', '_blank')
             .html('<svg><use href="#twitter"></use></svg></span><span>Tweet</span>');
+        button.on('click', function(e) {
+            e.preventDefault();
+            Sharing.openURLInPopup(href, '_blank');
+        });
         return button;
     }
 
-    static createCopyToClipboard(course) {
-        let tooltip = $('<span></span>').addClass('tooltiptext').attr('id', 'copy-tooltip');
-        let input = $('<input>').attr('id', 'sharing-link').val(BASE_URL + 'courses/view/' + course.id);
-        let button = $('<button></button>').attr('id', 'copy-link')
-            .addClass('small blue tooltip')
-            .text('Copy').append(tooltip);
-        return $('<div></div>').addClass('copy_to_clipboard row').append(input, button);
+    static createFaceBook(course) {
+        let url = BASE_URL + 'courses/view/' + course.id;
+        let body = '&quote=Look at this Course at in the Digital Humanities Course Registry:'
+        + '\nTitle: ' + course.name
+        + '\nAt: ' + course.institution.name + ', ' + course.department
+        + '\nIn: ' + course.city.name + ', ' + course.country.name;
+        let href = 'https://www.facebook.com/sharer/sharer.php?u=' + url + body;
+
+        let button = $('<a></a>').addClass('sharing-option single')
+            .attr('href', encodeURI(href))
+            .attr('target', '_blank')
+            .html('<svg><use href="#facebook"></use></svg></span><span>Facebook</span>');
+        button.on('click', function(e) {
+            e.preventDefault();
+            Sharing.openURLInPopup(href, '_blank');
+        });
+        return button;
     }
-
-
 }
