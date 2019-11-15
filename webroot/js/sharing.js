@@ -13,15 +13,19 @@ class Sharing {
         $(document).on('click', '.sharing.button', function(e) {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
-            if (navigator.share) {
+            let course = this.app.data[id];
+            let body = '\n' + course.name
+                + '\n' + course.institution.name + ', ' + course.department
+                + '\n' + course.city.name + ', ' + course.country.name;
+            if(navigator.share) {
                 navigator.share({
                     title: 'The Digital Humanities Course Registry',
-                    text: this.app.data[id].name,
+                    text: 'Look at this this DH course: ' + body,
                     url: BASE_URL + 'courses/view/' + id
                 }).then(() => {
                     //console.log('Thanks for sharing!');
                 }).catch(console.error);
-            } else {
+            }else{
                 $('body').append(Sharing.createSharingDialog(this.app.data[id]));
             }
         }.bind(this));
@@ -99,7 +103,8 @@ class Sharing {
 
     static createTwitter(course) {
         let url = '&url=' + BASE_URL + 'courses/view/' + course.id;
-        let body = course.name + '\n' + course.institution.name + ', ' + course.department
+        let body = course.name
+            + '\n' + course.institution.name + ', ' + course.department
             + '\n' + course.city.name + ', ' + course.country.name;
         let href = 'https://twitter.com/intent/tweet?text=' + body + url;
 
