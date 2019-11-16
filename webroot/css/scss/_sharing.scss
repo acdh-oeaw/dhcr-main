@@ -1,6 +1,6 @@
 
 
-#sharing-wrapper {
+#modal-wrapper {
     position: fixed;
     z-index: 1000000;
     width: 100vw;
@@ -18,7 +18,7 @@
         margin-right: 7px;
     }
 
-    #sharing-content {
+    #modal-content {
         width: 90%;
         max-width: 500px;
         height: auto;

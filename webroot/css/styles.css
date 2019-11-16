@@ -944,7 +944,7 @@ body.index, body.view {
         background-color: #1E6BA3;
         color: white; }
 
-#sharing-wrapper {
+#modal-wrapper {
   position: fixed;
   z-index: 1000000;
   width: 100vw;
@@ -955,11 +955,11 @@ body.index, body.view {
   display: flex;
   align-items: center;
   justify-content: center; }
-  #sharing-wrapper svg {
+  #modal-wrapper svg {
     width: 20px;
     height: 20px;
     margin-right: 7px; }
-  #sharing-wrapper #sharing-content {
+  #modal-wrapper #modal-content {
     width: 90%;
     max-width: 500px;
     height: auto;
@@ -968,14 +968,14 @@ body.index, body.view {
     border-radius: 15px;
     overflow: hidden;
     position: relative; }
-    #sharing-wrapper #sharing-content .close {
+    #modal-wrapper #modal-content .close {
       position: absolute;
       top: 15px;
       right: 15px;
       color: transparent;
       line-height: 0;
       cursor: pointer; }
-      #sharing-wrapper #sharing-content .close::after {
+      #modal-wrapper #modal-content .close::after {
         pointer-events: none;
         content: '';
         position: relative;
@@ -990,24 +990,24 @@ body.index, body.view {
         transition: all 0.3s ease;
         top: 2px;
         margin-left: 8px; }
-      #sharing-wrapper #sharing-content .close:hover {
+      #modal-wrapper #modal-content .close:hover {
         text-decoration: none; }
-        #sharing-wrapper #sharing-content .close:hover::after {
+        #modal-wrapper #modal-content .close:hover::after {
           transform: rotate(90deg); }
-    #sharing-wrapper #sharing-content h1 {
+    #modal-wrapper #modal-content h1 {
       font-size: 25px; }
       @media only screen and (max-width: 400px) {
-        #sharing-wrapper #sharing-content h1 {
+        #modal-wrapper #modal-content h1 {
           font-size: 20px; } }
-    #sharing-wrapper #sharing-content .row {
+    #modal-wrapper #modal-content .row {
       display: flex;
       margin-top: 1em;
       justify-content: space-between; }
-      #sharing-wrapper #sharing-content .row:first-child {
+      #modal-wrapper #modal-content .row:first-child {
         margin: 0; }
-      #sharing-wrapper #sharing-content .row.copy_to_clipboard {
+      #modal-wrapper #modal-content .row.copy_to_clipboard {
         justify-content: flex-start; }
-        #sharing-wrapper #sharing-content .row.copy_to_clipboard input {
+        #modal-wrapper #modal-content .row.copy_to_clipboard input {
           flex: 0 1 40%;
           min-width: 110px;
           height: 30px;
@@ -1020,15 +1020,15 @@ body.index, body.view {
           box-sizing: border-box;
           padding: 4px;
           border-right: none; }
-        #sharing-wrapper #sharing-content .row.copy_to_clipboard button {
+        #modal-wrapper #modal-content .row.copy_to_clipboard button {
           flex: 0 0 auto;
           padding-left: 10px;
           border-radius: 0 15px 15px 0;
           border-left: none; }
-          #sharing-wrapper #sharing-content .row.copy_to_clipboard button:hover {
+          #modal-wrapper #modal-content .row.copy_to_clipboard button:hover {
             transform: none;
             background-color: #d8d8d8; }
-      #sharing-wrapper #sharing-content .row .sharing-option {
+      #modal-wrapper #modal-content .row .sharing-option {
         flex: 1 1 40%;
         display: inline-flex;
         align-items: center;
@@ -1050,10 +1050,10 @@ body.index, body.view {
         box-sizing: border-box;
         transition: all 0.3s;
         padding: 8px 0; }
-        #sharing-wrapper #sharing-content .row .sharing-option:hover, #sharing-wrapper #sharing-content .row .sharing-option.animate, #sharing-wrapper #sharing-content .row .sharing-option.focus {
+        #modal-wrapper #modal-content .row .sharing-option:hover, #modal-wrapper #modal-content .row .sharing-option.animate, #modal-wrapper #modal-content .row .sharing-option.focus {
           font-size: 105%;
           text-decoration: underline; }
-        #sharing-wrapper #sharing-content .row .sharing-option:last-child {
+        #modal-wrapper #modal-content .row .sharing-option:last-child {
           margin-right: 0; }
 
 /*# sourceMappingURL=styles.css.map */

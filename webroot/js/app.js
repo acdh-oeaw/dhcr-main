@@ -88,7 +88,7 @@ class App {
         });
         if(this.layout == 'mobile') this.scrollFix();
     }
-    
+
     // experimental!
     scrollFix() {
         let height = document.body.clientHeight;

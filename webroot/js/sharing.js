@@ -19,22 +19,14 @@ class Sharing {
     }
 
     static createSharingDialog(course) {
-        let wrapper = $('<div></div>').attr('id', 'sharing-wrapper');
-        let content = $('<div></div>').attr('id', 'sharing-content');
-        let close = $('<span>Close</span>').addClass('close');
-        let headline = $('<h1>Share this course</h1>');
-        let title = $('<p></p>').html('<span>Title: </span>' + course.name).addClass('title');
-
-        content.append(close,headline, Sharing.createCopyToClipboard(course));
-
+        let modal = new Modal('Share this course');
         let mail = Sharing.createMail(course);
         let twitter = Sharing.createTwitter(course);
         let fb = Sharing.createFaceBook(course);
-        content.append($('<div></div>').addClass('row').append(mail, twitter));
-        content.append($('<div></div>').addClass('row').append(fb));
-
-        wrapper.append(content);
-        return wrapper;
+        modal.add(Sharing.createCopyToClipboard(course));
+        modal.add($('<div></div>').addClass('row').append(mail, twitter));
+        modal.add($('<div></div>').addClass('row').append(fb));
+        modal.create();
     }
 
     addHandlers() {
@@ -55,15 +47,10 @@ class Sharing {
                     //console.log('Thanks for sharing!');
                 }).catch(console.error);
             }else{
-                $('body').append(Sharing.createSharingDialog(this.app.data[id]));
+                // fire up a modal
+                Sharing.createSharingDialog(this.app.data[id]);
             }
         }.bind(this));
-
-        // close dialogue
-        $(document).on('click', '#sharing-wrapper', function(e) {
-            if($(e.target).is('#sharing-wrapper, #sharing-wrapper .close'))
-                $('#sharing-wrapper').remove();
-        });
 
         // copy link
         $(document).on('click', '#copy-link', function(e) {
@@ -122,7 +109,8 @@ class Sharing {
         if (typeof(height) == "undefined") {
             height = 600;
         }
-        window.open(url, windowId || 'window' + Math.floor(Math.random() * 10000 + 1), width, height, 'menubar=0,location=0,toolbar=0,status=0,scrollbars=1');
+        window.open(url, windowId || 'window' + Math.floor(Math.random() * 10000 + 1),
+            width, height, 'menubar=0,location=0,toolbar=0,status=0,scrollbars=1');
     }
 
     static createTwitter(course) {
