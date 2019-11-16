@@ -32,11 +32,6 @@ class App {
         this.hash = new Hash();
         this.sharing = new Sharing(this);
 
-        setTimeout(function(){
-            // This hides the address bar:
-            window.scrollTo(0, 1);
-        }, 0);
-
         // apply layout first, then populate blocks
         this.slider = new Slider(document.getElementById('container'));
         this.scrollable = new Scrollable(document.getElementById('table'));
@@ -91,6 +86,19 @@ class App {
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
         });
+        if(this.layout == 'mobile') this.scrollFix();
+    }
+    
+    // experimental!
+    scrollFix() {
+        let height = document.body.clientHeight;
+        let styleHeight = document.body.style.height;
+        if(document.height <= window.outerHeight)
+            document.body.style.height = (height + 50) + 'px';
+        setTimeout( function(){
+            window.scrollTo(0, 1);
+            document.body.style.height = styleHeight;
+        }, 50 );
     }
 
     getCourse() {
