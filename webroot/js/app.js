@@ -116,7 +116,7 @@ class App {
 
     getCourses() {
         // check for preset object served on pageload to speed up loading time
-        if(typeof courses != 'undefined') {
+        if(typeof courses != 'undefined' && this.filter.isEmpty()) {
             if (courses.length > 0) {
                 this.data = {};
                 for (var i = 0; courses.length > i; i++) {
@@ -128,7 +128,25 @@ class App {
                 this.handleError('No course matches your filter conditions.')
             }
         }else{
-            this.handleError('Sorry, something went definitely wrong.')
+            // load data using ajax
+            this.view.setLoader();
+            $.ajax({
+                url: this.apiUrl + 'courses/index' + this.filter.createQuery(),
+                accept: 'application/json',
+                method: 'GET',
+                cache: true,
+                context: this,
+                crossDomain: true
+            }).done(function( data ) {
+                this.data = {};
+                for(var i = 0; data.length > i; i++) {
+                    this.data[data[i].id] = data[i];
+                }
+                this.map.setMarkers(this.data);
+                this.setTable();
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                this.handleError('Error loading data');
+            });
         }
     }
 

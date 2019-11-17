@@ -68,6 +68,11 @@ class View {
                 $('<th class="type">Type <span></span></th>')
             )
         );
+
+        $(document).on('click', 'th', function(e) {
+            new Sort(this.app, 'name', 'Name');
+        }.bind(this));
+
         for(let i = 0; courses.length > i; i++) {
             let id = courses[i].id;
             let row = this.createTableRow(this.app.data[id]);

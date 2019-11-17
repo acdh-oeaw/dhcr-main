@@ -4,8 +4,7 @@
 
 class FilterHelper {
 
-    constructor(app, filter) {
-        this.app = app;
+    constructor(filter) {
         this.filter = filter;
     }
 
@@ -153,18 +152,28 @@ class FilterHelper {
     }
 
     createPresenceTypeSelector() {
-        let list = $('<ul id="presence-type"></ul>');
-        let online = $('<li></li>').text('online').attr('data-value', 'true').addClass('option');
-        let presence = $('<li></li>').text('campus').attr('data-value', 'false').addClass('option');
-        let both = $('<li></li>').text('both').attr('data-value', 'null').addClass('option');
-        if(this.filter.selected.online === null) both.addClass('selected');
-        if(this.filter.selected.online === false) presence.addClass('selected');
-        if(this.filter.selected.online === true) online.addClass('selected');
-        list.append($('<li>Presence Type</li>').addClass('label'));
-        list.append(online);
-        list.append(presence);
-        list.append(both);
-        return list[0];
+        let options = [
+            {label: 'online', value: true},
+            {label: 'campus', value: false},
+            {label: 'both', value: null}
+        ];
+        return this.createRadioSelector('presence-type',
+            'Presence Type', options, 'online');
+    }
+
+    createRadioSelector(id, label, options, filterKey) {
+        let list = $('<ul class="radio-select"></ul>').attr('id', id)
+            .attr('data-filter-key', filterKey);
+        list.append($('<li></li>').addClass('label').html(label));
+        for(let i = 0; i < options.length; i++) {
+            let option = $('<li></li>').html(options[i].label)
+                .attr('data-value', options[i].value)
+                .addClass('option');
+            if(this.filter.selected[filterKey] === options[i].value)
+                option.addClass('selected');
+            list.append(option);
+        }
+        return list;
     }
 
     selectEvent() {
@@ -192,13 +201,14 @@ class FilterHelper {
         }.bind(this));
     }
 
-    presenceTypeEvent() {
-        $('#presence-type li.option:not(.selected)').on('click', function(e) {
-            $('#presence-type li.selected').removeClass('selected');
+    radioEvent() {
+        $('.radio-select li.option:not(.selected)').on('click', function(e) {
+            let filterKey = $(e.target).closest('.radio-select').attr('data-filter-key');
+            $('.radio-select li.selected').removeClass('selected');
             $(e.target).addClass('selected');
             let value = $(e.target).attr('data-value');
             if(value == 'null') value = null;
-            this.filter.selected.online = value;
+            this.filter.selected[filterKey] = value;
             window.location = BASE_URL + this.filter.createQuery();
         }.bind(this));
     }
@@ -206,6 +216,6 @@ class FilterHelper {
     addHandlers() {
         this.selectEvent();
         this.unselectEvent();
-        this.presenceTypeEvent();
+        this.radioEvent();
     }
 }
