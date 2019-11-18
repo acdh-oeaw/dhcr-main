@@ -18,7 +18,6 @@ class Hash {
 
     pushQuery(query) {
         if(history.pushState) {
-            //if(typeof query == 'string' && query.length > 0) history.replaceState(null, document.title, window.location.pathname);
             history.pushState(null, document.title, window.location.pathname + query);
         }else {
             window.location = BASE_URL + query;

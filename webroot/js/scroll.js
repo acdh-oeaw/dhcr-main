@@ -262,7 +262,7 @@ class Scrollable {
             overflowY: 'hidden',
             marginRight: 0,
             paddingRight: 0,
-            height: '100%',
+            height: '100%',     // height: auto - set to 100% in favour of loading animation
             webkitOverflowScrolling: 'none'
         });
 

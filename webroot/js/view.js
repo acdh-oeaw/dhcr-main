@@ -233,7 +233,6 @@ class View {
     }
 
     setLoader() {
-        console.log('loading');
         this.clearView();
         $(this.element).addClass('loading').text('loading...');
     }
