@@ -53,6 +53,7 @@ class Map {
 
         // markers is set as a lookup table to get a single course record by ID
         this.markers = {};
+        this.cluster;
         this.id = false;
         if(this.popups) this.addHandlers();
     }
@@ -71,6 +72,7 @@ class Map {
 
     setMarkers(courses) {
         this.markers = {};
+        if(this.map.hasLayer(this.cluster)) this.cluster.remove();
         this.cluster = new L.MarkerClusterGroup({
             spiderfyOnMaxZoom: true,
             disableClusteringAtZoom: this.maxZoom,
@@ -133,7 +135,7 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if(Object.entries(this.app.filter).length > 0 && !this.app.filter.isLocated() && this.popups) {
+        if(this.app.filter.isEmpty() && this.popups) {
             let zoom = this.map.getZoom();
             // locate to user location
             this.map.locate({setView: true, maxZoom: zoom});

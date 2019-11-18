@@ -135,7 +135,7 @@ class Filter {
         }
     }
 
-    getTypes() {
+    getTypes() {length
         this.types = {};
         for (let i = 0; types.length > i; i++) {
             if (types[i].course_count > 0)
@@ -144,14 +144,14 @@ class Filter {
     }
 
     createQuery() {
-        let retval = '';
+        let query = '';
         Object.keys(this.selected).forEach(function(category,index) {
             if(category == 'recent') return;    // recent is implicitly set TRUE in CoursesController
             let value = getValue(this.selected[category]);
             if(value !== null) {
-                if(retval == '') retval = '?';
-                else retval += '&';
-                retval += this.mapping[category] + '=' + getValue(this.selected[category]);
+                if(query == '') query = '?';
+                else query += '&';
+                query += this.mapping[category] + '=' + getValue(this.selected[category]);
             }
         }.bind(this));
 
@@ -168,7 +168,7 @@ class Filter {
             return null;
         }
 
-        return retval;
+        return query;
     }
 
     isLocated() {

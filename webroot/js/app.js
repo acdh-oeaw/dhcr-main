@@ -21,6 +21,10 @@ class App {
         this.layout = this.action = this.id = this.filter = null;
         this.mapApiKey = this.apiUrl = this.breakPoint = null;
 
+        // on pageload, courses need not to be loaded using ajax
+        this.pageload = true;
+        this.lastMobileScreen = 0;  // table
+
         if(typeof options == 'object')
             options = Object.assign(this.defaults(), options);
         else options = this.defaults();
@@ -47,7 +51,6 @@ class App {
         this.status = 'index';
         // load data
         if(this.action == 'index') {
-            this.view.setLoader();
             this.filter = new Filter(this);
             this.getCourses();
         }
@@ -74,6 +77,13 @@ class App {
             this.layout = 'mobile';
             $('.expansion-row td').attr('colspan', 4);
             this.slider.updateSize();
+            if(this.layout == 'mobile') {
+                if(this.status == 'view') {
+                    this.slider.setPosition('table');
+                    this.slider.hideControl();
+                }
+                if(this.status == 'index') this.slider.showControl();
+            }
         }
         this.updateSize();
         this.scrollable.updateSize();
@@ -86,6 +96,7 @@ class App {
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
         });
+
         if(this.layout == 'mobile') this.scrollFix();
     }
 
@@ -116,7 +127,8 @@ class App {
 
     getCourses() {
         // check for preset object served on pageload to speed up loading time
-        if(typeof courses != 'undefined' && this.filter.isEmpty()) {
+        if(this.pageload) {
+            this.pageload = false;
             if (courses.length > 0) {
                 this.data = {};
                 for (var i = 0; courses.length > i; i++) {
@@ -125,13 +137,15 @@ class App {
                 this.map.setMarkers(this.data);
                 this.setTable();
             }else{
-                this.handleError('No course matches your filter conditions.')
+                this.handleError('No course matches your filter conditions.');
             }
         }else{
             // load data using ajax
             this.view.setLoader();
+            let query = this.filter.createQuery();
+            query += (query.length > 0) ? '&recent' : '?recent';
             $.ajax({
-                url: this.apiUrl + 'courses/index' + this.filter.createQuery(),
+                url: this.apiUrl + 'courses/index' + query,
                 accept: 'application/json',
                 method: 'GET',
                 cache: true,
@@ -139,11 +153,18 @@ class App {
                 crossDomain: true
             }).done(function( data ) {
                 this.data = {};
-                for(var i = 0; data.length > i; i++) {
-                    this.data[data[i].id] = data[i];
+                if(data.length <= 0) {
+                    this.handleError('No course matches your filter conditions.');
+                }else{
+                    // global variable courses is available anyhow,
+                    // but _be_ sure to keep re-generation of the view in callback
+                    courses = data; // courses is required next to data to keep the order of entries
+                    for(var i = 0; data.length > i; i++) {
+                        this.data[data[i].id] = data[i];
+                    }
+                    this.map.setMarkers(this.data);
+                    this.setTable();
                 }
-                this.map.setMarkers(this.data);
-                this.setTable();
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 this.handleError('Error loading data');
             });
@@ -155,6 +176,10 @@ class App {
         this.view.createTable();
         this.scrollable.updateSize();
         this.status = 'index';
+        if(this.layout == 'mobile') {
+            this.slider.setPosition(this.lastMobileScreen);
+            this.slider.showControl();
+        }
     }
 
     setCourse(id) {
@@ -165,7 +190,9 @@ class App {
         this.scrollable.updateSize();
         this.status = 'view';
         if(this.layout == 'mobile') {
+            this.lastMobileScreen = this.slider.position;
             this.slider.setPosition('table');
+            this.slider.hideControl();
         }
     }
 

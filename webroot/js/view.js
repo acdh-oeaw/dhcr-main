@@ -32,6 +32,7 @@ class View {
             let id = $(e.target).attr('data-id');
             this.app.setCourse(id);
             this.app.map.openMarker(id);
+            // this differs from map show_view action on mobiles -> definition in Map.addHandlers
         }.bind(this));
         $(document).on('click', '#table .show_map', function(e) {
             let id = $(e.target).attr('data-id');
@@ -48,7 +49,7 @@ class View {
 
     createTable() {
         // check the global courses variable
-        if(typeof courses == 'undefined' || courses.length == 0) {
+        if(Object.keys(this.app.data) <= 0) {
             this.setErrorMessage('Your query returned no results.');
             return;
         }
@@ -79,7 +80,7 @@ class View {
             table.append(row);
         }
         $(this.element).append(table);
-        if(this.app.hash.fragment.length > 0 && !isNaN(this.app.hash.fragment)) {
+        if(this.app.hash.fragment && !isNaN(this.app.hash.fragment)) {
             let id = this.app.hash.fragment;
             if(this.openRow(id)) {
                 this.scrollToRow(id);
@@ -202,11 +203,11 @@ class View {
 
         el.append($('<hr />'));
 
-        $(this.element).empty();
+        this.clearView();
         $(this.element).append(el);
 
         this.app.scrollable.top();
-        this.app.hash.push(course.id);
+        //if(this.app.action == 'index') this.app.hash.push(course.id);
 
         // init mobile auxiliary map after adding it to document
         let map = new Map({
@@ -227,17 +228,19 @@ class View {
 
     setErrorMessage(msg) {
         msg = msg || 'Something went wrong';
-        $(this.element).empty().removeClass('loading');
+        this.clearView();
         $(this.element).addClass('error').text(msg);
     }
 
     setLoader() {
-        $(this.element).empty();
+        console.log('loading');
+        this.clearView();
         $(this.element).addClass('loading').text('loading...');
     }
 
     clearView() {
-        $(this.element).empty().removeClass('loading');
+        $(this.element).empty().removeClass('loading').removeClass('error');
+        this.app.scrollable.disable();
     }
 
     closeView() {

@@ -208,8 +208,11 @@ class FilterHelper {
             $(e.target).addClass('selected');
             let value = $(e.target).attr('data-value');
             if(value == 'null') value = null;
+            else if(value == 'false') value = false;
+            else if(value == 'true') value = true;
             this.filter.selected[filterKey] = value;
-            window.location = BASE_URL + this.filter.createQuery();
+            this.filter.app.hash.pushQuery(this.filter.createQuery());
+            this.filter.app.getCourses();
         }.bind(this));
     }
 
