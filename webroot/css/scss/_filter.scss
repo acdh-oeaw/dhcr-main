@@ -86,6 +86,10 @@
                 //min-width: 120px;
                 //max-width: 200px;
                 width: 180px;
+
+                optgroup {
+                    font-weight: bold;
+                }
             }
         }
         #selectors {
@@ -157,46 +161,70 @@
                 }
             }
         }
-        #presence-type {
-            list-style: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: nowrap;
-            margin: 0;
-            margin-bottom: 1rem;
-            border: 2px solid $blue;
-            border-radius: 14px;
-            overflow: hidden;
-            padding: 0;
-            box-sizing: border-box;
-            //width: 184px;
-            width: 280px;
-            li {
-                font-size: 12px;
-                font-weight: bold;
-                color: $blue;
-                padding: 3px 8px 2px;
-                margin: 0;
+    }
+}
+
+
+.radio-selector {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    margin: 0;
+    margin-bottom: 1rem;
+    border: 2px solid $blue;
+    border-radius: 14px;
+    overflow: hidden;
+    padding: 0;
+    box-sizing: border-box;
+    //width: 184px;
+    //width: 280px;
+    width: 100%;
+    li {
+        font-size: 12px;
+        font-weight: bold;
+        color: $blue;
+        padding: 3px 8px 2px;
+        margin: 0;
+        flex: 1 1 auto;
+    }
+    li.label {
+        padding-left: 15px;
+        flex: 0 0 130px;
+        @include respond-to(x-small) {
+            flex: 0 0 110px;
+        }
+    }
+    li.option {
+        cursor: pointer;
+        padding: 3px 8px 2px;
+        text-align: center;
+        @include respond-to(x-small) {
+            padding: 3px 5px 2px;
+        }
+        &:last-child {
+            padding-right: 12px;
+        }
+        &.selected {
+            background-color: $blue;
+            color: white;
+            cursor: default;
+        }
+        &:hover {
+            background-color: $blue;
+            color: white;
+        }
+        span.mobile {
+            display: none;
+            @media only screen and (max-width: 450px) {
+                display: inline;
             }
-            li.label {
-                padding-left: 15px;
-            }
-            li.option {
-                cursor: pointer;
-                padding: 3px 8px 2px;
-                &:last-child {
-                    padding-right: 15px;
-                }
-                &.selected {
-                    background-color: $blue;
-                    color: white;
-                    cursor: default;
-                }
-                &:hover {
-                    background-color: $blue;
-                    color: white;
-                }
+        }
+        span.screen {
+            display: inline;
+            @media only screen and (max-width: 450px) {
+                display: none;
             }
         }
     }

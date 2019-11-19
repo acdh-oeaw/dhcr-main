@@ -45,6 +45,10 @@ class View {
             e.preventDefault();
             this.closeView();
         }.bind(this));
+
+        $(document).on('click', 'th', function(e) {
+            this.app.filter.helper.createSortModal();
+        }.bind(this));
     }
 
     createTable() {
@@ -69,10 +73,6 @@ class View {
                 $('<th class="type">Type <span></span></th>')
             )
         );
-
-        $(document).on('click', 'th', function(e) {
-            new Sort(this.app, 'name', 'Name');
-        }.bind(this));
 
         for(let i = 0; courses.length > i; i++) {
             let id = courses[i].id;

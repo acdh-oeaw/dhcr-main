@@ -138,12 +138,12 @@ class ViewHelper {
 
     static createExpansionRow(course, colspan) {
         let content = $('<td></td>').attr('colspan', colspan);
-        let share = Sharing.createSharingButton('blue small', course);
+        let share = Sharing.createSharingButton('blue x-small', course);
         let onMap = $('<button></button>').text('Show on Map')
-            .addClass('show_map small')
+            .addClass('show_map x-small blue')
             .attr('data-id', course.id);
         let details = $('<a></a>').text('Show Details')
-            .addClass('show_view button small')
+            .addClass('show_view button x-small blue')
             .attr('data-id', course.id)
             .attr('href', BASE_URL + 'courses/view/' + course.id);
         content.append(details, share, onMap);

@@ -153,10 +153,45 @@ button, .button {
         margin-left: 5px;
     }
     &.x-small {
-        height: 23px;
+        height: 25px;
         border-radius: 12px;
-        font-size: 12px;
-        padding: 2px 15px 0;
+        font-size: 17px;
+        padding: 0 15px;
+        border: 2px solid white;
+        &.show_view {
+            &::after {
+                width: 6px;
+                height: 6px;
+                display: inline-block;
+                position: relative;
+                left: 0;
+                bottom: 2px;
+                border: 2px solid $blue;
+                border-top: none;
+                border-left: none;
+                content: '';
+                transform: rotate(-45deg);
+                margin-left: 5px;
+            }
+        }
+        &.back {
+            &::before {
+                width: 6px;
+                height: 6px;
+                bottom: 2px;
+                border: 2px solid $blue;
+                border-top: none;
+                border-left: none;
+            }
+        }
+        &.blue {
+            border: 2px solid $blue;
+            &.show_view {
+                &::after {
+                    border-color: white;
+                }
+            }
+        }
         &:hover {
             transform: scale(1.05);
         }
@@ -175,7 +210,7 @@ button, .button {
     padding-top: 7px;
 }
 .button.x-small {
-    padding-top: 3px;
+    padding-top: 1px;
 }
 
 hr {

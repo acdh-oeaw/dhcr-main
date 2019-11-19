@@ -13,7 +13,6 @@
     }
 
     table {
-        white-space: normal;
         font-size: 11px;
         @include respond-to(handhelds) {
             font-size: 12px;
@@ -27,6 +26,8 @@
         @media only screen and (min-width: 1500px) {
             font-size: 14px;
         }
+        white-space: normal;
+        border-collapse: collapse;
         table-layout: fixed;
         width: 100%;
         margin-right: 5px;
@@ -46,7 +47,9 @@
             &.course-row {
                 cursor: pointer;
                 &:hover {
-                    background: $light-gray;
+                    color: $blue;
+                    font-weight: bold;
+                    font-size: 0.98em;
                 }
             }
             &.expansion-row {
@@ -61,10 +64,20 @@
                         }
                     }
                 }
+                td {
+                    padding: 1.5em 0 2em;
+                }
             }
         }
         .expanded, .expanded + .expansion-row {
-            background-color: #F2F2F2;
+            color: $blue;
+            font-weight: bold;
+            font-size: 0.98em;
+        }
+        .expanded {
+            td {
+                border-bottom: none;
+            }
         }
         td {
             padding: 4px 8px 4px 2px;

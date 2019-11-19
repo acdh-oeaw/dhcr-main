@@ -155,10 +155,35 @@ button, .button {
     margin-right: 0;
     margin-left: 5px; }
   button.x-small, .button.x-small {
-    height: 23px;
+    height: 25px;
     border-radius: 12px;
-    font-size: 12px;
-    padding: 2px 15px 0; }
+    font-size: 17px;
+    padding: 0 15px;
+    border: 2px solid white; }
+    button.x-small.show_view::after, .button.x-small.show_view::after {
+      width: 6px;
+      height: 6px;
+      display: inline-block;
+      position: relative;
+      left: 0;
+      bottom: 2px;
+      border: 2px solid #1E6BA3;
+      border-top: none;
+      border-left: none;
+      content: '';
+      transform: rotate(-45deg);
+      margin-left: 5px; }
+    button.x-small.back::before, .button.x-small.back::before {
+      width: 6px;
+      height: 6px;
+      bottom: 2px;
+      border: 2px solid #1E6BA3;
+      border-top: none;
+      border-left: none; }
+    button.x-small.blue, .button.x-small.blue {
+      border: 2px solid #1E6BA3; }
+      button.x-small.blue.show_view::after, .button.x-small.blue.show_view::after {
+        border-color: white; }
     button.x-small:hover, .button.x-small:hover {
       transform: scale(1.05); }
   button.small, .button.small {
@@ -173,7 +198,7 @@ button, .button {
   padding-top: 7px; }
 
 .button.x-small {
-  padding-top: 3px; }
+  padding-top: 1px; }
 
 hr {
   height: 2px;

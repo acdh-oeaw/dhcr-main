@@ -48,7 +48,7 @@ class Filter {
         // evaluate query parameters to fill this.selected
         this.evaluateQuery();
 
-        this.helper = new FilterHelper(this);
+        this.helper = new FilterHelper(this.app, this);
     }
 
     evaluateQuery() {

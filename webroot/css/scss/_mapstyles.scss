@@ -85,32 +85,6 @@
                     display: none;
                 }
             }
-            &.show_view {
-                &::after {
-                    width: 5px;
-                    height: 5px;
-                    display: inline-block;
-                    position: relative;
-                    left: 0;
-                    bottom: 1px;
-                    border: 2px solid $blue;
-                    border-top: none;
-                    border-left: none;
-                    content: '';
-                    transform: rotate(-45deg);
-                    margin-left: 5px;
-                }
-            }
-            &.back {
-                &::before {
-                    width: 5px;
-                    height: 5px;
-                    bottom: 1px;
-                    border: 2px solid $blue;
-                    border-top: none;
-                    border-left: none;
-                }
-            }
         }
         p {
             color: #fff;

@@ -19,7 +19,7 @@ class Sharing {
     }
 
     static createSharingDialog(course) {
-        let modal = new Modal('Share this course', false, 'sharing');
+        let modal = new Modal('Share this course', 'sharing');
         let mail = Sharing.createMail(course);
         let twitter = Sharing.createTwitter(course);
         let fb = Sharing.createFaceBook(course);

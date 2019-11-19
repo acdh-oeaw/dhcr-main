@@ -84,7 +84,7 @@ use Cake\Routing\Router;
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
         
         <?= $this->Html->script(['scroll','hash','slide','sharing','map','modal',
-            'sort','filter','filter_helper','view','view_helper','app']) ?>
+            'filter','filter_helper','view','view_helper','app']) ?>
         
         <?= $this->element('script') ?>
     
