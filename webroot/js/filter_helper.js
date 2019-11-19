@@ -19,7 +19,9 @@ class FilterHelper {
         }
 
         let selection = $('<div id="selection"></div>');
+
         selection.append(this.createPresenceTypeSelector());
+        selection.append(this.createOccurrenceSelector());
 
         // get all non-empty selections first
         if(!this.filter.isEmpty('countries')) {
@@ -201,7 +203,6 @@ class FilterHelper {
                 this.filter.selected[category][id] = this.filter[category][id].name;
                 delete this.filter[category][id]
             }
-            //window.location = BASE_URL + this.filter.createQuery();
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
         }.bind(this));
@@ -215,7 +216,6 @@ class FilterHelper {
                 this.filter[category][id] = this.filter.selected[category][id];
                 delete this.filter.selected[category][id];
             }
-            //window.location = BASE_URL + this.filter.createQuery();
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
         }.bind(this));
@@ -232,9 +232,6 @@ class FilterHelper {
             else if(value == 'false') value = false;
             else if(value == 'true') value = true;
             this.filter.selected[filterKey] = value;
-
-            selector.replaceWith(this.createPresenceTypeSelector());
-
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
         }.bind(this));
@@ -247,7 +244,42 @@ class FilterHelper {
     }
 
     createFilterModal() {
-        
+        let modal = new Modal('Filter Options', 'filter');
+
+        if(!this.filter.isEmpty())
+            modal.add($('<a href="' + BASE_URL + '" id="reset">Clear Filters</a>').addClass('blue button'));
+
+        modal.add(this.createPresenceTypeSelector());
+        modal.add(this.createOccurrenceSelector());
+
+        modal.add('<hr />');
+
+        if(this.filter.isEmpty('institution')) {
+            if(this.filter.isEmpty('city')) {
+                modal.add(this.createSelector('country'));
+            }
+            modal.add(this.createSelector('city'));
+        }
+        modal.add(this.createSelector('institution'));
+
+        modal.add('<hr />');
+
+        modal.add(this.createSelector('disciplines'));
+        //    selection.append(this.createSelection('disciplines'));
+
+        modal.add(this.createSelector('techniques'));
+        //    selection.append(this.createSelection('techniques'));
+
+        modal.add(this.createSelector('objects'));
+        //    selection.append(this.createSelection('objects'));
+
+        modal.add(this.createSelector('languages'));
+        //    selection.append(this.createSelection('languages'));
+
+        modal.add(this.createSelector('types'));
+        //    selection.append(this.createSelection('types'));
+
+        modal.create();
     }
 
     createSortModal() {
@@ -257,24 +289,24 @@ class FilterHelper {
             {label: '<span class="mobile">-</span><span class="screen">None</span>', value: 'null'}
         ];
 
-        this.modal = new Modal('SortOptions','sort');
-        this.modal.add($('<p></p>').text('Default course order is most recent courses first.'));
+        let modal = new Modal('Sort Options','sort');
+        modal.add($('<p></p>').text('Default course order is most recent courses first.'));
 
-        this.modal.add(this.createRadioSelector('sort-name',
+        modal.add(this.createRadioSelector('sort-name',
             'Course Name', options, 'sort'));
         if(this.app.layout == 'screen') {
-            this.modal.add(this.createRadioSelector('sort-country-name',
+            modal.add(this.createRadioSelector('sort-country-name',
                 'Country', options, 'sort'));
-            this.modal.add(this.createRadioSelector('sort-city-name',
+            modal.add(this.createRadioSelector('sort-city-name',
                 'City', options, 'sort'));
         }
-        this.modal.add(this.createRadioSelector('sort-university-name',
+        modal.add(this.createRadioSelector('sort-university-name',
             'University', options, 'sort'));
-        this.modal.add(this.createRadioSelector('sort-date',
+        modal.add(this.createRadioSelector('sort-date',
             'Start Date', options, 'sort'));
-        this.modal.add(this.createRadioSelector('sort-type',
+        modal.add(this.createRadioSelector('sort-type',
             'Education', options, 'sort'));
 
-        this.modal.create();
+        modal.create();
     }
 }
