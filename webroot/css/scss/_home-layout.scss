@@ -31,6 +31,15 @@ body.index, body.view {
 
         @import "view";
 
+
+        .loading {
+            // create loader gif as background
+            height: 100%;
+            width: 100%;
+            font-size: 0;
+            background: url("../img/loading.gif") center/contain no-repeat;
+        }
+
         @include respond-to(screens){
             min-width: $break_point;
 

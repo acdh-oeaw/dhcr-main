@@ -4,13 +4,6 @@
     .error {
         height: 100%;
     }
-    .loading {
-        // create loader gif as background
-        height: 100%;
-        width: 100%;
-        font-size: 0;
-        background: url("../img/loading.gif") center/contain no-repeat;
-    }
 
     table {
         font-size: 11px;
@@ -111,25 +104,33 @@
             color: $blue;
             margin-left: 5px;
             white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.3s;
+            transform-origin: left center;
+            &:hover {
+                transform: scale(1.05);
+            }
             &:last-child {
                 margin-left: 0;
             }
-            span {
+            .desc,.asc {
                 width: 10px;
                 height: 10px;
                 display: inline-block;
                 position: relative;
                 left: 5px;
-                bottom: 5px;
-                transform: rotate(45deg);
+                bottom: 11px;
+                transform: rotate(-135deg);
                 border: 2px solid $blue;
                 border-top: none;
                 border-left: none;
-                cursor: pointer;
-                &:hover {
-                    transform: rotate(-135deg);
-                    bottom: 1px;
-                }
+                line-height: 0;
+                font-size: 0;
+                color: transparent;
+            }
+            .asc {
+                transform: rotate(45deg);
+                bottom: 14px;
             }
         }
     }

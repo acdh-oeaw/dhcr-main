@@ -503,6 +503,11 @@ body.index, body.view {
               grid-column-gap: 5%; } }
           body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
             grid-column: col-middle 1 / col-end -1; }
+    body.index #container .loading, body.view #container .loading {
+      height: 100%;
+      width: 100%;
+      font-size: 0;
+      background: url("../img/loading.gif") center/contain no-repeat; }
     @media only screen and (min-width: 751px) {
       body.index #container, body.view #container {
         min-width: 750px; }
@@ -587,11 +592,6 @@ body.index, body.view {
           z-index: 10000; } }
     body.index #container #table .error, body.view #container #table .error {
       height: 100%; }
-    body.index #container #table .loading, body.view #container #table .loading {
-      height: 100%;
-      width: 100%;
-      font-size: 0;
-      background: url("../img/loading.gif") center/contain no-repeat; }
     body.index #container #table table, body.view #container #table table {
       font-size: 11px;
       white-space: normal;
@@ -655,7 +655,10 @@ body.index, body.view {
         text-align: left;
         color: #1E6BA3;
         margin-left: 5px;
-        white-space: nowrap; }
+        white-space: nowrap;
+        cursor: pointer;
+        transition: all 0.3s;
+        transform-origin: left center; }
         body.index #container #table table th.name, body.view #container #table table th.name {
           width: 25%; }
         body.index #container #table table th.university, body.view #container #table table th.university {
@@ -675,23 +678,27 @@ body.index, body.view {
             width: 20%; }
           body.index #container #table table th.type, body.view #container #table table th.type {
             width: 25%; } }
+        body.index #container #table table th:hover, body.view #container #table table th:hover {
+          transform: scale(1.05); }
         body.index #container #table table th:last-child, body.view #container #table table th:last-child {
           margin-left: 0; }
-        body.index #container #table table th span, body.view #container #table table th span {
+        body.index #container #table table th .desc, body.index #container #table table th .asc, body.view #container #table table th .desc, body.view #container #table table th .asc {
           width: 10px;
           height: 10px;
           display: inline-block;
           position: relative;
           left: 5px;
-          bottom: 5px;
-          transform: rotate(45deg);
+          bottom: 11px;
+          transform: rotate(-135deg);
           border: 2px solid #1E6BA3;
           border-top: none;
           border-left: none;
-          cursor: pointer; }
-          body.index #container #table table th span:hover, body.view #container #table table th span:hover {
-            transform: rotate(-135deg);
-            bottom: 1px; }
+          line-height: 0;
+          font-size: 0;
+          color: transparent; }
+        body.index #container #table table th .asc, body.view #container #table table th .asc {
+          transform: rotate(45deg);
+          bottom: 14px; }
 
 /* MarkerCluster.css - Spider */
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {

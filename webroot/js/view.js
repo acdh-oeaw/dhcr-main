@@ -64,15 +64,22 @@ class View {
 
         // create table
         let table = $('<table></table>');
-        table.append(
-            $('<tr></tr>').append(
-                $('<th class="name">Name <span></span></th>'),
-                $('<th class="university">University <span></span></th>'),
-                $('<th class="location">Location <span></span></th>'),
-                $('<th class="period">Date <span></span></th>'),
-                $('<th class="type">Type <span></span></th>')
-            )
-        );
+        let headrow = $('<tr></tr>');
+        table.append(headrow);
+
+
+        let name = $('<th class="name"></th>');
+        name.html('Name' + this.app.filter.helper.getSortIndicator('Courses.name'));
+        let uni = $('<th class="university"></th>');
+        uni.html('University' + this.app.filter.helper.getSortIndicator('Institutions.name'));
+        let loc = $('<th class="location"></th>');
+        loc.html('Location' + this.app.filter.helper.getSortIndicator('Countries.name'));
+        let date = $('<th class="period"></th>');
+        date.html('Date' + this.app.filter.helper.getSortIndicator('Courses.start_date'));
+        let type = $('<th class="type"></th>');
+        type.html('Type' + this.app.filter.helper.getSortIndicator('CourseTypes.name'));
+
+        headrow.append(name,uni,loc,date,type);
 
         for(let i = 0; courses.length > i; i++) {
             let id = courses[i].id;

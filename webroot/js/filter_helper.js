@@ -160,7 +160,7 @@ class FilterHelper {
             {label: 'campus', value: false},
             {label: 'both', value: 'null'}
         ];
-        return this.createRadioSelector('presence-type',
+        return this.createRadioSelector('filter', 'presence-type',
             'Presence Type', options, 'online');
     }
 
@@ -170,13 +170,23 @@ class FilterHelper {
             {label: 'one-off', value: false},
             {label: 'both', value: 'null'}
         ];
-        return this.createRadioSelector('recurring',
+        return this.createRadioSelector('filter', 'recurring',
             'Recurring', options, 'recurring');
     }
 
-    createRadioSelector(id, label, options, filterKey) {
+    createRadioSelector(classname, id, label, options, filterKey, selectFunction) {
+        classname = (classname !== false)
+            ? (typeof classname == 'string' && classname.length > 0)
+                ? classname + ' radio-selector' : 'radio-selector'
+            : '';
+        selectFunction = selectFunction || function(filterKey, value) {
+            return ((this.filter.selected[filterKey] === value)
+                || ((typeof this.filter.selected[filterKey] == 'undefined'
+                    || this.filter.selected[filterKey] == null) && value === 'null'))
+        }.bind(this);
+
         let list = $('<ul></ul>').attr('data-filter-key', filterKey)
-            .attr('id', id).addClass('radio-selector');
+            .attr('id', id).addClass(classname);
         list.append($('<li></li>').addClass('label').html(label));
         for(let i = 0; i < options.length; i++) {
             let value = options[i].value;
@@ -184,9 +194,7 @@ class FilterHelper {
             let option = $('<li></li>').html(options[i].label)
                 .attr('data-value', value)
                 .addClass('option');
-            if((this.filter.selected[filterKey] === options[i].value)
-                || ((typeof this.filter.selected[filterKey] == 'undefined'
-                    || this.filter.selected[filterKey] == null) && value === 'null'))
+            if(selectFunction(filterKey, value))
                 option.addClass('selected');
 
             list.append(option);
@@ -221,26 +229,58 @@ class FilterHelper {
         }.bind(this));
     }
 
-    radioEvent() {
-        $('.radio-selector li.option:not(.selected)').on('click', function(e) {
+    radioFilterEvent() {
+        $('.radio-selector.filter li.option:not(.selected)').on('click', function(e) {
             let selector = $(e.target).closest('.radio-selector');
+            let target = $(e.target).closest('li.option');
             let filterKey = selector.attr('data-filter-key');
-            $('.radio-selector li.selected').removeClass('selected');
-            $(e.target).addClass('selected');
-            let value = $(e.target).attr('data-value');
-            if(value == 'null') value = null;
-            else if(value == 'false') value = false;
-            else if(value == 'true') value = true;
+            selector.find('li.selected').removeClass('selected');
+            target.addClass('selected');
+            let value = FilterHelper.parseValue(target.attr('data-value'));
             this.filter.selected[filterKey] = value;
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
         }.bind(this));
     }
 
+    radioSortEvent() {
+        $(document).on('click', '.radio-selector.sort li.option:not(.selected)',function(e) {
+            let selector = $(e.target).closest('.radio-selector');
+            let target = $(e.target).closest('li.option');
+            let filterKey = selector.attr('data-filter-key');
+            let value = target.attr('data-value');
+            selector.find('li.selected').removeClass('selected');
+            target.addClass('selected');
+            this.filter.setSorter(value, filterKey);
+            this.filter.app.hash.pushQuery(this.filter.createQuery());
+            this.filter.app.getCourses();
+        }.bind(this));
+    }
+
+    getSortIndicator(filterKey) {
+        let indicator = '';
+        if(typeof this.filter.sort[filterKey] !== 'undefined') {
+            let index = this.filter.sort[filterKey];
+            if(this.filter.selected.sort[index] == filterKey + ':asc')
+                indicator = ' <span class="asc">ascending</span>';
+            if(this.filter.selected.sort[index] == filterKey + ':desc')
+                indicator = ' <span class="desc">descending</span>';
+        }
+        return indicator;
+    }
+
+    static parseValue(value) {
+        if(value == 'null') value = null;
+        else if(value == 'false') value = false;
+        else if(value == 'true') value = true;
+        return value;
+    }
+
     addHandlers() {
         this.selectEvent();
         this.unselectEvent();
-        this.radioEvent();
+        this.radioFilterEvent();
+        this.radioSortEvent();
     }
 
     createFilterModal() {
@@ -249,35 +289,38 @@ class FilterHelper {
         if(!this.filter.isEmpty())
             modal.add($('<a href="' + BASE_URL + '" id="reset">Clear Filters</a>').addClass('blue button'));
 
-        modal.add(this.createPresenceTypeSelector());
-        modal.add(this.createOccurrenceSelector());
-
-        modal.add('<hr />');
-
         if(this.filter.isEmpty('institution')) {
             if(this.filter.isEmpty('city')) {
                 modal.add(this.createSelector('country'));
+                modal.add(this.createSelection('country'));
             }
             modal.add(this.createSelector('city'));
+            modal.add(this.createSelection('city'));
         }
         modal.add(this.createSelector('institution'));
+        modal.add(this.createSelection('institution'));
 
         modal.add('<hr />');
 
         modal.add(this.createSelector('disciplines'));
-        //    selection.append(this.createSelection('disciplines'));
+        modal.add(this.createSelection('disciplines'));
 
         modal.add(this.createSelector('techniques'));
-        //    selection.append(this.createSelection('techniques'));
+        modal.add(this.createSelection('techniques'));
 
         modal.add(this.createSelector('objects'));
-        //    selection.append(this.createSelection('objects'));
+        modal.add(this.createSelection('objects'));
 
         modal.add(this.createSelector('languages'));
-        //    selection.append(this.createSelection('languages'));
+        modal.add(this.createSelection('languages'));
 
         modal.add(this.createSelector('types'));
-        //    selection.append(this.createSelection('types'));
+        modal.add(this.createSelection('types'));
+
+        modal.add('<hr />');
+
+        modal.add(this.createPresenceTypeSelector());
+        modal.add(this.createOccurrenceSelector());
 
         modal.create();
     }
@@ -289,23 +332,47 @@ class FilterHelper {
             {label: '<span class="mobile">-</span><span class="screen">None</span>', value: 'null'}
         ];
 
+        let selectFunction = function(filterKey, value) {
+            let index = this.filter.sort[filterKey];
+            if(typeof index == 'undefined' && value == 'null') return true;
+            return this.filter.selected.sort[index] == filterKey + ':' + value;
+        }.bind(this);
+
         let modal = new Modal('Sort Options','sort');
         modal.add($('<p></p>').text('Default course order is most recent courses first.'));
 
-        modal.add(this.createRadioSelector('sort-name',
-            'Course Name', options, 'sort'));
-        if(this.app.layout == 'screen') {
-            modal.add(this.createRadioSelector('sort-country-name',
-                'Country', options, 'sort'));
-            modal.add(this.createRadioSelector('sort-city-name',
-                'City', options, 'sort'));
+        let selectors = [
+            {id: 'sort-course-name', label: 'Course Name', filterKey: 'Courses.name'},
+            {id: 'sort-country-name', label: 'Country', filterKey: 'Countries.name'},
+            {id: 'sort-university-name', label: 'University', filterKey: 'Institutions.name'},
+            //{id: 'sort-date', label: 'Start Date', filterKey: 'Courses.start_date'},
+            {id: 'sort-education', label: 'Education', filterKey: 'CourseTypes.name'},
+        ];
+
+        // show selected options first
+        if(this.filter.selected.sort.length > 0) {
+            for(let i = 0; i < this.filter.selected.sort.length; i++) {
+                let filterKey = this.filter.selected.sort[i].split(':')[0];
+                selectors = selectors.filter(function(selector) {
+                    if(selector.filterKey === filterKey) {
+                        if(this.app.layout == 'screen'
+                            || (selector.filterKey != 'Countries.name' && selector.filterKey != 'Cities.name'))
+                            modal.add(this.createRadioSelector('sort', selector.id,
+                            selector.label, options, selector.filterKey, selectFunction));
+                        return false;
+                    }
+                    return true;
+                }.bind(this));
+            }
         }
-        modal.add(this.createRadioSelector('sort-university-name',
-            'University', options, 'sort'));
-        modal.add(this.createRadioSelector('sort-date',
-            'Start Date', options, 'sort'));
-        modal.add(this.createRadioSelector('sort-type',
-            'Education', options, 'sort'));
+
+        for(let i = 0; selectors.length > i; i++) {
+            let selector = selectors[i];
+            if(this.app.layout == 'screen'
+                || (selector.filterKey != 'Countries.name' && selector.filterKey != 'Cities.name'))
+                modal.add(this.createRadioSelector('sort', selector.id,
+                selector.label, options, selector.filterKey, selectFunction));
+        }
 
         modal.create();
     }

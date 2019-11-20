@@ -27,6 +27,7 @@ class Hash {
     // removes fragment and query from URL string in browser address bar
     remove() {
         // https://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-url-with-javascript-without-page-r/5298684#5298684
+        this.fragment = null;
         let scrollV, scrollH, loc = window.location;
         if (history.pushState) {
             history.pushState(null, document.title, loc.pathname);

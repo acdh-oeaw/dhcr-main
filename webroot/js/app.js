@@ -140,10 +140,13 @@ class App {
                 this.handleError('No course matches your filter conditions.');
             }
         }else{
-            // load data using ajax
-            this.view.setLoader();
+            // query massaging
+            this.filter.selected.sort.push('Courses.updated:desc');
             let query = this.filter.createQuery();
             query += (query.length > 0) ? '&recent' : '?recent';
+            this.filter.selected.sort.pop()
+            // load data using ajax
+            this.view.setLoader();
             $.ajax({
                 url: this.apiUrl + 'courses/index' + query,
                 accept: 'application/json',
