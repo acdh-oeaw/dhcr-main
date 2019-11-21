@@ -424,10 +424,11 @@ body.info {
   font-family: metropolis, sans-serif;
   font-weight: bold;
   font-size: 25px;
+  height: 60px;
   text-transform: none;
   cursor: pointer;
   position: relative;
-  transition: all 0.2s; }
+  transition: all 0.3s; }
   @media only screen and (max-width: 750px) {
     #accordeon .accordeon-item > h2 {
       font-size: 22px; } }
@@ -440,7 +441,7 @@ body.info {
     display: inline-block;
     position: absolute;
     right: 0;
-    bottom: 0.9em;
+    top: 20px;
     transform: rotate(45deg);
     border: 4px solid #1E6BA3;
     border-radius: 1px;
@@ -449,12 +450,16 @@ body.info {
     content: '';
     margin-right: 5px; }
   #accordeon .accordeon-item > h2:hover {
-    color: #6d7278; }
+    font-size: 26px; }
+    @media only screen and (max-width: 750px) {
+      #accordeon .accordeon-item > h2:hover {
+        font-size: 23px; } }
+    @media only screen and (max-width: 400px) {
+      #accordeon .accordeon-item > h2:hover {
+        font-size: 26px; } }
     #accordeon .accordeon-item > h2:hover::after {
-      border-color: #6d7278;
-      transform: scale(1.2) rotate(45deg);
-      transform-origin: 100% center;
-      bottom: 0.55em; }
+      width: 0.55em;
+      height: 0.55em; }
 #accordeon .accordeon-item:not(.open) .item-content {
   max-height: 0;
   transition: max-height 0.5s ease-out;
@@ -535,17 +540,22 @@ body.info {
     #accordeon .accordeon-item .item-content#imprint-content h3 {
       font-weight: normal; } }
 #accordeon .accordeon-item .item-content#imprint-content a {
-  color: #1E6BA3; }
+  color: #1E6BA3;
+  text-decoration: none; }
+  #accordeon .accordeon-item .item-content#imprint-content a:hover {
+    text-decoration: underline; }
 #accordeon .accordeon-item .item-content p {
   color: #6d7278; }
 #accordeon .accordeon-item .item-content hr {
   margin: 2em 0;
   background-color: #d8d8d8; }
 #accordeon .accordeon-item .item-content a:not(.button) {
-  color: #6d7278;
-  text-decoration: underline;
-  font-size: inherit; }
+  color: #1E6BA3;
+  text-decoration: none;
+  font-size: inherit;
+  font-weight: bold; }
   #accordeon .accordeon-item .item-content a:not(.button):hover {
+    text-decoration: underline;
     color: #1E6BA3; }
 #accordeon .accordeon-item .item-content .css-columns {
   column-count: 2;

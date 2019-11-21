@@ -195,24 +195,25 @@ class View {
 
         el.append($('<hr />'));
 
-        helper.createTermData('Country', course.country.name).createGridItem();
-        helper.createTermData('City', course.city.name).createGridItem();
+        helper.createTermData('Country', course, 'country.name').createGridItem();
+        helper.createTermData('City', course, 'city.name').createGridItem();
 
-        helper.createTermData('University', course.institution.name).createGridItem();
-        helper.createTermData('Department', course.department).createGridItem();
+        helper.createTermData('University', course, 'institution.name').createGridItem();
+        helper.createTermData('Department', course, 'department').createGridItem();
 
-        helper.createTermData('Lecturer', course.contact_name).createGridItem();
-        helper.createTermData('Credits (ECTS)', course.ects).createGridItem();
+        helper.createTermData('Lecturer', course, 'contact_name').createGridItem();
+        helper.createTermData('Credits (ECTS)', course, 'ects').createGridItem();
 
-        helper.createTermData('Language', course.language.name).createGridItem();
-        if(course.online) helper.createTermData('Online Course', 'yes').createGridItem();
-
-        helper.createTermData('Record Id', course.id).createGridItem();
+        helper.createTermData('Language', course, 'language.name').createGridItem();
+        helper.createTermData('Presence', course, 'online_course').createGridItem();
 
         if(course.info_url.length > 0 && course.info_url != 'null') {
-            let link = ViewHelper.createLink(course.info_url);
-            helper.createTermData('Source URL', link).createGridItem('single-col');
+            helper.createTermData('Source URL', course, 'info_url').createGridItem('single-col');
         }
+
+        helper.createTermData('Record Id', course, 'id').createGridItem();
+        helper.createTermData('Last Revised', course, 'updated').createGridItem();
+
         el.append($(helper.createGridContainer().result));
 
         // locationMap is a second map only shown on mobile devices

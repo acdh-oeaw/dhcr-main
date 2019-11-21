@@ -57,8 +57,8 @@ class App {
             this.getCourses();
         }
         if(this.action == 'view') {
-            this.getCourse();
             this.status = 'view';
+            this.getCourse();
             this.hash.remove();
         }
 

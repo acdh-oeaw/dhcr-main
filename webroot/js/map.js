@@ -142,13 +142,15 @@ class Map {
 
         this.map.addLayer(this.cluster);
         this.fitBounds();
-        if(this.app.filter.isEmpty() && this.popups) {
-            let zoom = this.map.getZoom();
-            // locate to user location
-            this.map.locate({setView: true, maxZoom: zoom});
-            this.map.on('locationfound', function() {
-                this.map.stopLocate();
-            }.bind(this));
+        if(this.app.status == 'index') {
+            if(this.app.filter.isEmpty()) {
+                let zoom = this.map.getZoom();
+                // locate to user location
+                this.map.locate({setView: true, maxZoom: zoom});
+                this.map.on('locationfound', function () {
+                    this.map.stopLocate();
+                }.bind(this));
+            }
         }
     }
 

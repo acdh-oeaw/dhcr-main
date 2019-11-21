@@ -4,8 +4,10 @@
 
 class ViewHelper {
 
-    static months() {
-        return ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+    static months(i) {
+        let months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
+        if(typeof i != "undefined" && i >= 0 && i <= 11) return months[i];
+        return months;
     }
 
     constructor(result = '', collection = []) {
@@ -33,11 +35,9 @@ class ViewHelper {
         text = text || href;
         if(text == href && text.length > 60)
             text = text.substr(0, 60) + '...';
-        let attributes = 'href="' + href + '"';
-        if(external) attributes += ' target="_blank"';
-        let result = '<a ' + attributes + '>';
-        result += text + '</a>';
-        return result;
+        let result = $('<a></a>').attr('href', href).html(text);
+        if(external) result.attr('target', '_blank');
+        return result[0];
     }
 
     createLink(href, text, external) {
@@ -46,17 +46,42 @@ class ViewHelper {
     }
 
 
-    static createTermData(term, data) {
+    static createTermData(term, data, key) {
         let empty = '-';
-        data = data || empty;
-        if(typeof data == 'string' && data.match(/^null$|^nan$/i)) data = empty;
+        let value = ViewHelper.getValue(data, key);
+        if(value === false) value = empty;
+        if(key == 'updated') {
+            let date = new Date(data.updated);
+            value = date.getFullYear() + ', ' + ViewHelper.months(date.getMonth()) + ' ' + date.getDate() + '.'
+        }
+        if(key == 'contact_name') {
+            let name = ViewHelper.getValue(data, 'contact_name');
+            let mail = ViewHelper.getValue(data, 'contact_mail');
+            if(name !== false && mail !== false)
+                value = ViewHelper.createLink('mailto:' + mail, name);
+            if(name !== false) value = name;
+            if(mail !== false) value = mail;
+        }
+        if(key == 'info_url')
+            value = ViewHelper.createLink(data.info_url);
+        if(key == 'online_course')
+            value = (data.online_course) ? 'online' : 'campus';
         let result = '<p class="term">' + term + '</p>';
-        result += '<p class="data">' + data + '</p>';
+        result += '<p class="data">' + value + '</p>';
         return result;
     }
 
-    createTermData(term, data) {
-        this._result = ViewHelper.createTermData(term, data);
+    static getValue(data, key) {
+        let empty = false;
+        let split = key.split('.');
+        let value = data[key] || empty;
+        if(split.length == 2) value = data[split[0]][split[1]] || empty;
+        if(typeof value == 'string' && value.match(/^null$|^nan$/i)) value = empty;
+        return value;
+    }
+
+    createTermData(term, data, key) {
+        this._result = ViewHelper.createTermData(term, data, key);
         return this;
     }
 
