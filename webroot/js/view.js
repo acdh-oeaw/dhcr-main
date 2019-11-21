@@ -46,8 +46,12 @@ class View {
             this.closeView();
         }.bind(this));
 
-        $(document).on('click', 'th', function(e) {
+        $(document).on('click', '.show_sort_options', function(e) {
             this.app.filter.helper.createSortModal();
+        }.bind(this));
+
+        $(document).on('click', '.show_filter_options', function(e) {
+            this.app.filter.helper.createFilterModal();
         }.bind(this));
     }
 
@@ -60,7 +64,14 @@ class View {
         this.clearView();
 
         // create filter
-        this.app.filter.helper.createHtml(this.element);
+        let buttons = $('<div id="filter-buttons"></div>');
+        buttons.append($('<button>Filter</button>').addClass('blue x-small show_filter_options'));
+        buttons.append($('<button>Sorting</button>').addClass('blue x-small show_sort_options'));
+        if(!this.app.filter.isEmpty() || this.app.filter.selected.sort.length > 0) {
+            buttons.append($('<a>Clear All</a>').addClass('x-small blue clear button')
+                .attr('href', BASE_URL).attr('id', 'reset'));
+        }
+        $(this.element).append(buttons);
 
         // create table
         let table = $('<table></table>');
@@ -68,15 +79,15 @@ class View {
         table.append(headrow);
 
 
-        let name = $('<th class="name"></th>');
+        let name = $('<th class="name show_sort_options"></th>');
         name.html('Name' + this.app.filter.helper.getSortIndicator('Courses.name'));
-        let uni = $('<th class="university"></th>');
+        let uni = $('<th class="university show_sort_options"></th>');
         uni.html('University' + this.app.filter.helper.getSortIndicator('Institutions.name'));
-        let loc = $('<th class="location"></th>');
+        let loc = $('<th class="location show_sort_options"></th>');
         loc.html('Location' + this.app.filter.helper.getSortIndicator('Countries.name'));
-        let date = $('<th class="period"></th>');
+        let date = $('<th class="period show_sort_options"></th>');
         date.html('Date' + this.app.filter.helper.getSortIndicator('Courses.start_date'));
-        let type = $('<th class="type"></th>');
+        let type = $('<th class="type show_sort_options"></th>');
         type.html('Type' + this.app.filter.helper.getSortIndicator('CourseTypes.name'));
 
         headrow.append(name,uni,loc,date,type);

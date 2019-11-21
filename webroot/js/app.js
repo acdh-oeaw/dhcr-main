@@ -46,6 +46,8 @@ class App {
             app: this
         });
 
+        this.map.addFilterButton();
+
         this.view = new View(this.scrollable.getContentContainer(), this);
 
         this.status = 'index';
@@ -86,7 +88,6 @@ class App {
             }
         }
         this.updateSize();
-        this.scrollable.updateSize();
     }
 
     updateSize() {

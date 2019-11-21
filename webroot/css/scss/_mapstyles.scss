@@ -66,7 +66,8 @@
         margin: 15px;
         .buttons {
             @include clearfix;
-            min-width: 280px;
+            min-width: 310px;
+            float: right;
         }
         .button, button {
             margin: 0;
@@ -100,6 +101,19 @@
             font-size: 14px;
             font-weight: bold;
             margin: 0.8em 0;
+        }
+    }
+}
+
+#map.custom-panel {
+    @include respond-to(handhelds) {
+        position: relative;
+        button.show_filter_options {
+            position: absolute;
+            z-index: 1000;
+            top: 10px;
+            right: 12px;
+            transform-origin: left center;
         }
     }
 }

@@ -1,7 +1,7 @@
 
 
 
-<div id="table" class="scrollable"></div>
+<div id="table"></div>
 
 <div id="map-wrapper">
     <div id="map"></div>

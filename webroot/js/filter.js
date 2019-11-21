@@ -236,13 +236,17 @@ class Filter {
 
     isEmpty(category) {
         if(typeof category != 'undefined') {
-            if(typeof this.selected[category] == 'object') {
+            if(typeof this.selected[category] == 'object' && category != 'sort') {
                 if(Object.keys(this.selected[category]).length > 0)
                     return false;
             }else{
-                if(category != 'recent' && this.selected[category])
+                if(category == 'sort' && this.selected.sort.length > 0)
                     return false;
                 if(category == 'recent' && this.selected.recent === false)
+                    return false;
+                if(category == 'recurring' && this.selected.recurring !== null)
+                    return false;
+                if(category == 'online' && this.selected.recurring !== null)
                     return false;
             }
             return true;
@@ -265,11 +269,13 @@ class Filter {
             return false;
         if(this.selected.online != null)
             return false;
+        if(this.selected.recurring != null)
+            return false;
         if(this.selected.start != null)
             return false;
         if(this.selected.end != null)
             return false;
-        if(this.selected.sort != null)
+        if(this.selected.sort.length > 0)
             return false;
         return true;
     }

@@ -70,6 +70,13 @@ class Map {
         }.bind(this));
     }
 
+    addFilterButton() {
+        $('#' + this.htmlIdentifier)
+            .addClass('custom-panel')
+            .append($('<button>Filter</button>')
+            .addClass('blue x-small show_filter_options'));
+    }
+
     setMarkers(courses) {
         this.markers = {};
         if(this.map.hasLayer(this.cluster)) this.cluster.remove();

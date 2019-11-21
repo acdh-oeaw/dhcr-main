@@ -184,14 +184,14 @@ class Scrollable {
 
         let newScrollbarWidth = Scrollable.getSystemScrollbarWidth();
 
-        if (this.systemScrollbarWidth != newScrollbarWidth) {
+        if(this.systemScrollbarWidth != newScrollbarWidth) {
             // after zooming, recalculate the negative margin effect, as scrollbar width changes
             this.systemScrollbarWidth = newScrollbarWidth;
             this.margin = 50 + this.systemScrollbarWidth + this.paddingRight;
             this.backPadding = this.margin + this.trackWidth - this.systemScrollbarWidth;
-            if (this.thumbWidth > this.trackWidth)
+            if(this.thumbWidth > this.trackWidth)
                 this.backPadding = this.margin + this.thumbWidth - this.systemScrollbarWidth;
-            if (this.scrollState) {
+            if(this.scrollState) {
                 Object.assign(this.container.style, {
                     marginRight: -this.margin + 'px',
                     paddingRight: this.backpadding + 10 + 'px'
@@ -199,9 +199,9 @@ class Scrollable {
             }
         }
 
-        if (test) {
+        if(test) {
             // test for prior state
-            if (!this.scrollState) this.enable();
+            if(!this.scrollState) this.enable();
             // if outer styles have changed...
             let outerStyles = window.getComputedStyle(this.element, null);
             this.paddingTop = parseInt(outerStyles.getPropertyValue('padding-top'));
@@ -211,15 +211,18 @@ class Scrollable {
             this.thumb.style.height = `${thumbHeight}px`;
             this.track.style.height = this.element.clientHeight - this.paddingTop - this.paddingBottom + 'px';
             this.updateScrollPosition();
-        } else {
-            if (this.scrollState) this.disable();
+        }else{
+            if(this.scrollState) this.disable();
         }
     }
 
     isScrollable() {
+        let outerStyles = window.getComputedStyle(this.container, null);
+        let height = parseInt(outerStyles.getPropertyValue('height'));
         let viewport = this.container.getBoundingClientRect();
         let scrollHeight = this.container.scrollHeight;
         let maxScrollTop = scrollHeight - viewport.height;
+        // for modal, this test seems not to get the correct box sizes
 
         return (maxScrollTop >= 1);
     }

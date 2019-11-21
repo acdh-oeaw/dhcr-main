@@ -16,11 +16,15 @@
         width: 90%;
         max-width: 500px;
         height: auto;
+        max-height: 95vh;
         background-color: white;
         padding: 30px;
         border-radius: 15px;
         overflow: hidden;
         position: relative;
+        @include respond-to(x-small) {
+            padding: 20px;
+        }
 
         .close {
             position: absolute;

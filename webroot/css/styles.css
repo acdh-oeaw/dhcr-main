@@ -754,7 +754,8 @@ body.index, body.view {
     clear: both;
     display: table; }
   .leaflet-popup .leaflet-popup-content .buttons {
-    min-width: 280px; }
+    min-width: 310px;
+    float: right; }
     .leaflet-popup .leaflet-popup-content .buttons::after {
       content: "";
       clear: both;
@@ -786,6 +787,16 @@ body.index, body.view {
     font-weight: bold;
     margin: 0.8em 0; }
 
+@media only screen and (max-width: 750px) {
+  #map.custom-panel {
+    position: relative; }
+    #map.custom-panel button.show_filter_options {
+      position: absolute;
+      z-index: 1000;
+      top: 10px;
+      right: 12px;
+      transform-origin: left center; } }
+
 #modal-wrapper {
   position: fixed;
   z-index: 1000000;
@@ -801,11 +812,15 @@ body.index, body.view {
     width: 90%;
     max-width: 500px;
     height: auto;
+    max-height: 95vh;
     background-color: white;
     padding: 30px;
     border-radius: 15px;
     overflow: hidden;
     position: relative; }
+    @media only screen and (max-width: 400px) {
+      #modal-wrapper #modal-content {
+        padding: 20px; } }
     #modal-wrapper #modal-content .close {
       position: absolute;
       top: 15px;
@@ -838,30 +853,33 @@ body.index, body.view {
         #modal-wrapper #modal-content h1 {
           font-size: 20px; } }
 
-#filter {
+#filter-buttons {
   border-bottom: 2px solid #1E6BA3;
   margin-bottom: 15px;
-  padding-top: calc(1rem - 15px);
+  padding: 2px 0 15px;
   position: relative; }
-  #filter::after {
+  #filter-buttons::after {
     content: "";
     clear: both;
     display: table; }
-  #filter #reset {
-    position: absolute;
-    top: -0.3em;
-    right: 0.1em;
-    color: #1E6BA3;
+  #filter-buttons button {
+    margin-right: 15px;
+    transform-origin: left center;
+    padding-top: 1px; }
+  #filter-buttons #reset {
+    float: right;
+    color: white;
     font-weight: bold;
-    cursor: pointer; }
-    #filter #reset::after {
+    cursor: pointer;
+    padding: 0 15px; }
+    #filter-buttons #reset::after {
       pointer-events: none;
       content: '';
       position: relative;
       display: inline-block;
       box-sizing: border-box;
-      width: 0.8em;
-      height: 0.8em;
+      width: 1em;
+      height: 1em;
       border-radius: 100%;
       border: 2px solid #1E6BA3;
       background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
@@ -869,121 +887,114 @@ body.index, body.view {
       transition: all 0.3s ease;
       top: 2px;
       margin-left: 8px; }
-    #filter #reset:hover {
+    #filter-buttons #reset:hover {
       text-decoration: none; }
-      #filter #reset:hover::after {
+      #filter-buttons #reset:hover::after {
         transform: rotate(90deg); }
-  #filter.not-empty form {
-    padding-top: 1em; }
-  #filter form .styled-select {
-    overflow-x: hidden;
-    width: auto;
-    display: inline-block;
-    float: left;
-    border-radius: 14px;
+
+#modal-wrapper.filter #modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-content: flex-start;
+  flex-wrap: nowrap; }
+  #modal-wrapper.filter #modal-content #modal-scroll-container {
+    margin-top: 1em;
+    overflow: hidden auto; }
+    #modal-wrapper.filter #modal-content #modal-scroll-container hr {
+      margin-bottom: 1em; }
+
+.selector-wrapper {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  margin-bottom: 0.3em; }
+  .selector-wrapper::after {
+    content: "";
+    clear: both;
+    display: table; }
+
+.styled-select {
+  overflow-x: hidden;
+  width: auto;
+  display: inline-block;
+  border-radius: 14px;
+  border: 2px solid #1E6BA3;
+  position: relative;
+  margin-right: 1em;
+  margin-bottom: 0.6em; }
+  .styled-select::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    top: 7px;
     border: 2px solid #1E6BA3;
-    position: relative;
-    margin-bottom: 1rem;
-    margin-right: 1rem; }
-    #filter form .styled-select::after {
-      content: '';
-      display: block;
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      right: 15px;
-      top: 7px;
-      border: 2px solid #1E6BA3;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg);
-      cursor: pointer;
-      pointer-events: none;
-      transition: all 0.3s ease; }
-    #filter form .styled-select:hover::after {
-      transform: rotate(225deg);
-      top: 10px; }
-    #filter form .styled-select select {
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      outline: none;
-      cursor: pointer;
-      background-color: transparent;
-      font-family: metropolis;
-      height: 26px;
-      padding: 7px 12px 5px;
-      border: none;
-      font-size: 12px;
-      line-height: 13px;
-      font-weight: bold;
-      color: #1E6BA3;
-      width: 180px; }
-      #filter form .styled-select select::-ms-expand {
-        display: none; }
-      #filter form .styled-select select:focus::-ms-value {
-        background-color: transparent; }
-      #filter form .styled-select select optgroup {
-        font-weight: bold; }
-  #filter form #selectors::after {
-    content: "";
-    clear: both;
-    display: table; }
-  #filter form #selectors .styled-select {
-    float: left; }
-  #filter form #selection::after {
-    content: "";
-    clear: both;
-    display: table; }
-  #filter form #selection .styled-select {
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 0.3s ease; }
+  .styled-select:hover::after {
+    transform: rotate(225deg);
+    top: 10px; }
+  .styled-select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-family: metropolis;
+    height: 26px;
+    padding: 7px 12px 5px;
     border: none;
-    clear: both;
-    float: left; }
-    #filter form #selection .styled-select::after {
-      border-color: #fff;
-      top: 8px; }
-    #filter form #selection .styled-select:hover::after {
-      top: 12px; }
-    #filter form #selection .styled-select select {
-      color: #fff;
-      background-color: #1E6BA3;
-      height: 30px;
-      padding: 7px 14px;
-      width: 184px; }
-  #filter form #selection ul.selection {
-    list-style: none; }
-    #filter form #selection ul.selection li {
-      display: inline-block;
-      float: left;
-      border: 2px solid #1E6BA3;
-      border-radius: 14px;
-      padding: 7px 20px 6px 30px;
-      margin-left: 1rem;
-      margin-bottom: 1rem;
-      font-size: 12px;
-      line-height: 13px;
-      font-weight: bold;
-      color: white;
-      background-color: #1E6BA3;
-      position: relative;
-      cursor: pointer; }
-      #filter form #selection ul.selection li:first-child {
-        margin-left: 0; }
-      #filter form #selection ul.selection li::before {
-        pointer-events: none;
-        content: '';
-        position: absolute;
-        display: block;
-        box-sizing: border-box;
-        width: 10px;
-        height: 10px;
-        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-        transition: all 0.3s ease;
-        top: 8px;
-        left: 12px; }
-      #filter form #selection ul.selection li:hover::before {
-        transform: rotate(90deg); }
+    font-size: 12px;
+    line-height: 13px;
+    font-weight: bold;
+    color: #1E6BA3;
+    width: 180px; }
+    .styled-select select::-ms-expand {
+      display: none; }
+    .styled-select select:focus::-ms-value {
+      background-color: transparent; }
+    .styled-select select optgroup {
+      font-weight: bold; }
+
+.selection-item {
+  display: inline-block;
+  border: 2px solid #1E6BA3;
+  border-radius: 14px;
+  padding: 7px 20px 6px 30px;
+  margin-left: 1em;
+  margin-bottom: 0.6em;
+  font-size: 12px;
+  line-height: 13px;
+  font-weight: bold;
+  color: white;
+  background-color: #1E6BA3;
+  position: relative;
+  cursor: pointer; }
+  .selection-item:first-child {
+    margin-left: 0; }
+  .selection-item::before {
+    pointer-events: none;
+    content: '';
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 10px;
+    height: 10px;
+    background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+    background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+    transition: all 0.3s ease;
+    top: 8px;
+    left: 12px; }
+  .selection-item:hover::before {
+    transform: rotate(90deg); }
 
 .radio-selector {
   list-style: none;
@@ -1005,13 +1016,17 @@ body.index, body.view {
     color: #1E6BA3;
     padding: 3px 8px 2px;
     margin: 0;
-    flex: 1 1 auto; }
+    flex: 1 1 20%; }
   .radio-selector li.label {
     padding-left: 15px;
     flex: 0 0 130px; }
     @media only screen and (max-width: 400px) {
       .radio-selector li.label {
         flex: 0 0 110px; } }
+    .radio-selector li.label .recurring {
+      padding-right: 1.6em;
+      padding-top: 0.2em;
+      padding-bottom: 0.1em; }
   .radio-selector li.option {
     cursor: pointer;
     padding: 3px 8px 2px;

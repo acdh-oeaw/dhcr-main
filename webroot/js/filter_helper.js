@@ -7,75 +7,6 @@ class FilterHelper {
     constructor(app, filter) {
         this.app = app;
         this.filter = filter;
-    }
-
-    createHtml(element) {
-        let filter = $('<div id="filter"></div>');
-        let form = $('<form></form>');
-
-        if(!this.filter.isEmpty()) {
-            filter.addClass('not-empty');
-            filter.append($('<a href="' + BASE_URL + '" id="reset">Clear Filters</a>'));
-        }
-
-        let selection = $('<div id="selection"></div>');
-
-        selection.append(this.createPresenceTypeSelector());
-        selection.append(this.createOccurrenceSelector());
-
-        // get all non-empty selections first
-        if(!this.filter.isEmpty('countries')) {
-            selection.append(this.createSelector('countries'));
-            selection.append(this.createSelection('countries'));
-        }
-        if(!this.filter.isEmpty('cities')) {
-            selection.append(this.createSelector('cities'));
-            selection.append(this.createSelection('cities'));
-        }
-        if(!this.filter.isEmpty('institutions')) {
-            selection.append(this.createSelector('institutions'));
-            selection.append(this.createSelection('institutions'));
-        }
-        if(!this.filter.isEmpty('disciplines')) {
-            selection.append(this.createSelector('disciplines'));
-            selection.append(this.createSelection('disciplines'));
-        }
-        if(!this.filter.isEmpty('techniques')) {
-            selection.append(this.createSelector('techniques'));
-            selection.append(this.createSelection('techniques'));
-        }
-        if(!this.filter.isEmpty('objects')) {
-            selection.append(this.createSelector('objects'));
-            selection.append(this.createSelection('objects'));
-        }
-        if(!this.filter.isEmpty('languages')) {
-            selection.append(this.createSelector('languages'));
-            selection.append(this.createSelection('languages'));
-        }
-        if(!this.filter.isEmpty('types')) {
-            selection.append(this.createSelector('types'));
-            selection.append(this.createSelection('types'));
-        }
-
-        let selectors = $('<div id="selectors"></div>');
-        if(this.filter.isEmpty('countries')) selectors.append(this.createSelector('countries'));
-        if(Object.keys(this.filter.selected.countries).length <= 1) {
-            if(this.filter.isEmpty('cities')) selectors.append(this.createSelector('cities'));
-            if(Object.keys(this.filter.selected.cities).length <= 1) {
-                if(this.filter.isEmpty('institutions')) selectors.append(this.createSelector('institutions'));
-            }
-        }
-        if(this.filter.isEmpty('types')) selectors.append(this.createSelector('types'));
-        if(this.filter.isEmpty('disciplines')) selectors.append(this.createSelector('disciplines'));
-        if(this.filter.isEmpty('languages')) selectors.append(this.createSelector('languages'));
-        if(this.filter.isEmpty('techniques')) selectors.append(this.createSelector('techniques'));
-        if(this.filter.isEmpty('objects')) selectors.append(this.createSelector('objects'));
-
-        form.append(selection, selectors);
-        filter.append(form);
-
-        // handlers can only be added after appending markup
-        $(element).append(filter);
         this.addHandlers();
     }
 
@@ -90,7 +21,9 @@ class FilterHelper {
         if(category == 'techniques') choose = 'Choose Technique';
         if(category == 'objects') choose = 'Choose Object';
 
-        let wrapper = $('<div></div>').addClass('styled-select');
+        let wrapper = $('<div></div>').addClass('selector-wrapper');
+        let styler = $('<div></div>').addClass('styled-select');
+        wrapper.append(styler);
         let select = $('<select></select>').addClass('filter');
         select.append('<option selected disabled hidden>' + choose + '</option>');
 
@@ -116,9 +49,18 @@ class FilterHelper {
             }
         }
 
-        if(select.children().length > 1) wrapper.append(select);    // first child is always an empty option "choose..."
-        if(wrapper.children().length > 0) return wrapper[0];
-        return false;
+        styler.append(select);    // first child is always an empty option "choose..."
+        //wrapper.append(this.createSelection(category));
+        if(Object.keys(this.filter.selected[category]).length > 0) {
+            for(let id in this.filter.selected[category]) {
+                let item = $('<div></div>')
+                    .addClass('selection-item')
+                    .attr('data-category', category).attr('data-id', id)
+                    .text(this.filter.selected[category][id]);
+                wrapper.append(item);
+            }
+        }
+        return wrapper[0];
     }
 
     createSelectOption(category, id) {
@@ -140,10 +82,10 @@ class FilterHelper {
     }
 
     createSelection(category) {
-        if(typeof this.filter.selected[category] == 'object') {
-            let selection = $('<ul></ul>').addClass('selection');
+        if(Object.keys(this.filter.selected[category]).length > 0) {
+            //let selection = $('<ul></ul>').addClass('selection').attr('id', category + '-selection');
             for(let id in this.filter.selected[category]) {
-                let item = $('<li></li>')
+                let item = $('<div></div>')
                     .addClass('selection-item')
                     .attr('data-category', category).attr('data-id', id)
                     .text(this.filter.selected[category][id]);
@@ -156,22 +98,22 @@ class FilterHelper {
 
     createPresenceTypeSelector() {
         let options = [
-            {label: 'online', value: true},
-            {label: 'campus', value: false},
+            {label: 'yes', value: true},
+            {label: 'no', value: false},
             {label: 'both', value: 'null'}
         ];
         return this.createRadioSelector('filter', 'presence-type',
-            'Presence Type', options, 'online');
+            'Online', options, 'online');
     }
 
     createOccurrenceSelector() {
         let options = [
             {label: 'yes', value: true},
-            {label: 'one-off', value: false},
+            {label: 'no', value: false},
             {label: 'both', value: 'null'}
         ];
         return this.createRadioSelector('filter', 'recurring',
-            'Recurring', options, 'recurring');
+            '<span class="recurring">Recurring</span>', options, 'recurring');
     }
 
     createRadioSelector(classname, id, label, options, filterKey, selectFunction) {
@@ -203,13 +145,15 @@ class FilterHelper {
     }
 
     selectEvent() {
-        $('select.filter').on('change', function(e) {
+        $(document).on('change', 'select.filter', function(e) {
             let selection = $("option:selected", e.target);
             let id = selection.attr('data-id');
             let category = selection.attr('data-category');
             if(!(id in this.filter.selected[category])) {
                 this.filter.selected[category][id] = this.filter[category][id].name;
-                delete this.filter[category][id]
+                delete this.filter[category][id];
+                let wrapper = $(e.target).closest('.selector-wrapper');
+                wrapper.replaceWith(this.createSelector(category));
             }
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
@@ -217,12 +161,14 @@ class FilterHelper {
     }
 
     unselectEvent() {
-        $('li.selection-item').on('click', function(e) {
+        $(document).on('click', '.selection-item', function(e) {
             let category = $(e.target).attr('data-category');
             let id = $(e.target).attr('data-id');
             if(id in this.filter.selected[category]) {
                 this.filter[category][id] = this.filter.selected[category][id];
                 delete this.filter.selected[category][id];
+                let wrapper = $(e.target).closest('.selector-wrapper');
+                wrapper.replaceWith(this.createSelector(category));
             }
             this.filter.app.hash.pushQuery(this.filter.createQuery());
             this.filter.app.getCourses();
@@ -230,7 +176,7 @@ class FilterHelper {
     }
 
     radioFilterEvent() {
-        $('.radio-selector.filter li.option:not(.selected)').on('click', function(e) {
+        $(document).on('click', '.radio-selector.filter li.option:not(.selected)', function(e) {
             let selector = $(e.target).closest('.radio-selector');
             let target = $(e.target).closest('li.option');
             let filterKey = selector.attr('data-filter-key');
@@ -285,44 +231,35 @@ class FilterHelper {
 
     createFilterModal() {
         let modal = new Modal('Filter Options', 'filter');
-
-        if(!this.filter.isEmpty())
-            modal.add($('<a href="' + BASE_URL + '" id="reset">Clear Filters</a>').addClass('blue button'));
+        let form = $('<form id="filter-modal"></form>');
+        let container = $('<div id="modal-scroll-container"></div>');
+        container.append(form);
 
         if(this.filter.isEmpty('institution')) {
             if(this.filter.isEmpty('city')) {
-                modal.add(this.createSelector('country'));
-                modal.add(this.createSelection('country'));
+                form.append(this.createSelector('countries'));
             }
-            modal.add(this.createSelector('city'));
-            modal.add(this.createSelection('city'));
+            if(Object.keys(this.filter.selected.countries).length < 2)
+                form.append(this.createSelector('cities'));
         }
-        modal.add(this.createSelector('institution'));
-        modal.add(this.createSelection('institution'));
+        if(Object.keys(this.filter.selected.countries).length < 2
+            && Object.keys(this.filter.selected.cities).length < 2)
+            form.append(this.createSelector('institutions'));
+        form.append(this.createSelector('languages'));
+        form.append('<hr />');
+        form.append(this.createSelector('disciplines'));
+        form.append(this.createSelector('techniques'));
+        form.append(this.createSelector('objects'));
+        form.append(this.createSelector('types'));
+        form.append('<hr />');
+        form.append(this.createPresenceTypeSelector());
+        form.append(this.createOccurrenceSelector());
 
-        modal.add('<hr />');
-
-        modal.add(this.createSelector('disciplines'));
-        modal.add(this.createSelection('disciplines'));
-
-        modal.add(this.createSelector('techniques'));
-        modal.add(this.createSelection('techniques'));
-
-        modal.add(this.createSelector('objects'));
-        modal.add(this.createSelection('objects'));
-
-        modal.add(this.createSelector('languages'));
-        modal.add(this.createSelection('languages'));
-
-        modal.add(this.createSelector('types'));
-        modal.add(this.createSelection('types'));
-
-        modal.add('<hr />');
-
-        modal.add(this.createPresenceTypeSelector());
-        modal.add(this.createOccurrenceSelector());
-
+        modal.add(container);
         modal.create();
+
+        // having issues...
+        //let scrollable = new Scrollable(container[0]);
     }
 
     createSortModal() {
