@@ -44,9 +44,10 @@ class Accordeon {
 
     clickHandler(handle) {
         let item = $(handle).closest('.accordeon-item');
-        let wasOpen = (item.hasClass('open')) ? true : false;
-        this.closeAll();
-        if(!wasOpen) this.openItem(handle);
+        //let wasOpen = (item.hasClass('open')) ? true : false;
+        //this.closeAll();
+        //if(!wasOpen) this.openItem(handle);
+        this.toggleItem(handle);
     }
 
     openItem(handle) {
