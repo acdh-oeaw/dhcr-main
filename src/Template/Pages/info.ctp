@@ -26,14 +26,9 @@ $this->layout = false;
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <?= $this->Element('meta') ?>
         
         <?= $this->Html->css('info.css') ?>
-        
-        
-        <title>Digital Humanities Course Registry - Information</title>
         <?= $this->Html->meta('icon') ?>
     </head>
     <body class="info">
