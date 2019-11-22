@@ -246,9 +246,9 @@ table .recurring {
     min-width: 300px;
     padding: 0 15px; }
     .flex-columns .flex-item.wide {
-      flex: 0 1 60%; }
+      flex: 0 1 55%; }
     .flex-columns .flex-item.narrow {
-      flex: 0 1 30%; }
+      flex: 0 1 40%; }
   .flex-columns .flex-item.triple {
     flex: 0 1 30%;
     min-width: 200px; }
@@ -520,13 +520,10 @@ body.info {
   #accordeon .accordeon-item .item-content h3 {
     font-family: bebas, sans-serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 23px;
     letter-spacing: 0.05em;
     margin-bottom: 1.3em; }
     @media only screen and (max-width: 750px) {
-      #accordeon .accordeon-item .item-content h3 {
-        font-size: 25px; } }
-    @media only screen and (max-width: 400px) {
       #accordeon .accordeon-item .item-content h3 {
         font-size: 20px; } }
   #accordeon .accordeon-item .item-content h4 {
@@ -559,13 +556,10 @@ body.info {
   #accordeon .accordeon-item .item-content#imprint-content h2 {
     font-family: bebas, sans-serif;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 23px;
     letter-spacing: 0.05em;
     margin-bottom: 1.3em; }
     @media only screen and (max-width: 750px) {
-      #accordeon .accordeon-item .item-content#imprint-content h2 {
-        font-size: 25px; } }
-    @media only screen and (max-width: 400px) {
       #accordeon .accordeon-item .item-content#imprint-content h2 {
         font-size: 20px; } }
   #accordeon .accordeon-item .item-content#imprint-content h3 {
@@ -602,22 +596,27 @@ body.info {
   #accordeon .accordeon-item .item-content .css-columns {
     column-count: 2;
     column-gap: 1em; }
+    @media only screen and (max-width: 750px) {
+      #accordeon .accordeon-item .item-content .css-columns {
+        column-count: 2; } }
     @media only screen and (max-width: 400px) {
       #accordeon .accordeon-item .item-content .css-columns {
         column-count: 1; } }
-    #accordeon .accordeon-item .item-content .css-columns.moderators .item {
+    #accordeon .accordeon-item .item-content .css-columns.moderators .item, #accordeon .accordeon-item .item-content .css-columns.admins .item {
       -webkit-column-break-inside: avoid;
       /* Chrome, Safari */
       page-break-inside: avoid;
       /* Theoretically FF 20+ */
       break-inside: avoid-column;
       /* IE 11 */ }
-      #accordeon .accordeon-item .item-content .css-columns.moderators .item .country {
+      #accordeon .accordeon-item .item-content .css-columns.moderators .item .country, #accordeon .accordeon-item .item-content .css-columns.admins .item .country {
         font-family: metropolis, sans-serif;
         font-weight: bold;
-        color: #1E6BA3;
+        color: #6d7278;
         display: block;
         margin-bottom: 0; }
+    #accordeon .accordeon-item .item-content .css-columns.admins {
+      margin-bottom: 3em; }
   #accordeon .accordeon-item .item-content .flex-columns {
     justify-content: space-between; }
     #accordeon .accordeon-item .item-content .flex-columns .flex-item:first-child {

@@ -262,10 +262,10 @@ table {
         min-width: 300px;
         padding: 0 $whitespace;
         &.wide {
-            flex: 0 1 60%;  // assume 2 columns
+            flex: 0 1 55%;  // assume 2 columns
         }
         &.narrow {
-            flex: 0 1 30%;  // assume 2 columns
+            flex: 0 1 40%;  // assume 2 columns
         }
     }
     .flex-item.triple {

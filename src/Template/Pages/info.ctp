@@ -120,11 +120,10 @@ $this->layout = false;
         
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
-        <?= $this->Html->script(['accordeon','cookie','hash']) ?>
+        <?= $this->Html->script(['accordeon','hash']) ?>
         
         <script type="application/javascript">
             $(document).ready( function() {
-                Cookies.set('hideIntro', 'true', {expires: 365});
                 let accordeon = new Accordeon('accordeon');
                 $('#imprint-content').load('https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=7435');
                 $('#footer .imprint').on('click', function(e) {
@@ -132,6 +131,14 @@ $this->layout = false;
                     accordeon.openHash('imprint');
                 });
             });
+
+            function recaptchaCallback(token) {
+                document.getElementById("ContactUsForm").submit();
+            }
         </script>
+
+        <script src="https://www.google.com/recaptcha/api.js" type="application/javascript"/>
+        <?= $this->element('matomo') ?>
+    
     </body>
 </html>

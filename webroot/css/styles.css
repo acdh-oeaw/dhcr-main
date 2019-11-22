@@ -245,9 +245,9 @@ table .recurring {
     min-width: 300px;
     padding: 0 15px; }
     .flex-columns .flex-item.wide {
-      flex: 0 1 60%; }
+      flex: 0 1 55%; }
     .flex-columns .flex-item.narrow {
-      flex: 0 1 30%; }
+      flex: 0 1 40%; }
   .flex-columns .flex-item.triple {
     flex: 0 1 30%;
     min-width: 200px; }

@@ -64,5 +64,7 @@ use Cake\Routing\Router;
         
         <?= $this->element('script') ?>
     
+        <?= $this->element('matomo') ?>
+    
     </body>
 </html>

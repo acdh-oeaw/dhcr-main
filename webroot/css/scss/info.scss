@@ -210,13 +210,10 @@ body.info {
             h3 {
                 font-family: bebas, sans-serif;
                 font-weight: bold;
-                font-size: 30px;
+                font-size: 23px;
                 letter-spacing: 0.05em;
                 margin-bottom: 1.3em;
                 @include respond-to(handhelds) {
-                    font-size: 25px;
-                }
-                @include respond-to(x-small) {
                     font-size: 20px;
                 }
             }
@@ -259,13 +256,10 @@ body.info {
                     // style as h3
                     font-family: bebas, sans-serif;
                     font-weight: bold;
-                    font-size: 30px;
+                    font-size: 23px;
                     letter-spacing: 0.05em;
                     margin-bottom: 1.3em;
                     @include respond-to(handhelds) {
-                        font-size: 25px;
-                    }
-                    @include respond-to(x-small) {
                         font-size: 20px;
                     }
                 }
@@ -312,10 +306,13 @@ body.info {
             .css-columns {
                 column-count: 2;
                 column-gap: 1em;
+                @include respond-to(handhelds) {
+                    column-count: 2;
+                }
                 @include respond-to(x-small) {
                     column-count: 1;
                 }
-                &.moderators {
+                &.moderators,&.admins {
                     .item {
                         -webkit-column-break-inside: avoid; /* Chrome, Safari */
                         page-break-inside: avoid; /* Theoretically FF 20+ */
@@ -323,13 +320,18 @@ body.info {
                         .country {
                             font-family: metropolis, sans-serif;
                             font-weight: bold;
-                            color: $blue;
+                            color: $gray;
                             display: block;
                             margin-bottom: 0;
                         }
                     }
                 }
+                &.admins {
+                    margin-bottom: 3em;
+                    //column-count: 2;
+                }
             }
+
             .flex-columns {
                 justify-content: space-between;
                 .flex-item {
