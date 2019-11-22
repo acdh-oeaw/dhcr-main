@@ -188,11 +188,12 @@ class App {
 
     setCourse(id) {
         id = id || this.id;
+        this.status = 'view';
         this.view.createView(this.data[id]);
-        if(this.action == 'index' && this.status == 'view') this.map.openMarker(id);
+        if(this.action == 'index') this.map.openMarker(id);
         if(this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
         this.scrollable.updateSize();
-        this.status = 'view';
+
         if(this.layout == 'mobile') {
             this.lastMobileScreen = this.slider.position;
             this.slider.setPosition('table');
