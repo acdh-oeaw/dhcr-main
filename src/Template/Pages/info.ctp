@@ -27,86 +27,95 @@ $this->layout = false;
         <?= $this->Html->meta('icon') ?>
     </head>
     <body class="info">
-        <div id="page-head">
+        <div class="wrapper">
             <?= $this->Html->link('Back to Start', '/', ['class' => 'blue back button']); ?>
-            <h1>
-                <a href="<?= Router::url('/') ?>">
-                    <span id="h1">Digital Humanities</span><br>
-                    <span id="h2">Course</span><span id="h3">Registry</span>
-                </a>
-            </h1>
+            <div id="page-head">
+                <h1>
+                    Digital Humanities Course Registry
+                    <?= $this->Html->image('logo-500.png', [
+                        'alt' => 'logo',
+                        'width' => 500,
+                        'height' => 114,
+                        'url' => '/']) ?>
+                </h1>
+        
+                <?= $this->Html->image('CLARIN-DARIAH-joint-logo-big.png', [
+                    'alt' => 'CLARIN-DARIAH joint logo',
+                    'width' => 256,
+                    'height' => 200,
+                    'class' => 'joint-logo']) ?>
+                
+                <div class="intent">
+                    <p>
+                        The Digital Humanities Course Registry (DHCR) is a curated platform that
+                        provides an overview of the growing range of available teaching activities in
+                        the field of digital humanities worldwide.
+                    </p>
+                    <p>
+                        The platform is a joint effort of two European research infrastructures: <br />
+                        <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/',
+                            ['escape' => false, 'target' => '_blank']); ?> and
+                        <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/',
+                            ['escape' => false, 'target' => '_blank']); ?>.
+                    </p>
+                </div>
+            </div>
     
-            <?= $this->Html->link($this->Html->image('CLARIN-DARIAH-joint-logo-big.png', [
-                'alt' => 'CLARIN-DARIAH joint logo',
-                'width' => 256,
-                'height' => 200]), '/', ['escape' => false, 'class' => 'clarin-dariah-logo']) ?>
-            <p class="intent">
-                The Digital Humanities Course Registry (DHCR) is a curated platform that
-                provides an overview of the growing range of teaching activities in
-                the field of digital humanities available worldwide.
-            </p>
-            <p class="intent">
-                The platform is a joint effort of two European research infrastructures: <br />
-                <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/',
-                    ['escape' => false, 'target' => '_blank']); ?> and
-                <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/',
-                    ['escape' => false, 'target' => '_blank']); ?>.
-            </p>
+    
+    
+            <div id="accordeon">
+                <div class="accordeon-item" id="how-to-use">
+                    <h2>How to Use</h2>
+                    <div class="item-content">
+                        <?= $this->Element('info/how_to_use') ?>
+                    </div>
+                </div>
+        
+                <div class="accordeon-item" id="contact">
+                    <h2>Contact Us</h2>
+                    <div class="item-content">
+                        <?= $this->Element('info/contact'); ?>
+                    </div>
+                </div>
+        
+                <div class="accordeon-item" id="downloads">
+                    <h2>Publications and Data</h2>
+                    <div class="item-content">
+                        <?= $this->Element('info/downloads') ?>
+                    </div>
+                </div>
+        
+                <div class="accordeon-item" id="clarin-dariah">
+                    <h2>CLARIN and DARIAH</h2>
+                    <div class="item-content">
+                        <?= $this->Element('info/clarin-dariah') ?>
+                    </div>
+                </div>
+        
+                <div class="accordeon-item" id="credits">
+                    <h2>Credits</h2>
+                    <div class="item-content">
+                        <?= $this->Element('info/credits'); ?>
+                    </div>
+                </div>
+        
+                <div class="accordeon-item" id="imprint">
+                    <h2>Imprint</h2>
+                    <div class="item-content" id="imprint-content"></div>
+                </div>
+    
+            </div>
+    
+            <div id="footer" class="footer">
+                <p class="imprint"><?= $this->Html->link('Imprint',
+                        '/pages/info/#imprint') ?></p>
+                <p class="license"><?= $this->Html->link('CC-BY 4.0',
+                        'https://creativecommons.org/licenses/by/4.0/',
+                        ['target' => '_blank']) ?></p>
+                <p class="copyright">&copy;2014-<?= date('Y') ?></p>
+            </div>
         </div>
         
-        
-        
-        <div id="accordeon">
-            <div class="accordeon-item" id="how-to-use">
-                <h2>How to Use</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/how_to_use') ?>
-                </div>
-            </div>
-    
-            <div class="accordeon-item" id="contact">
-                <h2>Contact Us</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/contact'); ?>
-                </div>
-            </div>
-    
-            <div class="accordeon-item" id="downloads">
-                <h2>Publications and Data</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/downloads') ?>
-                </div>
-            </div>
-    
-            <div class="accordeon-item" id="clarin-dariah">
-                <h2>CLARIN and DARIAH</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/clarin-dariah') ?>
-                </div>
-            </div>
-    
-            <div class="accordeon-item" id="credits">
-                <h2>Credits</h2>
-                <div class="item-content">
-                    <?= $this->Element('info/credits'); ?>
-                </div>
-            </div>
-
-            <div class="accordeon-item" id="imprint">
-                <h2>Imprint</h2>
-                <div class="item-content" id="imprint-content"></div>
-            </div>
-            
-        </div>
-
-        <div id="footer" class="footer">
-            <p class="imprint"><?= $this->Html->link('Imprint',
-                    '/pages/info/#imprint') ?></p>
-            <p class="license"><?= $this->Html->link('CC-BY 4.0',
-                    'https://creativecommons.org/licenses/by/4.0/',
-                    ['target' => '_blank']) ?></p>
-            <p class="copyright">&copy;2014-<?= date('Y') ?></p>
-        </div>
         
         
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
