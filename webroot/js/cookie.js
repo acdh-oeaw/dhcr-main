@@ -1,6 +1,9 @@
 /**
  * Minified by jsDelivr using Terser v3.14.1.
  * Original file: /npm/js-cookie@2.2.1/src/js.cookie.js
+ * <!-- https://github.com/js-cookie/js-cookie -->
+ <!--<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>-->
+ <?= $this->Html->script('cookie') ?>
  *
  * Do NOT use SRI with dynamically generated files! More information: https://www.jsdelivr.com/using-sri-with-dynamic-files
  */

@@ -50,10 +50,6 @@ use Cake\Routing\Router;
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
         
-        <!-- https://github.com/js-cookie/js-cookie -->
-        <!--<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>-->
-        <?= $this->Html->script('cookie') ?>
-        
         <!--<script src="<?= Router::url('/leaflet/leaflet.js', true) ?>" type="application/javascript"></script>-->
         <?= $this->Html->script('/leaflet/leaflet') ?>
         <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
