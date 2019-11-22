@@ -93,6 +93,14 @@ use Cake\Core\Configure;
             'data-callback' => 'recaptchaCallback'
         ));
         ?>
+    
+        <h3>Bug Report</h3>
+        <p>
+            In case you found a bug, please file a report in our issue tracker:
+        </p>
+        <a class="blue button"
+           href="https://github.com/hashmich/DHCR-Frontend/issues"
+           target="_blank">Bug Report</a>
     </div>
 </div>
 

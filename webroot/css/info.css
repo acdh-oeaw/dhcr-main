@@ -591,9 +591,6 @@ body.info {
   #accordeon .accordeon-item .item-content .css-columns {
     column-count: 2;
     column-gap: 1em; }
-    @media only screen and (max-width: 750px) {
-      #accordeon .accordeon-item .item-content .css-columns {
-        column-count: 2; } }
     @media only screen and (max-width: 400px) {
       #accordeon .accordeon-item .item-content .css-columns {
         column-count: 1; } }
@@ -632,6 +629,8 @@ body.info {
         #accordeon .accordeon-item .item-content .flex-columns .flex-item .logo {
           max-width: 50%;
           margin: 0 auto 8em; } }
+    #accordeon .accordeon-item .item-content .flex-columns .flex-item form {
+      margin-bottom: 3em; }
     #accordeon .accordeon-item .item-content .flex-columns .flex-item .buttons {
       display: flex;
       flex-wrap: wrap;

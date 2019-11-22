@@ -414,10 +414,7 @@ body.index, body.view {
         body.index #container #view .subtitle, body.view #container #view .subtitle {
           font-size: 14px; } }
     body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
-      font-size: 16px; }
-      @media only screen and (max-width: 750px) {
-        body.index #container #view .text, body.index #container #view .term, body.index #container #view .data, body.index #container #view a:not(.button), body.view #container #view .text, body.view #container #view .term, body.view #container #view .data, body.view #container #view a:not(.button) {
-          font-size: 14px; } }
+      font-size: 14px; }
     body.index #container #view .strong, body.view #container #view .strong {
       font-weight: bold;
       margin-bottom: 0.3em; }

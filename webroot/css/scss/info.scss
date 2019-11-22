@@ -299,9 +299,6 @@ body.info {
             .css-columns {
                 column-count: 2;
                 column-gap: 1em;
-                @include respond-to(handhelds) {
-                    column-count: 2;
-                }
                 @include respond-to(x-small) {
                     column-count: 1;
                 }
@@ -321,7 +318,6 @@ body.info {
                 }
                 &.admins {
                     margin-bottom: 3em;
-                    //column-count: 2;
                 }
             }
 
@@ -349,6 +345,9 @@ body.info {
                             max-width: 50%;
                             margin: 0 auto 8em;
                         }
+                    }
+                    form {
+                        margin-bottom: 3em;
                     }
                     .buttons {
                         display: flex;
