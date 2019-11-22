@@ -17,10 +17,7 @@
         }
     }
     .text, .term, .data, a:not(.button) {
-        font-size: 16px;
-        @include respond-to(handhelds) {
-            font-size: 14px;
-        }
+        font-size: 14px;
     }
     .strong {
         font-weight: bold;
