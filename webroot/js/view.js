@@ -207,12 +207,12 @@ class View {
         helper.createTermData('Language', course, 'language.name').createGridItem();
         helper.createTermData('Presence', course, 'online_course').createGridItem();
 
+        helper.createTermData('Record Id', course, 'id').createGridItem();
+        helper.createTermData('Last Revised', course, 'updated').createGridItem();
+
         if(course.info_url.length > 0 && course.info_url != 'null') {
             helper.createTermData('Source URL', course, 'info_url').createGridItem('single-col');
         }
-
-        helper.createTermData('Record Id', course, 'id').createGridItem();
-        helper.createTermData('Last Revised', course, 'updated').createGridItem();
 
         el.append($(helper.createGridContainer().result));
 
