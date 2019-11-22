@@ -454,7 +454,8 @@ body.info {
           text-align: center;
           font-size: 16px; } }
       #page-head .intent p a {
-        font-weight: bold; }
+        font-weight: bold;
+        color: #1E6BA3; }
         #page-head .intent p a:hover {
           text-decoration: underline; }
 
@@ -522,7 +523,7 @@ body.info {
     font-weight: bold;
     font-size: 23px;
     letter-spacing: 0.05em;
-    margin-bottom: 1.3em; }
+    margin-bottom: 0.3em; }
     @media only screen and (max-width: 750px) {
       #accordeon .accordeon-item .item-content h3 {
         font-size: 20px; } }
@@ -532,7 +533,7 @@ body.info {
     font-weight: bold;
     text-transform: none;
     color: #1E6BA3;
-    margin-bottom: 1.5em; }
+    margin-bottom: 0.3em; }
     @media only screen and (max-width: 750px) {
       #accordeon .accordeon-item .item-content h4 {
         font-size: 18px; } }
@@ -558,7 +559,7 @@ body.info {
     font-weight: bold;
     font-size: 23px;
     letter-spacing: 0.05em;
-    margin-bottom: 1.3em; }
+    margin-bottom: 0.3em; }
     @media only screen and (max-width: 750px) {
       #accordeon .accordeon-item .item-content#imprint-content h2 {
         font-size: 20px; } }
@@ -575,11 +576,6 @@ body.info {
     @media only screen and (max-width: 400px) {
       #accordeon .accordeon-item .item-content#imprint-content h3 {
         font-weight: normal; } }
-  #accordeon .accordeon-item .item-content#imprint-content a {
-    color: #1E6BA3;
-    text-decoration: none; }
-    #accordeon .accordeon-item .item-content#imprint-content a:hover {
-      text-decoration: underline; }
   #accordeon .accordeon-item .item-content p {
     color: #6d7278; }
   #accordeon .accordeon-item .item-content hr {
@@ -588,8 +584,7 @@ body.info {
   #accordeon .accordeon-item .item-content a:not(.button) {
     color: #1E6BA3;
     text-decoration: none;
-    font-size: inherit;
-    font-weight: bold; }
+    font-size: inherit; }
     #accordeon .accordeon-item .item-content a:not(.button):hover {
       text-decoration: underline;
       color: #1E6BA3; }

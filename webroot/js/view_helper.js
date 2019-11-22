@@ -58,7 +58,7 @@ class ViewHelper {
             let name = ViewHelper.getValue(data, 'contact_name');
             let mail = ViewHelper.getValue(data, 'contact_mail');
             if(name !== false && mail !== false)
-                value = ViewHelper.createLink('mailto:' + mail, name);
+                value = ViewHelper.createLink('mailto:' + mail, name, false);
             if(name !== false) value = name;
             if(mail !== false) value = mail;
         }

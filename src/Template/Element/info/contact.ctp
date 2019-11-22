@@ -60,6 +60,11 @@ use Cake\Core\Configure;
         </p>
     
         <?php
+        $options = [
+            'Admin Staff' => ['administrators' => 'Administrators'],
+            'National Moderators' => $countries
+        ];
+        
         echo $this->Form->create(false, [
             'novalidate' => true,
             'id' => 'ContactUsForm',
@@ -70,8 +75,9 @@ use Cake\Core\Configure;
             'autocomplete' => 'off'
         ));
         echo $this->Form->control('country_id', [
-            'empty' => 'Administrators',
-            'label' => 'Moderators']);
+            'empty' => '- choose one -',
+            'label' => 'Send to',
+            'options' => $options]);
         echo $this->Form->control('first_name');
         echo $this->Form->control('last_name');
         echo $this->Form->control('telephone', array(

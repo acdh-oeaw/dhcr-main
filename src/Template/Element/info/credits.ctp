@@ -30,9 +30,13 @@ $o = array('target' => '_blank');
     </div>
     <div class="flex-item narrow">
         <h3>Screen Design</h3>
-        <p>Lea Giesecke</p>
+        <p>
+            Lea Giesecke - <a href="https://linia-design.de/info/" target="_blank">Linia Design</a>,
+            <a href="mailto:lea.giesecke@web.de">@</a><br>
+            Nicolai Herzog <a href="mailto:nicolaiherzog@posteo.de">@</a>
+        </p>
         <h3>Software Development</h3>
-        <p>Hendrik Schmeer</p>
+        <p>Hendrik Schmeer <a href="mailto:mail@hendrikschmeer.de">@</a></p>
     </div>
 </div>
 
