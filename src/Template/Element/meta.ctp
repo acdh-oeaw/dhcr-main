@@ -3,7 +3,7 @@ use Cake\Routing\Router;
 ?>
 
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, shrink-to-fit=no">
 <title>Digital Humanities Course Registry</title>
 
 <meta property="og:url"           content="<?= Router::url('/', true) ?>" />
