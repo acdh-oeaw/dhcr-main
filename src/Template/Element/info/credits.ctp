@@ -33,10 +33,14 @@ $o = array('target' => '_blank');
         <p>
             Lea Giesecke - <a href="https://linia-design.de/info/" target="_blank">Linia Design</a>,
             <a href="mailto:lea.giesecke@web.de">@</a><br>
-            Nicolai Herzog <a href="mailto:nicolaiherzog@posteo.de">@</a>
+            Nicolai Herzog - <a href="http://www.nicolaiherzog.de" target="_blank">Website</a>,
+            <a href="mailto:nicolaiherzog@posteo.de">@</a>
         </p>
         <h3>Software Development</h3>
-        <p>Hendrik Schmeer <a href="mailto:mail@hendrikschmeer.de">@</a></p>
+        <p>
+            Hendrik Schmeer - <a href="http://hendrikschmeer.de" target="_blank">Website</a>,
+            <a href="mailto:mail@hendrikschmeer.de">@</a>
+        </p>
     </div>
 </div>
 

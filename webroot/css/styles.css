@@ -248,6 +248,9 @@ table .recurring {
       flex: 0 1 55%; }
     .flex-columns .flex-item.narrow {
       flex: 0 1 40%; }
+    .flex-columns .flex-item img {
+      width: 100%;
+      height: auto; }
   .flex-columns .flex-item.triple {
     flex: 0 1 30%;
     min-width: 200px; }

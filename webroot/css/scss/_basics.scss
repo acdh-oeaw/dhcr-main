@@ -267,6 +267,10 @@ table {
         &.narrow {
             flex: 0 1 40%;  // assume 2 columns
         }
+        img {
+            width: 100%;
+            height: auto;
+        }
     }
     .flex-item.triple {
         flex: 0 1 30%;
