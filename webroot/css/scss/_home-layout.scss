@@ -2,6 +2,9 @@ body.view {
     .leaflet-marker-icon {
         cursor: default;
     }
+    .button.show_view {
+        display: none;
+    }
 }
 
 body.index, body.view {

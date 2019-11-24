@@ -97,20 +97,6 @@ class App {
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
         });
-
-        if(this.layout == 'mobile') this.scrollFix();
-    }
-
-    // experimental!
-    scrollFix() {
-        let height = document.body.clientHeight;
-        let styleHeight = document.body.style.height;
-        if(document.height <= window.outerHeight)
-            document.body.style.height = (height + 50) + 'px';
-        setTimeout( function(){
-            window.scrollTo(0, 1);
-            document.body.style.height = styleHeight;
-        }, 50 );
     }
 
     getCourse() {
@@ -184,6 +170,7 @@ class App {
             this.slider.setPosition(this.lastMobileScreen);
             this.slider.showControl();
         }
+        $('body').removeClass('view');
     }
 
     setCourse(id) {
@@ -199,6 +186,7 @@ class App {
             this.slider.setPosition('table');
             this.slider.hideControl();
         }
+        if(!$('body').hasClass('view')) $('body').addClass('view');
     }
 
     handleError(data) {

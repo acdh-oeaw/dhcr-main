@@ -77,11 +77,18 @@ $this->layout = false;
                         <?= $this->Element('info/contact'); ?>
                     </div>
                 </div>
+    
+                <!--<div class="accordeon-item" id="downloads">
+                    <h2>Publications and Dissemination</h2>
+                    <div class="item-content">
+                        $this->Element('info/publications')
+                    </div>
+                </div>-->
         
                 <div class="accordeon-item" id="downloads">
-                    <h2>Publications and Data</h2>
+                    <h2>Data Model, Export and API</h2>
                     <div class="item-content">
-                        <?= $this->Element('info/downloads') ?>
+                        <?= $this->Element('info/data-api') ?>
                     </div>
                 </div>
         

@@ -71,10 +71,17 @@ class Map {
     }
 
     addFilterButton() {
-        $('#' + this.htmlIdentifier)
-            .addClass('custom-panel')
-            .append($('<button>Filter</button>')
-            .addClass('blue x-small show_filter_options'));
+        let CustomControl = L.Control.extend({
+            options: {
+                position: 'topleft'
+            },
+            onAdd: function (map) {
+                var button = L.DomUtil.create('button', 'blue x-small show_filter_options leaflet-bar leaflet-control leaflet-control-custom');
+                $(button).text('Filter');
+                return button;
+            }
+        });
+        this.map.addControl(new CustomControl());
     }
 
     setMarkers(courses) {

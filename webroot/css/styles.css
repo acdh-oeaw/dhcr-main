@@ -377,6 +377,8 @@ table .recurring {
 
 body.view .leaflet-marker-icon {
   cursor: default; }
+body.view .button.show_view {
+  display: none; }
 
 body.index, body.view {
   height: 100vh;
@@ -787,16 +789,9 @@ body.index, body.view {
     font-weight: bold;
     margin: 0.8em 0; }
 
-@media only screen and (max-width: 750px) {
-  #map.custom-panel {
-    position: relative; }
-    #map.custom-panel button.show_filter_options {
-      position: absolute;
-      z-index: 1000;
-      top: 10px;
-      right: 12px;
-      transform-origin: left center; } }
-
+@media only screen and (min-width: 751px) {
+  #map .leaflet-control-custom.show_filter_options {
+    display: none; } }
 #modal-wrapper {
   position: fixed;
   z-index: 1000000;

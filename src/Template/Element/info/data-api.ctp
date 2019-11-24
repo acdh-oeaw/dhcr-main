@@ -5,11 +5,6 @@ use Cake\Routing\Router;
 
 <div class="flex-columns">
     <div class="flex-item">
-        <h3>Publications</h3>
-        <h3>Dissemination Material</h3>
-        <p>
-            Wholelottastuff
-        </p>
         <h3>Data Life Cycle</h3>
         <p>
             Course data in the DHCR is being reviewed on a regular basis by contributors.
