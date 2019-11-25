@@ -88,7 +88,7 @@ class FilterHelper {
                 let item = $('<div></div>')
                     .addClass('selection-item')
                     .attr('data-category', category).attr('data-id', id)
-                    .text(this.filter.selected[category][id]);
+                    .text(this.filter.selected[category][id].name);
                 selection.append(item);
             }
             return selection[0];
@@ -150,13 +150,12 @@ class FilterHelper {
             let id = selection.attr('data-id');
             let category = selection.attr('data-category');
             if(!(id in this.filter.selected[category])) {
-                this.filter.selected[category][id] = this.filter[category][id].name;
-                delete this.filter[category][id];
+                this.filter.selected[category][id] = this.filter[category][id];
+                //delete this.filter[category][id];
                 let wrapper = $(e.target).closest('.selector-wrapper');
                 wrapper.replaceWith(this.createSelector(category));
             }
             this.filter.app.hash.pushQuery(this.filter.createQuery());
-            this.filter.app.getCourses();
         }.bind(this));
     }
 
@@ -165,13 +164,12 @@ class FilterHelper {
             let category = $(e.target).attr('data-category');
             let id = $(e.target).attr('data-id');
             if(id in this.filter.selected[category]) {
-                this.filter[category][id] = this.filter.selected[category][id];
+                //this.filter[category][id] = this.filter.selected[category][id];
                 delete this.filter.selected[category][id];
                 let wrapper = $(e.target).closest('.selector-wrapper');
                 wrapper.replaceWith(this.createSelector(category));
             }
             this.filter.app.hash.pushQuery(this.filter.createQuery());
-            this.filter.app.getCourses();
         }.bind(this));
     }
 
@@ -185,7 +183,6 @@ class FilterHelper {
             let value = FilterHelper.parseValue(target.attr('data-value'));
             this.filter.selected[filterKey] = value;
             this.filter.app.hash.pushQuery(this.filter.createQuery());
-            this.filter.app.getCourses();
         }.bind(this));
     }
 
@@ -199,8 +196,11 @@ class FilterHelper {
             target.addClass('selected');
             this.filter.setSorter(value, filterKey);
             this.filter.app.hash.pushQuery(this.filter.createQuery());
-            this.filter.app.getCourses();
         }.bind(this));
+    }
+
+    closeEvent() {
+        this.filter.app.getCourses();
     }
 
     getSortIndicator(filterKey) {
@@ -230,7 +230,7 @@ class FilterHelper {
     }
 
     createFilterModal() {
-        let modal = new Modal('Filter Options', 'filter');
+        let modal = new Modal('Filter Options', 'filter', this.closeEvent.bind(this));
         let form = $('<form id="filter-modal"></form>');
         let container = $('<div id="modal-scroll-container"></div>');
         container.append(form);
@@ -275,7 +275,7 @@ class FilterHelper {
             return this.filter.selected.sort[index] == filterKey + ':' + value;
         }.bind(this);
 
-        let modal = new Modal('Sort Options','sort');
+        let modal = new Modal('Sort Options','sort', this.closeEvent.bind(this));
         modal.add($('<p></p>').text('Default course order is most recent courses first.'));
 
         let selectors = [

@@ -55,15 +55,7 @@ class View {
         }.bind(this));
     }
 
-    createTable() {
-        // check the global courses variable
-        if(Object.keys(this.app.data) <= 0) {
-            this.setErrorMessage('Your query returned no results.');
-            return;
-        }
-        this.clearView();
-
-        // create filter
+    createFilterPanel() {
         let buttons = $('<div id="filter-buttons"></div>');
         buttons.append($('<button>Filter</button>').addClass('blue x-small show_filter_options'));
         buttons.append($('<button>Sorting</button>').addClass('blue x-small show_sort_options'));
@@ -72,6 +64,16 @@ class View {
                 .attr('href', BASE_URL).attr('id', 'reset'));
         }
         $(this.element).append(buttons);
+    }
+
+    createTable() {
+        this.clearView();
+        this.createFilterPanel();
+        if(Object.keys(this.app.data) <= 0) {
+            $(this.element).addClass('error');
+            $(this.element).append($('<p>Your query returned no results.</p>'));
+            return;
+        }
 
         // create table
         let table = $('<table></table>');

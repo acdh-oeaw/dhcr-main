@@ -49,7 +49,4 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
         });
 
     });
-    
-    // modal handlers need to be called only once
-    Modal.addHandlers();
 </script>
