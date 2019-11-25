@@ -189,9 +189,9 @@ class View {
         el.append($('<h1>' + course.name + '</h1>'));
         el.append($('<p class="subtitle">' + course.course_type.name + ', ' + timing + '</p>'));
         if(course.description != null && course.description.length > 0)
-            el.append($('<div class="text"><p class="strong">Description:</p>' + course.description + '</div>'));
+            el.append($('<div class="text"><p class="strong">Description</p>' + course.description + '</div>'));
         if(course.access_requirements.length > 0)
-            el.append($('<div class="text"><p class="strong">Access Requirements:</p>' + course.access_requirements + '</div>'));
+            el.append($('<div class="text"><p class="strong">Access Requirements</p>' + course.access_requirements + '</div>'));
 
         el.append($('<hr />'));
 

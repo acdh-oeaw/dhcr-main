@@ -21,7 +21,8 @@
     }
     .strong {
         font-weight: bold;
-        margin-bottom: 0.3em;
+        margin-bottom: 0;
+        color: $blue;
     }
     .text {
         white-space: pre-line;
@@ -95,11 +96,14 @@
         .item {
             display: grid;
             grid-column-gap: 5%;
-            grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+            grid-template-columns: [col-start] minmax(95px, 120px) [col-middle] 6.5fr [col-end];
             padding: 0;
             margin-bottom: 0.15em;
             .term, .data {
                 margin-bottom: 0.3em;
+                @include respond-to(screens) {
+                    margin-bottom: 0;
+                }
             }
             .term {
                 overflow: hidden;
@@ -115,10 +119,9 @@
                 grid-column: col-start 1 / col-end -1;
                 grid-column-gap: 2%;
                 // account for the gap
-                grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
-                margin-top: 0.3em;
+                grid-template-columns: repeat(2, [col-start] minmax(95px, 120px) [col-middle] 6.6fr [col-end]);
                 @media only screen and (max-width: $grid-break) {
-                    grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+                    //grid-template-columns: [col-start] minmax(95px, 120px) [col-middle] 6.5fr [col-end];
                     grid-column-gap: 5%;
                 }
                 // data spans all columns except for the first
@@ -127,10 +130,5 @@
                 }
             }
         }
-    }
-
-
-    .grid-container {
-
     }
 }

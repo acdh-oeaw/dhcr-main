@@ -28,8 +28,10 @@
         th, td {
             border-bottom: 1px solid $light-gray;
             overflow: hidden;
-            font-family: Helvetica, Verdana, Arial, Sans-Serif;
             height: 41px;
+            &:hover {
+                letter-spacing: 0;
+            }
             &.university {
                 @include respond-to(handhelds) {
                     display: none;
@@ -37,12 +39,14 @@
             }
         }
         tr {
+            font-family: metropolis, Sans-Serif;
+            letter-spacing: 0.0074em;    // 0.0061 - 0.008
             &.course-row {
                 cursor: pointer;
                 &:hover {
                     color: $blue;
                     font-weight: bold;
-                    font-size: 0.98em;
+                    letter-spacing: 0;
                 }
             }
             &.expansion-row {
@@ -65,7 +69,7 @@
         .expanded, .expanded + .expansion-row {
             color: $blue;
             font-weight: bold;
-            font-size: 0.98em;
+            letter-spacing: 0;
         }
         .expanded {
             td {

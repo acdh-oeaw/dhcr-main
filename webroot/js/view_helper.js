@@ -37,7 +37,7 @@ class ViewHelper {
             text = text.substr(0, 60) + '...';
         let result = $('<a></a>').attr('href', href).html(text);
         if(external) result.attr('target', '_blank');
-        return result[0];
+        return result[0].outerHTML;
     }
 
     createLink(href, text, external) {
@@ -57,13 +57,14 @@ class ViewHelper {
         if(key == 'contact_name') {
             let name = ViewHelper.getValue(data, 'contact_name');
             let mail = ViewHelper.getValue(data, 'contact_mail');
-            if(name !== false && mail !== false)
-                value = ViewHelper.createLink('mailto:' + mail, name, false);
             if(name !== false) value = name;
-            if(mail !== false) value = mail;
+            if(mail !== false && name === false) name = mail;
+            if(mail !== false)
+                value = ViewHelper.createLink('mailto:' + mail, name, false);
         }
-        if(key == 'info_url')
-            value = ViewHelper.createLink(data.info_url);
+        if(key == 'info_url') {
+            value = ViewHelper.createLink(value);
+        }
         if(key == 'online_course')
             value = (data.online_course) ? 'online' : 'campus';
         let result = '<p class="term">' + term + '</p>';
@@ -88,8 +89,8 @@ class ViewHelper {
 
     static createGridItem(content, classes = '') {
         classes = (classes == '') ? 'item' : 'item ' + classes;
-        let result = '<div class="' + classes + '">' + content + '</div>';
-        return result;
+        let result = $('<div></div>').addClass(classes).html(content);
+        return result[0].outerHTML;
     }
 
     createGridItem(classes) {

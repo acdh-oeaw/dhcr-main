@@ -34,22 +34,7 @@ class Sharing {
         $(document).on('click', '.sharing.button', function(e) {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
-            let course = this.app.data[id];
-            let body = "\n" + course.name
-                + "\n" + course.institution.name + ", " + course.department
-                + "\n" + course.city.name + ", " + course.country.name;
-            if(navigator.share) {
-                navigator.share({
-                    title: 'The Digital Humanities Course Registry',
-                    text: "Look at this this DH course: " + body,
-                    url: BASE_URL + 'courses/view/' + id
-                }).then(() => {
-                    //console.log('Thanks for sharing!');
-                }).catch(console.error);
-            }else{
-                // fire up a modal
-                Sharing.createSharingDialog(this.app.data[id]);
-            }
+            Sharing.createSharingDialog(this.app.data[id]);
         }.bind(this));
 
         // copy link

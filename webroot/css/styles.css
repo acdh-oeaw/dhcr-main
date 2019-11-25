@@ -422,7 +422,8 @@ body.index, body.view {
       font-size: 14px; }
     body.index #container #view .strong, body.view #container #view .strong {
       font-weight: bold;
-      margin-bottom: 0.3em; }
+      margin-bottom: 0;
+      color: #1E6BA3; }
     body.index #container #view .text, body.view #container #view .text {
       white-space: pre-line;
       margin-bottom: 2em; }
@@ -482,11 +483,14 @@ body.index, body.view {
       body.index #container #view .grid-container .item, body.view #container #view .grid-container .item {
         display: grid;
         grid-column-gap: 5%;
-        grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
+        grid-template-columns: [col-start] minmax(95px, 120px) [col-middle] 6.5fr [col-end];
         padding: 0;
         margin-bottom: 0.15em; }
         body.index #container #view .grid-container .item .term, body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .term, body.view #container #view .grid-container .item .data {
           margin-bottom: 0.3em; }
+          @media only screen and (min-width: 751px) {
+            body.index #container #view .grid-container .item .term, body.index #container #view .grid-container .item .data, body.view #container #view .grid-container .item .term, body.view #container #view .grid-container .item .data {
+              margin-bottom: 0; } }
         body.index #container #view .grid-container .item .term, body.view #container #view .grid-container .item .term {
           overflow: hidden;
           color: #1E6BA3;
@@ -497,11 +501,9 @@ body.index, body.view {
         body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
           grid-column: col-start 1 / col-end -1;
           grid-column-gap: 2%;
-          grid-template-columns: repeat(2, [col-start] minmax(95px, 4fr) [col-middle] 6.6fr [col-end]);
-          margin-top: 0.3em; }
+          grid-template-columns: repeat(2, [col-start] minmax(95px, 120px) [col-middle] 6.6fr [col-end]); }
           @media only screen and (max-width: 980px) {
             body.index #container #view .grid-container .item.single-col, body.view #container #view .grid-container .item.single-col {
-              grid-template-columns: [col-start] minmax(95px, 4fr) [col-middle] 6.5fr [col-end];
               grid-column-gap: 5%; } }
           body.index #container #view .grid-container .item.single-col .data, body.view #container #view .grid-container .item.single-col .data {
             grid-column: col-middle 1 / col-end -1; }
@@ -617,30 +619,34 @@ body.index, body.view {
       body.index #container #table table th, body.index #container #table table td, body.view #container #table table th, body.view #container #table table td {
         border-bottom: 1px solid #d8d8d8;
         overflow: hidden;
-        font-family: Helvetica, Verdana, Arial, Sans-Serif;
         height: 41px; }
+        body.index #container #table table th:hover, body.index #container #table table td:hover, body.view #container #table table th:hover, body.view #container #table table td:hover {
+          letter-spacing: 0; }
         @media only screen and (max-width: 750px) {
           body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
-      body.index #container #table table tr.course-row, body.view #container #table table tr.course-row {
-        cursor: pointer; }
-        body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover {
-          color: #1E6BA3;
-          font-weight: bold;
-          font-size: 0.98em; }
-      body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button {
-        margin-right: 1em; }
-        body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover {
-          transform-origin: left center; }
-        @media only screen and (min-width: 751px) {
-          body.index #container #table table tr.expansion-row button.show_map, body.index #container #table table tr.expansion-row .button.show_map, body.view #container #table table tr.expansion-row button.show_map, body.view #container #table table tr.expansion-row .button.show_map {
-            display: none; } }
-      body.index #container #table table tr.expansion-row td, body.view #container #table table tr.expansion-row td {
-        padding: 1.5em 0 2em; }
+      body.index #container #table table tr, body.view #container #table table tr {
+        font-family: metropolis, Sans-Serif;
+        letter-spacing: 0.0074em; }
+        body.index #container #table table tr.course-row, body.view #container #table table tr.course-row {
+          cursor: pointer; }
+          body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover {
+            color: #1E6BA3;
+            font-weight: bold;
+            letter-spacing: 0; }
+        body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button {
+          margin-right: 1em; }
+          body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover {
+            transform-origin: left center; }
+          @media only screen and (min-width: 751px) {
+            body.index #container #table table tr.expansion-row button.show_map, body.index #container #table table tr.expansion-row .button.show_map, body.view #container #table table tr.expansion-row button.show_map, body.view #container #table table tr.expansion-row .button.show_map {
+              display: none; } }
+        body.index #container #table table tr.expansion-row td, body.view #container #table table tr.expansion-row td {
+          padding: 1.5em 0 2em; }
       body.index #container #table table .expanded, body.index #container #table table .expanded + .expansion-row, body.view #container #table table .expanded, body.view #container #table table .expanded + .expansion-row {
         color: #1E6BA3;
         font-weight: bold;
-        font-size: 0.98em; }
+        letter-spacing: 0; }
       body.index #container #table table .expanded td, body.view #container #table table .expanded td {
         border-bottom: none; }
       body.index #container #table table td, body.view #container #table table td {
