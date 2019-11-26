@@ -53,7 +53,7 @@ use Cake\Core\Configure;
             </p>
         </div>
         
-        <h3>Request Form</h3>
+        <h3>Contact Form</h3>
         <p>
             Please use our form to automatically let the system address
             all moderators or admins in charge of your concern.

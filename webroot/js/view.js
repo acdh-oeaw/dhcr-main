@@ -86,7 +86,7 @@ class View {
         let uni = $('<th class="university show_sort_options"></th>');
         uni.html('University' + this.app.filter.helper.getSortIndicator('Institutions.name'));
         let loc = $('<th class="location show_sort_options"></th>');
-        loc.html('Location' + this.app.filter.helper.getSortIndicator('Countries.name'));
+        loc.html('Place' + this.app.filter.helper.getSortIndicator('Countries.name'));
         let date = $('<th class="period show_sort_options"></th>');
         date.html('Date' + this.app.filter.helper.getSortIndicator('Courses.start_date'));
         let type = $('<th class="type show_sort_options"></th>');

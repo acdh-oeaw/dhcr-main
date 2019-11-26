@@ -53,10 +53,8 @@ $this->layout = false;
                     </p>
                     <p>
                         The platform is a joint effort of two European research infrastructures: <br />
-                        <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/',
-                            ['escape' => false, 'target' => '_blank']); ?> and
-                        <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/',
-                            ['escape' => false, 'target' => '_blank']); ?>.
+                        <?= $this->Html->link('CLARIN-ERIC', 'https://www.clarin.eu/', ['target' => '_blank']); ?> and
+                        <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/', ['target' => '_blank']); ?>.
                     </p>
                 </div>
             </div>
@@ -65,49 +63,49 @@ $this->layout = false;
     
             <div id="accordeon">
                 <div class="accordeon-item" id="how-to-use">
-                    <h2>How to Use</h2>
+                    <h2><span>How to Use</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/how_to_use') ?>
                     </div>
                 </div>
         
                 <div class="accordeon-item" id="contact">
-                    <h2>Contact Us</h2>
+                    <h2><span>Contact Us</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/contact'); ?>
                     </div>
                 </div>
     
-                <!--<div class="accordeon-item" id="downloads">
-                    <h2>Publications and Dissemination</h2>
+                <div class="accordeon-item" id="publications">
+                    <h2><span>Publications and Dissemination</span></h2>
                     <div class="item-content">
-                        $this->Element('info/publications')
+                        <?= $this->Element('info/publications') ?>
                     </div>
-                </div>-->
+                </div>
         
-                <div class="accordeon-item" id="downloads">
-                    <h2>Data Model, Export and API</h2>
+                <div class="accordeon-item" id="data">
+                    <h2><span>Data Model, Export and API</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/data-api') ?>
                     </div>
                 </div>
         
                 <div class="accordeon-item" id="clarin-dariah">
-                    <h2>CLARIN and DARIAH</h2>
+                    <h2><span>CLARIN and DARIAH</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/clarin-dariah') ?>
                     </div>
                 </div>
         
                 <div class="accordeon-item" id="credits">
-                    <h2>Credits</h2>
+                    <h2><span>Credits</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/credits'); ?>
                     </div>
                 </div>
         
                 <div class="accordeon-item" id="imprint">
-                    <h2>Imprint</h2>
+                    <h2><span>Imprint</span></h2>
                     <div class="item-content" id="imprint-content"></div>
                 </div>
     

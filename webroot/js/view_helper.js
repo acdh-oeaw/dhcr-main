@@ -145,7 +145,7 @@ class ViewHelper {
     }
 
     createPopup(course) {
-        let details = $('<a></a>').text('Show Details')
+        let details = $('<a></a>').text('Details')
             .attr('data-id', course.id)
             .attr('href', BASE_URL + 'courses/view/' + course.id)
             .addClass('show_view button x-small');
@@ -165,10 +165,10 @@ class ViewHelper {
     static createExpansionRow(course, colspan) {
         let content = $('<td></td>').attr('colspan', colspan);
         let share = Sharing.createSharingButton('blue x-small', course);
-        let onMap = $('<button></button>').text('Show on Map')
+        let onMap = $('<button></button>').text('Map')
             .addClass('show_map x-small blue')
             .attr('data-id', course.id);
-        let details = $('<a></a>').text('Show Details')
+        let details = $('<a></a>').text('Details')
             .addClass('show_view button x-small blue')
             .attr('data-id', course.id)
             .attr('href', BASE_URL + 'courses/view/' + course.id);

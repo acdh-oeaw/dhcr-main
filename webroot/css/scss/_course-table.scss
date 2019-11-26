@@ -51,7 +51,10 @@
             }
             &.expansion-row {
                 button, .button {
-                    margin-right: 1em;
+                    margin-right: 0.8em;
+                    &:last-child {
+                        margin-right: 0;
+                    }
                     &:hover {
                         transform-origin: left center;
                     }
@@ -94,11 +97,11 @@
             &.period { width: 15%; }
             &.type { width: 15%; }
             @include respond-to(handhelds) {
-                &.name { width: 30%; }
+                &.name { width: 40%; }
                 //&.university { width: 25%; }
                 &.location { width: 25%; }
-                &.period { width: 20%; }
-                &.type { width: 25%; }
+                &.period { width: 15%; }
+                &.type { width: 20%; }
             }
 
             font-family: bebas;

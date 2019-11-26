@@ -635,7 +635,9 @@ body.index, body.view {
             font-weight: bold;
             letter-spacing: 0; }
         body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button {
-          margin-right: 1em; }
+          margin-right: 0.8em; }
+          body.index #container #table table tr.expansion-row button:last-child, body.index #container #table table tr.expansion-row .button:last-child, body.view #container #table table tr.expansion-row button:last-child, body.view #container #table table tr.expansion-row .button:last-child {
+            margin-right: 0; }
           body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover {
             transform-origin: left center; }
           @media only screen and (min-width: 751px) {
@@ -679,13 +681,13 @@ body.index, body.view {
           width: 15%; }
         @media only screen and (max-width: 750px) {
           body.index #container #table table th.name, body.view #container #table table th.name {
-            width: 30%; }
+            width: 40%; }
           body.index #container #table table th.location, body.view #container #table table th.location {
             width: 25%; }
           body.index #container #table table th.period, body.view #container #table table th.period {
-            width: 20%; }
+            width: 15%; }
           body.index #container #table table th.type, body.view #container #table table th.type {
-            width: 25%; } }
+            width: 20%; } }
         body.index #container #table table th:hover, body.view #container #table table th:hover {
           transform: scale(1.05); }
         body.index #container #table table th:last-child, body.view #container #table table th:last-child {
@@ -762,7 +764,7 @@ body.index, body.view {
     clear: both;
     display: table; }
   .leaflet-popup .leaflet-popup-content .buttons {
-    min-width: 310px;
+    min-width: 270px;
     float: right; }
     .leaflet-popup .leaflet-popup-content .buttons::after {
       content: "";
@@ -772,8 +774,10 @@ body.index, body.view {
     margin: 0;
     float: right;
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 0.8em;
     transition: transform 0.3s; }
+    .leaflet-popup .leaflet-popup-content .button:last-child, .leaflet-popup .leaflet-popup-content button:last-child {
+      margin-left: 0; }
     .leaflet-popup .leaflet-popup-content .button:hover, .leaflet-popup .leaflet-popup-content button:hover {
       transform-origin: right center; }
     @media only screen and (min-width: 751px) {
@@ -795,9 +799,12 @@ body.index, body.view {
     font-weight: bold;
     margin: 0.8em 0; }
 
-@media only screen and (min-width: 751px) {
-  #map .leaflet-control-custom.show_filter_options {
-    display: none; } }
+#map .leaflet-control-custom.show_filter_options {
+  border: 3px solid wheat; }
+  @media only screen and (min-width: 751px) {
+    #map .leaflet-control-custom.show_filter_options {
+      display: none; } }
+
 #modal-wrapper {
   position: fixed;
   z-index: 1000000;

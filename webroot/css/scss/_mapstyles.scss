@@ -66,15 +66,18 @@
         margin: 15px;
         .buttons {
             @include clearfix;
-            min-width: 310px;
+            min-width: 270px;
             float: right;
         }
         .button, button {
             margin: 0;
             float: right;
             display: inline-block;
-            margin-left: 15px;
+            margin-left: 0.8em;
             transition: transform 0.3s;
+            &:last-child {
+                margin-left: 0;
+            }
             &:hover {
                 transform-origin: right center;
             }
@@ -105,8 +108,11 @@
     }
 }
 
-@include respond-to(screens) {
-    #map .leaflet-control-custom.show_filter_options {
+
+#map .leaflet-control-custom.show_filter_options {
+    @include respond-to(screens) {
         display: none;
     }
+    border: 3px solid wheat;
 }
+

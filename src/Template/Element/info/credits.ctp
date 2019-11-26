@@ -7,40 +7,50 @@ $o = array('target' => '_blank');
     <div class="flex-item wide">
         <h3>Initiative</h3>
         <p>
-            Created on behalf of a consortium of partners in
-            <?= $this->Html->link('DARIAH-RE VCC2', 'https://dariahre.hypotheses.org/about/dariah_vcc2', $o) ?>
-            “Research and Education”: <br>
-        
-            European Research Infrastructure for Language Resources and Technology
+            The DHCR has been supported by different institutions and project grants:
             <?= $this->Html->link('CLARIN ERIC', 'https://www.clarin.eu/', $o) ?>,
-            Austrian Academy of Sciences
-            <?php echo $this->Html->link('ÖAW', 'https://www.oeaw.ac.at/', $o); ?>,
+            <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/', $o); ?>,
+            PARTHENOS (H2020 Grant Agreement n. 654119),
+            CLARIN-PLUS (H2020 Grant Agreement n. 676529),
+            DHCR Sustain – Improving Sustainability through Usability (DARIAH Theme 2018 (S34D)),
+            CLARIAH-AT, CLARIAH (NL).
+        </p>
+        <p>
+            Since 2014, a broader variety of institutios has contributed to the DHCR project:<br>
+            DARIAH-EU, CLARIN ERIC, Austrian Academy of Sciences
+            (<?= $this->Html->link('ÖAW', 'https://www.oeaw.ac.at/', $o) ?>),
             Royal Netherlands Academy of Arts and Sciences
-            (<?php echo $this->Html->link('KNAW', 'https://www.knaw.nl', $o); ?>),
-            <?php echo $this->Html->link('eHumanities Group', 'http://www.ehumanities.nl/', $o); ?>,
+            (<?= $this->Html->link('KNAW', 'https://www.knaw.nl', $o) ?>),
+            <?= $this->Html->link('eHumanities Group', 'http://www.ehumanities.nl/', $o) ?>,
             Data Archiving and Networked Services
-            (<?php echo $this->Html->link('DANS', 'https://dans.knaw.nl', $o); ?>),
-            <?php echo $this->Html->link('Erasmus University Rotterdam', 'https://www.eur.nl/', $o); ?>,
-            <?php echo $this->Html->link('University of Cologne', 'https://www.uni-koeln.de/', $o); ?>,
+            (<?= $this->Html->link('DANS', 'https://dans.knaw.nl', $o) ?>),
+            <?= $this->Html->link('Erasmus University Rotterdam', 'https://www.eur.nl/', $o) ?>,
+            <?= $this->Html->link('University of Cologne', 'https://www.uni-koeln.de/', $o) ?>,
             Pôle Informatique de Recherche et d'Enseignement en Histoire
-            (<?php echo $this->Html->link('PIREH / University Paris 1', 'http://www.univ-paris1.fr/axe-de-recherche/pireh/', $o); ?>),
-            <?php echo $this->Html->link('Georg-August-Universität Göttingen', 'http://www.uni-goettingen.de/', $o); ?>,
-            <?php echo $this->Html->link('University of Graz', 'https://www.uni-graz.at/', $o); ?>.
+            (<?= $this->Html->link('PIREH / University Paris 1', 'http://www.univ-paris1.fr/axe-de-recherche/pireh/', $o) ?>),
+            <?= $this->Html->link('Georg-August-Universität Göttingen', 'http://www.uni-goettingen.de/', $o) ?>,
+            <?= $this->Html->link('University of Graz', 'https://www.uni-graz.at/', $o) ?>.
         </p>
     </div>
     <div class="flex-item narrow">
+        <h3>Coordination</h3>
+        <p>DHCR Working Group (DARIAH-EU)</p>
+        <p>
+            Tanja Wissik: general coordination, user management, dissemination and acquisition of
+            third party funding (<a href="#" target="_blank">list of projects</a>).<br />
+            <a href="https://www.oeaw.ac.at/acdh/team/current-team/tanja-wissik/" target="_blank">Website</a>
+        </p>
+        <p>
+            Hendrik Schmeer: technical coordination, software development and maintenance.<br />
+            <a href="http://hendrikschmeer.de" target="_blank">Website</a>
+        </p>
+        
         <h3>Screen Design</h3>
         <p>
-            Lea Giesecke - <a href="https://linia-design.de/info/" target="_blank">Linia Design</a>,
-            <a href="mailto:lea.giesecke@web.de">@</a><br>
-            Nicolai Herzog - <a href="http://www.nicolaiherzog.de" target="_blank">Website</a>,
-            <a href="mailto:nicolaiherzog@posteo.de">@</a>
+            Lea Giesecke - <a href="https://linia-design.de/info/" target="_blank">Linia Design</a><br />
+            Nicolai Herzog - <a href="http://www.nicolaiherzog.de" target="_blank">Website</a>
         </p>
-        <h3>Software Development</h3>
-        <p>
-            Hendrik Schmeer - <a href="http://hendrikschmeer.de" target="_blank">Website</a>,
-            <a href="mailto:mail@hendrikschmeer.de">@</a>
-        </p>
+        
     </div>
 </div>
 

@@ -390,8 +390,9 @@ body.info {
   @media only screen and (max-width: 580px) {
     .back.button {
       position: static;
-      display: inline-block;
-      margin: 0 18% 2em; } }
+      display: block;
+      margin: 0 auto 2em;
+      width: 140px; } }
 
 #page-head {
   display: grid;
@@ -473,8 +474,11 @@ body.info {
     height: 60px;
     text-transform: none;
     cursor: pointer;
-    position: relative;
-    transition: all 0.3s; }
+    position: relative; }
+    #accordeon .accordeon-item > h2 span {
+      transition: all 0.3s;
+      transform-origin: left center;
+      display: inline-block; }
     @media only screen and (max-width: 750px) {
       #accordeon .accordeon-item > h2 {
         font-size: 22px; } }
@@ -487,7 +491,7 @@ body.info {
       display: inline-block;
       position: absolute;
       right: 0;
-      top: 20px;
+      top: 0.8em;
       transform: rotate(45deg);
       border: 4px solid #1E6BA3;
       border-radius: 1px;
@@ -495,17 +499,11 @@ body.info {
       border-left: none;
       content: '';
       margin-right: 5px; }
-    #accordeon .accordeon-item > h2:hover {
-      font-size: 26px; }
-      @media only screen and (max-width: 750px) {
-        #accordeon .accordeon-item > h2:hover {
-          font-size: 23px; } }
-      @media only screen and (max-width: 400px) {
-        #accordeon .accordeon-item > h2:hover {
-          font-size: 26px; } }
-      #accordeon .accordeon-item > h2:hover::after {
-        width: 0.55em;
-        height: 0.55em; }
+    #accordeon .accordeon-item > h2:hover span {
+      transform: scale(1.05); }
+    #accordeon .accordeon-item > h2:hover::after {
+      transform: rotate(-135deg);
+      top: 1em; }
   #accordeon .accordeon-item:not(.open) .item-content {
     max-height: 0;
     transition: max-height 0.5s ease-out;
@@ -514,7 +512,10 @@ body.info {
     border-bottom: 2px solid #d8d8d8; }
   #accordeon .accordeon-item.open h2::after {
     transform: rotate(-135deg);
-    bottom: 0.55em; }
+    top: 1em; }
+  #accordeon .accordeon-item.open h2:hover::after {
+    transform: rotate(45deg);
+    top: 0.8em; }
   #accordeon .accordeon-item.open .item-content {
     padding: 2em 0 3em;
     max-height: 5000px;

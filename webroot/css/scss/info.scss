@@ -45,8 +45,9 @@ body.info {
     }
     @media only screen and (max-width: 580px) {
         position: static;
-        display: inline-block;
-        margin: 0 18% 2em;
+        display: block;
+        margin: 0 auto 2em;
+        width: 140px;
     }
 }
 
@@ -144,7 +145,11 @@ body.info {
             text-transform: none;
             cursor: pointer;
             position: relative;
-            transition: all 0.3s;
+            span {
+                transition: all 0.3s;
+                transform-origin: left center;
+                display: inline-block;
+            }
             @include respond-to(handhelds) {
                 font-size: 22px;
             }
@@ -157,7 +162,7 @@ body.info {
                 display: inline-block;
                 position: absolute;
                 right: 0;
-                top: 20px;
+                top: 0.8em;
                 transform: rotate(45deg);
                 border: 4px solid $blue;
                 border-radius: 1px;
@@ -167,16 +172,12 @@ body.info {
                 margin-right: 5px;
             }
             &:hover {
-                font-size: 26px;
-                @include respond-to(handhelds) {
-                    font-size: 23px;
-                }
-                @include respond-to(x-small) {
-                    font-size: 26px;
+                span {
+                    transform: scale(1.05);
                 }
                 &::after {
-                    width: 0.55em;
-                    height: 0.55em;
+                    transform: rotate(-135deg);
+                    top: 1em;
                 }
             }
         }
@@ -194,7 +195,11 @@ body.info {
             h2 {
                 &::after {
                     transform: rotate(-135deg);
-                    bottom: 0.55em;
+                    top: 1em;
+                }
+                &:hover::after {
+                    transform: rotate(45deg);
+                    top: 0.8em;
                 }
             }
             .item-content {
