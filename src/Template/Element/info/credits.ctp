@@ -7,7 +7,7 @@ $o = array('target' => '_blank');
     <div class="flex-item wide">
         <h3>Initiative</h3>
         <p>
-            The DHCR has been supported by different institutions and project grants:
+            The DHCR is supported by these institutions and project grants:
             <?= $this->Html->link('CLARIN ERIC', 'https://www.clarin.eu/', $o) ?>,
             <?= $this->Html->link('DARIAH-EU', 'https://www.dariah.eu/', $o); ?>,
             PARTHENOS (H2020 Grant Agreement n. 654119),
