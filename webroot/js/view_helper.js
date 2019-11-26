@@ -156,7 +156,7 @@ class ViewHelper {
         this._collection.push($('<p></p>').html(course.institution.name + ',<br />' + course.department + '.'));
         this._collection.push($('<p></p>').text('Type: ' + course.course_type.name));
         buttons.append(details);
-        buttons.append($('<button></button>').text('Share').addClass('sharing x-small'));
+        buttons.append(Sharing.createSharingButton('x-small', course));
         buttons.append($('<button></button>').text('Table').addClass('show_table x-small back'));
         this._collection.push(buttons);
         return this.concat();
