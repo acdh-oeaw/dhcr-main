@@ -68,7 +68,7 @@ use Cake\Core\Configure;
         echo $this->Form->create(false, [
             'novalidate' => true,
             'id' => 'ContactUsForm',
-            'url' => '/contact/us'
+            'url' => '/info/#contact'
         ]);
         echo $this->Form->control('email', array(
             'label' => 'Your E-Mail',
@@ -86,19 +86,19 @@ use Cake\Core\Configure;
         echo $this->Form->control('message', array(
             'type' => 'textarea',
         ));
-        echo $this->Form->end(array(
-            'label' => 'Submit',
-            'class' => 'g-recaptcha',
+        echo $this->Form->submit('Submit', array(
+            'class' => 'g-recaptcha small blue button right',
             'data-sitekey' => Configure::read('App.reCaptchaPublicKey'),
             'data-callback' => 'recaptchaCallback'
         ));
+        echo $this->Form->end();
         ?>
     
         <h3>Bug Report</h3>
         <p>
             In case you find a bug, please file a report here:
         </p>
-        <a class="small blue button"
+        <a class="small blue button right"
            href="https://github.com/hashmich/DHCR-Frontend/issues"
            target="_blank">Bug Report</a>
     </div>

@@ -223,11 +223,11 @@ hr {
 
 
 .hidden { display: none; }
-.right  { text-align: right;  }
-.center { text-align: center; }
+.right  { float: right;  }
 .clearfix {
     @include clearfix;
 }
+
 
 
 .recurring {

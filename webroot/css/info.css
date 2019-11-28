@@ -210,10 +210,7 @@ hr {
   display: none; }
 
 .right {
-  text-align: right; }
-
-.center {
-  text-align: center; }
+  float: right; }
 
 .clearfix::after {
   content: "";

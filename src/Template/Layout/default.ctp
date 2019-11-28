@@ -35,7 +35,7 @@ use Cake\Routing\Router;
                 ]); ?>
             </div>
             <div id="menu">
-                <?= $this->Html->link('Info', '/pages/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
+                <?= $this->Html->link('Info', '/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
                 <?= $this->Html->link('Login', Configure::read('ops.baseUrl').'users/login',
                     ['class' => 'button', 'id' => 'login-button']) ?>
             </div>

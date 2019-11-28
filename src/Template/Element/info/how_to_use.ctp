@@ -62,6 +62,10 @@ use Cake\Core\Configure;
         <li>Training of professionals (continuing education)</li>
         <li>Summer schools within DH</li>
     </ul>
+    <p>
+        Courses held in any language or country can be submitted.
+        We recommend providing English metadata to increase international accessibility.
+    </p>
 </div>
 <hr />
 <div class="flex-columns">

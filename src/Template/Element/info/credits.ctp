@@ -34,7 +34,10 @@ $o = array('target' => '_blank');
     </div>
     <div class="flex-item narrow">
         <h3>Coordination</h3>
-        <p>DHCR Working Group (DARIAH-EU)</p>
+        <p>
+            DARIAH-EU Working Group.
+            <a href="https://www.dariah.eu/activities/working-groups/dh-course-registry/" target="_blank">Website</a>
+        </p>
         <p class="coordinator">
             Tanja Wissik
         </p>
