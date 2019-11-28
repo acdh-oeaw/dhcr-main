@@ -96,9 +96,9 @@ use Cake\Core\Configure;
     
         <h3>Bug Report</h3>
         <p>
-            In case you found a bug, please file a report in our issue tracker:
+            In case you find a bug, please file a report here:
         </p>
-        <a class="blue button"
+        <a class="small blue button"
            href="https://github.com/hashmich/DHCR-Frontend/issues"
            target="_blank">Bug Report</a>
     </div>
