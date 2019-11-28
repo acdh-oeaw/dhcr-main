@@ -35,13 +35,22 @@ $o = array('target' => '_blank');
     <div class="flex-item narrow">
         <h3>Coordination</h3>
         <p>DHCR Working Group (DARIAH-EU)</p>
-        <p>
-            Tanja Wissik: general coordination, user management, dissemination and acquisition of
-            third party funding (<a href="#" target="_blank">list of projects</a>).<br />
-            <a href="https://www.oeaw.ac.at/acdh/team/current-team/tanja-wissik/" target="_blank">Website</a>
+        <p class="coordinator">
+            Tanja Wissik
         </p>
         <p>
-            Hendrik Schmeer: technical coordination, software development and maintenance.<br />
+            Administrative co-chair of the working group.<br />
+            General coordination, user management, dissemination and acquisition of
+            third party funding
+            (<?= $this->Html->link('list of projects', '/files/DHCR-third-party-funding.pdf') ?>).
+            <a href="https://www.oeaw.ac.at/acdh/team/current-team/tanja-wissik/" target="_blank">Website</a>
+        </p>
+        <p class="coordinator">
+            Hendrik Schmeer
+        </p>
+        <p>
+            Technical co-chair of the working group. <br />
+            Coordination of software development, user support and maintenance of the platform.
             <a href="http://hendrikschmeer.de" target="_blank">Website</a>
         </p>
         

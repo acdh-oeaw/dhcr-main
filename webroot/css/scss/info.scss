@@ -315,9 +315,12 @@ body.info {
                         .country {
                             font-family: metropolis, sans-serif;
                             font-weight: bold;
-                            color: $gray;
+                            color: $blue;
                             display: block;
                             margin-bottom: 0;
+                        }
+                        .moderators a {
+                            color: $gray;
                         }
                     }
                 }
@@ -395,6 +398,13 @@ body.info {
                                 }
                             }
                         }
+                    }
+                    .coordinator {
+                        font-family: metropolis, sans-serif;
+                        font-weight: bold;
+                        color: $blue;
+                        display: block;
+                        margin-bottom: 0;
                     }
                     .iframe-container {
                         overflow: hidden;

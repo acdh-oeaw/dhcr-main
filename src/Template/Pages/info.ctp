@@ -84,7 +84,7 @@ $this->layout = false;
                 </div>
         
                 <div class="accordeon-item" id="data">
-                    <h2><span>Data Model, Export and API</span></h2>
+                    <h2><span>Data Export and API</span></h2>
                     <div class="item-content">
                         <?= $this->Element('info/data-api') ?>
                     </div>
