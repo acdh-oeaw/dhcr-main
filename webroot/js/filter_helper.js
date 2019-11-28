@@ -91,7 +91,7 @@ class FilterHelper {
                     .text(this.filter.selected[category][id].name);
                 selection.append(item);
             }
-            return selection[0];
+            return selection[0].outerHTML;
         }
         return '';
     }

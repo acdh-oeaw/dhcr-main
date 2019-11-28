@@ -116,7 +116,7 @@ class App {
         // check for preset object served on pageload to speed up loading time
         if(this.pageload) {
             this.pageload = false;
-            if (courses.length > 0) {
+            if(courses.length > 0) {
                 this.data = {};
                 for (var i = 0; courses.length > i; i++) {
                     this.data[courses[i].id] = courses[i];

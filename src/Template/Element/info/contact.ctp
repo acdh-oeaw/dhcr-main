@@ -7,9 +7,9 @@ use Cake\Core\Configure;
     <div class="flex-item">
         <h3>National Moderators</h3>
         <p>
-            The DHCR has a moderation system, that is inherited from the DARIAH system of national moderators.
-            Moderators are in question to review newly entered course data, help with registration issues
-            and to disseminate the DHCR initiative among their countries.
+            The DHCR maintains a system of national moderators, who review newly entered courses,
+            help with registration issues
+            and are encouraged to disseminate the DHCR initiative among institutions of their countries.
         </p>
         <div class="css-columns moderators">
             <?php
@@ -38,7 +38,7 @@ use Cake\Core\Configure;
     <div class="flex-item">
         <h3>Administrators</h3>
         <p>
-            For technical inquiries or yet not moderated countries, please seek contact to the administration board:
+            For technical questions or yet not moderated countries, please seek contact to the administration board:
         </p>
         <div class="css-columns admins">
             <p>

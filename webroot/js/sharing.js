@@ -104,7 +104,7 @@ class Sharing {
             + '\nTitle: ' + course.name
             + '\nAt: ' + course.institution.name + ', ' + course.department
             + '\nIn: ' + course.city.name + ', ' + course.country.name;
-        let hashtags = '&hashtags=DHCR';
+        let hashtags = '&hashtags=DHCR,DHCourseRegistry';
         let href = 'https://twitter.com/intent/tweet?text=' + body + hashtags + url;
 
         let button = $('<a></a>').addClass('sharing-option')

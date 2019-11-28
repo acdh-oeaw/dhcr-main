@@ -21,11 +21,9 @@
         </p>
     </div>
     <div class="flex-item narrow">
-        <?= $this->Html->link($this->Html->image('clarin-frontpage-logo.jpg', ['class' => 'logo']),
-            'https://www.clarin.eu/',
-            ['escape' => false, 'target' => '_blank']) ?>
-        <?= $this->Html->link($this->Html->image('dariah-logo.png', ['class' => 'logo']),
-            'https://www.dariah.eu/',
-            ['escape' => false, 'target' => '_blank']) ?>
+        <?= $this->Html->link($this->Html->image('dariah-logo.png'), 'https://www.dariah.eu/',
+            ['escape' => false, 'target' => '_blank', 'class' => 'logo']) ?>
+        <?= $this->Html->link($this->Html->image('clarin-logo.png'), 'https://www.clarin.eu/',
+            ['escape' => false, 'target' => '_blank', 'class' => 'logo']) ?>
     </div>
 </div>
