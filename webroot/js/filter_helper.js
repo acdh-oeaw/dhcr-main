@@ -150,7 +150,7 @@ class FilterHelper {
             let id = selection.attr('data-id');
             let category = selection.attr('data-category');
             if(!(id in this.filter.selected[category])) {
-                this.filter.selected[category][id] = this.filter[category][id];
+                this.filter.selected[category][id] = this.filter[category][id].name;
                 //delete this.filter[category][id];
                 let wrapper = $(e.target).closest('.selector-wrapper');
                 wrapper.replaceWith(this.createSelector(category));
