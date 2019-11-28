@@ -63,11 +63,13 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Courses', 'action' => 'index']);
+    
+    $routes->connect('/iframe', ['controller' => 'Courses', 'action' => 'index']);
+    
+    $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
 
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
+    
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
     /**
