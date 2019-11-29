@@ -44,7 +44,7 @@ class PagesController extends AppController
         $this->loadModel('Countries');
         $this->loadModel('Emails');
         
-	    if(!empty($this->request->getData()) AND $this->_checkCaptcha()) {
+        if(!empty($this->request->getData()) AND $this->_checkCaptcha()) {
             $data = $this->request->getData();
             $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
 	        if(!$email->getErrors()) {

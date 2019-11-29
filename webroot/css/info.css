@@ -317,6 +317,18 @@ table .recurring {
   opacity: 1;
 }
 */
+.flash-message {
+  position: fixed;
+  width: 300px;
+  height: auto;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 10000000;
+  right: 50px;
+  top: 50px;
+  padding: 30px;
+  border-radius: 8px;
+  color: #ccc; }
+
 form label {
   font-weight: bold;
   color: #1E6BA3; }
