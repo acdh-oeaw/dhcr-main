@@ -68,8 +68,6 @@ class PagesController extends AppController
                             ->send($data['message']);
                     }
                     $this->Flash->set('Your message has been sent.');
-                }else{
-                    $this->Flash->set('This is an error, please call a doctor.');
                 }
             }else{
                 $this->Flash->set('We are missing required data to send email, please amend the contact form.');
