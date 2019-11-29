@@ -16,6 +16,7 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\Event;
+use Cake\Core\Configure;
 
 /**
  * Application Controller
@@ -65,7 +66,35 @@ class AppController extends Controller
 	public function beforeRender(Event $event) {
 		parent::beforeRender($event);
 	}
-	
-	
-	
+    
+    
+    protected function _checkCaptcha(&$errors = array()) {
+        
+        $ip = $_SERVER['REMOTE_ADDR'];
+        if(!empty($_SERVER['HTTP_CLIENT_IP']))
+            $ip = $_SERVER['HTTP_CLIENT_IP'];
+        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        
+        $data = array(
+            'secret' => Configure::read('reCaptchaPrivateKey'),
+            'response' => $this->request->getData('g-recaptcha-response'),
+            'remoteip' => $ip
+        );
+        
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        
+        if(empty($result)) return false;
+        $result = json_decode($result, true);
+        if(!empty($result['error-codes'])) $errors = $result['error-codes'];
+        if(!empty($result['success'])) return true;
+        
+        return false;
+    }
 }

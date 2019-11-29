@@ -65,17 +65,19 @@ use Cake\Core\Configure;
             'National Moderators' => $countries
         ];
         
-        echo $this->Form->create(false, [
-            'novalidate' => true,
+        echo $this->Form->create($email, [
+            'novalidate' => false,
             'id' => 'ContactUsForm',
             'url' => '/info/#contact'
         ]);
         echo $this->Form->control('email', array(
             'label' => 'Your E-Mail',
-            'autocomplete' => 'off'
+            'autocomplete' => 'off',
+            'required' => true
         ));
         echo $this->Form->control('country_id', [
             'empty' => '- choose one -',
+            'required' => true,
             'label' => 'Send to',
             'options' => $options]);
         echo $this->Form->control('first_name');
@@ -85,10 +87,11 @@ use Cake\Core\Configure;
         ));
         echo $this->Form->control('message', array(
             'type' => 'textarea',
+            'required' => true
         ));
         echo $this->Form->submit('Submit', array(
             'class' => 'g-recaptcha small blue button right',
-            'data-sitekey' => Configure::read('App.reCaptchaPublicKey'),
+            'data-sitekey' => Configure::read('reCaptchaPublicKey'),
             'data-callback' => 'recaptchaCallback'
         ));
         echo $this->Form->end();

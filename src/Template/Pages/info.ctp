@@ -120,7 +120,9 @@ $this->layout = false;
                 <p class="copyright">&copy;2014-<?= date('Y') ?></p>
             </div>
         </div>
+
         
+        <?= $this->Flash->render('flash') ?>
         
         
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
@@ -135,6 +137,9 @@ $this->layout = false;
                     e.preventDefault();
                     accordeon.openHash('imprint');
                 });
+                if($('.flash-message').length) {
+                    $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
+                }
             });
 
             function recaptchaCallback(token) {

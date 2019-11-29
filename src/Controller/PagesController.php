@@ -19,6 +19,7 @@ use Cake\Event\Event;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Mailer\Email;
 
 /**
  * Static content controller
@@ -41,7 +42,46 @@ class PagesController extends AppController
 	public function info() {
         $this->loadModel('Users');
         $this->loadModel('Countries');
+        $this->loadModel('Emails');
         
+	    if(!empty($this->request->getData()) AND $this->_checkCaptcha()) {
+            $data = $this->request->getData();
+            $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
+	        if(!$email->getErrors()) {
+                // save the mail to database
+                $this->Emails->save($email);
+                // try fetching the moderator in charge of the user's country
+                $country_id = ($data['country_id'] == 'administrators') ? null : $data['country_id'];
+                $admins = $this->Users->getModerators($country_id, $user_admin = true);
+                if($admins) {
+                    foreach($admins as $admin) {
+                        // email logic
+                        $mailer = new Email('default');
+                        $mailer->setCc($data['email']);
+                        $mailer->setCc(Configure::read('AppMail.defaultCc'));
+                        $mailer->setReplyTo($data['email'])
+                            ->setSender($data['email'], trim(
+                                $data['first_name'].' '
+                                .$data['last_name']))
+                            ->setTo($admin['email'])
+                            ->setSubject(Configure::read('AppMail.subjectPrefix') . ' New Question')
+                            ->send($data['message']);
+                    }
+                    $this->Flash->set('Your message has been sent.');
+                }else{
+                    $this->Flash->set('This is an error, please call a doctor.');
+                }
+            }else{
+                $this->Flash->set('We are missing required data to send email, please amend the contact form.');
+            }
+        }elseif(!empty($data) AND !$this->_checkCaptcha()) {
+            $data = $this->request->getData();
+            $email = $this->Emails->newEntity($data);
+            $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
+        }else{
+	        $email = $this->Emails->newEntity();
+        }
+	    
         $moderators = $this->Users->find('all', array(
             'contain' => array('Countries'),
             'conditions' => array('Users.user_role_id' => 2),
@@ -61,7 +101,7 @@ class PagesController extends AppController
             ->order(['Countries.name ASC'])
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
-        $this->set(compact('countries', 'moderators', 'userAdmins'));
+        $this->set(compact('countries','moderators','userAdmins','email'));
     }
 	
 	
