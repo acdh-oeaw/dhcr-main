@@ -65,6 +65,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Courses', 'action' => 'index']);
     
     $routes->connect('/iframe', ['controller' => 'Courses', 'action' => 'index']);
+    $routes->connect('/courses/iframe', ['controller' => 'Courses', 'action' => 'index']);
+    $routes->connect('/iframe/*', ['controller' => 'Courses', 'action' => 'index']);
+    $routes->connect('/courses/iframe/*', ['controller' => 'Courses', 'action' => 'index']);
     
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
 
