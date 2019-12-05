@@ -48,8 +48,7 @@ class PagesController extends AppController
             $data = $this->request->getData();
             $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
 	        if(!$email->getErrors()) {
-                // save the mail to database
-                $this->Emails->save($email);
+                //$this->Emails->save($email);
                 // try fetching the moderator in charge of the user's country
                 $country_id = ($data['country_id'] == 'administrators') ? null : $data['country_id'];
                 $admins = $this->Users->getModerators($country_id, $user_admin = true);
