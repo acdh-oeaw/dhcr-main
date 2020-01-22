@@ -67,6 +67,20 @@ class App {
         }.bind(this));
 
         this.resizeListener();
+
+        this.iframe = App.inIframe();
+        if(this.iframe) {
+            /*if(!this.checkWhitelist()) {
+                alert('You are visiting the DHCR through an iframe, which is fine.\n' +
+                    'If you are this site\'s admin, please get in touch with us to get whitelisted. \n' +
+                    'In some browsers, third-party functionality on DHCR might break due to domain restrictions.');
+            }*/
+            // jump out of the iframe, statically created links only
+            $('a').attr('target', '_blank');
+        }
+        //console.log(document.location.ancestorOrigins); // doesn't work in FF 70, 2019-12
+        //console.log(parent.location);                   // attributes of parent cannot be accessed
+        // -> parent URL needs to be retrieved as a query parameter
     }
 
     resizeListener() {
@@ -116,7 +130,7 @@ class App {
         // check for preset object served on pageload to speed up loading time
         if(this.pageload) {
             this.pageload = false;
-            if(courses.length > 0) {
+            if(typeof courses != 'undefined' && courses.length > 0) {
                 this.data = {};
                 for (var i = 0; courses.length > i; i++) {
                     this.data[courses[i].id] = courses[i];
@@ -143,18 +157,14 @@ class App {
                 crossDomain: true
             }).done(function( data ) {
                 this.data = {};
-                if(data.length <= 0) {
-                    this.handleError('No course matches your filter conditions.');
-                }else{
-                    // global variable courses is available anyhow,
-                    // but _be_ sure to keep re-generation of the view in callback
-                    courses = data; // courses is required next to data to keep the order of entries
-                    for(var i = 0; data.length > i; i++) {
-                        this.data[data[i].id] = data[i];
-                    }
-                    this.map.setMarkers(this.data);
-                    this.setTable();
+                // global variable courses is available anyhow,
+                // but _be_ sure to keep re-generation of the view in callback
+                window.courses = data; // courses is required next to data to keep the order of entries
+                for(var i = 0; data.length > i; i++) {
+                    this.data[data[i].id] = data[i];
                 }
+                this.map.setMarkers(this.data);
+                this.setTable();
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 this.handleError('Error loading data');
             });
@@ -193,5 +203,38 @@ class App {
         console.log(data);
         let msg = (typeof data == 'string') ? data : 'Something went wrong';
         this.view.setErrorMessage(msg);
+    }
+
+    static inIframe () {
+        try {
+            return window.self !== window.top;
+        }catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+
+    static whitelist() {
+        // to be kept in sync with third-party API keys: mapbox, (google reCaptcha)
+        return [
+            'dariah.eu',
+            //'clarin.eu',
+            //'clarin-dariah.eu',
+            //'clariah.nl',
+            //'clariah.de',
+            //'clarin-d.net',
+            //'clariah-de.net'
+        ];
+    }
+
+    checkWhitelist() {
+        let parent = Filter.getParameterByName('parent_domain');
+        let list = App.whitelist();
+        for(let i = 0; list.length > i; i++) {
+            if(list[i].indexOf(parent) >= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

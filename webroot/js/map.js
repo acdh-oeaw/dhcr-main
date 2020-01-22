@@ -181,6 +181,7 @@ class Map {
     }
 
     fitBounds() {
+        if(Object.keys(this.markers).length == 0) return;
         this.map.options.maxZoom = 12;
         this.map.options.minZoom = 2;
         this.map.fitBounds(this.cluster.getBounds(), {padding: [10, 10]});

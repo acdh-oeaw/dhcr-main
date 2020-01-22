@@ -70,8 +70,8 @@ class View {
         this.clearView();
         this.createFilterPanel();
         if(Object.keys(this.app.data) <= 0) {
-            $(this.element).addClass('error');
-            $(this.element).append($('<p>Your query returned no results.</p>'));
+            // do not clear View/call handleError to keep the filter buttons clear button available
+            $(this.element).addClass('error').append('<p>No course matches your filter conditions.</p>');
             return;
         }
 
