@@ -26,13 +26,15 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "DHCR-Core\\": "./plugins/DHCR-Core/src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
             "App\\Test\\": "tests/",
-            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/"
+            "Cake\\Test\\": "vendor/cakephp/cakephp/tests/",
+            "DHCR-Core\\Test\\": "./plugins/DHCR-Core/tests/"
         }
     },
     "scripts": {
