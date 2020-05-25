@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 
-//use DhcrCore\Model\Table\CoursesTable;
 use Cake\Datasource\Exception\RecordNotFoundException;
 
 
