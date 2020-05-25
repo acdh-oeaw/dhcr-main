@@ -30,20 +30,20 @@ use Cake\Mailer\Email;
  */
 class PagesController extends AppController
 {
-	
-	
+
+
 	public function beforeRender(Event $event) {
 		// bypass forcing data views for this controller only, make no call to parent::beforeRender()
 	}
-	
-	
-	
-	
+
+
+
+
 	public function info() {
-        $this->loadModel('Users');
-        $this->loadModel('Countries');
+        $this->loadModel('DhcrCore.Users');
+        $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Emails');
-        
+
         if(!empty($this->request->getData()) AND $this->_checkCaptcha()) {
             $data = $this->request->getData();
             $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
@@ -72,19 +72,21 @@ class PagesController extends AppController
                 $this->Flash->set('We are missing required data to send email, please amend the contact form.');
             }
         }elseif(!empty($data) AND !$this->_checkCaptcha()) {
+            // repopulate the email form
             $data = $this->request->getData();
             $email = $this->Emails->newEntity($data);
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
         }else{
-	        $email = $this->Emails->newEntity();
+	        // init email form
+            $email = $this->Emails->newEntity();
         }
-	    
+
         $moderators = $this->Users->find('all', array(
             'contain' => array('Countries'),
             'conditions' => array('Users.user_role_id' => 2),
             'order' => array('Countries.name' => 'asc')
         ))->toList();
-        
+
         $userAdmins = $this->Users->find('all', array(
             'contain' => array(),
             'conditions' => array('Users.user_admin' => 1)
@@ -100,8 +102,8 @@ class PagesController extends AppController
             ->toArray();
         $this->set(compact('countries','moderators','userAdmins','email'));
     }
-	
-	
+
+
 	/**
      * Displays a view
      *

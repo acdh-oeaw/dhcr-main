@@ -13,7 +13,6 @@
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
 namespace App;
-
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
 use Cake\Error\Middleware\ErrorHandlerMiddleware;
@@ -34,14 +33,14 @@ class Application extends BaseApplication
      */
     public function bootstrap()
     {
-        $this->addPlugin('DHCR-Core');
-
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-    
+
+        $this->addPlugin('DhcrCore');
+
         //if(Configure::read('debug')) $this->addPlugin('DebugKit');
-    
-    
+
+
         if (PHP_SAPI === 'cli') {
             try {
                 $this->addPlugin('Bake');
