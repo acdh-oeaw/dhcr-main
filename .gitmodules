@@ -1,0 +1,3 @@
+[submodule "plugins/DhcrCore"]
+	path = plugins/DhcrCore
+	url = https://github.com/hashmich/DHCR-Core
