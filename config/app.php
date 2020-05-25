@@ -1,6 +1,28 @@
 <?php
 return [
-    /**
+    // custom variables
+    'api' => [
+        'baseUrl' => env('API_BASE_URL', 'http://localhost/api/v1')
+    ],
+    'ops' => [
+        'baseUrl' => env('OPS_BASE_URL', 'http://localhost/ops/')
+    ],
+    'map' => [
+        'apiKey' => env('MAP_API_KEY', '__MAP_API_KEY__')
+    ],
+
+    'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),
+    'reCaptchaPrivateKey' => env('RECAPTCHA_PRIVATE_KEY', '__RECAPTCHA_PRIVATE_KEY__'),
+    'AppMail' => [
+        'defaultFrom' => [env('APP_MAIL_DEFAULT_FROM', '__REPLYTO_MAIL__') => 'DH Course Registry'],
+        'defaultCc' => env('APP_MAIL_DEFAULT_CC', '__CC_MAIL__'),
+        'subjectPrefix' => '[DH Course Registry]'
+    ],
+
+
+
+
+/**
      * Debug Level:
      *
      * Production Mode:
@@ -80,8 +102,8 @@ return [
      * enable timestamping regardless of debug value.
      */
     'Asset' => [
-        //'timestamp' => true,
-        // 'cacheTime' => '+1 year'
+        'timestamp' => true,
+        'cacheTime' => '+1 year'
     ],
 
     /**
@@ -197,18 +219,19 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => 'Cake\Mailer\Transport\MailTransport',
+            'className' => env('MAIL_TRANSPORT_CLASS', 'Cake\Mailer\Transport\SmtpTransport'),
             /*
              * The following keys are used in SMTP transports:
              */
-            'host' => 'localhost',
-            'port' => 25,
+            'host' => env('MAIL_SMTP_HOST', '__SMTP_HOST__'),
+            'port' => env('MAIL_SMTP_PORT', 25),
             'timeout' => 30,
             'username' => null,
             'password' => null,
             'client' => null,
             'tls' => null,
-            'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            'log' => false,		// enabling this will print the full messages into the log
+            'charset' => 'utf-8',
         ],
     ],
 
@@ -224,9 +247,9 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => 'you@localhost',
-            //'charset' => 'utf-8',
-            //'headerCharset' => 'utf-8',
+            'from' => [env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'],
+            'headerCharset' => 'utf-8',
+            'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
         ],
     ],
 
@@ -255,9 +278,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'my_app',
+            'username' => 'my_user',
+            'password' => 'my_secret',
+            'database' => 'my_db',
             /*
              * You do not need to set this flag to use full utf-8 encoding (internal default since CakePHP 3.6).
              */
@@ -298,9 +321,9 @@ return [
             'persistent' => false,
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
-            'password' => 'secret',
-            'database' => 'test_myapp',
+            'username' => 'my_user',
+            'password' => 'my_secret',
+            'database' => 'test_db',
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
             'cacheMetadata' => true,
@@ -381,6 +404,6 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php',
+        'defaults' => 'cache',
     ],
 ];

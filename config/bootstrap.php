@@ -53,15 +53,15 @@ use Cake\Utility\Security;
  * and decreased performance on each request. The purpose of the .env file is to emulate
  * the presence of the environment variables like they would be present in production.
  */
-// if (!env('APP_NAME') && file_exists(CONFIG . '.env')) {
-//     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
-//     $dotenv->parse()
-//         ->putenv()
-//         ->toEnv()
-//         ->toServer();
-// }
 
-
+// only read the .env file if env::DEBUG is false or not present (likewise in local environments)
+if(!filter_var(env('DHCR_Frontend', false), FILTER_VALIDATE_BOOLEAN) && file_exists(CONFIG . '.env')) {
+     $dotenv = new \josegonzalez\Dotenv\Loader([CONFIG . '.env']);
+     $dotenv->parse()
+         ->putenv()
+         ->toEnv()
+         ->toServer();
+}
 
 /*
  * Read configuration file and inject configuration into various
