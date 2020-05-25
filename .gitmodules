@@ -1,8 +1,4 @@
-[submodule "src/Model"]
-	path = src/Model
-	url = https://github.com/hashmich/DHCR-Core
-	branch = master
 [submodule "plugins/DHCR-Core"]
 	path = plugins/DHCR-Core
-	url = https://github.com/hashmich/DHCR-Core.git
+	url = https://github.com/hashmich/DHCR-Core
 	branch = master
