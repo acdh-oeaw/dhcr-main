@@ -1,0 +1,14 @@
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
+
+build:
+  stage: build
+  tags:
+    - kubernetes
+  script: echo "http_proxy"
+
+production:
+  stage: production
+  tags:
+    - kubernetes
+  script: echo "http_proxy"
