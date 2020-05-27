@@ -11,7 +11,7 @@ staging:
   extends: .auto-deploy
   stage: staging
   tags:
-    - kubernetes
+    - acdh-cluster
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -38,7 +38,7 @@ canary:
   stage: canary
   allow_failure: true
   tags:
-    - kubernetes
+    - acdh-cluster
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -61,7 +61,7 @@ canary:
   extends: .auto-deploy
   stage: production
   tags:
-    - kubernetes
+    - acdh-cluster
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -113,7 +113,7 @@ production_manual:
 .rollout: &rollout_template
   extends: .auto-deploy
   tags:
-    - kubernetes
+    - acdh-cluster
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
