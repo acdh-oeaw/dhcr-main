@@ -126,7 +126,7 @@ class ViewHelper {
                 if ((!course.recurring && date < new Date()) || (course.recurring && lastMonth == date.getMonth())) continue;     // omit past dates except for recurring starts
                 lastMonth = date.getMonth()
                 if (start != '') start += dateSeparator;
-                let day = (date.getDay() == 0) ? 1 : date.getDay();
+                let day = (date.getDate() == 0) ? 1 : date.getDate();
                 start += day + ' ' + ViewHelper.months()[date.getMonth()];
                 if (!course.recurring) start += ' ' + date.getFullYear();
             }
