@@ -47,9 +47,9 @@ $this->layout = false;
                 
                 <div class="intent">
                     <p>
-                        The Digital Humanities Course Registry (DHCR) is a curated platform that
-                        provides an overview of the growing range of available teaching activities in
-                        the field of digital humanities worldwide.
+                        The Digital Humanities Course Registry is a curated platform that provides 
+                        an overview of the growing range of teaching activities in the field 
+                        of digital humanities worldwide.
                     </p>
                     <p>
                         The platform is a joint effort of two European research infrastructures: <br />
