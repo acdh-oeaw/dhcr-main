@@ -1,5 +1,3 @@
-
-
 <div class="flex-columns">
     <div class="flex-item wide">
         <h3>Downloads & Dissemination Material</h3>
@@ -30,6 +28,11 @@
     </div>
     <div class="flex-item publications narrow">
         <h3>Selected Presentations & Publications</h3>
+        <p>Wissik, T., Edmond, J., Fischer, F., de Jong, F., Stefania Scagliola, S., Scharnhorst，A. , 
+            Schmeer, H., Scholger, W. and Leon Wessels, L. (2020). 
+            Teaching Digital Humanities Around the World：An Infrastructural Approach to a Community-Driven DH Course Registry. 
+            Library Tribune 40: 1-27. Preprint available here: <a href="https://hal.archives-ouvertes.fr/hal-02500871/document">https://hal.archives-ouvertes.fr/hal-02500871/document</a>
+        </p> 
         <p>
             Schmeer, H., Wissik, T. (2019). <i>DH Course Regisry API.</i>
             Poster presentation at the CLARIN Bazaar 2019.
