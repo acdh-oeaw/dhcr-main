@@ -81,7 +81,7 @@ use Cake\Core\Configure;
         <h4>How to use as a Student</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/78TwdVY3LRc?rel=0"
+            <iframe src="https://www.youtube.com/embed/s-YsnpKCaUE?rel=0"
                     allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
@@ -89,7 +89,7 @@ use Cake\Core\Configure;
         <h4>How to use as a Lecturer</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/p_X7K2b1D9g?rel=0"
+            <iframe src="https://www.youtube.com/embed/X87p0XoBlZo?rel=0"
                     allow="encrypted-media" allowfullscreen></iframe>
         </div>
     </div>

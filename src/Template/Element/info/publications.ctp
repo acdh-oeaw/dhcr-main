@@ -1,3 +1,5 @@
+
+
 <div class="flex-columns">
     <div class="flex-item wide">
         <h3>Downloads & Dissemination Material</h3>
@@ -23,7 +25,18 @@
                 Please download our full logo package.
             </p>
         </div>
-        
+
+        <div class="feature-link">
+
+            <div style="width:100%">
+                <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0" allow="encrypted-media" allowfullscreen style="width:100%"></iframe>
+            </div>
+
+            <div style="width:100%; margin-left: 5px;">
+                <p>DH Course Registry Video</p>
+            </div>
+
+        </div>
         
     </div>
     <div class="flex-item publications narrow">
@@ -32,7 +45,7 @@
             Schmeer, H., Scholger, W. and Leon Wessels, L. (2020). 
             Teaching Digital Humanities Around the World：An Infrastructural Approach to a Community-Driven DH Course Registry. 
             Library Tribune 40: 1-27. Preprint available here: <a href="https://hal.archives-ouvertes.fr/hal-02500871/document">https://hal.archives-ouvertes.fr/hal-02500871/document</a>
-        </p> 
+        </p>  
         <p>
             Schmeer, H., Wissik, T. (2019). <i>DH Course Regisry API.</i>
             Poster presentation at the CLARIN Bazaar 2019.
