@@ -45,15 +45,18 @@ $this->layout = false;
 
         </script>
         <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
         
         @font-face {
             font-family: Metropolis-SemiBold;
-            src: url("/fonts/Metropolis-SemiBold.otf") format("opentype");
+            src: url("/fonts/babas_neue/BebasNeue-Regular.otf") format("opentype");
+        }
+        @font-face {
+            font-family: Metropolis-SemiBold;
+            src: url("/fonts/metropolis/Metropolis-SemiBold.otf") format("opentype");
         }
         @font-face {
             font-family: Metropolis-Regular;
-            src: url("/fonts/Metropolis-Regular.otf") format("opentype");
+            src: url("/fonts/metropolis/Metropolis-Regular.otf") format("opentype");
         }
                
         .linklist-container {
