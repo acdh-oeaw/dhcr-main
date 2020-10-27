@@ -1,3 +1,9 @@
 [submodule "plugins/DhcrCore"]
 	path = plugins/DhcrCore
 	url = https://gitlab.com/acdh-oeaw/dhcr/dhcr-core.git
+[submodule "api/v1"]
+	path = api/v1
+	url = git@gitlab.com:acdh-oeaw/dhcr/DHCR-API.git
+[submodule "ops"]
+	path = ops
+	url = git@gitlab.com:acdh-oeaw/dhcr/dhcr-back-end.git
