@@ -11,6 +11,6 @@ ENV PHP_EXTENSIONS="apcu mysqli pdo_mysql soap intl" \
     APACHE_RUN_GROUP=docker
 COPY --chown=docker:docker . /var/www/html
 
-RUN php composer.phar update 
+RUN apt-get update && apt-get install -y php7.3-intl && php composer.phar update 
 
 WORKDIR /var/www/html
