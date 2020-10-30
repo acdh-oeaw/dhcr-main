@@ -1,16 +1,15 @@
-ARG PHP_EXTENSIONS="apcu mysqli pdo_mysql soap intl"
-FROM thecodingmachine/php:7.4-v3-apache as php_base
-ENV PHP_EXTENSIONS="apcu mysqli pdo_mysql soap intl" \
-    PHP_EXTENSION_MYSQLI=1 \
-    PHP_EXTENSION_PDO_MYSQL=1 \
-    PHP_EXTENSION_GD=1 \
-    PHP_EXTENSION_INTL=1 \
-    PHP_EXTENSION_IMAGICK=1 \
-    APACHE_DOCUMENT_ROOT=/ \
-    APACHE_RUN_USER=docker \
-    APACHE_RUN_GROUP=docker
-COPY --chown=docker:docker . /var/www/html
+FROM php:7.2-apache
 
-RUN php composer.phar update 
+COPY --chown=1000:1000 . /var/www/html
+
+RUN apt-get update && apt-get install -y \
+        php7.2 php7.2-common php7.2-gd php7.2-mysql php7.2-imap phpmyadmin \
+        php7.2-cli php7.2-cgi libapache2-mod-fcgid apache2-suexec-pristine \
+        php-pear php7.2-mcrypt mcrypt  imagemagick libruby libapache2-mod-python \
+        php7.2-curl php7.2-intl php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy \
+        php7.2-xmlrpc php7.2-xsl memcached php-memcache php-imagick php-gettext php7.2-zip \
+        php7.2-mbstring memcached libapache2-mod-passenger php7.2-soap php7.2-intl
+
+php composer.phar update 
 
 WORKDIR /var/www/html
