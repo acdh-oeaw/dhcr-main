@@ -26,4 +26,4 @@ build:
 
   before_script:
     - apk add git
-    - git pull --recurse-submodules
+    - git pull origin master --recurse-submodules
