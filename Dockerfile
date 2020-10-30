@@ -14,5 +14,5 @@ RUN git submodule sync --recursive && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html && \
     php composer.phar update && \
     cd /var/www/html/api && php composer.phar update && \
-    cd /var/www/html/ops && php composer.phar update && \
+    cd /var/www/html/ops/app && php composer.phar update && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html
