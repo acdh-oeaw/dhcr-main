@@ -1,7 +1,29 @@
 include:
 - template: Auto-DevOps.gitlab-ci.yml
 
-.build:
+stages:
+  - build
+  - package
+  - test
+  - deploy 
+  - review
+  - dast
+  - staging
+  - canary
+  - production
+  - incremental rollout 10%
+  - incremental rollout 25%
+  - incremental rollout 50%
+  - incremental rollout 100%
+  - performance
+  - cleanup
+
+build:
   image: registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:latest
-  script:
-    - php composer.phar update
+  stage: build
+  tags:
+    - cluster
+
+  before_script:
+    - apt update && apt install -y git
+    - git pull --recurse-submodules
