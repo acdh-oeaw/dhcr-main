@@ -8,8 +8,9 @@ RUN apt-get update && apt-get install -y \
         php-pear php7.2-mcrypt mcrypt  imagemagick libruby libapache2-mod-python \
         php7.2-curl php7.2-intl php7.2-pspell php7.2-recode php7.2-sqlite3 php7.2-tidy \
         php7.2-xmlrpc php7.2-xsl memcached php-memcache php-imagick php-gettext php7.2-zip \
-        php7.2-mbstring memcached libapache2-mod-passenger php7.2-soap php7.2-intl
+        php7.2-mbstring memcached libapache2-mod-passenger php7.2-soap php7.2-intl && \
+    apt-get clean    
 
-php composer.phar update 
+RUN php composer.phar update 
 
 WORKDIR /var/www/html
