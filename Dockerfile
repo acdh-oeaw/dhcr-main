@@ -1,7 +1,7 @@
 FROM chialab/php:7.2-apache
 
-COPY --chown=1000:1000 . /var/www/html
+COPY --chown=www-data:www-data . /var/www/html
 
-RUN php composer.phar update 
+RUN apt-get update && apt-get install -y vim curl nano links && php composer.phar update 
 
 WORKDIR /var/www/html
