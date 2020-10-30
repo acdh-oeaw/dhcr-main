@@ -1,5 +1,5 @@
 ARG PHP_EXTENSIONS="apcu mysqli pdo_mysql soap"
-FROM thecodingmachine/php:7.2-v3-slim-apache as php_base
+FROM thecodingmachine/php:7.3-v3-slim-apache as php_base
 ENV PHP_EXTENSIONS="apcu mysqli pdo_mysql soap" \
     PHP_EXTENSION_MYSQLI=1 \
     PHP_EXTENSION_PDO_MYSQL=1 \
