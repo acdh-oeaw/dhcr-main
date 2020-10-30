@@ -1,5 +1,7 @@
 FROM php:7.2-apache
 
+ENV LC_ALL=C.UTF-8
+
 COPY --chown=1000:1000 . /var/www/html
 
 RUN apt-get update && apt-get install -y software-properties-common 
