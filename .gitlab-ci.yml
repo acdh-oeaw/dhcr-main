@@ -1,7 +1,6 @@
 include:
 - template: Auto-DevOps.gitlab-ci.yml
 
-.auto-deploy:
-  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest" 
+.build:
   before_script:
     - php composer.phar update
