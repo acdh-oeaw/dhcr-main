@@ -2,6 +2,9 @@ FROM php:7.2-apache
 
 COPY --chown=1000:1000 . /var/www/html
 
+RUN apt-get update && apt-get install -y software-properties-common 
+RUN add-apt-repository ppa:ondrej/php
+
 RUN apt-get update && apt-get install -y \
         php7.2 php7.2-common php7.2-gd php7.2-mysql php7.2-imap \
         php7.2-cli  \
