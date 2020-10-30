@@ -10,9 +10,7 @@ WORKDIR /var/www/html
 
 RUN git submodule sync --recursive && \
     git submodule update --init --recursive && \
+    mkdir tmp logs && \
+    chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html && \
     php composer.phar update && \
-    setfacl -R -m u:${HTTPDUSER}:rwx tmp && \
-    setfacl -R -d -m u:${HTTPDUSER}:rwx tmp && \
-    setfacl -R -m u:${HTTPDUSER}:rwx logs && \
-    setfacl -R -d -m u:${HTTPDUSER}:rwx logs && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html
