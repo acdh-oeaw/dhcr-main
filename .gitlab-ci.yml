@@ -25,5 +25,5 @@ build:
     - cluster
 
   before_script:
-    - apt update && apt install -y git
+    - apk add git
     - git pull --recurse-submodules
