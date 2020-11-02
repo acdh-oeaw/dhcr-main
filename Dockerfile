@@ -14,7 +14,6 @@ ENV HTTPDUSER=www-data \
     MAIL_TRANSPORT_CLASS=Cake\Mailer\Transport\SmtpTransport \
     DATABASE_URL=mysql://dhregistry:${DB_PASS}@helios.arz.oeaw.ac.at/dev-dhregistry?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false    
 
-   
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . /var/www/html
