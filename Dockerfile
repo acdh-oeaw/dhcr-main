@@ -1,7 +1,18 @@
 FROM chialab/php:7.2-apache
 
-ENV HTTPDUSER=www-data
+ENV HTTPDUSER=www-data \
+    API_BASE_URL=https://dev-dhcr.clarin-dariah.eu/api/v1/ \
+    DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ \
+    OPS_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ops/ \
+    APP_MAIL_DEFAULT_CC=dh-course-registry@oeaw.ac.at \
+    APP_MAIL_DEFAULT_FROM=dh-course-registry@dhcr.clarin-dariah.eu \
+    DEBUG=true \
+    MAIL_SMTP_HOST=smtp.oeaw.ac.at \
+    MAIL_SMTP_PORT=25 \
+    MAIL_TRANSPORT_CLASS=Cake\Mailer\Transport\SmtpTransport \
+    DATABASE_URL=mysql://dhregistry:${DB_PASS}@helios.arz.oeaw.ac.at/dev-dhregistry?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false    
 
+   
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . /var/www/html
