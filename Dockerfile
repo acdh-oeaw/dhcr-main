@@ -10,6 +10,8 @@ ENV HTTPDUSER=www-data \
     MAIL_SMTP_HOST=smtp.oeaw.ac.at \
     MAIL_SMTP_PORT=25 \
     MAIL_TRANSPORT_CLASS=Cake\Mailer\Transport\SmtpTransport \
+    LIST_SUBSCRIBE_URL="https://lists.oeaw.ac.at/mailman/admin/dhcourseregistry/members/add?subscribe_or_invite=0&send_welcome_msg_to_this_batch=0&notification_to_list_owner=0&subscribees=" \
+    LIST_UNSUBRSCRIBE_URL="https://lists.oeaw.ac.at/mailman/admin/dhcourseregistry/members/remove?send_unsub_ack_to_this_batch=0&send_unsub_notifications_to_list_owner=0&unsubscribees=" \
     DB_HOST=helios.arz.oeaw.ac.at \
     DB_PORT=3306 \
     DB_USER=dhregistry \
