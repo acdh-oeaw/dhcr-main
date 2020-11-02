@@ -4,8 +4,7 @@ variables:
   DOCKER_TLS_CERTDIR: "" 
   POSTGRES_ENABLED: "false"
   KUBE_NAMESPACE: dhcr-dev
-  TEST_DISABLED: "true"
-  DATABASE_URL: "mysql://dhregistry:${DB_PASS}@helios.arz.oeaw.ac.at/dev-dhregistry?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false" 
+  TEST_DISABLED: "true" 
   HELM_UPGRADE_EXTRA_ARGS: "--set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu"
 
 include:
