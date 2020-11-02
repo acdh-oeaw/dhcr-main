@@ -2,26 +2,13 @@ variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: "" 
+  POSTGRES_ENABLED: "false"
+  KUBE_NAMESPACE: dhcr-dev
+  TEST_DISABLED: "true" 
+  HELM_UPGRADE_EXTRA_ARGS: "--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu"
 
 include:
 - template: Auto-DevOps.gitlab-ci.yml
-
-stages:
-  - build
-  - package
-  - test
-  - deploy 
-  - review
-  - dast
-  - staging
-  - canary
-  - production
-  - incremental rollout 10%
-  - incremental rollout 25%
-  - incremental rollout 50%
-  - incremental rollout 100%
-  - performance
-  - cleanup
 
 build:
   image: docker/compose:latest
@@ -34,8 +21,7 @@ build:
 
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
-      export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
-    - export
+    - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
