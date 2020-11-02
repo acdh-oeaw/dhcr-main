@@ -28,7 +28,7 @@ RUN git submodule sync --recursive && \
     mkdir tmp logs && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html && \
     php composer.phar update && \
-    cd /var/www/html/api/v1 && php composer.phar update && \
+    cp /var/www/html/composer.phar /var/www/html/api/v1 && cd /var/www/html/api/v1 && php composer.phar update && \
     cp /var/www/html/composer.phar /var/www/html/ops/app && cd /var/www/html/ops/app && php composer.phar update && \
     cd /var/www/html && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} /var/www/html
