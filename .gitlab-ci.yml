@@ -2,9 +2,9 @@ variables:
   DOCKER_HOST: tcp://docker:2375/
   DOCKER_DRIVER: overlay2
   DOCKER_TLS_CERTDIR: "" 
-  POSTGRES_ENABLED: false
+  POSTGRES_ENABLED: "false"
   KUBE_NAMESPACE: dhcr-dev
-  TEST_DISABLED: true
+  TEST_DISABLED: "true"
 
 include:
 - template: Auto-DevOps.gitlab-ci.yml
