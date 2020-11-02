@@ -1,5 +1,7 @@
 FROM chialab/php:7.2-apache
 
+ARG DB_PASS
+
 ENV HTTPDUSER=www-data \
     API_BASE_URL=https://dev-dhcr.clarin-dariah.eu/api/v1/ \
     DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ \
