@@ -1,10 +1,7 @@
 FROM chialab/php:7.2-apache
 
-ARG BRANCH
-
 ENV HTTPDUSER=www-data \
-    WEBROOT=/var/www/html \
-    BRANCH=${BRANCH}
+    WEBROOT=/var/www/html 
     
 RUN sh -c 'source .${BRANCH}.env' && \
     echo $DB_HOST && \  
