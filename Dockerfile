@@ -1,11 +1,9 @@
 FROM chialab/php:7.2-apache
 
-ARG BRANCH
-
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
     
-RUN sh -c 'source .${BRANCH}.env' && \
+RUN sh -c 'source .${CI_COMMIT_REF_SLUG}.env' && \
     echo $DB_HOST && \  
     apt-get update && apt-get install -y vim curl nano links git 
 
