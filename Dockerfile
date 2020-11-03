@@ -8,10 +8,12 @@ ENV HTTPDUSER=www-data \
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
+COPY .${CI_COMMIT_REF_SLUG}.env /etc/profile.d/${CI_COMMIT_REF_SLUG}.env.sh
 
 WORKDIR /var/www/html
 
 RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
+    chmod +x /etc/profile.d/${CI_COMMIT_REF_SLUG}.env.sh && \
     git submodule sync --recursive && \
     git submodule update --init --recursive && \
     mkdir tmp logs && \
