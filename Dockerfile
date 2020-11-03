@@ -1,6 +1,6 @@
 FROM chialab/php:7.2-apache
 
-ARG $CI_COMMIT_REF_SLUG
+ARG CI_COMMIT_REF_SLUG
 
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
