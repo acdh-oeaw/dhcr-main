@@ -8,7 +8,6 @@ ENV HTTPDUSER=www-data \
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
-COPY .${CI_COMMIT_REF_SLUG}.env /etc/profile.d/${CI_COMMIT_REF_SLUG}.env.sh
 
 WORKDIR /var/www/html
 
@@ -22,5 +21,6 @@ RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/api/v1 && cd ${WEBROOT}/api/v1 && php composer.phar update && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/ops/app && cd ${WEBROOT}/ops/app && php composer.phar update && \
     cd ${WEBROOT} && \
-    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
-    sed -i '1 a /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env"' /usr/local/bin/docker-php-entrypoint;
+    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} 
+
+CMD ['/bin/bash', 'source', '.${CI_COMMIT_REF_SLUG}.env']
