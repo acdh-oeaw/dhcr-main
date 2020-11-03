@@ -18,6 +18,8 @@ build:
       command: ["--mtu=1450"]
   tags:
     - cluster
+  before_script:
+    - source .${CI_COMMIT_REF_NAME}.env
 
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
