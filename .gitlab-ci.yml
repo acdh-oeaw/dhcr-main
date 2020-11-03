@@ -5,7 +5,6 @@ variables:
   POSTGRES_ENABLED: "false"
   KUBE_NAMESPACE: dhcr-dev
   TEST_DISABLED: "true" 
-  AUTO_DEVOPS_BUILD_IMAGE_EXTRA_ARGS: "--build-arg CI_COMMIT_REF_SLUG=master"
   HELM_UPGRADE_EXTRA_ARGS: "--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu"
 
 include:
@@ -19,7 +18,9 @@ build:
       command: ["--mtu=1450"]
   tags:
     - cluster
-
+  before_script:
+    - sh -c 'CI_COMMIT_REF_SLUG=$(echo $CI_COMMIT_REF_SLUG); sed -i "s|ARG CI_COMMIT_REF_SLUG|CI_COMMIT_REF_SLUG=$$CI_COMMIT_REF_SLUG|g" Dockerfile'
+  
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
