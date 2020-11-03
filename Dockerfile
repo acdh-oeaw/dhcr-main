@@ -3,7 +3,9 @@ FROM chialab/php:7.2-apache
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html
     
-RUN apt-get update && apt-get install -y vim curl nano links git 
+RUN sh -c 'source .${CI_COMMIT_REF_NAME}.env' && \
+    echo $DB_HOST && \  
+    apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
 
