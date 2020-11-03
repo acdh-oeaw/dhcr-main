@@ -1,6 +1,6 @@
 FROM chialab/php:7.2-apache
 
-ARG $BRANCH
+ARG BRANCH
 
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
