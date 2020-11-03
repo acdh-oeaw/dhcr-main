@@ -5,7 +5,7 @@ variables:
   POSTGRES_ENABLED: "false"
   KUBE_NAMESPACE: dhcr-dev
   TEST_DISABLED: "true" 
-  HELM_UPGRADE_EXTRA_ARGS: '--set application.initializeCommand="source /var/www/html.${CI_COMMIT_REF_SLUG}.env" --set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
+  HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
 
 include:
 - template: Auto-DevOps.gitlab-ci.yml
