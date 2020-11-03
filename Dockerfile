@@ -3,7 +3,8 @@ FROM chialab/php:7.2-apache
 ARG CI_COMMIT_REF_SLUG
 
 ENV HTTPDUSER=www-data \
-    WEBROOT=/var/www/html 
+    WEBROOT=/var/www/html \
+    CI_COMMIT_REF_SLUG=${CI_COMMIT_REF_SLUG}
 
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
