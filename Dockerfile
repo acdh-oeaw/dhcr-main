@@ -5,17 +5,14 @@ ARG CI_COMMIT_REF_SLUG
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
 
-RUN echo $CI_COMMIT_REF_SLUG && echo $DB_HOST && pwd
-
-RUN sh -c 'source .${CI_COMMIT_REF_SLUG}.env'
-    
 RUN apt-get update && apt-get install -y vim curl nano links git 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
 
 WORKDIR /var/www/html
 
-RUN git submodule sync --recursive && \
+RUN sh -c 'source .${CI_COMMIT_REF_SLUG}.env' && \
+    git submodule sync --recursive && \
     git submodule update --init --recursive && \
     mkdir tmp logs && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
