@@ -19,7 +19,7 @@ build:
   tags:
     - cluster
   before_script:
-    - sh -c 'CI_COMMIT_REF_SLUG=$(echo $CI_COMMIT_REF_SLUG); sed -i "s|ARG CI_COMMIT_REF_SLUG|CI_COMMIT_REF_SLUG=$$CI_COMMIT_REF_SLUG|g" Dockerfile'
+    - sh -c 'CI_COMMIT_REF_SLUG=$(echo $CI_COMMIT_REF_SLUG); sed -i "s|ARG CI_COMMIT_REF_SLUG|ARG CI_COMMIT_REF_SLUG=$CI_COMMIT_REF_SLUG|g" Dockerfile'
   
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
