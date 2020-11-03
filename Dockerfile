@@ -22,4 +22,5 @@ RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/api/v1 && cd ${WEBROOT}/api/v1 && php composer.phar update && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/ops/app && cd ${WEBROOT}/ops/app && php composer.phar update && \
     cd ${WEBROOT} && \
-    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT}
+    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
+    sed -i '1 a source /var/www/html/.${CI_COMMIT_REF_SLUG}.env' /usr/local/bin/docker-php-entrypoint;
