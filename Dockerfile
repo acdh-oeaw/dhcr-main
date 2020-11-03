@@ -23,5 +23,3 @@ RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/ops/app && cd ${WEBROOT}/ops/app && php composer.phar update && \
     cd ${WEBROOT} && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT}
-
-CMD ["bash", "-c", "source", '.${CI_COMMIT_REF_SLUG}.env']
