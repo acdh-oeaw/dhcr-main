@@ -11,7 +11,9 @@ include:
 # build development
 build:
   only:
-    - master-dev
+    refs:
+      - tags
+      - master-dev
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
@@ -35,7 +37,9 @@ build:
 # build production
 build:
   only:
-    - master
+    refs:
+      - tags
+      - master-dev
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
