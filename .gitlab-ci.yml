@@ -48,6 +48,7 @@ deploy-dev:
   environment:
     name: dhcr-dev
     url: https://dev-dhcr.clarin-dariah.eu
+    database_url: none
 
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
