@@ -33,7 +33,7 @@ build:
 
 # build production
 build:
- only:
+  only:
    - master
   variables:
     KUBE_NAMESPACE: dhcr-prod
