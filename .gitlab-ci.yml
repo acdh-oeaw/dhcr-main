@@ -48,9 +48,6 @@ deploy-dev:
   environment:
     name: dhcr-dev
     url: https://dev-dhcr.clarin-dariah.eu
-  artifacts:
-    paths: [environment_url.txt, tiller.log]
-    when: always
 
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
