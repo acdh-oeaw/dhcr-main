@@ -54,6 +54,6 @@ build:
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
 
-  only:
-    - master
+only:
+  - master
 
