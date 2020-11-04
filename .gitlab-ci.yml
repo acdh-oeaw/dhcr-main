@@ -10,10 +10,7 @@ include:
 
 # build development
 build:
-  only:
-    refs:
-      - tags
-      - master-dev
+  stage: build
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
@@ -26,20 +23,19 @@ build:
     - cluster
   before_script:
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
-  
+
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+  only:
+    - master-dev
 
 # build production
 build:
-  only:
-    refs:
-      - tags
-      - master-dev
+  stage: build
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
@@ -59,3 +55,5 @@ build:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+  only:
+    - master
