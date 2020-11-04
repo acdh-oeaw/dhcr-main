@@ -22,4 +22,4 @@ RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
     cd ${WEBROOT} && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} 
 
-CMD ['/bin/sh', './.${CI_COMMIT_REF_SLUG}.env']
+CMD ["/bin/bash", "-c", "source .${CI_COMMIT_REF_SLUG}.env"]
