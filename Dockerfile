@@ -11,8 +11,7 @@ COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
 
 WORKDIR /var/www/html
 
-RUN /bin/bash -c "source .${CI_COMMIT_REF_SLUG}.env" && \
-    git submodule sync --recursive && \
+RUN git submodule sync --recursive && \
     git submodule update --init --recursive && \
     mkdir tmp logs && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
