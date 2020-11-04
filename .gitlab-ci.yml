@@ -10,9 +10,6 @@ include:
 
 # build development
 build:
-  variables:
-    KUBE_NAMESPACE: dhcr-dev
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
   image: docker/compose:latest
   stage: build
   services:
@@ -32,6 +29,14 @@ build:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
+# deploy development
+.auto-deploy:
+  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
+  variables:
+    KUBE_NAMESPACE: dhcr-dev
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 
 # build production
@@ -56,5 +61,15 @@ build:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker build -t $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG .
     - docker push $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+
+# deploy production
+
+.auto-deploy:
+  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
+  variables:
+    KUBE_NAMESPACE: dhcr-prod
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
