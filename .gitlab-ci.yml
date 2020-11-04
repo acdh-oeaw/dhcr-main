@@ -5,8 +5,6 @@ variables:
   POSTGRES_ENABLED: "false"
   TEST_DISABLED: "true" 
 
-include:
-- template: Auto-DevOps.gitlab-ci.yml
 
 # build development
 build:
