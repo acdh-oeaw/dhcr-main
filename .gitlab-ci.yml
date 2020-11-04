@@ -5,11 +5,12 @@ variables:
   POSTGRES_ENABLED: "false"
   TEST_DISABLED: "true" 
 
-# build development
 include:
 - template: Auto-DevOps.gitlab-ci.yml
 
-build:
+# build development
+
+build_dev:
   image: docker/compose:latest
   stage: build
   services:
@@ -30,7 +31,8 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-.auto-deploy:
+deploy-dev:
+  stage: auto-deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-dev
@@ -42,9 +44,7 @@ build:
 
 
 # build production
-include:
-- template: Auto-DevOps.gitlab-ci.yml
-build:
+build-prod:
   image: docker/compose:latest
   stage: build
   services:
@@ -66,7 +66,8 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-.auto-deploy:
+deploy-prod:
+  stage: auto-deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-prod
