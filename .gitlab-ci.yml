@@ -41,9 +41,6 @@ build:
 
 # build production
 build:
-  variables:
-    KUBE_NAMESPACE: dhcr-prod
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
   image: docker/compose:latest
   stage: build
   services:
