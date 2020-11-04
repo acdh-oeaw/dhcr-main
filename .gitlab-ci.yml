@@ -5,10 +5,10 @@ variables:
   POSTGRES_ENABLED: "false"
   TEST_DISABLED: "true" 
 
+# build development
 include:
 - template: Auto-DevOps.gitlab-ci.yml
 
-# build development
 build:
   image: docker/compose:latest
   stage: build
@@ -42,6 +42,8 @@ build:
 
 
 # build production
+include:
+- template: Auto-DevOps.gitlab-ci.yml
 build:
   image: docker/compose:latest
   stage: build
