@@ -20,7 +20,7 @@ build:
     - cluster
   before_script:
     - sh -c 'CI_COMMIT_REF_SLUG=$(echo $CI_COMMIT_REF_SLUG); sed -i "s|ENV CI_COMMIT_REF_SLUG=test|ENV CI_COMMIT_REF_SLUG=$CI_COMMIT_REF_SLUG|g" Dockerfile'
-    - sh -c 'ENVS=$(cat .${CI_COMMIT_REF_SLUG}.env); sed -i "4 a ${ENVS}" Dockerfile'
+    - sh -c "sed '2r.${CI_COMMIT_REF_SLUG}.env' Dockerfile >> Dockerfile"
     - cat Dockerfile
   
   script:
