@@ -37,8 +37,8 @@ build:
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
   script:
     - sh -c 'echo $KUBE_NAMESPACE'
-rules:
-  - if: '$CI_COMMIT_REF_NAME == "master-dev"'
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 
 # build production
@@ -71,5 +71,5 @@ build:
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
   script:
     - sh -c 'echo $KUBE_NAMESPACE'
-rules:
-  - if: '$CI_COMMIT_REF_NAME == "master"'
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
