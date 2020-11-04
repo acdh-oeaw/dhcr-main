@@ -30,14 +30,15 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-deploy:
-  stage: auto-deploy
+.auto-deploy:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "master-dev"'
+  script:
+    - sh -c 'echo $KUBE_NAMESPACE'
+rules:
+  - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 
 # build production
@@ -63,11 +64,12 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-deploy:
-  stage: auto-deploy
+.auto-deploy:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-prod
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
-  rules:
-    - if: '$CI_COMMIT_REF_NAME == "master"'
+  script:
+    - sh -c 'echo $KUBE_NAMESPACE'
+rules:
+  - if: '$CI_COMMIT_REF_NAME == "master"'
