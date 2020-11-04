@@ -33,8 +33,7 @@ deploy-dev:
   stage: deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
-    KUBE_NAMESPACE: dhcr-dev
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
+    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false'
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -46,7 +45,10 @@ deploy-dev:
     - auto-deploy delete rollout
     - auto-deploy persist_environment_url
   environment:
+    namespace: dhcr-dev
     name: dhcr-dev
+    externalPort: 80
+    internalPort: 80
     url: https://dev-dhcr.clarin-dariah.eu
   artifacts:
     paths: [environment_url.txt, tiller.log]
