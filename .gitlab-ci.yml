@@ -46,8 +46,8 @@ deploy-dev:
     - auto-deploy delete rollout
     - auto-deploy persist_environment_url
   environment:
-    name: production
-    url: http://$CI_PROJECT_PATH_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    name: dhcr-dev
+    url: https://dev-dhcr.clarin-dariah.eu
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
@@ -97,8 +97,8 @@ deploy-prod:
     - auto-deploy delete rollout
     - auto-deploy persist_environment_url
   environment:
-    name: production
-    url: http://$CI_PROJECT_PATH_SLUG.$KUBE_INGRESS_BASE_DOMAIN
+    name: dhcr-prod
+    url: https://dhcr.clarin-dariah.eu
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
