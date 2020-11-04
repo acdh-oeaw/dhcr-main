@@ -31,8 +31,8 @@ build_dev:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-deploy:
-  stage: auto-deploy
+deploy-dev:
+  stage: deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-dev
@@ -66,8 +66,8 @@ build-prod:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-deploy:
-  stage: auto-deploy
+deploy-prod:
+  stage: deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     KUBE_NAMESPACE: dhcr-prod
