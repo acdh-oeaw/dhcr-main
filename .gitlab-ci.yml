@@ -35,6 +35,7 @@ deploy-dev:
   variables:
     KUBE_NAMESPACE: dhcr-dev
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80'
+    DATABASE_URL: "false"
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -48,7 +49,6 @@ deploy-dev:
   environment:
     name: dhcr-dev
     url: https://dev-dhcr.clarin-dariah.eu
-    database: none
 
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
