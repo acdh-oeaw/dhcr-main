@@ -1,7 +1,5 @@
 FROM chialab/php:7.2-apache
 
-ENV CI_COMMIT_REF_SLUG=test
-
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
 
