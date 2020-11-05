@@ -32,7 +32,6 @@ include:
 
 # deploy development
 .auto-deploy:
-  extends: .production
   stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
@@ -74,7 +73,6 @@ include:
 
 # deploy production
 .auto-deploy:
-  extends: .production
   stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
