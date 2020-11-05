@@ -19,7 +19,6 @@ build-dev:
     - cluster
   before_script:
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
-
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
@@ -49,13 +48,12 @@ deploy-dev:
     - auto-deploy persist_environment_url
   environment:
     name: dhcr-dev
-    url: https://dhcr.clarin-dariah.eu
+    url: https://dev-dhcr.clarin-dariah.eu
     kubernetes:
       namespace: dhcr-dev  
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
-
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
@@ -63,15 +61,17 @@ deploy-dev:
 build-prod:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
   stage: build
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "" 
   services:
     - name: docker:dind
       command: ["--mtu=1450"]
   tags:
     - cluster
-  
   before_script:
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
-  
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
@@ -85,6 +85,10 @@ build-prod:
 deploy-prod: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: deploy
+  variables:
+    POSTGRES_ENABLED: "false"
+    HELM_UPGRADE_EXTRA_ARGS: "--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80"
+    ROLLOUT_RESOURCE_TYPE: deployment
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
@@ -96,13 +100,12 @@ deploy-prod:
     - auto-deploy delete rollout
     - auto-deploy persist_environment_url
   environment:
-    name: dhcr-prod
+    name: dhcr-dev
     url: https://dhcr.clarin-dariah.eu
-
+    kubernetes:
+      namespace: dhcr-prod 
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
-
-
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
