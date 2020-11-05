@@ -58,6 +58,10 @@ deploy-dev:
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
+  spec:
+      imagePullSecrets: 
+      - name: gitlab-registry-acdh-oeaw-dhcr-dhcr-front-end
+
 
 
   rules:
