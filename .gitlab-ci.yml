@@ -8,6 +8,10 @@ stages:
 build-dev:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
   stage: build
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: "" 
   services:
     - name: docker:dind
       command: ["--mtu=1450"]
