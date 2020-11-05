@@ -55,10 +55,7 @@ deploy-dev:
     url: https://dev-dhcr.clarin-dariah.eu
     kubernetes:
       namespace: dhcr-dev
-  template:
-  spec: 
-  imagePullSecrets: 
-      - name: gitlab-registry-acdh-oeaw-dhcr-dhcr-front-end
+    template.spec.imagePullSecrets: gitlab-registry-acdh-oeaw-dhcr-dhcr-front-end
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
