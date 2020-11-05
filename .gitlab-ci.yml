@@ -10,7 +10,8 @@ include:
 
 # build development
 
-.build:
+build:
+  extends: .build
   image: docker/compose:latest
   stage: build
   services:
