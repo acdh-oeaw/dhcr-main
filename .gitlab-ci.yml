@@ -50,6 +50,8 @@ deploy-dev:
   environment:
     name: dhcr-dev
     url: https://dhcr.clarin-dariah.eu
+  kubernetes:
+    namespace: dhcr-dev  
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
