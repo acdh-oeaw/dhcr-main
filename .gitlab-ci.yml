@@ -28,9 +28,9 @@ build-dev:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-deploy: 
+deploy-dev: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
-  stage: production
+  stage: deploy
   variables:
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80'
     DATABASE_URL: 'mysql://dhregistry:${DB_PASS}@helios.arz.oeaw.ac.at/dev-dhregistry?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false'
@@ -79,9 +79,9 @@ build-prod:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-deploy: 
+deploy-prod: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
-  stage: production
+  stage: deploy
   variables:
     KUBE_NAMESPACE: dhcr-prod
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
