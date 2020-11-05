@@ -31,8 +31,8 @@ include:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-.deploy:
-  stage: deploy
+.production:
+  stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     TEST_DISABLED: "true" 
@@ -82,8 +82,8 @@ include:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-.deploy:
-  stage: deploy
+.production:
+  stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     TEST_DISABLED: "true" 
