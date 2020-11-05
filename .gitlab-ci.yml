@@ -10,7 +10,7 @@ include:
 
 # build development
 
-build_dev:
+build:
   image: docker/compose:latest
   stage: build
   services:
@@ -31,7 +31,7 @@ build_dev:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-deploy-dev:
+deploy:
   stage: deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
@@ -59,7 +59,7 @@ deploy-dev:
 
 
 # build production
-build-prod:
+build:
   image: docker/compose:latest
   stage: build
   services:
@@ -81,7 +81,7 @@ build-prod:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-deploy-prod:
+deploy:
   stage: deploy
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
