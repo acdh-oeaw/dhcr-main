@@ -4,7 +4,7 @@ variables:
   DOCKER_TLS_CERTDIR: "" 
   POSTGRES_ENABLED: "false"
   TEST_DISABLED: "true" 
-  DB_PASS: $K8S_SECRET_DB_PASS
+  DB_PASS2: $DB_PASS
 
 stages:
   - build
@@ -23,7 +23,7 @@ build-dev:
     - cluster
   before_script:
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
-    - echo 'ENV=${DB_PASS}' >> Dockerfile
+    - echo 'ENV=${DB_PASS2}' >> Dockerfile
 
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
