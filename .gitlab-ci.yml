@@ -48,7 +48,7 @@ stages:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-.production: &production_template
+production: &production_template
   extends: .auto-deploy
   stage: production
   variables:
@@ -100,7 +100,7 @@ stages:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-.production: &production_template
+production: &production_template
   extends: .auto-deploy
   stage: production
   variables:
