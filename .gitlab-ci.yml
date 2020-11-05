@@ -28,7 +28,7 @@ build-dev:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-deploy-dev: 
+deploy: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: production
   variables:
@@ -79,7 +79,7 @@ build-prod:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-deploy-prod: 
+deploy: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: production
   variables:
