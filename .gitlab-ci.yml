@@ -55,7 +55,7 @@ deploy-dev:
     url: https://dev-dhcr.clarin-dariah.eu
     kubernetes:
       namespace: dhcr-dev
-template:
+  template:
   spec: 
   imagePullSecrets: 
       - name: gitlab-registry-acdh-oeaw-dhcr-dhcr-front-end
