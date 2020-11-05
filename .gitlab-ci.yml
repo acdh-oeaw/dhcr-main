@@ -9,6 +9,9 @@ variables:
 # build development
 
 build_dev:
+  include:
+    - template: Auto-DevOps.gitlab-ci.yml
+
   image: docker/compose:latest
   stage: build
   services:
@@ -36,7 +39,6 @@ deploy-dev:
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80'
     DATABASE_URL: 'mysql://dhregistry:${DB_PASS}@helios.arz.oeaw.ac.at/dev-dhregistry?encoding=utf8&timezone=UTC&cacheMetadata=true&quoteIdentifiers=false&persistent=false'
   script:
-    - export DB_PASS=${K8S_SECRET_DB_PASS}
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
     - auto-deploy ensure_namespace
@@ -59,6 +61,8 @@ deploy-dev:
 
 # build production
 build-prod:
+  include:
+    - template: Auto-DevOps.gitlab-ci.yml
   image: docker/compose:latest
   stage: build
   services:
