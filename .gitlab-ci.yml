@@ -39,6 +39,24 @@ deploy-dev:
   variables:
     ROLLOUT_RESOURCE_TYPE: deployment
     HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set gitlab.envName=dhcr-dev'
+  extends: .auto-deploy
+  script:
+    - auto-deploy check_kube_domain
+    - auto-deploy download_chart
+    - auto-deploy ensure_namespace
+    - auto-deploy initialize_tiller
+    - auto-deploy create_secret
+    - auto-deploy deploy
+    - auto-deploy delete canary
+    - auto-deploy delete rollout
+    - auto-deploy persist_environment_url
+  environment:
+    name: dhcr-dev
+    url: https://dhcr.clarin-dariah.eu
+  artifacts:
+    paths: [environment_url.txt, tiller.log]
+    when: always
+
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
