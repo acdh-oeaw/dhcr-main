@@ -1,11 +1,3 @@
-variables:
-  DOCKER_HOST: tcp://docker:2375/
-  DOCKER_DRIVER: overlay2
-  DOCKER_TLS_CERTDIR: "" 
-  POSTGRES_ENABLED: "false"
-  TEST_DISABLED: "true" 
-
-
 # build development
 build:
   image: docker/compose:latest
@@ -30,9 +22,6 @@ build:
 # deploy development
 .auto-deploy:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
-  variables:
-    KUBE_NAMESPACE: dhcr-dev
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dev-dhcr.clarin-dariah.eu'
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
@@ -63,8 +52,5 @@ build:
 
 .auto-deploy:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
-  variables:
-    KUBE_NAMESPACE: dhcr-prod
-    HELM_UPGRADE_EXTRA_ARGS: '--set ingress.tls.enabled=false --set service.externalPort=80 --set service.internalPort=80 --set service.url=dhcr.clarin-dariah.eu'
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
