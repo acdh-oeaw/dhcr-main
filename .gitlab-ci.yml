@@ -33,6 +33,8 @@ build-dev:
 deploy-dev: 
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: deploy
+  variables:
+    - POSTGRES_ENABLED: "false"
   script:
     - auto-deploy check_kube_domain
     - auto-deploy download_chart
