@@ -5,6 +5,12 @@ variables:
   POSTGRES_ENABLED: "false"
   TEST_DISABLED: "true" 
 
+stages:
+  - build
+ # - test
+  - deploy 
+
+
 # build development
 
 build-dev:
