@@ -22,8 +22,8 @@ build-dev:
     - cluster
   before_script:
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
-    - echo §DB_PASS 
-    - echo $$K8S_SECRET_DB_PASS
+    - echo ${DB_PASS} 
+    - echo ${K8S_SECRET_DB_PASS}
 
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
