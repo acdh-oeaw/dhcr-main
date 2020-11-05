@@ -100,7 +100,7 @@ deploy-prod:
     - auto-deploy delete rollout
     - auto-deploy persist_environment_url
   environment:
-    name: dhcr-dev
+    name: dhcr-prod
     url: https://dhcr.clarin-dariah.eu
     kubernetes:
       namespace: dhcr-prod 
