@@ -9,8 +9,8 @@ variables:
 # build development
 
 build_dev:
-  include:
-    - template: Auto-DevOps.gitlab-ci.yml
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
 
   image: docker/compose:latest
   stage: build
@@ -61,8 +61,8 @@ deploy-dev:
 
 # build production
 build-prod:
-  include:
-    - template: Auto-DevOps.gitlab-ci.yml
+include:
+  - template: Auto-DevOps.gitlab-ci.yml
   image: docker/compose:latest
   stage: build
   services:
