@@ -32,7 +32,6 @@ include:
 
 # deploy development
 .auto-deploy:
-  stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     TEST_DISABLED: "true" 
@@ -73,7 +72,6 @@ include:
 
 # deploy production
 .auto-deploy:
-  stage: production
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:latest"
   variables:
     TEST_DISABLED: "true" 
