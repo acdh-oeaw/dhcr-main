@@ -27,7 +27,7 @@ stages:
 
 # build development
 
-.build:
+build:
   image: docker/compose:latest
   stage: build
   services:
@@ -78,7 +78,7 @@ production: &production_template
 
 
 # build production
-.build:
+build:
   image: docker/compose:latest
   stage: build
   services:
