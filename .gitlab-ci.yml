@@ -27,7 +27,7 @@ stages:
 
 # build development
 
-build:
+.build:
   image: docker/compose:latest
   stage: build
   services:
@@ -48,7 +48,7 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
 # deploy development
-production: &production_template
+.production: &production_template
   extends: .auto-deploy
   stage: production
   variables:
@@ -78,7 +78,7 @@ production: &production_template
 
 
 # build production
-build:
+.build:
   image: docker/compose:latest
   stage: build
   services:
@@ -100,7 +100,7 @@ build:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
 # deploy production
-production: &production_template
+.production: &production_template
   extends: .auto-deploy
   stage: production
   variables:
