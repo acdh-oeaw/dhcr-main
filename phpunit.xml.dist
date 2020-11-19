@@ -16,6 +16,10 @@
             <directory>tests/TestCase/</directory>
         </testsuite>
         <!-- Add plugin test suites here. -->
+        <testsuite name="DhcrCore">
+            <directory>./plugins/DhcrCore/tests/TestCase</directory>
+        </testsuite>
+
     </testsuites>
 
     <!-- Setup a listener for fixtures -->
