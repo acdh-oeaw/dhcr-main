@@ -10,7 +10,8 @@
         "cakephp/migrations": "^2.0.0",
         "cakephp/plugin-installer": "^1.0",
         "jeremyharris/cakephp-lazyload": "^2.1",
-        "mobiledetect/mobiledetectlib": "2.*"
+        "mobiledetect/mobiledetectlib": "2.*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "cakephp/bake": "^1.9.0",
