@@ -50,7 +50,7 @@ test-dev:
 
   script:
     - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
-    - docker run --env DB_PASS=$DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+    - docker run --env DB_PASS=$K8S_SECRET_DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
@@ -128,7 +128,7 @@ test-prod:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
   script:
     - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
-    - docker run --env DB_PASS=$DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+    - docker run --env DB_PASS=$K8S_SECRET_DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
