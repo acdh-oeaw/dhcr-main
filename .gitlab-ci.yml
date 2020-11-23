@@ -19,6 +19,8 @@ build-dev:
     - cluster
   before_script:
     - sh -c 'DB_PASSWORD=$(echo $K8S_SECRET_DB_PASSWORD); sed -i "s|secret|$DB_PASSWORD|g" .${CI_COMMIT_REF_SLUG}.env'
+    - cp .${CI_COMMIT_REF_SLUG}.env .${CI_COMMIT_REF_SLUG}-test.env
+    - sed -i -e 's/^/ENV /' .${CI_COMMIT_REF_SLUG}.env
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
@@ -47,10 +49,10 @@ test-dev:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - export DB_PASS=$(echo $K8S_SECRET_DB_PASS)
+
   script:
     - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
-    - docker run --env DB_PASS=${DB_PASS} --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+    - docker run --env-file=.${CI_COMMIT_REF_SLUG}-test.env --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
