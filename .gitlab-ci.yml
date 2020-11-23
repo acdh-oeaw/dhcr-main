@@ -46,10 +46,10 @@ test-dev:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - export DB_PASSWORD=$(echo $K8S_SECRET_DB_PASSWORD)
+
   script:
     - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG 
-    - docker run --env DB_PASSWORD=${DB_PASSWORD} --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+    - docker run --env DB_PASSWORD=$K8S_SECRET_DB_PASSWORD --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
