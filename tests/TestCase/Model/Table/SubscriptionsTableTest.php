@@ -15,7 +15,7 @@ class SubscriptionsTableTest extends TestCase
      *
      * @var \App\Model\Table\SubscriptionsTable
      */
-    public $Subscriptions;
+    public $SubscriptionsTable;
 
     /**
      * Fixtures
@@ -25,6 +25,18 @@ class SubscriptionsTableTest extends TestCase
     public $fixtures = [
         'app.Subscriptions',
         'app.Notifications',
+        'app.Disciplines',
+        'app.Languages',
+        'app.CourseTypes',
+        'app.Countries',
+        'app.TadirahTechniques',
+        'app.TadirahObjects',
+        'app.DisciplinesSubscriptions',
+        'app.CountriesSubscriptions',
+        'app.CourseTypesSubscriptions',
+        'app.LanguagesSubscriptions',
+        'app.SubscriptionsTadirahTechniques',
+        'app.SubscriptionsTadirahObjects'
     ];
 
     /**
@@ -36,7 +48,7 @@ class SubscriptionsTableTest extends TestCase
     {
         parent::setUp();
         $config = TableRegistry::getTableLocator()->exists('Subscriptions') ? [] : ['className' => SubscriptionsTable::class];
-        $this->Subscriptions = TableRegistry::getTableLocator()->get('Subscriptions', $config);
+        $this->SubscriptionsTable = TableRegistry::getTableLocator()->get('Subscriptions', $config);
     }
 
     /**
@@ -46,7 +58,7 @@ class SubscriptionsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Subscriptions);
+        unset($this->SubscriptionsTable);
 
         parent::tearDown();
     }
@@ -79,5 +91,10 @@ class SubscriptionsTableTest extends TestCase
     public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    public function testGetNewCourses() {
+        $result = $this->SubscriptionsTable->getNewCourses();
+        debug($result);
     }
 }

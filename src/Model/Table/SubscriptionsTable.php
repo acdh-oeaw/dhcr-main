@@ -35,13 +35,49 @@ class SubscriptionsTable extends Table
         parent::initialize($config);
 
         $this->setTable('subscriptions');
-        $this->setDisplayField('id');
+        $this->setDisplayField('email');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
         $this->hasMany('Notifications', [
             'foreignKey' => 'subscription_id',
+        ]);
+
+        $this->belongsToMany('Disciplines', [
+            'joinTable' => 'disciplines_subscriptions',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'discipline_id'
+        ]);
+
+        $this->belongsToMany('Languages', [
+            'joinTable' => 'languages_subscriptions',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'language_id'
+        ]);
+
+        $this->belongsToMany('CourseTypes', [
+            'joinTable' => 'course_types_subscriptions',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'course_type_id'
+        ]);
+
+        $this->belongsToMany('Countries', [
+            'joinTable' => 'countries_subscriptions',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'country_id'
+        ]);
+
+        $this->belongsToMany('TadirahObjects', [
+            'joinTable' => 'subscriptions_tadirah_objects',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'tadirah_object_id'
+        ]);
+
+        $this->belongsToMany('TadirahTechniques', [
+            'joinTable' => 'subscriptions_tadirah_techniques',
+            'foreignKey' => 'subscription_id',
+            'targetForeignKey' => 'tadirah_technique_id'
         ]);
     }
 
@@ -97,5 +133,15 @@ class SubscriptionsTable extends Table
         $rules->add($rules->isUnique(['email']));
 
         return $rules;
+    }
+
+
+    public function getNewCourses() {
+        $subscriptions = $this->find('all', [
+            'contain' => ['Disciplines','TadirahObjects',
+                'TadirahTechniques','Languages','Countries',
+                'CourseTypes']
+        ])->toArray();
+        return $subscriptions;
     }
 }
