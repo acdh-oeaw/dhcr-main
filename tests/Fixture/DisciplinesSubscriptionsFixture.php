@@ -46,6 +46,11 @@ class DisciplinesSubscriptionsFixture extends TestFixture
                 'subscription_id' => 1,
                 'discipline_id' => 1,
             ],
+            [
+                'id' => 2,
+                'subscription_id' => 2,
+                'discipline_id' => 1,
+            ],
         ];
         parent::init();
     }

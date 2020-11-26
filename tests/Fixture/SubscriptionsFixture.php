@@ -46,9 +46,49 @@ class SubscriptionsFixture extends TestFixture
     {
         $this->records = [
             [
-                'id' => 1,
+                'id' => 1,  // has notification on course 1
                 'email' => 'Lorem ipsum dolor sit amet',
                 'online_course' => 1,
+                'confirmed' => 1,
+                'confirmation_key' => 'Lorem ipsum dolor sit amet',
+                'deletion_key' => 'Lorem ipsum dolor sit amet',
+                'created' => '2020-11-23 19:17:24',
+                'updated' => '2020-11-23 19:17:24',
+            ],
+            [
+                'id' => 2,
+                'email' => 'Aelomen bominuskaya bomballabunga',
+                'online_course' => 0,
+                'confirmed' => 0,
+                'confirmation_key' => 'Lorem ipsum dolor sit amet',
+                'deletion_key' => 'Lorem ipsum dolor sit amet',
+                'created' => '2020-11-23 19:17:24',
+                'updated' => '2020-11-23 19:17:24',
+            ],
+            [
+                'id' => 3,  // has notification on course 1
+                'email' => 'bominuskaya',
+                'online_course' => 0,
+                'confirmed' => 1,
+                'confirmation_key' => 'Lorem ipsum dolor sit amet',
+                'deletion_key' => 'Lorem ipsum dolor sit amet',
+                'created' => '2020-11-23 19:17:24',
+                'updated' => '2020-11-23 19:17:24',
+            ],
+            [
+                'id' => 4,
+                'email' => 'Aelomen',
+                'online_course' => null,
+                'confirmed' => 1,
+                'confirmation_key' => 'Lorem ipsum dolor sit amet',
+                'deletion_key' => 'Lorem ipsum dolor sit amet',
+                'created' => '2020-11-23 19:17:24',
+                'updated' => '2020-11-23 19:17:24',
+            ],
+            [
+                'id' => 5,
+                'email' => 'dolor',
+                'online_course' => 0,
                 'confirmed' => 1,
                 'confirmation_key' => 'Lorem ipsum dolor sit amet',
                 'deletion_key' => 'Lorem ipsum dolor sit amet',

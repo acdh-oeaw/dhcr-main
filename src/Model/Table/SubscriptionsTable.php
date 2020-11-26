@@ -4,7 +4,9 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
 
 /**
  * Subscriptions Model
@@ -136,12 +138,37 @@ class SubscriptionsTable extends Table
     }
 
 
-    public function getNewCourses() {
+    public static $containments = [
+        'Disciplines',
+        'TadirahObjects',
+        'TadirahTechniques',
+        'Languages',
+        'Countries',
+        'CourseTypes',
+        'Notifications' // courses will be filtered over notifications already being sent
+    ];
+
+
+    public function getSubscriptions() {
         $subscriptions = $this->find('all', [
-            'contain' => ['Disciplines','TadirahObjects',
-                'TadirahTechniques','Languages','Countries',
-                'CourseTypes']
+            'contain' => self::$containments
+        ])->where([
+            'Subscriptions.confirmed' => true
         ])->toArray();
         return $subscriptions;
+    }
+
+
+
+    public function processSubscriptions() {
+        $subscriptions = $this->getSubscriptions();
+        $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
+
+        foreach($subscriptions as $subscription) {
+            $courses = $CoursesTable->getSubscriptionCourses($subscription);
+            if($courses) $subscription['courses'] = $courses;
+
+            //TODO...
+        }
     }
 }

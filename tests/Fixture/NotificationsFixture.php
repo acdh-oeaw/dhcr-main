@@ -46,6 +46,11 @@ class NotificationsFixture extends TestFixture
                 'course_id' => 1,
                 'subscription_id' => 1,
             ],
+            [
+                'id' => 2,
+                'course_id' => 1,
+                'subscription_id' => 3,
+            ],
         ];
         parent::init();
     }

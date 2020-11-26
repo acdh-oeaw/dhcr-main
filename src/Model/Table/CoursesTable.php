@@ -4,6 +4,7 @@ namespace App\Model\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
+use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 
 /**
@@ -238,5 +239,54 @@ class CoursesTable extends Table
         $rules->add($rules->existsIn(['course_duration_unit_id'], 'CourseDurationUnits'));
 
         return $rules;
+    }
+
+
+
+    public function getSubscriptionCourses($subscription = array()) {
+        $options = $this->getFilter($subscription);
+        $query = $this->find('all', $options);
+
+        $this->subquery($query, $subscription, 'disciplines');
+        $this->subquery($query, $subscription, 'languages');
+        $this->subquery($query, $subscription, 'countries');
+        $this->subquery($query, $subscription, 'course_types');
+        $this->subquery($query, $subscription, 'tadirah_objects');
+        $this->subquery($query, $subscription, 'tadirah_techniques');
+
+        return $query->distinct()->toArray();
+    }
+
+
+
+    public function getFilter($subscription) {
+        $conditions = [
+            'Courses.updated >' => $subscription['created'],
+            'Courses.active' => true,
+            'Courses.deleted' => false
+        ];
+        if($subscription['online_course'] !== null) $conditions['Courses.online_course'] = $subscription['online_course'];
+
+        if($subscription->notifications) {
+            $excludes = collection($subscription['notifications'])
+                ->extract('course_id')->toList();
+            if ($excludes) $conditions['Courses.id NOT IN'] = $excludes;
+        }
+        $options = [
+            'conditions' => $conditions,
+            'contain' => ['Disciplines']
+        ];
+        return $options;
+    }
+
+
+
+    private function subquery(&$query, $subscription, $assoc) {
+        if($subscription->{$assoc}) {
+            $ids = collection($subscription->{$assoc})->extract('id')->toList();
+            $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
+                return $q->where([Inflector::camelize($assoc).'.id IN' => $ids]);
+            });
+        }
     }
 }

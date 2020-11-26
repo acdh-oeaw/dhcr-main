@@ -36,7 +36,11 @@ class SubscriptionsTableTest extends TestCase
         'app.CourseTypesSubscriptions',
         'app.LanguagesSubscriptions',
         'app.SubscriptionsTadirahTechniques',
-        'app.SubscriptionsTadirahObjects'
+        'app.SubscriptionsTadirahObjects',
+        'app.Courses',
+        'app.CoursesDisciplines',
+        'app.CoursesTadirahObjects',
+        'app.CoursesTadirahTechniques'
     ];
 
     /**
@@ -93,8 +97,29 @@ class SubscriptionsTableTest extends TestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-    public function testGetNewCourses() {
-        $result = $this->SubscriptionsTable->getNewCourses();
-        debug($result);
+
+
+    public function testGetSubscriptions() {
+        $result = $this->SubscriptionsTable->getSubscriptions();
+        // the other test record should be rejected by the method's filter criteria 'confirmed'
+        $this->assertEquals(4, count($result));
+        foreach($result as $row) {
+            $this->assertArrayHasKey('confirmed', $row);
+            $this->assertTrue($row->confirmed);
+            $this->assertArrayHasKey('course_types', $row);
+            $this->assertArrayHasKey('countries', $row);
+            $this->assertArrayHasKey('languages', $row);
+            $this->assertArrayHasKey('tadirah_techniques', $row);
+            $this->assertArrayHasKey('tadirah_objects', $row);
+            $this->assertArrayHasKey('disciplines', $row);
+            // courses will be filtered over notifications already being sent
+            $this->assertArrayHasKey('notifications', $row);
+        }
+    }
+
+
+
+    public function testProcessSubscriptions() {
+        $this->SubscriptionsTable->processSubscriptions();
     }
 }
