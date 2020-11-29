@@ -14,3 +14,10 @@
  */
 
 echo $this->fetch('content');
+echo "\n\n\n";
+echo "--\n\n";
+echo "The Digital Humanities Course Registry: \n";
+// because emails are being sent from commandline, Router::baseURL would be 'localhost'!
+if(Configure::read('App.consoleBaseUrl')) echo Configure::read('App.consoleBaseUrl');
+else echo Router::url('/', true);
+?>
