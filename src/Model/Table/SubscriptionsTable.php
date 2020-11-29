@@ -1,10 +1,10 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
+use Cake\Core\Configure;
+use Cake\Mailer\Email;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 
@@ -162,13 +162,68 @@ class SubscriptionsTable extends Table
 
     public function processSubscriptions() {
         $subscriptions = $this->getSubscriptions();
-        $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
-
         foreach($subscriptions as $subscription) {
-            $courses = $CoursesTable->getSubscriptionCourses($subscription);
-            if($courses) $subscription['courses'] = $courses;
-
-            //TODO...
+            $this->processSubscription($subscription);
         }
+    }
+
+
+
+    public function processSubscription($subscription = []) {
+        $result = false;
+        if($subscription->confirmed) {
+            $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
+            $courses = $CoursesTable->getSubscriptionCourses($subscription);
+            $this->sendNotifications($subscription->email, $courses);
+            $this->saveSentNotifications($subscription->id, $courses);
+            $result = count($courses);
+        }
+        return $result;
+    }
+
+
+
+    private function saveSentNotifications($id, $courses = []) {
+        $course_ids = collection($courses)->extract('id')->toList();
+        $data = [];
+        foreach($course_ids as $course_id) $data[] = [
+            'course_id' => $course_id,
+            'subscription_id' => $id];
+        $entities = $this->Notifications->newEntities($data);
+        if($id) $this->Notifications->saveMany($entities);
+    }
+
+
+
+    private function sendNotifications($email = null, $courses = []) {
+        if(Configure::read('debug')) $email = Configure::read('AppMail.debugMailTo');
+
+        $token = $this->generateToken();
+
+        $email = new Email('default');
+        $email->setFrom(Configure::read('AppMail.defaultFrom'))
+            ->setTo($email)
+            ->setSubject(Configure::read('AppMail.subjectPrefix'))
+            ->send('My message');
+        // TODO...
+    }
+
+    // TODO: migrate this from 2.x app!
+    public function generateToken($fieldname = null, $length = 16) {
+        $time = substr((string)time(), -6, 6);
+        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+        // create an unique token
+        for($c = 1; $c > 0; ) {
+            $token = '';
+            for($i = 0; $i < $length - 6; $i++) {
+                $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
+            }
+            $token = $time . $token;
+            if(empty($fieldname)) break;
+            $c = $this->find('count', array('conditions' => array(
+                $this->alias . '.' . $fieldname => $token
+            )));
+        }
+        return $token;
     }
 }

@@ -16,7 +16,8 @@ return [
     'AppMail' => [
         'defaultFrom' => [env('APP_MAIL_DEFAULT_FROM', '__REPLYTO_MAIL__') => 'DH Course Registry'],
         'defaultCc' => env('APP_MAIL_DEFAULT_CC', '__CC_MAIL__'),
-        'subjectPrefix' => '[DH Course Registry]'
+        'subjectPrefix' => '[DH Course Registry]',
+        'debugMailTo' => env('DEBUG_MAIL_TO', '__DEBUG_MAIL_TO__')
     ],
 
 
