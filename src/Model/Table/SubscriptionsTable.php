@@ -41,6 +41,9 @@ class SubscriptionsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Token', [
+            'fieldname' => 'confirmation_key'
+        ]);
 
         $this->hasMany('Notifications', [
             'foreignKey' => 'subscription_id',
@@ -174,7 +177,7 @@ class SubscriptionsTable extends Table
         if($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
-            $this->sendNotifications($subscription->email, $courses);
+            $this->sendNotifications($subscription, $courses);
             $this->saveSentNotifications($subscription->id, $courses);
             $result = count($courses);
         }
@@ -195,35 +198,21 @@ class SubscriptionsTable extends Table
 
 
 
-    private function sendNotifications($email = null, $courses = []) {
-        if(Configure::read('debug')) $email = Configure::read('AppMail.debugMailTo');
+    private function sendNotifications($subscription, $courses = []) {
+        $recipient = $subscription->email;
+        if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
 
-        $token = $this->generateToken();
-
-        $email = new Email('default');
-        $email->setFrom(Configure::read('AppMail.defaultFrom'))
-            ->setTo($email)
-            ->setSubject(Configure::read('AppMail.subjectPrefix'))
-            ->send('My message');
-        // TODO...
+        $Email = new Email('default');
+        $Email->setFrom(Configure::read('AppMail.defaultFrom'))
+            ->setTo($recipient)
+            ->setSubject(Configure::read('AppMail.subjectPrefix').' New Course Notification')
+            ->setEmailFormat('text')
+            ->setViewVars([
+                'subscription' => $subscription,
+                'courses' => $courses])
+            ->viewBuilder()->setTemplate('subscription_notification');
+            $Email->send();
     }
 
-    // TODO: migrate this from 2.x app!
-    public function generateToken($fieldname = null, $length = 16) {
-        $time = substr((string)time(), -6, 6);
-        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
-        // create an unique token
-        for($c = 1; $c > 0; ) {
-            $token = '';
-            for($i = 0; $i < $length - 6; $i++) {
-                $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
-            }
-            $token = $time . $token;
-            if(empty($fieldname)) break;
-            $c = $this->find('count', array('conditions' => array(
-                $this->alias . '.' . $fieldname => $token
-            )));
-        }
-        return $token;
-    }
+
 }

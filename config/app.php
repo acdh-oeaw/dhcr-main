@@ -1,11 +1,14 @@
 <?php
 return [
     // custom variables
+    'dhcr' => [
+        'baseUrl' => env('DHCR_BASE_URL', '__DHCR_BASE_URL__')
+    ],
     'api' => [
-        'baseUrl' => env('API_BASE_URL', 'http://localhost/api/v1')
+        'baseUrl' => env('API_BASE_URL', '__API_BASE_URL__')
     ],
     'ops' => [
-        'baseUrl' => env('OPS_BASE_URL', 'http://localhost/ops/')
+        'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
     ],
     'map' => [
         'apiKey' => env('MAP_API_KEY', '__MAP_API_KEY__')
