@@ -136,7 +136,7 @@ class SubscriptionsTableTest extends TestCase
 
 
 
-    public function testSendNotifications() {
+    public function testSendNotification() {
         $this->markTestIncomplete('Not implemented yet.');
     }
 }

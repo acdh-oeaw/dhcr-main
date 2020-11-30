@@ -152,6 +152,16 @@ class SubscriptionsTable extends Table
     ];
 
 
+    public function processSubscriptions() {
+        $subscriptions = $this->getSubscriptions();
+        foreach($subscriptions as $subscription) {
+            $this->processSubscription($subscription);
+        }
+        return count($subscriptions);
+    }
+
+
+
     public function getSubscriptions() {
         $subscriptions = $this->find('all', [
             'contain' => self::$containments
@@ -163,22 +173,15 @@ class SubscriptionsTable extends Table
 
 
 
-    public function processSubscriptions() {
-        $subscriptions = $this->getSubscriptions();
-        foreach($subscriptions as $subscription) {
-            $this->processSubscription($subscription);
-        }
-    }
-
-
-
     public function processSubscription($subscription = []) {
         $result = false;
         if($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
-            $this->sendNotifications($subscription, $courses);
-            $this->saveSentNotifications($subscription->id, $courses);
+            if($courses) {
+                $this->sendNotification($subscription, $courses);
+                $this->saveSentNotifications($subscription->id, $courses);
+            }
             $result = count($courses);
         }
         return $result;
@@ -198,7 +201,7 @@ class SubscriptionsTable extends Table
 
 
 
-    private function sendNotifications($subscription, $courses = []) {
+    private function sendNotification($subscription, $courses = []) {
         $recipient = $subscription->email;
         if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
 
