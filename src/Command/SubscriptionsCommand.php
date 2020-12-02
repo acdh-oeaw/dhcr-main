@@ -20,6 +20,8 @@ class SubscriptionsCommand extends Command
     public function execute(Arguments $args, ConsoleIo $io)
     {
         $result = $this->Subscriptions->processSubscriptions();
-        $io->out('Processed '.$result.' subscriptions.');
+        $io->out('Success Quote: '.$result['courses'].'/'.$result['subscriptions'].'.\n'
+            .'Processed '.$result['subscriptions'].' subscriptions, '
+            .$result['courses'].' got a notification about new courses');
     }
 }

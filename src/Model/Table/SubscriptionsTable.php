@@ -154,10 +154,15 @@ class SubscriptionsTable extends Table
 
     public function processSubscriptions() {
         $subscriptions = $this->getSubscriptions();
+        $courses = 0;
         foreach($subscriptions as $subscription) {
-            $this->processSubscription($subscription);
+            if($this->processSubscription($subscription))
+                $courses++;
         }
-        return count($subscriptions);
+        return [
+            'subscriptions' => count($subscriptions),
+            'courses' => $courses
+        ];
     }
 
 
@@ -216,6 +221,7 @@ class SubscriptionsTable extends Table
             ->viewBuilder()->setTemplate('subscription_notification');
             $Email->send();
     }
+
 
 
 }
