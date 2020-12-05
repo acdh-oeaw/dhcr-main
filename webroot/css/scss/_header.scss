@@ -53,6 +53,21 @@
             &:first-child {
                 margin-left: 0;
             }
+            &#notification-button {
+                padding-top: 9px;
+                position: relative;
+                .glyphicon-bell {
+                    color: $blue;
+                    font-size: 16px;
+                    position: absolute;
+                    right: 5px;
+                    top: 5px;
+                    background-color: #fff;
+                    border-radius: 11px;
+                    border: 3px solid $blue;
+                    padding: 1px;
+                }
+            }
             @include respond-to(handhelds) {
                 font-size: 23px;
                 width: 50px;
@@ -61,8 +76,23 @@
                 padding-left: 0;
                 padding-right: 0;
                 margin: 0;
+                margin-left: 10px;
                 &#info-button {
                     padding-top: 10px;
+                }
+                &#story-button {
+                    font-size: 16px;
+                    padding-top: 14px;
+                }
+                &#notification-button {
+                    .glyphicon-envelope {
+                        font-size: 18px;
+                    }
+                    .glyphicon-bell {
+                        font-size: 11px;
+                        top: 8px;
+                        border-width: 2px;
+                    }
                 }
                 &#login-button {
                     display: none;
