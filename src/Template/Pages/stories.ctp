@@ -22,11 +22,11 @@ $this->layout = false;
 <html lang="en">
     <head>
         <?= $this->Element('meta') ?>
-        
-        <?= $this->Html->css('info.css') ?>
+
+        <?= $this->Html->css('static_page.css') ?>
         <?= $this->Html->meta('icon') ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-     
+
         <script type="text/javascript">
         $(document).ready(function(){
             $.ajax({
@@ -45,7 +45,7 @@ $this->layout = false;
 
         </script>
         <style>
-        
+
         @font-face {
             font-family: Metropolis-SemiBold;
             src: url("/fonts/babas_neue/BebasNeue-Regular.otf") format("opentype");
@@ -58,52 +58,47 @@ $this->layout = false;
             font-family: Metropolis-Regular;
             src: url("/fonts/metropolis/Metropolis-Regular.otf") format("opentype");
         }
-               
+
         .linklist-container {
             width:100%;
             background-color: white;
         }
-        
+
         .linklist-content-div {
             padding-left: 10px;
              text-align: center;
-            
+
         }
         .linklist-content-div a {
             text-decoration:none;
             color: white;
             font-family: "Metropolis-Regular";
         }
-       
-        linklist-sub-title-div {
-            text-align: center;
-            margin: 0 auto;
-            width: 100%;
-            
-        }
-       
+
+
         P.linklist-sub-title-light {
             text-align: center;
             color: #1e6ba3;
             font-family: "Metropolis-SemiBold";
         }
-        
+
+
         #page-head {
             display: block !important;
         }
-        
+
         #page-head h1 {
             margin: 0 auto !important;
             display: block !important;
         }
-        
+
         #page-head .intent p {
             text-align: center;
             color: black !important;
             font-family: "Metropolis-SemiBold";
             font-size: 14px !important;
         }
-        
+
         P.linklist-title-desc {
             text-align: center;
             color: black !important;
@@ -111,7 +106,7 @@ $this->layout = false;
             font-size: 14px !important;
             margin-top: 15px;
         }
-        
+
         ul {
             list-style-type: none;
             display: inline-block !important;
@@ -135,7 +130,7 @@ $this->layout = false;
             text-align: center;
             padding:15px;
         }
-        
+
         .linklist-list-element-green {
             background-color: #60a845;
             margin:10px;
@@ -157,7 +152,7 @@ $this->layout = false;
                         'height' => 114,
                         'url' => '/']) ?>
                 </h1>
-                
+
                 <div class="intent">
                     <p class="linklist-title-desc">COLLECTION OF LINKS FEATURED IN OUR INSTAGRAM-POSTS</p>
                     <div class="linklist-content-div">
@@ -166,14 +161,14 @@ $this->layout = false;
                     </div>
                 </div>
             </div>
-    
-    
-    
-            
-                
-    
-            
-    
+
+
+
+
+
+
+
+
             <div id="footer" class="footer">
                 <p class="imprint"><?= $this->Html->link('Imprint',
                         '/pages/info/#imprint') ?></p>
@@ -184,14 +179,14 @@ $this->layout = false;
             </div>
         </div>
 
-        
+
         <?= $this->Flash->render('flash') ?>
-        
-        
+
+
         <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
         <?= $this->Html->script(['accordeon','hash']) ?>
-        
+
         <script type="application/javascript">
             $(document).ready( function() {
                 let accordeon = new Accordeon('accordeon');
@@ -212,6 +207,6 @@ $this->layout = false;
 
         <script src="https://www.google.com/recaptcha/api.js" type="application/javascript"/>
         <?= $this->element('matomo') ?>
-    
+
     </body>
 </html>

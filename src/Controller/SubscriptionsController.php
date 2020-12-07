@@ -31,19 +31,23 @@ class SubscriptionsController extends AppController
      * @return \Cake\Http\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
+    /*
     public function view($key = null)
     {
         $subscription = $this->Subscriptions->findByConfirmationKey($key);
         $this->set('subscription', $subscription);
     }
+    */
 
     /**
      * Add method
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function requestConfirmation()
+    public function add()
     {
+        $this->viewBuilder()->setLayout('static_page');
+
         $subscription = $this->Subscriptions->newEntity();
         if ($this->request->is('post')) {
 
@@ -75,6 +79,8 @@ class SubscriptionsController extends AppController
      */
     public function edit($key = null)
     {
+        $this->viewBuilder()->setLayout('static_page');
+
         $subscription = $this->Subscriptions->findByConfirmationKey($key);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subscription = $this->Subscriptions->patchEntity($subscription, $this->request->getData());

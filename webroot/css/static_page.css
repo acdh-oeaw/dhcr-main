@@ -387,10 +387,10 @@ form .input {
 html {
   scroll-behavior: smooth; }
 
-body.info {
+body {
   background-color: #fff;
   position: relative; }
-  body.info .wrapper {
+  body .wrapper {
     padding: 2em 15px 10vw;
     max-width: 1000px;
     margin: 0 auto;
@@ -421,13 +421,13 @@ body.info {
       position: static;
       display: block;
       margin: 0 auto 2em;
-      width: 140px; } }
+      width: 150px; } }
 
 #page-head {
   display: grid;
-  grid-template-columns: auto auto;
   grid-template-rows: auto auto;
-  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
+  grid-template-columns: 50px auto auto;
+  grid-template-areas: '.      dhcr-logo   dhcr-logo' 'left   middle      right';
   grid-column-gap: 3em;
   grid-row-gap: 3em;
   justify-items: start;
@@ -438,9 +438,12 @@ body.info {
       grid-column-gap: 6vw; } }
   @media only screen and (max-width: 580px) {
     #page-head {
-      align-items: center; } }
+      align-items: center;
+      grid-template-columns: initial;
+      grid-template-areas: 'dhcr-logo  dhcr-logo' 'left       right'; } }
   #page-head h1 {
     grid-area: dhcr-logo;
+    justify-self: center;
     text-align: center;
     font-size: 0;
     color: transparent; }
@@ -454,7 +457,28 @@ body.info {
       @media only screen and (max-width: 750px) {
         #page-head h1 img {
           width: 50vw; } }
-  #page-head .joint-logo {
+  #page-head .title, #page-head .intent {
+    grid-column-start: left;
+    grid-column-end: right; }
+    #page-head .title p, #page-head .intent p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #1E6BA3; }
+      @media only screen and (max-width: 580px) {
+        #page-head .title p, #page-head .intent p {
+          font-size: 16px; } }
+      #page-head .title p a, #page-head .intent p a {
+        font-weight: bold;
+        color: #1E6BA3; }
+        #page-head .title p a:hover, #page-head .intent p a:hover {
+          text-decoration: underline; }
+
+.info #page-head {
+  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
+  grid-template-columns: initial; }
+  .info #page-head h1 {
+    justify-self: initial; }
+  .info #page-head .joint-logo {
     grid-area: joint-logo;
     justify-self: end;
     align-self: start;
@@ -464,33 +488,23 @@ body.info {
     min-width: 176px;
     height: auto; }
     @media only screen and (max-width: 750px) {
-      #page-head .joint-logo {
+      .info #page-head .joint-logo {
         width: 20vw;
         min-width: 150px; } }
     @media only screen and (max-width: 580px) {
-      #page-head .joint-logo {
+      .info #page-head .joint-logo {
         grid-area: first;
         width: 18vw;
         min-width: 70px; } }
-  #page-head .intent {
+  .info #page-head .intent {
     grid-area: intent; }
     @media only screen and (max-width: 580px) {
-      #page-head .intent {
+      .info #page-head .intent {
         grid-column-start: joint-logo;
         grid-column-end: intent; } }
-    #page-head .intent p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #1E6BA3; }
-      @media only screen and (max-width: 580px) {
-        #page-head .intent p {
-          text-align: center;
-          font-size: 16px; } }
-      #page-head .intent p a {
-        font-weight: bold;
-        color: #1E6BA3; }
-        #page-head .intent p a:hover {
-          text-decoration: underline; }
+    @media only screen and (max-width: 580px) {
+      .info #page-head .intent p {
+        text-align: center; } }
 
 #accordeon {
   margin-top: 4em; }
@@ -764,4 +778,4 @@ form {
 #footer {
   margin: 100px 0 0; }
 
-/*# sourceMappingURL=info.css.map */
+/*# sourceMappingURL=static_page.css.map */
