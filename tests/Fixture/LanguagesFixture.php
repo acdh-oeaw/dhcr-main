@@ -38,6 +38,10 @@ class LanguagesFixture extends TestFixture
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
             ],
+            [
+                'id' => 2,
+                'name' => 'Banana',
+            ],
         ];
         parent::init();
     }

@@ -133,6 +133,7 @@ class SubscriptionsTableTest extends TestCase
         $this->assertTrue($result === false);
 
         $subscription = $this->SubscriptionsTable->get(3, $options);    // notification on course 1
+        $this->assertEquals(2, count($subscription->languages));
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 2);
     }
