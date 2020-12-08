@@ -46,6 +46,16 @@ class LanguagesSubscriptionsFixture extends TestFixture
                 'subscription_id' => 1,
                 'language_id' => 1,
             ],
+            [
+                'id' => 2,
+                'subscription_id' => 3,
+                'language_id' => 1,
+            ],
+            [
+                'id' => 3,
+                'subscription_id' => 3,
+                'language_id' => 2,
+            ],
         ];
         parent::init();
     }

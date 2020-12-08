@@ -18,55 +18,56 @@ foreach($courses as $course) {
 --
 
 Your filter criteria:
+
 <?php $presence = ($subscription->online_course !== null)
     ? ($subscription->online_course) ? "online" : "campus"
     : "online/campus"; ?>
 Presence: <?= $presence."\n" ?>
 
 <?php
-if($subscription->course_type) {
+if($subscription->course_types) {
     echo "Education Types:\n";
-    foreach($subscription->course_type as $row) {
+    foreach($subscription->course_types as $row) {
         echo $row->name;
         echo "\n";
     }
     echo "\n";
 }
-if($subscription->country) {
+if($subscription->countries) {
     echo "Countries:\n";
-    foreach($subscription->country as $row) {
+    foreach($subscription->countries as $row) {
         echo $row->name;
         echo "\n";
     }
     echo "\n";
 }
-if($subscription->language) {
+if($subscription->languages) {
     echo "Languages:\n";
-    foreach($subscription->language as $row) {
+    foreach($subscription->languages as $row) {
         echo $row->name;
         echo "\n";
     }
     echo "\n";
 }
-if($subscription->discipline) {
+if($subscription->disciplines) {
     echo "Disciplines:\n";
-    foreach($subscription->discipline as $row) {
+    foreach($subscription->disciplines as $row) {
         echo $row->name;
         echo "\n";
     }
     echo "\n";
 }
-if($subscription->tadirah_technique) {
+if($subscription->tadirah_techniques) {
     echo "Techniques:\n";
-    foreach($subscription->tadirah_technique as $row) {
+    foreach($subscription->tadirah_techniques as $row) {
         echo $row->name;
         echo "\n";
     }
     echo "\n";
 }
-if($subscription->tadirah_object) {
+if($subscription->tadirah_objects) {
     echo "Objects:\n";
-    foreach($subscription->tadirah_object as $row) {
+    foreach($subscription->tadirah_objects as $row) {
         echo $row->name;
         echo "\n";
     }

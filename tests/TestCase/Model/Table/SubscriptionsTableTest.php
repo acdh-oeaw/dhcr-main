@@ -123,7 +123,8 @@ class SubscriptionsTableTest extends TestCase
     // test only the loop body of processSubscriptions
     public function testProcessSubscription() {
         $options = ['contain' => $this->SubscriptionsTable::$containments];
-        $subscription = $this->SubscriptionsTable->get(1, $options);
+
+        $subscription = $this->SubscriptionsTable->get(1, $options);    // has notification on course 1, all filters set -> no courses match
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 0);
 
@@ -131,7 +132,7 @@ class SubscriptionsTableTest extends TestCase
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === false);
 
-        $subscription = $this->SubscriptionsTable->get(3, $options);    // not confirmed
+        $subscription = $this->SubscriptionsTable->get(3, $options);    // notification on course 1
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 2);
     }
