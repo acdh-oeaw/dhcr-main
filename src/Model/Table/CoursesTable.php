@@ -274,7 +274,7 @@ class CoursesTable extends Table
         }
         $options = [
             'conditions' => $conditions,
-            'contain' => ['Disciplines']
+            'contain' => ['Disciplines','Countries','Cities','Institutions']
         ];
         return $options;
     }

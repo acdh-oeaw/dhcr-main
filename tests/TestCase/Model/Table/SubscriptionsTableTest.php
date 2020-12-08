@@ -40,7 +40,9 @@ class SubscriptionsTableTest extends TestCase
         'app.Courses',
         'app.CoursesDisciplines',
         'app.CoursesTadirahObjects',
-        'app.CoursesTadirahTechniques'
+        'app.CoursesTadirahTechniques',
+        'app.Institutions',
+        'app.Cities'
     ];
 
     /**

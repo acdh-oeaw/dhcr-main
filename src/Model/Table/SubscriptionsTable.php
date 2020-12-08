@@ -185,23 +185,11 @@ class SubscriptionsTable extends Table
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
             if($courses) {
                 $this->sendNotification($subscription, $courses);
-                $this->saveSentNotifications($subscription->id, $courses);
+                $this->Notifications->saveSent($subscription->id, $courses);
             }
             $result = count($courses);
         }
         return $result;
-    }
-
-
-
-    private function saveSentNotifications($id, $courses = []) {
-        $course_ids = collection($courses)->extract('id')->toList();
-        $data = [];
-        foreach($course_ids as $course_id) $data[] = [
-            'course_id' => $course_id,
-            'subscription_id' => $id];
-        $entities = $this->Notifications->newEntities($data);
-        if($id) $this->Notifications->saveMany($entities);
     }
 
 

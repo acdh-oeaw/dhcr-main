@@ -76,4 +76,16 @@ class NotificationsTable extends Table
 
         return $rules;
     }
+
+
+
+    public function saveSent($id, $courses = []) {
+        $course_ids = collection($courses)->extract('id')->toList();
+        $data = [];
+        foreach($course_ids as $course_id) $data[] = [
+            'course_id' => $course_id,
+            'subscription_id' => $id];
+        $entities = $this->newEntities($data);
+        if($id) $this->saveMany($entities);
+    }
 }

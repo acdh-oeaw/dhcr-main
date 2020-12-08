@@ -8,7 +8,7 @@ that match<?php if(count($courses) == 1) echo "es"; ?> the filter criteria you s
 
 <?php
 foreach($courses as $course) {
-    echo $course->name.", ".$course->institutions->name.", "
+    echo $course->name.", ".$course->institution->name.", "
         .$course->city->name.", ".$course->country->name;
     echo "\n";
     echo Configure::read("dhcr.baseUrl")."courses/view/".$course->id;
