@@ -211,7 +211,6 @@ class SubscriptionsTable extends Table
     private function sendNotification($subscription, $courses = []) {
         $recipient = $subscription->email;
         if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
-
         $Email = new Email('default');
         $Email->setFrom(Configure::read('AppMail.defaultFrom'))
             ->setTo($recipient)
@@ -220,7 +219,7 @@ class SubscriptionsTable extends Table
             ->setViewVars([
                 'subscription' => $subscription,
                 'courses' => $courses])
-            ->viewBuilder()->setTemplate('subscription_notification');
+            ->viewBuilder()->setTemplate('subscriptions/subscription_notification');
             $Email->send();
     }
 

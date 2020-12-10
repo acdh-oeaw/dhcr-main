@@ -9,11 +9,11 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
 
 <script type="application/javascript">
     'use strict';
-    
+
     var BASE_URL = '<?= Router::url('/', true) ?>';
-    
+
     var app;
-    
+
     <?php
     $jsonOptions = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
     if(!empty($courses))
@@ -36,7 +36,7 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
         echo 'var techniques = ' . json_encode($techniques, $jsonOptions). ';';
     if(!empty($objects))
         echo 'var objects = ' . json_encode($objects, $jsonOptions). ';';
-    
+
     ?>
 
     $(document).ready( function() {
@@ -48,5 +48,8 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
             id:          <?= $id ?>
         });
 
+        if($('.flash-message').length) {
+            $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
+        }
     });
 </script>

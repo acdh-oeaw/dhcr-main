@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Core\Configure;
+use Cake\Mailer\Email;
 
 /**
  * Subscriptions Controller
@@ -52,10 +54,17 @@ class SubscriptionsController extends AppController
             $data = $this->request->getData();
             $data['confirmation_key'] = $this->Subscriptions->generateToken('confirmation_key');
             $subscription = $this->Subscriptions->patchEntity($subscription, $data);
-            //debug($subscription);exit;
             if ($this->Subscriptions->save($subscription)) {
                 $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
-
+                if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
+                $Email = new Email('default');
+                $Email->setFrom(Configure::read('AppMail.defaultFrom'))
+                    ->setTo($recipient)
+                    ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
+                    ->setEmailFormat('text')
+                    ->setViewVars(['subscription' => $subscription])
+                    ->viewBuilder()->setTemplate('subscriptions/subscription_confirmation');
+                $Email->send();
                 return $this->redirect('/');
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));

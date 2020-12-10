@@ -1129,6 +1129,10 @@ table .recurring {
   padding: 30px;
   border-radius: 8px;
   color: #ccc; }
+  @media only screen and (max-width: 750px) {
+    .flash-message {
+      top: 20px;
+      right: 20px; } }
 
 #header {
   position: relative;
