@@ -47,27 +47,21 @@ class SubscriptionsController extends AppController
     public function add()
     {
         $this->viewBuilder()->setLayout('static_page');
-
         $subscription = $this->Subscriptions->newEntity();
         if ($this->request->is('post')) {
-
-
-
-            $subscription = $this->Subscriptions->patchEntity($subscription, $this->request->getData());
+            $data = $this->request->getData();
+            $data['confirmation_key'] = $this->Subscriptions->generateToken('confirmation_key');
+            $subscription = $this->Subscriptions->patchEntity($subscription, $data);
+            //debug($subscription);exit;
             if ($this->Subscriptions->save($subscription)) {
-                $this->Flash->success(__('Your subscription has been saved.'));
+                $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
 
                 return $this->redirect('/');
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
-        $disciplines = $this->Subscriptions->Disciplines->find('list', ['limit' => 200]);
-        $languages = $this->Subscriptions->Languages->find('list', ['limit' => 200]);
-        $courseTypes = $this->Subscriptions->CourseTypes->find('list', ['limit' => 200]);
         $countries = $this->Subscriptions->Countries->find('list', ['limit' => 200]);
-        $tadirahObjects = $this->Subscriptions->TadirahObjects->find('list', ['limit' => 200]);
-        $tadirahTechniques = $this->Subscriptions->TadirahTechniques->find('list', ['limit' => 200]);
-        $this->set(compact('subscription', 'disciplines', 'languages', 'courseTypes', 'countries', 'tadirahObjects', 'tadirahTechniques'));
+        $this->set(compact('subscription','countries'));
     }
 
     /**

@@ -7,6 +7,8 @@ use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
+use ArrayObject;
 
 /**
  * Subscriptions Model
@@ -138,6 +140,18 @@ class SubscriptionsTable extends Table
         $rules->add($rules->isUnique(['email']));
 
         return $rules;
+    }
+
+
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
+        foreach ($data as $key => $value) {
+            if (is_string($value)) {
+                $data[$key] = trim($value);
+            }
+        }
+        if(empty($data->confirmation_key)) {
+
+        }
     }
 
 

@@ -20,14 +20,15 @@ use Cake\Core\Configure;
 
 
 
-<div class="subscriptions form">
+<div class="subscriptions-form optionals">
     <?= $this->Form->create($subscription, [
         'novalidate' => false,
         'class' => 'captcha-form'
     ]) ?>
     <?php
     echo $this->Form->control('email');
-    echo $this->Form->control('country_id', ['title' => 'Optional. Let us know where you are coming from.']);
+    echo $this->Form->control('country_id', [
+            'empty' => '- Where are you from? (optional) -']);
     ?>
     <?= $this->Form->submit('Submit', array(
         'class' => 'g-recaptcha small blue button right',

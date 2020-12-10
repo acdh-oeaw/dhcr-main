@@ -124,7 +124,7 @@ class SubscriptionsTableTest extends TestCase
     public function testProcessSubscription() {
         $options = ['contain' => $this->SubscriptionsTable::$containments];
 
-        $subscription = $this->SubscriptionsTable->get(1, $options);    // has notification on course 1, all filters set -> no courses match
+        $subscription = $this->SubscriptionsTable->get(1, $options);    // has notification on course 1, course 2 deleted, course 3 & 4 not online,
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 0);
 

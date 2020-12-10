@@ -1,4 +1,12 @@
+.optionals {
 
+    .required > label {
+        &::after{
+            content: ' *';
+            vertical-align: super;
+        }
+    }
+}
 
 form {
     label {
