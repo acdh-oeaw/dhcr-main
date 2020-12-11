@@ -15,6 +15,11 @@ use Cake\Core\Configure;
         you can set filters to stay informed about courses in
         disciplines, languages or countries you are interested in.
     </p>
+    <p>
+        In case you already did subscribe,
+        you can request the confirmation mail
+        here again to edit your existing subscription.
+    </p>
 </div>
 <?php $this->end(); ?>
 

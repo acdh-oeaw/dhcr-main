@@ -120,11 +120,6 @@ class SubscriptionsTable extends Table
             ->requirePresence('confirmation_key', 'create')
             ->notEmptyString('confirmation_key');
 
-        $validator
-            ->scalar('deletion_key')
-            ->maxLength('deletion_key', 255)
-            ->allowEmptyString('deletion_key');
-
         return $validator;
     }
 
@@ -166,6 +161,7 @@ class SubscriptionsTable extends Table
     ];
 
 
+    // called by cron using console command
     public function processSubscriptions() {
         $subscriptions = $this->getSubscriptions();
         $courses = 0;

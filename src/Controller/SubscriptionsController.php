@@ -52,24 +52,42 @@ class SubscriptionsController extends AppController
         $subscription = $this->Subscriptions->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $data['confirmation_key'] = $this->Subscriptions->generateToken('confirmation_key');
-            $subscription = $this->Subscriptions->patchEntity($subscription, $data);
-            if ($this->Subscriptions->save($subscription)) {
-                $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
-                if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
+            $_subscription = $this->_table->find('all',  [
+                    'conditions' => ['Subscriptions.email' => $data['email'],
+                    'contain' => $this->Subscriptions::$containments
+            ]])->first();
+            if(!empty($_subscription)) {
+                $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
                 $Email = new Email('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-                    ->setTo($recipient)
+                    ->setTo($data['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
                     ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $subscription])
-                    ->viewBuilder()->setTemplate('subscriptions/subscription_confirmation');
+                    ->setViewVars(['subscription' => $_subscription])
+                    ->viewBuilder()->setTemplate('subscriptions/subscription_access');
                 $Email->send();
                 return $this->redirect('/');
+            }else{
+                $data['confirmation_key'] = $this->Subscriptions->generateToken('confirmation_key');
+                $subscription = $this->Subscriptions->patchEntity($subscription, $data);
+                if ($this->Subscriptions->save($subscription)) {
+                    $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
+                    $Email = new Email('default');
+                    $Email->setFrom(Configure::read('AppMail.defaultFrom'))
+                        ->setTo($data['email'])
+                        ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
+                        ->setEmailFormat('text')
+                        ->setViewVars(['subscription' => $subscription])
+                        ->viewBuilder()->setTemplate('subscriptions/subscription_confirmation');
+                    $Email->send();
+                    return $this->redirect('/');
+                }
             }
+
+
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
-        $countries = $this->Subscriptions->Countries->find('list', ['limit' => 200]);
+        $countries = $this->Subscriptions->Countries->find('list');
         $this->set(compact('subscription','countries'));
     }
 
@@ -84,11 +102,20 @@ class SubscriptionsController extends AppController
     {
         $this->viewBuilder()->setLayout('static_page');
 
-        $subscription = $this->Subscriptions->findByConfirmationKey($key);
+        $subscription = $this->Subscriptions->find('all', [
+            'conditions' => ['Subscriptions.confirmation_key' => $key],
+            'contain' => $this->Subscriptions::$containments
+        ])->first();
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $subscription = $this->Subscriptions->patchEntity($subscription, $this->request->getData());
+            $data = $this->request->getData();
+            unset($data['confirmation_key']);
+            $data['confirmed'] = 1;
+            $subscription = $this->Subscriptions->patchEntity($subscription, $data);
             if ($this->Subscriptions->save($subscription)) {
-                $this->Flash->success(__('Your subscription has been saved.'));
+                if(!$subscription['confirmed'])
+                    $this->Flash->success(__('Your is now complete and confirmed.
+                    You will receieve an e-mail notification, as soon new courses match your filters.'));
+                else $this->Flash->success(__('Your subscription has been saved.'));
 
                 return $this->redirect('/');
             }
@@ -112,7 +139,6 @@ class SubscriptionsController extends AppController
      */
     public function delete($key = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $subscription = $this->Subscriptions->findByConfirmationKey($key);
 
         if($subscription AND $this->Subscriptions->delete($subscription)) {
@@ -124,6 +150,6 @@ class SubscriptionsController extends AppController
             $this->Flash->error(__('Your subscription could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect('/');
     }
 }
