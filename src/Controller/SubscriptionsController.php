@@ -160,7 +160,7 @@ class SubscriptionsController extends AppController
      */
     public function delete($key = null)
     {
-        $subscription = $this->Subscriptions->findByConfirmationKey($key);
+        $subscription = $this->Subscriptions->findByConfirmationKey($key)->first();
 
         if($subscription AND $this->Subscriptions->delete($subscription)) {
             $this->Subscriptions->delete($subscription);
