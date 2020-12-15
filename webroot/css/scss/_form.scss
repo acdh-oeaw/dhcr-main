@@ -9,6 +9,10 @@
 }
 
 form {
+    fieldset.invisible {
+        border: none;
+        margin-top: 3em;
+    }
     label {
         font-weight: bold;
         color: $blue;
@@ -21,10 +25,21 @@ form {
         -moz-box-sizing:border-box;
         -webkit-box-sizing:border-box;
         box-sizing:border-box;
-        padding: 4px;
+        padding: 5px;
+        font-size: 0.9em;
+        font-family: metropolis;
+        color: inherit;
     }
+    input[readonly] {
+        border: none;
+        font-weight: bold;
+        padding-top: 8px;
+        color: $light-gray;
+    }
+
+    @include reset-select;
     select {
-        @include reset-select;
+        padding: 4px 5px 4px;
     }
     .input {
         display: grid;
@@ -43,16 +58,41 @@ form {
         margin-bottom: 1em;
 
 
-
         label {
             grid-area: label;
             margin-bottom: 0.5em;
         }
-        input,textarea,select {
+        input,textarea,select, .radio-inline,.checklist-toggle {
             grid-area: input;
             justify-self: stretch;
             &.form-error {
                 border-color: $red;
+            }
+        }
+        .checkbox {
+            margin-left: 0;
+            padding: 5px;
+
+            label {
+                display: inline;
+            }
+            input[type=checkbox] {
+                width: 10px;
+                margin-right: 10px;
+                display: inline;
+                vertical-align: middle;
+            }
+        }
+        .radio-inline {
+            label {
+                display: inline;
+                margin-right: 2em;
+            }
+            input[type=radio] {
+                width: 10px;
+                margin-right: 10px;
+                display: inline;
+                vertical-align: text-top;
             }
         }
         .error-message {

@@ -106,6 +106,10 @@ class SubscriptionsController extends AppController
             'conditions' => ['Subscriptions.confirmation_key' => $key],
             'contain' => $this->Subscriptions::$containments
         ])->first();
+
+        $isNew = false;
+        if(!$subscription['confirmed']) $isNew = true;
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             unset($data['confirmation_key']);
@@ -127,7 +131,14 @@ class SubscriptionsController extends AppController
         $countries = $this->Subscriptions->Countries->find('list', ['limit' => 200]);
         $tadirahObjects = $this->Subscriptions->TadirahObjects->find('list', ['limit' => 200]);
         $tadirahTechniques = $this->Subscriptions->TadirahTechniques->find('list', ['limit' => 200]);
-        $this->set(compact('subscription', 'disciplines', 'languages', 'courseTypes', 'countries', 'tadirahObjects', 'tadirahTechniques'));
+        $this->set(compact('subscription',
+            'isNew',
+            'disciplines',
+            'languages',
+            'courseTypes',
+            'countries',
+            'tadirahObjects',
+            'tadirahTechniques'));
     }
 
     /**

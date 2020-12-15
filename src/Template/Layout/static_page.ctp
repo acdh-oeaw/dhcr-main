@@ -67,7 +67,8 @@
     }
 </script>
 
-<script src="https://www.google.com/recaptcha/api.js" type="application/javascript"/>
+<script src="https://www.google.com/recaptcha/api.js" type="application/javascript"></script>
 <?= $this->element('matomo') ?>
+<?= $this->fetch('script') ?>
 </body>
 </html>

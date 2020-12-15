@@ -1,0 +1,55 @@
+
+.input.dropdown-checkbox {
+    @include clearfix;
+    .checklist-toggle {
+        cursor: pointer;
+        position: relative; // for caret
+        margin-bottom: 1px;
+
+        border: 1px solid $blue;
+        border-radius: 4px;
+        background-color: #fff;
+        -ms-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+        padding: 1px 5px 0px;
+
+        &:hover {
+            background-color: #eee;
+        }
+        .display {
+            overflow: hidden;
+
+            font-size: 0.9em;
+            font-family: Metropolis;
+        }
+        // borrowed from getbootstrap.com for dropdown checklists
+        .caret {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px dashed;
+            display: inline-block;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            width: 0;
+            position: absolute;
+            right: 6px;
+            top: 46%;
+        }
+    }
+    .checklist{
+        grid-area: input;
+        justify-self: stretch;
+        border: 1px solid $blue;
+        border-radius: 4px;
+        background-color: #fff;
+        -ms-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        -webkit-box-sizing:border-box;
+        box-sizing:border-box;
+        padding: 4px;
+        margin-top: 3em;
+    }
+}

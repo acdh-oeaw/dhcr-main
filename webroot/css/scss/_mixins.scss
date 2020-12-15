@@ -77,15 +77,41 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    outline: none;
-    cursor: pointer;
-    background-color: transparent;
-    font-family: metropolis;
-    &::-ms-expand { display: none; }
-    &:focus::-ms-value { background-color: transparent; }
+    .input.select {
+        position: relative;
+        &::after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px dashed;
+            display: inline-block;
+            height: 0;
+            margin-left: 2px;
+            vertical-align: middle;
+            width: 0;
+            position: absolute;
+            right: 6px;
+            top: 40%;
+            content: ' ';
+        }
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            background-color: transparent;
+            font-family: metropolis;
+            &:hover {
+                background-color: #eee;
+            }
+            &::-ms-expand {
+                display: none;
+            }
+            &:focus::-ms-value {
+                background-color: transparent;
+            }
+        }
+    }
 }
 
 

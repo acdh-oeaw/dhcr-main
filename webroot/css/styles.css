@@ -1788,13 +1788,6 @@ body.index, body.view {
     transform: rotate(225deg);
     top: 10px; }
   .styled-select select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    outline: none;
-    cursor: pointer;
-    background-color: transparent;
-    font-family: metropolis;
     height: 26px;
     padding: 7px 12px 5px;
     border: none;
@@ -1803,10 +1796,35 @@ body.index, body.view {
     font-weight: bold;
     color: #1E6BA3;
     width: 180px; }
-    .styled-select select::-ms-expand {
-      display: none; }
-    .styled-select select:focus::-ms-value {
-      background-color: transparent; }
+    .styled-select select .input.select {
+      position: relative; }
+      .styled-select select .input.select::after {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px dashed;
+        display: inline-block;
+        height: 0;
+        margin-left: 2px;
+        vertical-align: middle;
+        width: 0;
+        position: absolute;
+        right: 6px;
+        top: 40%;
+        content: ' '; }
+      .styled-select select .input.select select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+        cursor: pointer;
+        background-color: transparent;
+        font-family: metropolis; }
+        .styled-select select .input.select select:hover {
+          background-color: #eee; }
+        .styled-select select .input.select select::-ms-expand {
+          display: none; }
+        .styled-select select .input.select select:focus::-ms-value {
+          background-color: transparent; }
     .styled-select select optgroup {
       font-weight: bold; }
 
