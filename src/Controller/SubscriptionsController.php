@@ -87,7 +87,8 @@ class SubscriptionsController extends AppController
 
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
-        $countries = $this->Subscriptions->Countries->find('list');
+        $countries = $this->Subscriptions->Countries->find('list', [
+            'order' => ['Countries.name' => 'ASC']]);
         $this->set(compact('subscription','countries'));
     }
 
@@ -123,8 +124,7 @@ class SubscriptionsController extends AppController
                     'Countries' => ['onlyIds' => true],
                     'Disciplines' => ['onlyIds' => true],
                     'TadirahTechniques' => ['onlyIds' => true],
-                    'TadirahObjects' => ['onlyIds' => true]
-            ]]);
+                    'TadirahObjects' => ['onlyIds' => true]]]);
             if ($this->Subscriptions->save($subscription)) {
                 if(!$subscription['confirmed'])
                     $this->Flash->success(__('Your is now complete and confirmed.
@@ -135,12 +135,12 @@ class SubscriptionsController extends AppController
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
-        $disciplines = $this->Subscriptions->Disciplines->find('list', ['limit' => 200]);
-        $languages = $this->Subscriptions->Languages->find('list', ['limit' => 200]);
-        $courseTypes = $this->Subscriptions->CourseTypes->find('list', ['limit' => 200]);
-        $countries = $this->Subscriptions->Countries->find('list', ['limit' => 200]);
-        $tadirahObjects = $this->Subscriptions->TadirahObjects->find('list', ['limit' => 200]);
-        $tadirahTechniques = $this->Subscriptions->TadirahTechniques->find('list', ['limit' => 200]);
+        $disciplines = $this->Subscriptions->Disciplines->find('list', ['order' => ['Disciplines.name' => 'ASC']]);
+        $languages = $this->Subscriptions->Languages->find('list', ['order' => ['Languages.name' => 'ASC']]);
+        $courseTypes = $this->Subscriptions->CourseTypes->find('list', ['order' => ['CourseTypes.name' => 'ASC']]);
+        $countries = $this->Subscriptions->Countries->find('list', ['order' => ['Countries.name' => 'ASC']]);
+        $tadirahObjects = $this->Subscriptions->TadirahObjects->find('list', ['order' => ['TadirahObjects.name' => 'ASC']]);
+        $tadirahTechniques = $this->Subscriptions->TadirahTechniques->find('list', ['order' => ['TadirahTechniques.name' => 'ASC']]);
         $this->set(compact('subscription',
             'isNew',
             'disciplines',
