@@ -37,5 +37,11 @@ class Subscription extends Entity
         'created' => true,
         'updated' => true,
         'notifications' => true,
+        'languages' => true,
+        'course_types' => true,
+        'disciplines' => true,
+        'countries' => true,
+        'tadirah_techniques' => true,
+        'tadirah_objects' => true
     ];
 }

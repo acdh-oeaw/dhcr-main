@@ -52,10 +52,10 @@ class SubscriptionsController extends AppController
         $subscription = $this->Subscriptions->newEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $_subscription = $this->_table->find('all',  [
-                    'conditions' => ['Subscriptions.email' => $data['email'],
+            $_subscription = $this->Subscriptions->find('all',  [
+                    'conditions' => ['Subscriptions.email' => $data['email']],
                     'contain' => $this->Subscriptions::$containments
-            ]])->first();
+            ])->first();
             if(!empty($_subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
                 $Email = new Email('default');
@@ -113,8 +113,18 @@ class SubscriptionsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
             unset($data['confirmation_key']);
+            unset($data['email']);
             $data['confirmed'] = 1;
-            $subscription = $this->Subscriptions->patchEntity($subscription, $data);
+            if($data['online_course'] == 'NULL') $data['online_course'] = null;
+            $subscription = $this->Subscriptions->patchEntity($subscription, $data, [
+                'associated' => [
+                    'CourseTypes' => ['onlyIds' => true],
+                    'Languages' => ['onlyIds' => true],
+                    'Countries' => ['onlyIds' => true],
+                    'Disciplines' => ['onlyIds' => true],
+                    'TadirahTechniques' => ['onlyIds' => true],
+                    'TadirahObjects' => ['onlyIds' => true]
+            ]]);
             if ($this->Subscriptions->save($subscription)) {
                 if(!$subscription['confirmed'])
                     $this->Flash->success(__('Your is now complete and confirmed.

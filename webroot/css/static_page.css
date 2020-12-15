@@ -359,7 +359,10 @@ form input[readonly] {
   border: none;
   font-weight: bold;
   padding-top: 8px;
-  color: #d8d8d8; }
+  color: #6d7278; }
+form textarea[readonly], form textarea[disabled] {
+  border: none;
+  color: #6d7278; }
 form .input.select {
   position: relative; }
   form .input.select::after {
@@ -391,6 +394,16 @@ form .input.select {
       background-color: transparent; }
 form select {
   padding: 4px 5px 4px; }
+form .checkbox {
+  margin-left: 0;
+  padding: 5px; }
+  form .checkbox label {
+    display: inline; }
+  form .checkbox input[type=checkbox] {
+    width: 10px;
+    margin-right: 10px;
+    display: inline;
+    vertical-align: middle; }
 form .input {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -414,16 +427,6 @@ form .input {
     justify-self: stretch; }
     form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error {
       border-color: #020000; }
-  form .input .checkbox {
-    margin-left: 0;
-    padding: 5px; }
-    form .input .checkbox label {
-      display: inline; }
-    form .input .checkbox input[type=checkbox] {
-      width: 10px;
-      margin-right: 10px;
-      display: inline;
-      vertical-align: middle; }
   form .input .radio-inline label {
     display: inline;
     margin-right: 2em; }

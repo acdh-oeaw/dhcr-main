@@ -9,7 +9,6 @@ $classes .= (!empty($errors) AND !empty($habtmModel) AND !empty($errors[$habtmMo
 $tableName = preg_replace('/._ids$/', '', $fieldname);
 $variableName = Inflector::variable($tableName);
 if(empty($label)) $label = ucwords(str_replace(['-','_'], ' ', $tableName));
-if(empty($autosubmit)) $autosubmit = false;
 ?>
 
 <div class="<?= $classes ?>">
@@ -25,16 +24,15 @@ if(empty($autosubmit)) $autosubmit = false;
 		<div id="<?= $variableName.'-ids-checklist' ?>"
 			class="checklist" style="display:none">
             <?php
+            echo $this->Form->select($fieldname, $$variableName, [
+                'multiple' => 'checkbox'
+            ]);
             echo $this->Form->button('Deselect all', array(
                 'onclick' => "deselectList('#".$variableName."-ids-checklist');",
                 'type' => 'button',
                 'style' => 'margin-bottom:8px;',
                 'class' => 'small blue button'
             ));
-
-            echo $this->Form->select($fieldname, $$variableName, [
-                'multiple' => 'checkbox'
-            ]);
 			?>
 		</div>
 

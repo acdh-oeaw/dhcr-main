@@ -30,11 +30,29 @@ use Cake\Core\Configure;
         'novalidate' => false,
         'class' => 'captcha-form'
     ]) ?>
-    <?php
-    echo $this->Form->control('email');
-    echo $this->Form->control('country_id', [
+
+    <fieldset class="invisible">
+        <?php
+        echo $this->Form->control('email');
+        echo $this->Form->control('country_id', [
             'empty' => '- Where are you from? (optional) -']);
-    ?>
+        echo $this->Form->control('privacy_declaration', [
+            'type' => 'textarea',
+            'label' => 'Consent',
+            'readonly' => true,
+            'rows' => 3,
+            'value' => 'By subscribing for new courses on the Digital Humanities Course Registry,
+you agree to processing of your personal data for the purposes of this service.
+Your personal data is stored and processed by the ACDH,
+but not made public or shared with third parties.'
+        ]);
+        echo $this->Form->control('consent', [
+            'type' => 'checkbox',
+            'label' => ['style' => 'grid-area: input', 'text' => 'I agree']]);
+        ?>
+    </fieldset>
+
+
     <?= $this->Form->submit('Submit', array(
         'class' => 'g-recaptcha small blue button right',
         'data-sitekey' => Configure::read('reCaptchaPublicKey'),

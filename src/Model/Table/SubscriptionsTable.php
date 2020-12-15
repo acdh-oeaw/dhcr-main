@@ -120,6 +120,12 @@ class SubscriptionsTable extends Table
             ->requirePresence('confirmation_key', 'create')
             ->notEmptyString('confirmation_key');
 
+        $validator
+            ->boolean('consent')
+            ->notEmptyString('consent')
+            ->equals('consent', 1, 'You must agree to the terms.')
+            ->requirePresence('consent', 'create');
+
         return $validator;
     }
 

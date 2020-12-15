@@ -40,13 +40,15 @@
     <fieldset class="invisible">
         <?php
         echo '<div class="input radio">';
-        echo '<label>Presence</label>';
-        echo '<div class="radio-inline">';
-        echo $this->Form->radio('online_course', [
-            '0' => 'campus',
-            '1' => 'online',
-            'NULL' => 'both'
-        ], ['value' => 'NULL']);
+            echo '<label>Presence</label>';
+            echo '<div class="radio-inline">';
+                $options = [];
+                if(!isset($subscription->online_course)) $options = ['value' => 'NULL'];
+                echo $this->Form->radio('online_course', [
+                    '0' => 'campus',
+                    '1' => 'online',
+                    'NULL' => 'both'
+                ], $options);
         echo '</div></div>';
 
         echo $this->element('dropdown_checkbox', ['fieldname' => 'course_types._ids']);
@@ -54,8 +56,8 @@
 
         echo $this->element('dropdown_checkbox', ['fieldname' => 'countries._ids']);
         echo $this->element('dropdown_checkbox', ['fieldname' => 'disciplines._ids']);
-        echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_objects._ids']);
-        echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_techniques._ids']);
+        echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_objects._ids','label' => 'Objects']);
+        echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_techniques._ids','label' => 'Techniques']);
         ?>
     </fieldset>
 
