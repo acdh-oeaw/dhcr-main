@@ -43,94 +43,96 @@
     }
 }
 
-#modal-wrapper.filter {
+#modal-wrapper {
     #modal-content {
         display: flex;
         flex-direction: column;
         align-items: stretch;   // full width
         align-content: flex-start;
         flex-wrap: nowrap;
+
         #modal-scroll-container {
             margin-top: 1em;
             overflow: hidden auto;
+        }
 
-            hr {
-                margin-bottom: 1em;
-            }
+        hr {
+            margin-bottom: 1em;
+        }
 
-            .selector-wrapper {
-                // the wrapper holds all selected items next to the selector itself
-                @include clearfix;
-                display: inline-flex;
-                flex-wrap: wrap;
-                align-items: baseline;
-                margin-bottom: 0.3em;
+        .selector-wrapper {
+            // the wrapper holds all selected items next to the selector itself
+            @include clearfix;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            margin-bottom: 0.3em;
 
-                @include reset-select;
-                .input.select {
-                    overflow-x: hidden;
-                    width: auto;
-                    display: inline-block;
-                    border-radius: 14px;
-                    border: 2px solid $blue;
-                    position: relative;
-                    margin-right: 1em;
-                    margin-bottom: 0.6em;   // should be 1em, but mysterious extra margin
-                    select {
-                        height: 26px;
-                        padding: 7px 12px 5px;
-                        border: none;
-                        font-size: 12px;
-                        line-height: 13px;
-                        font-weight: bold;
-                        color: $blue;
-                        width: 180px;
-                        optgroup {
-                            font-weight: bold;
-                        }
-                    }
-                }
-
-                .selection-item {
-                    display: inline-block;
-                    border: 2px solid $blue;
-                    border-radius: 14px;
-                    padding: 7px 20px 6px 30px;
-                    margin-left: 1em;
-                    margin-bottom: 0.6em;
+            @include reset-select;
+            .input.select {
+                overflow-x: hidden;
+                width: auto;
+                display: inline-block;
+                border-radius: 14px;
+                border: 2px solid $blue;
+                position: relative;
+                margin-right: 1em;
+                margin-bottom: 0.6em;   // should be 1em, but mysterious extra margin
+                select {
+                    height: 26px;
+                    padding: 7px 12px 5px;
+                    border: none;
                     font-size: 12px;
                     line-height: 13px;
                     font-weight: bold;
-                    color: white;
-                    background-color: $blue;
-                    position: relative;
-                    cursor: pointer;
-                    &:first-child {
-                        margin-left: 0;
-                    }
-                    &::before {
-                        pointer-events: none;
-                        content: '';
-                        position: absolute;
-                        display: block;
-                        box-sizing: border-box;
-                        width: 10px;
-                        height: 10px;
-                        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%);
-                        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-                        transition: all 0.3s ease;
-                        top: 8px;
-                        left: 12px;
-                    }
-                    &:hover {
-                        &::before {
-                            transform: rotate(90deg);
-                        }
+                    color: $blue;
+                    width: 180px;
+                    optgroup {
+                        font-weight: bold;
                     }
                 }
             }
 
-            .radio-selector {
+            .selection-item {
+                display: inline-block;
+                border: 2px solid $blue;
+                border-radius: 14px;
+                padding: 7px 20px 6px 30px;
+                margin-left: 1em;
+                margin-bottom: 0.6em;
+                font-size: 12px;
+                line-height: 13px;
+                font-weight: bold;
+                color: white;
+                background-color: $blue;
+                position: relative;
+                cursor: pointer;
+                &:first-child {
+                    margin-left: 0;
+                }
+                &::before {
+                    pointer-events: none;
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    box-sizing: border-box;
+                    width: 10px;
+                    height: 10px;
+                    background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%);
+                    background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+                    transition: all 0.3s ease;
+                    top: 8px;
+                    left: 12px;
+                }
+                &:hover {
+                    &::before {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+        }
+
+        .radio-selector {
                 list-style: none;
                 display: flex;
                 align-items: center;
@@ -199,7 +201,6 @@
                     }
                 }
             }
-        }
     }
 }
 

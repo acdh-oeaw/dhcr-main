@@ -124,6 +124,9 @@ class Map {
                 iconAnchor:   [12, 37], // point of the icon which will correspond to marker's location
                 popupAnchor:  [0, -40] // point from which the popup should open relative to the iconAnchor
             });
+            if(typeof course.lat == 'undefined' || typeof course.lon == 'undefined') {
+                continue;
+            }
             let marker = L.marker([course.lat, course.lon], {
                 title: course.name,
                 icon: icon,
