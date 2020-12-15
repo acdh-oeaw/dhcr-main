@@ -4,8 +4,8 @@
     .checklist-toggle {
         cursor: pointer;
         position: relative; // for caret
+        @include caret;
         margin-bottom: 1px;
-
         border: 1px solid $blue;
         border-radius: 4px;
         background-color: #fff;
@@ -23,20 +23,6 @@
 
             font-size: 0.9em;
             font-family: Metropolis;
-        }
-        // borrowed from getbootstrap.com for dropdown checklists
-        .caret {
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 4px dashed;
-            display: inline-block;
-            height: 0;
-            margin-left: 2px;
-            vertical-align: middle;
-            width: 0;
-            position: absolute;
-            right: 6px;
-            top: 46%;
         }
     }
     .checklist{

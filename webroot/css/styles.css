@@ -1749,174 +1749,157 @@ body.index, body.view {
     overflow: hidden auto; }
     #modal-wrapper.filter #modal-content #modal-scroll-container hr {
       margin-bottom: 1em; }
-
-.selector-wrapper {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  margin-bottom: 0.3em; }
-  .selector-wrapper::after {
-    content: "";
-    clear: both;
-    display: table; }
-
-.styled-select {
-  overflow-x: hidden;
-  width: auto;
-  display: inline-block;
-  border-radius: 14px;
-  border: 2px solid #1E6BA3;
-  position: relative;
-  margin-right: 1em;
-  margin-bottom: 0.6em; }
-  .styled-select::after {
-    content: '';
-    display: block;
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    right: 15px;
-    top: 7px;
-    border: 2px solid #1E6BA3;
-    border-top: none;
-    border-left: none;
-    transform: rotate(45deg);
-    cursor: pointer;
-    pointer-events: none;
-    transition: all 0.3s ease; }
-  .styled-select:hover::after {
-    transform: rotate(225deg);
-    top: 10px; }
-  .styled-select select {
-    height: 26px;
-    padding: 7px 12px 5px;
-    border: none;
-    font-size: 12px;
-    line-height: 13px;
-    font-weight: bold;
-    color: #1E6BA3;
-    width: 180px; }
-    .styled-select select .input.select {
-      position: relative; }
-      .styled-select select .input.select::after {
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        border-top: 4px dashed;
+    #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper {
+      display: inline-flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      margin-bottom: 0.3em; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper::after {
+        content: "";
+        clear: both;
+        display: table; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select {
+        position: relative; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select::after {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          right: 15px;
+          top: 7px;
+          border: 2px solid #1E6BA3;
+          border-top: none;
+          border-left: none;
+          transform: rotate(45deg);
+          cursor: pointer;
+          pointer-events: none;
+          transition: all 0.3s ease; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select:hover::after {
+          transform: rotate(225deg);
+          top: 10px; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select {
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          outline: none;
+          cursor: pointer;
+          background-color: transparent;
+          font-family: metropolis; }
+          #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select:hover {
+            background-color: #eee; }
+          #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select::-ms-expand {
+            display: none; }
+          #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select:focus::-ms-value {
+            background-color: transparent; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select {
+        overflow-x: hidden;
+        width: auto;
         display: inline-block;
-        height: 0;
-        margin-left: 2px;
-        vertical-align: middle;
-        width: 0;
-        position: absolute;
-        right: 6px;
-        top: 40%;
-        content: ' '; }
-      .styled-select select .input.select select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        outline: none;
+        border-radius: 14px;
+        border: 2px solid #1E6BA3;
+        position: relative;
+        margin-right: 1em;
+        margin-bottom: 0.6em; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select {
+          height: 26px;
+          padding: 7px 12px 5px;
+          border: none;
+          font-size: 12px;
+          line-height: 13px;
+          font-weight: bold;
+          color: #1E6BA3;
+          width: 180px; }
+          #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .input.select select optgroup {
+            font-weight: bold; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .selection-item {
+        display: inline-block;
+        border: 2px solid #1E6BA3;
+        border-radius: 14px;
+        padding: 7px 20px 6px 30px;
+        margin-left: 1em;
+        margin-bottom: 0.6em;
+        font-size: 12px;
+        line-height: 13px;
+        font-weight: bold;
+        color: white;
+        background-color: #1E6BA3;
+        position: relative;
+        cursor: pointer; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .selection-item:first-child {
+          margin-left: 0; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .selection-item::before {
+          pointer-events: none;
+          content: '';
+          position: absolute;
+          display: block;
+          box-sizing: border-box;
+          width: 10px;
+          height: 10px;
+          background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+          background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+          transition: all 0.3s ease;
+          top: 8px;
+          left: 12px; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .selector-wrapper .selection-item:hover::before {
+          transform: rotate(90deg); }
+    #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: nowrap;
+      margin: 0;
+      margin-bottom: 1rem;
+      border: 2px solid #1E6BA3;
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 0;
+      box-sizing: border-box;
+      width: 100%; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li {
+        font-size: 12px;
+        font-weight: bold;
+        color: #1E6BA3;
+        padding: 3px 8px 2px;
+        margin: 0;
+        flex: 1 1 20%; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.label {
+        padding-left: 15px;
+        flex: 0 0 130px; }
+        @media only screen and (max-width: 400px) {
+          #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.label {
+            flex: 0 0 110px; } }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.label .recurring {
+          padding-right: 1.6em;
+          padding-top: 0.2em;
+          padding-bottom: 0.1em; }
+      #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option {
         cursor: pointer;
-        background-color: transparent;
-        font-family: metropolis; }
-        .styled-select select .input.select select:hover {
-          background-color: #eee; }
-        .styled-select select .input.select select::-ms-expand {
+        padding: 3px 8px 2px;
+        text-align: center; }
+        @media only screen and (max-width: 400px) {
+          #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option {
+            padding: 3px 5px 2px; } }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option:last-child {
+          padding-right: 12px; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option.selected {
+          background-color: #1E6BA3;
+          color: white;
+          cursor: default; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option:hover {
+          background-color: #1E6BA3;
+          color: white; }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option span.mobile {
           display: none; }
-        .styled-select select .input.select select:focus::-ms-value {
-          background-color: transparent; }
-    .styled-select select optgroup {
-      font-weight: bold; }
-
-.selection-item {
-  display: inline-block;
-  border: 2px solid #1E6BA3;
-  border-radius: 14px;
-  padding: 7px 20px 6px 30px;
-  margin-left: 1em;
-  margin-bottom: 0.6em;
-  font-size: 12px;
-  line-height: 13px;
-  font-weight: bold;
-  color: white;
-  background-color: #1E6BA3;
-  position: relative;
-  cursor: pointer; }
-  .selection-item:first-child {
-    margin-left: 0; }
-  .selection-item::before {
-    pointer-events: none;
-    content: '';
-    position: absolute;
-    display: block;
-    box-sizing: border-box;
-    width: 10px;
-    height: 10px;
-    background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-    background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-    transition: all 0.3s ease;
-    top: 8px;
-    left: 12px; }
-  .selection-item:hover::before {
-    transform: rotate(90deg); }
-
-.radio-selector {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: nowrap;
-  margin: 0;
-  margin-bottom: 1rem;
-  border: 2px solid #1E6BA3;
-  border-radius: 14px;
-  overflow: hidden;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100%; }
-  .radio-selector li {
-    font-size: 12px;
-    font-weight: bold;
-    color: #1E6BA3;
-    padding: 3px 8px 2px;
-    margin: 0;
-    flex: 1 1 20%; }
-  .radio-selector li.label {
-    padding-left: 15px;
-    flex: 0 0 130px; }
-    @media only screen and (max-width: 400px) {
-      .radio-selector li.label {
-        flex: 0 0 110px; } }
-    .radio-selector li.label .recurring {
-      padding-right: 1.6em;
-      padding-top: 0.2em;
-      padding-bottom: 0.1em; }
-  .radio-selector li.option {
-    cursor: pointer;
-    padding: 3px 8px 2px;
-    text-align: center; }
-    @media only screen and (max-width: 400px) {
-      .radio-selector li.option {
-        padding: 3px 5px 2px; } }
-    .radio-selector li.option:last-child {
-      padding-right: 12px; }
-    .radio-selector li.option.selected {
-      background-color: #1E6BA3;
-      color: white;
-      cursor: default; }
-    .radio-selector li.option:hover {
-      background-color: #1E6BA3;
-      color: white; }
-    .radio-selector li.option span.mobile {
-      display: none; }
-      @media only screen and (max-width: 450px) {
-        .radio-selector li.option span.mobile {
-          display: inline; } }
-    .radio-selector li.option span.screen {
-      display: inline; }
-      @media only screen and (max-width: 450px) {
-        .radio-selector li.option span.screen {
-          display: none; } }
+          @media only screen and (max-width: 450px) {
+            #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option span.mobile {
+              display: inline; } }
+        #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option span.screen {
+          display: inline; }
+          @media only screen and (max-width: 450px) {
+            #modal-wrapper.filter #modal-content #modal-scroll-container .radio-selector li.option span.screen {
+              display: none; } }
 
 .sharing svg {
   width: 20px;

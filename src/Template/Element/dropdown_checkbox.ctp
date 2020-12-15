@@ -18,7 +18,6 @@ if(empty($label)) $label = ucwords(str_replace(['-','_'], ' ', $tableName));
 
         <div id="<?= $variableName.'-ids-toggle' ?>" class="checklist-toggle">
             <span class="display"> - none selected - </span>
-            <span class="caret"> </span>
         </div>
 
 		<div id="<?= $variableName.'-ids-checklist' ?>"
