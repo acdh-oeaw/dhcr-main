@@ -68,7 +68,7 @@ class SubscriptionsController extends AppController
                 $Email->send();
                 return $this->redirect('/');
             }else{
-                $data['confirmation_key'] = $this->Subscriptions->generateToken('confirmation_key');
+                $data['confirmation_key'] = $this->Subscriptions->generateToken();
                 $subscription = $this->Subscriptions->patchEntity($subscription, $data);
                 if ($this->Subscriptions->save($subscription)) {
                     $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
