@@ -25,11 +25,11 @@ use Cake\Core\Configure;
                     echo '<p class="moderators">';
                 }
                 $last_country = $mod['country_id'];
-            
+
                 echo $this->Html->link(
                     $mod['first_name'] . ' ' . $mod['last_name'],
                     'mailto:' . $mod['email']);
-            
+
             }
             echo '</div>';
             ?>
@@ -52,22 +52,23 @@ use Cake\Core\Configure;
                 ?>
             </p>
         </div>
-        
+
         <h3>Contact Form</h3>
         <p>
             Please use our form to automatically let the system address
             all moderators or admins in charge of your concern.
         </p>
-    
+
         <?php
         $options = [
             'Admin Staff' => ['administrators' => 'Administrators'],
             'National Moderators' => $countries
         ];
-        
+
         echo $this->Form->create($email, [
             'novalidate' => false,
             'id' => 'ContactUsForm',
+            'class' => 'captcha-form',
             'url' => '/info/#contact'
         ]);
         echo $this->Form->control('email', array(
@@ -96,7 +97,7 @@ use Cake\Core\Configure;
         ));
         echo $this->Form->end();
         ?>
-    
+
         <h3>Bug Report</h3>
         <p>
             In case you find a bug, please file a report here:

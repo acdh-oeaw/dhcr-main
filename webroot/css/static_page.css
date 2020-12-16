@@ -328,7 +328,18 @@ table .recurring {
   padding: 30px;
   border-radius: 8px;
   color: #ccc; }
+  @media only screen and (max-width: 750px) {
+    .flash-message {
+      top: 20px;
+      right: 20px; } }
 
+.optionals .required > label::after {
+  content: ' *';
+  vertical-align: super; }
+
+form fieldset.invisible {
+  border: none;
+  margin-top: 3em; }
 form label {
   font-weight: bold;
   color: #1E6BA3; }
@@ -340,19 +351,64 @@ form input, form textarea, form select {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 4px; }
+  padding: 5px;
+  font-size: 0.9em;
+  font-family: metropolis;
+  color: inherit; }
+form input[readonly] {
+  border: none;
+  font-weight: bold;
+  padding-top: 8px;
+  color: #6d7278; }
+form textarea[readonly], form textarea[disabled] {
+  border: none;
+  color: #6d7278; }
+form .input.select {
+  position: relative; }
+  form .input.select::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    top: 7px;
+    border: 2px solid #1E6BA3;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 0.3s ease; }
+  form .input.select:hover::after {
+    transform: rotate(225deg);
+    top: 10px; }
+  form .input.select select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    font-family: metropolis; }
+    form .input.select select:hover {
+      background-color: #eee; }
+    form .input.select select::-ms-expand {
+      display: none; }
+    form .input.select select:focus::-ms-value {
+      background-color: transparent; }
 form select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  outline: none;
-  cursor: pointer;
-  background-color: transparent;
-  font-family: metropolis; }
-  form select::-ms-expand {
-    display: none; }
-  form select:focus::-ms-value {
-    background-color: transparent; }
+  padding: 4px 5px 4px; }
+form .checkbox {
+  margin-left: 0;
+  padding: 5px; }
+  form .checkbox label {
+    display: inline; }
+  form .checkbox input[type=checkbox] {
+    width: 10px;
+    margin-right: 10px;
+    display: inline;
+    vertical-align: middle; }
 form .input {
   display: grid;
   grid-template-columns: 1fr 2fr;
@@ -371,26 +427,87 @@ form .input {
   form .input label {
     grid-area: label;
     margin-bottom: 0.5em; }
-  form .input input, form .input textarea, form .input select {
+  form .input input, form .input textarea, form .input select, form .input .radio-inline, form .input .checklist-toggle {
     grid-area: input;
     justify-self: stretch; }
-    form .input input.form-error, form .input textarea.form-error, form .input select.form-error {
-      border-color: #dc7979; }
+    form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error {
+      border-color: #020000; }
+  form .input .radio-inline label {
+    display: inline;
+    margin-right: 2em; }
+  form .input .radio-inline input[type=radio] {
+    width: 10px;
+    margin-right: 10px;
+    display: inline;
+    vertical-align: text-top; }
   form .input .error-message {
     grid-row: 2;
     grid-column: 2;
     justify-self: stretch;
     font-size: 0.9em;
     font-weight: bold;
-    color: #dc7979; }
+    color: #020000; }
+
+.input.dropdown-checkbox::after {
+  content: "";
+  clear: both;
+  display: table; }
+.input.dropdown-checkbox .checklist-toggle {
+  cursor: pointer;
+  position: relative;
+  margin-bottom: 1px;
+  border: 1px solid #1E6BA3;
+  border-radius: 4px;
+  background-color: #fff;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 1px 5px 0px; }
+  .input.dropdown-checkbox .checklist-toggle::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    right: 15px;
+    top: 7px;
+    border: 2px solid #1E6BA3;
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 0.3s ease; }
+  .input.dropdown-checkbox .checklist-toggle:hover::after {
+    transform: rotate(225deg);
+    top: 10px; }
+  .input.dropdown-checkbox .checklist-toggle:hover {
+    background-color: #eee; }
+  .input.dropdown-checkbox .checklist-toggle .display {
+    overflow: hidden;
+    font-size: 0.9em;
+    font-family: Metropolis; }
+.input.dropdown-checkbox .checklist {
+  grid-area: input;
+  justify-self: stretch;
+  border: 1px solid #1E6BA3;
+  border-radius: 4px;
+  background-color: #fff;
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 4px;
+  margin-top: 3em; }
 
 html {
   scroll-behavior: smooth; }
 
-body.info {
+body {
   background-color: #fff;
   position: relative; }
-  body.info .wrapper {
+  body .wrapper {
     padding: 2em 15px 10vw;
     max-width: 1000px;
     margin: 0 auto;
@@ -421,13 +538,13 @@ body.info {
       position: static;
       display: block;
       margin: 0 auto 2em;
-      width: 140px; } }
+      width: 150px; } }
 
 #page-head {
   display: grid;
-  grid-template-columns: auto auto;
   grid-template-rows: auto auto;
-  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
+  grid-template-columns: 50px auto auto;
+  grid-template-areas: '.      dhcr-logo   dhcr-logo' 'left   middle      right';
   grid-column-gap: 3em;
   grid-row-gap: 3em;
   justify-items: start;
@@ -438,9 +555,12 @@ body.info {
       grid-column-gap: 6vw; } }
   @media only screen and (max-width: 580px) {
     #page-head {
-      align-items: center; } }
+      align-items: center;
+      grid-template-columns: initial;
+      grid-template-areas: 'dhcr-logo  dhcr-logo' 'left       right'; } }
   #page-head h1 {
     grid-area: dhcr-logo;
+    justify-self: center;
     text-align: center;
     font-size: 0;
     color: transparent; }
@@ -454,7 +574,28 @@ body.info {
       @media only screen and (max-width: 750px) {
         #page-head h1 img {
           width: 50vw; } }
-  #page-head .joint-logo {
+  #page-head .title, #page-head .intent {
+    grid-column-start: left;
+    grid-column-end: right; }
+    #page-head .title p, #page-head .intent p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #1E6BA3; }
+      @media only screen and (max-width: 580px) {
+        #page-head .title p, #page-head .intent p {
+          font-size: 16px; } }
+      #page-head .title p a, #page-head .intent p a {
+        font-weight: bold;
+        color: #1E6BA3; }
+        #page-head .title p a:hover, #page-head .intent p a:hover {
+          text-decoration: underline; }
+
+.info #page-head {
+  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
+  grid-template-columns: initial; }
+  .info #page-head h1 {
+    justify-self: initial; }
+  .info #page-head .joint-logo {
     grid-area: joint-logo;
     justify-self: end;
     align-self: start;
@@ -464,33 +605,23 @@ body.info {
     min-width: 176px;
     height: auto; }
     @media only screen and (max-width: 750px) {
-      #page-head .joint-logo {
+      .info #page-head .joint-logo {
         width: 20vw;
         min-width: 150px; } }
     @media only screen and (max-width: 580px) {
-      #page-head .joint-logo {
+      .info #page-head .joint-logo {
         grid-area: first;
         width: 18vw;
         min-width: 70px; } }
-  #page-head .intent {
+  .info #page-head .intent {
     grid-area: intent; }
     @media only screen and (max-width: 580px) {
-      #page-head .intent {
+      .info #page-head .intent {
         grid-column-start: joint-logo;
         grid-column-end: intent; } }
-    #page-head .intent p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #1E6BA3; }
-      @media only screen and (max-width: 580px) {
-        #page-head .intent p {
-          text-align: center;
-          font-size: 16px; } }
-      #page-head .intent p a {
-        font-weight: bold;
-        color: #1E6BA3; }
-        #page-head .intent p a:hover {
-          text-decoration: underline; }
+    @media only screen and (max-width: 580px) {
+      .info #page-head .intent p {
+        text-align: center; } }
 
 #accordeon {
   margin-top: 4em; }
@@ -764,4 +895,4 @@ form {
 #footer {
   margin: 100px 0 0; }
 
-/*# sourceMappingURL=info.css.map */
+/*# sourceMappingURL=static_page.css.map */

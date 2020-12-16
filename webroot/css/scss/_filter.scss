@@ -43,185 +43,172 @@
     }
 }
 
-#modal-wrapper.filter {
+#modal-wrapper {
     #modal-content {
         display: flex;
         flex-direction: column;
         align-items: stretch;   // full width
         align-content: flex-start;
         flex-wrap: nowrap;
+
         #modal-scroll-container {
             margin-top: 1em;
             overflow: hidden auto;
+        }
 
-            hr {
-                margin-bottom: 1em;
+        hr {
+            margin-bottom: 1em;
+        }
+
+        .selector-wrapper {
+            // the wrapper holds all selected items next to the selector itself
+            @include clearfix;
+            display: inline-flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            margin-bottom: 0.3em;
+
+            @include reset-select;
+            .input.select {
+                overflow-x: hidden;
+                width: auto;
+                display: inline-block;
+                border-radius: 14px;
+                border: 2px solid $blue;
+                position: relative;
+                margin-right: 1em;
+                margin-bottom: 0.6em;   // should be 1em, but mysterious extra margin
+                select {
+                    height: 26px;
+                    padding: 7px 12px 5px;
+                    border: none;
+                    font-size: 12px;
+                    line-height: 13px;
+                    font-weight: bold;
+                    color: $blue;
+                    width: 180px;
+                    optgroup {
+                        font-weight: bold;
+                    }
+                }
+            }
+
+            .selection-item {
+                display: inline-block;
+                border: 2px solid $blue;
+                border-radius: 14px;
+                padding: 7px 20px 6px 30px;
+                margin-left: 1em;
+                margin-bottom: 0.6em;
+                font-size: 12px;
+                line-height: 13px;
+                font-weight: bold;
+                color: white;
+                background-color: $blue;
+                position: relative;
+                cursor: pointer;
+                &:first-child {
+                    margin-left: 0;
+                }
+                &::before {
+                    pointer-events: none;
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    box-sizing: border-box;
+                    width: 10px;
+                    height: 10px;
+                    background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%);
+                    background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
+                    transition: all 0.3s ease;
+                    top: 8px;
+                    left: 12px;
+                }
+                &:hover {
+                    &::before {
+                        transform: rotate(90deg);
+                    }
+                }
             }
         }
-    }
-}
 
-.selector-wrapper {
-    @include clearfix;
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin-bottom: 0.3em;
-}
-
-
-.styled-select {
-    overflow-x: hidden;
-    width: auto;
-    display: inline-block;
-    border-radius: 14px;
-    border: 2px solid $blue;
-    position: relative;
-    margin-right: 1em;
-    margin-bottom: 0.6em;   // should be 1em, but mysterious extra margin
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        right: 15px;
-        top: 7px;
-        border: 2px solid $blue;
-        border-top: none;
-        border-left: none;
-        transform: rotate(45deg);
-        cursor: pointer;
-        pointer-events: none;
-        transition: all 0.3s ease;
-    }
-    &:hover::after {
-        transform: rotate(225deg);
-        top: 10px;
-    }
-    select {
-        @include reset-select;
-        height: 26px;
-        padding: 7px 12px 5px;
-        border: none;
-        font-size: 12px;
-        line-height: 13px;
-        font-weight: bold;
-        color: $blue;
-        //min-width: 120px;
-        //max-width: 200px;
-        width: 180px;
-
-        optgroup {
-            font-weight: bold;
-        }
-    }
-}
-
-.selection-item {
-    display: inline-block;
-    border: 2px solid $blue;
-    border-radius: 14px;
-    padding: 7px 20px 6px 30px;
-    margin-left: 1em;
-    margin-bottom: 0.6em;
-    font-size: 12px;
-    line-height: 13px;
-    font-weight: bold;
-    color: white;
-    background-color: $blue;
-    position: relative;
-    cursor: pointer;
-    &:first-child {
-        margin-left: 0;
-    }
-    &::before {
-        pointer-events: none;
-        content: '';
-        position: absolute;
-        display: block;
-        box-sizing: border-box;
-        width: 10px;
-        height: 10px;
-        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%,transparent 56%, transparent 100%);
-        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%);
-        transition: all 0.3s ease;
-        top: 8px;
-        left: 12px;
-    }
-    &:hover {
-        &::before {
-            transform: rotate(90deg);
-        }
-    }
-}
-
-.radio-selector {
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    margin: 0;
-    margin-bottom: 1rem;
-    border: 2px solid $blue;
-    border-radius: 14px;
-    overflow: hidden;
-    padding: 0;
-    box-sizing: border-box;
-    //width: 184px;
-    //width: 280px;
-    width: 100%;
-    li {
-        font-size: 12px;
-        font-weight: bold;
-        color: $blue;
-        padding: 3px 8px 2px;
-        margin: 0;
-        flex: 1 1 20%;
-    }
-    li.label {
-        padding-left: 15px;
-        flex: 0 0 130px;
-        @include respond-to(x-small) {
-            flex: 0 0 110px;
-        }
-        .recurring {
-            padding-right: 1.6em;
-            padding-top: 0.2em;
-            padding-bottom: 0.1em;
-        }
-    }
-    li.option {
-        cursor: pointer;
-        padding: 3px 8px 2px;
-        text-align: center;
-        @include respond-to(x-small) {
-            padding: 3px 5px 2px;
-        }
-        &:last-child {
-            padding-right: 12px;
-        }
-        &.selected {
-            background-color: $blue;
-            color: white;
-            cursor: default;
-        }
-        &:hover {
-            background-color: $blue;
-            color: white;
-        }
-        span.mobile {
-            display: none;
-            @media only screen and (max-width: 450px) {
-                display: inline;
+        .radio-selector {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: nowrap;
+                margin: 0;
+                margin-bottom: 1rem;
+                border: 2px solid $blue;
+                border-radius: 14px;
+                overflow: hidden;
+                padding: 0;
+                box-sizing: border-box;
+                //width: 184px;
+                //width: 280px;
+                width: 100%;
+                li {
+                    font-size: 12px;
+                    font-weight: bold;
+                    color: $blue;
+                    padding: 3px 8px 2px;
+                    margin: 0;
+                    flex: 1 1 20%;
+                }
+                li.label {
+                    padding-left: 15px;
+                    flex: 0 0 130px;
+                    @include respond-to(x-small) {
+                        flex: 0 0 110px;
+                    }
+                    .recurring {
+                        padding-right: 1.6em;
+                        padding-top: 0.2em;
+                        padding-bottom: 0.1em;
+                    }
+                }
+                li.option {
+                    cursor: pointer;
+                    padding: 3px 8px 2px;
+                    text-align: center;
+                    @include respond-to(x-small) {
+                        padding: 3px 5px 2px;
+                    }
+                    &:last-child {
+                        padding-right: 12px;
+                    }
+                    &.selected {
+                        background-color: $blue;
+                        color: white;
+                        cursor: default;
+                    }
+                    &:hover {
+                        background-color: $blue;
+                        color: white;
+                    }
+                    span.mobile {
+                        display: none;
+                        @media only screen and (max-width: 450px) {
+                            display: inline;
+                        }
+                    }
+                    span.screen {
+                        display: inline;
+                        @media only screen and (max-width: 450px) {
+                            display: none;
+                        }
+                    }
+                }
             }
-        }
-        span.screen {
-            display: inline;
-            @media only screen and (max-width: 450px) {
-                display: none;
-            }
-        }
     }
 }
+
+
+
+
+
+
+
+
+

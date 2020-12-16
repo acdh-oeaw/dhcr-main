@@ -22,8 +22,8 @@ class FilterHelper {
         if(category == 'objects') choose = 'Choose Object';
 
         let wrapper = $('<div></div>').addClass('selector-wrapper');
-        let styler = $('<div></div>').addClass('styled-select');
-        wrapper.append(styler);
+        let selectDiv = $('<div></div>').addClass('input select');
+        wrapper.append(selectDiv);
         let select = $('<select></select>').addClass('filter');
         select.append('<option selected disabled hidden>' + choose + '</option>');
 
@@ -49,7 +49,7 @@ class FilterHelper {
             }
         }
 
-        styler.append(select);    // first child is always an empty option "choose..."
+        selectDiv.append(select);    // first child is always an empty option "choose..."
         //wrapper.append(this.createSelection(category));
         if(Object.keys(this.filter.selected[category]).length > 0) {
             for(let id in this.filter.selected[category]) {

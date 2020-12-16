@@ -1,7 +1,7 @@
 stages:
   - build
- # - test
-  - deploy 
+  - test
+  - deploy
 
 # build development
 
@@ -11,13 +11,14 @@ build-dev:
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: "" 
+    DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
       command: ["--mtu=1450"]
   tags:
     - cluster
   before_script:
+    - sed -i -e 's/^/ENV /' .${CI_COMMIT_REF_SLUG}.env
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
@@ -28,8 +29,33 @@ build-dev:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master-dev"'
 
+# test development
+test-dev:
+  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
+  stage: test
+  variables:
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      command: ["--mtu=1450"]
+  tags:
+    - cluster
+
+  before_script:
+    - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
+    - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+
+  script:
+    - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+    - docker run --env DB_PASS=$K8S_SECRET_DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master-dev"'
+
 # deploy development
-deploy-dev: 
+deploy-dev:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: deploy
   variables:
@@ -50,7 +76,7 @@ deploy-dev:
     name: dhcr-dev
     url: https://dev-dhcr.clarin-dariah.eu
     kubernetes:
-      namespace: dhcr-dev  
+      namespace: dhcr-dev
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always
@@ -64,13 +90,14 @@ build-prod:
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
-    DOCKER_TLS_CERTDIR: "" 
+    DOCKER_TLS_CERTDIR: ""
   services:
     - name: docker:dind
       command: ["--mtu=1450"]
   tags:
     - cluster
   before_script:
+    - sed -i -e 's/^/ENV /' .${CI_COMMIT_REF_SLUG}.env
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
@@ -81,8 +108,33 @@ build-prod:
   rules:
     - if: '$CI_COMMIT_REF_NAME == "master"'
 
+# test prod
+test-prod:
+  image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-build-image:v0.4.0"
+  stage: test
+  variables:
+      DOCKER_HOST: tcp://docker:2375/
+      DOCKER_DRIVER: overlay2
+      DOCKER_TLS_CERTDIR: ""
+  services:
+    - name: docker:dind
+      command: ["--mtu=1450"]
+  tags:
+    - cluster
+
+  before_script:
+    - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
+    - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker pull $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG
+    - docker run --env DB_PASS=$K8S_SECRET_DB_PASS --env http_proxy=http://fifi:8080 --env https_proxy=http://fifi:8080  $CI_APPLICATION_REPOSITORY:$CI_APPLICATION_TAG /bin/bash -c "cd /var/www/html; php vendor/bin/phpunit --configuration phpunit.xml.dist"
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+
+
 # deploy production
-deploy-prod: 
+deploy-prod:
   image: "registry.gitlab.com/gitlab-org/cluster-integration/auto-deploy-image:v1.0.7"
   stage: deploy
   variables:
@@ -103,7 +155,7 @@ deploy-prod:
     name: dhcr-prod
     url: https://dhcr.clarin-dariah.eu
     kubernetes:
-      namespace: dhcr-prod 
+      namespace: dhcr-prod
   artifacts:
     paths: [environment_url.txt, tiller.log]
     when: always

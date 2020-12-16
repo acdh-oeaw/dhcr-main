@@ -4,13 +4,19 @@
 
 @import "basics";
 
+@import "flash_message";
+
 @import "form";
+
+@import "dropdown_select";
+
+
 
 html {
     scroll-behavior: smooth;
 }
 
-body.info {
+body {
     background-color: #fff;
     position: relative;
     .wrapper {
@@ -47,17 +53,19 @@ body.info {
         position: static;
         display: block;
         margin: 0 auto 2em;
-        width: 140px;
+        width: 150px;
     }
 }
 
+
+
 #page-head {
     display: grid;
-    grid-template-columns:  auto auto;
     grid-template-rows: auto auto;
+    grid-template-columns: 50px auto auto;
     grid-template-areas:
-        'first      dhcr-logo'
-        'joint-logo intent';
+        '.      dhcr-logo   dhcr-logo'
+        'left   middle      right';
     grid-column-gap: 3em;
     grid-row-gap: 3em;
     justify-items: start;
@@ -68,10 +76,15 @@ body.info {
     }
     @media only screen and (max-width: 580px) {
         align-items: center;
+        grid-template-columns: initial;
+        grid-template-areas:
+        'dhcr-logo  dhcr-logo'
+        'left       right';
     }
 
     h1 {
         grid-area: dhcr-logo;
+        justify-self: center;
         text-align: center;
         font-size: 0;
         color: transparent;
@@ -87,38 +100,15 @@ body.info {
             }
         }
     }
-    .joint-logo {
-        grid-area: joint-logo;
-        justify-self: end;
-        align-self: start;
-        display: block;
-        width: 23vw;
-        max-width: 200px;
-        min-width: 176px;
-        height: auto;
-        @include respond-to(handhelds) {
-            width: 20vw;
-            min-width: 150px;
-        }
-        @media only screen and (max-width: 580px) {
-            grid-area: first;
-            width: 18vw;
-            min-width: 70px;
-        }
-    }
 
-    .intent {
-        grid-area: intent;
-        @media only screen and (max-width: 580px) {
-            grid-column-start: joint-logo;
-            grid-column-end: intent;
-        }
+    .title, .intent {
+        grid-column-start: left;
+        grid-column-end: right;
         p {
             font-size: 18px;
             line-height: 1.5;
             color: $blue;
             @media only screen and (max-width: 580px) {
-                text-align: center;
                 font-size: 16px;
             }
             a {
@@ -126,6 +116,50 @@ body.info {
                 color: $blue;
                 &:hover {
                     text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+.info {
+    #page-head {
+        grid-template-areas:
+            'first      dhcr-logo'
+            'joint-logo intent';
+        grid-template-columns: initial;
+
+        h1 {
+            justify-self: initial;
+        }
+        .joint-logo {
+            grid-area: joint-logo;
+            justify-self: end;
+            align-self: start;
+            display: block;
+            width: 23vw;
+            max-width: 200px;
+            min-width: 176px;
+            height: auto;
+            @include respond-to(handhelds) {
+                width: 20vw;
+                min-width: 150px;
+            }
+            @media only screen and (max-width: 580px) {
+                grid-area: first;
+                width: 18vw;
+                min-width: 70px;
+            }
+        }
+        .intent {
+            grid-area: intent;
+            @media only screen and (max-width: 580px) {
+                grid-column-start: joint-logo;
+                grid-column-end: intent;
+            }
+            p {
+                @media only screen and (max-width: 580px) {
+                    text-align: center;
                 }
             }
         }
@@ -478,3 +512,4 @@ form {
 #footer {
     margin: 100px 0 0;
 }
+

@@ -5,7 +5,7 @@ $clarin_blue	: #07426e;  //2387aa
 $dariah_blue	: #1E6BA3;
 $blue			: $dariah_blue;
 $green			: #61A845;
-$red            : #dc7979;
+$red            : #020000;
 $gray           : #6d7278;
 $light-gray     : #d8d8d8;
 
@@ -77,15 +77,51 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {
-    -webkit-appearance:none;
-    -moz-appearance:none;
-    appearance:none;
-    outline: none;
-    cursor: pointer;
-    background-color: transparent;
-    font-family: metropolis;
-    &::-ms-expand { display: none; }
-    &:focus::-ms-value { background-color: transparent; }
+    .input.select {
+        position: relative;
+        @include caret;
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            outline: none;
+            cursor: pointer;
+            background-color: transparent;
+            font-family: metropolis;
+            &:hover {
+                background-color: #eee;
+            }
+            &::-ms-expand {
+                display: none;
+            }
+            &:focus::-ms-value {
+                background-color: transparent;
+            }
+        }
+    }
+}
+
+@mixin caret {
+    &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        right: 15px;
+        top: 7px;
+        border: 2px solid $blue;
+        border-top: none;
+        border-left: none;
+        transform: rotate(45deg);
+        cursor: pointer;
+        pointer-events: none;
+        transition: all 0.3s ease;
+    }
+    &:hover::after {
+        transform: rotate(225deg);
+        top: 10px;
+    }
 }
 
 

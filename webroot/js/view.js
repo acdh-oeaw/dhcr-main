@@ -97,7 +97,7 @@ class View {
         for(let i = 0; courses.length > i; i++) {
             let id = courses[i].id;
             let row = this.createTableRow(this.app.data[id]);
-            table.append(row);
+            if(row) table.append(row);
         }
         $(this.element).append(table);
         if(this.app.hash.fragment && !isNaN(this.app.hash.fragment)) {
@@ -162,6 +162,9 @@ class View {
     createTableRow(course) {
         let tr = $('<tr></tr>').addClass('course-row').attr('data-id', course.id).attr('id', 'course-row-' + course.id);
         let duration = ViewHelper.getTiming(course, ',<br />', ' ', '<br />');
+        if(typeof course.course_type == 'undefined') {
+            return false;
+        }
         let type = course.course_type.name;
         if (course.online) type += ' <span class="online">online</span>';
         let limit = 59;

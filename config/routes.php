@@ -50,7 +50,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
         'httpOnly' => true
     ]));
-    
+
     /**
      * Apply a middleware to the current route scope.
      * Requires middleware to be registered via `Application::routes()` with `registerMiddleware()`
@@ -63,16 +63,18 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Courses', 'action' => 'index']);
-    
+
     $routes->connect('/iframe', ['controller' => 'Courses', 'action' => 'index']);
     $routes->connect('/courses/iframe', ['controller' => 'Courses', 'action' => 'index']);
     $routes->connect('/iframe/*', ['controller' => 'Courses', 'action' => 'index']);
     $routes->connect('/courses/iframe/*', ['controller' => 'Courses', 'action' => 'index']);
-    
-    $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
 
+    $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
-    
+
+
+    $routes->connect('/stories', ['controller' => 'Pages', 'action' => 'display', 'stories']);
+
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
     /**

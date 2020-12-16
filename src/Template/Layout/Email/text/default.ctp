@@ -1,4 +1,5 @@
 <?php
+use Cake\Core\Configure;
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -14,3 +15,9 @@
  */
 
 echo $this->fetch('content');
+echo "\n\n\n";
+echo "--\n\n";
+echo "The Digital Humanities Course Registry: \n";
+// because emails are being sent from commandline, Router::baseURL would be 'localhost'!
+echo Configure::read('dhcr.baseUrl');
+?>

@@ -1,11 +1,14 @@
 <?php
 return [
     // custom variables
+    'dhcr' => [
+        'baseUrl' => env('DHCR_BASE_URL', '__DHCR_BASE_URL__')
+    ],
     'api' => [
-        'baseUrl' => env('API_BASE_URL', 'http://localhost/api/v1')
+        'baseUrl' => env('API_BASE_URL', '__API_BASE_URL__')
     ],
     'ops' => [
-        'baseUrl' => env('OPS_BASE_URL', 'http://localhost/ops/')
+        'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
     ],
     'map' => [
         'apiKey' => env('MAP_API_KEY', '__MAP_API_KEY__')
@@ -16,7 +19,8 @@ return [
     'AppMail' => [
         'defaultFrom' => [env('APP_MAIL_DEFAULT_FROM', '__REPLYTO_MAIL__') => 'DH Course Registry'],
         'defaultCc' => env('APP_MAIL_DEFAULT_CC', '__CC_MAIL__'),
-        'subjectPrefix' => '[DH Course Registry]'
+        'subjectPrefix' => '[DH Course Registry]',
+        'debugMailTo' => env('DEBUG_MAIL_TO', '__DEBUG_MAIL_TO__')
     ],
 
 
@@ -319,10 +323,10 @@ return [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => 'localhost',
+            'host' => env('TEST_DB_HOST', null),
             //'port' => 'non_standard_port_number',
-            'username' => env('TEST_DB_USER', null),
-            'password' => env('TEST_DB_PASS', null),
+            'username' => env('DB_USER', null),
+            'password' => env('DB_PASS', null),
             'database' => env('TEST_DB_NAME', null),
             //'encoding' => 'utf8mb4',
             'timezone' => 'UTC',
