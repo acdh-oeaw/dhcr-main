@@ -63,7 +63,7 @@ class SubscriptionsController extends AppController
                     ->setTo($data['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
                     ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $_subscription])
+                    ->setViewVars(['subscription' => $_subscription, 'isNew' => false])
                     ->viewBuilder()->setTemplate('subscriptions/subscription_access');
                 $Email->send();
                 return $this->redirect('/');
@@ -126,11 +126,18 @@ class SubscriptionsController extends AppController
                     'TadirahTechniques' => ['onlyIds' => true],
                     'TadirahObjects' => ['onlyIds' => true]]]);
             if ($this->Subscriptions->save($subscription)) {
-                if(!$subscription['confirmed'])
-                    $this->Flash->success(__('Your is now complete and confirmed.
-                    You will receieve an e-mail notification, as soon new courses match your filters.'));
+                if($isNew)
+                    $this->Flash->success(__('Your subscription is now complete and confirmed.'
+                        .'You will receieve e-mail notifications, as soon new courses match your filters.'));
                 else $this->Flash->success(__('Your subscription has been saved.'));
-
+                $Email = new Email('default');
+                $Email->setFrom(Configure::read('AppMail.defaultFrom'))
+                    ->setTo($subscription['email'])
+                    ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
+                    ->setEmailFormat('text')
+                    ->setViewVars(['subscription' => $_subscription, 'isNew' => $isNew])
+                    ->viewBuilder()->setTemplate('subscriptions/subscription_access');
+                $Email->send();
                 return $this->redirect('/');
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));

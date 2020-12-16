@@ -40,10 +40,9 @@ use Cake\Core\Configure;
             'type' => 'textarea',
             'label' => 'Consent',
             'readonly' => true,
-            'rows' => 3,
-            'value' => 'By subscribing for new courses on the Digital Humanities Course Registry,
-you agree to processing of your personal data for the purposes of this service.
-Your personal data is stored and processed by the ACDH,
+            'rows' => 2,
+            'value' => 'For this service,
+your personal data is stored and processed by the Austrian Academy of Sciences,
 but not made public or shared with third parties.'
         ]);
         echo $this->Form->control('consent', [

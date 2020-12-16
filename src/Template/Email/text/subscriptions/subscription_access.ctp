@@ -3,7 +3,8 @@ use Cake\Core\Configure;
 ?>
 Dear Subscriber,
 
-please click one of the links below to manage your subscription.
+your subscription is <?php if($isNew) echo 'now '; ?>active and you
+can manage your subscription by clicking on the links below.
 
 Click here to edit the filter settings of your subscription:
 <?php echo Configure::read("dhcr.baseUrl")."subscriptions/edit/".$subscription->confirmation_key; ?>
@@ -13,7 +14,7 @@ Delete your subscription:
 
 --
 
-Your filter criteria:
+Your current filter criteria:
 
 <?php $presence = ($subscription->online_course !== null)
     ? ($subscription->online_course) ? "online" : "campus"
