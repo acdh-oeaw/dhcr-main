@@ -2,6 +2,7 @@
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\SubscriptionsTable;
+use Cake\Core\Configure;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
@@ -123,7 +124,8 @@ class SubscriptionsTableTest extends TestCase
     // test only the loop body of processSubscriptions
     public function testProcessSubscription() {
         $options = ['contain' => $this->SubscriptionsTable::$containments];
-
+        // we are sending mails here!
+        Configure::write('debug', true);
         $subscription = $this->SubscriptionsTable->get(1, $options);    // has notification on course 1, course 2 deleted, course 3 & 4 not online,
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 0);
