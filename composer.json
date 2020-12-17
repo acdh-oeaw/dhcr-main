@@ -11,7 +11,8 @@
         "cakephp/plugin-installer": "^1.0",
         "jeremyharris/cakephp-lazyload": "^2.1",
         "mobiledetect/mobiledetectlib": "2.*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "phpunit/phpunit": "^5.7|^6.0"
     },
     "require-dev": {
         "cakephp/bake": "^1.9.0",
