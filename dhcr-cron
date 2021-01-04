@@ -1,5 +1,5 @@
 # with flock command
 ## blocking multiple execution ##
 
-15  8 * * 1 'flock -n /tmp/lockfile -c /var/www/html/ops/app/Console/sendReminders.sh' >> /var/log/sendReminders-`date +\%Y-\%m-\%d_\%H:\%M:\%S`-cron.log 2>&1;
-30 8 * * 1  'flock -n /tmp/lockfile -c /var/www/html/ops/app/Console/checkUrls.sh' >> /var/log/checkUrls-`date +\%Y-\%m-\%d_\%H:\%M:\%S`-cron.log 2>&1;
+15  8 * * 1 'flock -n /tmp/lockfile -c /var/www/html/ops/app/Console/sendReminders.sh';
+30 8 * * 1  'flock -n /tmp/lockfile -c /var/www/html/ops/app/Console/checkUrls.sh';
