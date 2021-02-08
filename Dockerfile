@@ -3,7 +3,7 @@ FROM chialab/php:7.2-apache
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html 
 
-RUN apt-get update && apt-get install -y vim curl nano links git 
+RUN apt-get update && apt-get install -y vim curl nano links git cron 
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
 
@@ -17,5 +17,8 @@ RUN git submodule sync --recursive && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/api/v1 && cd ${WEBROOT}/api/v1 && php composer.phar update && \
     cp ${WEBROOT}/composer.phar ${WEBROOT}/ops/app && cd ${WEBROOT}/ops/app && php composer.phar update && \
     cd ${WEBROOT} && \
-    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} 
+    chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
+    cp dhcr-cron /etc/cron.d/ && \
+    chmod 0644 /etc/cron.d/dhcr-cron && \
+    crontab /etc/cron.d/dhcr-cron 
 
