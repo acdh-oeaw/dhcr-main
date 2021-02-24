@@ -337,6 +337,9 @@ table .recurring {
   content: ' *';
   vertical-align: super; }
 
+.input.paragraph p {
+  margin-bottom: 0; }
+
 form fieldset.invisible {
   border: none;
   margin-top: 3em; }
