@@ -219,7 +219,7 @@
                 <th scope="col"><?= __('Id') ?></th>
                 <th scope="col"><?= __('Course Id') ?></th>
                 <th scope="col"><?= __('Subscription Id') ?></th>
-                <th scope="col"><?= __('Createtd') ?></th>
+                <th scope="col"><?= __('Created') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
             <?php foreach ($subscription->notifications as $notifications): ?>
@@ -227,7 +227,7 @@
                 <td><?= h($notifications->id) ?></td>
                 <td><?= h($notifications->course_id) ?></td>
                 <td><?= h($notifications->subscription_id) ?></td>
-                <td><?= h($notifications->createtd) ?></td>
+                <td><?= h($notifications->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['controller' => 'Notifications', 'action' => 'view', $notifications->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'Notifications', 'action' => 'edit', $notifications->id]) ?>
