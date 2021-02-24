@@ -1,9 +1,9 @@
 FROM chialab/php:7.2-apache
 
 ENV HTTPDUSER=www-data \
-    WEBROOT=/var/www/html 
+    WEBROOT=/var/www/html
 
-RUN apt-get update && apt-get install -y vim curl nano links git cron 
+RUN apt-get update && apt-get install -y vim curl nano links git cron
 
 COPY --chown=${HTTPDUSER}:${HTTPDUSER} . ${WEBROOT}
 
@@ -20,5 +20,6 @@ RUN git submodule sync --recursive && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT} && \
     cp dhcr-cron /etc/cron.d/ && \
     chmod 0644 /etc/cron.d/dhcr-cron && \
-    crontab /etc/cron.d/dhcr-cron 
+    crontab /etc/cron.d/dhcr-cron && \
+    cp ${webroot}/.php.ini /usr/local/etc/php/conf.d/user.ini
 
