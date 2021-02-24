@@ -36,15 +36,16 @@ use Cake\Core\Configure;
         echo $this->Form->control('email');
         echo $this->Form->control('country_id', [
             'empty' => '- Where are you from? (optional) -']);
-        echo $this->Form->control('privacy_declaration', [
-            'type' => 'textarea',
-            'label' => 'Consent',
-            'readonly' => true,
-            'rows' => 2,
-            'value' => 'For this service,
-your personal data is stored and processed by the Austrian Academy of Sciences,
-but not made public or shared with third parties.'
-        ]);
+        ?>
+        <div class="input paragraph">
+            <label for="privacy-declaration">Consent</label>
+            <p name="privacy_declaration" id="privacy-declaration">
+                For this service, your personal data is stored and processed
+                by the Austrian Academy of Sciences, but not made public or
+                shared with third parties.
+            </p>
+        </div>
+        <?php
         echo $this->Form->control('consent', [
             'type' => 'checkbox',
             'label' => ['style' => 'grid-area: input', 'text' => 'I agree']]);
