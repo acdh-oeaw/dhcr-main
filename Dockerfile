@@ -21,5 +21,5 @@ RUN git submodule sync --recursive && \
     cp dhcr-cron /etc/cron.d/ && \
     chmod 0644 /etc/cron.d/dhcr-cron && \
     crontab /etc/cron.d/dhcr-cron && \
-    cp ${webroot}/.php.ini /usr/local/etc/php/conf.d/user.ini
+    cp ${WEBROOT}/.php.ini /usr/local/etc/php/conf.d/patch.ini
 
