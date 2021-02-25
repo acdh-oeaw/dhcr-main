@@ -1,4 +1,4 @@
-FROM chialab/php:7.2-apache
+FROM chialab/php:7.0-apache
 
 ENV HTTPDUSER=www-data \
     WEBROOT=/var/www/html
