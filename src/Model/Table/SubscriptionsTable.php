@@ -150,9 +150,6 @@ class SubscriptionsTable extends Table
                 $data[$key] = trim($value);
             }
         }
-        if(empty($data->confirmation_key)) {
-
-        }
     }
 
 
