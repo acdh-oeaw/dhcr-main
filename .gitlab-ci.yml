@@ -20,6 +20,7 @@ build-dev:
   before_script:
     - sed -i -e 's/^/ENV /' .${CI_COMMIT_REF_SLUG}.env
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
+    - sed -i 's|cron -f|#cron -f|g' entrypoint.sh
   script:
     - export CI_APPLICATION_REPOSITORY=${CI_APPLICATION_REPOSITORY:-$CI_REGISTRY_IMAGE/$CI_COMMIT_REF_SLUG}
     - export CI_APPLICATION_TAG=${CI_APPLICATION_TAG:-$CI_COMMIT_SHA}
