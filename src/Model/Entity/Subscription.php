@@ -30,6 +30,7 @@ class Subscription extends Entity
      */
     protected $_accessible = [
         'email' => true,
+        'country_id' => true,
         'online_course' => true,
         'confirmed' => true,
         'confirmation_key' => true,
