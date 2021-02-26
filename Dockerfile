@@ -24,5 +24,6 @@ RUN git submodule sync --recursive && \
     cp ${WEBROOT}/.patch.ini /usr/local/etc/php/conf.d/patch.ini && \
     cp entrypoint.sh / && \
     chmod +x /entrypoint.sh && \
+    chmod +x ${WEBROOT}/src/Command/subscriptions.sh && \
     chown -R ${HTTPDUSER}:${HTTPDUSER} ${WEBROOT}
 
