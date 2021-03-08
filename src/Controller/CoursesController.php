@@ -71,6 +71,7 @@ class CoursesController extends AppController
 
 
     public function view($id = null) {
+        $this->loadModel('DhcrCore.Courses');
         $course = $this->Courses->get($id, [
             'contain' => $this->Courses->containments,
             'conditions' => [
