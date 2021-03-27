@@ -36,32 +36,32 @@ class CoursesController extends AppController
         $courses = $this->Courses->getResults();
 
         // get filter option lists
-        $this->Countries->evaluateQuery(['course_count' => true]);
+        $this->Countries->evaluateQuery(['count_recent' => true]);
         $countries = $this->Countries->getCountries();
 
-        $citiesQuery = ['course_count' => true, 'group' => true];
+        $citiesQuery = ['count_recent' => true, 'group' => true];
         if(!empty($query['country_id'])) $citiesQuery['country_id'] = $query['country_id'];
         $this->Cities->evaluateQuery($citiesQuery);
         $cities = $this->Cities->getCities();
 
-        $institutionsQuery = ['course_count' => true, 'group' => true];
+        $institutionsQuery = ['count_recent' => true, 'group' => true];
         if(!empty($query['country_id'])) $institutionsQuery['country_id'] = $query['country_id'];
         $this->Institutions->evaluateQuery($institutionsQuery);
         $institutions = $this->Institutions->getInstitutions();
 
-        $this->CourseTypes->evaluateQuery(['course_count' => true]);
+        $this->CourseTypes->evaluateQuery(['count_recent' => true]);
         $types = $this->CourseTypes->getCourseTypes();
 
-        $this->Languages->evaluateQuery(['course_count' => true]);
+        $this->Languages->evaluateQuery(['count_recent' => true]);
         $languages = $this->Languages->getLanguages();
 
-        $this->Disciplines->evaluateQuery(['course_count' => true]);
+        $this->Disciplines->evaluateQuery(['count_recent' => true]);
         $disciplines = $this->Disciplines->getDisciplines();
 
-        $this->TadirahTechniques->evaluateQuery(['course_count' => true]);
+        $this->TadirahTechniques->evaluateQuery(['count_recent' => true]);
         $techniques = $this->TadirahTechniques->getTadirahTechniques();
 
-        $this->TadirahObjects->evaluateQuery(['course_count' => true]);
+        $this->TadirahObjects->evaluateQuery(['count_recent' => true]);
         $objects = $this->TadirahObjects->getTadirahObjects();
 
         $this->set(compact('courses',
