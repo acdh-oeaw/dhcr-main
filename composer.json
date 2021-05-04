@@ -6,12 +6,12 @@
     "license": "MIT",
     "require": {
         "php": ">=7.0",
-        "cakephp/cakephp": "^3.7",
+        "ext-curl": "*",
+        "cakephp/cakephp": "3.9.*",
         "cakephp/migrations": "^2.0.0",
         "cakephp/plugin-installer": "^1.0",
         "jeremyharris/cakephp-lazyload": "^2.1",
         "mobiledetect/mobiledetectlib": "2.*",
-        "ext-curl": "*",
         "phpunit/phpunit": "^5.7|^6.0"
     },
     "require-dev": {
