@@ -10,7 +10,7 @@ class SubscriptionsCommand extends Command
 
     public $Subscriptions;
 
-    public function initialize()
+    public function initialize() : void
     {
         parent::initialize();
         $this->loadModel('Subscriptions');
