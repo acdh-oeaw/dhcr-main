@@ -75,6 +75,9 @@ define('LOGS', ROOT . DS . 'logs' . DS);
  */
 define('CACHE', TMP . 'cache' . DS);
 
+
+define('RESOURCES', ROOT . DS . 'resources' . DS);
+
 /**
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.
  *
