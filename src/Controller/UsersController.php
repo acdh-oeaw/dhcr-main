@@ -17,7 +17,7 @@ class UsersController extends AppController
 
 
 
-    public function beforeFilter(Event $event) {
+    public function beforeFilter(\Cake\Event\EventInterface $event) {
         parent::beforeFilter($event);
 
         if($this->Auth->user('user_role_id') < 3) $this->Auth->allow(array('invite'));

@@ -281,7 +281,8 @@ class CoursesTable extends Table
 
 
 
-    private function subquery(&$query, $subscription, $assoc) {
+    public function subquery(&$query, $subscription, $assoc) : \Cake\ORM\Query
+    {
         if($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
