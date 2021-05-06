@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -51,21 +52,19 @@ class AppController extends Controller
         $this->response = $this->response->withSharable(true, 3600);
 
         $this->loadComponent('Flash');
-
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
     }
 
     public function beforeFilter(\Cake\Event\EventInterface $event) {
-    	return parent::beforeFilter($event);
+        return parent::beforeFilter($event);
 	}
 
 	public function beforeRender(\Cake\Event\EventInterface $event) {
 		parent::beforeRender($event);
 	}
+
+	public function afterFilter(EventInterface $event) {
+        parent::afterFilter($event);
+    }
 
 
     protected function _checkCaptcha(&$errors = array()) {
