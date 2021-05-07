@@ -247,12 +247,12 @@ class CoursesTable extends Table
         $options = $this->getFilter($subscription);
         $query = $this->find('all', $options);
 
-        $this->subquery($query, $subscription, 'disciplines');
-        $this->subquery($query, $subscription, 'languages');
-        $this->subquery($query, $subscription, 'countries');
-        $this->subquery($query, $subscription, 'course_types');
-        $this->subquery($query, $subscription, 'tadirah_objects');
-        $this->subquery($query, $subscription, 'tadirah_techniques');
+        $this->__match_association($query, $subscription, 'disciplines');
+        $this->__match_association($query, $subscription, 'languages');
+        $this->__match_association($query, $subscription, 'countries');
+        $this->__match_association($query, $subscription, 'course_types');
+        $this->__match_association($query, $subscription, 'tadirah_objects');
+        $this->__match_association($query, $subscription, 'tadirah_techniques');
 
         return $query->distinct()->toArray();
     }
@@ -281,8 +281,7 @@ class CoursesTable extends Table
 
 
 
-    public function subquery(&$query, $subscription, $assoc) : \Cake\ORM\Query
-    {
+    private function __match_association(&$query, $subscription, $assoc) {
         if($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
