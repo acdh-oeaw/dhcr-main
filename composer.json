@@ -5,7 +5,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=7.2",
+        "php": "^8.0",
         "ext-curl": "*",
         "cakephp/cakephp": "4.2.*",
         "cakephp/migrations": "^3.0@beta",
