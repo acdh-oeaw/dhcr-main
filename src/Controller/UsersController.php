@@ -1,8 +1,7 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 
 /**
  * Users Controller
@@ -14,27 +13,40 @@ use Cake\Event\Event;
 class UsersController extends AppController
 {
 
+    public function initialize(): void {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['login']);
+    }
 
-
-
-    public function beforeFilter(\Cake\Event\EventInterface $event) {
+    public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
+    }
 
-        if($this->Auth->user('user_role_id') < 3) $this->Auth->allow(array('invite'));
+    public function beforeRender(EventInterface $event) {
+        parent::beforeRender($event);
+    }
 
-        if($this->Auth->user()) {
-            if($this->DefaultAuth->isAdmin()) {
-                $this->Auth->allow(array('delete'));
-            }
-            $this->Auth->allow(array('delete_identity'));
+
+    public function login()
+    {
+        $result = $this->Authentication->getResult();
+        // If the user is logged in send them away.
+        if ($result->isValid()) {
+            $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
+            return $this->redirect($target);
         }
-
-        $this->set('title_for_layout', 'Account Management');
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error('Invalid username or password');
+        }
     }
 
 
 
-
+    public function logout()
+    {
+        $this->Authentication->logout();
+        return $this->redirect('/users/login');
+    }
 
 
 

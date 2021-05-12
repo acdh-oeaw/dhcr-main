@@ -15,11 +15,11 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 
 /**
  * Static content controller
@@ -31,8 +31,12 @@ use Cake\Mailer\Email;
 class PagesController extends AppController
 {
 
+    public function initialize(): void {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['info', 'display']);
+    }
 
-	public function beforeRender(\Cake\Event\EventInterface $event) {
+    public function beforeRender(EventInterface $event) {
 		// bypass forcing data views for this controller only, make no call to parent::beforeRender()
 	}
 
@@ -40,7 +44,7 @@ class PagesController extends AppController
 
 
 	public function info() {
-        $this->loadModel('DhcrCore.Users');
+        $this->loadModel('Users');
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Emails');
 
@@ -55,7 +59,7 @@ class PagesController extends AppController
                 if($admins) {
                     foreach($admins as $admin) {
                         // email logic
-                        $mailer = new Email('default');
+                        $mailer = new Mailer('default');
                         $mailer->setCc($data['email']);
                         $mailer->setCc(Configure::read('AppMail.defaultCc'));
                         $mailer->setReplyTo($data['email'])
@@ -78,7 +82,7 @@ class PagesController extends AppController
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
         }else{
 	        // init email form
-            $email = $this->Emails->newEntity();
+            $email = $this->Emails->newEntity([]);
         }
 
         $moderators = $this->Users->find('all', array(

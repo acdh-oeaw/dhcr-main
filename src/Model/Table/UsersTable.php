@@ -191,4 +191,37 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+
+
+    public function getModerators($country_id = null, $user_admin = true) : array
+    {
+        $admins = [];
+        // try fetching the moderator in charge of the user's country,
+        if(!empty($country_id)) {
+            $admins = $this->find()
+                ->distinct()->where([
+                    'Users.country_id' => $country_id,
+                    'Users.user_role_id' => 2,	// moderators
+                    'Users.active' => 1
+                ])->toArray();
+        }
+        // then user_admin
+        if(empty($admins) AND $user_admin) {
+            $admins = $this->find()
+                ->distinct()->where([
+                    'Users.user_admin' => 1,
+                    'Users.active' => 1
+                ])->toArray();
+        }
+        // then admin
+        if(empty($admins)) {
+            $admins = $this->find()
+                ->distinct()->where([
+                    'Users.user_role_id' => 1,	// admins - do not check for the 'is_admin' flag, as it is currently also set for the mods
+                    'Users.active' => 1
+                ])->toArray();
+        }
+        return $admins;
+    }
 }

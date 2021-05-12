@@ -15,7 +15,6 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-use Cake\Event\Event;
 use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 
@@ -48,6 +47,8 @@ class AppController extends Controller
             'enableBeforeRedirect' => false,
         ]);
 
+        $this->loadComponent('Authentication.Authentication');
+
         // Set the Cache-Control as private for 3600 seconds
         $this->response = $this->response->withSharable(true, 3600);
 
@@ -67,7 +68,8 @@ class AppController extends Controller
     }
 
 
-    protected function _checkCaptcha(&$errors = array()) {
+    protected function _checkCaptcha(&$errors = array()) : bool
+    {
 
         $ip = $_SERVER['REMOTE_ADDR'];
         if(!empty($_SERVER['HTTP_CLIENT_IP']))

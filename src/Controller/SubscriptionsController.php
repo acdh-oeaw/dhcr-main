@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Core\Configure;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 
 /**
  * Subscriptions Controller
@@ -14,6 +13,12 @@ use Cake\Mailer\Email;
  */
 class SubscriptionsController extends AppController
 {
+
+    public function initialize(): void {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['add','delete','edit']);
+    }
+
     /**
      * Index method
      *
@@ -49,7 +54,7 @@ class SubscriptionsController extends AppController
     public function add()
     {
         $this->viewBuilder()->setLayout('static_page');
-        $subscription = $this->Subscriptions->newEntity();
+        $subscription = $this->Subscriptions->newEntity([]);
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $_subscription = $this->Subscriptions->find('all',  [
@@ -58,7 +63,7 @@ class SubscriptionsController extends AppController
             ])->first();
             if(!empty($_subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
-                $Email = new Email('default');
+                $Email = new Mailer('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                     ->setTo($data['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
@@ -72,7 +77,7 @@ class SubscriptionsController extends AppController
                 $subscription = $this->Subscriptions->patchEntity($subscription, $data);
                 if ($this->Subscriptions->save($subscription)) {
                     $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
-                    $Email = new Email('default');
+                    $Email = new Mailer('default');
                     $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                         ->setTo($data['email'])
                         ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
@@ -130,7 +135,7 @@ class SubscriptionsController extends AppController
                     $this->Flash->success(__('Your subscription is now complete and confirmed.'
                         .'You will receieve e-mail notifications, as soon new courses match your filters.'));
                 else $this->Flash->success(__('Your subscription has been saved.'));
-                $Email = new Email('default');
+                $Email = new Mailer('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                     ->setTo($subscription['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
