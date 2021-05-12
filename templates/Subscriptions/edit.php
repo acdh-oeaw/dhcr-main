@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\Subscription $subscription
  */
 ?>
-<?php $this->start('title'); ?>
+<?php $this->start('intent'); ?>
 <div class="title">
     <p>
         <?php

@@ -34,7 +34,7 @@
                 'url' => '/']) ?>
         </h1>
 
-        <?= $this->fetch('title') ?>
+        <?= $this->fetch('intent') ?>
     </div>
 
     <?= $this->fetch('content') ?>
@@ -56,12 +56,10 @@
 
 <script type="application/javascript">
     $(document).ready( function() {
-
         if($('.flash-message').length) {
             $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
         }
     });
-
     function recaptchaCallback(token) {
         $(".captcha-form").first().submit();
     }

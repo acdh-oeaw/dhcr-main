@@ -53,7 +53,6 @@ class SubscriptionsController extends AppController
      */
     public function add()
     {
-        $this->viewBuilder()->setLayout('static_page');
         $subscription = $this->Subscriptions->newEntity([]);
         if ($this->request->is('post')) {
             $data = $this->request->getData();
@@ -106,8 +105,6 @@ class SubscriptionsController extends AppController
      */
     public function edit($key = null)
     {
-        $this->viewBuilder()->setLayout('static_page');
-
         $subscription = $this->Subscriptions->find('all', [
             'conditions' => ['Subscriptions.confirmation_key' => $key],
             'contain' => $this->Subscriptions::$containments
