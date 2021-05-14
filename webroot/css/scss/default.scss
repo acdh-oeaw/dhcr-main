@@ -10,6 +10,8 @@
 
 @import "dropdown_select";
 
+@import "stories";
+
 
 
 html {
@@ -27,13 +29,11 @@ body {
     }
 }
 
+
 .back.button {
-    position: absolute;     // relative to body
-    top: 2.5em;
-    left: calc((100vw - 1000px + 2* #{$whitespace}) / 4);
-    @media only screen and (max-width: 1000px) {
-        left: $whitespace;
-    }
+    display: block;
+    float: left;
+    margin-bottom: 50px;
     @include respond-to(handhelds) {
         height: 30px;
         font-size: 20px;
@@ -54,18 +54,19 @@ body {
         display: block;
         margin: 0 auto 2em;
         width: 150px;
+        float: none;
     }
 }
 
 
-
 #page-head {
-    display: grid;
-    grid-template-rows: auto auto;
-    grid-template-columns: 50px auto auto;
+    clear: left;
+    /*display: grid;
     grid-template-areas:
         '.      dhcr-logo   dhcr-logo'
         'left   middle      right';
+    grid-template-rows: auto auto;
+    grid-template-columns: 50px auto auto;
     grid-column-gap: 3em;
     grid-row-gap: 3em;
     justify-items: start;
@@ -80,11 +81,11 @@ body {
         grid-template-areas:
         'dhcr-logo  dhcr-logo'
         'left       right';
-    }
+    }*/
 
     h1 {
-        grid-area: dhcr-logo;
-        justify-self: center;
+        //grid-area: dhcr-logo;
+        //justify-self: center;
         text-align: center;
         font-size: 0;
         color: transparent;
@@ -102,8 +103,9 @@ body {
     }
 
     .title, .intent {
-        grid-column-start: left;
-        grid-column-end: right;
+        //grid-column-start: left;
+        //grid-column-end: right;
+        margin-top: 2em;
         p {
             font-size: 18px;
             line-height: 1.5;
@@ -123,7 +125,54 @@ body {
 }
 
 .info {
+    .back.button {
+        position: absolute;     // relative to body
+        top: 2.5em;
+        left: calc((100vw - 1000px + 2* #{$whitespace}) / 4);
+        float: none;
+        margin-bottom: 0;
+        @media only screen and (max-width: 1000px) {
+            left: $whitespace;
+        }
+        @include respond-to(handhelds) {
+            height: 30px;
+            font-size: 20px;
+            border-radius: 15px;
+            padding: 2px 15px 0;
+            &:hover, &.animate {
+                transform: scale(1.05);
+            }
+            &::before {
+                width: 7px;
+                height: 7px;
+                bottom: 2px;
+                margin-right: 7px;
+            }
+        }
+        @media only screen and (max-width: 580px) {
+            position: static;
+            display: block;
+            margin: 0 auto 2em;
+            width: 150px;
+        }
+    }
+
     #page-head {
+        display: grid;
+        grid-template-rows: auto auto;
+        grid-template-columns: 50px auto auto;
+        grid-column-gap: 3em;
+        grid-row-gap: 3em;
+        justify-items: start;
+        align-items: start;
+        justify-content: center;    // align the grid itself
+        @include respond-to(handhelds) {
+            grid-column-gap: 6vw;
+        }
+        @media only screen and (max-width: 580px) {
+            align-items: center;
+            grid-template-columns: initial;
+        }
         grid-template-areas:
             'first      dhcr-logo'
             'joint-logo intent';
@@ -131,6 +180,7 @@ body {
 
         h1 {
             justify-self: initial;
+            grid-area: dhcr-logo;
         }
         .joint-logo {
             grid-area: joint-logo;
@@ -152,6 +202,7 @@ body {
             }
         }
         .intent {
+            margin-top: 0;
             grid-area: intent;
             @media only screen and (max-width: 580px) {
                 grid-column-start: joint-logo;
@@ -172,7 +223,7 @@ body {
         > h2 {
             border-top: 2px solid $light-gray;
             padding: 0.8em 2em 0.6em 0;
-            font-family: metropolis, sans-serif;
+            font-family: Metropolis, sans-serif;
             font-weight: bold;
             font-size: 25px;
             height: 60px;
@@ -247,7 +298,7 @@ body {
         }
         .item-content {
             h3 {
-                font-family: bebas, sans-serif;
+                font-family: Bebas, sans-serif;
                 font-weight: bold;
                 font-size: 23px;
                 letter-spacing: 0.05em;
@@ -257,7 +308,7 @@ body {
                 }
             }
             h4 {
-                font-family: metropolis, sans-serif;
+                font-family: Metropolis, sans-serif;
                 font-size: 20px;
                 font-weight: bold;
                 text-transform: none;
@@ -392,7 +443,7 @@ form {
 
 // credits
 .coordinator {
-    font-family: metropolis, sans-serif;
+    font-family: Metropolis, sans-serif;
     font-weight: bold;
     color: $blue;
     display: block;
@@ -439,7 +490,7 @@ form {
 #imprint-content {
     h2 {
         // style as h3
-        font-family: bebas, sans-serif;
+        font-family: Bebas, sans-serif;
         font-weight: bold;
         font-size: 23px;
         letter-spacing: 0.05em;
@@ -450,7 +501,7 @@ form {
     }
     h3 {
         // style as h4
-        font-family: metropolis, sans-serif;
+        font-family: Metropolis, sans-serif;
         font-size: 20px;
         font-weight: bold;
         text-transform: none;
@@ -478,7 +529,7 @@ form {
             page-break-inside: avoid; /* Theoretically FF 20+ */
             break-inside: avoid-column; /* IE 11 */
             .country {
-                font-family: metropolis, sans-serif;
+                font-family: Metropolis, sans-serif;
                 font-weight: bold;
                 color: $blue;
                 display: block;

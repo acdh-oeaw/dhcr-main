@@ -1,5 +1,5 @@
-
-<?php $this->start('intent'); ?>
+<?php $this->set('bodyClasses', 'info'); ?>
+<?php $this->start('page_head'); ?>
     <?= $this->Html->image('CLARIN-DARIAH-joint-logo-big.png', [
         'alt' => 'CLARIN-DARIAH joint logo',
         'width' => 256,

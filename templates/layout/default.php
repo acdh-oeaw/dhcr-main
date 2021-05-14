@@ -18,10 +18,13 @@
 <head>
     <?= $this->Element('meta') ?>
 
-    <?= $this->Html->css('static_page.css') ?>
+    <?= $this->Html->css('default.css') ?>
+    <?= $this->fetch('css') ?>
+
     <?= $this->Html->meta('icon') ?>
 </head>
-<body>
+<?php $bodyClasses = (!empty($bodyClasses)) ? ' class="'.$bodyClasses.'"' : ''; ?>
+<body<?= $bodyClasses ?>>
 <div class="wrapper">
     <?= $this->Html->link('Back to Start', '/', ['class' => 'blue back button']); ?>
     <div id="page-head">
@@ -34,7 +37,7 @@
                 'url' => '/']) ?>
         </h1>
 
-        <?= $this->fetch('intent') ?>
+        <?= $this->fetch('page_head') ?>
     </div>
 
     <?= $this->fetch('content') ?>

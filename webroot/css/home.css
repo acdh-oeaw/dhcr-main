@@ -3,19 +3,19 @@
 /* base layout & responsive sizing */
 /* amount of space to reserve for lateral whitespace */
 @font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-Regular.otf); }
+  font-family: Bebas;
+  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf) format("opentype"); }
 @font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+  font-family: Bebas-Bold;
+  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf) format("opentype");
   font-weight: bold; }
 @font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
+  font-family: Metropolis-SemiBold;
+  src: url(../fonts/metropolis/Metropolis-SemiBold.otf) format("opentype");
+  font-weight: bolder; }
 @font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
-  font-weight: bold; }
+  font-family: Metropolis;
+  src: url(../fonts/metropolis/Metropolis-Regular.otf) format("opentype"); }
 /* breakpoint definition - use this mixin where appropriate */
 /*
 1080 - 1280
@@ -833,7 +833,7 @@
   box-sizing: border-box; }
 
 body {
-  font-family: metropolis, Sans-Serif;
+  font-family: Metropolis, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   font-weight: normal;
@@ -851,7 +851,7 @@ h1 {
       line-height: normal; } }
 
 h2 {
-  font-family: bebas;
+  font-family: Bebas, sans-serif;
   font-size: 30px;
   font-weight: normal;
   line-height: 0.8;
@@ -883,7 +883,7 @@ ul, ol {
 
 dl dt, dl dd {
   font-size: 16px;
-  font-family: metropolis, sans-serif;
+  font-family: Metropolis, sans-serif;
   font-weight: bold;
   color: #1E6BA3;
   display: block; }
@@ -914,7 +914,7 @@ button, .button {
   border-radius: 23px;
   border: solid 2px #1E6BA3;
   background-color: #fff;
-  font-family: bebas, Sans-Serif;
+  font-family: Bebas, sans-serif;
   font-size: 24px;
   font-weight: normal;
   font-style: normal;
@@ -1062,7 +1062,7 @@ table .recurring {
         padding: 0; } }
 
 .footer {
-  font-family: metropolis, Sans-Serif;
+  font-family: Metropolis, sans-serif;
   font-size: 14px;
   color: #1E6BA3; }
   .footer::after {
@@ -1137,7 +1137,7 @@ table .recurring {
 #header {
   position: relative;
   overflow: visible;
-  width: calc(100% - 54px);
+  width: calc(100% - 5px);
   margin: 1rem 3px;
   display: inline-flex;
   justify-content: space-between;
@@ -1243,7 +1243,7 @@ body.index, body.view {
     overflow: hidden; }
     body.index #container #view h1, body.view #container #view h1 {
       font-size: 25px;
-      font-family: metropolis;
+      font-family: Metropolis;
       font-weight: bold;
       margin: 0 0 0.5em;
       padding-top: 1em; }
@@ -1354,7 +1354,7 @@ body.index, body.view {
       body.index #container, body.view #container {
         min-width: 750px; }
         body.index #container #table, body.view #container #table {
-          flex: 1 0 500px;
+          flex: 1 0 470px;
           margin-right: 15px;
           padding-top: 15px;
           position: relative; }
@@ -1367,7 +1367,7 @@ body.index, body.view {
             background-color: #1E6BA3;
             width: calc(100% - 16px); }
         body.index #container #map-wrapper, body.view #container #map-wrapper {
-          flex: 1 1 220px;
+          flex: 1 1 227px;
           position: relative;
           height: 100%; }
         body.index #container #map, body.view #container #map {
@@ -1464,7 +1464,7 @@ body.index, body.view {
           body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university {
             display: none; } }
       body.index #container #table table tr, body.view #container #table table tr {
-        font-family: metropolis, Sans-Serif;
+        font-family: Metropolis, sans-serif;
         letter-spacing: 0.0074em; }
         body.index #container #table table tr.course-row, body.view #container #table table tr.course-row {
           cursor: pointer; }
@@ -1497,7 +1497,7 @@ body.index, body.view {
       body.index #container #table table tr:last-child td, body.view #container #table table tr:last-child td {
         border: none; }
       body.index #container #table table th, body.view #container #table table th {
-        font-family: bebas;
+        font-family: Bebas;
         font-size: 24px;
         font-weight: normal;
         text-align: left;
@@ -1625,14 +1625,14 @@ body.index, body.view {
         display: none; } }
   .leaflet-popup .leaflet-popup-content p {
     color: #fff;
-    font-family: metropolis;
+    font-family: Metropolis;
     font-size: 12px;
     position: relative;
     margin: 0.7em 0;
     width: 100%; }
   .leaflet-popup .leaflet-popup-content h1 {
     color: #fff;
-    font-family: metropolis;
+    font-family: Metropolis;
     font-size: 14px;
     font-weight: bold;
     margin: 0.8em 0; }
@@ -1703,7 +1703,8 @@ body.index, body.view {
   border-bottom: 2px solid #1E6BA3;
   margin-bottom: 15px;
   padding: 2px 0 15px;
-  position: relative; }
+  position: relative;
+  width: calc(100% - 16px); }
   #filter-buttons::after {
     content: "";
     clear: both;
@@ -1767,7 +1768,7 @@ body.index, body.view {
         width: 8px;
         height: 8px;
         right: 15px;
-        top: 7px;
+        top: 5px;
         border: 2px solid #1E6BA3;
         border-top: none;
         border-left: none;
@@ -1785,7 +1786,7 @@ body.index, body.view {
         outline: none;
         cursor: pointer;
         background-color: transparent;
-        font-family: metropolis; }
+        font-family: Metropolis; }
         #modal-wrapper #modal-content .selector-wrapper .input.select select:hover {
           background-color: #eee; }
         #modal-wrapper #modal-content .selector-wrapper .input.select select::-ms-expand {
@@ -1962,4 +1963,4 @@ body.index, body.view {
     .sharing .row .sharing-option:last-child {
       margin-right: 0; }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=home.css.map */

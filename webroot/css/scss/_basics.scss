@@ -9,7 +9,7 @@
 
 
 body {
-    font-family: metropolis, Sans-Serif;
+    font-family: Metropolis, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     font-weight: normal;
@@ -30,7 +30,7 @@ h1 {
     }
 }
 h2 {
-    font-family: bebas;
+    font-family: Bebas, sans-serif;
     font-size: 30px;
     font-weight: normal;
     line-height: 0.8;
@@ -68,7 +68,7 @@ ul, ol {
 dl {
     dt,dd {
         font-size: 16px;
-        font-family: metropolis, sans-serif;
+        font-family: Metropolis, sans-serif;
         font-weight: bold;
         color: $blue;
         display: block;
@@ -106,7 +106,7 @@ button, .button {
     border-radius: 23px;
     border: solid 2px $blue;
     background-color: #fff;
-    font-family: bebas, Sans-Serif;
+    font-family: Bebas, sans-serif;
     font-size: 24px;
     font-weight: normal;
     font-style: normal;
@@ -287,7 +287,7 @@ table {
 }
 
 .footer {
-    font-family: metropolis, Sans-Serif;
+    font-family: Metropolis, sans-serif;
     font-size: 14px;
     color: $blue;
     @include clearfix;

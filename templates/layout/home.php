@@ -22,7 +22,7 @@ use Cake\Routing\Router;
     <head>
         <?= $this->Element('meta') ?>
 
-        <?= $this->Html->css('styles.css') ?>
+        <?= $this->Html->css('home.css') ?>
         <?= $this->Html->css('/leaflet/leaflet.css') ?>
     </head>
 

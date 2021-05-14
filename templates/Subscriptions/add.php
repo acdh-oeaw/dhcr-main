@@ -7,7 +7,7 @@
 use Cake\Core\Configure;
 ?>
 
-<?php $this->start('intent'); ?>
+<?php $this->start('page_head'); ?>
 <div class="title">
     <p>Subscribe to new courses.</p>
     <p>

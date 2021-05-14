@@ -31,11 +31,6 @@ use Cake\Mailer\Mailer;
 class PagesController extends AppController
 {
 
-    public function initialize(): void {
-        parent::initialize();
-        $this->Authentication->allowUnauthenticated(['info', 'display']);
-    }
-
     public function beforeRender(EventInterface $event) {
 		// bypass forcing data views for this controller only, make no call to parent::beforeRender()
 	}

@@ -16,7 +16,6 @@ class SubscriptionsController extends AppController
 
     public function initialize(): void {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['add','delete','edit']);
     }
 
     /**
@@ -53,27 +52,27 @@ class SubscriptionsController extends AppController
      */
     public function add()
     {
-        $subscription = $this->Subscriptions->newEntity([]);
+        $subscription = [];
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $_subscription = $this->Subscriptions->find('all',  [
+            $subscription = $this->Subscriptions->find('all',  [
                     'conditions' => ['Subscriptions.email' => $data['email']],
                     'contain' => $this->Subscriptions::$containments
             ])->first();
-            if(!empty($_subscription)) {
+            if(!empty($subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
                 $Email = new Mailer('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                     ->setTo($data['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
                     ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $_subscription, 'isNew' => false])
+                    ->setViewVars(['subscription' => $subscription, 'isNew' => false])
                     ->viewBuilder()->setTemplate('subscriptions/subscription_access');
                 $Email->send();
                 return $this->redirect('/');
             }else{
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
-                $subscription = $this->Subscriptions->patchEntity($subscription, $data);
+                $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
                     $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
                     $Email = new Mailer('default');
@@ -87,7 +86,6 @@ class SubscriptionsController extends AppController
                     return $this->redirect('/');
                 }
             }
-
 
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }

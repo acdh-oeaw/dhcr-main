@@ -16,6 +16,9 @@ class UsersController extends AppController
     public function initialize(): void {
         parent::initialize();
         $this->Authentication->allowUnauthenticated(['login']);
+        $this->loadComponent('Authentication.Authentication', [
+            'logoutRedirect' => '/users/login'  // Default is false
+        ]);
     }
 
     public function beforeFilter(EventInterface $event) {

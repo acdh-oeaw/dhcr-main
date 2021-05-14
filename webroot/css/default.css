@@ -4,19 +4,19 @@
 /* base layout & responsive sizing */
 /* amount of space to reserve for lateral whitespace */
 @font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-Regular.otf); }
+  font-family: Bebas;
+  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf) format("opentype"); }
 @font-face {
-  font-family: metropolis;
-  src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+  font-family: Bebas-Bold;
+  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf) format("opentype");
   font-weight: bold; }
 @font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Regular.otf); }
+  font-family: Metropolis-SemiBold;
+  src: url(../fonts/metropolis/Metropolis-SemiBold.otf) format("opentype");
+  font-weight: bolder; }
 @font-face {
-  font-family: bebas;
-  src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
-  font-weight: bold; }
+  font-family: Metropolis;
+  src: url(../fonts/metropolis/Metropolis-Regular.otf) format("opentype"); }
 /* breakpoint definition - use this mixin where appropriate */
 /*
 1080 - 1280
@@ -32,7 +32,7 @@
   box-sizing: border-box; }
 
 body {
-  font-family: metropolis, Sans-Serif;
+  font-family: Metropolis, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   font-weight: normal;
@@ -50,7 +50,7 @@ h1 {
       line-height: normal; } }
 
 h2 {
-  font-family: bebas;
+  font-family: Bebas, sans-serif;
   font-size: 30px;
   font-weight: normal;
   line-height: 0.8;
@@ -82,7 +82,7 @@ ul, ol {
 
 dl dt, dl dd {
   font-size: 16px;
-  font-family: metropolis, sans-serif;
+  font-family: Metropolis, sans-serif;
   font-weight: bold;
   color: #1E6BA3;
   display: block; }
@@ -113,7 +113,7 @@ button, .button {
   border-radius: 23px;
   border: solid 2px #1E6BA3;
   background-color: #fff;
-  font-family: bebas, Sans-Serif;
+  font-family: Bebas, sans-serif;
   font-size: 24px;
   font-weight: normal;
   font-style: normal;
@@ -261,7 +261,7 @@ table .recurring {
         padding: 0; } }
 
 .footer {
-  font-family: metropolis, Sans-Serif;
+  font-family: Metropolis, sans-serif;
   font-size: 14px;
   color: #1E6BA3; }
   .footer::after {
@@ -354,9 +354,9 @@ form input, form textarea, form select {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 5px;
+  padding: 5px 5px 3px;
   font-size: 0.9em;
-  font-family: metropolis;
+  font-family: Metropolis;
   color: inherit; }
 form input[readonly] {
   border: none;
@@ -375,7 +375,7 @@ form .input.select {
     width: 8px;
     height: 8px;
     right: 15px;
-    top: 7px;
+    top: 5px;
     border: 2px solid #1E6BA3;
     border-top: none;
     border-left: none;
@@ -393,15 +393,13 @@ form .input.select {
     outline: none;
     cursor: pointer;
     background-color: transparent;
-    font-family: metropolis; }
+    font-family: Metropolis; }
     form .input.select select:hover {
       background-color: #eee; }
     form .input.select select::-ms-expand {
       display: none; }
     form .input.select select:focus::-ms-value {
       background-color: transparent; }
-form select {
-  padding: 4px 5px 4px; }
 form .checkbox {
   margin-left: 0;
   padding: 5px; }
@@ -474,7 +472,7 @@ form .input {
     width: 8px;
     height: 8px;
     right: 15px;
-    top: 7px;
+    top: 5px;
     border: 2px solid #1E6BA3;
     border-top: none;
     border-left: none;
@@ -504,6 +502,42 @@ form .input {
   padding: 4px;
   margin-top: 3em; }
 
+body.stories P.linklist-title-desc {
+  text-align: center;
+  color: black !important;
+  font-family: Metropolis, sans-serif;
+  font-size: 14px !important;
+  font-weight: bolder;
+  text-transform: uppercase; }
+body.stories .linklist-content-div {
+  padding-left: 10px;
+  text-align: center; }
+  body.stories .linklist-content-div a {
+    text-decoration: none;
+    color: white;
+    font-family: Metropolis, sans-serif; }
+body.stories ul {
+  list-style-type: none;
+  display: inline-block !important;
+  margin: 0;
+  padding: 0;
+  /* For IE, the outcast */
+  zoom: 1;
+  display: inline; }
+  body.stories ul li {
+    max-width: 350px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px; }
+    body.stories ul li.linklist-list-element-blue {
+      background-color: #1e6ba3; }
+    body.stories ul li.linklist-list-element-green {
+      background-color: #60a845; }
+    body.stories ul li:hover {
+      opacity: 0.3;
+      filter: alpha(opacity=30); }
+
 html {
   scroll-behavior: smooth; }
 
@@ -517,12 +551,9 @@ body {
     width: calc(100% - 2 * 15px); }
 
 .back.button {
-  position: absolute;
-  top: 2.5em;
-  left: calc((100vw - 1000px + 2* 15px) / 4); }
-  @media only screen and (max-width: 1000px) {
-    .back.button {
-      left: 15px; } }
+  display: block;
+  float: left;
+  margin-bottom: 50px; }
   @media only screen and (max-width: 750px) {
     .back.button {
       height: 30px;
@@ -541,29 +572,33 @@ body {
       position: static;
       display: block;
       margin: 0 auto 2em;
-      width: 150px; } }
+      width: 150px;
+      float: none; } }
 
 #page-head {
-  display: grid;
+  clear: left;
+  /*display: grid;
+  grid-template-areas:
+      '.      dhcr-logo   dhcr-logo'
+      'left   middle      right';
   grid-template-rows: auto auto;
   grid-template-columns: 50px auto auto;
-  grid-template-areas: '.      dhcr-logo   dhcr-logo' 'left   middle      right';
   grid-column-gap: 3em;
   grid-row-gap: 3em;
   justify-items: start;
   align-items: start;
-  justify-content: center; }
-  @media only screen and (max-width: 750px) {
-    #page-head {
-      grid-column-gap: 6vw; } }
+  justify-content: center;    // align the grid itself
+  @include respond-to(handhelds) {
+      grid-column-gap: 6vw;
+  }
   @media only screen and (max-width: 580px) {
-    #page-head {
       align-items: center;
       grid-template-columns: initial;
-      grid-template-areas: 'dhcr-logo  dhcr-logo' 'left       right'; } }
+      grid-template-areas:
+      'dhcr-logo  dhcr-logo'
+      'left       right';
+  }*/ }
   #page-head h1 {
-    grid-area: dhcr-logo;
-    justify-self: center;
     text-align: center;
     font-size: 0;
     color: transparent; }
@@ -578,8 +613,7 @@ body {
         #page-head h1 img {
           width: 50vw; } }
   #page-head .title, #page-head .intent {
-    grid-column-start: left;
-    grid-column-end: right; }
+    margin-top: 2em; }
     #page-head .title p, #page-head .intent p {
       font-size: 18px;
       line-height: 1.5;
@@ -593,11 +627,55 @@ body {
         #page-head .title p a:hover, #page-head .intent p a:hover {
           text-decoration: underline; }
 
+.info .back.button {
+  position: absolute;
+  top: 2.5em;
+  left: calc((100vw - 1000px + 2* 15px) / 4);
+  float: none;
+  margin-bottom: 0; }
+  @media only screen and (max-width: 1000px) {
+    .info .back.button {
+      left: 15px; } }
+  @media only screen and (max-width: 750px) {
+    .info .back.button {
+      height: 30px;
+      font-size: 20px;
+      border-radius: 15px;
+      padding: 2px 15px 0; }
+      .info .back.button:hover, .info .back.button.animate {
+        transform: scale(1.05); }
+      .info .back.button::before {
+        width: 7px;
+        height: 7px;
+        bottom: 2px;
+        margin-right: 7px; } }
+  @media only screen and (max-width: 580px) {
+    .info .back.button {
+      position: static;
+      display: block;
+      margin: 0 auto 2em;
+      width: 150px; } }
 .info #page-head {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: 50px auto auto;
+  grid-column-gap: 3em;
+  grid-row-gap: 3em;
+  justify-items: start;
+  align-items: start;
+  justify-content: center;
   grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
   grid-template-columns: initial; }
+  @media only screen and (max-width: 750px) {
+    .info #page-head {
+      grid-column-gap: 6vw; } }
+  @media only screen and (max-width: 580px) {
+    .info #page-head {
+      align-items: center;
+      grid-template-columns: initial; } }
   .info #page-head h1 {
-    justify-self: initial; }
+    justify-self: initial;
+    grid-area: dhcr-logo; }
   .info #page-head .joint-logo {
     grid-area: joint-logo;
     justify-self: end;
@@ -617,6 +695,7 @@ body {
         width: 18vw;
         min-width: 70px; } }
   .info #page-head .intent {
+    margin-top: 0;
     grid-area: intent; }
     @media only screen and (max-width: 580px) {
       .info #page-head .intent {
@@ -631,7 +710,7 @@ body {
   #accordeon .accordeon-item > h2 {
     border-top: 2px solid #d8d8d8;
     padding: 0.8em 2em 0.6em 0;
-    font-family: metropolis, sans-serif;
+    font-family: Metropolis, sans-serif;
     font-weight: bold;
     font-size: 25px;
     height: 60px;
@@ -686,7 +765,7 @@ body {
   #accordeon .accordeon-item.open:last-child .item-content {
     border-bottom: 2px solid #d8d8d8; }
   #accordeon .accordeon-item .item-content h3 {
-    font-family: bebas, sans-serif;
+    font-family: Bebas, sans-serif;
     font-weight: bold;
     font-size: 23px;
     letter-spacing: 0.05em;
@@ -695,7 +774,7 @@ body {
       #accordeon .accordeon-item .item-content h3 {
         font-size: 20px; } }
   #accordeon .accordeon-item .item-content h4 {
-    font-family: metropolis, sans-serif;
+    font-family: Metropolis, sans-serif;
     font-size: 20px;
     font-weight: bold;
     text-transform: none;
@@ -802,7 +881,7 @@ form {
   margin-bottom: 3em; }
 
 .coordinator {
-  font-family: metropolis, sans-serif;
+  font-family: Metropolis, sans-serif;
   font-weight: bold;
   color: #1E6BA3;
   display: block;
@@ -839,7 +918,7 @@ form {
     max-width: 350px; }
 
 #imprint-content h2 {
-  font-family: bebas, sans-serif;
+  font-family: Bebas, sans-serif;
   font-weight: bold;
   font-size: 23px;
   letter-spacing: 0.05em;
@@ -848,7 +927,7 @@ form {
     #imprint-content h2 {
       font-size: 20px; } }
 #imprint-content h3 {
-  font-family: metropolis, sans-serif;
+  font-family: Metropolis, sans-serif;
   font-size: 20px;
   font-weight: bold;
   text-transform: none;
@@ -875,7 +954,7 @@ form {
     break-inside: avoid-column;
     /* IE 11 */ }
     .css-columns.moderators .item .country, .css-columns.admins .item .country {
-      font-family: metropolis, sans-serif;
+      font-family: Metropolis, sans-serif;
       font-weight: bold;
       color: #1E6BA3;
       display: block;
@@ -898,4 +977,4 @@ form {
 #footer {
   margin: 100px 0 0; }
 
-/*# sourceMappingURL=static_page.css.map */
+/*# sourceMappingURL=default.css.map */

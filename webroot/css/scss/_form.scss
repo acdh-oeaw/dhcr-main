@@ -28,9 +28,9 @@ form {
         -moz-box-sizing:border-box;
         -webkit-box-sizing:border-box;
         box-sizing:border-box;
-        padding: 5px;
+        padding: 5px 5px 3px;
         font-size: 0.9em;
-        font-family: metropolis;
+        font-family: Metropolis;
         color: inherit;
     }
     input[readonly] {
@@ -45,9 +45,6 @@ form {
     }
 
     @include reset-select;
-    select {
-        padding: 4px 5px 4px;
-    }
 
     .checkbox {
         margin-left: 0;
