@@ -81,10 +81,12 @@ form {
         label {
             grid-area: label;
             margin-bottom: 0.5em;
+            min-width: 88px;
         }
         input,textarea,select, .radio-inline,.checklist-toggle {
             grid-area: input;
             justify-self: stretch;
+            width: 100%;
             &.form-error {
                 border-color: $red;
             }

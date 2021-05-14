@@ -1,0 +1,70 @@
+.back.button {
+    display: block;
+    float: left;
+    margin-bottom: 50px;
+    @include respond-to(handhelds) {
+        height: 30px;
+        font-size: 20px;
+        border-radius: 15px;
+        padding: 2px 15px 0;
+        &:hover, &.animate {
+            transform: scale(1.05);
+        }
+        &::before {
+            width: 7px;
+            height: 7px;
+            bottom: 2px;
+            margin-right: 7px;
+        }
+    }
+    @media only screen and (max-width: 580px) {
+        position: static;
+        display: block;
+        margin: 0 auto 2em;
+        width: 150px;
+        float: none;
+    }
+}
+
+
+#page-head {
+    clear: left;
+    h1 {
+        text-align: center;
+        font-size: 0;
+        color: transparent;
+        img {
+            display: block;
+            margin: 0 auto;
+            height: auto;
+            width: 58vw;
+            max-width: 500px;
+            min-width: 170px;
+            @include respond-to(handhelds) {
+                width: 50vw;
+            }
+        }
+    }
+
+    .title, .intent {
+        margin-top: 2em;
+        h2 {
+            margin-bottom: 1em;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: $blue;
+            @media only screen and (max-width: 580px) {
+                font-size: 16px;
+            }
+            a {
+                font-weight: bold;
+                color: $blue;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

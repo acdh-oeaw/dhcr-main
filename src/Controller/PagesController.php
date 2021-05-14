@@ -77,7 +77,7 @@ class PagesController extends AppController
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
         }else{
 	        // init email form
-            $email = $this->Emails->newEntity([]);
+            $email = [];
         }
 
         $moderators = $this->Users->find('all', array(

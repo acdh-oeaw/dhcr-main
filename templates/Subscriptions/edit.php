@@ -6,19 +6,20 @@
 ?>
 <?php $this->start('page_head'); ?>
 <div class="title">
-    <p>
-        <?php
-        if($isNew) {
-            echo 'Please complete your subscription and submit the form below,
-            to set up some filters for only those courses you are interested in.
-            Setting no filters will keep your informed about all new courses.';
-            echo '<br>';
-            echo 'You can later on manage your subscription at any time by accessing this page again.';
-        }else{
-            echo 'Edit your subscription.';
-        }
-        ?>
-    </p>
+    <?php
+    if($isNew) {
+        echo '<h2>Complete your Subscription</h2>';
+        echo '<p>Please complete your subscription and submit the form below
+        to set up filters. Stay informed about new DH courses of your special interest.
+        Setting no filters will keep your informed about all new courses.';
+        echo '<br>';
+        echo 'You can manage your subscription at any time by accessing this page again.</p>';
+    }else{
+        echo '<h2>Edit your Subscription.</h2>';
+        echo '<p>Update your subscription settings to stay informed about new DH courses of your interest.</p>';
+    }
+    ?>
+
     <p>
         To completely revoke your subscription, please click here:<br>
         <?= $this->Html->link('Delete my subscription',

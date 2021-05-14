@@ -317,6 +317,64 @@ table .recurring {
   opacity: 1;
 }
 */
+.back.button {
+  display: block;
+  float: left;
+  margin-bottom: 50px; }
+  @media only screen and (max-width: 750px) {
+    .back.button {
+      height: 30px;
+      font-size: 20px;
+      border-radius: 15px;
+      padding: 2px 15px 0; }
+      .back.button:hover, .back.button.animate {
+        transform: scale(1.05); }
+      .back.button::before {
+        width: 7px;
+        height: 7px;
+        bottom: 2px;
+        margin-right: 7px; } }
+  @media only screen and (max-width: 580px) {
+    .back.button {
+      position: static;
+      display: block;
+      margin: 0 auto 2em;
+      width: 150px;
+      float: none; } }
+
+#page-head {
+  clear: left; }
+  #page-head h1 {
+    text-align: center;
+    font-size: 0;
+    color: transparent; }
+    #page-head h1 img {
+      display: block;
+      margin: 0 auto;
+      height: auto;
+      width: 58vw;
+      max-width: 500px;
+      min-width: 170px; }
+      @media only screen and (max-width: 750px) {
+        #page-head h1 img {
+          width: 50vw; } }
+  #page-head .title, #page-head .intent {
+    margin-top: 2em; }
+    #page-head .title h2, #page-head .intent h2 {
+      margin-bottom: 1em; }
+    #page-head .title p, #page-head .intent p {
+      font-size: 18px;
+      line-height: 1.5;
+      color: #1E6BA3; }
+      @media only screen and (max-width: 580px) {
+        #page-head .title p, #page-head .intent p {
+          font-size: 16px; } }
+      #page-head .title p a, #page-head .intent p a {
+        font-weight: bold;
+        color: #1E6BA3; }
+        #page-head .title p a:hover, #page-head .intent p a:hover {
+          text-decoration: underline; }
+
 .flash-message {
   position: fixed;
   width: 300px;
@@ -427,10 +485,12 @@ form .input {
       grid-column-gap: 1em; } }
   form .input label {
     grid-area: label;
-    margin-bottom: 0.5em; }
+    margin-bottom: 0.5em;
+    min-width: 88px; }
   form .input input, form .input textarea, form .input select, form .input .radio-inline, form .input .checklist-toggle {
     grid-area: input;
-    justify-self: stretch; }
+    justify-self: stretch;
+    width: 100%; }
     form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error {
       border-color: #020000; }
   form .input .radio-inline label {
@@ -502,209 +562,6 @@ form .input {
   padding: 4px;
   margin-top: 3em; }
 
-body.stories P.linklist-title-desc {
-  text-align: center;
-  color: black !important;
-  font-family: Metropolis, sans-serif;
-  font-size: 14px !important;
-  font-weight: bolder;
-  text-transform: uppercase; }
-body.stories .linklist-content-div {
-  padding-left: 10px;
-  text-align: center; }
-  body.stories .linklist-content-div a {
-    text-decoration: none;
-    color: white;
-    font-family: Metropolis, sans-serif; }
-body.stories ul {
-  list-style-type: none;
-  display: inline-block !important;
-  margin: 0;
-  padding: 0;
-  /* For IE, the outcast */
-  zoom: 1;
-  display: inline; }
-  body.stories ul li {
-    max-width: 350px;
-    margin: 10px;
-    border-radius: 10px;
-    text-align: center;
-    padding: 15px; }
-    body.stories ul li.linklist-list-element-blue {
-      background-color: #1e6ba3; }
-    body.stories ul li.linklist-list-element-green {
-      background-color: #60a845; }
-    body.stories ul li:hover {
-      opacity: 0.3;
-      filter: alpha(opacity=30); }
-
-html {
-  scroll-behavior: smooth; }
-
-body {
-  background-color: #fff;
-  position: relative; }
-  body .wrapper {
-    padding: 2em 15px 10vw;
-    max-width: 1000px;
-    margin: 0 auto;
-    width: calc(100% - 2 * 15px); }
-
-.back.button {
-  display: block;
-  float: left;
-  margin-bottom: 50px; }
-  @media only screen and (max-width: 750px) {
-    .back.button {
-      height: 30px;
-      font-size: 20px;
-      border-radius: 15px;
-      padding: 2px 15px 0; }
-      .back.button:hover, .back.button.animate {
-        transform: scale(1.05); }
-      .back.button::before {
-        width: 7px;
-        height: 7px;
-        bottom: 2px;
-        margin-right: 7px; } }
-  @media only screen and (max-width: 580px) {
-    .back.button {
-      position: static;
-      display: block;
-      margin: 0 auto 2em;
-      width: 150px;
-      float: none; } }
-
-#page-head {
-  clear: left;
-  /*display: grid;
-  grid-template-areas:
-      '.      dhcr-logo   dhcr-logo'
-      'left   middle      right';
-  grid-template-rows: auto auto;
-  grid-template-columns: 50px auto auto;
-  grid-column-gap: 3em;
-  grid-row-gap: 3em;
-  justify-items: start;
-  align-items: start;
-  justify-content: center;    // align the grid itself
-  @include respond-to(handhelds) {
-      grid-column-gap: 6vw;
-  }
-  @media only screen and (max-width: 580px) {
-      align-items: center;
-      grid-template-columns: initial;
-      grid-template-areas:
-      'dhcr-logo  dhcr-logo'
-      'left       right';
-  }*/ }
-  #page-head h1 {
-    text-align: center;
-    font-size: 0;
-    color: transparent; }
-    #page-head h1 img {
-      display: block;
-      margin: 0 auto;
-      height: auto;
-      width: 58vw;
-      max-width: 500px;
-      min-width: 170px; }
-      @media only screen and (max-width: 750px) {
-        #page-head h1 img {
-          width: 50vw; } }
-  #page-head .title, #page-head .intent {
-    margin-top: 2em; }
-    #page-head .title p, #page-head .intent p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #1E6BA3; }
-      @media only screen and (max-width: 580px) {
-        #page-head .title p, #page-head .intent p {
-          font-size: 16px; } }
-      #page-head .title p a, #page-head .intent p a {
-        font-weight: bold;
-        color: #1E6BA3; }
-        #page-head .title p a:hover, #page-head .intent p a:hover {
-          text-decoration: underline; }
-
-.info .back.button {
-  position: absolute;
-  top: 2.5em;
-  left: calc((100vw - 1000px + 2* 15px) / 4);
-  float: none;
-  margin-bottom: 0; }
-  @media only screen and (max-width: 1000px) {
-    .info .back.button {
-      left: 15px; } }
-  @media only screen and (max-width: 750px) {
-    .info .back.button {
-      height: 30px;
-      font-size: 20px;
-      border-radius: 15px;
-      padding: 2px 15px 0; }
-      .info .back.button:hover, .info .back.button.animate {
-        transform: scale(1.05); }
-      .info .back.button::before {
-        width: 7px;
-        height: 7px;
-        bottom: 2px;
-        margin-right: 7px; } }
-  @media only screen and (max-width: 580px) {
-    .info .back.button {
-      position: static;
-      display: block;
-      margin: 0 auto 2em;
-      width: 150px; } }
-.info #page-head {
-  display: grid;
-  grid-template-rows: auto auto;
-  grid-template-columns: 50px auto auto;
-  grid-column-gap: 3em;
-  grid-row-gap: 3em;
-  justify-items: start;
-  align-items: start;
-  justify-content: center;
-  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent';
-  grid-template-columns: initial; }
-  @media only screen and (max-width: 750px) {
-    .info #page-head {
-      grid-column-gap: 6vw; } }
-  @media only screen and (max-width: 580px) {
-    .info #page-head {
-      align-items: center;
-      grid-template-columns: initial; } }
-  .info #page-head h1 {
-    justify-self: initial;
-    grid-area: dhcr-logo; }
-  .info #page-head .joint-logo {
-    grid-area: joint-logo;
-    justify-self: end;
-    align-self: start;
-    display: block;
-    width: 23vw;
-    max-width: 200px;
-    min-width: 176px;
-    height: auto; }
-    @media only screen and (max-width: 750px) {
-      .info #page-head .joint-logo {
-        width: 20vw;
-        min-width: 150px; } }
-    @media only screen and (max-width: 580px) {
-      .info #page-head .joint-logo {
-        grid-area: first;
-        width: 18vw;
-        min-width: 70px; } }
-  .info #page-head .intent {
-    margin-top: 0;
-    grid-area: intent; }
-    @media only screen and (max-width: 580px) {
-      .info #page-head .intent {
-        grid-column-start: joint-logo;
-        grid-column-end: intent; } }
-    @media only screen and (max-width: 580px) {
-      .info #page-head .intent p {
-        text-align: center; } }
-
 #accordeon {
   margin-top: 4em; }
   #accordeon .accordeon-item > h2 {
@@ -766,7 +623,7 @@ body {
     border-bottom: 2px solid #d8d8d8; }
   #accordeon .accordeon-item .item-content h3 {
     font-family: Bebas, sans-serif;
-    font-weight: bold;
+    font-weight: normal;
     font-size: 23px;
     letter-spacing: 0.05em;
     margin-bottom: 0.3em; }
@@ -799,98 +656,166 @@ body {
       text-decoration: underline;
       color: #1E6BA3; }
 
-.illustration {
+body.info .back.button {
+  position: absolute;
+  top: 2.5em;
+  left: calc((100vw - 1000px + 2* 15px) / 4);
+  float: none;
+  margin-bottom: 0; }
+  @media only screen and (max-width: 1000px) {
+    body.info .back.button {
+      left: 15px; } }
+  @media only screen and (max-width: 750px) {
+    body.info .back.button {
+      height: 30px;
+      font-size: 20px;
+      border-radius: 15px;
+      padding: 2px 15px 0; }
+      body.info .back.button:hover, body.info .back.button.animate {
+        transform: scale(1.05); }
+      body.info .back.button::before {
+        width: 7px;
+        height: 7px;
+        bottom: 2px;
+        margin-right: 7px; } }
+  @media only screen and (max-width: 580px) {
+    body.info .back.button {
+      position: static;
+      display: block;
+      margin: 0 auto 2em;
+      width: 150px; } }
+body.info #page-head {
+  display: grid;
+  grid-template-rows: auto auto;
+  grid-template-columns: initial;
+  grid-column-gap: 3em;
+  grid-row-gap: 3em;
+  justify-items: start;
+  align-items: start;
+  justify-content: center;
+  grid-template-areas: 'first      dhcr-logo' 'joint-logo intent'; }
+  @media only screen and (max-width: 750px) {
+    body.info #page-head {
+      grid-column-gap: 6vw; } }
+  @media only screen and (max-width: 580px) {
+    body.info #page-head {
+      align-items: center;
+      grid-template-columns: initial; } }
+  body.info #page-head h1 {
+    justify-self: initial;
+    grid-area: dhcr-logo; }
+  body.info #page-head .joint-logo {
+    grid-area: joint-logo;
+    justify-self: end;
+    align-self: start;
+    display: block;
+    width: 23vw;
+    max-width: 200px;
+    min-width: 176px;
+    height: auto; }
+    @media only screen and (max-width: 750px) {
+      body.info #page-head .joint-logo {
+        width: 20vw;
+        min-width: 150px; } }
+    @media only screen and (max-width: 580px) {
+      body.info #page-head .joint-logo {
+        grid-area: first;
+        width: 18vw;
+        min-width: 70px; } }
+  body.info #page-head .intent {
+    margin-top: 0;
+    grid-area: intent; }
+    @media only screen and (max-width: 580px) {
+      body.info #page-head .intent {
+        grid-column-start: joint-logo;
+        grid-column-end: intent; } }
+    @media only screen and (max-width: 580px) {
+      body.info #page-head .intent p {
+        text-align: center; } }
+body.info .illustration {
   display: block;
   height: auto;
   width: 80%;
   margin: 0 0 3em; }
-
-.buttons {
+body.info .buttons {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 5em 0 2em;
   padding: 0; }
   @media only screen and (max-width: 750px) {
-    .buttons {
+    body.info .buttons {
       justify-content: space-around; } }
   @media only screen and (max-width: 400px) {
-    .buttons {
+    body.info .buttons {
       justify-content: center; } }
-  .buttons button, .buttons .button {
+  body.info .buttons button, body.info .buttons .button {
     flex: 0 0 25%;
     min-width: 155px;
     margin: 0 10px 20px 10px; }
     @media only screen and (max-width: 400px) {
-      .buttons button, .buttons .button {
+      body.info .buttons button, body.info .buttons .button {
         margin-left: 0;
         margin-right: 0; } }
-    .buttons button:first-child, .buttons .button:first-child {
+    body.info .buttons button:first-child, body.info .buttons .button:first-child {
       margin-left: 0; }
-    .buttons button:hover, .buttons button.animate, .buttons .button:hover, .buttons .button.animate {
+    body.info .buttons button:hover, body.info .buttons button.animate, body.info .buttons .button:hover, body.info .buttons .button.animate {
       transform: scale(1.05);
       transform-origin: left center;
       text-decoration: none; }
-    .buttons button:last-child:hover, .buttons button:last-child.animate, .buttons .button:last-child:hover, .buttons .button:last-child.animate {
+    body.info .buttons button:last-child:hover, body.info .buttons button:last-child.animate, body.info .buttons .button:last-child:hover, body.info .buttons .button:last-child.animate {
       transform-origin: right center; }
-
-.iframe-container {
+body.info .iframe-container {
   overflow: hidden;
   position: relative; }
-  .iframe-container img.ratio {
+  body.info .iframe-container img.ratio {
     display: block;
     width: 100%;
     height: auto; }
-  .iframe-container iframe {
+  body.info .iframe-container iframe {
     border: 0;
     height: 100%;
     left: 0;
     position: absolute;
     top: 0;
     width: 100%; }
-
-ul.custom-bullets.css-columns {
+body.info ul.custom-bullets.css-columns {
   column-gap: 2em;
   list-style: none;
   padding: 0;
   margin: 0; }
   @media only screen and (max-width: 530px) {
-    ul.custom-bullets.css-columns {
+    body.info ul.custom-bullets.css-columns {
       column-count: 1; } }
-  ul.custom-bullets.css-columns li {
+  body.info ul.custom-bullets.css-columns li {
     padding-left: 1em;
     text-indent: -1em; }
-  ul.custom-bullets.css-columns li::before {
+  body.info ul.custom-bullets.css-columns li::before {
     content: "• ";
     color: #1E6BA3; }
-
-a.logo {
+body.info a.logo {
   margin: 0 auto 3em;
   display: flex;
   justify-content: center; }
-  a.logo:last-child {
+  body.info a.logo:last-child {
     margin-bottom: 0; }
-  a.logo img {
+  body.info a.logo img {
     flex: 1 1 80%;
     max-width: 200px;
     min-width: 150px;
     height: auto;
     display: inline-block; }
-
-form {
+body.info form {
   margin-bottom: 3em; }
-
-.coordinator {
+body.info .coordinator {
   font-family: Metropolis, sans-serif;
   font-weight: bold;
   color: #1E6BA3;
   display: block;
   margin-bottom: 0; }
-
-.publications p {
+body.info .publications p {
   font-size: 12px; }
-
-.feature-link {
+body.info .feature-link {
   margin: 3em 0 0;
   display: flex;
   justify-content: flex-start;
@@ -898,10 +823,10 @@ form {
   flex-wrap: nowrap;
   margin-bottom: 1.5em; }
   @media only screen and (max-width: 400px) {
-    .feature-link {
+    body.info .feature-link {
       flex-wrap: wrap;
       justify-content: center; } }
-  .feature-link a {
+  body.info .feature-link a {
     display: inline-block;
     margin: 0;
     margin-right: 1.5em;
@@ -910,23 +835,22 @@ form {
     flex: 1 0 40%;
     min-width: 100px;
     max-width: 150px; }
-    .feature-link a img {
+    body.info .feature-link a img {
       max-width: 100%;
       height: auto; }
-  .feature-link p {
+  body.info .feature-link p {
     margin: 0;
     max-width: 350px; }
-
-#imprint-content h2 {
+body.info #imprint-content h2 {
   font-family: Bebas, sans-serif;
   font-weight: bold;
   font-size: 23px;
   letter-spacing: 0.05em;
   margin-bottom: 0.3em; }
   @media only screen and (max-width: 750px) {
-    #imprint-content h2 {
+    body.info #imprint-content h2 {
       font-size: 20px; } }
-#imprint-content h3 {
+body.info #imprint-content h3 {
   font-family: Metropolis, sans-serif;
   font-size: 20px;
   font-weight: bold;
@@ -934,11 +858,63 @@ form {
   color: #1E6BA3;
   margin-bottom: 0.3em; }
   @media only screen and (max-width: 750px) {
-    #imprint-content h3 {
+    body.info #imprint-content h3 {
       font-size: 18px; } }
   @media only screen and (max-width: 400px) {
-    #imprint-content h3 {
+    body.info #imprint-content h3 {
       font-weight: normal; } }
+
+/* alternative page head & other stuff */
+body.stories P.linklist-title-desc {
+  text-align: center;
+  color: black !important;
+  font-family: Metropolis, sans-serif;
+  font-size: 14px !important;
+  font-weight: bolder;
+  text-transform: uppercase; }
+body.stories .linklist-content-div {
+  padding-left: 10px;
+  text-align: center; }
+  body.stories .linklist-content-div a {
+    text-decoration: none;
+    color: white;
+    font-family: Metropolis, sans-serif; }
+body.stories ul {
+  list-style-type: none;
+  display: inline-block !important;
+  margin: 0;
+  padding: 0;
+  /* For IE, the outcast */
+  zoom: 1;
+  display: inline; }
+  body.stories ul li {
+    max-width: 350px;
+    margin: 10px;
+    border-radius: 10px;
+    text-align: center;
+    padding: 15px; }
+    body.stories ul li.linklist-list-element-blue {
+      background-color: #1e6ba3; }
+    body.stories ul li.linklist-list-element-green {
+      background-color: #60a845; }
+    body.stories ul li:hover {
+      opacity: 0.3;
+      filter: alpha(opacity=30); }
+
+body.login .wrapper {
+  max-width: 750px; }
+
+html {
+  scroll-behavior: smooth; }
+
+body {
+  background-color: #fff;
+  position: relative; }
+  body .wrapper {
+    padding: 2em 15px 10vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: calc(100% - 2 * 15px); }
 
 .css-columns {
   column-count: 2;

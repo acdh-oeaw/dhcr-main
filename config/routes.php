@@ -71,11 +71,12 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
-
-
     $routes->connect('/stories', ['controller' => 'Pages', 'action' => 'display', 'stories']);
-
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+
+    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    $routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
 
     /**
      * Connect catchall routes for all controllers.

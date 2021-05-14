@@ -9,7 +9,7 @@ use Cake\Core\Configure;
 
 <?php $this->start('page_head'); ?>
 <div class="title">
-    <p>Subscribe to new courses.</p>
+    <h2>Subscribe to new courses.</h2>
     <p>
         After confirmation of your e-mail address,
         you can set filters to stay informed about courses in
