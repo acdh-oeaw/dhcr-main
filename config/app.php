@@ -410,5 +410,6 @@ return [
      */
     'Session' => [
         'defaults' => 'cache',
+        'timeout' => 0,
     ],
 ];

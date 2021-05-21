@@ -33,8 +33,16 @@ class UsersController extends AppController
     public function login()
     {
         $result = $this->Authentication->getResult();
+
         // If the user is logged in send them away.
         if ($result->isValid()) {
+            $authentication = $this->Authentication->getAuthenticationService();
+            if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
+                // Rehash happens on save.
+                $user = $this->Users->get($this->Authentication->getIdentityData('id'));
+                $user->password = $this->request->getData('password');
+                $this->Users->save($user);
+            }
             $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
             return $this->redirect($target);
         }
@@ -48,7 +56,14 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
-        return $this->redirect('/users/login');
+        return $this->redirect(['controller' => 'Users','action' => 'login']);
+    }
+
+
+
+    public function dashboard() {
+        $this->viewBuilder()->setLayout('users');
+        $this->set('title_for_layout', 'Curation Back-End');
     }
 
 

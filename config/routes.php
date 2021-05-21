@@ -74,9 +74,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/stories', ['controller' => 'Pages', 'action' => 'display', 'stories']);
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
-    $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
-    $routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
-    $routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
+    //$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    //$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    //$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
 
     /**
      * Connect catchall routes for all controllers.
