@@ -14,7 +14,7 @@
         font-size: 20px;
         border-radius: 15px;
         padding: 2px 15px 0 10px;
-        &:hover, &.animate {
+        &:hover, &:focus, &.animate {
             transform: scale(1.05);
         }
         &::before {

@@ -13,7 +13,6 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Cake\Routing\Router;
 
 ?>
 <!DOCTYPE html>
@@ -51,6 +50,7 @@ use Cake\Routing\Router;
                         'title' => 'Menu'
                 ]) ?>
             </div>
+            <?= $this->element('sitemap') ?>
         </div>
 
         <div id="container">
@@ -66,7 +66,7 @@ use Cake\Routing\Router;
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
 
         <?= $this->Html->script(['scroll','hash','slide','sharing','map','modal',
-            'filter','filter_helper','view','view_helper','app']) ?>
+            'sitemap','filter','filter_helper','view','view_helper','app']) ?>
 
         <?= $this->element('script') ?>
 

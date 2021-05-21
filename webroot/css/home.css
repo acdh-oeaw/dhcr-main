@@ -1139,6 +1139,63 @@ table .recurring {
       top: 20px;
       right: 20px; } }
 
+#modal-wrapper, .modal-wrapper {
+  position: fixed;
+  z-index: 1000000;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  #modal-wrapper #modal-content, #modal-wrapper .modal-content, .modal-wrapper #modal-content, .modal-wrapper .modal-content {
+    width: 90%;
+    max-width: 500px;
+    height: auto;
+    max-height: 95vh;
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative; }
+    @media only screen and (max-width: 400px) {
+      #modal-wrapper #modal-content, #modal-wrapper .modal-content, .modal-wrapper #modal-content, .modal-wrapper .modal-content {
+        padding: 20px; } }
+    #modal-wrapper #modal-content #modal-close, #modal-wrapper #modal-content .modal-close, #modal-wrapper .modal-content #modal-close, #modal-wrapper .modal-content .modal-close, .modal-wrapper #modal-content #modal-close, .modal-wrapper #modal-content .modal-close, .modal-wrapper .modal-content #modal-close, .modal-wrapper .modal-content .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: transparent;
+      font-size: 0;
+      line-height: 0;
+      cursor: pointer; }
+      #modal-wrapper #modal-content #modal-close::after, #modal-wrapper #modal-content .modal-close::after, #modal-wrapper .modal-content #modal-close::after, #modal-wrapper .modal-content .modal-close::after, .modal-wrapper #modal-content #modal-close::after, .modal-wrapper #modal-content .modal-close::after, .modal-wrapper .modal-content #modal-close::after, .modal-wrapper .modal-content .modal-close::after {
+        pointer-events: none;
+        content: '';
+        position: relative;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 22px;
+        height: 22px;
+        border-radius: 100%;
+        border: 3px solid #1E6BA3;
+        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
+        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
+        transition: all 0.3s ease;
+        top: 2px;
+        margin-left: 8px; }
+      #modal-wrapper #modal-content #modal-close:hover, #modal-wrapper #modal-content #modal-close:focus, #modal-wrapper #modal-content #modal-close.animate, #modal-wrapper #modal-content .modal-close:hover, #modal-wrapper #modal-content .modal-close:focus, #modal-wrapper #modal-content .modal-close.animate, #modal-wrapper .modal-content #modal-close:hover, #modal-wrapper .modal-content #modal-close:focus, #modal-wrapper .modal-content #modal-close.animate, #modal-wrapper .modal-content .modal-close:hover, #modal-wrapper .modal-content .modal-close:focus, #modal-wrapper .modal-content .modal-close.animate, .modal-wrapper #modal-content #modal-close:hover, .modal-wrapper #modal-content #modal-close:focus, .modal-wrapper #modal-content #modal-close.animate, .modal-wrapper #modal-content .modal-close:hover, .modal-wrapper #modal-content .modal-close:focus, .modal-wrapper #modal-content .modal-close.animate, .modal-wrapper .modal-content #modal-close:hover, .modal-wrapper .modal-content #modal-close:focus, .modal-wrapper .modal-content #modal-close.animate, .modal-wrapper .modal-content .modal-close:hover, .modal-wrapper .modal-content .modal-close:focus, .modal-wrapper .modal-content .modal-close.animate {
+        text-decoration: none; }
+        #modal-wrapper #modal-content #modal-close:hover::after, #modal-wrapper #modal-content #modal-close:focus::after, #modal-wrapper #modal-content #modal-close.animate::after, #modal-wrapper #modal-content .modal-close:hover::after, #modal-wrapper #modal-content .modal-close:focus::after, #modal-wrapper #modal-content .modal-close.animate::after, #modal-wrapper .modal-content #modal-close:hover::after, #modal-wrapper .modal-content #modal-close:focus::after, #modal-wrapper .modal-content #modal-close.animate::after, #modal-wrapper .modal-content .modal-close:hover::after, #modal-wrapper .modal-content .modal-close:focus::after, #modal-wrapper .modal-content .modal-close.animate::after, .modal-wrapper #modal-content #modal-close:hover::after, .modal-wrapper #modal-content #modal-close:focus::after, .modal-wrapper #modal-content #modal-close.animate::after, .modal-wrapper #modal-content .modal-close:hover::after, .modal-wrapper #modal-content .modal-close:focus::after, .modal-wrapper #modal-content .modal-close.animate::after, .modal-wrapper .modal-content #modal-close:hover::after, .modal-wrapper .modal-content #modal-close:focus::after, .modal-wrapper .modal-content #modal-close.animate::after, .modal-wrapper .modal-content .modal-close:hover::after, .modal-wrapper .modal-content .modal-close:focus::after, .modal-wrapper .modal-content .modal-close.animate::after {
+          transform: scale(1.05); }
+    #modal-wrapper #modal-content h1, #modal-wrapper .modal-content h1, .modal-wrapper #modal-content h1, .modal-wrapper .modal-content h1 {
+      font-size: 25px; }
+      @media only screen and (max-width: 400px) {
+        #modal-wrapper #modal-content h1, #modal-wrapper .modal-content h1, .modal-wrapper #modal-content h1, .modal-wrapper .modal-content h1 {
+          font-size: 20px; } }
+
 #header {
   position: relative;
   overflow: visible;
@@ -1169,75 +1226,129 @@ table .recurring {
           #header #logo a img {
             width: 40vw;
             min-width: 180px; } }
-  #header #menu {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    height: 100%;
-    width: auto; }
-    #header #menu button, #header #menu .button {
-      margin: 0 10px; }
-      #header #menu button.menu-button, #header #menu .button.menu-button {
-        position: relative; }
-      #header #menu button:last-child, #header #menu .button:last-child {
-        margin-right: 0; }
-      #header #menu button:first-child, #header #menu .button:first-child {
-        margin-left: 0; }
-      #header #menu button .glyphicon, #header #menu .button .glyphicon {
-        font-size: 0; }
-        #header #menu button .glyphicon::before, #header #menu .button .glyphicon::before {
-          font-size: 27px; }
-      #header #menu button#notification-button, #header #menu .button#notification-button {
-        padding-top: 9px;
-        position: relative; }
-        #header #menu button#notification-button .glyphicon-bell, #header #menu .button#notification-button .glyphicon-bell {
-          color: #1E6BA3;
-          position: absolute;
-          right: 8px;
+
+#menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+  width: auto; }
+  #menu button, #menu .button {
+    margin: 0 10px; }
+    #menu button.menu-button, #menu .button.menu-button {
+      position: relative; }
+    #menu button:last-child, #menu .button:last-child {
+      margin-right: 0; }
+    #menu button:first-child, #menu .button:first-child {
+      margin-left: 0; }
+    #menu button .glyphicon, #menu .button .glyphicon {
+      font-size: 0; }
+      #menu button .glyphicon::before, #menu .button .glyphicon::before {
+        font-size: 27px; }
+    #menu button#notification-button, #menu .button#notification-button {
+      padding-top: 9px;
+      position: relative; }
+      #menu button#notification-button .glyphicon-bell, #menu .button#notification-button .glyphicon-bell {
+        color: #1E6BA3;
+        position: absolute;
+        right: 8px;
+        top: 5px;
+        background-color: #fff;
+        border-radius: 11px;
+        border: 1px solid #1E6BA3;
+        padding: 3px 2px 1px; }
+        #menu button#notification-button .glyphicon-bell::before, #menu .button#notification-button .glyphicon-bell::before {
+          font-size: 16px; }
+      #menu button#notification-button .glyphicon-envelope, #menu .button#notification-button .glyphicon-envelope {
+        right: 1px;
+        top: 0; }
+    @media only screen and (max-width: 750px) {
+      #menu button, #menu .button {
+        font-size: 23px;
+        width: 50px;
+        height: 50px;
+        border-radius: 29px;
+        padding-left: 0;
+        padding-right: 0;
+        margin: 0;
+        margin-left: 10px; }
+        #menu button .glyphicon, #menu .button .glyphicon {
+          margin-top: 2px; }
+          #menu button .glyphicon::before, #menu .button .glyphicon::before {
+            font-size: 27px; }
+        #menu button#notification-button .glyphicon-envelope, #menu .button#notification-button .glyphicon-envelope {
+          top: 1px;
+          right: 0px; }
+          #menu button#notification-button .glyphicon-envelope::before, #menu .button#notification-button .glyphicon-envelope::before {
+            font-size: 26px; }
+        #menu button#notification-button .glyphicon-bell, #menu .button#notification-button .glyphicon-bell {
           top: 5px;
-          background-color: #fff;
-          border-radius: 11px;
-          border: 1px solid #1E6BA3;
-          padding: 3px 2px 1px; }
-          #header #menu button#notification-button .glyphicon-bell::before, #header #menu .button#notification-button .glyphicon-bell::before {
-            font-size: 16px; }
-        #header #menu button#notification-button .glyphicon-envelope, #header #menu .button#notification-button .glyphicon-envelope {
-          right: 1px;
-          top: 0; }
-      @media only screen and (max-width: 750px) {
-        #header #menu button, #header #menu .button {
-          font-size: 23px;
-          width: 50px;
-          height: 50px;
-          border-radius: 29px;
-          padding-left: 0;
-          padding-right: 0;
-          margin: 0;
-          margin-left: 10px; }
-          #header #menu button .glyphicon, #header #menu .button .glyphicon {
-            margin-top: 2px; }
-            #header #menu button .glyphicon::before, #header #menu .button .glyphicon::before {
-              font-size: 27px; }
-          #header #menu button#info-button, #header #menu .button#info-button {
-            padding-top: 10px; }
-          #header #menu button#story-button, #header #menu .button#story-button {
-            font-size: 16px;
-            padding-top: 14px; }
-          #header #menu button#notification-button .glyphicon-envelope, #header #menu .button#notification-button .glyphicon-envelope {
-            top: 1px;
-            right: 0px; }
-            #header #menu button#notification-button .glyphicon-envelope::before, #header #menu .button#notification-button .glyphicon-envelope::before {
-              font-size: 26px; }
-          #header #menu button#notification-button .glyphicon-bell, #header #menu .button#notification-button .glyphicon-bell {
-            top: 5px;
-            right: 6px;
-            border-width: 1px;
-            padding-top: 2px; }
-            #header #menu button#notification-button .glyphicon-bell::before, #header #menu .button#notification-button .glyphicon-bell::before {
-              font-size: 13px; } }
-      @media only screen and (max-width: 400px) {
-        #header #menu button#notification-button, #header #menu .button#notification-button {
-          display: none; } }
+          right: 6px;
+          border-width: 1px;
+          padding-top: 2px; }
+          #menu button#notification-button .glyphicon-bell::before, #menu .button#notification-button .glyphicon-bell::before {
+            font-size: 13px; } }
+    @media only screen and (max-width: 400px) {
+      #menu button#notification-button, #menu .button#notification-button {
+        display: none; } }
+
+#sitemap {
+  display: none; }
+
+#modal-wrapper.sitemap {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  padding: 30px; }
+  @media only screen and (max-width: 400px) {
+    #modal-wrapper.sitemap {
+      align-items: flex-start;
+      justify-content: stretch;
+      padding: 5px; }
+      #modal-wrapper.sitemap #modal-content {
+        width: calc(100vw - 10px); } }
+
+#sitemap ul, .sitemap ul {
+  margin: 0 0 1em; }
+#sitemap p, .sitemap p {
+  margin: 0 0 0.5em; }
+#sitemap .glyphicon, .sitemap .glyphicon {
+  font-size: 0.9em;
+  margin-right: 0.8em;
+  color: #1E6BA3;
+  position: relative; }
+  #sitemap .glyphicon .glyphicon-bell, .sitemap .glyphicon .glyphicon-bell {
+    position: absolute;
+    font-size: 0.5em;
+    border-radius: 100%;
+    border: 2px solid #1E6BA3;
+    top: -0.3em;
+    left: 1.1em;
+    margin: 0;
+    padding: 1px;
+    background-color: #fff; }
+#sitemap ul, .sitemap ul {
+  list-style: none; }
+  #sitemap ul li, .sitemap ul li {
+    font-family: Bebas, sans-serif;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 0.8;
+    color: #1E6BA3;
+    margin-bottom: 1em; }
+    #sitemap ul li:first-child, .sitemap ul li:first-child {
+      margin-top: 0; }
+    #sitemap ul li ul, .sitemap ul li ul {
+      margin-left: 1em; }
+      #sitemap ul li ul li, .sitemap ul li ul li {
+        font-family: Metropolis, sans-serif;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        color: #6d7278; }
 
 body.view .leaflet-marker-icon {
   cursor: default; }
@@ -1668,62 +1779,6 @@ body.index, body.view {
   @media only screen and (min-width: 751px) {
     #map .leaflet-control-custom.show_filter_options {
       display: none; } }
-
-#modal-wrapper {
-  position: fixed;
-  z-index: 1000000;
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.8);
-  display: flex;
-  align-items: center;
-  justify-content: center; }
-  #modal-wrapper #modal-content {
-    width: 90%;
-    max-width: 500px;
-    height: auto;
-    max-height: 95vh;
-    background-color: white;
-    padding: 30px;
-    border-radius: 15px;
-    overflow: hidden;
-    position: relative; }
-    @media only screen and (max-width: 400px) {
-      #modal-wrapper #modal-content {
-        padding: 20px; } }
-    #modal-wrapper #modal-content .close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      color: transparent;
-      line-height: 0;
-      cursor: pointer; }
-      #modal-wrapper #modal-content .close::after {
-        pointer-events: none;
-        content: '';
-        position: relative;
-        display: inline-block;
-        box-sizing: border-box;
-        width: 1.8em;
-        height: 1.8em;
-        border-radius: 100%;
-        border: 2px solid #1E6BA3;
-        background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
-        background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%);
-        transition: all 0.3s ease;
-        top: 2px;
-        margin-left: 8px; }
-      #modal-wrapper #modal-content .close:hover {
-        text-decoration: none; }
-        #modal-wrapper #modal-content .close:hover::after {
-          transform: rotate(90deg); }
-    #modal-wrapper #modal-content h1 {
-      font-size: 25px; }
-      @media only screen and (max-width: 400px) {
-        #modal-wrapper #modal-content h1 {
-          font-size: 20px; } }
 
 #filter-buttons {
   border-bottom: 2px solid #1E6BA3;

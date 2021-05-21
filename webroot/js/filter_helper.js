@@ -232,8 +232,6 @@ class FilterHelper {
     createFilterModal() {
         let modal = new Modal('Filter Options', 'filter', this.closeEvent.bind(this));
         let form = $('<form id="filter-modal"></form>');
-        let container = $('<div id="modal-scroll-container"></div>');
-        container.append(form);
 
         if(this.filter.isEmpty('institution')) {
             if(this.filter.isEmpty('city')) {
@@ -255,7 +253,7 @@ class FilterHelper {
         form.append(this.createPresenceTypeSelector());
         form.append(this.createOccurrenceSelector());
 
-        modal.add(container);
+        modal.add(form);
         modal.create();
 
         // having issues...

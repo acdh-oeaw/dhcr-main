@@ -41,7 +41,7 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
 
     $(document).ready( function() {
 
-        app = new App({
+        let app = new App({
             mapApiKey:  '<?= Configure::read('map.apiKey') ?>',
             apiUrl:     '<?= Configure::read('api.baseUrl') ?>',
             action:     '<?= $this->request->getParam('action') ?>',
@@ -51,5 +51,10 @@ $id = ($this->request->getParam('action') == 'view' AND !empty($this->request->g
         if($('.flash-message').length) {
             $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
         }
+
+        let sitemap = new Sitemap();
+        $(document).on('click', '#menu-button', function(e) {
+            sitemap.show(e);
+        });
     });
 </script>
