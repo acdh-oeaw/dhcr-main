@@ -1,0 +1,36 @@
+
+
+#header {
+    #logo {
+        overflow: initial;
+        a {
+            display: block;
+            float: left;
+            margin-right: 5px;
+            img {
+                width: auto;
+                height: 46px;
+            }
+        }
+        .blue.button.users {
+            width: 48px;
+            padding-left: 12px;
+            color: transparent;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            line-height: initial;
+            &:hover, &.animate, &.focus {
+                transform: none;
+            }
+            .glyphicon {
+                color: #fff;
+            }
+        }
+
+        transition: all 0.3s;
+        &:hover, &.animate, &.focus {
+            transform: scale(1.03);
+            text-decoration: none;
+        }
+    }
+}

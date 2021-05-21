@@ -931,6 +931,11 @@ button, .button {
   button:hover, button.animate, button.focus, .button:hover, .button.animate, .button.focus {
     transform: scale(1.1);
     text-decoration: none; }
+  button.icon, .button.icon {
+    padding-left: 12px; }
+    button.icon .glyphicon, .button.icon .glyphicon {
+      font-size: 0.8em;
+      margin-right: 0.4em; }
   button.back::before, button.continue::after, .button.back::before, .button.continue::after {
     width: 10px;
     height: 10px;
@@ -1172,23 +1177,33 @@ table .recurring {
     width: auto; }
     #header #menu button, #header #menu .button {
       margin: 0 10px; }
+      #header #menu button.menu-button, #header #menu .button.menu-button {
+        position: relative; }
       #header #menu button:last-child, #header #menu .button:last-child {
         margin-right: 0; }
       #header #menu button:first-child, #header #menu .button:first-child {
         margin-left: 0; }
+      #header #menu button .glyphicon, #header #menu .button .glyphicon {
+        font-size: 0; }
+        #header #menu button .glyphicon::before, #header #menu .button .glyphicon::before {
+          font-size: 27px; }
       #header #menu button#notification-button, #header #menu .button#notification-button {
         padding-top: 9px;
         position: relative; }
         #header #menu button#notification-button .glyphicon-bell, #header #menu .button#notification-button .glyphicon-bell {
           color: #1E6BA3;
-          font-size: 16px;
           position: absolute;
-          right: 5px;
+          right: 8px;
           top: 5px;
           background-color: #fff;
           border-radius: 11px;
-          border: 3px solid #1E6BA3;
-          padding: 1px; }
+          border: 1px solid #1E6BA3;
+          padding: 3px 2px 1px; }
+          #header #menu button#notification-button .glyphicon-bell::before, #header #menu .button#notification-button .glyphicon-bell::before {
+            font-size: 16px; }
+        #header #menu button#notification-button .glyphicon-envelope, #header #menu .button#notification-button .glyphicon-envelope {
+          right: 1px;
+          top: 0; }
       @media only screen and (max-width: 750px) {
         #header #menu button, #header #menu .button {
           font-size: 23px;
@@ -1199,19 +1214,30 @@ table .recurring {
           padding-right: 0;
           margin: 0;
           margin-left: 10px; }
+          #header #menu button .glyphicon, #header #menu .button .glyphicon {
+            margin-top: 2px; }
+            #header #menu button .glyphicon::before, #header #menu .button .glyphicon::before {
+              font-size: 27px; }
           #header #menu button#info-button, #header #menu .button#info-button {
             padding-top: 10px; }
           #header #menu button#story-button, #header #menu .button#story-button {
             font-size: 16px;
             padding-top: 14px; }
           #header #menu button#notification-button .glyphicon-envelope, #header #menu .button#notification-button .glyphicon-envelope {
-            font-size: 18px; }
+            top: 1px;
+            right: 0px; }
+            #header #menu button#notification-button .glyphicon-envelope::before, #header #menu .button#notification-button .glyphicon-envelope::before {
+              font-size: 26px; }
           #header #menu button#notification-button .glyphicon-bell, #header #menu .button#notification-button .glyphicon-bell {
-            font-size: 11px;
-            top: 8px;
-            border-width: 2px; }
-          #header #menu button#login-button, #header #menu .button#login-button {
-            display: none; } }
+            top: 5px;
+            right: 6px;
+            border-width: 1px;
+            padding-top: 2px; }
+            #header #menu button#notification-button .glyphicon-bell::before, #header #menu .button#notification-button .glyphicon-bell::before {
+              font-size: 13px; } }
+      @media only screen and (max-width: 400px) {
+        #header #menu button#notification-button, #header #menu .button#notification-button {
+          display: none; } }
 
 body.view .leaflet-marker-icon {
   cursor: default; }

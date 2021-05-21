@@ -26,7 +26,9 @@
 <?php $bodyClasses = (!empty($bodyClasses)) ? ' class="'.$bodyClasses.'"' : ''; ?>
 <body<?= $bodyClasses ?>>
 <div class="wrapper">
-    <?= $this->Html->link('Back to Start', '/', ['class' => 'blue back button']); ?>
+    <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span><span>Back</span>', '/', [
+        'class' => 'blue home icon button',
+        'escape' => false]); ?>
     <div id="page-head">
         <h1>
             Digital Humanities Course Registry

@@ -124,6 +124,13 @@ button, .button {
         transform: scale(1.1);
         text-decoration: none;
     }
+    &.icon {
+        .glyphicon {
+            font-size: 0.8em;
+            margin-right: 0.4em;
+        }
+        padding-left: 12px;
+    }
     &.back::before, &.continue::after {
         width: 10px;
         height: 10px;

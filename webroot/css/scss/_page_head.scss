@@ -1,12 +1,19 @@
-.back.button {
-    display: block;
+
+/* aka back-button */
+.home.button {
+    display: flex;
+    justify-content: space-between;
     float: left;
     margin-bottom: 50px;
+    width: 120px;
+    .glyphicon {
+        margin-top: 2px;
+    }
     @include respond-to(handhelds) {
         height: 30px;
         font-size: 20px;
         border-radius: 15px;
-        padding: 2px 15px 0;
+        padding: 2px 15px 0 10px;
         &:hover, &.animate {
             transform: scale(1.05);
         }
@@ -19,9 +26,10 @@
     }
     @media only screen and (max-width: 580px) {
         position: static;
-        display: block;
+        display: flex;
+        justify-content: space-between;
         margin: 0 auto 2em;
-        width: 150px;
+        width: 100px;
         float: none;
     }
 }

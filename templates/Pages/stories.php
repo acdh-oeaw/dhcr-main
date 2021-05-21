@@ -1,7 +1,7 @@
 <?php $this->set('bodyClasses', 'stories'); ?>
 <?php $this->start('page_head'); ?>
     <div class="intent">
-        <p class="linklist-title-desc">Collection of inks featured in our instagram-posts</p>
+        <p class="linklist-title-desc">Collection of links featured in our instagram-posts</p>
     </div>
 <?php $this->end(); ?>
 

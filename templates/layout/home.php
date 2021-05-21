@@ -13,7 +13,6 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-use Cake\Core\Configure;
 use Cake\Routing\Router;
 
 ?>
@@ -36,16 +35,21 @@ use Cake\Routing\Router;
             </div>
             <div id="menu">
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-envelope"></span><span class="glyphicon glyphicon-bell"></span>',
+                    '<span class="glyphicon glyphicon-envelope">New Course Alert</span><span class="glyphicon glyphicon-bell"></span>',
                     '/subscriptions/add', [
                         'class' => 'blue button',
                         'id' => 'notification-button',
-                        'escape' => false
+                        'escape' => false,
+                        'title' => 'Subscribe for new courses'
                 ]) ?>
-                <?= $this->Html->link('Stories', '/stories', ['class' => 'blue button', 'id' => 'story-button']) ?>
-                <?= $this->Html->link('Info', '/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
-                <?= $this->Html->link('Login', '/login',
-                    ['class' => 'button', 'id' => 'login-button']) ?>
+                <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-menu-hamburger">Menu</span>',
+                    '/pages/sitemap', [
+                        'class' => 'button',
+                        'id' => 'menu-button',
+                        'escape' => false,
+                        'title' => 'Menu'
+                ]) ?>
             </div>
         </div>
 
@@ -56,12 +60,9 @@ use Cake\Routing\Router;
         </div>
         <?= $this->Flash->render('flash') ?>
 
-        <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
         <?= $this->Html->script('jquery-3.4.1.min.js') ?>
 
-        <!--<script src="<?= Router::url('/leaflet/leaflet.js', true) ?>" type="application/javascript"></script>-->
         <?= $this->Html->script('/leaflet/leaflet') ?>
-        <!--<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"></script>-->
         <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
 
         <?= $this->Html->script(['scroll','hash','slide','sharing','map','modal',
