@@ -24,7 +24,7 @@
         <?= $this->Html->css('/leaflet/leaflet.css') ?>
     </head>
 
-    <body class="<?= $this->request->getParam('action') ?>">
+    <body class="dhcr-home <?= $this->request->getParam('action') ?>">
         <div id="header">
             <div id="logo">
                 <?= $this->Html->image('logo-300.png', [
@@ -33,14 +33,7 @@
                 ]); ?>
             </div>
             <div id="menu">
-                <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-envelope">New Course Alert</span><span class="glyphicon glyphicon-bell"></span>',
-                    '/subscriptions/add', [
-                        'class' => 'blue button',
-                        'id' => 'notification-button',
-                        'escape' => false,
-                        'title' => 'Subscribe for new courses'
-                ]) ?>
+                <?= $this->Html->link('Info', '/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-menu-hamburger">Menu</span>',
                     '/pages/sitemap', [
@@ -68,7 +61,7 @@
         <?= $this->Html->script(['scroll','hash','slide','sharing','map','modal',
             'sitemap','filter','filter_helper','view','view_helper','app']) ?>
 
-        <?= $this->element('script') ?>
+        <?= $this->element('home_script') ?>
 
         <?= $this->element('matomo') ?>
 

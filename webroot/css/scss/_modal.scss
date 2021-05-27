@@ -55,7 +55,6 @@
             &:hover, &:focus, &.animate {
                 text-decoration: none;
                 &::after {
-                    //transform: rotate(90deg);
                     transform: scale(1.05);
                 }
             }

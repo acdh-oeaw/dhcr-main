@@ -1245,23 +1245,6 @@ table .recurring {
       font-size: 0; }
       #menu button .glyphicon::before, #menu .button .glyphicon::before {
         font-size: 27px; }
-    #menu button#notification-button, #menu .button#notification-button {
-      padding-top: 9px;
-      position: relative; }
-      #menu button#notification-button .glyphicon-bell, #menu .button#notification-button .glyphicon-bell {
-        color: #1E6BA3;
-        position: absolute;
-        right: 8px;
-        top: 5px;
-        background-color: #fff;
-        border-radius: 11px;
-        border: 1px solid #1E6BA3;
-        padding: 3px 2px 1px; }
-        #menu button#notification-button .glyphicon-bell::before, #menu .button#notification-button .glyphicon-bell::before {
-          font-size: 16px; }
-      #menu button#notification-button .glyphicon-envelope, #menu .button#notification-button .glyphicon-envelope {
-        right: 1px;
-        top: 0; }
     @media only screen and (max-width: 750px) {
       #menu button, #menu .button {
         font-size: 23px;
@@ -1272,61 +1255,50 @@ table .recurring {
         padding-right: 0;
         margin: 0;
         margin-left: 10px; }
+        #menu button#info-button, #menu .button#info-button {
+          padding-top: 10px; }
         #menu button .glyphicon, #menu .button .glyphicon {
           margin-top: 2px; }
           #menu button .glyphicon::before, #menu .button .glyphicon::before {
-            font-size: 27px; }
-        #menu button#notification-button .glyphicon-envelope, #menu .button#notification-button .glyphicon-envelope {
-          top: 1px;
-          right: 0px; }
-          #menu button#notification-button .glyphicon-envelope::before, #menu .button#notification-button .glyphicon-envelope::before {
-            font-size: 26px; }
-        #menu button#notification-button .glyphicon-bell, #menu .button#notification-button .glyphicon-bell {
-          top: 5px;
-          right: 6px;
-          border-width: 1px;
-          padding-top: 2px; }
-          #menu button#notification-button .glyphicon-bell::before, #menu .button#notification-button .glyphicon-bell::before {
-            font-size: 13px; } }
-    @media only screen and (max-width: 400px) {
-      #menu button#notification-button, #menu .button#notification-button {
-        display: none; } }
+            font-size: 27px; } }
 
 #sitemap {
   display: none; }
 
 #modal-wrapper.sitemap {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-end;
-  padding: 30px; }
+  padding: 15px 0;
+  display: grid;
+  grid-template-areas: ". display .";
+  grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px);
+  gap: 0; }
+  #modal-wrapper.sitemap #modal-content {
+    grid-area: display;
+    align-self: start;
+    justify-self: end;
+    width: initial; }
   @media only screen and (max-width: 400px) {
     #modal-wrapper.sitemap {
-      align-items: flex-start;
-      justify-content: stretch;
-      padding: 5px; }
+      padding: 5px 0;
+      grid-template-columns: 5px auto 5px; }
       #modal-wrapper.sitemap #modal-content {
-        width: calc(100vw - 10px); } }
+        justify-self: stretch; } }
+
+.home #modal-wrapper.sitemap {
+  grid-template-columns: auto min(calc(100% - 2*15px), 90rem) auto; }
 
 #sitemap ul, .sitemap ul {
   margin: 0 0 1em; }
 #sitemap p, .sitemap p {
   margin: 0 0 0.5em; }
+#sitemap a, .sitemap a {
+  color: inherit; }
+  #sitemap a:hover, #sitemap a:focus, #sitemap a.animate, .sitemap a:hover, .sitemap a:focus, .sitemap a.animate {
+    text-decoration: underline; }
 #sitemap .glyphicon, .sitemap .glyphicon {
   font-size: 0.9em;
-  margin-right: 0.8em;
+  margin-right: 0.6em;
   color: #1E6BA3;
   position: relative; }
-  #sitemap .glyphicon .glyphicon-bell, .sitemap .glyphicon .glyphicon-bell {
-    position: absolute;
-    font-size: 0.5em;
-    border-radius: 100%;
-    border: 2px solid #1E6BA3;
-    top: -0.3em;
-    left: 1.1em;
-    margin: 0;
-    padding: 1px;
-    background-color: #fff; }
 #sitemap ul, .sitemap ul {
   list-style: none; }
   #sitemap ul li, .sitemap ul li {
@@ -1339,7 +1311,7 @@ table .recurring {
     #sitemap ul li:first-child, .sitemap ul li:first-child {
       margin-top: 0; }
     #sitemap ul li ul, .sitemap ul li ul {
-      margin-left: 1em; }
+      margin-left: 1.5em; }
       #sitemap ul li ul li, .sitemap ul li ul li {
         font-family: Metropolis, sans-serif;
         font-size: 18px;

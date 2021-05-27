@@ -6,7 +6,11 @@
 
 @import "glyphicons";
 
-@import "page_head";
+@import "modal";
+
+@import "menu";
+
+@import "default_page_head";
 
 @import "flash_message";
 
@@ -15,8 +19,6 @@
 @import "dropdown_select";
 
 @import "accordeon";
-
-@import "info"; /* alternative page head & other stuff */
 
 @import "stories";
 

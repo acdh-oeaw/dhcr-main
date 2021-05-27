@@ -70,7 +70,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     }
     @else if $media == x-large {
         // 80 em on 16px fontsize -> 1280px
-        @media only screen and (min-width: 1280px) { @content; }
+        @media only screen and (min-width: 1040px) { @content; }
     }
 }
 

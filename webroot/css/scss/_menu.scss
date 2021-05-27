@@ -19,35 +19,14 @@
         }
         .glyphicon {
             font-size: 0;
-            &::before {
-                font-size: 27px;
-            }
-        }
-        &#notification-button {
-            padding-top: 9px;
-            position: relative;
-            .glyphicon-bell {
-                &::before { font-size: 16px; }
-                color: $blue;
-                position: absolute;
-                right: 8px;
-                top: 5px;
-                background-color: #fff;
-                border-radius: 11px;
-                border: 1px solid $blue;
-                padding: 3px 2px 1px;
-            }
-            .glyphicon-envelope {
-                right: 1px;
-                top: 0;
-            }
+            &::before { font-size: 27px; }
         }
         @include respond-to(handhelds) {
+            &#info-button {
+                padding-top: 10px;
+            }
             .glyphicon {
-                &::before {
-                    font-size: 27px;
-                }
-
+                &::before { font-size: 27px; }
                 margin-top: 2px;
             }
             font-size: 23px;
@@ -59,31 +38,7 @@
             margin: 0;
             margin-left: 10px;
 
-            &#notification-button {
-                .glyphicon-envelope {
-                    &::before {
-                        font-size: 26px;
-                    }
-                    top: 1px;
-                    right: 0px;
-                }
-                .glyphicon-bell {
-                    &::before {
-                        font-size: 13px;
-                    }
 
-                    top: 5px;
-                    right: 6px;
-                    border-width: 1px;
-                    padding-top: 2px;
-                }
-            }
-        }
-
-        @include respond-to(x-small) {
-            &#notification-button {
-                display: none;
-            }
         }
     }
 }
@@ -96,42 +51,44 @@
 
 
 #modal-wrapper.sitemap {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-    padding: 30px;
+    padding: 15px 0;
+    display: grid;
+    grid-template-areas: ". display .";
+    grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px);
+    gap: 0;
+    #modal-content {
+        grid-area: display;
+        align-self: start;
+        justify-self: end;
+        width: initial;
+    }
 
     @include respond-to(x-small) {
-        align-items: flex-start;
-        justify-content: stretch;
-        padding: 5px;
-
+        padding: 5px 0;
+        grid-template-columns: 5px auto 5px;
         #modal-content {
-            width: calc(100vw - 10px);
+            justify-self: stretch;
         }
     }
+}
+.home #modal-wrapper.sitemap {
+    grid-template-columns: auto min(calc(100% - 2*15px), 90rem) auto;
 }
 
 #sitemap, .sitemap {
     ul { margin: 0 0 1em; }
     p { margin: 0 0 0.5em; }
+    a {
+        color: inherit;
+        &:hover, &:focus, &.animate {
+            text-decoration: underline;
+        }
+    }
     .glyphicon {
         font-size: 0.9em;
-        margin-right: 0.8em;
+        margin-right: 0.6em;
         color: $blue;
         position: relative;
-
-        .glyphicon-bell {
-            position: absolute;
-            font-size: 0.5em;
-            border-radius: 100%;
-            border: 2px solid $blue;
-            top: -0.3em;
-            left: 1.1em;
-            margin: 0;
-            padding: 1px;
-            background-color: #fff;
-        }
     }
     ul {
         list-style: none;
@@ -147,7 +104,7 @@
                 margin-top: 0;
             }
             ul {
-                margin-left: 1em;
+                margin-left: 1.5em;
                 li {
                     // h3
                     font-family: Metropolis, sans-serif;

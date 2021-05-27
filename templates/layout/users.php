@@ -27,59 +27,61 @@
 </head>
 
 <body class="users <?= $this->request->getParam('action') ?>">
-<div id="header">
-    <div id="logo">
-        <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span>Back', '/', [
-            'class' => 'blue users home button','escape' => false]); ?>
-        <?= $this->Html->image('logo-300.png', [
-            'url' => '/',
-            'alt' => 'Digital Humanities Course Registry (logo)'
-        ]); ?>
+<div class="wrapper">
+    <div id="header">
+        <div id="logo">
+            <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span>Back', '/', [
+                'class' => 'blue users home button','escape' => false]); ?>
+            <?= $this->Html->image('logo-300.png', [
+                'url' => '/',
+                'alt' => 'Digital Humanities Course Registry (logo)'
+            ]); ?>
+        </div>
+        <div id="menu">
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-list">Everything Else</span>',
+                '/subscriptions/add', [
+                'class' => 'blue button',
+                'title' => 'Everything Else',
+                'escape' => false
+            ]) ?>
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-education">Your Courses</span>',
+                '/courses/my_courses', [
+                'class' => 'blue button',
+                'title' => 'Your Courses',
+                'escape' => false
+            ]) ?>
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-user">Profile Settings</span>',
+                '/users/profile', [
+                'class' => 'blue button',
+                'title' => 'Profile Settings',
+                'escape' => false
+            ]) ?>
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-flag">Dashboard</span>',
+                '/users/dashboard', [
+                'class' => 'blue button',
+                'title' => 'Dashboard',
+                'escape' => false
+            ]) ?>
+            <?= $this->Html->link(
+                '<span class="glyphicon glyphicon-off">Logout</span>',
+                '/users/logout', [
+                'class' => 'button',
+                'id' => 'logout-button',
+                'escape' => false
+            ]) ?>
+        </div>
     </div>
-    <div id="menu">
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-list">Everything Else</span>',
-            '/subscriptions/add', [
-            'class' => 'blue button',
-            'title' => 'Everything Else',
-            'escape' => false
-        ]) ?>
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-education">Your Courses</span>',
-            '/courses/my_courses', [
-            'class' => 'blue button',
-            'title' => 'Your Courses',
-            'escape' => false
-        ]) ?>
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-user">Profile Settings</span>',
-            '/users/profile', [
-            'class' => 'blue button',
-            'title' => 'Profile Settings',
-            'escape' => false
-        ]) ?>
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-flag">Dashboard</span>',
-            '/users/dashboard', [
-            'class' => 'blue button',
-            'title' => 'Dashboard',
-            'escape' => false
-        ]) ?>
-        <?= $this->Html->link(
-            '<span class="glyphicon glyphicon-off">Logout</span>',
-            '/users/logout', [
-            'class' => 'button',
-            'id' => 'logout-button',
-            'escape' => false
-        ]) ?>
-    </div>
-</div>
 
-<div id="container">
-    <h2><?= $title_for_layout ?></h2>
     <?= $this->fetch('content') ?>
 
+    <?= $this->element('default_footer') ?>
+
 </div>
+
 <?= $this->Flash->render('flash') ?>
 
 <?= $this->Html->script('jquery-3.4.1.min.js') ?>
@@ -87,10 +89,8 @@
 <?= $this->Html->script('/leaflet/leaflet') ?>
 <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
 
-<?= $this->Html->script(['scroll','hash','slide','sharing','map','modal',
-    'filter','filter_helper','view','view_helper','app']) ?>
-
-<?= $this->element('script') ?>
+<?= $this->Html->script(['sharing','map','modal',
+    'filter','filter_helper']) ?>
 
 <?= $this->element('matomo') ?>
 

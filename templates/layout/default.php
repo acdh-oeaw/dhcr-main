@@ -26,10 +26,24 @@
 <?php $bodyClasses = (!empty($bodyClasses)) ? ' class="'.$bodyClasses.'"' : ''; ?>
 <body<?= $bodyClasses ?>>
 <div class="wrapper">
-    <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span><span>Back</span>', '/', [
-        'class' => 'blue home icon button',
-        'escape' => false]); ?>
     <div id="page-head">
+
+        <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span><span>Home</span>',
+            '/', [
+                'class' => 'blue menu icon button',
+                'id' => 'back-button',
+                'escape' => false
+            ]); ?>
+        <?= $this->Html->link(
+            '<span class="glyphicon glyphicon-menu-hamburger"></span><span>Menu</span>',
+            '/pages/sitemap', [
+                'class' => 'menu icon button',
+                'id' => 'menu-button',
+                'escape' => false,
+                'title' => 'Menu'
+        ]) ?>
+        <?= $this->element('sitemap') ?>
+
         <h1>
             Digital Humanities Course Registry
             <?= $this->Html->image('logo-500.png', [
@@ -38,32 +52,27 @@
                 'height' => 114,
                 'url' => '/']) ?>
         </h1>
-
-        <?= $this->fetch('page_head') ?>
     </div>
 
     <?= $this->fetch('content') ?>
 
-    <div id="footer" class="footer">
-        <p class="imprint"><?= $this->Html->link('Imprint',
-                '/pages/info/#imprint') ?></p>
-        <p class="license"><?= $this->Html->link('CC-BY 4.0',
-                'https://creativecommons.org/licenses/by/4.0/',
-                ['target' => '_blank']) ?></p>
-        <p class="copyright">&copy;2014-<?= date('Y') ?></p>
-    </div>
+    <?= $this->element('default_footer') ?>
 
 </div>
 <?= $this->Flash->render('flash') ?>
 
 <?= $this->Html->script('jquery-3.4.1.min.js') ?>
-<?= $this->Html->script(['accordeon','hash']) ?>
+<?= $this->Html->script(['modal','sitemap']) ?>
 
 <script type="application/javascript">
     $(document).ready( function() {
         if($('.flash-message').length) {
             $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
         }
+        let sitemap = new Sitemap();
+        $(document).on('click', '#menu-button', function(e) {
+            sitemap.show(e);
+        });
     });
     function recaptchaCallback(token) {
         $(".captcha-form").first().submit();
