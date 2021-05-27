@@ -1,0 +1,151 @@
+
+#page-head {
+    display: grid;
+    grid-template-columns: initial;
+    grid-column-gap: 3em;
+    grid-row-gap: 1em;
+    justify-content: center; // align the grid itself
+    align-content: space-between;
+    grid-template-rows: auto 8vw 1em auto;
+    grid-template-areas:
+            'menu1      dhcr-logo'
+            'menu2      dhcr-logo'
+            '.                  .'
+            'joint-logo intent';
+    @include respond-to(handhelds) {
+        grid-column-gap: 6vw;
+    }
+    @media only screen and (max-width: 580px) {
+        align-items: center;
+        grid-template-columns: initial;
+        grid-template-rows: auto auto 1em auto;
+        grid-template-areas:
+            'menu1      menu2'
+            'joint-logo      dhcr-logo'
+            '.                  .'
+            'intent intent';
+    }
+    @include respond-to(x-small) {
+        grid-column-gap: 1em;
+    }
+}
+
+
+#page-head {
+    .menu.button {
+        display: flex;
+        justify-content: space-between;
+        width: 150px;
+        height: 30px;
+        font-size: 20px;
+        border-radius: 15px;
+        padding: 2px 15px 0 10px;
+        &:hover, &:focus, &.animate {
+            transform: scale(1.05);
+        }
+        &::before {
+            width: 7px;
+            height: 7px;
+            bottom: 2px;
+            margin-right: 7px;
+        }
+        .glyphicon {
+            margin-top: 2px;
+        }
+        &#back-button {
+            grid-area: menu1;
+        }
+        &#menu-button {
+            grid-area: menu2;
+        }
+        @include respond-to(x-large) {
+            height: 46px;
+            font-size: 24px;
+            border-radius: 23px;
+            padding: 7px 20px 0 12px;
+        }
+        @media only screen and (max-width: 580px) {
+            margin: 0 0 1em;
+            width: 100px;
+            justify-self: start;
+            &#menu-button {
+                justify-self: end;
+            }
+        }
+    }
+    h1 {
+        justify-self: initial;
+        grid-area: dhcr-logo;
+        text-align: center;
+        font-size: 0;
+        color: transparent;
+        align-self: end;
+        @media only screen and (max-width: 580px) {
+            align-self: center;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+            height: auto;
+            width: 45vw;
+            max-width: 500px;
+            min-width: 170px;
+            @include respond-to(handhelds) {
+                width: 50vw;
+            }
+            @media only screen and (max-width: 580px) {
+                margin: 0;
+            }
+        }
+    }
+    .joint-logo {
+        grid-area: joint-logo;
+        justify-self: end;
+        align-self: start;
+        display: block;
+        width: 23vw;
+        max-width: 200px;
+        min-width: 176px;
+        height: auto;
+        @include respond-to(handhelds) {
+            width: 20vw;
+            min-width: 150px;
+        }
+        @media only screen and (max-width: 580px) {
+            grid-area: joint-logo;
+            width: 16vw;
+            min-width: 70px;
+        }
+    }
+    .title, .intent {
+        margin-top: 0;
+        grid-area: intent;
+        @media only screen and (max-width: 580px) {
+            grid-column-start: joint-logo;
+            grid-column-end: intent;
+        }
+        p {
+            @media only screen and (max-width: 580px) {
+                text-align: center;
+            }
+        }
+        h2 {
+            margin-bottom: 1em;
+        }
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+            color: $blue;
+            @media only screen and (max-width: 580px) {
+                font-size: 16px;
+            }
+            a {
+                font-weight: bold;
+                color: $blue;
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}

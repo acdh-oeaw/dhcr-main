@@ -21,32 +21,14 @@ use Cake\Core\Configure;
         </p>
         <p>
             The DHCR has been collecting course data since 2014.
-            Historical data or very specific queries can be retrieved using the open
+            Historical data can be retrieved using the open
             <?= $this->Html->link('DHCR-API', Configure::read('api.baseUrl'), ['target' => '_blank']) ?>.
         </p>
     </div>
     <div class="flex-item">
         <?= $this->Html->image('lecturers.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
         <h3>Lecturers</h3>
-        <p>
-            Lecturers or progamme administrators can promote their DH-related
-            teaching activities on the Digital Humanities Course Registry.
-            To add data, lecturers need to sign in. We require all data
-            contributors to actively maintain their data at least once per year.
-        </p>
-        <p>
-            The system will regularly send out email reminders, whenever a data set
-            is about to expire. Course data that is not revised for one and a half year
-            will disappear from the public listing and remains archived
-            for later research. The system also performs a regular link checking
-            on URLs provided with the data.
-        </p>
-        <div class="buttons">
-            <?= $this->Html->link('Login', Configure::read('ops.baseUrl').'users/login',
-                ['class' => 'button', 'id' => 'login-button']) ?>
-            <?= $this->Html->link('Register', Configure::read('ops.baseUrl').'users/register',
-                ['class' => 'blue button', 'id' => 'register-button']) ?>
-        </div>
+        <?= $this->element('info/lecturers') ?>
     </div>
 </div>
 <hr>

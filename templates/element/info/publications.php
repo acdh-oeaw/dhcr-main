@@ -3,7 +3,7 @@
 <div class="flex-columns">
     <div class="flex-item wide">
         <h3>Downloads & Dissemination Material</h3>
-    
+
         <div class="feature-link">
             <?= $this->Html->image('dhcr-feature-badge-300.png', ['url' => '/img/dhcr-feature-badge-300.png']) ?>
             <p>
@@ -26,26 +26,22 @@
             </p>
         </div>
 
-        <div class="feature-link">
-
-            <div style="width:100%">
-                <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0" allow="encrypted-media" allowfullscreen style="width:100%"></iframe>
-            </div>
-
-            <div style="width:100%; margin-left: 5px;">
-                <p>DH Course Registry Video</p>
-            </div>
-
+        <h4>DHCR Promotion Video</h4>
+        <div class="iframe-container">
+            <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
+            <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0"
+                    allow="encrypted-media" allowfullscreen></iframe>
         </div>
-        
+
+
     </div>
     <div class="flex-item publications narrow">
         <h3>Selected Presentations & Publications</h3>
-        <p>Wissik, T., Edmond, J., Fischer, F., de Jong, F., Stefania Scagliola, S., Scharnhorst，A. , 
-            Schmeer, H., Scholger, W. and Leon Wessels, L. (2020). 
-            Teaching Digital Humanities Around the World：An Infrastructural Approach to a Community-Driven DH Course Registry. 
+        <p>Wissik, T., Edmond, J., Fischer, F., de Jong, F., Stefania Scagliola, S., Scharnhorst，A. ,
+            Schmeer, H., Scholger, W. and Leon Wessels, L. (2020).
+            Teaching Digital Humanities Around the World：An Infrastructural Approach to a Community-Driven DH Course Registry.
             Library Tribune 40: 1-27. Preprint available here: <a href="https://hal.archives-ouvertes.fr/hal-02500871/document">https://hal.archives-ouvertes.fr/hal-02500871/document</a>
-        </p>  
+        </p>
         <p>
             Schmeer, H., Wissik, T. (2019). <i>DH Course Regisry API.</i>
             Poster presentation at the CLARIN Bazaar 2019.
