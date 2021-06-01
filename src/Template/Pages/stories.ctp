@@ -26,29 +26,19 @@ $this->layout = false;
         <?= $this->Html->css('static_page.css') ?>
         <?= $this->Html->meta('icon') ?>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
+        <script src="https://shared.acdh.oeaw.ac.at/dhcr/content.js"></script>
         <script type="text/javascript">
-        $(document).ready(function(){
-            $.ajax({
-                url : "https://shared.acdh.oeaw.ac.at/dhcr/mylist.txt",
-                dataType: "text",
-                success : function (data) {
-                    $html = "";
-                    var lines = data.split("\n");
-                    for (var i = 0, len = lines.length; i < len; i++) {
-                        $html += '<li class="">'+lines[i]+'</li>';
-                    }
-                    $("body ul").append($html);
-                }
+            $(document).ready(function(){
+                let content = new Content();
+                content.load();
             });
-        });
 
         </script>
         <style>
 
         @font-face {
             font-family: Metropolis-SemiBold;
-            src: url("/fonts/babas_neue/BebasNeue-Regular.otf") format("opentype");
+            src: url("/fonts/bebas_neue/BebasNeue-Regular.otf") format("opentype");
         }
         @font-face {
             font-family: Metropolis-SemiBold;
