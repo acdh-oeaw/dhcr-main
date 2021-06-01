@@ -1,0 +1,41 @@
+.menu.button {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 2px 15px 0 10px;
+    &:hover, &:focus, &.animate {
+        transform: scale(1.05);
+    }
+    &::before {
+        width: 7px;
+        height: 7px;
+        bottom: 2px;
+        margin-right: 7px;
+    }
+    .glyphicon {
+        margin-top: 2px;
+    }
+    &#back-button {
+        grid-area: menu1;
+    }
+    &#menu-button {
+        grid-area: menu2;
+    }
+    @include respond-to(x-large) {
+        height: 46px;
+        font-size: 24px;
+        border-radius: 23px;
+        padding: 7px 20px 0 12px;
+    }
+    @media only screen and (max-width: 580px) {
+        margin: 0 0 1em;
+        width: 100px;
+        justify-self: start;
+        &#menu-button {
+            justify-self: end;
+        }
+    }
+}

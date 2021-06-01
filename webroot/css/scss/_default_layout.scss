@@ -1,0 +1,74 @@
+
+#page-head {
+    margin-bottom: 4em;
+    display: grid;
+    grid-column-gap: 3em;
+    grid-row-gap: 1em;
+    justify-content: stretch; // align the grid itself
+    align-content: space-between;
+    grid-template-rows: auto 8vw;
+    grid-template-columns: 150px auto;
+    grid-template-areas:
+            'menu1      dhcr-logo'
+            'menu2      dhcr-logo';
+    @include respond-to(handhelds) {
+        grid-column-gap: 6vw;
+    }
+    @media only screen and (max-width: 580px) {
+        align-items: center;
+        grid-template-columns: initial;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            'menu1      menu2'
+            'dhcr-logo  dhcr-logo';
+    }
+    @include respond-to(x-small) {
+        grid-column-gap: 1em;
+    }
+
+    @import "menu_button";
+
+    h1 {
+        justify-self: initial;
+        grid-area: dhcr-logo;
+        text-align: center;
+        font-size: 0;
+        color: transparent;
+        align-self: end;
+        @media only screen and (max-width: 580px) {
+            align-self: center;
+            justify-self: center;
+        }
+        img {
+            display: block;
+            margin: 0 auto;
+            height: auto;
+            width: 45vw;
+            max-width: 500px;
+            min-width: 170px;
+            @include respond-to(handhelds) {
+                width: 50vw;
+            }
+            @media only screen and (max-width: 580px) {
+                margin: 0;
+            }
+        }
+    }
+}
+
+#content, #footer {
+    margin-left: calc(60px + 6vw);
+    @media only screen and (max-width: 580px) {
+        margin-left: 0;
+    }
+}
+
+#content {
+    h2 {
+        margin-bottom: 1em;
+    }
+}
+
+#footer {
+    margin-top: 100px;
+}

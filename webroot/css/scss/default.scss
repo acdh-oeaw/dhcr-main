@@ -10,7 +10,7 @@
 
 @import "menu";
 
-@import "default_page_head";
+@import "default_layout";
 
 @import "flash_message";
 
@@ -86,7 +86,4 @@ body {
     }
 }
 
-#footer {
-    margin: 100px 0 0;
-}
 

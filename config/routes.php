@@ -71,10 +71,9 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
-    $routes->connect('/stories', ['controller' => 'Pages', 'action' => 'display', 'stories']);
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    $routes->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
 
-    $routes->connect('/follow', ['controller' => 'Subscriptions', 'action' => 'add']);
+    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
     // re-routing the login form irritates the Authentication Component
     //$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);

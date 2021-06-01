@@ -54,7 +54,9 @@
         </h1>
     </div>
 
-    <?= $this->fetch('content') ?>
+    <div id="content">
+        <?= $this->fetch('content') ?>
+    </div>
 
     <?= $this->element('default_footer') ?>
 

@@ -1276,14 +1276,15 @@ table .recurring {
         color: #6d7278; }
 
 #page-head {
+  margin-bottom: 4em;
   display: grid;
-  grid-template-columns: initial;
   grid-column-gap: 3em;
   grid-row-gap: 1em;
-  justify-content: center;
+  justify-content: stretch;
   align-content: space-between;
-  grid-template-rows: auto 8vw 1em auto;
-  grid-template-areas: 'menu1      dhcr-logo' 'menu2      dhcr-logo' '.                  .' 'joint-logo intent'; }
+  grid-template-rows: auto 8vw;
+  grid-template-columns: 150px auto;
+  grid-template-areas: 'menu1      dhcr-logo' 'menu2      dhcr-logo'; }
   @media only screen and (max-width: 750px) {
     #page-head {
       grid-column-gap: 6vw; } }
@@ -1291,111 +1292,81 @@ table .recurring {
     #page-head {
       align-items: center;
       grid-template-columns: initial;
-      grid-template-rows: auto auto 1em auto;
-      grid-template-areas: 'menu1      menu2' 'joint-logo      dhcr-logo' '.                  .' 'intent intent'; } }
+      grid-template-rows: auto auto;
+      grid-template-areas: 'menu1      menu2' 'dhcr-logo  dhcr-logo'; } }
   @media only screen and (max-width: 400px) {
     #page-head {
       grid-column-gap: 1em; } }
+  #page-head .menu.button {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    padding: 2px 15px 0 10px; }
+    #page-head .menu.button:hover, #page-head .menu.button:focus, #page-head .menu.button.animate {
+      transform: scale(1.05); }
+    #page-head .menu.button::before {
+      width: 7px;
+      height: 7px;
+      bottom: 2px;
+      margin-right: 7px; }
+    #page-head .menu.button .glyphicon {
+      margin-top: 2px; }
+    #page-head .menu.button#back-button {
+      grid-area: menu1; }
+    #page-head .menu.button#menu-button {
+      grid-area: menu2; }
+    @media only screen and (min-width: 1040px) {
+      #page-head .menu.button {
+        height: 46px;
+        font-size: 24px;
+        border-radius: 23px;
+        padding: 7px 20px 0 12px; } }
+    @media only screen and (max-width: 580px) {
+      #page-head .menu.button {
+        margin: 0 0 1em;
+        width: 100px;
+        justify-self: start; }
+        #page-head .menu.button#menu-button {
+          justify-self: end; } }
+  #page-head h1 {
+    justify-self: initial;
+    grid-area: dhcr-logo;
+    text-align: center;
+    font-size: 0;
+    color: transparent;
+    align-self: end; }
+    @media only screen and (max-width: 580px) {
+      #page-head h1 {
+        align-self: center;
+        justify-self: center; } }
+    #page-head h1 img {
+      display: block;
+      margin: 0 auto;
+      height: auto;
+      width: 45vw;
+      max-width: 500px;
+      min-width: 170px; }
+      @media only screen and (max-width: 750px) {
+        #page-head h1 img {
+          width: 50vw; } }
+      @media only screen and (max-width: 580px) {
+        #page-head h1 img {
+          margin: 0; } }
 
-#page-head .menu.button {
-  display: flex;
-  justify-content: space-between;
-  width: 150px;
-  height: 30px;
-  font-size: 20px;
-  border-radius: 15px;
-  padding: 2px 15px 0 10px; }
-  #page-head .menu.button:hover, #page-head .menu.button:focus, #page-head .menu.button.animate {
-    transform: scale(1.05); }
-  #page-head .menu.button::before {
-    width: 7px;
-    height: 7px;
-    bottom: 2px;
-    margin-right: 7px; }
-  #page-head .menu.button .glyphicon {
-    margin-top: 2px; }
-  #page-head .menu.button#back-button {
-    grid-area: menu1; }
-  #page-head .menu.button#menu-button {
-    grid-area: menu2; }
-  @media only screen and (min-width: 1040px) {
-    #page-head .menu.button {
-      height: 46px;
-      font-size: 24px;
-      border-radius: 23px;
-      padding: 7px 20px 0 12px; } }
+#content, #footer {
+  margin-left: calc(60px + 6vw); }
   @media only screen and (max-width: 580px) {
-    #page-head .menu.button {
-      margin: 0 0 1em;
-      width: 100px;
-      justify-self: start; }
-      #page-head .menu.button#menu-button {
-        justify-self: end; } }
-#page-head h1 {
-  justify-self: initial;
-  grid-area: dhcr-logo;
-  text-align: center;
-  font-size: 0;
-  color: transparent;
-  align-self: end; }
-  @media only screen and (max-width: 580px) {
-    #page-head h1 {
-      align-self: center; } }
-  #page-head h1 img {
-    display: block;
-    margin: 0 auto;
-    height: auto;
-    width: 45vw;
-    max-width: 500px;
-    min-width: 170px; }
-    @media only screen and (max-width: 750px) {
-      #page-head h1 img {
-        width: 50vw; } }
-    @media only screen and (max-width: 580px) {
-      #page-head h1 img {
-        margin: 0; } }
-#page-head .joint-logo {
-  grid-area: joint-logo;
-  justify-self: end;
-  align-self: start;
-  display: block;
-  width: 23vw;
-  max-width: 200px;
-  min-width: 176px;
-  height: auto; }
-  @media only screen and (max-width: 750px) {
-    #page-head .joint-logo {
-      width: 20vw;
-      min-width: 150px; } }
-  @media only screen and (max-width: 580px) {
-    #page-head .joint-logo {
-      grid-area: joint-logo;
-      width: 16vw;
-      min-width: 70px; } }
-#page-head .title, #page-head .intent {
-  margin-top: 0;
-  grid-area: intent; }
-  @media only screen and (max-width: 580px) {
-    #page-head .title, #page-head .intent {
-      grid-column-start: joint-logo;
-      grid-column-end: intent; } }
-  @media only screen and (max-width: 580px) {
-    #page-head .title p, #page-head .intent p {
-      text-align: center; } }
-  #page-head .title h2, #page-head .intent h2 {
-    margin-bottom: 1em; }
-  #page-head .title p, #page-head .intent p {
-    font-size: 18px;
-    line-height: 1.5;
-    color: #1E6BA3; }
-    @media only screen and (max-width: 580px) {
-      #page-head .title p, #page-head .intent p {
-        font-size: 16px; } }
-    #page-head .title p a, #page-head .intent p a {
-      font-weight: bold;
-      color: #1E6BA3; }
-      #page-head .title p a:hover, #page-head .intent p a:hover {
-        text-decoration: underline; }
+    #content, #footer {
+      margin-left: 0; } }
+
+#content h2 {
+  margin-bottom: 1em; }
+
+#footer {
+  margin-top: 100px; }
 
 .flash-message {
   position: fixed;
@@ -1762,8 +1733,5 @@ body {
       padding-left: 0; }
     .flex-columns .flex-item:last-child {
       padding-right: 0; }
-
-#footer {
-  margin: 100px 0 0; }
 
 /*# sourceMappingURL=default.css.map */

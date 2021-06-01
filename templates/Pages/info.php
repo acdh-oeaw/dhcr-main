@@ -12,7 +12,7 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-$this->layout = false;
+$this->disableAutoLayout();
 ?>
 <!DOCTYPE html>
 <html lang="en">

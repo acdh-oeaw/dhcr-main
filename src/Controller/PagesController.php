@@ -37,6 +37,16 @@ class PagesController extends AppController
 
 
 
+	public function follow() {
+        $this->loadModel('DhcrCore.Countries');
+        $this->loadModel('Subscriptions');
+        $subscription = [];
+        $countries = $this->Subscriptions->Countries->find('list', [
+            'order' => ['Countries.name' => 'ASC']]);
+        $this->set(compact('subscription','countries'));
+    }
+
+
 
 	public function info() {
         $this->loadModel('Users');
