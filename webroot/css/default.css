@@ -1218,6 +1218,9 @@ table .recurring {
 #sitemap {
   display: none; }
 
+#content #sitemap {
+  display: block; }
+
 #modal-wrapper.sitemap {
   padding: 15px 0;
   display: grid;
@@ -1240,7 +1243,9 @@ table .recurring {
   grid-template-columns: auto min(calc(100% - 2*15px), 90rem) auto; }
 
 #sitemap ul, .sitemap ul {
-  margin: 0 0 1em; }
+  margin: 1.6em 0 1em; }
+  #sitemap ul ul, .sitemap ul ul {
+    margin-top: 0; }
 #sitemap p, .sitemap p {
   margin: 0 0 0.5em; }
 #sitemap a, .sitemap a {
@@ -1362,7 +1367,7 @@ table .recurring {
     #content, #footer {
       margin-left: 0; } }
 
-#content h2 {
+#content h2:not(#accordeon .accordeon-item h2) {
   margin-bottom: 1em; }
 
 #footer {
@@ -1559,7 +1564,7 @@ form .input {
   margin-top: 4em; }
   #accordeon .accordeon-item > h2 {
     border-top: 2px solid #d8d8d8;
-    padding: 0.8em 2em 0.6em 0;
+    padding: 0.8em 2em 0.3em 0;
     font-family: Metropolis, sans-serif;
     font-weight: bold;
     font-size: 25px;
@@ -1571,12 +1576,6 @@ form .input {
       transition: all 0.3s;
       transform-origin: left center;
       display: inline-block; }
-    @media only screen and (max-width: 750px) {
-      #accordeon .accordeon-item > h2 {
-        font-size: 22px; } }
-    @media only screen and (max-width: 400px) {
-      #accordeon .accordeon-item > h2 {
-        font-size: 25px; } }
     #accordeon .accordeon-item > h2::after {
       width: 0.5em;
       height: 0.5em;
@@ -1596,6 +1595,24 @@ form .input {
     #accordeon .accordeon-item > h2:hover::after {
       transform: rotate(-135deg);
       top: 1em; }
+      @media only screen and (max-width: 750px) {
+        #accordeon .accordeon-item > h2:hover::after {
+          top: 0.9em; } }
+      @media only screen and (max-width: 400px) {
+        #accordeon .accordeon-item > h2:hover::after {
+          top: 0.8em; } }
+    @media only screen and (max-width: 750px) {
+      #accordeon .accordeon-item > h2 {
+        font-size: 22px;
+        height: 50px; }
+        #accordeon .accordeon-item > h2::after {
+          top: 0.7em; } }
+    @media only screen and (max-width: 400px) {
+      #accordeon .accordeon-item > h2 {
+        font-size: 19px;
+        height: 45px; }
+        #accordeon .accordeon-item > h2::after {
+          top: 0.6em; } }
   #accordeon .accordeon-item:not(.open) .item-content {
     max-height: 0;
     transition: max-height 0.5s ease-out;

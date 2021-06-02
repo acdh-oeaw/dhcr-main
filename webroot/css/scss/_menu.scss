@@ -48,6 +48,9 @@
 #sitemap {
     display: none;
 }
+#content #sitemap {
+    display: block;
+}
 
 
 #modal-wrapper.sitemap {
@@ -76,7 +79,10 @@
 }
 
 #sitemap, .sitemap {
-    ul { margin: 0 0 1em; }
+    ul {
+        margin: 1.6em 0 1em;
+        ul { margin-top: 0; }
+    }
     p { margin: 0 0 0.5em; }
     a {
         color: inherit;

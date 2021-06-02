@@ -65,13 +65,15 @@
 
 <?= $this->Html->script('jquery-3.4.1.min.js') ?>
 <?= $this->Html->script(['modal','sitemap']) ?>
+<?= $this->fetch('scriptFiles') ?>
 
 <script type="application/javascript">
+    var sitemap;
     $(document).ready( function() {
         if($('.flash-message').length) {
             $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
         }
-        let sitemap = new Sitemap();
+        sitemap = new Sitemap();
         $(document).on('click', '#menu-button', function(e) {
             sitemap.show(e);
         });
@@ -80,9 +82,10 @@
         $(".captcha-form").first().submit();
     }
 </script>
+<?= $this->fetch('script') ?>
 
 <script src="https://www.google.com/recaptcha/api.js" type="application/javascript"></script>
 <?= $this->element('matomo') ?>
-<?= $this->fetch('script') ?>
+
 </body>
 </html>

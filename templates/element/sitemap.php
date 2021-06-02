@@ -18,7 +18,7 @@
                     ['controller' => 'Pages', 'action' => 'info'],
                     ['escape' => false]) ?>
             </p>
-            <ul>
+            <ul class="info">
                 <li>
                     <?= $this->Html->link(
                         'Purpose and Audience',
@@ -61,24 +61,24 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-bell"></span>Follow',
-                    ['controller' => 'Subscriptions', 'action' => 'add'],
+                    ['controller' => 'Pages', 'action' => 'follow'],
                     ['escape' => false]) ?>
             </p>
-            <ul>
+            <ul class="follow">
                 <li>
                     <?= $this->Html->link(
-                        'New Courses Alert',
-                        ['controller' => 'Subscriptions', 'action' => 'add', '#' => 'course-alert']) ?>
+                        'Course Alert',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Stories on Social Media',
-                        ['controller' => 'Subscriptions', 'action' => 'add', '#' => 'news']) ?>
+                        'News on Social Media',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Newsletter for Contributors',
-                        ['controller' => 'Subscriptions', 'action' => 'add', '#' => 'newsletter']) ?>
+                        'Contributor Newsletter',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']) ?>
                 </li>
             </ul>
         </li>
@@ -90,7 +90,7 @@
                     ['controller' => 'Pages', 'action' => 'contribute'],
                     ['escape' => false]) ?>
             </p>
-            <ul>
+            <ul class="contribute">
                 <li>
                     <?= $this->Html->link(
                         'Register',

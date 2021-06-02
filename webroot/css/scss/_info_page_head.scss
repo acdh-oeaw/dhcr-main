@@ -1,64 +1,64 @@
-
 #page-head {
+    @media only screen and (max-width: 580px) {
+        margin-bottom: 1em;
+        h1 { display: none; }
+    }
+}
+
+#content {
     display: grid;
-    grid-template-columns: initial;
+    grid-template-columns: min(23vw, 200px) auto;
     grid-column-gap: 3em;
     grid-row-gap: 1em;
     justify-content: center; // align the grid itself
     align-content: space-between;
-    grid-template-rows: auto 8vw 1em auto;
     grid-template-areas:
-            'menu1      dhcr-logo'
-            'menu2      dhcr-logo'
-            '.                  .'
-            'joint-logo intent';
+            'joint-logo intent'
+            'content content';
     @include respond-to(handhelds) {
         grid-column-gap: 6vw;
     }
+    h1 { display: none; }
     @media only screen and (max-width: 580px) {
         align-items: center;
-        grid-template-columns: initial;
-        grid-template-rows: auto auto 1em auto;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto 1em auto auto;
         grid-template-areas:
-            'menu1      menu2'
-            'joint-logo      dhcr-logo'
-            '.                  .'
-            'intent intent';
+            'joint-logo  dhcr-logo'
+            '.           .'
+            'intent intent'
+            'content content';
+        h1 {
+            display: block;
+            grid-area: dhcr-logo;
+            text-align: center;
+            font-size: 0;
+            color: transparent;
+            align-self: center;
+            justify-self: start;
+            img {
+                display: block;
+                margin: 0 auto;
+                height: auto;
+                width: 45vw;
+                max-width: 500px;
+                min-width: 170px;
+                @include respond-to(handhelds) {
+                    width: 50vw;
+                }
+                @media only screen and (max-width: 580px) {
+                    margin: 0;
+                }
+            }
+        }
     }
     @include respond-to(x-small) {
         grid-column-gap: 1em;
     }
 
-    @import "menu_button";
-
-    h1 {
-        justify-self: initial;
-        grid-area: dhcr-logo;
-        text-align: center;
-        font-size: 0;
-        color: transparent;
-        align-self: end;
-        @media only screen and (max-width: 580px) {
-            align-self: center;
-        }
-        img {
-            display: block;
-            margin: 0 auto;
-            height: auto;
-            width: 45vw;
-            max-width: 500px;
-            min-width: 170px;
-            @include respond-to(handhelds) {
-                width: 50vw;
-            }
-            @media only screen and (max-width: 580px) {
-                margin: 0;
-            }
-        }
-    }
     .joint-logo {
         grid-area: joint-logo;
-        justify-self: end;
+        justify-self: start;
         align-self: start;
         display: block;
         width: 23vw;
@@ -70,7 +70,7 @@
             min-width: 150px;
         }
         @media only screen and (max-width: 580px) {
-            grid-area: joint-logo;
+            justify-self: end;
             width: 16vw;
             min-width: 70px;
         }
@@ -78,10 +78,6 @@
     .title, .intent {
         margin-top: 0;
         grid-area: intent;
-        @media only screen and (max-width: 580px) {
-            grid-column-start: joint-logo;
-            grid-column-end: intent;
-        }
         p {
             @media only screen and (max-width: 580px) {
                 text-align: center;
@@ -105,5 +101,9 @@
                 }
             }
         }
+    }
+
+    #accordeon {
+        grid-area: content;
     }
 }

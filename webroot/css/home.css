@@ -1265,6 +1265,9 @@ table .recurring {
 #sitemap {
   display: none; }
 
+#content #sitemap {
+  display: block; }
+
 #modal-wrapper.sitemap {
   padding: 15px 0;
   display: grid;
@@ -1287,7 +1290,9 @@ table .recurring {
   grid-template-columns: auto min(calc(100% - 2*15px), 90rem) auto; }
 
 #sitemap ul, .sitemap ul {
-  margin: 0 0 1em; }
+  margin: 1.6em 0 1em; }
+  #sitemap ul ul, .sitemap ul ul {
+    margin-top: 0; }
 #sitemap p, .sitemap p {
   margin: 0 0 0.5em; }
 #sitemap a, .sitemap a {

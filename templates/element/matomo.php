@@ -18,7 +18,8 @@
         _paq.push(['setCustomUrl', '/' + window.location.hash.substr(1)]);
         _paq.push(['setDocumentTitle', window.location.hash.substr(1)]);
         _paq.push(['setGenerationTimeMs', 0]);
-        _paq.push(['setReferrerUrl', previousPageUrl]);
+        if(typeof previousPageUrl != 'undefined')
+            _paq.push(['setReferrerUrl', previousPageUrl]);
         _paq.push(['enableLinkTracking']);
         _paq.push(['trackPageView']);
     });
