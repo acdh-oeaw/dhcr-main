@@ -12,6 +12,7 @@
     <div class="accordeon-item" id="course-alert">
         <h2><span>Course Alert</span></h2>
         <div class="item-content">
+            <p>Enter your e-mail address here to subscribe for new course alerts.</p>
             <?= $this->Element('follow/subscription') ?>
         </div>
     </div>
@@ -19,7 +20,7 @@
     <div class="accordeon-item" id="news">
         <h2><span>News on Social Media</span></h2>
         <div class="item-content">
-            <?= $this->Element('follow/stories'); ?>
+            <?= $this->Element('follow/social-media'); ?>
         </div>
     </div>
 

@@ -17,11 +17,6 @@ body {
 
 
 .css-columns {
-    column-count: 2;
-    column-gap: 1em;
-    @include respond-to(x-small) {
-        column-count: 1;
-    }
     &.moderators,&.admins {
         .item {
             -webkit-column-break-inside: avoid; /* Chrome, Safari */
@@ -67,41 +62,7 @@ body {
     width: 80%;
     margin: 0 0 3em;
 }
-.buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    margin: 5em 0 2em;
-    padding: 0;
-    @include respond-to(handhelds) {
-        justify-content: space-around;
-    }
-    @include respond-to(x-small) {
-        justify-content: center;
-    }
-    button, .button {
-        flex: 0 0 25%;
-        min-width: 155px;
-        margin: 0 10px 20px 10px;
-        @include respond-to(x-small) {
-            margin-left: 0;
-            margin-right: 0;
-        }
-        &:first-child {
-            margin-left: 0;
-        }
-        &:hover, &.animate {
-            transform: scale(1.05);
-            transform-origin: left center;
-            text-decoration: none;
-        }
-        &:last-child {
-            &:hover, &.animate {
-                transform-origin: right center;
-            }
-        }
-    }
-}
+
 .iframe-container {
     overflow: hidden;
     position: relative;
@@ -117,23 +78,6 @@ body {
         position: absolute;
         top: 0;
         width: 100%;
-    }
-}
-ul.custom-bullets.css-columns {
-    column-gap: 2em;
-    @media only screen and (max-width: 530px) {
-        column-count: 1;
-    }
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    li {
-        padding-left: 1em;
-        text-indent: -1em;
-    }
-    li::before {
-        content: "• ";
-        color: $blue;
     }
 }
 

@@ -65,7 +65,6 @@
 
 <?= $this->Html->script('jquery-3.4.1.min.js') ?>
 <?= $this->Html->script(['modal','sitemap']) ?>
-<?= $this->fetch('scriptFiles') ?>
 
 <script type="application/javascript">
     var sitemap;

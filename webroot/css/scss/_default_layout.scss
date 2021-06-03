@@ -1,4 +1,11 @@
 
+.wrapper {
+    padding: 2em $whitespace 10vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: calc(100% - 2 * #{$whitespace});
+}
+
 #page-head {
     margin-bottom: 4em;
     display: grid;

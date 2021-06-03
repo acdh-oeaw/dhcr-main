@@ -1,3 +1,26 @@
+
+
+.follow {
+    margin-bottom: 1.5em !important;
+    .fab {
+        margin-right: 0.5em;
+        &.fa-instagram {
+            color: indianred;
+        }
+        &:hover, &.animate {
+            transform: scale(1.05);
+            transform-origin: right center;
+            text-decoration: none;
+        }
+    }
+}
+
+ul#stories {
+    list-style: none;
+    li a { color: $gray !important; }
+}
+
+
 body.stories {
 
     P.linklist-title-desc {

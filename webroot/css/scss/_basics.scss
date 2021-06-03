@@ -7,8 +7,13 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
 
 body {
+    background-color: #fff;
+    position: relative;
     font-family: Metropolis, sans-serif;
     font-size: 16px;
     line-height: 1.5;
@@ -16,7 +21,6 @@ body {
     letter-spacing: normal;
     color: $text-color;
 }
-
 
 
 h1 {
@@ -58,11 +62,27 @@ p {
 }
 
 ul, ol {
-    margin-bottom: 0.6em;
-    margin-left: 1em;
+    margin-bottom: 1em;
+    margin-left: 0.3em;
     li {
         line-height: $line-height;
         margin-bottom: 0.3em;
+    }
+}
+
+ul.custom-bullets {
+    column-gap: 2em;
+    @media only screen and (max-width: 530px) {
+        column-count: 1;
+    }
+    list-style: none;
+    li {
+        padding-left: 1em;
+        text-indent: -1em;
+    }
+    li::before {
+        content: "• ";
+        color: $blue;
     }
 }
 dl {
@@ -219,6 +239,30 @@ button, .button {
 .button.x-small {
     padding-top: 1px;
 }
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1em;
+    margin: 5em 0 2em;
+    padding: 0;
+    button, .button {
+        flex: 0 0 25%;
+        margin: 0 0 20px;
+        white-space: nowrap;
+        &:hover, &.animate {
+            transform: scale(1.05);
+            transform-origin: left center;
+            text-decoration: none;
+        }
+        &:last-child {
+            &:hover, &.animate {
+                transform-origin: right center;
+            }
+        }
+    }
+}
+
 
 hr {
     height: 2px;
@@ -262,12 +306,19 @@ table {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: space-around;
+    justify-content: space-between;
     .flex-item {
         // define a minimum column width
         flex: 0 1 45%;  // assume 2 columns
         min-width: 300px;
-        padding: 0 $whitespace;
+        padding: 0 $whitespace $whitespace;
+        overflow: hidden;
+        &:first-child {
+            padding-left: 0;
+        }
+        &:last-child {
+            padding-right: 0;
+        }
         &.wide {
             flex: 0 1 55%;  // assume 2 columns
         }
@@ -292,6 +343,37 @@ table {
         }
     }
 }
+
+
+
+.css-columns {
+    column-count: 2;
+    column-gap: 1em;
+    @include respond-to(x-small) {
+        column-count: 1;
+    }
+    &.moderators,&.admins {
+        .item {
+            -webkit-column-break-inside: avoid; /* Chrome, Safari */
+            page-break-inside: avoid; /* Theoretically FF 20+ */
+            break-inside: avoid-column; /* IE 11 */
+            .country {
+                font-family: Metropolis, sans-serif;
+                font-weight: bold;
+                color: $blue;
+                display: block;
+                margin-bottom: 0;
+            }
+            .moderators a {
+                color: $gray;
+            }
+        }
+    }
+    &.admins {
+        margin-bottom: 3em;
+    }
+}
+
 
 .footer {
     font-family: Metropolis, sans-serif;

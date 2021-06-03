@@ -78,7 +78,7 @@
 </div>
 
 
-<?php $this->Html->script(['accordeon','hash'], ['block' => 'scriptFiles']); ?>
+<?php $this->Html->script(['accordeon','hash'], ['block' => true]); ?>
 
 <?php $this->Html->scriptStart(['block' => true]); ?>
     $(document).ready( function() {

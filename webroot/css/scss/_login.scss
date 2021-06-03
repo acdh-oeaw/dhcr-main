@@ -3,3 +3,13 @@ body.login {
         max-width: 750px;
     }
 }
+
+
+#login-alternatives {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2em;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+

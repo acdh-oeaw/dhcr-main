@@ -12,6 +12,7 @@
 }
 
 form {
+    @include clearfix;
     fieldset.invisible {
         border: none;
         margin-top: 3em;
