@@ -18,8 +18,14 @@
     <?= $this->Html->link('Single Sign-On (eduGAIN)', '#', ['class' => 'blue button small']) ?>
 </div>
 
+<?php $this->Html->scriptStart(['block' => true]); ?>
+var $idpSelectReturnParameter = '<?= $idpSelectReturnParameter ?>';
+<?php $this->Html->scriptEnd(); ?>
+<?php $this->Html->script(['idp_select/idpselect_config.js','idp_select/idpselect.js'], ['block' => true]); ?>
 
-<div id="idpSelectPreferredIdPTile">
+<div id="idpSelect"></div>
+
+<!--<div id="idpSelectPreferredIdPTile">
     <div class="IdPSelectTextDiv">Vorherige Auswahl:</div>
     <div class="IdPSelectPreferredIdPButton" title="Österreichische Akademie der Wiss...">
         <a href="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?SAMLDS=1&amp;target=ooo&amp;entityID=https%3A%2F%2Fweblogin.oeaw.ac.at%2Fidp%2Fshibboleth">
@@ -45,4 +51,4 @@
     </div>
 
     <ul class="IdPSelectDropDown" style="visibility: hidden;"></ul>
-</div>
+</div>-->

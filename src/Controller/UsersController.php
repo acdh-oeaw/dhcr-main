@@ -32,6 +32,29 @@ class UsersController extends AppController
 
     public function login()
     {
+        $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target=http%3A%2F%2Fdhcr.clarin-dariah.eu%2Fusers%2Flogin';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $get);
+        curl_setopt($ch, CURLOPT_NOBODY, true);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:54.0) Gecko/20100101 Firefox/54.0');
+        curl_exec($ch);
+        $url = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
+        curl_close($ch);
+        $query = explode('&', explode('?', $url)[1]);
+        $idpSelectReturnParameter = '';
+        foreach ($query as $para) {
+            $p = explode('=', $para);
+            if($p[0] == 'return') {
+                $idpSelectReturnParameter = urldecode($p[1]);
+                break;
+            }
+        }
+        $this->set('idpSelectReturnParameter', $idpSelectReturnParameter);
+
         $result = $this->Authentication->getResult();
 
         // If the user is logged in send them away.
@@ -63,7 +86,7 @@ class UsersController extends AppController
 
     public function dashboard() {
         $this->viewBuilder()->setLayout('users');
-        $this->set('title_for_layout', 'Curation Back-End');
+        $this->set('title_for_layout', 'Data Curation UI');
     }
 
 
