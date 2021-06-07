@@ -11,7 +11,7 @@ function IdPSelectLanguages() {
             "fatal.noReturnURL": "No URL return parameter provided",
             "fatal.badProtocol": "Return parameter must start with https:// or http://",
             "fatal.badReturnString": "Return parameter is not whitelisted",
-            "idpPreferred.label": "Use a suggested selection:",
+            "idpPreferred.label": "Suggested selection:",
             "idpEntry.label": "Or enter your organization's name",
             "idpEntry.NoPreferred.label": "Enter your organization's name",
             "idpList.label": "Or select your organization from the list below",
@@ -393,8 +393,8 @@ function IdPSelectUI() {
     var W = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
     var aJ;
     var S;
-    var aB;
-    var an;
+    var dashedClientLanguage;
+    var defaultLanguage;
     var aa;
     var d;
     var F;
@@ -427,20 +427,20 @@ function IdPSelectUI() {
     var j;
     var az;
     var V;
-    var aL = "idpSelect";
-    var aj = "IdPSelect";
+    var idNamespace = "idpSelect";
+    var classNamespace = "IdPSelect";
     var ar;
     var B = "";
     var Y = "";
     var aA = [];
     var aG = "entityID";
-    this.draw = function (aP) {
-        aJ = document.getElementById(aP.insertAtDiv);
-        if (!m(aP)) {
+    this.draw = function (parameters) {
+        aJ = document.getElementById(parameters.insertAtDiv);
+        if (!main(parameters)) {
             return
         }
         if (!aJ) {
-            O(A("fatal.divMissing"));
+            O(translateMessage("fatal.divMissing"));
             return
         }
         if ((null != Q) && (null != i(Q))) {
@@ -456,104 +456,99 @@ function IdPSelectUI() {
                 return
             }
         }
-        if (!f(aP.dataSource)) {
+        if (!f(parameters.dataSource)) {
             return
         }
         aK();
-        u(aP.hiddenIdPs);
+        u(parameters.hiddenIdPs);
         r.sort(function (aR, aQ) {
             return aE(aR).localeCompare(aE(aQ))
         });
         var aN = ac();
         aJ.appendChild(aN);
-        ar.draw(aP.setFocusTextBox)
+        ar.draw(parameters.setFocusTextBox)
     };
-    var m = function (aT) {
+    var main = function (parameters) {
         var aN;
-        D = aT.preferredIdP;
-        ag = aT.maxPreferredIdPs;
-        R = aT.helpURL;
-        h = aT.ie6Hack;
-        K = aT.samlIdPCookieTTL;
-        al = aT.alwaysShow;
-        ax = aT.maxResults;
-        aq = aT.ignoreKeywords;
-        if (aT.showListFirst) {
-            c = aT.showListFirst
+        D = parameters.preferredIdP;
+        ag = parameters.maxPreferredIdPs;
+        R = parameters.helpURL;
+        h = parameters.ie6Hack;
+        K = parameters.samlIdPCookieTTL;
+        al = parameters.alwaysShow;
+        ax = parameters.maxResults;
+        aq = parameters.ignoreKeywords;
+        if (parameters.showListFirst) {
+            c = parameters.showListFirst
         } else {
             c = false
         }
-        if (aT.noWriteCookie) {
-            af = aT.noWriteCookie
+        if (parameters.noWriteCookie) {
+            af = parameters.noWriteCookie
         } else {
             af = false
         }
-        if (aT.ignoreURLParams) {
-            G = aT.ignoreURLParams
+        if (parameters.ignoreURLParams) {
+            G = parameters.ignoreURLParams
         } else {
             G = false
         }
-        F = aT.defaultLogo;
-        n = aT.defaultLogoWidth;
-        y = aT.defaultLogoHeight;
-        k = aT.minWidth;
-        aw = aT.minHeight;
-        g = aT.maxWidth;
-        t = aT.maxHeight;
-        ab = aT.bestRatio;
-        if (null == aT.doNotCollapse) {
+        F = parameters.defaultLogo;
+        n = parameters.defaultLogoWidth;
+        y = parameters.defaultLogoHeight;
+        k = parameters.minWidth;
+        aw = parameters.minHeight;
+        g = parameters.maxWidth;
+        t = parameters.maxHeight;
+        ab = parameters.bestRatio;
+        if (null == parameters.doNotCollapse) {
             ah = true
         } else {
-            ah = aT.doNotCollapse
+            ah = parameters.doNotCollapse
         }
-        N = aT.maxIdPCharsButton;
-        au = aT.maxIdPCharsDropDown;
-        T = aT.maxIdPCharsAltTxt;
-        Q = aT.autoFollowCookie;
-        Z = aT.autoFollowCookieTTLs;
-        var a3;
+        N = parameters.maxIdPCharsButton;
+        au = parameters.maxIdPCharsDropDown;
+        T = parameters.maxIdPCharsAltTxt;
+        Q = parameters.autoFollowCookie;
+        Z = parameters.autoFollowCookieTTLs;
+        var clientLanguage;
         if (typeof navigator == "undefined") {
-            a3 = aT.defaultLanguage
+            clientLanguage = parameters.defaultLanguage
         } else {
-            a3 = navigator.language || navigator.userLanguage || aT.defaultLanguage
+            clientLanguage = navigator.language || navigator.userLanguage || parameters.defaultLanguage
         }
-        a3 = a3.toLowerCase();
-        if (a3.indexOf("-") > 0) {
-            aB = a3.substring(0, a3.indexOf("-"))
+        clientLanguage = clientLanguage.toLowerCase();
+        if (clientLanguage.indexOf("-") > 0) {
+            dashedClientLanguage = clientLanguage.substring(0, clientLanguage.indexOf("-"))
         }
-        var aX = new IdPSelectLanguages();
-        an = aT.defaultLanguage;
-        if (typeof aT.langBundles != "undefined" && typeof aT.langBundles[a3] != "undefined") {
-            aa = aT.langBundles[a3]
+        var languageSelector = new IdPSelectLanguages();
+
+        if (typeof languageSelector.langBundles[clientLanguage] != "undefined") {
+            aa = languageSelector.langBundles[clientLanguage]
         } else {
-            if (typeof aX.langBundles[a3] != "undefined") {
-                aa = aX.langBundles[a3]
-            } else {
-                if (typeof aB != "undefined") {
-                    if (typeof aT.langBundles != "undefined" && typeof aT.langBundles[aB] != "undefined") {
-                        aa = aT.langBundles[aB]
-                    } else {
-                        if (typeof aX.langBundles[aB] != "undefined") {
-                            aa = aX.langBundles[aB]
-                        }
-                    }
-                }
+            if (typeof dashedClientLanguage != "undefined" && typeof languageSelector.langBundles[dashedClientLanguage] != "undefined") {
+                aa = languageSelector.langBundles[dashedClientLanguage]
             }
         }
-        if (typeof aT.langBundles != "undefined" && typeof aT.langBundles[aT.defaultLanguage] != "undefined") {
-            d = aT.langBundles[aT.defaultLanguage]
-        } else {
-            d = aX.langBundles[aT.defaultLanguage]
+
+        d = languageSelector.langBundles[parameters.defaultLanguage]
+
+        var forcedLanguage = false
+        if(typeof parameters.forceLanguage != 'undefined'
+            && typeof languageSelector.langBundles[parameters.forceLanguage] != 'undefined') {
+            forcedLanguage = languageSelector.langBundles[parameters.forceLanguage]
+            aa = d = forcedLanguage
         }
+
         if (!d) {
             O("No languages work");
             return false
         }
         if (!aa) {
-            s("No language support for " + a3);
+            s("No language support for " + clientLanguage);
             aa = d
         }
-        if (aT.testGUI) {
+        if (parameters.testGUI) {
             return true
         }
         var aY = "urn:oasis:names:tc:SAML:profiles:SSO:idpdiscovery-protocol:single";
@@ -568,20 +563,20 @@ function IdPSelectUI() {
         var aW = aQ.location;
         var aS = aW.search;
         if (G || null == aS || 0 == aS.length || aS.charAt(0) != "?") {
-            if ((null == aT.defaultReturn) && !G) {
-                O(A("fatal.noparms"));
+            if ((null == parameters.defaultReturn) && !G) {
+                O(translateMessage("fatal.noparms"));
                 return false
             }
-            aN = aT.myEntityID;
-            B = aT.defaultReturn;
-            if (null != aT.defaultReturnIDParam) {
-                aG = aT.defaultReturnIDParam
+            aN = parameters.myEntityID;
+            B = parameters.defaultReturn;
+            if (null != parameters.defaultReturnIDParam) {
+                aG = parameters.defaultReturnIDParam
             }
         } else {
             aS = aS.substring(1);
             aR = aS.split("&");
             if (aR.length === 0) {
-                O(A("fatal.noparms"));
+                O(translateMessage("fatal.noparms"));
                 return false
             }
             for (a1 = 0; a1 < aR.length; a1++) {
@@ -611,10 +606,10 @@ function IdPSelectUI() {
             }
         }
         var aM;
-        if (null == aT.allowableProtocols) {
+        if (null == parameters.allowableProtocols) {
             aM = ["urn:oasis:names:tc:SAML:profiles:SSO:idpdiscovery-protocol:single"]
         } else {
-            aM = aT.allowableProtocols
+            aM = parameters.allowableProtocols
         }
         var a0 = false;
         for (var a1 = 0; a1 < aM.length; a1++) {
@@ -625,23 +620,23 @@ function IdPSelectUI() {
             }
         }
         if (!a0) {
-            O(A("fatal.wrongProtocol"));
+            O(translateMessage("fatal.wrongProtocol"));
             return false
         }
-        if (aT.myEntityID !== null && aT.myEntityID != aN) {
-            O(A("fatal.wrongEntityId") + '"' + aN + '" != "' + aT.myEntityID + '"');
+        if (parameters.myEntityID !== null && parameters.myEntityID != aN) {
+            O(translateMessage("fatal.wrongEntityId") + '"' + aN + '" != "' + parameters.myEntityID + '"');
             return false
         }
         if (null === B || B.length === 0) {
-            O(A("fatal.noReturnURL"));
+            O(translateMessage("fatal.noReturnURL"));
             return false
         }
         if (!ao(B)) {
-            O(A("fatal.badProtocol"));
+            O(translateMessage("fatal.badProtocol"));
             return false
         }
-        if (!e(aT.returnWhiteList, B)) {
-            ae(A("fatal.badReturnString"));
+        if (!e(parameters.returnWhiteList, B)) {
+            ae(translateMessage("fatal.badReturnString"));
             return false
         }
         if (a2) {
@@ -769,7 +764,7 @@ function IdPSelectUI() {
             }
         }
         if (null == aO) {
-            O(A("fatal.noXMLHttpRequest"));
+            O(translateMessage("fatal.noXMLHttpRequest"));
             return false
         }
         if (aI()) {
@@ -783,12 +778,12 @@ function IdPSelectUI() {
         if (aO.status == 200) {
             var aM = aO.responseText;
             if (aM === null) {
-                O(A("fatal.noData"));
+                O(translateMessage("fatal.noData"));
                 return false
             }
             r = JSON.parse(aM)
         } else {
-            O(A("fatal.loadFailed") + aP);
+            O(translateMessage("fatal.loadFailed") + aP);
             return false
         }
         return true
@@ -825,16 +820,16 @@ function IdPSelectUI() {
         };
         var aP = null;
         var aO = document.createElement("img");
-        am(aO, "IdPImg");
+        setClassAttribute(aO, "IdPImg");
         aP = aS(S);
-        if (null === aP && typeof aB != "undefined") {
-            aP = aS(aB)
+        if (null === aP && typeof dashedClientLanguage != "undefined") {
+            aP = aS(dashedClientLanguage)
         }
         if (null === aP) {
             aP = aS(null)
         }
         if (null === aP) {
-            aP = aS(an)
+            aP = aS(defaultLanguage)
         }
         if (null === aP) {
             if (!aN) {
@@ -843,7 +838,7 @@ function IdPSelectUI() {
             aO.src = F;
             aO.width = n;
             aO.height = y;
-            aO.alt = A("defaultLogoAlt");
+            aO.alt = translateMessage("defaultLogoAlt");
             return aO
         }
         aO.src = aP.value;
@@ -867,7 +862,7 @@ function IdPSelectUI() {
         return aO
     };
     var ac = function () {
-        var aN = ap("IdPSelector");
+        var aN = createDiv("IdPSelector");
         var aM;
         aM = aC(aN);
         o(aN, aM);
@@ -878,7 +873,7 @@ function IdPSelectUI() {
         return aN
     };
     var M = function (aO, aV, aN) {
-        var aM = ap(undefined, "PreferredIdPButton");
+        var aM = createDiv(undefined, "PreferredIdPButton");
         var aU = document.createElement("a");
         var aT = aG + "=" + encodeURIComponent(z(aO));
         var aP = B;
@@ -893,11 +888,11 @@ function IdPSelectUI() {
             aH(z(aO))
         };
         if (null != aR) {
-            var aW = ap(undefined, "PreferredIdPImg");
+            var aW = createDiv(undefined, "PreferredIdPImg");
             aW.appendChild(aR);
             aU.appendChild(aW)
         }
-        var aS = ap(undefined, "TextDiv");
+        var aS = createDiv(undefined, "TextDiv");
         var aQ = aE(aO);
         if (aQ.length > N) {
             aQ = aQ.substring(0, N) + "..."
@@ -908,9 +903,9 @@ function IdPSelectUI() {
         aM.appendChild(aU);
         return aM
     };
-    var aF = function (aM, aP) {
-        var aO = ap(undefined, "TextDiv");
-        var aN = document.createTextNode(A(aP));
+    var createTextDiv = function (aM, aP) {
+        var aO = createDiv(undefined, "TextDiv");
+        var aN = document.createTextNode(translateMessage(aP));
         aO.appendChild(aN);
         aM.appendChild(aO)
     };
@@ -940,11 +935,11 @@ function IdPSelectUI() {
         }
         var aP;
         if (aM) {
-            aP = ap("PreferredIdPTile")
+            aP = createDiv("PreferredIdPTile")
         } else {
-            aP = ap("PreferredIdPTileNoImg")
+            aP = createDiv("PreferredIdPTileNoImg")
         }
-        aF(aP, "idpPreferred.label");
+        createTextDiv(aP, "idpPreferred.label");
         for (var aO = 0; aO < ag && aO < aQ.length; aO++) {
             if (aQ[aO]) {
                 var aN = M(aQ[aO], aO, aM);
@@ -971,23 +966,23 @@ function IdPSelectUI() {
         return aN
     };
     var o = function (aT, aN) {
-        U = ap("IdPEntryTile");
+        U = createDiv("IdPEntryTile");
         if (c) {
             U.style.display = "none"
         }
         var aO = document.createElement("label");
-        aO.setAttribute("for", aL + "Input");
+        aO.setAttribute("for", idNamespace + "Input");
         if (aN) {
-            aF(aO, "idpEntry.label")
+            createTextDiv(aO, "idpEntry.label")
         } else {
-            aF(aO, "idpEntry.NoPreferred.label")
+            createTextDiv(aO, "idpEntry.NoPreferred.label")
         }
         var aR = ai();
         aR.appendChild(aO);
         var aQ = document.createElement("input");
         aR.appendChild(aQ);
         aQ.type = "text";
-        l(aQ, "Input");
+        setIdAttribute(aQ, "Input");
         var aS = document.createElement("input");
         aS.setAttribute("type", "hidden");
         aR.appendChild(aS);
@@ -1006,9 +1001,9 @@ function IdPSelectUI() {
         };
         ar = new TypeAheadControl(r, aQ, aS, aP, au, aE, z, ak, h, al, ax, I);
         var aM = document.createElement("a");
-        aM.appendChild(document.createTextNode(A("idpList.showList")));
+        aM.appendChild(document.createTextNode(translateMessage("idpList.showList")));
         aM.href = "#";
-        am(aM, "DropDownToggle");
+        setClassAttribute(aM, "DropDownToggle");
         aM.onclick = function () {
             U.style.display = "none";
             a(az, aS.value);
@@ -1017,26 +1012,25 @@ function IdPSelectUI() {
             return false
         };
         U.appendChild(aM);
-        x(U);
         aT.appendChild(U)
     };
     var X = function (aM, aP) {
-        j = ap("IdPListTile");
+        j = createDiv("IdPListTile");
         if (!c) {
             j.style.display = "none"
         }
         var aT = document.createElement("label");
-        aT.setAttribute("for", aL + "Selector");
+        aT.setAttribute("for", idNamespace + "Selector");
         if (aP) {
-            aF(aT, "idpList.label")
+            createTextDiv(aT, "idpList.label")
         } else {
-            aF(aT, "idpList.NoPreferred.label")
+            createTextDiv(aT, "idpList.NoPreferred.label")
         }
         az = document.createElement("select");
-        l(az, "Selector");
+        setIdAttribute(az, "Selector");
         az.name = aG;
         j.appendChild(az);
-        var aU = p("-", A("idpList.defaultOptionLabel"));
+        var aU = p("-", translateMessage("idpList.defaultOptionLabel"));
         aU.selected = true;
         az.appendChild(aU);
         var aO;
@@ -1060,22 +1054,21 @@ function IdPSelectUI() {
         aN.appendChild(aR);
         j.appendChild(aN);
         var aS = document.createElement("a");
-        aS.appendChild(document.createTextNode(A("idpList.showSearch")));
+        aS.appendChild(document.createTextNode(translateMessage("idpList.showSearch")));
         aS.href = "#";
-        am(aS, "DropDownToggle");
+        setClassAttribute(aS, "DropDownToggle");
         aS.onclick = function () {
             U.style.display = "";
             j.style.display = "none";
             return false
         };
         j.appendChild(aS);
-        x(j);
         aM.appendChild(j)
     };
     var C = function (aP) {
         var aN = "IdPSelectAutoDisp";
-        autoDispatchTile = ap(undefined, "autoDispatchArea");
-        autoDispatchTile.appendChild(document.createTextNode(A("autoFollow.message")));
+        autoDispatchTile = createDiv(undefined, "autoDispatchArea");
+        autoDispatchTile.appendChild(document.createTextNode(translateMessage("autoFollow.message")));
         var aM = document.createElement("input");
         aM.setAttribute("type", "radio");
         aM.setAttribute("checked", "checked");
@@ -1083,9 +1076,9 @@ function IdPSelectUI() {
         aM.onclick = function () {
             E(0)
         };
-        div = ap(undefined, "autoDispatchTile");
+        div = createDiv(undefined, "autoDispatchTile");
         div.appendChild(aM);
-        div.appendChild(document.createTextNode(A("autoFollow.never")));
+        div.appendChild(document.createTextNode(translateMessage("autoFollow.never")));
         autoDispatchTile.appendChild(div);
         var aO;
         for (aO = 0; aO < Z.length; aO++) {
@@ -1097,9 +1090,9 @@ function IdPSelectUI() {
                 var aQ = this.life;
                 E(aQ)
             };
-            div = ap(undefined, "autoDispatchTile");
+            div = createDiv(undefined, "autoDispatchTile");
             div.appendChild(aM);
-            div.appendChild(document.createTextNode(A("autoFollow.time" + aO)));
+            div.appendChild(document.createTextNode(translateMessage("autoFollow.time" + aO)));
             autoDispatchTile.appendChild(div)
         }
         aP.appendChild(autoDispatchTile)
@@ -1107,26 +1100,19 @@ function IdPSelectUI() {
     var v = function (aN) {
         var aM = document.createElement("input");
         aM.setAttribute("type", "submit");
-        aM.value = A("submitButton.label");
-        l(aM, aN + "Button");
+        aM.value = translateMessage("submitButton.label");
+        setIdAttribute(aM, aN + "Button");
         return aM
     };
-    var x = function (aN) {
-        var aM = document.createElement("a");
-        aM.href = R;
-        aM.appendChild(document.createTextNode(A("helpText")));
-        am(aM, "HelpButton");
-        aN.appendChild(aM)
-    };
-    var ap = function (aO, aM) {
-        var aN = document.createElement("div");
+    var createDiv = function (aO, aM) {
+        var divElement = document.createElement("div");
         if (undefined !== aO) {
-            l(aN, aO)
+            setIdAttribute(divElement, aO)
         }
         if (undefined !== aM) {
-            am(aN, aM)
+            setClassAttribute(divElement, aM)
         }
-        return aN
+        return divElement
     };
     var p = function (aN, aO) {
         var aM = document.createElement("option");
@@ -1137,26 +1123,23 @@ function IdPSelectUI() {
         aM.appendChild(document.createTextNode(aO));
         return aM
     };
-    var l = function (aN, aM) {
-        aN.id = aL + aM
+    var setIdAttribute = function (element, id) {
+        element.id = idNamespace + id
     };
-    var am = function (aN, aM) {
-        aN.setAttribute("class", aj + aM)
-    };
-    var aD = function (aM) {
-        return document.getElementById(aL + aM)
+    var setClassAttribute = function (element, className) {
+        element.setAttribute("class", classNamespace + className)
     };
     var aH = function (aM) {
         J(aM);
         at(P)
     };
-    var A = function (aM) {
-        var aN = aa[aM];
+    var translateMessage = function (messageKey) {
+        var aN = aa[messageKey];
         if (!aN) {
-            aN = d[aM]
+            aN = d[messageKey]
         }
         if (!aN) {
-            aN = "Missing message for " + aM
+            aN = "Missing message for " + messageKey
         }
         return aN
     };
@@ -1171,7 +1154,7 @@ function IdPSelectUI() {
         for (aM = 0; aM < aO.Logos.length; aM++) {
             var aN = aO.Logos[aM];
             if (aN.height == "16" && aN.width == "16") {
-                if (null == aN.lang || S == aN.lang || (typeof aB != "undefined" && aB == aN.lang) || an == aN.lang) {
+                if (null == aN.lang || S == aN.lang || (typeof dashedClientLanguage != "undefined" && dashedClientLanguage == aN.lang) || defaultLanguage == aN.lang) {
                     return aN.value
                 }
             }
@@ -1200,9 +1183,9 @@ function IdPSelectUI() {
                 return aM[aN].value
             }
         }
-        if (typeof aB != "undefined") {
+        if (typeof dashedClientLanguage != "undefined") {
             for (aN in aM) {
-                if (aM[aN].lang == aB) {
+                if (aM[aN].lang == dashedClientLanguage) {
                     return aM[aN].value
                 }
             }
@@ -1213,7 +1196,7 @@ function IdPSelectUI() {
             }
         }
         for (aN in aM) {
-            if (aM[aN].lang == an) {
+            if (aM[aN].lang == defaultLanguage) {
                 return aM[aN].value
             }
         }

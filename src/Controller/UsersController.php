@@ -53,6 +53,24 @@ class UsersController extends AppController
                 break;
             }
         }
+        /*
+        $get = 'https://acdh.oeaw.ac.at/Shibboleth.sso/DiscoFeed';
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $get);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_NOBODY, false);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:54.0) Gecko/20100101 Firefox/54.0');
+        $discoFeed = curl_exec($ch);
+        $discoFeed = preg_replace( "/\r|\n/", "", $discoFeed);
+        $jsonOptions = JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_AMP | JSON_HEX_QUOT | JSON_PARTIAL_OUTPUT_ON_ERROR;
+        //$discoFeed = json_encode($);
+        curl_close($ch);
+        debug($discoFeed);
+        $this->set(compact('idpSelectReturnParameter', 'discoFeed'));
+        */
         $this->set('idpSelectReturnParameter', $idpSelectReturnParameter);
 
         $result = $this->Authentication->getResult();
