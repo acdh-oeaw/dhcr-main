@@ -367,6 +367,13 @@ return [
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
         ],
+        'cron' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'cron',
+            'scopes' => ['cron']
+        ],
+        // Log::write('level', 'message', 'scope(cron)')
     ],
 
     /**
