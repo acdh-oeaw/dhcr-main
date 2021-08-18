@@ -16,9 +16,9 @@ class UsersController extends AppController
     public function initialize(): void {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication', [
-            'logoutRedirect' => '/users/login'  // Default is false
+            'logoutRedirect' => '/users/signIn'  // Default is false
         ]);
-        $this->Authentication->allowUnauthenticated(['login','register']);
+        $this->Authentication->allowUnauthenticated(['signIn','register']);
     }
 
     public function beforeFilter(EventInterface $event) {
@@ -30,7 +30,7 @@ class UsersController extends AppController
     }
 
 
-    public function login()
+    public function signIn()
     {
         $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target=http%3A%2F%2Fdhcr.clarin-dariah.eu%2Fusers%2Flogin';
         $ch = curl_init();
@@ -97,7 +97,7 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Users','action' => 'login']);
+        return $this->redirect(['controller' => 'Users','action' => 'signIn']);
     }
 
 

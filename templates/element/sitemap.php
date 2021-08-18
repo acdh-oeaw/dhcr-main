@@ -72,7 +72,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'News on Social Media',
+                        'Social Media',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
                 </li>
                 <li>
@@ -93,13 +93,13 @@
             <ul class="contribute">
                 <li>
                     <?= $this->Html->link(
-                        'Register',
-                        ['controller' => 'Users', 'action' => 'register']) ?>
+                        'Join Our Network',
+                        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Login',
-                        ['controller' => 'Users', 'action' => 'login']) ?>
+                        'Sign-In',
+                        ['controller' => 'Users', 'action' => 'signIn']) ?>
                 </li>
             </ul>
         </li>
