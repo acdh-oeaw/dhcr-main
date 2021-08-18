@@ -33,8 +33,10 @@ class Accordeon {
         this.closeAll();
         this.hash.push(hash);
         $('#' + hash).addClass('open');
-        // scroll page to location
-        location.href = '#' + hash;
+        sleep(1000).then(() => {
+            // scroll page to location
+            location.href = '#' + hash;
+        })
     }
 
     closeAll() {

@@ -7,50 +7,6 @@ $this->set('bodyClasses', 'login'); ?>
 
 <div id="idpSelect"></div>
 
-<!--
-<div id="idpLogin">
-<h2>Federated Login</h2>
-<p>
-    Use your institutional account to log in.
-    If your organisation is not available in the list of institutions for single sign-on,
-    please use the registration form for classic login.
-</p>
-<?= $this->Html->link('Register', '/users/register', ['class' => 'small blue button']) ?>
-    <div class="users form">
-        <?= $this->Form->create(null, [
-            'type' => 'get',
-            'url' => 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login',
-            'autocomplete' => 'off'
-        ]) ?>
-        <?= $this->Form->control('ta_box', [
-            'label' => 'Your Organisation',
-            'placeholder' => 'Type to search...'
-        ]) ?>
-
-        <?= $this->Form->control('SAMLDS', [
-            'type' => 'hidden',
-            'value' => 1
-        ]) ?>
-        <?= $this->Form->control('target', [
-            'type' => 'hidden'
-        ]) ?>
-        <?= $this->Form->control('entityID', [
-            'type' => 'hidden'
-        ]) ?>
-
-        <?= $this->Form->button(__('Continue'), [
-            'class' => 'right',
-            'disabled' => true]); ?>
-        <?= $this->Form->end() ?>
-    </div>
-    <div id="login-alternatives">
-        <?= $this->Html->link('Organization List', '#', ['class' => 'blue button small']) ?>
-        <?= $this->Html->link('Register', '/users/register', ['class' => 'small button']) ?>
-        <?= $this->Html->link('Classic Login', '/users/signIn#classic', ['class' => 'blue button small']) ?>
-    </div>
-</div>
--->
-
 <div id="classicLogin">
     <h2>Classic Login</h2>
     <p>
@@ -69,7 +25,7 @@ $this->set('bodyClasses', 'login'); ?>
 
     <div id="login-alternatives">
         <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'blue button small']) ?>
-        <?= $this->Html->link('Register', '/users/register', ['class' => 'small button']) ?>
+        <?= $this->Html->link('Registration', '/users/register', ['class' => 'small button']) ?>
         <?= $this->Html->link('Federated Login', '/users/signIn/#idpSelect', ['class' => 'blue button small']) ?>
     </div>
 </div>

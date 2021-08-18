@@ -1,5 +1,4 @@
-<?php $this->set('bodyClasses', 'login'); ?>
-<?php $this->start('page_head'); ?>
+
 <div class="title">
     <h2>User Registration</h2>
     <p>
@@ -11,7 +10,7 @@
     </p>
     <?= $this->Html->link('Federated Login', '/users/signIn/#idpSelect', ['class' => 'blue button small']) ?>
 </div>
-<?php $this->end(); ?>
+
 
 <div class="users form content">
     <?= $this->Form->create() ?>
