@@ -5,7 +5,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-home"></span>DH Courses, Worldwide',
+                    '<span class="glyphicon glyphicon-home"></span>Worldwide DH Courses',
                     ['controller' => 'Courses', 'action' => 'index'],
                     ['escape' => false]) ?>
             </p>
