@@ -2,15 +2,61 @@
 
 $this->set('bodyClasses', 'login'); ?>
 
-<h2>Login</h2>
 
-<div id="idpSelect">
-    <p>
-        Use your institutional account to log in.
-    </p>
+
+
+<div id="idpSelect"></div>
+
+<!--
+<div id="idpLogin">
+<h2>Federated Login</h2>
+<p>
+    Use your institutional account to log in.
+    If your organisation is not available in the list of institutions for single sign-on,
+    please use the registration form for classic login.
+</p>
+<?= $this->Html->link('Register', '/users/register', ['class' => 'small blue button']) ?>
+    <div class="users form">
+        <?= $this->Form->create(null, [
+            'type' => 'get',
+            'url' => 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login',
+            'autocomplete' => 'off'
+        ]) ?>
+        <?= $this->Form->control('ta_box', [
+            'label' => 'Your Organisation',
+            'placeholder' => 'Type to search...'
+        ]) ?>
+
+        <?= $this->Form->control('SAMLDS', [
+            'type' => 'hidden',
+            'value' => 1
+        ]) ?>
+        <?= $this->Form->control('target', [
+            'type' => 'hidden'
+        ]) ?>
+        <?= $this->Form->control('entityID', [
+            'type' => 'hidden'
+        ]) ?>
+
+        <?= $this->Form->button(__('Continue'), [
+            'class' => 'right',
+            'disabled' => true]); ?>
+        <?= $this->Form->end() ?>
+    </div>
+    <div id="login-alternatives">
+        <?= $this->Html->link('Organization List', '#', ['class' => 'blue button small']) ?>
+        <?= $this->Html->link('Register', '/users/register', ['class' => 'small button']) ?>
+        <?= $this->Html->link('Classic Login', '/users/signIn#classic', ['class' => 'blue button small']) ?>
+    </div>
 </div>
+-->
 
 <div id="classicLogin">
+    <h2>Classic Login</h2>
+    <p>
+        Use your e-mail address and DHRC password to log in. <br>
+        Reset your password if you forgot it or never set one.
+    </p>
     <div class="users form">
         <?= $this->Form->create() ?>
 
@@ -23,21 +69,25 @@ $this->set('bodyClasses', 'login'); ?>
 
     <div id="login-alternatives">
         <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'blue button small']) ?>
-        <?= $this->Html->link('Single Sign-On (eduGAIN)', '#', ['class' => 'blue button small']) ?>
+        <?= $this->Html->link('Register', '/users/register', ['class' => 'small button']) ?>
+        <?= $this->Html->link('Federated Login', '/users/signIn/#idpSelect', ['class' => 'blue button small']) ?>
     </div>
 </div>
 
 
+<?php $this->Html->script(['idp_select/IdpSelector.js','idp_select/TypeAhead.js'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>
-/** @class IdP Selector UI */
+let IdpSelectorClass = new IdpSelector('#idpSelect',
+    '<?= $idpSelectReturnParameter ?>',
+    '<?= Router::url("/js/idp_select/DiscoFeed.json") ?>');
+
+
 function IdPSelectUIParms(){
     //
     // Adjust the following to fit into your local configuration
     //
     this.alwaysShow = true;          // If true, this will show results as soon as you start typing
     this.dataSource = '<?= Router::url("/js/idp_select/DiscoFeed.json") ?>';
-    this.defaultLanguage = 'en';     // Language to use if the browser local doesnt have a bundle
-    this.forceLanguage = 'en';
     this.defaultLogo = 'blank.gif';  // Replace with your own logo
     this.defaultLogoWidth = 1;
     this.defaultLogoHeight = 1 ;
@@ -47,22 +97,15 @@ function IdPSelectUIParms(){
     this.defaultReturnIDParam = null;
     //this.returnWhiteList = [ "^https:\/\/example\.org\/Shibboleth\.sso\/Login.*$" , "^https:\/\/example\.com\/Shibboleth\.sso\/Login.*$" ];
     this.returnWhiteList = [ "^https:\/\/(acdh|clarin)\.oeaw\.ac\.at\/.*$" , "^https:\/\/(arche|redmine|delt)\.acdh\.oeaw\.ac\.at\/.*$" , "^https:\/\/dhcr\.clarin-dariah\.eu\/.*$" , "^https:\/\/delt\.acdh-dev\.oeaw\.ac\.at\/.*$", "^https:\/\/teach\.dariah\.eu\/.*$" ];
-    this.ie6Hack = null;             // An array of structures to disable when drawing the pull down (needed to
-    // handle the ie6 z axis problem
     this.insertAtDiv = 'idpSelect';  // The div where we will insert the data
     this.maxResults = 10;            // How many results to show at once or the number at which to
     // start showing if alwaysShow is false
-    this.myEntityID = null;          // If non null then this string must match the string provided in the DS parms
-    this.preferredIdP = null;        // Array of entityIds to always show
     this.hiddenIdPs = null;          // Array of entityIds to delete
     this.ignoreKeywords = false;     // Do we ignore the <mdui:Keywords/> when looking for candidates
     this.showListFirst = false;      // Do we start with a list of IdPs or just the dropdown
     this.samlIdPCookieTTL = 730;     // in days
     this.setFocusTextBox = true;     // Set to false to supress focus
     this.testGUI = false;
-
-    this.autoFollowCookie = null;  //  If you want auto-dispatch, set this to the cookie name to use
-    this.autoFollowCookieTTLs = [ 1, 60, 270 ]; // Cookie life (in days).  Changing this requires changes to idp_select_languages
 
     //
     // The following should not be changed without changes to the css.  Consider them as mandatory defaults
@@ -79,6 +122,5 @@ function IdPSelectUIParms(){
     this.bestRatio = Math.log(80 / 60);
 }
 <?php $this->Html->scriptEnd(); ?>
-<?php $this->Html->script(['idp_select/idpselect.js'], ['block' => true]); ?>
 
 

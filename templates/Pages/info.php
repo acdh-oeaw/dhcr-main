@@ -37,7 +37,7 @@
     </div>
 
     <div class="accordeon-item" id="contact">
-        <h2><span>Contact Us</span></h2>
+        <h2><span>Join Our Network</span></h2>
         <div class="item-content">
             <?= $this->Element('info/contact'); ?>
         </div>
@@ -87,6 +87,10 @@
         $('#footer .imprint').on('click', function(e) {
             e.preventDefault();
             accordeon.openHash('imprint');
+        });
+        $('#contact-button').on('click', function(e) {
+            e.preventDefault();
+            accordeon.openHash('contact');
         });
         sitemap.setAccordeonHandler(accordeon, 'info');
     });

@@ -5,10 +5,36 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-home"></span>Recent Courses on DH, worldwide',
+                    '<span class="glyphicon glyphicon-home"></span>DH Courses, Worldwide',
                     ['controller' => 'Courses', 'action' => 'index'],
                     ['escape' => false]) ?>
             </p>
+        </li>
+
+        <li>
+            <p>
+                <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-bell"></span>Follow',
+                    ['controller' => 'Pages', 'action' => 'follow'],
+                    ['escape' => false]) ?>
+            </p>
+            <ul class="follow">
+                <li>
+                    <?= $this->Html->link(
+                        'Course Alert',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Social Media',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Contributor Newsletter',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']) ?>
+                </li>
+            </ul>
         </li>
 
         <li>
@@ -60,32 +86,6 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-bell"></span>Follow',
-                    ['controller' => 'Pages', 'action' => 'follow'],
-                    ['escape' => false]) ?>
-            </p>
-            <ul class="follow">
-                <li>
-                    <?= $this->Html->link(
-                        'Course Alert',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'News on Social Media',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Contributor Newsletter',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']) ?>
-                </li>
-            </ul>
-        </li>
-
-        <li>
-            <p>
-                <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-off"></span>Contribute to the DHCR',
                     ['controller' => 'Pages', 'action' => 'contribute'],
                     ['escape' => false]) ?>
@@ -93,13 +93,13 @@
             <ul class="contribute">
                 <li>
                     <?= $this->Html->link(
-                        'Register',
-                        ['controller' => 'Users', 'action' => 'register']) ?>
+                        'Join Our Network',
+                        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Login',
-                        ['controller' => 'Users', 'action' => 'login']) ?>
+                        'Sign-In',
+                        ['controller' => 'Users', 'action' => 'signIn']) ?>
                 </li>
             </ul>
         </li>

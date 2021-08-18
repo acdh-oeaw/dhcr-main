@@ -2,8 +2,8 @@
 
 class IdpSelector {
 
-    constructor(selector, returnTo, dataSource) {
-        this.element = $(selector)
+    constructor(elementSelector, returnTo, dataSource) {
+        this.element = $(elementSelector)
         this.returnTo = returnTo
         this.formAction = returnTo
         this.returnQuery = []

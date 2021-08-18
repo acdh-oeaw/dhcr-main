@@ -7,11 +7,11 @@
 <p>
     Stay informed about recent development regarding the team or
     new technical features of the DHCR: Sign up for the newsletter in your profile settings. <br>
-    If you are not a contributor yet, please create an account.
+    If you are not a contributor yet, please sign in to the DHCR.
 </p>
 <div class="buttons">
     <?= $this->Html->link('Profile Settings', ['controller' => 'Users', 'action' => 'profile'],
         ['class' => 'button', 'id' => 'login-button']) ?>
-    <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'register'],
+    <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'signIn'],
         ['class' => 'blue button', 'id' => 'register-button']) ?>
 </div>
