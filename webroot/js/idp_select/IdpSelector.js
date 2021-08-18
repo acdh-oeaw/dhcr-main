@@ -7,51 +7,24 @@ class IdpSelector {
         this.returnTo = returnTo
         this.formAction = returnTo
         this.returnQuery = []
-        this.idpList = []
-        this.idpIndex = {}
+        this.idpList = {}
+        this.idpIndex = []
         this.defaultLang = 'en'
-        this.clientLang = 'en'
         this.maxResults = 10
-
-        //this.window = window
-        //this.location = this.window.location
-
-        this.typeAhead = null
-
+        this.typeAhead
         this._init(dataSource)
     }
 
     _init(dataSource) {
-        while (null !== this.window.parent && this.window !== this.window.parent) {
-            this.window = this.window.parent
-        }
-
         this._getReturnQuery()
 
-        if (typeof navigator != "undefined")
-            this.clientLang = navigator.language || navigator.userLanguage || this.defaultLang
-        this.clientLang = this.clientLang.toLowerCase();
-        if (this.clientLang.indexOf("-") > 0)
-            this.clientLang = this.clientLang.substring(0, this.clientLang.indexOf("-"))
-
-
         $.getJSON(dataSource, function (data) {
+            // file should be free of doublettes and sorted
             this.idpList = data
-            // remove doublettes and create index
-            // TODO: move this task to cron for import of organisation list
-            let c = 0;
-            for (let i = 0; i < data.length; i++) {
-                let id = data[i].entityID;
-                if(!this.idpIndex[id]) {
-                    this.idpIndex[id] = c;
-                    this.idpList.push(data[i])
-                    c++
-                }
-            }
-            this.idpList.sort(function (a, b) {
-                return this._getDisplayName(a).localeCompare(this._getDisplayName(b))
-            }.bind(this));
+            this.idpIndex = Object.keys(this.idpList)
         }.bind(this))
+
+        this.draw()
 
         this.typeAhead = new TypeAhead(
             '#idpSelectTextBox',
@@ -61,6 +34,28 @@ class IdpSelector {
             this.match,
             this.createOption
         )
+    }
+
+    draw() {
+        this.element.append($('<h2>Federated Login</h2>'))
+        this.element.append($('<p></p>').append('Use your institutional account to log in.<br>\n' +
+            'If your organisation is not available in the list of institutions below, \n' +
+            'please use the <a href="/users/register" className="small button">registration form</a> ' +
+            'and classic login.'))
+        this.element.append($('<div class="users form"></div>')
+            .append($('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
+                .append($('<div class="input text"></div>')
+                    .append($('<label for="ta-box">Your Organisation</label>'))
+                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox">')))
+                .append($('<input type="hidden" name="SAMLDS" id="samlds" value="1">'))
+                .append($('<input type="hidden" name="target" id="target">'))
+                .append($('<input type="hidden" name="entityID" id="entityid">'))
+                .append($('<button class="right" disabled="disabled" type="submit" id="idpSelectSubmit">Continue</button>'))
+            ))
+        this.element.append($('<div id="login-alternatives"></div>')
+            .append($('<a href="#" class="blue button small">Organization List</a>'))
+            .append($('<a href="/users/register" class="small button">Registration</a>'))
+            .append($('<a href="/users/signIn#classic" class="blue button small">Classic Login</a>')))
     }
 
     createOption(entity) {
@@ -94,13 +89,13 @@ class IdpSelector {
     }
     */
     // matching handler to be called by the TypeAhead on change
-    match(value, list) {
+    match(value) {
         let result = [];
         let c = 0;
         value = value.toLowerCase()
-        for (let i = 0; c <= this.maxResults && i < this.list.length; i++) {
+        for (let i = 0; c <= this.maxResults && i < this.idpList.length; i++) {
             let matching = false;
-            let option = list[i];
+            let option = this.idpList.length[i];
             if(this._getDisplayName(option).toLowerCase().indexOf(value) != -1) {
                 matching = true
             }
@@ -122,15 +117,17 @@ class IdpSelector {
     }
 
     _getDisplayName(entity) {
-        for (let i in entity.DisplayNames) {
-            if (entity.DisplayNames[i].lang == this.defaultLang)
-                return entity.DisplayNames[i].value
+        if(typeof entity.DisplayNames == 'object'
+            && entity.DisplayNames.length >= 1) {
+            for (let i in entity.DisplayNames) {
+                if (entity.DisplayNames[i].lang == this.defaultLang)
+                    return entity.DisplayNames[i].value
+            }
+            return entity.DisplayNames[0].value
+        }else{
+            // in some cases there are no display names, just the Id (an URI)
+            return entity.entityID
         }
-        for (let i in entity.DisplayNames) {
-            if (entity.DisplayNames[i].lang == this.clientLang)
-                return entity.DisplayNames[i].value
-        }
-        return entity.DisplayNames[0].value
     }
 
     _getKeywords(entity) {

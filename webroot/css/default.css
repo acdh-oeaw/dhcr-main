@@ -1797,11 +1797,22 @@ body.stories ul {
 body.login .wrapper {
   max-width: 750px; }
 
+.users.form {
+  margin-top: 2em; }
+  .users.form button[disabled] {
+    color: #bbb;
+    border-color: #bbb;
+    transform: none;
+    cursor: default; }
+
 #login-alternatives {
   display: flex;
   justify-content: space-between;
-  margin-top: 2em;
+  margin: 6em 0 4em;
   gap: 1em;
   flex-wrap: wrap; }
+
+#classicLogin {
+  display: none; }
 
 /*# sourceMappingURL=default.css.map */
