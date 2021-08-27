@@ -52,6 +52,9 @@ class UsersController extends AppController
                 $p = explode('=', $para);
                 if($p[0] == 'return') {
                     $returnParameter = urldecode($p[1]);
+                    // The return parameter contains the idpSelector form action,
+                    // which is hardcoded in class IdpSelector.js
+                    // Only the target parameter within the return parameter is required
                     if(strpos($returnParameter, '?') !== false) {
                         $q = explode('&', explode('?', $returnParameter)[1]);
                         foreach($q as $a) {

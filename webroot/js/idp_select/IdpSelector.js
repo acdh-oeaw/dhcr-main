@@ -48,10 +48,16 @@ class IdpSelector {
                 .append($('<input type="hidden" name="entityID" id="entityID">'))
                 .append($('<button class="right" disabled="disabled" type="submit" id="idpSelectSubmit">Continue</button>'))
             ))
+        let classicButton = $('<a href="/users/sign-in#classic" class="blue button small">Classic Login</a>')
+        classicButton.click(function(e) {
+            e.preventDefault()
+            $('#classicLogin').toggle()
+            this.element.toggle()
+        }.bind(this))
         this.element.append($('<div id="login-alternatives"></div>')
             .append($('<a href="#" class="blue button small">Organization List</a>'))
             .append($('<a href="/users/register" class="small button">Registration</a>'))
-            .append($('<a href="/users/signIn#classic" class="blue button small">Classic Login</a>')))
+            .append(classicButton))
     }
 
     // matching handler to be called by the TypeAhead on change
@@ -125,21 +131,4 @@ class IdpSelector {
         }
         return entity.Keywords[0].value
     }
-
-    _getReturnQuery() {
-        if (this.returnTo.indexOf("?") > 0) {
-            this.formAction = this.returnTo.substring(0, this.returnTo.indexOf("?"));
-            let queryString = this.returnTo.substring(this.returnTo.indexOf("?") + 1);
-            let querySplit = queryString.split("&");
-            for (let i = 0; i < querySplit.length; i++) {
-                let paramSplit = querySplit[i].split("=");
-                if (typeof paramSplit[1] == 'undefined' || !paramSplit[1])
-                    paramSplit[1] = null
-                else paramSplit[1] = decodeURIComponent(paramSplit[1]);
-                if(paramSplit[0] == 'target' && paramSplit[1] != null) this.target = paramSplit[1]
-                //this.returnQuery.push(paramSplit)
-            }
-        }
-    }
-
 }

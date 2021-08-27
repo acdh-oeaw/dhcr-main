@@ -1812,9 +1812,6 @@ body.login .wrapper {
   gap: 1em;
   flex-wrap: wrap; }
 
-#classicLogin {
-  display: none; }
-
 .taWrapper {
   position: relative; }
   .taWrapper ul.idpSelectDropDown {
