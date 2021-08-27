@@ -16,23 +16,37 @@ class IdpSelector {
         $.getJSON(dataSource, function (data) {
             // file should be free of doublettes and sorted
             this.idpList = data
+            this.draw()
+            this.typeAhead = new TypeAhead(
+                this, {
+                    textBox:    '#idpSelectTextBox',
+                    submit:     '#idpSelectSubmit',
+                    matcherCallbackName:    'match',
+                    selectionCallbackName:  'select',
+                    optionFactoryName:      'createOption',
+                    emptyOptionlistContent: $('<li aria-role="empty">Please use our <a href="/users/register">registration form</a>, if you cannot find your institution</li>')
+                }
+            )
         }.bind(this))
-
-        this.draw()
-
-        this.typeAhead = new TypeAhead(
-            this, {
-                textBox:    '#idpSelectTextBox',
-                submit:     '#idpSelectSubmit',
-                matcherCallbackName:    'match',
-                selectionCallbackName:  'select',
-                optionFactoryName:      'createOption',
-                emptyOptionlistContent: $('<li aria-role="empty">Please use our <a href="/users/register">registration form</a>, if you cannot find your institution</li>')
-            }
-        )
     }
 
     draw() {
+        let options = [$('<option aria-value="empty" selected>-- Pick from List --</option>')]
+        let keys = Object.keys(this.idpList)
+        for (let i = 0; i < keys.length; i++) {
+            let entity = this.idpList[keys[i]];
+            options.push(this.createOption(entity, '<option></option>'))
+        }
+        let select = $('<select name="select_box" id="idpList" class="inputAlternative" style="display:none"></select>')
+        select.append(options)
+        select.on('change', function(event) {
+            let value = $($('#idpList')[0].options[$('#idpList')[0].selectedIndex]).attr('aria-value')
+            if(value !== 'empty') {
+                this.select(value)
+            }else {
+                this.unselect()
+            }
+        }.bind(this))
         this.element.append($('<h2>Federated Login</h2>'))
         this.element.append($('<p></p>').append('Use your institutional account to log in.<br>\n' +
             'If your organisation is not available in the list of institutions below, \n' +
@@ -42,7 +56,8 @@ class IdpSelector {
             .append($('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
                 .append($('<div class="input text taWrapper"></div>')
                     .append($('<label for="ta-box">Your Organisation</label>'))
-                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox" >')))
+                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox" class="inputAlternative">'))
+                    .append(select))
                 .append($('<input type="hidden" name="SAMLDS" id="samlds" value="1">'))
                 .append($('<input type="hidden" name="target" id="target" value="'+this.target+'">'))
                 .append($('<input type="hidden" name="entityID" id="entityID">'))
@@ -51,11 +66,23 @@ class IdpSelector {
         let classicButton = $('<a href="/users/sign-in#classic" class="blue button small">Classic Login</a>')
         classicButton.click(function(e) {
             e.preventDefault()
-            $('#classicLogin').toggle()
-            this.element.toggle()
+            $('.loginAlternative').toggle()
         }.bind(this))
+        let searchButton = $('<a href="#idpSearch" class="blue button small inputAlternativeButton" style="display:none">Organization Search</a>')
+        let listButton = $('<a href="#idpList" class="blue button small inputAlternativeButton">Organization List</a>')
+        listButton.click(function(e) {
+            e.preventDefault()
+            $('.inputAlternative').toggle()
+            $('.inputAlternativeButton').toggle()
+        })
+        searchButton.click(function(e) {
+            e.preventDefault()
+            $('.inputAlternative').toggle()
+            $('.inputAlternativeButton').toggle()
+        })
         this.element.append($('<div id="login-alternatives"></div>')
-            .append($('<a href="#" class="blue button small">Organization List</a>'))
+            .append(searchButton)
+            .append(listButton)
             .append($('<a href="/users/register" class="small button">Registration</a>'))
             .append(classicButton))
     }
@@ -69,37 +96,37 @@ class IdpSelector {
         let keys = Object.keys(this.idpList)
         for (let i = 0; c < this.maxResults && i < keys.length; i++) {
             let matching = false;
-            let option = this.idpList[keys[i]];
-            if(this._getDisplayName(option).toLowerCase().indexOf(value) != -1) {
+            let entity = this.idpList[keys[i]];
+            if(this._getDisplayName(entity).toLowerCase().indexOf(value) != -1) {
                 matching = true
             }
-            if(!matching && option.entityID.toLowerCase().indexOf(value) != -1) {
+            if(!matching && entity.entityID.toLowerCase().indexOf(value) != -1) {
                 matching = true
             }
             if(!matching) {
-                var keywords = this._getKeywords(option);
+                var keywords = this._getKeywords(entity);
                 if (null != keywords && keywords.toLowerCase().indexOf(value) != -1) {
                     matching = true
                 }
             }
             if(matching) {
-                result.push(option);
+                result.push(entity);
                 c++
             }
         }
         return result
     }
 
-    createOption(entity) {
-        return $('<li></li>')
+    createOption(entity, tag) {
+        return $(tag)
             .attr("role", "option")
             .attr('aria-value', entity.entityID)
             .html(this._getDisplayName(entity))
     }
 
-    select(targetElement) {
+    select(value) {
         $('#idpSelectSubmit').prop("disabled", false)
-        $('#entityID').val($(targetElement).attr('aria-value'))
+        $('#entityID').val(value)
     }
 
     unselect() {

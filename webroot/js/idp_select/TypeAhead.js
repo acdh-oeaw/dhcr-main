@@ -116,7 +116,7 @@ class TypeAhead {
         this.matchingHtmlOptions = []
         for(let i = 0; i < this.matchingOptions.length; i++) {
             // retrieve option html from callback function, passing on the matching data object
-            let option = this.context[this.optionFactoryName](this.matchingOptions[i])
+            let option = this.context[this.optionFactoryName](this.matchingOptions[i], '<li></li>')
             this.dropDown.append(option)
             this.matchingHtmlOptions.push(option)
             // prevent the click event stealing focus (textbox blur handler firing)
@@ -168,12 +168,12 @@ class TypeAhead {
         this.dropDown.children().attr('aria-selected', false)
         this.dropDown.children().removeClass('selected')
         if(index === false) return
-        let target = this.matchingHtmlOptions[index]
-        $(target).addClass('selected')
-        $(target).attr('aria-selected', true)
+        let target = $(this.matchingHtmlOptions[index])
+        target.addClass('selected')
+        target.attr('aria-selected', true)
 
         if(this._isCallable(this.selectionCallbackName))
-            this.context[this.selectionCallbackName](target)
+            this.context[this.selectionCallbackName](target.attr('aria-value'))
     }
 
     unselect() {

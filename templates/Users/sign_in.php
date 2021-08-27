@@ -2,7 +2,7 @@
 
 $this->set('bodyClasses', 'login'); ?>
 
-<div id="classicLogin" style="display:none">
+<div id="classicLogin" style="display:none" class="loginAlternative">
     <h2>Classic Login</h2>
     <p>
         Use your e-mail address and DHRC password to log in. <br>
@@ -29,13 +29,12 @@ $this->set('bodyClasses', 'login'); ?>
 
 <?php
 if($idpTarget) {
-    echo '<div id="idpSelect"></div>';
+    echo '<div id="idpSelect" class="loginAlternative"></div>';
     $this->Html->script(['idp_select/IdpSelector.js','idp_select/TypeAhead.js'], ['block' => true]);
     $this->Html->scriptStart(['block' => true]); ?>
     $('#federatedLogin').click(function(e) {
         e.preventDefault()
-        $('#classicLogin').toggle()
-        $('#idpSelect').toggle()
+        $('.loginAlternative').toggle()
     }.bind(this))
     let IdpSelectorClass = new IdpSelector('#idpSelect',
         '<?= $idpTarget ?>',
