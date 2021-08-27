@@ -45,16 +45,27 @@ class UsersController extends AppController
         curl_exec($ch);
         $url = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
         curl_close($ch);
-        $query = explode('&', explode('?', $url)[1]);
-        $idpSelectReturnParameter = '';
-        foreach ($query as $para) {
-            $p = explode('=', $para);
-            if($p[0] == 'return') {
-                $idpSelectReturnParameter = urldecode($p[1]);
-                break;
+        $idpTarget = false;
+        if($url) {
+            $query = explode('&', explode('?', $url)[1]);
+            foreach ($query as $para) {
+                $p = explode('=', $para);
+                if($p[0] == 'return') {
+                    $returnParameter = urldecode($p[1]);
+                    if(strpos($returnParameter, '?') !== false) {
+                        $q = explode('&', explode('?', $returnParameter)[1]);
+                        foreach($q as $a) {
+                            $b = explode('=', $a);
+                            if($b[0] == 'target')
+                                $idpTarget = urldecode($b[1]);
+                        }
+                    }
+                    break;
+                }
             }
         }
-        $this->set('idpSelectReturnParameter', $idpSelectReturnParameter);
+
+        $this->set(compact('idpTarget'));
 
         $result = $this->Authentication->getResult();
 

@@ -2,37 +2,33 @@
 
 class IdpSelector {
 
-    constructor(elementSelector, returnTo, dataSource) {
+    constructor(elementSelector, target, dataSource) {
         this.element = $(elementSelector)
-        this.returnTo = returnTo
-        this.formAction = returnTo
-        this.returnQuery = []
+        this.target = target
         this.idpList = {}
-        this.idpIndex = []
         this.defaultLang = 'en'
         this.maxResults = 10
-        this.typeAhead
+        this.typeAhead = null
         this._init(dataSource)
     }
 
     _init(dataSource) {
-        this._getReturnQuery()
-
         $.getJSON(dataSource, function (data) {
             // file should be free of doublettes and sorted
             this.idpList = data
-            this.idpIndex = Object.keys(this.idpList)
         }.bind(this))
 
         this.draw()
 
         this.typeAhead = new TypeAhead(
-            '#idpSelectTextBox',
-            '#idpSelectSubmit',
-            this.idpList,
-            this.idpIndex,
-            this.match,
-            this.createOption
+            this, {
+                textBox:    '#idpSelectTextBox',
+                submit:     '#idpSelectSubmit',
+                matcherCallbackName:    'match',
+                selectionCallbackName:  'select',
+                optionFactoryName:      'createOption',
+                emptyOptionlistContent: $('<li aria-role="empty">Please use our <a href="/users/register">registration form</a>, if you cannot find your institution</li>')
+            }
         )
     }
 
@@ -44,12 +40,12 @@ class IdpSelector {
             'and classic login.'))
         this.element.append($('<div class="users form"></div>')
             .append($('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
-                .append($('<div class="input text"></div>')
+                .append($('<div class="input text taWrapper"></div>')
                     .append($('<label for="ta-box">Your Organisation</label>'))
-                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox">')))
+                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox" >')))
                 .append($('<input type="hidden" name="SAMLDS" id="samlds" value="1">'))
-                .append($('<input type="hidden" name="target" id="target">'))
-                .append($('<input type="hidden" name="entityID" id="entityid">'))
+                .append($('<input type="hidden" name="target" id="target" value="'+this.target+'">'))
+                .append($('<input type="hidden" name="entityID" id="entityID">'))
                 .append($('<button class="right" disabled="disabled" type="submit" id="idpSelectSubmit">Continue</button>'))
             ))
         this.element.append($('<div id="login-alternatives"></div>')
@@ -58,44 +54,16 @@ class IdpSelector {
             .append($('<a href="/users/signIn#classic" class="blue button small">Classic Login</a>')))
     }
 
-    createOption(entity) {
-        let result = []
-        /*
-        let logo = this._getLogo16x16(entity)
-        if(logo) {
-            let img = $('<img>').src = logo
-            img.width = 16
-            img.height = 16
-            result.push(img)
-        }
-         */
-        result.push($('<span></span>').innerText = this._getDisplayName(entity))
-    }
-    /*
-    _getLogo16x16(entity) {
-        if (null == entity.Logos) {
-            return null
-        }
-        for (let i = 0; i < entity.Logos.length; i++) {
-            var logo = entity.Logos[i];
-            if (logo.height == "16" && logo.width == "16") {
-                if (null == logo.lang)
-                    return logo.value
-                if(this.defaultLang == logo.lang || this.clientLang == logo.lang)
-                    return logo.value
-            }
-        }
-        return null
-    }
-    */
     // matching handler to be called by the TypeAhead on change
     match(value) {
+        if(value.length == 0) return []
         let result = [];
         let c = 0;
         value = value.toLowerCase()
-        for (let i = 0; c <= this.maxResults && i < this.idpList.length; i++) {
+        let keys = Object.keys(this.idpList)
+        for (let i = 0; c < this.maxResults && i < keys.length; i++) {
             let matching = false;
-            let option = this.idpList.length[i];
+            let option = this.idpList[keys[i]];
             if(this._getDisplayName(option).toLowerCase().indexOf(value) != -1) {
                 matching = true
             }
@@ -114,6 +82,23 @@ class IdpSelector {
             }
         }
         return result
+    }
+
+    createOption(entity) {
+        return $('<li></li>')
+            .attr("role", "option")
+            .attr('aria-value', entity.entityID)
+            .html(this._getDisplayName(entity))
+    }
+
+    select(targetElement) {
+        $('#idpSelectSubmit').prop("disabled", false)
+        $('#entityID').val($(targetElement).attr('aria-value'))
+    }
+
+    unselect() {
+        $('#idpSelectSubmit').prop("disabled", true)
+        $('#entityID').val('')
     }
 
     _getDisplayName(entity) {
@@ -138,10 +123,6 @@ class IdpSelector {
             if (entity.Keywords[i].lang == this.defaultLang)
                 return entity.Keywords[i].value
         }
-        for (let i in entity.Keywords) {
-            if (entity.Keywords[i].lang == this.clientLang)
-                return entity.Keywords[i].value
-        }
         return entity.Keywords[0].value
     }
 
@@ -155,7 +136,8 @@ class IdpSelector {
                 if (typeof paramSplit[1] == 'undefined' || !paramSplit[1])
                     paramSplit[1] = null
                 else paramSplit[1] = decodeURIComponent(paramSplit[1]);
-                this.returnQuery.push(paramSplit)
+                if(paramSplit[0] == 'target' && paramSplit[1] != null) this.target = paramSplit[1]
+                //this.returnQuery.push(paramSplit)
             }
         }
     }

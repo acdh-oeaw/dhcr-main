@@ -25,3 +25,34 @@ body.login {
 #classicLogin {
     display: none;
 }
+
+
+.taWrapper {
+    position: relative;
+    ul.idpSelectDropDown {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        border: 1px solid $blue;
+        border-radius: 5px;
+        padding: 5px;
+        width: 60%;
+        height: auto;
+        background-color: #fff;
+        box-shadow: 10px 10px 8px #aaa;
+        z-index: 1000;
+
+        li {
+            display: block;
+            cursor: pointer;
+            margin-bottom: 0.5em;
+            &:hover {
+                color: $blue;
+            }
+            &.selected {
+                background-color: $blue;
+                color: #fff;
+            }
+        }
+    }
+}

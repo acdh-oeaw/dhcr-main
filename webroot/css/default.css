@@ -1815,4 +1815,28 @@ body.login .wrapper {
 #classicLogin {
   display: none; }
 
+.taWrapper {
+  position: relative; }
+  .taWrapper ul.idpSelectDropDown {
+    position: absolute;
+    top: 30px;
+    right: 0;
+    border: 1px solid #1E6BA3;
+    border-radius: 5px;
+    padding: 5px;
+    width: 60%;
+    height: auto;
+    background-color: #fff;
+    box-shadow: 10px 10px 8px #aaa;
+    z-index: 1000; }
+    .taWrapper ul.idpSelectDropDown li {
+      display: block;
+      cursor: pointer;
+      margin-bottom: 0.5em; }
+      .taWrapper ul.idpSelectDropDown li:hover {
+        color: #1E6BA3; }
+      .taWrapper ul.idpSelectDropDown li.selected {
+        background-color: #1E6BA3;
+        color: #fff; }
+
 /*# sourceMappingURL=default.css.map */
