@@ -25,7 +25,7 @@
     </head>
 
     <body class="dhcr-home <?= $this->request->getParam('action') ?>">
-        <div id="header">
+        <div id="page-head">
             <div id="logo">
                 <?= $this->Html->image('logo-300.png', [
                     'url' => '/',

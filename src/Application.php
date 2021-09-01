@@ -85,7 +85,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 'prefix' => false,
                 'plugin' => null,
                 'controller' => 'Users',
-                'action' => 'signIn',
+                'action' => 'sign-in',
             ]),
             'queryParam' => 'redirect',
         ]);
@@ -121,7 +121,23 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 ]
             ]
         ]);
+        /*
+        $service->loadIdentifier('Authentication.Callback', [
+            'callback' => function($data) {
+                // do identifier logic
 
+                if ($result) {
+                    return new Result($result, Result::SUCCESS);
+                }
+
+                return new Result(
+                    null,
+                    Result::FAILURE_OTHER,
+                    ['message' => 'Removed user.']
+                );
+            }
+        ]);
+        */
         return $service;
     }
 

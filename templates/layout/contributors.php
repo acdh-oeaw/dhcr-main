@@ -12,23 +12,24 @@
  * @since         0.10.0
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?= $this->Element('meta') ?>
 
-    <?= $this->Html->css('home.css') ?>
-    <?= $this->Html->css('users.css') ?>
-    <?= $this->Html->css('/leaflet/leaflet.css') ?>
+    <?= $this->Html->css('contributors.css') ?>
+
+    <?= $this->Html->meta('icon') ?>
 </head>
 
-<body class="users <?= $this->request->getParam('action') ?>">
+<?php
+$bodyClasses = (!empty($bodyClasses))
+    ? 'users '.$this->request->getParam('action').' '.$bodyClasses
+    : 'users '.$this->request->getParam('action'); ?>
+<body class="<?= $bodyClasses ?>">
 <div class="wrapper">
-    <div id="header">
+    <div id="page-head">
         <div id="logo">
             <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span>Back', '/', [
                 'class' => 'blue users home button','escape' => false]); ?>
@@ -39,44 +40,20 @@
         </div>
         <div id="menu">
             <?= $this->Html->link(
-                '<span class="glyphicon glyphicon-list">Everything Else</span>',
-                '/subscriptions/add', [
-                'class' => 'blue button',
-                'title' => 'Everything Else',
-                'escape' => false
-            ]) ?>
-            <?= $this->Html->link(
-                '<span class="glyphicon glyphicon-education">Your Courses</span>',
-                '/courses/my_courses', [
-                'class' => 'blue button',
-                'title' => 'Your Courses',
-                'escape' => false
-            ]) ?>
-            <?= $this->Html->link(
-                '<span class="glyphicon glyphicon-user">Profile Settings</span>',
-                '/users/profile', [
-                'class' => 'blue button',
-                'title' => 'Profile Settings',
-                'escape' => false
-            ]) ?>
-            <?= $this->Html->link(
-                '<span class="glyphicon glyphicon-flag">Dashboard</span>',
-                '/users/dashboard', [
-                'class' => 'blue button',
-                'title' => 'Dashboard',
-                'escape' => false
-            ]) ?>
-            <?= $this->Html->link(
-                '<span class="glyphicon glyphicon-off">Logout</span>',
-                '/users/logout', [
+                '<span class="glyphicon glyphicon-menu-hamburger">Menu</span>',
+                '/pages/dashboard-sitemap', [
                 'class' => 'button',
-                'id' => 'logout-button',
-                'escape' => false
+                'id' => 'menu-button',
+                'escape' => false,
+                'title' => 'Menu'
             ]) ?>
         </div>
+
     </div>
 
-    <?= $this->fetch('content') ?>
+    <div id="content">
+        <?= $this->fetch('content') ?>
+    </div>
 
     <?= $this->element('default_footer') ?>
 

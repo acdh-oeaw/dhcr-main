@@ -16,13 +16,16 @@ class UsersController extends AppController
     public function initialize(): void {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication', [
-            'logoutRedirect' => '/users/signIn'  // Default is false
+            'logoutRedirect' => '/users/sign-in'  // Default is false
         ]);
         $this->Authentication->allowUnauthenticated(['signIn','register']);
     }
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
+        if(!in_array($this->request->getParam('action'), [
+            'signIn','register','resetpassword','setpassword']))
+            $this->viewBuilder()->setLayout('contributors');
     }
 
     public function beforeRender(EventInterface $event) {
@@ -76,10 +79,9 @@ class UsersController extends AppController
         if ($result->isValid()) {
             $authentication = $this->Authentication->getAuthenticationService();
             if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
-                // Rehash happens on save.
                 $user = $this->Users->get($this->Authentication->getIdentityData('id'));
                 $user->password = $this->request->getData('password');
-                $this->Users->save($user);
+                $this->Users->save($user);  // Rehash happens on save.
             }
             $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
             return $this->redirect($target);
@@ -100,7 +102,7 @@ class UsersController extends AppController
 
 
     public function dashboard() {
-        $this->viewBuilder()->setLayout('users');
+
         $this->set('title_for_layout', 'Data Curation UI');
     }
 
