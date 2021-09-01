@@ -18,7 +18,7 @@ build-dev:
   tags:
     - cluster
   before_script:
-    - sed -i 's|cron -f &| |g' /entrypoint.sh
+    - sed -i 's|cron -f &| |g' entrypoint.sh
     - sed -i -e 's/^/ENV /' .${CI_COMMIT_REF_SLUG}.env
     - sh -c 'cat .${CI_COMMIT_REF_SLUG}.env >> Dockerfile'
   script:
