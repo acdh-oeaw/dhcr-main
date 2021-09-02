@@ -1,0 +1,7 @@
+# list packages that will be installed over heroku-buildpack-apt 
+vim 
+curl 
+nano 
+links 
+git 
+cron
