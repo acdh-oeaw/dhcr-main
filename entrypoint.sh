@@ -1,10 +1,6 @@
 #!/bin/bash
 
-cp dhcr-cron /etc/cron.d/ 
-chmod 0644 /etc/cron.d/dhcr-cron
-crontab /etc/cron.d/dhcr-cron 
-cron -f &
-
+# Run cake discovery before starting web server
 bin/cake discovery
-
+# Start web server
 exec heroku-php-apache2 
