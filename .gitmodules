@@ -9,5 +9,5 @@
 [submodule "ops"]
 	path = ops
 	url = ../dhcr-back-end.git
-	branch = 4.0.4migration
+	branch = master
 
