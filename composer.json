@@ -48,11 +48,11 @@
             "cd /app/"
         ],
         "post-install-cmd": [
-            "App\\Console\\Installer::postInstall"
+            "App\\Console\\Installer::postInstall",
+             "bin/cake discovery"
         ],
         "post-create-project-cmd": [ 
-             "App\\Console\\Installer::postInstall",
-             "bin/cake discovery"
+             "App\\Console\\Installer::postInstall"
         ],
         "check": [
             "@test",
