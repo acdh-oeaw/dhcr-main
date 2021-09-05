@@ -50,7 +50,10 @@
         "post-install-cmd": [
             "App\\Console\\Installer::postInstall"
         ],
-        "post-create-project-cmd": "App\\Console\\Installer::postInstall",
+        "post-create-project-cmd": [ 
+             "App\\Console\\Installer::postInstall",
+             "bin/cake discovery"
+        ],
         "check": [
             "@test",
             "@cs-check"
