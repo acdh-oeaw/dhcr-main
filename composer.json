@@ -40,9 +40,6 @@
         }
     },
     "scripts": {
-        "compile": [
-            "bin/cake discovery"
-        ],
         "pre-install-cmd": [
             "cp /app/composer.phar /app/ops/app/",
             "cp /app/composer.phar /app/api/v1/",
