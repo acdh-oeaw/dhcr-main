@@ -5,7 +5,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^8.0",
+        "php": "~7.2.0",
         "ext-curl": "*",
         "cakephp/authentication": "^2.0",
         "cakephp/cakephp": "4.2.*",
@@ -48,7 +48,8 @@
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
-        "test": "phpunit --colors=always"
+        "test-setup": "export DB_PASS=$K8S_SECRET_DB_PASS", 
+        "test": "phpunit --colors=always --configuration phpunit.xml.dist"
     },
     "prefer-stable": true,
     "config": {

@@ -6,3 +6,8 @@
 	path = api/v1
 	url = ../DHCR-API.git
 	branch = 4.0.4migration
+[submodule "ops"]
+	path = ops
+	url = ../dhcr-back-end.git
+	branch = master
+

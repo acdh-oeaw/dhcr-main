@@ -1,6 +1,0 @@
-# with flock command
-## blocking multiple execution ##
-
-15  8 * * 1 www-data flock -n /tmp/lockfile -c "/var/www/html/ops/app/Console/sendReminders.sh";
-30 8 * * 1  www-data flock -n /tmp/lockfile -c "/var/www/html/ops/app/Console/checkUrls.sh";
-30 17 * * * www-data flock -n /tmp/lockfile -c "/var/www/html/src/Command/subscriptions.sh";
