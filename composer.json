@@ -22,6 +22,16 @@
         "phpunit/phpunit": "^8.0",
         "psy/psysh": "@stable"
     },
+    "repositories": [
+    {
+        "type": "path",
+        "url": "ops/app/"
+    },
+    {
+        "type": "path",
+        "url": "api/v1/"
+    }
+    ],
     "suggest": {
         "markstory/asset_compress": "An asset compression plugin which provides file concatenation and a flexible filter system for preprocessing and minification.",
         "dereuromark/cakephp-ide-helper": "After baking your code, this keeps your annotations in sync with the code evolving from there on for maximum IDE and PHPStan compatibility."
@@ -41,13 +51,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "App\\Console\\Installer::postInstall",
-            "cp /app/composer.phar /app/ops/app/",
-            "cp /app/composer.phar /app/api/v1/",
-            "cd /app/ops/app/ && php composer.phar update",
-            "cd /app/api/v1/ && php composer.phar update",
-            "cd /app/",
-            "bin/cake discovery"
+            "App\\Console\\Installer::postInstall"
         ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
