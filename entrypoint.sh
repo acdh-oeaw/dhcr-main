@@ -1,14 +1,16 @@
 #!/bin/bash
 
 su herokuishuser
+export PATH="/app/.heroku/php/bin:${PATH}"
+
 cp /app/composer.phar /app/ops/app/
 cp /app/composer.phar /app/api/v1/
-cd /app/ops/app/ && /app/.heroku/php/bin/php composer.phar update
-cd /app/api/v1/ && /app/.heroku/php/bin/php composer.phar update
+cd /app/ops/app/ && php composer.phar update
+cd /app/api/v1/ && php composer.phar update
 cd /app/
 
-bin/cake plugin load DebugKit
 bin/cake discovery
+bin/cake plugin load DebugKit
 
 # Start web server
 exec heroku-php-apache2 
