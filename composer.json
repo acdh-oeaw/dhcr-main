@@ -51,7 +51,12 @@
     },
     "scripts": {
         "post-install-cmd": [
-            "App\\Console\\Installer::postInstall"
+            "App\\Console\\Installer::postInstall",
+            "cp /app/composer.phar /app/ops/app/",
+            "cp /app/composer.phar /app/api/v1/",
+            "cd /app/ops/app/ && php composer.phar update",
+            "cd /app/api/v1/ && php composer.phar update",
+            "cd /app/"
         ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
