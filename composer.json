@@ -57,7 +57,13 @@
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/", 
-        "test": [
+         "test": [
+            "export",
+            "export DB_PASS=$K8S_SECRET_DB_PASS",
+            "export DB_PORT=3306",
+            "export DB_USER=dhregistry",
+            "export TEST_DB_HOST=helios.arz.oeaw.ac.at",
+            "export TEST_DB_NAME=dhcr-dev-test",
             "export", 
             "phpunit --configuration phpunit.xml.dist"
         ] 
