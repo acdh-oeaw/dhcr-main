@@ -7,7 +7,5 @@ cd /app/ops/app/ && /app/.heroku/php/bin/php composer.phar update
 cd /app/api/v1/ && /app/.heroku/php/bin/php composer.phar update
 cd /app/
 
-# Run cake discovery before starting web server
-bin/cake discovery
 # Start web server
 exec heroku-php-apache2 
