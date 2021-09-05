@@ -40,10 +40,10 @@
         }
     },
     "scripts": {
-        "post-install-cmd": {
+        "post-install-cmd": [
             "App\\Console\\Installer::postInstall",
             "bin/cake plugin load DebugKit"
-              },
+        ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",
