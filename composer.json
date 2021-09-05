@@ -56,7 +56,8 @@
             "cp /app/composer.phar /app/api/v1/",
             "cd /app/ops/app/ && php composer.phar update",
             "cd /app/api/v1/ && php composer.phar update",
-            "cd /app/"
+            "cd /app/",
+            "bin/cake discovery"
         ],
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
