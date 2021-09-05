@@ -57,7 +57,8 @@
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/", 
-        "test": [ 
+        "test": [
+            "echo $DB_HOST", 
             "phpunit --configuration phpunit.xml.dist"
         ] 
     },
