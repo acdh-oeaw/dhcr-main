@@ -40,7 +40,10 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
+        "post-install-cmd": {
+            "App\\Console\\Installer::postInstall",
+            "bin/cake plugin load DebugKit"
+              },
         "post-create-project-cmd": "App\\Console\\Installer::postInstall",
         "check": [
             "@test",
@@ -48,7 +51,7 @@
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
-        "test-setup": "export DB_PASS=$K8S_SECRET_DB_PASS", 
+        "test-setup": "export DB_PASS=$K8S_SECRET_DB_PASS && export DB_HOST=$K8S_SECRET_DB_HOST", 
         "test": "phpunit --colors=always --configuration phpunit.xml.dist"
     },
     "prefer-stable": true,
