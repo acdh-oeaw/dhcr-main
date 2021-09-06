@@ -48,7 +48,8 @@
             "cd /app/"
         ],
         "post-install-cmd": [
-            "App\\Console\\Installer::postInstall"
+            "App\\Console\\Installer::postInstall",
+            "bin/cake subscriptions 2>&1;"
         ],
         "post-create-project-cmd": [ 
              "App\\Console\\Installer::postInstall"

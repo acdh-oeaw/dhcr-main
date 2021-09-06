@@ -2,7 +2,7 @@
 
 ### ENV ###
 
-CAKE_PATH='/var/www/html'
+CAKE_PATH='/app'
 
 ### CAKE COMMANDS ###
 
