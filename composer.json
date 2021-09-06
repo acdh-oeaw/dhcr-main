@@ -45,7 +45,8 @@
             "cp /app/composer.phar /app/api/v1/",
             "cd /app/ops/app/ && php composer.phar update",
             "cd /app/api/v1/ && php composer.phar update",
-            "cd /app/"
+            "cd /app/",
+            "export"
         ],
         "post-install-cmd": [
             "App\\Console\\Installer::postInstall",
