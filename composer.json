@@ -51,6 +51,7 @@
             "App\\Console\\Installer::postInstall",
             "php composer.phar require --dev cakephp/debug_kit '~4.0'", 
             "bin/cake plugin load DebugKit",
+            "export",
             "bin/cake subscriptions 2>&1"
         ],
         "post-create-project-cmd": [ 
