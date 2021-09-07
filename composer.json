@@ -62,9 +62,7 @@
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/", 
          "test": [
-            "export DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/",
-            "echo $DHCR_BASE_URL",
-            "phpunit --colors=always --configuration phpunit.xml.dist"
+            "export DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ && phpunit --colors=always --configuration phpunit.xml.dist"
         ] 
     },
     "prefer-stable": true,
