@@ -321,7 +321,6 @@ return [
          * The test connection is used during the test suite.
          */
         'test' => [
-            'baseUrl' => env('TEST_DHCR_BASE_URL', '__DHCR_BASE_URL__'),
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
