@@ -52,7 +52,7 @@ class IdpSelector {
         }.bind(this))
 
         // preferred IDP
-        let preferred = Cookies.get('preferred_idp', {domain: 'clarin-dariah.eu'})
+        let preferred = Cookies.get('preferred_idp')
         let preferredButton = false;
         if(typeof preferred != 'undefined' && typeof this.idpList[preferred] != 'undefined') {
             let label = this._getDisplayName(this.idpList[preferred])
@@ -163,7 +163,7 @@ class IdpSelector {
 
     submit() {
         let preferred = $('#entityID').val()
-        Cookies.set('preferred_idp', preferred, {expires: 365, domain: 'clarin-dariah.eu'})
+        Cookies.set('preferred_idp', preferred, {expires: 365})
     }
 
     _getDisplayName(entity) {
