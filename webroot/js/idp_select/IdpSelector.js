@@ -1,5 +1,7 @@
 'use strict';
 
+// requires Cookies: /npm/js-cookie@2.2.1/src/js.cookie.js
+
 class IdpSelector {
 
     constructor(elementSelector, target, dataSource) {
@@ -31,6 +33,7 @@ class IdpSelector {
     }
 
     draw() {
+        // optional optin pick list
         let options = [$('<option aria-value="empty" selected>-- Pick from List --</option>')]
         let keys = Object.keys(this.idpList)
         for (let i = 0; i < keys.length; i++) {
@@ -47,29 +50,52 @@ class IdpSelector {
                 this.unselect()
             }
         }.bind(this))
+
+        // preferred IDP
+        let preferred = Cookies.get('preferred_idp', {domain: 'clarin-dariah.eu'})
+        let preferredButton = false;
+        if(typeof preferred != 'undefined' && typeof this.idpList[preferred] != 'undefined') {
+            let label = this._getDisplayName(this.idpList[preferred])
+            preferredButton = $('<button id="preferredIdp" type="button" class="small blue button" value="'+preferred+'">'+label+'</button>')
+            preferredButton.click(function(event) {
+                $('#entityID').val(preferred)
+                $(event.target).parents('form').submit()
+            })
+        }
+
+        // main element
         this.element.append($('<h2>Federated Login</h2>'))
         this.element.append($('<p></p>').append('Use your institutional account to log in.<br>\n' +
             'If your organisation is not available in the list of institutions below, \n' +
-            'please use the <a href="/users/register" className="small button">registration form</a> ' +
+            'please use our <a href="/users/register">registration form</a> ' +
             'and classic login.'))
-        this.element.append($('<div class="users form"></div>')
-            .append($('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
-                .append($('<div class="input text taWrapper"></div>')
-                    .append($('<label for="ta-box">Your Organisation</label>'))
-                    .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox" class="inputAlternative">'))
-                    .append(select))
-                .append($('<input type="hidden" name="SAMLDS" id="samlds" value="1">'))
-                .append($('<input type="hidden" name="target" id="target" value="'+this.target+'">'))
-                .append($('<input type="hidden" name="entityID" id="entityID">'))
-                .append($('<button class="right" disabled="disabled" type="submit" id="idpSelectSubmit">Continue</button>'))
-            ))
+        let form = $('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
+        form.submit(function(event) { this.submit() }.bind(this))
+        let formDiv = $('<div class="users form"></div>').append(form)
+        this.element.append(formDiv)
+        if(preferredButton) {
+            let preferredDiv = $('<div class="input recent"></div>')
+                .append($('<label for="ta-box">Recent Choice</label>'))
+                .append(preferredButton)
+                form.append(preferredDiv)
+        }
+        form.append($('<div class="input text taWrapper"></div>')
+                .append($('<label for="ta-box">Your Organisation</label>'))
+                .append($('<input type="text" name="ta_box" placeholder="Type to search..." id="idpSelectTextBox" class="inputAlternative">'))
+                .append(select))
+        form.append($('<input type="hidden" name="SAMLDS" id="samlds" value="1">'))
+        form.append($('<input type="hidden" name="target" id="target" value="'+this.target+'">'))
+        form.append($('<input type="hidden" name="entityID" id="entityID">'))
+        form.append($('<button class="right" disabled="disabled" type="submit" id="idpSelectSubmit">Continue</button>'))
+
+        // buttons...
         let classicButton = $('<a href="/users/sign-in#classic" class="blue button small">Classic Login</a>')
         classicButton.click(function(e) {
             e.preventDefault()
             $('.loginAlternative').toggle()
         }.bind(this))
-        let searchButton = $('<a href="#idpSearch" class="blue button small inputAlternativeButton" style="display:none">Organization Search</a>')
-        let listButton = $('<a href="#idpList" class="blue button small inputAlternativeButton">Organization List</a>')
+        let searchButton = $('<a href="#idpSearch" class="button small inputAlternativeButton" style="display:none">Organization Search</a>')
+        let listButton = $('<a href="#idpList" class="button small inputAlternativeButton">Organization List</a>')
         listButton.click(function(e) {
             e.preventDefault()
             $('.inputAlternative').toggle()
@@ -85,7 +111,6 @@ class IdpSelector {
         this.element.append($('<div id="login-alternatives"></div>')
             .append(searchButton)
             .append(listButton)
-            .append($('<a href="/users/register" class="small button">Registration</a>'))
             .append(classicButton))
     }
 
@@ -134,6 +159,11 @@ class IdpSelector {
     unselect() {
         $('#idpSelectSubmit').prop("disabled", true)
         $('#entityID').val('')
+    }
+
+    submit() {
+        let preferred = $('#entityID').val()
+        Cookies.set('preferred_idp', preferred, {expires: 365, domain: 'clarin-dariah.eu'})
     }
 
     _getDisplayName(entity) {

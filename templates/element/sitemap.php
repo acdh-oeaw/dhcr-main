@@ -21,13 +21,18 @@
             <ul class="follow">
                 <li>
                     <?= $this->Html->link(
-                        'Course Alert',
+                        'New Course Alert',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Social Media',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Join Our Network',
+                        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
@@ -91,11 +96,6 @@
                     ['escape' => false]) ?>
             </p>
             <ul class="contribute">
-                <li>
-                    <?= $this->Html->link(
-                        'Join Our Network',
-                        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
-                </li>
                 <li>
                     <?= $this->Html->link(
                         'Sign-In',

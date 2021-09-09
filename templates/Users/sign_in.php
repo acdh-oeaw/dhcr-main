@@ -8,6 +8,10 @@ $this->set('bodyClasses', 'login'); ?>
         Use your e-mail address and DHRC password to log in. <br>
         Reset your password if you forgot it or never set one.
     </p>
+    <p>
+        If you do not have a DHCR account and were not able to log in using the federated login,
+        please use our <?= $this->Html->link('registration form', '/users/register') ?>.
+    </p>
     <div class="users form">
         <?= $this->Form->create() ?>
 
@@ -19,8 +23,7 @@ $this->set('bodyClasses', 'login'); ?>
     </div>
 
     <div id="login-alternatives">
-        <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'blue button small']) ?>
-        <?= $this->Html->link('Registration', '/users/register', ['class' => 'small button']) ?>
+        <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'button small']) ?>
         <?= $this->Html->link('Federated Login', '/users/sign-in/#idpSelect', [
             'class' => 'blue button small',
             'id' => 'federatedLogin']) ?>
@@ -30,7 +33,10 @@ $this->set('bodyClasses', 'login'); ?>
 <?php
 if($idpTarget) {
     echo '<div id="idpSelect" class="loginAlternative"></div>';
-    $this->Html->script(['idp_select/IdpSelector.js','idp_select/TypeAhead.js'], ['block' => true]);
+    $this->Html->script(['idp_select/IdpSelector.js',
+        'idp_select/TypeAhead.js',
+        'js_cookie'
+    ],['block' => true]);
     $this->Html->scriptStart(['block' => true]); ?>
     $('#federatedLogin').click(function(e) {
         e.preventDefault()
