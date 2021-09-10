@@ -36,6 +36,12 @@ class UsersController extends AppController
 
     public function signIn()
     {
+        if(!empty($_SERVER['HTTP_EPPN'])) {
+            var_dump($_SERVER);
+            exit;
+        }
+
+
         // get the shibboleth return parameter
         $here = 'https://dev-dhcr.clarin-dariah.eu/users/sign-in';
         $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target='.urlencode($here);
