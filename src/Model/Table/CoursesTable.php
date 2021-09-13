@@ -44,7 +44,7 @@ class CoursesTable extends Table
      * @param array $config The configuration for the Table.
      * @return void
      */
-    public function initialize(array $config)
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -112,7 +112,7 @@ class CoursesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
             ->integer('id')
@@ -226,7 +226,7 @@ class CoursesTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['deletion_reason_id'], 'DeletionReasons'));
@@ -247,12 +247,12 @@ class CoursesTable extends Table
         $options = $this->getFilter($subscription);
         $query = $this->find('all', $options);
 
-        $this->subquery($query, $subscription, 'disciplines');
-        $this->subquery($query, $subscription, 'languages');
-        $this->subquery($query, $subscription, 'countries');
-        $this->subquery($query, $subscription, 'course_types');
-        $this->subquery($query, $subscription, 'tadirah_objects');
-        $this->subquery($query, $subscription, 'tadirah_techniques');
+        $this->__match_association($query, $subscription, 'disciplines');
+        $this->__match_association($query, $subscription, 'languages');
+        $this->__match_association($query, $subscription, 'countries');
+        $this->__match_association($query, $subscription, 'course_types');
+        $this->__match_association($query, $subscription, 'tadirah_objects');
+        $this->__match_association($query, $subscription, 'tadirah_techniques');
 
         return $query->distinct()->toArray();
     }
@@ -281,7 +281,7 @@ class CoursesTable extends Table
 
 
 
-    private function subquery(&$query, $subscription, $assoc) {
+    private function __match_association(&$query, $subscription, $assoc) {
         if($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {

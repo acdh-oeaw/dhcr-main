@@ -1,0 +1,71 @@
+
+
+.follow {
+    margin-bottom: 1.5em !important;
+    .fab {
+        margin-right: 0.5em;
+        &.fa-instagram {
+            color: indianred;
+        }
+        &:hover, &.animate {
+            transform: scale(1.05);
+            transform-origin: right center;
+            text-decoration: none;
+        }
+    }
+}
+
+ul#stories {
+    list-style: none;
+    li a { color: $gray !important; }
+}
+
+
+body.stories {
+
+    P.linklist-title-desc {
+        text-align: center;
+        color: black !important;
+        font-family: Metropolis, sans-serif;
+        font-size: 14px !important;
+        font-weight: bolder;
+        text-transform: uppercase;
+    }
+
+    .linklist-content-div {
+        padding-left: 10px;
+        text-align: center;
+        a {
+            text-decoration:none;
+            color: white;
+            font-family: Metropolis, sans-serif;
+        }
+    }
+
+
+
+    ul {
+        list-style-type: none;
+        display: inline-block !important;
+        margin: 0;
+        padding: 0;
+        /* For IE, the outcast */
+        zoom:1;
+        display: inline;
+
+        li {
+            max-width: 350px;
+            margin:10px;
+            border-radius: 10px;
+            text-align: center;
+            padding:15px;
+            &.linklist-list-element-blue { background-color: #1e6ba3; }
+            &.linklist-list-element-green { background-color: #60a845; }
+            &:hover {
+                opacity: 0.3;
+                filter: alpha(opacity=30);
+            }
+        }
+
+    }
+}

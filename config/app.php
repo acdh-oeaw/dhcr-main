@@ -81,8 +81,8 @@ return [
         'jsBaseUrl' => 'js/',
         'paths' => [
             'plugins' => [ROOT . DS . 'plugins' . DS],
-            'templates' => [APP . 'Template' . DS],
-            'locales' => [APP . 'Locale' . DS],
+            'templates' => [ROOT . DS . 'templates' . DS],
+            'locales' => [RESOURCES . 'locales' . DS],
         ],
     ],
 
@@ -200,6 +200,7 @@ return [
         'skipLog' => [],
         'log' => true,
         'trace' => true,
+        'extraFatalErrorMemory' => 2
     ],
 
     /**
@@ -366,6 +367,13 @@ return [
             'url' => env('LOG_QUERIES_URL', null),
             'scopes' => ['queriesLog'],
         ],
+        'cron' => [
+            'className' => 'Cake\Log\Engine\FileLog',
+            'path' => LOGS,
+            'file' => 'cron',
+            'scopes' => ['cron']
+        ],
+        // Log::write('level', 'message', 'scope(cron)')
     ],
 
     /**
@@ -409,5 +417,6 @@ return [
      */
     'Session' => [
         'defaults' => 'cache',
+        'timeout' => 0,
     ],
 ];

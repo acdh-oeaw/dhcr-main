@@ -1,0 +1,128 @@
+#menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    width: auto;
+
+    button, .button {
+        // generic button defined in _basics
+        margin: 0 10px;
+        &.menu-button {
+            position: relative;
+        }
+        &:last-child {
+            margin-right: 0;
+        }
+        &:first-child {
+            margin-left: 0;
+        }
+        .glyphicon {
+            font-size: 0;
+            &::before { font-size: 27px; }
+        }
+        @include respond-to(handhelds) {
+            &#info-button {
+                padding-top: 10px;
+            }
+            .glyphicon {
+                &::before { font-size: 27px; }
+                margin-top: 2px;
+            }
+            font-size: 23px;
+            width: 50px;
+            height: 50px;
+            border-radius: 29px;
+            padding-left: 0;
+            padding-right: 0;
+            margin: 0;
+            margin-left: 10px;
+
+
+        }
+    }
+}
+
+
+
+#sitemap {
+    display: none;
+}
+#content #sitemap {
+    display: block;
+}
+
+
+#modal-wrapper.sitemap {
+    padding: 15px 0;
+    display: grid;
+    grid-template-areas: ". display .";
+    grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px);
+    gap: 0;
+    #modal-content {
+        grid-area: display;
+        align-self: start;
+        justify-self: end;
+        width: initial;
+    }
+
+    @include respond-to(x-small) {
+        padding: 5px 0;
+        grid-template-columns: 5px auto 5px;
+        #modal-content {
+            justify-self: stretch;
+        }
+    }
+}
+.home #modal-wrapper.sitemap {
+    grid-template-columns: auto min(calc(100% - 2*15px), 90rem) auto;
+}
+
+#sitemap, .sitemap {
+    ul {
+        margin: 1.6em 0 1em;
+        ul { margin-top: 0; }
+    }
+    p { margin: 0 0 0.5em; }
+    a {
+        color: inherit;
+        &:hover, &:focus, &.animate {
+            text-decoration: underline;
+        }
+    }
+    .glyphicon {
+        font-size: 0.9em;
+        margin-right: 0.6em;
+        color: $blue;
+        position: relative;
+    }
+    ul {
+        list-style: none;
+        li {
+            // h2
+            font-family: Bebas, sans-serif;
+            font-size: 25px;
+            font-weight: normal;
+            line-height: 0.8;
+            color: $blue;
+            margin-bottom: 1em;
+            &:first-child {
+                margin-top: 0;
+            }
+            ul {
+                margin-left: 1.5em;
+                li {
+                    // h3
+                    font-family: Metropolis, sans-serif;
+                    font-size: 18px;
+                    font-weight: bold;
+                    font-style: normal;
+                    font-stretch: normal;
+                    line-height: normal;
+                    letter-spacing: normal;
+                    color: $gray;
+                }
+            }
+        }
+    }
+}

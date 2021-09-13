@@ -5,6 +5,7 @@
     margin-bottom: 15px;
     padding: 2px 0 15px;
     position: relative;
+    width: calc(100% - 16px);
     @include clearfix;
 
     button {

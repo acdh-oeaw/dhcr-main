@@ -15,11 +15,11 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Event\Event;
+use Cake\Event\EventInterface;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 
 /**
  * Static content controller
@@ -31,16 +31,25 @@ use Cake\Mailer\Email;
 class PagesController extends AppController
 {
 
-
-	public function beforeRender(Event $event) {
+    public function beforeRender(EventInterface $event) {
 		// bypass forcing data views for this controller only, make no call to parent::beforeRender()
 	}
 
 
 
+	public function follow() {
+        $this->loadModel('DhcrCore.Countries');
+        $this->loadModel('Subscriptions');
+        $subscription = [];
+        $countries = $this->Subscriptions->Countries->find('list', [
+            'order' => ['Countries.name' => 'ASC']]);
+        $this->set(compact('subscription','countries'));
+    }
+
+
 
 	public function info() {
-        $this->loadModel('DhcrCore.Users');
+        $this->loadModel('Users');
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Emails');
 
@@ -55,7 +64,7 @@ class PagesController extends AppController
                 if($admins) {
                     foreach($admins as $admin) {
                         // email logic
-                        $mailer = new Email('default');
+                        $mailer = new Mailer('default');
                         $mailer->setCc($data['email']);
                         $mailer->setCc(Configure::read('AppMail.defaultCc'));
                         $mailer->setReplyTo($data['email'])
@@ -78,7 +87,7 @@ class PagesController extends AppController
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
         }else{
 	        // init email form
-            $email = $this->Emails->newEntity();
+            $email = [];
         }
 
         $moderators = $this->Users->find('all', array(

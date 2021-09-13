@@ -1,0 +1,130 @@
+#accordeon {
+    margin-top: 4em;
+    .accordeon-item {
+        > h2 {
+            border-top: 2px solid $light-gray;
+            padding: 0.8em 2em 0.3em 0;
+            font-family: Metropolis, sans-serif;
+            font-weight: bold;
+            font-size: 25px;
+            height: 60px;
+            text-transform: none;
+            cursor: pointer;
+            position: relative;
+            span {
+                transition: all 0.3s;
+                transform-origin: left center;
+                display: inline-block;
+            }
+            &::after {
+                width: 0.5em;
+                height: 0.5em;
+                display: inline-block;
+                position: absolute;
+                right: 0;
+                top: 0.8em;
+                transform: rotate(45deg);
+                border: 4px solid $blue;
+                border-radius: 1px;
+                border-top: none;
+                border-left: none;
+                content: '';
+                margin-right: 5px;
+            }
+            &:hover {
+                span {
+                    transform: scale(1.05);
+                }
+                &::after {
+                    transform: rotate(-135deg);
+                    top: 1em;
+                    @include respond-to(handhelds) { top: 0.9em }
+                    @include respond-to(x-small) { top: 0.8em }
+                }
+            }
+            @include respond-to(handhelds) {
+                font-size: 22px;
+                height: 50px;
+                &::after { top: 0.7em }
+            }
+            @include respond-to(x-small) {
+                font-size: 19px;
+                height: 45px;
+                &::after { top: 0.6em }
+            }
+        }
+        &:not(.open) {
+            .item-content {
+                max-height: 0;
+                transition: max-height 0.5s ease-out;
+                overflow: hidden;
+            }
+            &:last-child h2 {
+                border-bottom: 2px solid $light-gray;
+            }
+        }
+        &.open {
+            h2 {
+                &::after {
+                    transform: rotate(-135deg);
+                    top: 1em;
+                }
+                &:hover::after {
+                    transform: rotate(45deg);
+                    top: 0.8em;
+                }
+            }
+            .item-content {
+                padding: 2em 0 3em;
+                max-height: 5000px;
+                transition: max-height 0.5s ease-in;
+            }
+            &:last-child .item-content {
+                border-bottom: 2px solid $light-gray;
+            }
+        }
+        .item-content {
+            h3 {
+                font-family: Bebas, sans-serif;
+                font-weight: normal;
+                font-size: 23px;
+                letter-spacing: 0.05em;
+                margin-bottom: 0.3em;
+                @include respond-to(handhelds) {
+                    font-size: 20px;
+                }
+            }
+            h4 {
+                font-family: Metropolis, sans-serif;
+                font-size: 20px;
+                font-weight: bold;
+                text-transform: none;
+                color: $blue;
+                margin-bottom: 0.3em;
+                @include respond-to(handhelds) {
+                    font-size: 18px;
+                }
+                @include respond-to(x-small) {
+                    font-weight: normal;
+                }
+            }
+            p {
+                color: $gray;
+            }
+            hr {
+                margin: 2em 0;
+                background-color: $light-gray;
+            }
+            a:not(.button) {
+                color: $blue;
+                text-decoration: none;
+                font-size: inherit;
+                &:hover {
+                    text-decoration: underline;
+                    color: $blue;
+                }
+            }
+
+        }
+    }
+}

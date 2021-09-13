@@ -1,0 +1,87 @@
+/* Color schema */
+/* general text formatting */
+/* base layout & responsive sizing */
+/* amount of space to reserve for lateral whitespace */
+@font-face { font-family: Bebas; src: url(../fonts/bebas_neue/BebasNeue-Regular.otf) format("opentype"); }
+@font-face { font-family: Bebas-Bold; src: url(../fonts/bebas_neue/BebasNeue-Bold.otf) format("opentype"); font-weight: bold; }
+@font-face { font-family: Metropolis-SemiBold; src: url(../fonts/metropolis/Metropolis-SemiBold.otf) format("opentype"); font-weight: bolder; }
+@font-face { font-family: Metropolis; src: url(../fonts/metropolis/Metropolis-Regular.otf) format("opentype"); }
+/* breakpoint definition - use this mixin where appropriate */
+/*
+1080 - 1280
+
+720 - 800
+
+320
+*/
+@media only screen and (max-width: 580px) { #page-head { margin-bottom: 1em; }
+  #page-head h1 { display: none; } }
+
+#content { display: grid; grid-template-columns: min(23vw, 200px) auto; grid-column-gap: 3em; grid-row-gap: 1em; justify-content: center; align-content: space-between; grid-template-areas: 'joint-logo intent' 'content content'; }
+@media only screen and (max-width: 750px) { #content { grid-column-gap: 6vw; } }
+#content h1 { display: none; }
+@media only screen and (max-width: 580px) { #content { align-items: center; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1em auto auto; grid-template-areas: 'joint-logo  dhcr-logo' '.           .' 'intent intent' 'content content'; }
+  #content h1 { display: block; grid-area: dhcr-logo; text-align: center; font-size: 0; color: transparent; align-self: center; justify-self: start; }
+  #content h1 img { display: block; margin: 0 auto; height: auto; width: 45vw; max-width: 500px; min-width: 170px; } }
+@media only screen and (max-width: 580px) and (max-width: 750px) { #content h1 img { width: 50vw; } }
+@media only screen and (max-width: 580px) and (max-width: 580px) { #content h1 img { margin: 0; } }
+
+@media only screen and (max-width: 400px) { #content { grid-column-gap: 1em; } }
+#content .joint-logo { grid-area: joint-logo; justify-self: start; align-self: start; display: block; width: 23vw; max-width: 200px; min-width: 176px; height: auto; }
+@media only screen and (max-width: 750px) { #content .joint-logo { width: 20vw; min-width: 150px; } }
+@media only screen and (max-width: 580px) { #content .joint-logo { justify-self: end; width: 16vw; min-width: 70px; } }
+#content .title, #content .intent { margin-top: 0; grid-area: intent; }
+@media only screen and (max-width: 580px) { #content .title p, #content .intent p { text-align: center; } }
+#content .title h2, #content .intent h2 { margin-bottom: 1em; }
+#content .title p, #content .intent p { font-size: 18px; line-height: 1.5; color: #1E6BA3; }
+@media only screen and (max-width: 580px) { #content .title p, #content .intent p { font-size: 16px; } }
+#content .title p a, #content .intent p a { font-weight: bold; color: #1E6BA3; }
+#content .title p a:hover, #content .intent p a:hover { text-decoration: underline; }
+#content #accordeon { grid-area: content; }
+
+html { scroll-behavior: smooth; }
+
+body { background-color: #fff; position: relative; }
+body .wrapper { padding: 2em 15px 10vw; max-width: 1000px; margin: 0 auto; width: calc(100% - 2 * 15px); }
+
+.css-columns.moderators .item, .css-columns.admins .item { -webkit-column-break-inside: avoid; /* Chrome, Safari */ page-break-inside: avoid; /* Theoretically FF 20+ */ break-inside: avoid-column; /* IE 11 */ }
+.css-columns.moderators .item .country, .css-columns.admins .item .country { font-family: Metropolis, sans-serif; font-weight: bold; color: #1E6BA3; display: block; margin-bottom: 0; }
+.css-columns.moderators .item .moderators a, .css-columns.admins .item .moderators a { color: #6d7278; }
+.css-columns.admins { margin-bottom: 3em; }
+
+.flex-columns { justify-content: space-between; }
+.flex-columns .flex-item { overflow: hidden; padding-bottom: 15px; }
+.flex-columns .flex-item:first-child { padding-left: 0; }
+.flex-columns .flex-item:last-child { padding-right: 0; }
+
+.illustration { display: block; height: auto; width: 80%; margin: 0 0 3em; }
+
+.iframe-container { overflow: hidden; position: relative; }
+.iframe-container img.ratio { display: block; width: 100%; height: auto; }
+.iframe-container iframe { border: 0; height: 100%; left: 0; position: absolute; top: 0; width: 100%; }
+
+a.logo { margin: 0 auto 3em; display: flex; justify-content: center; }
+a.logo:last-child { margin-bottom: 0; }
+a.logo img { flex: 1 1 80%; max-width: 200px; min-width: 150px; height: auto; display: inline-block; }
+
+form { margin-bottom: 3em; }
+
+.coordinator { font-family: Metropolis, sans-serif; font-weight: bold; color: #1E6BA3; display: block; margin-bottom: 0; }
+
+.publications p { font-size: 12px; }
+
+.feature-link { margin: 3em 0 0; display: flex; justify-content: flex-start; align-items: center; flex-wrap: nowrap; margin-bottom: 1.5em; }
+@media only screen and (max-width: 400px) { .feature-link { flex-wrap: wrap; justify-content: center; } }
+.feature-link a { display: inline-block; margin: 0; margin-right: 1.5em; line-height: 0; margin-bottom: 1em; flex: 1 0 40%; min-width: 100px; max-width: 150px; }
+.feature-link a img { max-width: 100%; height: auto; }
+.feature-link p { margin: 0; max-width: 350px; }
+
+#imprint-content h2 { font-family: Bebas, sans-serif; font-weight: bold; font-size: 23px; letter-spacing: 0.05em; margin-bottom: 0.3em; }
+@media only screen and (max-width: 750px) { #imprint-content h2 { font-size: 20px; } }
+#imprint-content h3 { font-family: Metropolis, sans-serif; font-size: 20px; font-weight: bold; text-transform: none; color: #1E6BA3; margin-bottom: 0.3em; }
+@media only screen and (max-width: 750px) { #imprint-content h3 { font-size: 18px; } }
+@media only screen and (max-width: 400px) { #imprint-content h3 { font-weight: normal; } }
+
+/* alternative page head & other stuff */
+
+/*# sourceMappingURL=info.css.map */

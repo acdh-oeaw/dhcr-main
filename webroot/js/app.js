@@ -1,6 +1,5 @@
 
 'use strict';
-// requires Cookies: /npm/js-cookie@2.2.1/src/js.cookie.js
 
 class App {
 

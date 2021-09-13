@@ -1,12 +1,13 @@
 [submodule "plugins/DhcrCore"]
 	path = plugins/DhcrCore
 	url = ../dhcr-core.git
-	branch = master
+	branch = 4.0.4migration
 [submodule "api/v1"]
 	path = api/v1
 	url = ../DHCR-API.git
-	branch = master
+	branch = 4.0.4migration
 [submodule "ops"]
 	path = ops
 	url = ../dhcr-back-end.git
 	branch = master
+

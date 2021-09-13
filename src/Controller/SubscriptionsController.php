@@ -1,9 +1,8 @@
 <?php
 namespace App\Controller;
 
-use App\Controller\AppController;
 use Cake\Core\Configure;
-use Cake\Mailer\Email;
+use Cake\Mailer\Mailer;
 
 /**
  * Subscriptions Controller
@@ -14,6 +13,11 @@ use Cake\Mailer\Email;
  */
 class SubscriptionsController extends AppController
 {
+
+    public function initialize(): void {
+        parent::initialize();
+    }
+
     /**
      * Index method
      *
@@ -48,31 +52,30 @@ class SubscriptionsController extends AppController
      */
     public function add()
     {
-        $this->viewBuilder()->setLayout('static_page');
-        $subscription = $this->Subscriptions->newEntity();
+        $subscription = [];
         if ($this->request->is('post')) {
             $data = $this->request->getData();
-            $_subscription = $this->Subscriptions->find('all',  [
+            $subscription = $this->Subscriptions->find('all',  [
                     'conditions' => ['Subscriptions.email' => $data['email']],
                     'contain' => $this->Subscriptions::$containments
             ])->first();
-            if(!empty($_subscription)) {
+            if(!empty($subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
-                $Email = new Email('default');
+                $Email = new Mailer('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                     ->setTo($data['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
                     ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $_subscription, 'isNew' => false])
+                    ->setViewVars(['subscription' => $subscription, 'isNew' => false])
                     ->viewBuilder()->setTemplate('subscriptions/subscription_access');
                 $Email->send();
                 return $this->redirect('/');
             }else{
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
-                $subscription = $this->Subscriptions->patchEntity($subscription, $data);
+                $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
                     $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
-                    $Email = new Email('default');
+                    $Email = new Mailer('default');
                     $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                         ->setTo($data['email'])
                         ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
@@ -83,7 +86,6 @@ class SubscriptionsController extends AppController
                     return $this->redirect('/');
                 }
             }
-
 
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
@@ -101,8 +103,6 @@ class SubscriptionsController extends AppController
      */
     public function edit($key = null)
     {
-        $this->viewBuilder()->setLayout('static_page');
-
         $subscription = $this->Subscriptions->find('all', [
             'conditions' => ['Subscriptions.confirmation_key' => $key],
             'contain' => $this->Subscriptions::$containments
@@ -130,7 +130,7 @@ class SubscriptionsController extends AppController
                     $this->Flash->success(__('Your subscription is now complete and confirmed.'
                         .'You will receieve e-mail notifications, as soon new courses match your filters.'));
                 else $this->Flash->success(__('Your subscription has been saved.'));
-                $Email = new Email('default');
+                $Email = new Mailer('default');
                 $Email->setFrom(Configure::read('AppMail.defaultFrom'))
                     ->setTo($subscription['email'])
                     ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')

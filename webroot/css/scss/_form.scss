@@ -12,6 +12,7 @@
 }
 
 form {
+    @include clearfix;
     fieldset.invisible {
         border: none;
         margin-top: 3em;
@@ -28,9 +29,9 @@ form {
         -moz-box-sizing:border-box;
         -webkit-box-sizing:border-box;
         box-sizing:border-box;
-        padding: 5px;
+        padding: 5px 5px 3px;
         font-size: 0.9em;
-        font-family: metropolis;
+        font-family: Metropolis;
         color: inherit;
     }
     input[readonly] {
@@ -45,9 +46,6 @@ form {
     }
 
     @include reset-select;
-    select {
-        padding: 4px 5px 4px;
-    }
 
     .checkbox {
         margin-left: 0;
@@ -84,10 +82,12 @@ form {
         label {
             grid-area: label;
             margin-bottom: 0.5em;
+            min-width: 88px;
         }
         input,textarea,select, .radio-inline,.checklist-toggle {
             grid-area: input;
             justify-self: stretch;
+            width: 100%;
             &.form-error {
                 border-color: $red;
             }

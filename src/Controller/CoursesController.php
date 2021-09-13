@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 
 
@@ -11,6 +12,10 @@ class CoursesController extends AppController
 
     public $Courses = null;
 
+    public function beforeRender(EventInterface $event) {
+        parent::beforeRender($event);
+        $this->viewBuilder()->setLayout('home');
+    }
 
     public function index() {
         $query = $this->request->getQuery();

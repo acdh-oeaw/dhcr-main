@@ -26,24 +26,24 @@ $break_point: 750px;
 $whitespace : 15px;      // relative to height, so padding does not change on resize
 
 
+
 @font-face {
-    font-family: metropolis;
-    //src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
-    src: url(../fonts/metropolis/Metropolis-Regular.otf);
+    font-family: Bebas;
+    src: url(../fonts/bebas_neue/BebasNeue-Regular.otf) format("opentype");
 }
 @font-face {
-    font-family: metropolis;
-    src: url(../fonts/metropolis/Metropolis-SemiBold.otf);
+    font-family: Bebas-Bold;
+    src: url(../fonts/bebas_neue/BebasNeue-Bold.otf) format("opentype");
     font-weight: bold;
 }
 @font-face {
-    font-family: bebas;
-    src: url(../fonts/bebas_neue/BebasNeue-Regular.otf);
+    font-family: Metropolis-SemiBold;
+    src: url(../fonts/metropolis/Metropolis-SemiBold.otf) format("opentype");
+    font-weight: bolder;
 }
 @font-face {
-    font-family: bebas;
-    src: url(../fonts/bebas_neue/BebasNeue-Bold.otf);
-    font-weight: bold;
+    font-family: Metropolis;
+    src: url(../fonts/metropolis/Metropolis-Regular.otf) format("opentype");
 }
 
 /* breakpoint definition - use this mixin where appropriate */
@@ -70,7 +70,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     }
     @else if $media == x-large {
         // 80 em on 16px fontsize -> 1280px
-        @media only screen and (min-width: 1280px) { @content; }
+        @media only screen and (min-width: 1040px) { @content; }
     }
 }
 
@@ -87,7 +87,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
             outline: none;
             cursor: pointer;
             background-color: transparent;
-            font-family: metropolis;
+            font-family: Metropolis;
             &:hover {
                 background-color: #eee;
             }
@@ -109,7 +109,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
         width: 8px;
         height: 8px;
         right: 15px;
-        top: 7px;
+        top: 5px;
         border: 2px solid $blue;
         border-top: none;
         border-left: none;

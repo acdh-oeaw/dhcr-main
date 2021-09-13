@@ -48,7 +48,7 @@ Router::defaultRouteClass(\Cake\Routing\Route\DashedRoute::class);
 Router::scope('/', function (RouteBuilder $routes) {
     // Register scoped middleware for in scopes.
     $routes->registerMiddleware('csrf', new CsrfProtectionMiddleware([
-        'httpOnly' => true
+        'httponly' => true
     ]));
 
     /**
@@ -71,11 +71,14 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
-
-
-    $routes->connect('/stories', ['controller' => 'Pages', 'action' => 'display', 'stories']);
+    $routes->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
 
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+
+    // re-routing the login form irritates the Authentication Component
+    //$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
+    //$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
+    //$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
 
     /**
      * Connect catchall routes for all controllers.

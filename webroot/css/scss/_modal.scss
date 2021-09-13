@@ -1,6 +1,6 @@
 
 
-#modal-wrapper {
+#modal-wrapper, .modal-wrapper {
     position: fixed;
     z-index: 1000000;
     width: 100vw;
@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
 
-    #modal-content {
+    #modal-content, .modal-content {
         width: 90%;
         max-width: 500px;
         height: auto;
@@ -26,11 +26,12 @@
             padding: 20px;
         }
 
-        .close {
+        #modal-close, .modal-close {
             position: absolute;
             top: 15px;
             right: 15px;
             color: transparent;
+            font-size: 0;
             line-height: 0;
             cursor: pointer;
 
@@ -40,10 +41,10 @@
                 position: relative;
                 display: inline-block;
                 box-sizing: border-box;
-                width: 1.8em;
-                height: 1.8em;
+                width: 22px;
+                height: 22px;
                 border-radius: 100%;
-                border: 2px solid $blue;
+                border: 3px solid $blue;
                 background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, $blue 0%, $blue 44%, white 44%, white 56%, $blue 56%, $blue 100%);
                 background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, $blue 0%, $blue 44%, white 44%, white 56%, $blue 56%, $blue 100%);
                 transition: all 0.3s ease;
@@ -51,11 +52,10 @@
                 margin-left: 8px;
             }
 
-            &:hover {
+            &:hover, &:focus, &.animate {
                 text-decoration: none;
-
                 &::after {
-                    transform: rotate(90deg);
+                    transform: scale(1.05);
                 }
             }
         }

@@ -45,3 +45,5 @@ nbproject/*
 upgrade
 
 *.cache
+
+webroot/js/idp_select/DiscoFeed\.json

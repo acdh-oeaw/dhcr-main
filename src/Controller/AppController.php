@@ -15,7 +15,6 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
-use Cake\Event\Event;
 use Cake\Core\Configure;
 
 /**
@@ -29,8 +28,8 @@ use Cake\Core\Configure;
 class AppController extends Controller
 {
 
- 
-	
+
+
 	/**
      * Initialization hook method.
      *
@@ -40,48 +39,36 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize() {
+    public function initialize(): void {
         parent::initialize();
 
         $this->loadComponent('RequestHandler', [
             'enableBeforeRedirect' => false,
         ]);
-    
+
         // Set the Cache-Control as private for 3600 seconds
         $this->response = $this->response->withSharable(true, 3600);
-        
-        $this->loadComponent('Flash');
 
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
+        $this->loadComponent('Flash');
     }
-    
-    public function beforeFilter(Event $event) {
-    	return parent::beforeFilter($event);
-	}
-	
-	public function beforeRender(Event $event) {
-		parent::beforeRender($event);
-	}
-    
-    
-    protected function _checkCaptcha(&$errors = array()) {
-        
+
+
+
+    protected function _checkCaptcha(&$errors = array()) : bool
+    {
+
         $ip = $_SERVER['REMOTE_ADDR'];
         if(!empty($_SERVER['HTTP_CLIENT_IP']))
             $ip = $_SERVER['HTTP_CLIENT_IP'];
         elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        
+
         $data = array(
             'secret' => Configure::read('reCaptchaPrivateKey'),
             'response' => $this->request->getData('g-recaptcha-response'),
             'remoteip' => $ip
         );
-        
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
         curl_setopt($ch, CURLOPT_POST, true);
@@ -89,12 +76,12 @@ class AppController extends Controller
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         $result = curl_exec($ch);
         curl_close($ch);
-        
+
         if(empty($result)) return false;
         $result = json_decode($result, true);
         if(!empty($result['error-codes'])) $errors = $result['error-codes'];
         if(!empty($result['success'])) return true;
-        
+
         return false;
     }
 }

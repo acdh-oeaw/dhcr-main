@@ -5,21 +5,21 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": ">=7.0",
-        "cakephp/cakephp": "^3.7",
-        "cakephp/migrations": "^2.0.0",
-        "cakephp/plugin-installer": "^1.0",
-        "jeremyharris/cakephp-lazyload": "^2.1",
-        "mobiledetect/mobiledetectlib": "2.*",
+        "php": "~7.2.0",
         "ext-curl": "*",
-        "phpunit/phpunit": "^5.7|^6.0"
+        "cakephp/authentication": "^2.0",
+        "cakephp/cakephp": "4.2.*",
+        "cakephp/migrations": "^3.0@beta",
+        "cakephp/plugin-installer": "^1.2",
+        "jeremyharris/cakephp-lazyload": "^4.0",
+        "mobiledetect/mobiledetectlib": "^2.8"
     },
     "require-dev": {
-        "cakephp/bake": "^1.9.0",
-        "cakephp/cakephp-codesniffer": "^3.0",
-        "cakephp/debug_kit": "^3.17.0",
-        "josegonzalez/dotenv": "3.*",
-        "phpunit/phpunit": "^5.7|^6.0",
+        "cakephp/bake": "^2.0.3",
+        "cakephp/cakephp-codesniffer": "~4.2.0",
+        "cakephp/debug_kit": "^4.0",
+        "josegonzalez/dotenv": "^3.2",
+        "phpunit/phpunit": "^8.0",
         "psy/psysh": "@stable"
     },
     "suggest": {
@@ -40,15 +40,30 @@
         }
     },
     "scripts": {
-        "post-install-cmd": "App\\Console\\Installer::postInstall",
-        "post-create-project-cmd": "App\\Console\\Installer::postInstall",
+        "pre-install-cmd": [
+            "cp /app/composer.phar /app/ops/app/",
+            "cp /app/composer.phar /app/api/v1/",
+            "cd /app/ops/app/ && php composer.phar update",
+            "cd /app/api/v1/ && php composer.phar update",
+            "cd /app/"
+        ],
+        "post-install-cmd": [
+            "App\\Console\\Installer::postInstall",
+            "php composer.phar require --dev cakephp/debug_kit '~4.0'", 
+            "bin/cake plugin load DebugKit"
+        ],
+        "post-create-project-cmd": [ 
+             "App\\Console\\Installer::postInstall"
+        ],
         "check": [
             "@test",
             "@cs-check"
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
-        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
-        "test": "phpunit --colors=always"
+        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/", 
+         "test": [
+            "export DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ && phpunit --colors=always --configuration phpunit.xml.dist"
+        ] 
     },
     "prefer-stable": true,
     "config": {

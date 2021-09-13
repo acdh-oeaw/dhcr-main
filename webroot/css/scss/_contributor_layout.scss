@@ -1,0 +1,17 @@
+
+.wrapper {
+    padding: 2em $whitespace 10vw;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: calc(100% - 2 * #{$whitespace});
+}
+
+#content {
+    h2:not(#accordeon .accordeon-item h2) {
+        margin-bottom: 1em;
+    }
+}
+
+#footer {
+    margin-top: 100px;
+}

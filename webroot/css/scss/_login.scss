@@ -1,0 +1,54 @@
+body.login {
+    .wrapper {
+        max-width: 750px;
+    }
+}
+
+.users.form {
+    margin-top: 2em;
+    button[disabled] {
+        color: #bbb;
+        border-color: #bbb;
+        transform: none;
+        cursor: default;
+    }
+}
+
+#login-alternatives {
+    display: flex;
+    justify-content: space-between;
+    margin: 6em 0 4em;
+    gap: 1em;
+    flex-wrap: wrap;
+}
+
+
+.taWrapper {
+    position: relative;
+    ul.idpSelectDropDown {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        border: 1px solid $blue;
+        border-radius: 5px;
+        padding: 5px;
+        width: 60%;
+        height: auto;
+        background-color: #fff;
+        box-shadow: 10px 10px 8px #aaa;
+        z-index: 1000;
+
+        li {
+            display: block;
+            cursor: pointer;
+            margin-bottom: 0.5em;
+            &:hover {
+                color: $blue;
+            }
+            &.selected {
+                background-color: $blue;
+                color: #fff;
+            }
+        }
+    }
+}

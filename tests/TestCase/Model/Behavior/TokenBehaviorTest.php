@@ -21,7 +21,7 @@ class TokenBehaviorTest extends TestCase
      *
      * @return void
      */
-    public function setUp()
+    public function setUp(): void
     {
         //parent::setUp();
         //$this->Token = new TokenBehavior();
@@ -32,7 +32,7 @@ class TokenBehaviorTest extends TestCase
      *
      * @return void
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         //unset($this->Token);
         //parent::tearDown();

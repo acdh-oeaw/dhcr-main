@@ -1,0 +1,75 @@
+
+
+
+#page-head {
+    position: relative;
+    overflow: visible;
+    width: calc(100% - 5px);
+    margin: 1rem 3px;         // top margin is sticking out of body, padding makes the box height shrink
+    display: inline-flex;   // hack...
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;    // dynamic height calculation won't work with 'nowrap'
+    height: auto;
+    @include respond-to(handhelds) {
+        margin: 13px;
+        width: calc(100% - 50px);
+        padding: 0 3px 13px 3px;
+        border-bottom: 2px solid $blue;
+    }
+
+    #logo {
+        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        a {
+            display: block;
+            line-height: 0;
+            img {
+                width: 300px;
+                height: auto;
+                @include respond-to(handhelds) {
+                    width: 40vw;
+                    min-width: 180px;
+                }
+            }
+        }
+    }
+}
+
+body.users #page-head {
+    #logo {
+        overflow: initial;
+        a {
+            display: block;
+            float: left;
+            margin-right: 5px;
+            img {
+                width: auto;
+                height: 46px;
+            }
+        }
+        .blue.button.users {
+            width: 48px;
+            padding-left: 12px;
+            color: transparent;
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+            line-height: initial;
+            &:hover, &.animate, &.focus {
+                transform: none;
+            }
+            .glyphicon {
+                color: #fff;
+            }
+        }
+
+        transition: all 0.3s;
+        &:hover, &.animate, &.focus {
+            transform: scale(1.03);
+            text-decoration: none;
+        }
+    }
+}
+
+
