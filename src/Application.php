@@ -95,6 +95,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
         ];
         // Load the authenticators. Session should be first.
+        //$service->loadAuthenticator('SAML');
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,

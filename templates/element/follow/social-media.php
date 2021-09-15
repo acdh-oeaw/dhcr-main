@@ -2,7 +2,7 @@
 
 
 <h3 class="follow">
-    <a href="https://instagram.com/username">
+    <a href="https://instagram.com/dhcourseregistry">
        <span class="fab fa-instagram"></span>
        Follow us on Instagram!
     </a>
