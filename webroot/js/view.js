@@ -71,7 +71,7 @@ class View {
         this.createFilterPanel();
         if(Object.keys(this.app.data) <= 0) {
             // do not clear View/call handleError to keep the filter buttons clear button available
-            $(this.element).addClass('error').append('<p>No course matches your filter conditions.</p>');
+            $(this.element).addClass('error').append('<p>No courses match your filter conditions.</p>');
             return;
         }
 
