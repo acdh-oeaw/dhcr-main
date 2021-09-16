@@ -43,16 +43,18 @@
         "pre-install-cmd": [
             "cp /app/composer.phar /app/ops/app/",
             "cp /app/composer.phar /app/api/v1/",
+            "cp /app/composer.phar /app/api/v2/",
             "cd /app/ops/app/ && php composer.phar update",
             "cd /app/api/v1/ && php composer.phar update",
+            "cd /app/api/v2/ && php composer.phar update",
             "cd /app/"
         ],
         "post-install-cmd": [
             "App\\Console\\Installer::postInstall",
-            "php composer.phar require --dev cakephp/debug_kit '~4.0'", 
+            "php composer.phar require --dev cakephp/debug_kit '~4.0'",
             "bin/cake plugin load DebugKit"
         ],
-        "post-create-project-cmd": [ 
+        "post-create-project-cmd": [
              "App\\Console\\Installer::postInstall"
         ],
         "check": [
@@ -60,10 +62,10 @@
             "@cs-check"
         ],
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
-        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/", 
+        "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
          "test": [
             "export DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ && phpunit --colors=always --configuration phpunit.xml.dist"
-        ] 
+        ]
     },
     "prefer-stable": true,
     "config": {
