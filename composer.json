@@ -47,7 +47,8 @@
             "cd /app/ops/app/ && php composer.phar update",
             "cd /app/api/v1/ && php composer.phar update",
             "cd /app/api/v2/ && php composer.phar update",
-            "cd /app/"
+            "cd /app/",
+            "chown -R ${HTTPDUSER}:${HTTPDUSER} ."
         ],
         "post-install-cmd": [
             "App\\Console\\Installer::postInstall",
