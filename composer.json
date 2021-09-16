@@ -41,14 +41,13 @@
     },
     "scripts": {
         "pre-install-cmd": [
-            "pwd",
             "cp composer.phar ops/app/",
             "cp composer.phar api/v1/",
             "cp composer.phar api/v2/",
-            "cd /app/ops/app/ && php composer.phar update",
-            "cd /app/api/v1/ && php composer.phar update",
-            "cd /app/api/v2/ && php composer.phar update",
-            "cd /app/"
+            "cd ops/app/ && php composer.phar update",
+            "cd ../../api/v1/ && php composer.phar update",
+            "cd ../v2/ && php composer.phar update",
+            "cd ../"
         ],
         "post-install-cmd": [
             "App\\Console\\Installer::postInstall",
