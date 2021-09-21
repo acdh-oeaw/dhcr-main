@@ -12,6 +12,6 @@
 <div class="buttons">
     <?= $this->Html->link('Profile Settings', ['controller' => 'Users', 'action' => 'profile'],
         ['class' => 'button', 'id' => 'login-button']) ?>
-    <?= $this->Html->link('Register', '/ops/users/register',
+    <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'signIn'],
         ['class' => 'blue button', 'id' => 'register-button']) ?>
 </div>
