@@ -99,7 +99,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Sign-In',
-                        '/ops/users/login') ?>
+                        ['controller' => 'Users', 'action' => 'signIn']) ?>
                 </li>
             </ul>
         </li>
