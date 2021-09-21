@@ -41,14 +41,14 @@ $bodyClasses = (!empty($bodyClasses))
         <div id="menu">
             <?= $this->Html->link(
                 '<span class="glyphicon glyphicon-menu-hamburger">Menu</span>',
-                '/pages/dashboard-sitemap', [
+                '/pages/contributor-sitemap', [
                 'class' => 'button',
                 'id' => 'menu-button',
                 'escape' => false,
                 'title' => 'Menu'
             ]) ?>
         </div>
-
+        <?= $this->element('contributor-sitemap') ?>
     </div>
 
     <div id="content">
@@ -66,8 +66,20 @@ $bodyClasses = (!empty($bodyClasses))
 <?= $this->Html->script('/leaflet/leaflet') ?>
 <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
 
-<?= $this->Html->script(['sharing','map','modal',
-    'filter','filter_helper']) ?>
+<?= $this->Html->script(['modal','sitemap','accordeon']) ?>
+
+<script type="application/javascript">
+    var sitemap;
+    $(document).ready( function() {
+        if($('.flash-message').length) {
+            $('.flash-message').slideDown('fast').delay(8000).fadeOut('slow');
+        }
+        sitemap = new Sitemap();
+        $(document).on('click', '#menu-button', function(e) {
+            sitemap.show(e);
+        });
+    });
+</script>
 
 <?= $this->element('matomo') ?>
 
