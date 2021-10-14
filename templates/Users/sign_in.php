@@ -12,6 +12,13 @@ $this->set('bodyClasses', 'login'); ?>
         If you do not have a DHCR account and were not able to log in using the federated login,
         please use our <?= $this->Html->link('registration form', '/users/register') ?>.
     </p>
+    <p class="notice">
+        You only need to sign-in to the DHRC, if you are a lecturer or other academic institution member
+        and want to add or curate course meta data.
+        All other audience may use the publicly available content and functionality freely.
+        See this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">tutorial video</a> for advice
+        on how to browse or filter our listed courses.
+    </p>
     <div class="users form">
         <?= $this->Form->create() ?>
 
