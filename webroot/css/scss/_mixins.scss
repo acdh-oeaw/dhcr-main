@@ -77,7 +77,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {
-    .input.select {
+    .input.select:not(.checkbox) {
         position: relative;
         @include caret;
         select {

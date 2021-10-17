@@ -848,27 +848,27 @@ body.index #container #table table th .asc, body.view #container #table table th
 #filter-buttons #reset { float: right; color: white; font-weight: bold; cursor: pointer; padding: 0 15px; }
 #filter-buttons #reset::after { pointer-events: none; content: ''; position: relative; display: inline-block; box-sizing: border-box; width: 1em; height: 1em; border-radius: 100%; border: 2px solid #1E6BA3; background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%); background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%); transition: all 0.3s ease; top: 2px; margin-left: 8px; }
 #filter-buttons #reset:hover { text-decoration: none; }
-#filter-buttons #reset:hover::after { transform: rotate(90deg); }
+#filter-buttons #reset:hover::after { transform: scale(1.05); }
 
 #modal-wrapper #modal-content { display: flex; flex-direction: column; align-items: stretch; align-content: flex-start; flex-wrap: nowrap; }
 #modal-wrapper #modal-content #modal-scroll-container { margin-top: 1em; overflow: hidden auto; }
 #modal-wrapper #modal-content hr { margin-bottom: 1em; }
 #modal-wrapper #modal-content .selector-wrapper { display: inline-flex; flex-wrap: wrap; align-items: baseline; margin-bottom: 0.3em; }
 #modal-wrapper #modal-content .selector-wrapper::after { content: ""; clear: both; display: table; }
-#modal-wrapper #modal-content .selector-wrapper .input.select { position: relative; }
-#modal-wrapper #modal-content .selector-wrapper .input.select::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-#modal-wrapper #modal-content .selector-wrapper .input.select:hover::after { transform: rotate(225deg); top: 10px; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select:hover { background-color: #eee; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select::-ms-expand { display: none; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select:focus::-ms-value { background-color: transparent; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) { position: relative; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox)::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox):hover::after { transform: rotate(225deg); top: 10px; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:hover { background-color: #eee; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select::-ms-expand { display: none; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
 #modal-wrapper #modal-content .selector-wrapper .input.select { overflow-x: hidden; width: auto; display: inline-block; border-radius: 14px; border: 2px solid #1E6BA3; position: relative; margin-right: 1em; margin-bottom: 0.6em; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select { height: 26px; padding: 7px 12px 5px; border: none; font-size: 12px; line-height: 13px; font-weight: bold; color: #1E6BA3; width: 180px; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select optgroup { font-weight: bold; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item { display: inline-block; border: 2px solid #1E6BA3; border-radius: 14px; padding: 7px 20px 6px 30px; margin-left: 1em; margin-bottom: 0.6em; font-size: 12px; line-height: 13px; font-weight: bold; color: white; background-color: #1E6BA3; position: relative; cursor: pointer; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item:first-child { margin-left: 0; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item::before { pointer-events: none; content: ''; position: absolute; display: block; box-sizing: border-box; width: 10px; height: 10px; background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%); background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%); transition: all 0.3s ease; top: 8px; left: 12px; }
-#modal-wrapper #modal-content .selector-wrapper .selection-item:hover::before { transform: rotate(90deg); }
+#modal-wrapper #modal-content .selector-wrapper .selection-item:hover::before { transform: scale(1.05); }
 #modal-wrapper #modal-content .radio-selector { list-style: none; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; margin: 0; margin-bottom: 1rem; border: 2px solid #1E6BA3; border-radius: 14px; overflow: hidden; padding: 0; box-sizing: border-box; width: 100%; }
 #modal-wrapper #modal-content .radio-selector li { font-size: 12px; font-weight: bold; color: #1E6BA3; padding: 3px 8px 2px; margin: 0; flex: 1 1 20%; }
 #modal-wrapper #modal-content .radio-selector li.label { padding-left: 15px; flex: 0 0 130px; }

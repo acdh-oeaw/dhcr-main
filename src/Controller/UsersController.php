@@ -19,7 +19,7 @@ class UsersController extends AppController
         $this->loadComponent('Authentication.Authentication', [
             'logoutRedirect' => '/users/sign-in'  // Default is false
         ]);
-        $this->Authentication->allowUnauthenticated(['signIn','register']);
+        $this->Authentication->allowUnauthenticated(['signIn','register','whichTerms']);
     }
 
     public function beforeFilter(EventInterface $event) {
@@ -117,7 +117,36 @@ class UsersController extends AppController
 
 
     public function register() {
-
+        if ($this->request->is('post')) {
+            if(!$this->_checkCaptcha()) {
+                $this->Flash->set('You did not succeed the CAPTCHA test. Please check if you are human and try again.');
+                $this->redirect(['controller' => 'users', 'action' => 'register']);
+            }
+            if(!empty($this->request->data['other'])) {
+                $this->request->data['institution_id'] = null;
+            }
+            $this->Users->validate = array_merge(
+                $this->Users->validate,
+                array(
+                    'about' => array(
+                        'required' => array(
+                            'rule' => 'notBlank',
+                            'message' => 'For verification of your involvement, please provide any further information.'
+                        )
+                    )
+                ),
+                array(
+                    'consent' => array(
+                        'rule' => array('equalTo', '1'),
+                        'required' => true,
+                        'allowEmpty' => false,
+                        'message' => 'You must agree to the terms.'
+                    )
+                )
+            );
+        }
+        // render form
+        $this->_setOptions();
     }
 
 
@@ -147,34 +176,13 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['UserRoles', 'Countries', 'Institutions', 'Courses'],
+            'contain' => ['UserRoles', 'Countries', 'Institutions'],
         ]);
 
         $this->set('user', $user);
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $userRoles = $this->Users->UserRoles->find('list', ['limit' => 200]);
-        $countries = $this->Users->Countries->find('list', ['limit' => 200]);
-        $institutions = $this->Users->Institutions->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'userRoles', 'countries', 'institutions'));
-    }
 
     /**
      * Edit method
@@ -197,10 +205,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $userRoles = $this->Users->UserRoles->find('list', ['limit' => 200]);
-        $countries = $this->Users->Countries->find('list', ['limit' => 200]);
-        $institutions = $this->Users->Institutions->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'userRoles', 'countries', 'institutions'));
+        $this->_setOptions();
     }
 
     /**
@@ -221,5 +226,31 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+
+
+    protected function _setOptions() {
+        $institutions = $this->Users->Institutions->find('list', [
+            'fields' => ['Institutions.id', 'Institutions.name', 'Countries.name'], // restrict selected fields
+            'keyField' => 'id',
+            'valueField' => 'name',
+            'groupField' => 'country.name'  // the resulting data array path, not very intuitive compared to other field naming conventions in this context
+        ])->contain(['Countries'])->toArray();
+        // restore alphabetical country order, sort option on finder does not have effect
+        ksort($institutions);
+        foreach($institutions as $country => &$country_list)
+            asort($country_list);
+        $countries = $this->Users->Countries->find('list', [
+            'order' => 'Countries.name ASC'])->toArray();
+        $userRoles = $this->Users->UserRoles->find('list')->toArray();
+
+        $this->set(compact('institutions','countries','userRoles'));
+    }
+
+    public function whichTerms() {
+        if(!str_ends_with($_SERVER['REQUEST_URI'], '?'))
+            $this->redirect('/users/which-terms?');
     }
 }

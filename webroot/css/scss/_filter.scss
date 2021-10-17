@@ -38,7 +38,7 @@
         &:hover {
             text-decoration: none;
             &::after {
-                transform: rotate(90deg);
+                transform: scale(1.05);
             }
         }
     }
@@ -127,7 +127,7 @@
                 }
                 &:hover {
                     &::before {
-                        transform: rotate(90deg);
+                        transform: scale(1.05);
                     }
                 }
             }

@@ -63,11 +63,11 @@ class AppController extends Controller
         elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
-        $data = array(
+        $data = [
             'secret' => Configure::read('reCaptchaPrivateKey'),
             'response' => $this->request->getData('g-recaptcha-response'),
             'remoteip' => $ip
-        );
+        ];
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://www.google.com/recaptcha/api/siteverify");
@@ -79,9 +79,8 @@ class AppController extends Controller
 
         if(empty($result)) return false;
         $result = json_decode($result, true);
-        if(!empty($result['error-codes'])) $errors = $result['error-codes'];
+        // if(!empty($result['error-codes'])) $errors = $result['error-codes'];
         if(!empty($result['success'])) return true;
-
         return false;
     }
 }

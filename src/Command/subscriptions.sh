@@ -2,9 +2,8 @@
 
 ### ENV ###
 
-CAKE_PATH='/app'
 
 ### CAKE COMMANDS ###
 
-cd $CAKE_PATH && bin/cake subscriptions 2>&1;
+bin/cake subscriptions 2>&1;
 
