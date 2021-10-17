@@ -106,7 +106,7 @@ $(document).ready( function() {
     $('#which_terms').click(function(event) {
         event.preventDefault()
         let modal = new Modal('Privacy Conditions for DHCR Contributors')
-        modal.add($('#terms_content').contents())
+        modal.add($('#terms_content').contents().clone())
         modal.create()
     })
 })
