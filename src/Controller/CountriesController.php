@@ -37,8 +37,6 @@ class CountriesController extends AppController
     public function view($id = null)
     {
         $country = $this->Countries->getCountry($id);
-        debug($country);
-        debug($country->cities);
         $this->set(compact('country'));
     }
 

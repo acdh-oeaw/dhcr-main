@@ -21,11 +21,10 @@ class CountriesControllerTest extends TestCase
      *
      * @var array
      */
-    protected $fixtures = [
+    public $fixtures = [
         'app.Countries',
         'app.Cities',
         'app.Courses',
-        'app.Emails',
         'app.Institutions',
         'app.Subscriptions',
         'app.Users',
