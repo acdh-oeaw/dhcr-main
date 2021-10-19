@@ -18,9 +18,11 @@ class TokenBehavior extends Behavior
         'fieldname' => null
     ];
 
-    public function generateToken($length = 16) {
+    public function generateToken($fieldname = null) : string
+    {
         $time = substr((string)time(), -6, 6);
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $length = 16;
         // create an unique token
         do {
             $token = '';
@@ -28,14 +30,14 @@ class TokenBehavior extends Behavior
                 $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
             }
             $token = $time . $token;
-        } while(!$this->isUnique());
+        } while(!$this->isUnique($fieldname));
         return $token;
     }
 
-    public function isUnique() {
-        if(empty($this->_defaultConfig['fieldname'])) return true;
-        return !(bool) $this->_table->find('all',  ['conditions' => [
-            $this->_table->getAlias().'.'.$this->_defaultConfig['fieldname'] => $token
-        ]])->count();
+    public function isUnique($fieldname = null) {
+        if(empty($fieldname) AND empty($this->_defaultConfig['fieldname'])) return true;
+        if(empty($fieldname)) $fieldname = $this->_defaultConfig['fieldname'];
+        return !(bool) $this->_table->find()->where([
+            $this->_table->getAlias().'.'.$fieldname => $token])->count();
     }
 }

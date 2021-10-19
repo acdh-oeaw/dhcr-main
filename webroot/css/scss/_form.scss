@@ -1,14 +1,17 @@
 .optionals {
 
     .required > label {
-        &::after{
+        &::after {
             content: ' *';
             vertical-align: super;
         }
     }
-}
-.input.paragraph {
-    p { margin-bottom: 0; }
+    .depending > label, label.depending {
+        &::after {
+            content: ' (*)';
+            vertical-align: super;
+        }
+    }
 }
 
 form {
@@ -97,7 +100,7 @@ form {
             justify-self: stretch;
             width: 100%;
             &.form-error {
-                border-color: $red;
+                border-color: #020000;
             }
         }
         .radio-inline {
@@ -117,7 +120,7 @@ form {
             grid-column: 2;
             justify-self: stretch;
             font-weight: bold;
-            color: $red;
+            color: #020000;
         }
     }
 
@@ -132,6 +135,9 @@ form {
             grid-area: input;
             grid-row-start: 2;
             display: block;
+        }
+        .error-message {
+            grid-row: 3;
         }
     }
 }

@@ -635,6 +635,8 @@ hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
 .clearfix::after { content: ""; clear: both; display: table; }
 
+.headspace { margin-top: 3em; }
+
 .recurring { background: url("../img/repeat.png") right bottom/contain no-repeat; padding-right: 1.4em; padding-bottom: 0.2em; line-height: 0.85em; font-size: inherit; display: inline-block; }
 
 table .recurring { color: transparent; height: 15px; width: 15px; display: inline-block; background: url("../img/repeat.png") center/contain no-repeat; vertical-align: middle; }

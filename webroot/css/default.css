@@ -93,6 +93,8 @@ hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
 .clearfix::after { content: ""; clear: both; display: table; }
 
+.headspace { margin-top: 3em; }
+
 .recurring { background: url("../img/repeat.png") right bottom/contain no-repeat; padding-right: 1.4em; padding-bottom: 0.2em; line-height: 0.85em; font-size: inherit; display: inline-block; }
 
 table .recurring { color: transparent; height: 15px; width: 15px; display: inline-block; background: url("../img/repeat.png") center/contain no-repeat; vertical-align: middle; }
@@ -737,8 +739,7 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 @media only screen and (max-width: 750px) { .flash-message { top: 20px; right: 20px; } }
 
 .optionals .required > label::after { content: ' *'; vertical-align: super; }
-
-.input.paragraph p { margin-bottom: 0; }
+.optionals .depending > label::after, .optionals label.depending::after { content: ' (*)'; vertical-align: super; }
 
 form::after { content: ""; clear: both; display: table; }
 form fieldset.invisible { border: none; margin-top: 3em; }
@@ -773,6 +774,7 @@ form .input .error-message { grid-row: 2; grid-column: 2; justify-self: stretch;
 form .input.info .info { grid-area: input; }
 form .input.info .info :last-child { margin-bottom: 0; }
 form .input.info .checkbox { grid-area: input; grid-row-start: 2; display: block; }
+form .input.info .error-message { grid-row: 3; }
 
 .input.dropdown-checkbox::after { content: ""; clear: both; display: table; }
 .input.dropdown-checkbox .checklist-toggle { cursor: pointer; position: relative; margin-bottom: 1px; border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 1px 5px 0px; }

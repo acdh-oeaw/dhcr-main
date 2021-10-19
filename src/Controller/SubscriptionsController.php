@@ -52,7 +52,7 @@ class SubscriptionsController extends AppController
      */
     public function add()
     {
-        $subscription = [];
+        $subscription = $this->Subscriptions->newEmptyEntity();
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $subscription = $this->Subscriptions->find('all',  [

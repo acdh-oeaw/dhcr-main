@@ -24,71 +24,77 @@ use Cake\Core\Configure;
     </p>
 <?php endif; ?>
 
+<div class="optionals headspace">
+    <?= $this->Form->create($user, ['id' => 'registration_form']) ?>
 
-<?= $this->Form->create($user, ['id' => 'registration_form']) ?>
+    <?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
+    <?= $this->Form->control('password') ?>
 
-<?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
-<?= $this->Form->control('password') ?>
-
-<?= $this->Form->control('institution_id', [
-    'label' => 'Affiliation',
-    'empty' => '- pick your affiliation -',
-    'required' => false
-]) ?>
-<?= $this->Form->control('university', [
-    'label' => 'Other Organisation',
-    'type' => 'textarea',
-    'placeholder' => 'If you cannot find your affiliation in the dropdown list above,
+    <?= $this->Form->control('institution_id', [
+        'label' => ['text' => 'Affiliation', 'class' => 'depending'],
+        'empty' => '- pick your affiliation -',
+        'required' => false
+    ]) ?>
+    <?= $this->Form->control('university', [
+        'label' => ['text' => 'Other Organisation', 'class' => 'depending'],
+        'type' => 'textarea',
+        'placeholder' => 'If you cannot find your affiliation in the dropdown list above,
 we need the country, city and name of your organisation provided here instead.'
-]) ?>
+    ]) ?>
 
-<?= $this->Form->control('academic_title') ?>
-<?= $this->Form->control('first_name') ?>
-<?= $this->Form->control('last_name') ?>
+    <?= $this->Form->control('academic_title') ?>
+    <?= $this->Form->control('first_name') ?>
+    <?= $this->Form->control('last_name') ?>
 
-<?= $this->Form->control('about', [
-    'type' => 'textarea',
-    'label' => 'Your Position',
-    'placeholder' => 'Please provide some verifiable details about your position (e.g. lecturer, assistant, professor),
+    <?= $this->Form->control('about', [
+        'type' => 'textarea',
+        'label' => 'Your Position',
+        'placeholder' => 'Please provide some verifiable details about your position (e.g. lecturer, assistant, professor),
 so that our moderators can judge about your eligibility to contribute content to the DHCR.',
-]) ?>
-
-
-<div class="input info">
-    <label for="terms-info">Terms</label>
-    <div class="info" id="terms-info">
-        <?= $this->Html->link('Which terms?', '/users/which_terms?', ['id' => 'which_terms']) ?>
-        <div style="display:none" id="terms_content"><?= $this->element('which_terms') ?></div>
-    </div>
-    <?= $this->Form->control('consent', [
-        'value' => 1,
-        'label' => 'I agree',
-        'required' => true,
-        'type' => 'checkbox'
     ]) ?>
-</div>
 
-<div class="input info">
-    <label for="newsletter-info">Newsletter</label>
-    <div class="info" id="newsletter-info">
-        By signing into our contributor newsletter, we can reach out to you about
-        technical updates or news concerning the DHCR platform, team or network.
+    <?php
+    $classes = ['input','info','required'];
+    if($this->Form->isFieldError('consent')) $classes[] = 'error';
+    ?>
+    <div class="<?= implode(' ', $classes) ?>">
+        <label for="terms-info">Terms</label>
+        <div class="info" id="terms-info">
+            <?= $this->Html->link('Which terms?', '/users/which_terms?', ['id' => 'which_terms']) ?>
+            <div style="display:none" id="terms_content"><?= $this->element('which_terms') ?></div>
+        </div>
+        <?= $this->Form->control('consent', [
+            'type' => 'checkbox',
+            'value' => 1,
+            'label' => 'I agree',
+            'required' => false,
+            'error' => false
+        ]) ?>
+        <?= ($this->Form->isFieldError('consent')) ? $this->Form->error('consent') : '' ?>
     </div>
-    <?= $this->Form->control('mail_list', [
-        'value' => 1,
-        'label' => 'Yes, subscribe me!',
-        'required' => false,
-        'type' => 'checkbox'
-    ]) ?>
+
+    <div class="input info">
+        <label for="newsletter-info">Newsletter</label>
+        <div class="info" id="newsletter-info">
+            By signing into our contributor newsletter, we can reach out to you about
+            technical updates or news concerning the DHCR platform, team or network.
+        </div>
+        <?= $this->Form->control('mail_list', [
+            'value' => 1,
+            'label' => 'Yes, subscribe me!',
+            'required' => false,
+            'type' => 'checkbox'
+        ]) ?>
+    </div>
+
+
+
+    <?= $this->Form->button(__('Register'), [
+        'class' => 'right g-recaptcha',
+        'data-sitekey' => Configure::read('reCaptchaPublicKey'),
+        'data-callback' => 'recaptchaCallback']) ?>
+    <?= $this->Form->end() ?>
 </div>
-
-
-
-<?= $this->Form->button(__('Register'), [
-    'class' => 'right g-recaptcha',
-    'data-sitekey' => Configure::read('reCaptchaPublicKey'),
-    'data-callback' => 'recaptchaCallback']) ?>
-<?= $this->Form->end() ?>
 
 
 <?php

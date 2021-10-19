@@ -46,6 +46,8 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->addBehavior('Token');
+
         $this->belongsTo('UserRoles', [
             'foreignKey' => 'user_role_id',
             'joinType' => 'INNER',
@@ -181,25 +183,6 @@ class UsersTable extends Table
     public $tokenExpirationTime = 86400;
 
     public $invitationMode = false;
-
-
-    public function generateToken($fieldname = null, $length = 16) : string
-    {
-        $time = substr((string)time(), -6, 6);
-        $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
-        // create an unique token
-        do {
-            $token = '';
-            for($i = 0; $i < $length - 6; $i++) {
-                $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
-            }
-            $token = $time . $token;
-            if(empty($fieldname)) break;
-
-            $c = $this->find()->where([$fieldname => $token])->count();
-        } while($c > 0);
-        return $token;
-    }
 
 
     public function getModerators($country_id = null, $user_admin = true) : array

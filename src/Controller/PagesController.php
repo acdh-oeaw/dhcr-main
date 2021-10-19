@@ -40,7 +40,7 @@ class PagesController extends AppController
 	public function follow() {
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Subscriptions');
-        $subscription = [];
+        $subscription = $this->Subscriptions->newEmptyEntity();
         $countries = $this->Subscriptions->Countries->find('list', [
             'order' => ['Countries.name' => 'ASC']]);
         $this->set(compact('subscription','countries'));
