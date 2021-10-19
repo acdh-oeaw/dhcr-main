@@ -117,36 +117,48 @@ class UsersController extends AppController
 
 
     public function register() {
+        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             if(!$this->_checkCaptcha()) {
-                $this->Flash->set('You did not succeed the CAPTCHA test. Please check if you are human and try again.');
+                $this->Flash->set('The CAPTCHA test failed, please try again.');
                 $this->redirect(['controller' => 'users', 'action' => 'register']);
             }
-            if(!empty($this->request->data['other'])) {
-                $this->request->data['institution_id'] = null;
+
+            // patching the entity, validation and other stuff
+            $user = $this->Users->register($this->request->getData());
+
+            if($user AND !$user->hasErrors(false)) {
+                $this->_newUserAdminNotification($user);
+                $result = $this->_sendUserManagementMail([
+                    'template' => 'email_verification',
+                    'subject' => 'Email Verification',
+                    'email' => $user['new_email'],
+                    'data' => $user
+                ]);
+                $this->Session->write('Users.verification', $user['email_token']);
+                if($result) {
+                    $this->redirect([
+                        'controller' => 'users',
+                        'action' => 'registration_success'
+                    ]);
+                }else{
+                    $this->Flash->set('User created, but verification mail could not be sent.
+                    Try resending the verification mail or contact the admin team to get you started.');
+                    $this->redirect([
+                        'controller' => 'users',
+                        'action' => 'request_email_verification'
+                    ]);
+                }
+            }elseif(!$user) {
+                $this->Flash->set('The record could not be saved.
+                Please try again and contact the administration team, if the problem persists.');
+            }elseif($user->hasErrors(false)) {
+                $this->Flash->set('We\'re having errors! Please check the form and amend the indicated fields');
             }
-            $this->Users->validate = array_merge(
-                $this->Users->validate,
-                array(
-                    'about' => array(
-                        'required' => array(
-                            'rule' => 'notBlank',
-                            'message' => 'For verification of your involvement, please provide any further information.'
-                        )
-                    )
-                ),
-                array(
-                    'consent' => array(
-                        'rule' => array('equalTo', '1'),
-                        'required' => true,
-                        'allowEmpty' => false,
-                        'message' => 'You must agree to the terms.'
-                    )
-                )
-            );
         }
         // render form
         $this->_setOptions();
+        $this->set('user', $user);
     }
 
 

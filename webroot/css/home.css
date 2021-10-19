@@ -606,7 +606,13 @@ button.small:hover, button.small.animate, .button.small:hover, .button.small.ani
 
 hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
-.notice { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-size: 0.8em; font-weight: bolder; }
+.notice, .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
+.notice input, .notice label, .error input, .error label { font-size: 1rem; }
+.notice select, .error select { font-size: 0.9rem; }
+.notice dd, .error dd { color: #6d7278; font-size: 1em; }
+.notice h1, .notice h2, .notice h3, .notice h4, .notice dt, .error h1, .error h2, .error h3, .error h4, .error dt { font-size: 1em; color: #6d7278; }
+
+.error { border: 1px solid #af3434; background-color: #e8adad; }
 
 .hidden { display: none; }
 
@@ -856,12 +862,16 @@ body.index #container #table table th .asc, body.view #container #table table th
 #modal-wrapper #modal-content .selector-wrapper { display: inline-flex; flex-wrap: wrap; align-items: baseline; margin-bottom: 0.3em; }
 #modal-wrapper #modal-content .selector-wrapper::after { content: ""; clear: both; display: table; }
 #modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) { position: relative; }
-#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox)::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox):hover::after { transform: rotate(225deg); top: 10px; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox)::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox):hover::after { transform: rotate(225deg); margin-top: 10px; }
 #modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
 #modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:hover { background-color: #eee; }
 #modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select::-ms-expand { display: none; }
 #modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox).error { /*&::after { right: 25px; top: 18px;
+}
+&:hover::after { transform: rotate(225deg); top: 10px;
+}*/ }
 #modal-wrapper #modal-content .selector-wrapper .input.select { overflow-x: hidden; width: auto; display: inline-block; border-radius: 14px; border: 2px solid #1E6BA3; position: relative; margin-right: 1em; margin-bottom: 0.6em; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select { height: 26px; padding: 7px 12px 5px; border: none; font-size: 12px; line-height: 13px; font-weight: bold; color: #1E6BA3; width: 180px; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select optgroup { font-weight: bold; }

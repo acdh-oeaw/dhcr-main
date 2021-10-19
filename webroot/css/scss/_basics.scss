@@ -271,13 +271,33 @@ hr {
     margin: 0;
 }
 
-.notice {
+.notice, .error {
     padding: 1.2em;
     border: 1px solid #ffbf01;
     border-radius: 5px;
     background-color: #ffe59cf7;
-    font-size: 0.8em;
     font-weight: bolder;
+    color: $text-color;
+    font-size: 0.8rem;
+    margin-bottom: 2em;
+    input, label {
+        font-size: 1rem;
+    }
+    select {
+        font-size: 0.9rem;
+    }
+    dd {
+        color: $text-color;
+        font-size: 1em;
+    }
+    h1,h2,h3,h4,dt {
+        font-size: 1em;
+        color: $text-color;
+    }
+}
+.error {
+    border: 1px solid #af3434;
+    background-color: #e8adad;
 }
 
 

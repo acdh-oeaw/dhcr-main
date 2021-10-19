@@ -98,6 +98,16 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
                 background-color: transparent;
             }
         }
+        &.error {
+            /*&::after {
+                right: 25px;
+                top: 18px;
+            }
+            &:hover::after {
+                transform: rotate(225deg);
+                top: 10px;
+            }*/
+        }
     }
 }
 
@@ -105,11 +115,13 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     &::after {
         content: '';
         display: block;
-        position: absolute;
         width: 8px;
         height: 8px;
-        right: 15px;
-        top: 5px;
+        margin-top: 6px;
+        margin-right: 8px;
+        grid-area: input;
+        justify-self: end;
+        align-self: start;
         border: 2px solid $blue;
         border-top: none;
         border-left: none;
@@ -120,7 +132,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     }
     &:hover::after {
         transform: rotate(225deg);
-        top: 10px;
+        margin-top: 10px;
     }
 }
 

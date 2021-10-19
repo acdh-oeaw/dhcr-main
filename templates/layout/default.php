@@ -1,5 +1,6 @@
 <?php
 use Cake\Routing\Router;
+use Cake\Core\Configure;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,10 +71,12 @@ use Cake\Routing\Router;
         $(".captcha-form").first().submit();
     }
 </script>
-<?= $this->fetch('script') ?>
-
-<script src="https://www.google.com/recaptcha/api.js" type="application/javascript"></script>
-<?= $this->element('matomo') ?>
+<?php
+echo $this->fetch('script');
+echo $this->element('matomo');
+if(!Configure::read('debug'))
+    echo $this->Html->script('https://www.google.com/recaptcha/api.js');
+?>
 
 </body>
 </html>

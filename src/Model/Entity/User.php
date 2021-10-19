@@ -54,37 +54,17 @@ class User extends Entity
      * @var array
      */
     protected $_accessible = [
-        'user_role_id' => true,
         'country_id' => true,
         'institution_id' => true,
         'university' => true,
-        'email' => true,
-        'shib_eppn' => true,
         'password' => true,
-        'email_verified' => true,
-        'active' => true,
-        'approved' => true,
-        'is_admin' => true,
-        'user_admin' => true,
-        'last_login' => true,
-        'password_token' => true,
-        'email_token' => true,
-        'approval_token' => true,
+        'email' => true,
         'new_email' => true,
-        'password_token_expires' => true,
-        'email_token_expires' => true,
-        'approval_token_expires' => true,
         'last_name' => true,
         'first_name' => true,
         'academic_title' => true,
         'about' => true,
-        'created' => true,
-        'modified' => true,
-        'mail_list' => true,
-        'user_role' => true,
-        'country' => true,
-        'institution' => true,
-        'courses' => true,
+        '*' => false
     ];
 
     /**

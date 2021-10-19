@@ -56,6 +56,7 @@ class AppController extends Controller
 
     protected function _checkCaptcha(&$errors = array()) : bool
     {
+        if(Configure::read('debug')) return true;
 
         $ip = $_SERVER['REMOTE_ADDR'];
         if(!empty($_SERVER['HTTP_CLIENT_IP']))

@@ -79,7 +79,13 @@ button.small:hover, button.small.animate, .button.small:hover, .button.small.ani
 
 hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
-.notice { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-size: 0.8em; font-weight: bolder; }
+.notice, .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
+.notice input, .notice label, .error input, .error label { font-size: 1rem; }
+.notice select, .error select { font-size: 0.9rem; }
+.notice dd, .error dd { color: #6d7278; font-size: 1em; }
+.notice h1, .notice h2, .notice h3, .notice h4, .notice dt, .error h1, .error h2, .error h3, .error h4, .error dt { font-size: 1em; color: #6d7278; }
+
+.error { border: 1px solid #af3434; background-color: #e8adad; }
 
 .hidden { display: none; }
 
@@ -743,12 +749,16 @@ form input::placeholder, form textarea::placeholder, form select::placeholder { 
 form input[readonly], form textarea[readonly], form select[readonly] { border: 2px solid #ddd; color: #aaa; }
 form input[readonly] { border: none; font-weight: bold; padding-top: 8px; color: #6d7278; }
 form .input.select:not(.checkbox) { position: relative; }
-form .input.select:not(.checkbox)::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-form .input.select:not(.checkbox):hover::after { transform: rotate(225deg); top: 10px; }
+form .input.select:not(.checkbox)::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+form .input.select:not(.checkbox):hover::after { transform: rotate(225deg); margin-top: 10px; }
 form .input.select:not(.checkbox) select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
 form .input.select:not(.checkbox) select:hover { background-color: #eee; }
 form .input.select:not(.checkbox) select::-ms-expand { display: none; }
 form .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
+form .input.select:not(.checkbox).error { /*&::after { right: 25px; top: 18px;
+}
+&:hover::after { transform: rotate(225deg); top: 10px;
+}*/ }
 form .checkbox { margin-left: 0; padding: 0; }
 form .checkbox label { display: inline; }
 form .checkbox input[type=checkbox] { width: 10px; margin-right: 10px; display: inline; vertical-align: middle; }
@@ -759,15 +769,15 @@ form .input input, form .input textarea, form .input select, form .input .radio-
 form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error { border-color: #020000; }
 form .input .radio-inline label { display: inline; margin-right: 2em; }
 form .input .radio-inline input[type=radio] { width: 10px; margin-right: 10px; display: inline; vertical-align: text-top; }
-form .input .error-message { grid-row: 2; grid-column: 2; justify-self: stretch; font-size: 0.9em; font-weight: bold; color: #020000; }
+form .input .error-message { grid-row: 2; grid-column: 2; justify-self: stretch; font-weight: bold; color: #020000; }
 form .input.info .info { grid-area: input; }
 form .input.info .info :last-child { margin-bottom: 0; }
 form .input.info .checkbox { grid-area: input; grid-row-start: 2; display: block; }
 
 .input.dropdown-checkbox::after { content: ""; clear: both; display: table; }
 .input.dropdown-checkbox .checklist-toggle { cursor: pointer; position: relative; margin-bottom: 1px; border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 1px 5px 0px; }
-.input.dropdown-checkbox .checklist-toggle::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-.input.dropdown-checkbox .checklist-toggle:hover::after { transform: rotate(225deg); top: 10px; }
+.input.dropdown-checkbox .checklist-toggle::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+.input.dropdown-checkbox .checklist-toggle:hover::after { transform: rotate(225deg); margin-top: 10px; }
 .input.dropdown-checkbox .checklist-toggle:hover { background-color: #eee; }
 .input.dropdown-checkbox .checklist-toggle .display { overflow: hidden; font-size: 0.9em; font-family: Metropolis; }
 .input.dropdown-checkbox .checklist { grid-area: input; justify-self: stretch; border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 4px; margin-top: 3em; }
