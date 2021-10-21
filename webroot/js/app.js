@@ -137,7 +137,7 @@ class App {
                 this.map.setMarkers(this.data);
                 this.setTable();
             }else{
-                this.handleError('No course matches your filter conditions.');
+                this.handleError('No courses match your filter conditions.');
             }
         }else{
             // query massaging
@@ -158,9 +158,9 @@ class App {
                 this.data = {};
                 // global variable courses is available anyhow,
                 // but _be_ sure to keep re-generation of the view in callback
-                window.courses = data; // courses is required next to data to keep the order of entries
-                for(var i = 0; data.length > i; i++) {
-                    this.data[data[i].id] = data[i];
+                window.courses = data.courses; // courses is required next to data to keep the order of entries
+                for(var i = 0; data.courses.length > i; i++) {
+                    this.data[data.courses[i].id] = data.courses[i];
                 }
                 this.map.setMarkers(this.data);
                 this.setTable();
@@ -211,29 +211,5 @@ class App {
             console.log(e);
             return false;
         }
-    }
-
-    static whitelist() {
-        // to be kept in sync with third-party API keys: mapbox, (google reCaptcha)
-        return [
-            'dariah.eu',
-            //'clarin.eu',
-            //'clarin-dariah.eu',
-            //'clariah.nl',
-            //'clariah.de',
-            //'clarin-d.net',
-            //'clariah-de.net'
-        ];
-    }
-
-    checkWhitelist() {
-        let parent = Filter.getParameterByName('parent_domain');
-        let list = App.whitelist();
-        for(let i = 0; list.length > i; i++) {
-            if(list[i].indexOf(parent) >= 0) {
-                return true;
-            }
-        }
-        return false;
     }
 }

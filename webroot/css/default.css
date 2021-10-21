@@ -796,6 +796,9 @@ form .input .error-message { grid-row: 2; grid-column: 2; justify-self: stretch;
 .follow { margin-bottom: 1.5em !important; }
 .follow .fab { margin-right: 0.5em; }
 .follow .fab.fa-instagram { color: indianred; }
+.follow .fab.fa-twitter { color: #1d9bf0; }
+.follow .fab.fa-facebook { color: #1876f2; }
+.follow .fab.fa-youtube { color: #c00; }
 .follow .fab:hover, .follow .fab.animate { transform: scale(1.05); transform-origin: right center; text-decoration: none; }
 
 ul#stories { list-style: none; }

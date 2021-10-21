@@ -7,6 +7,15 @@
         &.fa-instagram {
             color: indianred;
         }
+        &.fa-twitter {
+            color: #1d9bf0;
+        }
+        &.fa-facebook {
+            color: #1876f2;
+        }
+        &.fa-youtube {
+            color: #c00;
+        }
         &:hover, &.animate {
             transform: scale(1.05);
             transform-origin: right center;
