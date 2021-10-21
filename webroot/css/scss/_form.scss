@@ -71,7 +71,7 @@ form {
         }
     }
 
-    .input {
+    .input, .input.select:not(.checkbox) {
         display: grid;
         grid-template-columns: 1fr 2fr;
         grid-template-areas: 'label input';

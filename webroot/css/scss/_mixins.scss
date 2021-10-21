@@ -78,8 +78,12 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {
     .input.select:not(.checkbox) {
-        position: relative;
         @include caret;
+        display: grid;
+        grid-template-areas: 'input';
+        justify-items: start;       // left/right orientation
+        align-items: start;         // top/bottom
+        justify-content: stretch;   // align the grid itself
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -88,6 +92,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
             cursor: pointer;
             background-color: transparent;
             font-family: Metropolis;
+            grid-area: input;
             &:hover {
                 background-color: #eee;
             }
@@ -97,16 +102,6 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
             &:focus::-ms-value {
                 background-color: transparent;
             }
-        }
-        &.error {
-            /*&::after {
-                right: 25px;
-                top: 18px;
-            }
-            &:hover::after {
-                transform: rotate(225deg);
-                top: 10px;
-            }*/
         }
     }
 }
