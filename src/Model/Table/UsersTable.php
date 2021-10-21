@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\Core\Configure;
+use Cake\Mailer\Mailer;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -179,17 +180,22 @@ class UsersTable extends Table
     }
 
 
-    // 60*60*24 = 86400
-    public $tokenExpirationTime = 86400;
-
     public $invitationMode = false;
 
 
-    public function getModerators($country_id = null, $user_admin = true) : array
+    /**
+     * @param int|null $country_id
+     * @param bool $user_admin
+     * @return array
+     *
+     * Used in contact form, course or user approval notifications,
+     * (repeated) course revalidation requests.
+     */
+    public function getModerators(int $country_id = null, bool $user_admin = true) : array
     {
         $admins = [];
         // try fetching the moderator in charge of the user's country,
-        if(!empty($country_id)) {
+        if($country_id) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.country_id' => $country_id,
@@ -219,12 +225,11 @@ class UsersTable extends Table
 
     public function register($data = [])
     {
-        $expiry = date('Y-m-d H:i:s', time() + $this->tokenExpirationTime);
         $data['new_email'] = $data['email'];
         $data['email_token'] = $this->generateToken('email_token');
-        $data['email_token_expires'] = $expiry;
+        $data['email_token_expires'] = $this->getShortTokenExpiry();
         $data['approval_token'] = $this->generateToken('approval_token');
-        $data['approval_token_expires'] = $expiry;
+        $data['approval_token_expires'] = $this->getLongTokenExpiry();
 
         $user = $this->newEntity($data);
         if($user->hasErrors()) {
@@ -234,5 +239,14 @@ class UsersTable extends Table
             return false;
         }
         return $user;
+    }
+
+
+    public function getShortTokenExpiry() {
+        return date('Y-m-d H:i:s', time() + 60*60*1);
+    }
+
+    public function getLongTokenExpiry() {
+        return date('Y-m-d H:i:s', time() + 60*60*24*7);
     }
 }

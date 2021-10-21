@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Subscription;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -223,10 +224,10 @@ class CoursesTable extends Table
      * Returns a rules checker object that will be used for validating
      * application integrity.
      *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
+     * @param RulesChecker $rules The rules object to be modified.
+     * @return RulesChecker
      */
-    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['deletion_reason_id'], 'DeletionReasons'));
@@ -243,7 +244,8 @@ class CoursesTable extends Table
 
 
 
-    public function getSubscriptionCourses($subscription = array()) {
+    public function getSubscriptionCourses(Subscription $subscription) : array
+    {
         $options = $this->getFilter($subscription);
         $query = $this->find('all', $options);
 
@@ -259,29 +261,31 @@ class CoursesTable extends Table
 
 
 
-    public function getFilter($subscription) {
+    public function getFilter(Subscription $subscription) : array
+    {
         $conditions = [
-            'Courses.updated >' => $subscription['created'],
+            'Courses.updated >' => $subscription->created,
             'Courses.active' => true,
             'Courses.deleted' => false
         ];
-        if($subscription['online_course'] !== null) $conditions['Courses.online_course'] = $subscription['online_course'];
+        if($subscription->online_course !== null)
+            $conditions['Courses.online_course'] = $subscription->online_course;
 
         if($subscription->notifications) {
-            $excludes = collection($subscription['notifications'])
+            $excludes = collection($subscription->notifications)
                 ->extract('course_id')->toList();
             if ($excludes) $conditions['Courses.id NOT IN'] = $excludes;
         }
-        $options = [
+        return [
             'conditions' => $conditions,
             'contain' => ['Disciplines','Countries','Cities','Institutions']
         ];
-        return $options;
     }
 
 
 
-    private function __match_association(&$query, $subscription, $assoc) {
+    private function __match_association(Query &$query, Subscription $subscription, string $assoc) : void
+    {
         if($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
