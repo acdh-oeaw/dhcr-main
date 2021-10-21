@@ -49,9 +49,7 @@
             "cd api/v2/ && php composer.phar update"
         ],
         "post-install-cmd": [
-            "App\\Console\\Installer::postInstall",
-            "php composer.phar require --dev cakephp/debug_kit '~4.0'",
-            "bin/cake plugin load DebugKit"
+            "App\\Console\\Installer::postInstall"
         ],
         "post-create-project-cmd": [
              "App\\Console\\Installer::postInstall"
@@ -63,7 +61,7 @@
         "cs-check": "phpcs --colors -p --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
         "cs-fix": "phpcbf --colors --standard=vendor/cakephp/cakephp-codesniffer/CakePHP src/ tests/",
          "test": [
-            "export DHCR_BASE_URL=https://dev-dhcr.clarin-dariah.eu/ && phpunit --colors=always --configuration phpunit.xml.dist"
+            "phpunit --colors=always --configuration phpunit.xml.dist"
         ]
     },
     "prefer-stable": true,
