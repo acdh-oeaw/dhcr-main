@@ -1,8 +1,9 @@
 <?php
 namespace App\Controller;
 
+use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
-use Cake\Routing\Router;
+use Cake\Mailer\MailerAwareTrait;
 
 /**
  * Users Controller
@@ -13,19 +14,37 @@ use Cake\Routing\Router;
  */
 class UsersController extends AppController
 {
+    use MailerAwareTrait;
 
     public function initialize(): void {
         parent::initialize();
         $this->loadComponent('Authentication.Authentication', [
             'logoutRedirect' => '/users/sign-in'  // Default is false
         ]);
-        $this->Authentication->allowUnauthenticated(['signIn','register','whichTerms']);
+        $this->Authentication->allowUnauthenticated([
+            'signIn','register','whichTerms','confirmMail']);
     }
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
+
+        $result = $this->Authentication->getResult();
+        if($result->isValid()) {
+            // renew Auth session on pageload due to possible status or profile changes
+            $user = $this->Authentication->getIdentity();
+            $user = $this->Users->get($user->id);
+            $this->Authentication->setIdentity($user);
+
+            // send newly registered users to the approval status page
+            $action = $this->request->getParam('action');
+            if((!$user->email_verified OR !$user->approved)
+                AND $action != 'registrationSuccess')
+                return $this->redirect('/users/registration_success');
+        }
+
         if(!in_array($this->request->getParam('action'), [
-            'signIn','register','resetpassword','setpassword']))
+            'signIn','register','registrationSuccess',
+            'resetpassword','setpassword']))
             $this->viewBuilder()->setLayout('contributors');
     }
 
@@ -36,11 +55,34 @@ class UsersController extends AppController
 
     public function signIn()
     {
+        $result = $this->Authentication->getResult();
+        // the user is logged in by session, idp or form
+        if($result->isValid()) {
+            $user = $this->Authentication->getIdentity();
+            if(!$user->approved || !$user->email_verified) {
+                return $this->redirect('/users/registration_success');
+            }
+
+            $authentication = $this->Authentication->getAuthenticationService();
+            if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
+                $user = $this->Users->get($this->Authentication->getIdentityData('id'));
+                $user->password = $this->request->getData('password');
+            }
+            $user->last_login = date('Y-m-d H:i:s');
+            $this->Users->save($user);  // Rehash happens on save.
+
+            $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
+            return $this->redirect($target);
+        }
+        if ($this->request->is('post') && !$result->isValid()) {
+            $this->Flash->error('Invalid username or password');
+        }
+
+
         if(!empty($_SERVER['HTTP_EPPN'])) {
             var_dump($_SERVER);
             exit;
         }
-
 
         // get the shibboleth return parameter
         $here = 'https://dev-dhcr.clarin-dariah.eu/users/sign-in';
@@ -78,25 +120,7 @@ class UsersController extends AppController
                 }
             }
         }
-
         $this->set(compact('idpTarget'));
-
-        $result = $this->Authentication->getResult();
-
-        // If the user is logged in send them away.
-        if ($result->isValid()) {
-            $authentication = $this->Authentication->getAuthenticationService();
-            if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
-                $user = $this->Users->get($this->Authentication->getIdentityData('id'));
-                $user->password = $this->request->getData('password');
-                $this->Users->save($user);  // Rehash happens on save.
-            }
-            $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
-            return $this->redirect($target);
-        }
-        if ($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Invalid username or password');
-        }
     }
 
 
@@ -111,7 +135,10 @@ class UsersController extends AppController
 
     public function dashboard() {
 
-        $this->set('title_for_layout', 'Data Curation UI');
+
+        $this->set('title_for_layout', 'DHCR Dashboard');
+        $user = $this->request->getSession()->read('Auth');
+        $this->set(compact('user'));
     }
 
 
@@ -128,32 +155,26 @@ class UsersController extends AppController
             $user = $this->Users->register($this->request->getData());
 
             if($user AND !$user->hasErrors(false)) {
-                $this->_newUserAdminNotification($user);
-                $result = $this->_sendUserManagementMail([
-                    'template' => 'email_verification',
-                    'subject' => 'Email Verification',
-                    'email' => $user['new_email'],
-                    'data' => $user
-                ]);
-                $this->Session->write('Users.verification', $user['email_token']);
-                if($result) {
-                    $this->redirect([
-                        'controller' => 'users',
-                        'action' => 'registration_success'
-                    ]);
-                }else{
-                    $this->Flash->set('User created, but verification mail could not be sent.
-                    Try resending the verification mail or contact the admin team to get you started.');
-                    $this->redirect([
-                        'controller' => 'users',
-                        'action' => 'request_email_verification'
-                    ]);
+                try {
+                    $this->getMailer('User')->send('emailConfirmation', [$user]);
+                }catch(Exception $exception) {
+
                 }
-            }elseif(!$user) {
+
+                $session = $this->request->getSession();
+                $session->write('Auth', $user);
+
+                return $this->redirect([
+                    'controller' => 'users',
+                    'action' => 'registration_success'
+                ]);
+            }
+            elseif(!$user) {
                 $this->Flash->set('The record could not be saved.
                 Please try again and contact the administration team, if the problem persists.');
-            }elseif($user->hasErrors(false)) {
-                $this->Flash->set('We\'re having errors! Please check the form and amend the indicated fields');
+            }
+            elseif($user->hasErrors(false)) {
+                $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
             }
         }
         // render form
@@ -161,6 +182,106 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 
+
+    public function registrationSuccess() {
+        $user = $this->Authentication->getIdentity();
+        if($user->email_verified && $user->approved)
+            return $this->redirect('/users/dashboard');
+
+        $user = $this->Authentication->getIdentity();
+        $this->set('user', $user);
+    }
+
+
+    public function sendConfirmationMail() {
+        $user = $this->Authentication->getIdentity();
+        if(!empty($user->new_email)) {
+            $user->email_token_expires = $this->Users->getShortTokenExpiry();
+            $this->Users->save($user);
+            try {
+                $this->getMailer('User')->send('emailConfirmation', [$user]);
+            }catch(Exception $exception) {}
+            $this->Flash->set('Confirmation mail has been sent.');
+        }
+        $this->redirect('/users/dashboard');
+    }
+
+
+    public function confirmMail(string $token = null) {
+        if($token) {
+            $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
+            if($user) {
+                if(!$user->email_verified) {
+                    $user->approval_token_expires = $this->Users->getLongTokenExpiry();
+                    // TODO: route this to a single team account
+                    $admins = $this->Users->getModerators(null, true);
+                    try {
+                        foreach($admins as $admin)
+                            $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
+                    }catch(Exception $exception) {}
+                }
+
+                $user->email = $user->new_email;
+                $user->email_token = null;
+                $user->email_verified = true;
+                $this->Users->save($user);
+
+                $this->Authentication->setIdentity($user);
+
+                $this->Flash->set('Your email address has been verified');
+                return $this->redirect('/users/dashboard');
+            }
+        }
+        $this->redirect('/');
+    }
+
+
+    public function approve($key = null) {
+        if(empty($key)) return $this->redirect('/users/dashboard');
+
+        $redirect = false;
+        $admin = $this->Authentication->getIdentity();
+        if($admin AND $admin->is_admin AND ctype_digit($key)) {
+            // we are accessing the method using the admin dashboard, using user ids as the key
+            $user = $this->Users->get($key);
+            if(!$user) {
+                $this->Flash->set('An account with id '.$key.' could not be found.');
+                $redirect = true;
+            }
+        }else{
+            // admins retrieve a link in their notification email to approve directly
+            $user = $this->Users->find()->contain([])->where([
+                'Users.approval_token' => $key,
+                'approved' => 0
+            ])->first();
+            if(!$user) {
+                $this->Flash->set('The requested account has already been accepted.');
+                $redirect = true;
+            }
+        }
+
+        if($user) {
+            if($user = $this->Users->approve($key)) {
+                $this->getMailer('User')->send('welcome', [$user]);
+                $this->Flash->set('The account has been approved successfully.');
+                $redirect = true;
+            }else{
+                // we have missing data or errors - set user to render approval form
+                $this->set('user', $user);
+                if($admin AND $admin->is_admin)
+                    $this->Flash->set('Approval failed, please amend the account.');
+                else
+                    $this->Flash->set('Approval not possible, please log in to amend the account.');
+            }
+        }else{
+            $redirect = true;
+        }
+
+        if($redirect) {
+            if($admin) return $this->redirect('/users/dashboard');
+            return $this->redirect('/');
+        }
+    }
 
 
     /**

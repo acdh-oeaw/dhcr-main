@@ -14,7 +14,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-star"></span>Personal Dashboard',
+                    '<span class="glyphicon glyphicon-star"></span>Your Dashboard',
                     ['controller' => 'Users', 'action' => 'dashboard'],
                     ['escape' => false]) ?>
             </p>
