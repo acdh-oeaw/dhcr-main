@@ -6,15 +6,15 @@ stages:
 # build development
 
 build-dev:
-  image: "docker:19-dind"
+  image: "docker:20-dind"
   stage: build
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19-dind
-      command: ["--mtu=1450"]
+    - name: docker:20-dind
+      command: ["--tls=false"]
   tags:
     - cluster
   before_script:
@@ -31,15 +31,15 @@ build-dev:
 
 # test development
 test-dev:
-  image: "docker:19-dind"
+  image: "docker:20-dind"
   stage: test
   variables:
       DOCKER_HOST: tcp://docker:2375/
       DOCKER_DRIVER: overlay2
       DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19-dind
-      command: ["--mtu=1450"]
+    - name: docker:20-dind
+      command: ["--tls=false"]
   tags:
     - cluster
 
@@ -85,15 +85,15 @@ deploy-dev:
 
 # build production
 build-prod:
-  image: "docker:19-dind"
+  image: "docker:20-dind"
   stage: build
   variables:
     DOCKER_HOST: tcp://docker:2375/
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19-dind
-      command: ["--mtu=1450"]
+    - name: docker:20-dind
+      command: ["--tls=false"]
   tags:
     - cluster
   before_script:
@@ -117,8 +117,8 @@ test-prod:
       DOCKER_DRIVER: overlay2
       DOCKER_TLS_CERTDIR: ""
   services:
-    - name: docker:19-dind
-      command: ["--mtu=1450"]
+    - name: docker:20-dind
+      command: ["--tls=false"]
   tags:
     - cluster
 
