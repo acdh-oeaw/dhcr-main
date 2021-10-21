@@ -16,12 +16,6 @@ return [
 
     'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),
     'reCaptchaPrivateKey' => env('RECAPTCHA_PRIVATE_KEY', '__RECAPTCHA_PRIVATE_KEY__'),
-    'AppMail' => [
-        'defaultFrom' => [env('APP_MAIL_DEFAULT_FROM', '__REPLYTO_MAIL__') => 'DH Course Registry'],
-        'defaultCc' => env('APP_MAIL_DEFAULT_CC', '__CC_MAIL__'),
-        'subjectPrefix' => '[DH Course Registry]',
-        'debugMailTo' => env('DEBUG_MAIL_TO', '__DEBUG_MAIL_TO__')
-    ],
 
 
 
@@ -254,7 +248,12 @@ return [
             'transport' => 'default',
             'from' => [env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'],
             'headerCharset' => 'utf-8',
+            // TODO: put a team email address here
             'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
+            // what about default cC?
+            'emailFormat' => 'text',
+            'template' => 'default',
+            'layout' => 'default'
         ],
     ],
 
