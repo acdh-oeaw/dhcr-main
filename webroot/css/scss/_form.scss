@@ -16,10 +16,8 @@
 
 form {
     @include clearfix;
-    fieldset.invisible {
-        border: none;
-        margin-top: 3em;
-    }
+    @include notifications;
+
     label {
         font-weight: bold;
         color: $blue;
@@ -34,7 +32,7 @@ form {
         box-sizing:border-box;
         padding: 5px 5px 3px;
         font-size: 0.9em;
-        font-family: Metropolis;
+        font-family: Metropolis, serif;
         color: inherit;
         outline: none;
         &:focus, &:focus-visible, &:active {

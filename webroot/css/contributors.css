@@ -621,14 +621,6 @@ button.small:hover, button.small.animate, .button.small:hover, .button.small.ani
 
 hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
-.notice, .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
-.notice input, .notice label, .error input, .error label { font-size: 1rem; }
-.notice select, .error select { font-size: 0.9rem; }
-.notice dd, .error dd { color: #6d7278; font-size: 1em; }
-.notice h1, .notice h2, .notice h3, .notice h4, .notice dt, .error h1, .error h2, .error h3, .error h4, .error dt { font-size: 1em; color: #6d7278; }
-
-.error { border: 1px solid #af3434; background-color: #e8adad; }
-
 .hidden { display: none; }
 
 .right { float: right; }
@@ -683,7 +675,7 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 
 #footer { margin-top: 100px; }
 
-.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; color: #ccc; }
+.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; border: none; color: #ccc; }
 @media only screen and (max-width: 750px) { .flash-message { top: 20px; right: 20px; } }
 
 #modal-wrapper, .modal-wrapper { position: fixed; z-index: 1000000; width: 100vw; height: 100vh; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; }

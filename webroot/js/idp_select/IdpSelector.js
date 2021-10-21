@@ -108,7 +108,7 @@ class IdpSelector {
             $('.inputAlternativeButton').toggle()
             this.unselect()
         }.bind(this))
-        this.element.append($('<div id="login-alternatives"></div>')
+        this.element.append($('<div class="login-alternatives"></div>')
             .append(searchButton)
             .append(listButton)
             .append(classicButton))

@@ -253,7 +253,7 @@ class View {
     setErrorMessage(msg) {
         msg = msg || 'Something went wrong';
         this.clearView();
-        $(this.element).addClass('error').text(msg);
+        $(this.element).text(msg);
     }
 
     setLoader() {
