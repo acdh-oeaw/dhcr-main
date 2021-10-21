@@ -1,8 +1,10 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Subscription;
 use Cake\Core\Configure;
 use Cake\Mailer\Email;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -28,6 +30,9 @@ use ArrayObject;
  */
 class SubscriptionsTable extends Table
 {
+
+    use MailerAwareTrait;
+
     /**
      * Initialize method
      *
@@ -181,47 +186,30 @@ class SubscriptionsTable extends Table
 
 
     public function getSubscriptions() {
-        $subscriptions = $this->find('all', [
+        return $this->find('all', [
             'contain' => self::$containments
         ])->where([
             'Subscriptions.confirmed' => true
         ])->toArray();
-        return $subscriptions;
     }
 
 
 
-    public function processSubscription($subscription = []) {
+    public function processSubscription(Subscription $subscription) {
         $result = false;
         if($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
             if($courses) {
-                $this->sendNotification($subscription, $courses);
+                $this->getMailer('Subscription')->send('notification', [
+                    'subscription' => $subscription,
+                    'courses' => $courses
+                ]);
                 $this->Notifications->saveSent($subscription->id, $courses);
             }
             $result = count($courses);
         }
         return $result;
     }
-
-
-
-    private function sendNotification($subscription, $courses = []) {
-        $recipient = $subscription->email;
-        if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
-        $Email = new Email('default');
-        $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-            ->setTo($recipient)
-            ->setSubject(Configure::read('AppMail.subjectPrefix').' New Course Notification')
-            ->setEmailFormat('text')
-            ->setViewVars([
-                'subscription' => $subscription,
-                'courses' => $courses])
-            ->viewBuilder()->setTemplate('subscriptions/subscription_notification');
-            $Email->send();
-    }
-
-
 
 }

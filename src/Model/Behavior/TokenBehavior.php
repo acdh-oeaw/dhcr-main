@@ -30,11 +30,11 @@ class TokenBehavior extends Behavior
                 $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
             }
             $token = $time . $token;
-        } while(!$this->isUnique($fieldname));
+        } while(!$this->isUnique($token, $fieldname));
         return $token;
     }
 
-    public function isUnique($fieldname = null) {
+    public function isUnique(string $token, string $fieldname = null) {
         if(empty($fieldname) AND empty($this->_defaultConfig['fieldname'])) return true;
         if(empty($fieldname)) $fieldname = $this->_defaultConfig['fieldname'];
         return !(bool) $this->_table->find()->where([

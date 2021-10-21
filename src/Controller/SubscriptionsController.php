@@ -2,7 +2,9 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
+use Cake\Http\Response;
 use Cake\Mailer\Mailer;
+use Cake\Mailer\MailerAwareTrait;
 
 /**
  * Subscriptions Controller
@@ -14,9 +16,7 @@ use Cake\Mailer\Mailer;
 class SubscriptionsController extends AppController
 {
 
-    public function initialize(): void {
-        parent::initialize();
-    }
+    use MailerAwareTrait;
 
     /**
      * Index method
@@ -50,7 +50,7 @@ class SubscriptionsController extends AppController
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add() : Response
     {
         $subscription = $this->Subscriptions->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -60,29 +60,17 @@ class SubscriptionsController extends AppController
                     'contain' => $this->Subscriptions::$containments
             ])->first();
             if(!empty($subscription)) {
-                $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox.'));
-                $Email = new Mailer('default');
-                $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-                    ->setTo($data['email'])
-                    ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
-                    ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $subscription, 'isNew' => false])
-                    ->viewBuilder()->setTemplate('subscriptions/subscription_access');
-                $Email->send();
+                $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox to access your settings.'));
+                $this->getMailer('Subscription')
+                    ->send('access', ['subscription' => $subscription, 'isNew' => false]);
                 return $this->redirect('/');
             }else{
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
                 $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
-                    $this->Flash->success(__('Your subscription has been saved, please check your inbox.'));
-                    $Email = new Mailer('default');
-                    $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-                        ->setTo($data['email'])
-                        ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
-                        ->setEmailFormat('text')
-                        ->setViewVars(['subscription' => $subscription])
-                        ->viewBuilder()->setTemplate('subscriptions/subscription_confirmation');
-                    $Email->send();
+                    $this->Flash->success(__('Your subscription has been saved, please check your inbox to confirm your subscription.'));
+                    $this->getMailer('Subscription')
+                        ->send('confirm', ['subscription' => $subscription]);
                     return $this->redirect('/');
                 }
             }
@@ -101,7 +89,7 @@ class SubscriptionsController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($key = null)
+    public function edit(string $key = null) : Response
     {
         $subscription = $this->Subscriptions->find('all', [
             'conditions' => ['Subscriptions.confirmation_key' => $key],
@@ -130,14 +118,8 @@ class SubscriptionsController extends AppController
                     $this->Flash->success(__('Your subscription is now complete and confirmed.'
                         .'You will receieve e-mail notifications, as soon new courses match your filters.'));
                 else $this->Flash->success(__('Your subscription has been saved.'));
-                $Email = new Mailer('default');
-                $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-                    ->setTo($subscription['email'])
-                    ->setSubject(Configure::read('AppMail.subjectPrefix').' Subscription Confirmation')
-                    ->setEmailFormat('text')
-                    ->setViewVars(['subscription' => $subscription, 'isNew' => $isNew])
-                    ->viewBuilder()->setTemplate('subscriptions/subscription_access');
-                $Email->send();
+                $this->getMailer('Subscription')
+                    ->send('access', ['subscription' => $subscription, 'isNew' => $isNew]);
                 return $this->redirect('/');
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
@@ -165,7 +147,7 @@ class SubscriptionsController extends AppController
      * @return \Cake\Http\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($key = null)
+    public function delete(string $key = null) : void
     {
         $subscription = $this->Subscriptions->findByConfirmationKey($key)->first();
 
@@ -178,6 +160,6 @@ class SubscriptionsController extends AppController
             $this->Flash->error(__('Your subscription could not be deleted. Please, try again.'));
         }
 
-        return $this->redirect('/');
+        $this->redirect('/');
     }
 }
