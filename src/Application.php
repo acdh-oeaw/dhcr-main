@@ -95,8 +95,8 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
         ];
         // Load the authenticators. Session should be first.
-        //$service->loadAuthenticator('SAML');
         $service->loadAuthenticator('Authentication.Session');
+        //$service->loadAuthenticator('SimpleSaml.SimpleSaml');
         $service->loadAuthenticator('Authentication.Form', [
             'fields' => $fields,
             'loginUrl' => Router::url([
@@ -110,11 +110,15 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Load identifiers
         $service->loadIdentifier('Authentication.Password', [
             'fields' => $fields,
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+                'userModel' => 'Users',
+                'finder' => ['all' => ['conditions' => ['active' => true]]]
+            ],
             'passwordHasher' => [
                 'className' => 'Authentication.Fallback',
                 'hashers' => [
-                    'Authentication.Default',
-                    [
+                    'Authentication.Default', [
                         'className' => 'Authentication.Legacy',
                         'hashType' => 'sha1',
                         'salt' => true
@@ -122,23 +126,16 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
                 ]
             ]
         ]);
-        /*
-        $service->loadIdentifier('Authentication.Callback', [
-            'callback' => function($data) {
-                // do identifier logic
-
-                if ($result) {
-                    return new Result($result, Result::SUCCESS);
-                }
-
-                return new Result(
-                    null,
-                    Result::FAILURE_OTHER,
-                    ['message' => 'Removed user.']
-                );
-            }
+        $service->loadIdentifier('Authentication.Token', [
+            'tokenField' => 'shib_eppn',
+            'dataField' => 'shib_eppn',
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+                'userModel' => 'Users',
+                'finder' => ['all' => ['conditions' => ['active' => true]]]
+            ]
         ]);
-        */
+
         return $service;
     }
 
