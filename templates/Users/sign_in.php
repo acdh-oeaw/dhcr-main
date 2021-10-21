@@ -1,6 +1,8 @@
-<?php use Cake\Routing\Router;
+<?php
+use Cake\Routing\Router;
 
-$this->set('bodyClasses', 'login'); ?>
+$this->set('bodyClasses', 'login');
+?>
 
 <div id="classicLogin" style="display:none" class="loginAlternative">
     <h2>Classic Login</h2>
@@ -29,7 +31,7 @@ $this->set('bodyClasses', 'login'); ?>
         <?= $this->Form->end() ?>
     </div>
 
-    <div id="login-alternatives">
+    <div class="login-alternatives">
         <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'button small']) ?>
         <?= $this->Html->link('Federated Login', '/users/sign-in/#idpSelect', [
             'class' => 'blue button small',

@@ -1,5 +1,7 @@
 <?php
 use Cake\Core\Configure;
+
+$this->set('bodyClasses', 'registration');
 ?>
 
 <h2>User Registration</h2>
