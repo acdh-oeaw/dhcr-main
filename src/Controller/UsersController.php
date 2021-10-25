@@ -36,8 +36,10 @@ class UsersController extends AppController
 
     public function signIn()
     {
-        if(!empty($_SERVER['HTTP_EPPN'])) {
-            var_dump($_SERVER);
+        if(!empty($_SERVER['HTTP_EPPN']) AND $_SERVER['HTTP_EPPN'] != 'null') {
+            echo '<pre>';
+            print_r($_SERVER);
+            echo '</pre>';
             exit;
         }
 
