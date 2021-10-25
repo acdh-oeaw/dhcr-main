@@ -36,26 +36,6 @@ class UsersController extends AppController
 
     public function signIn()
     {
-
-        if(!empty($_SERVER['HTTP_EPPN']) AND strlen($_SERVER['HTTP_EPPN']) > 6) {
-            $shib_mapping = [
-                'HTTP_EPPN' => 'shib_eppn',
-                'HTTP_GIVENNAME' => 'first_name',
-                'HTTP_SN' => 'last_name',
-                'HTTP_EMAIL' => 'email'
-            ];
-            $shibUser = [];
-            foreach($_SERVER as $key => $value) {
-                if(array_key_exists($key, $shib_mapping))
-                    $shibUser[$shib_mapping[$key]] = $value;
-            }
-            echo '<pre>';
-            print_r($shibUser);
-            echo '</pre>';
-            exit;
-        }
-
-
         // get the shibboleth return parameter - shib login is allowed for the production instance only
         $here = 'https://dhcr.clarin-dariah.eu/users/sign-in';
         $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target='.urlencode($here);
