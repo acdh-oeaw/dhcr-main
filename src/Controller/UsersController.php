@@ -57,7 +57,7 @@ class UsersController extends AppController
 
 
         // get the shibboleth return parameter
-        $here = 'https://dev-dhcr.clarin-dariah.eu/users/sign-in';
+        $here = 'https:/dhcr.clarin-dariah.eu/users/sign-in';
         $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target='.urlencode($here);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $get);
