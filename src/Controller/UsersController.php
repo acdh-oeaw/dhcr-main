@@ -37,7 +37,7 @@ class UsersController extends AppController
     public function signIn()
     {
 
-        if(!empty($_SERVER['HTTP_EPPN']) AND $_SERVER['HTTP_EPPN'] != 'null') {
+        if(!empty($_SERVER['HTTP_EPPN']) AND strlen($_SERVER['HTTP_EPPN']) > 0) {
             $shib_mapping = [
                 'HTTP_EPPN' => 'shib_eppn',
                 'HTTP_GIVENNAME' => 'first_name',
@@ -49,7 +49,7 @@ class UsersController extends AppController
                 if(array_key_exists($key, $shib_mapping))
                     $shibUser[$shib_mapping[$key]] = $value;
             }
-
+            echo strlen($_SERVER['HTTP_EPPN']);
             echo '<pre>';
             print_r($shibUser);
             echo '</pre>';
