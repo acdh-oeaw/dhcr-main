@@ -1,35 +1,68 @@
 <?php
 namespace App\Controller;
 
+use App\Authenticator\AppResult;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
+use phpDocumentor\Reflection\Types\Mixed_;
 
 /**
  * Users Controller
  *
  * @property \App\Model\Table\UsersTable $Users
  *
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class UsersController extends AppController
 {
     use MailerAwareTrait;
 
+
+    public const ALLOW_UNAUTHENTICATED = [
+        'signIn',
+        'register',
+        'confirmMail',
+        'unknownIdentity',
+        'connectIdentity',
+        'registerIdentity',
+        'whichTerms'
+    ];
+
+    public const SKIP_AUTHORIZATION = [
+        'signIn',
+        'register',
+        'unknownIdentity',
+        'connectIdentity',
+        'registerIdentity',
+        'whichTerms'
+    ];
+
+    public const DEFAULT_LAYOUT = [
+        'signIn',
+        'register',
+        'registrationSuccess',
+        'resetpassword',
+        'setpassword',
+        'unknownIdentity',
+        'connectIdentity',
+        'registerIdentity',
+        'whichTerms'
+    ];
+
     public function initialize(): void {
         parent::initialize();
-        $this->loadComponent('Authentication.Authentication', [
-            'logoutRedirect' => '/users/sign-in'  // Default is false
-        ]);
-        $this->Authentication->allowUnauthenticated([
-            'signIn','register','whichTerms','confirmMail']);
+        $this->Authentication->allowUnauthenticated(self::ALLOW_UNAUTHENTICATED);
+
+        if(in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
+            $this->Authorization->skipAuthorization();
+        }
     }
 
     public function beforeFilter(EventInterface $event) {
         parent::beforeFilter($event);
 
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if($result->isValid() AND !$this->_checkExternalIdentity()) {
             // renew Auth session on pageload due to possible status or profile changes
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->id);
@@ -40,12 +73,11 @@ class UsersController extends AppController
             if((!$user->email_verified OR !$user->approved)
                 AND $action != 'registrationSuccess')
                 return $this->redirect('/users/registration_success');
-        }
 
-        if(!in_array($this->request->getParam('action'), [
-            'signIn','register','registrationSuccess',
-            'resetpassword','setpassword']))
-            $this->viewBuilder()->setLayout('contributors');
+            // set the contributor layout for logged in users and certain actions only
+            if(!in_array($this->request->getParam('action'), self::DEFAULT_LAYOUT))
+                $this->viewBuilder()->setLayout('contributors');
+        }
     }
 
     public function beforeRender(EventInterface $event) {
@@ -53,9 +85,21 @@ class UsersController extends AppController
     }
 
 
+    /**
+     * @param string|null $mode
+     * @return \Cake\Http\Response|void|null
+     *
+     * Set parameter $mode = 'identity' to bypass redirection loop and connect a present
+     * but unknown external identity to an already existing account.
+     */
     public function signIn()
     {
         $result = $this->Authentication->getResult();
+
+        if($this->_checkExternalIdentity()) {
+            return $this->redirect('/users/unknown_identity');
+        }
+
         // the user is logged in by session, idp or form
         if($result->isValid()) {
             $user = $this->Authentication->getIdentity();
@@ -74,16 +118,26 @@ class UsersController extends AppController
             $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
             return $this->redirect($target);
         }
-        if ($this->request->is('post') && !$result->isValid()) {
+
+        if($this->request->is('post') && !$result->isValid()) {
             $this->Flash->error('Invalid username or password');
         }
 
+        // render the login form, providing federated authentication
+        $this->_setIdentityProviderTarget();
+    }
 
-        if(!empty($_SERVER['HTTP_EPPN'])) {
-            var_dump($_SERVER);
-            exit;
-        }
 
+
+    public function logout()
+    {
+        $this->Authentication->logout();
+        return $this->redirect(['controller' => 'Users','action' => 'signIn']);
+    }
+
+
+
+    protected function _setIdentityProviderTarget() {
         // get the shibboleth return parameter
         $here = 'https://dev-dhcr.clarin-dariah.eu/users/sign-in';
         $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target='.urlencode($here);
@@ -125,15 +179,55 @@ class UsersController extends AppController
 
 
 
-    public function logout()
+    protected function _checkExternalIdentity() : array
     {
-        $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Users','action' => 'signIn']);
+        $result = $this->Authentication->getResult();
+        if($result->getStatus() === AppResult::NEW_EXTERNAL_IDENTITY) {
+            // return the external identity
+            return $result->getData();
+        }else{
+            return [];
+        }
     }
 
 
 
-    public function dashboard() {
+    public function unknownIdentity()
+    {
+        $identity = $this->_checkExternalIdentity();
+        if(empty($identity))
+            return $this->redirect('/users/sign-in');
+
+        $this->set(compact('identity'));
+    }
+
+
+
+    public function connectIdentity()
+    {
+        $result = $this->Authentication->getResult();
+        $this->Authorization->authorize($result, 'useExternalIdentity');
+
+        // connect account with identity
+        $identity = $result->getData();
+    }
+
+
+
+    public function registerIdentity()
+    {
+        $result = $this->Authentication->getResult();
+        $this->Authorization->authorize($result, 'useExternalIdentity');
+
+        $identity = $result->getData();
+
+        $this->set('identity', $identity);
+    }
+
+
+
+    public function dashboard()
+    {
 
 
         $this->set('title_for_layout', 'DHCR Dashboard');
@@ -143,7 +237,8 @@ class UsersController extends AppController
 
 
 
-    public function register() {
+    public function register()
+    {
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             if(!$this->_checkCaptcha()) {
@@ -185,7 +280,8 @@ class UsersController extends AppController
 
     public function registrationSuccess() {
         $user = $this->Authentication->getIdentity();
-        if($user->email_verified && $user->approved)
+        //if($user->email_verified && $user->approved)
+        if($this->Authorization->can('accessDashboard'))
             return $this->redirect('/users/dashboard');
 
         $user = $this->Authentication->getIdentity();
@@ -281,6 +377,7 @@ class UsersController extends AppController
             if($admin) return $this->redirect('/users/dashboard');
             return $this->redirect('/');
         }
+        // TODO: create approval view/form/process
     }
 
 

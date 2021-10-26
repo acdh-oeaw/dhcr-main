@@ -18,6 +18,13 @@ class SubscriptionsController extends AppController
 
     use MailerAwareTrait;
 
+
+    public function initialize(): void {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['*']);
+        $this->Authorization->skipAuthorization();
+    }
+
     /**
      * Index method
      *
@@ -96,6 +103,11 @@ class SubscriptionsController extends AppController
             'contain' => $this->Subscriptions::$containments
         ])->first();
 
+        if(!$subscription) {
+            $this->Flash->set('Your subscription could not be found, please add one!');
+            return $this->redirect('/subscriptions/add');
+        }
+
         $isNew = false;
         if(!$subscription['confirmed']) $isNew = true;
 
@@ -117,7 +129,7 @@ class SubscriptionsController extends AppController
                 if($isNew)
                     $this->Flash->success(__('Your subscription is now complete and confirmed.'
                         .'You will receieve e-mail notifications, as soon new courses match your filters.'));
-                else $this->Flash->success(__('Your subscription has been saved.'));
+                else $this->Flash->success(__('Your subscription settings have been updated.'));
                 $this->getMailer('Subscription')
                     ->send('access', ['subscription' => $subscription, 'isNew' => $isNew]);
                 return $this->redirect('/');

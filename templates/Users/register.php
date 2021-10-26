@@ -10,12 +10,6 @@ $this->set('bodyClasses', 'registration');
     Open an account as a lecturer, programme director or national moderator.<br>
     After registration, you will be able to add your courses to the registry.
 </p>
-<p>
-    Please Use the registration form only, if your institution is not present on the <?= $this->Html->link('federated single sign-on', '/users/signIn/#idpSelect') ?> page.
-
-
-</p>
-
 <?php if(!$user->hasErrors(false)) : ?>
     <p class="notice">
         You only need to register an account with the DHRC, if you are a lecturer or other academic institution member

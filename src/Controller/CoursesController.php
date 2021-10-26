@@ -12,6 +12,13 @@ class CoursesController extends AppController
 
     public $Courses = null;
 
+
+    public function initialize(): void {
+        parent::initialize();
+        $this->Authentication->allowUnauthenticated(['index','view']);
+        $this->Authorization->skipAuthorization();
+    }
+
     public function beforeRender(EventInterface $event) {
         parent::beforeRender($event);
         $this->viewBuilder()->setLayout('home');

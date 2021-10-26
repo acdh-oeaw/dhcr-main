@@ -42,14 +42,17 @@ class AppController extends Controller
     public function initialize(): void {
         parent::initialize();
 
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
-        ]);
-
         // Set the Cache-Control as private for 3600 seconds
         $this->response = $this->response->withSharable(true, 3600);
 
+        $this->loadComponent('RequestHandler', [
+            'enableBeforeRedirect' => false,
+        ]);
         $this->loadComponent('Flash');
+        $this->loadComponent('Authorization.Authorization');
+        $this->loadComponent('Authentication.Authentication', [
+            'logoutRedirect' => '/users/sign-in'  // Default is false
+        ]);
     }
 
 

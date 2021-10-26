@@ -629,6 +629,11 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 @media only screen and (max-width: 750px) { .flex-columns { display: block; }
   .flex-columns .flex-item { margin-bottom: 3em; min-width: initial; padding: 0; } }
 
+.grid-columns { display: grid; grid-column-gap: 4em; grid-row-gap: 6em; place-items: stretch; grid-template-columns: repeat(2, 1fr); }
+@media only screen and (max-width: 750px) { .grid-columns { grid-template-columns: repeat(1, 1fr); } }
+.grid-columns .grid-item { display: grid; }
+.grid-columns .grid-item *:last-child { align-self: end; justify-self: start; }
+
 .css-columns { column-count: 2; column-gap: 1em; }
 @media only screen and (max-width: 400px) { .css-columns { column-count: 1; } }
 .css-columns.moderators .item, .css-columns.admins .item { -webkit-column-break-inside: avoid; /* Chrome, Safari */ page-break-inside: avoid; /* Theoretically FF 20+ */ break-inside: avoid-column; /* IE 11 */ }
