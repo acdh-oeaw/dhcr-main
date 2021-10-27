@@ -1,7 +1,7 @@
 
 'use strict';
 
-class Stories {
+class Content {
 
     constructor() {
         this.entries = [{
