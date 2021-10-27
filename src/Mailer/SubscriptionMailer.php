@@ -4,6 +4,7 @@ namespace App\Mailer;
 
 use App\Model\Entity\Subscription;
 use Cake\Core\Configure;
+use Cake\Mailer\Transport\DebugTransport;
 
 class SubscriptionMailer extends AppMailer {
 
@@ -24,10 +25,14 @@ class SubscriptionMailer extends AppMailer {
             ->viewBuilder()->setTemplate('subscription/confirmation');
     }
 
-    public function notification(Subscription $subscription, array $courses = []) {
-        $to = (Configure::read('debug'))
-            ? env('DEBUG_MAIL_TO')
-            : $subscription->email;
+    public function notification(Subscription $subscription, $courses = []) {
+        $to = $subscription->email;
+        if(Configure::read('debug')) {
+            // prevent mailbombing
+            $debugmail = env('DEBUG_MAIL_TO', false);
+            if($debugmail) $to = $debugmail;
+            else $this->setTransport(new DebugTransport());
+        }
         $this
             ->setTo($to)
             ->setSubject('New Course Notification')

@@ -199,12 +199,12 @@ class SubscriptionsTable extends Table
         $result = false;
         if($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
+            // get only courses that the subscriber did not receive a notification about before
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
             if($courses) {
                 $this->getMailer('Subscription')->send('notification', [
-                    'subscription' => $subscription,
-                    'courses' => $courses
-                ]);
+                    $subscription, $courses]);
+                // prevent double notifications, to be filtered by above method CoursesTable::getSubscriptoinCourses()
                 $this->Notifications->saveSent($subscription->id, $courses);
             }
             $result = count($courses);

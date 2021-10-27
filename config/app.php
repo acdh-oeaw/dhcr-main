@@ -218,7 +218,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => env('MAIL_TRANSPORT_CLASS', 'Cake\Mailer\Transport\SmtpTransport'),
+            'className' => 'Cake\Mailer\Transport\SmtpTransport',
             /*
              * The following keys are used in SMTP transports:
              */
@@ -231,7 +231,7 @@ return [
             'tls' => null,
             'log' => false,		// enabling this will print the full messages into the log
             'charset' => 'utf-8',
-        ],
+        ]
     ],
 
     /**
@@ -254,7 +254,7 @@ return [
             'emailFormat' => 'text',
             'template' => 'default',
             'layout' => 'default'
-        ],
+        ]
     ],
 
     /**
