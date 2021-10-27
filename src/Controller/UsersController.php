@@ -30,6 +30,7 @@ class UsersController extends AppController
 
     public const SKIP_AUTHORIZATION = [
         'signIn',
+        'logout',
         'register',
         'unknownIdentity',
         'connectIdentity',
@@ -66,12 +67,16 @@ class UsersController extends AppController
             // renew Auth session on pageload due to possible status or profile changes
             $user = $this->Authentication->getIdentity();
             $user = $this->Users->get($user->id);
+            // Set the authorization service to the identity object:
+            // this is configured on Application::middleware (identityDecorator),
+            // but needs to be done again as we re-set the identity.
+            $user->setAuthorization($this->request->getAttribute('authorization'));
             $this->Authentication->setIdentity($user);
 
             // send newly registered users to the approval status page
             $action = $this->request->getParam('action');
             if((!$user->email_verified OR !$user->approved)
-                AND $action != 'registrationSuccess')
+            AND $action != 'registrationSuccess')
                 return $this->redirect('/users/registration_success');
 
             // set the contributor layout for logged in users and certain actions only
@@ -94,22 +99,19 @@ class UsersController extends AppController
      */
     public function signIn()
     {
-        $result = $this->Authentication->getResult();
-
         if($this->_checkExternalIdentity()) {
             return $this->redirect('/users/unknown_identity');
         }
-
         // the user is logged in by session, idp or form
+        $result = $this->Authentication->getResult();
         if($result->isValid()) {
-            $user = $this->Authentication->getIdentity();
+            $user = $this->Authentication->getIdentity()->getOriginalData();
             if(!$user->approved || !$user->email_verified) {
                 return $this->redirect('/users/registration_success');
             }
 
             $authentication = $this->Authentication->getAuthenticationService();
             if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
-                $user = $this->Users->get($this->Authentication->getIdentityData('id'));
                 $user->password = $this->request->getData('password');
             }
             $user->last_login = date('Y-m-d H:i:s');
@@ -205,19 +207,22 @@ class UsersController extends AppController
 
     public function connectIdentity()
     {
-        $result = $this->Authentication->getResult();
-        $this->Authorization->authorize($result, 'useExternalIdentity');
+        $identity = $this->_checkExternalIdentity();
+        if(empty($identity))
+            return $this->redirect('/users/sign-in');
 
         // connect account with identity
         $identity = $result->getData();
+        $this->set('identity', $identity);
     }
 
 
 
     public function registerIdentity()
     {
-        $result = $this->Authentication->getResult();
-        $this->Authorization->authorize($result, 'useExternalIdentity');
+        $identity = $this->_checkExternalIdentity();
+        if(empty($identity))
+            return $this->redirect('/users/sign-in');
 
         $identity = $result->getData();
 
@@ -228,10 +233,11 @@ class UsersController extends AppController
 
     public function dashboard()
     {
+        $user = $this->getRequest()->getAttribute('identity');
 
+        $this->Authorization->authorize($user, 'accessDashboard');
 
         $this->set('title_for_layout', 'DHCR Dashboard');
-        $user = $this->request->getSession()->read('Auth');
         $this->set(compact('user'));
     }
 

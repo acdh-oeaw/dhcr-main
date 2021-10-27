@@ -7,7 +7,7 @@ use Authorization\Policy\Result;
 
 class UserPolicy
 {
-    public function canAcessDashboard(IdentityInterface $user, $data = []) : Result
+    public function canAccessDashboard(IdentityInterface $user, $data = []) : Result
     {
         $user = $user->getOriginalData();
         if($user->email_verified && $user->approved)

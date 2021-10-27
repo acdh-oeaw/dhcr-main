@@ -54,17 +54,10 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
     {
         $params = $request->getServerParams();
         $result = [];
-        foreach($params as $key => $value) {
-            if(!empty($this->mapping[$key]))
-                $result[$this->mapping[$key]] = $value;
+        foreach($this->mapping as $key => $mapping) {
+            if(!empty($params[$key]))
+                $result[$mapping] = $params[$key];
         }
-
-        return [
-            'first_name' => 'Hendrik',
-            'last_name' => 'Schmeer',
-            'email' => 'Hendrik.Schmeer@oeaw.ac.at',
-            'shib_eppn' => 'hschmeer@oeaw.ac.at'
-        ];
 
         return $result;
     }
