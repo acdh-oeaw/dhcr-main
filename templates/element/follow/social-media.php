@@ -1,4 +1,8 @@
-<?php $this->Html->css('https://use.fontawesome.com/releases/v5.8.2/css/all.css', ['block' => true]); ?>
+<?php
+use Cake\Core\Configure;
+
+$this->Html->css('https://use.fontawesome.com/releases/v5.8.2/css/all.css', ['block' => true]);
+?>
 
 <h3 class="follow">
     <a href="https://instagram.com/dhcourseregistry" target="_blank">
@@ -30,11 +34,11 @@
 <ul id="stories" class="custom-bullets"></ul>
 
 <?php
-$this->Html->script('stories.js', ['block' => true]);
+$this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' => true]);
 $this->Html->scriptStart(['block' => true]);
 ?>
 $(document).ready(function(){
-    let content = new Stories();
+    let content = new Content();
     content.load();
 });
 <?php $this->Html->scriptEnd(); ?>
