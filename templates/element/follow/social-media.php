@@ -34,10 +34,7 @@ $this->Html->css('https://use.fontawesome.com/releases/v5.8.2/css/all.css', ['bl
 <ul id="stories" class="custom-bullets"></ul>
 
 <?php
-if(Configure::read('debug'))
-    $this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' => true]);
-else
-    $this->Html->script('stories.js', ['block' => true]);
+$this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' => true]);
 $this->Html->scriptStart(['block' => true]);
 ?>
 $(document).ready(function(){
