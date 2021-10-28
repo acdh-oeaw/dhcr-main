@@ -42,10 +42,8 @@
     },
     "scripts": {
         "pre-install-cmd": [
-            "cp composer.phar ops/app/",
             "cp composer.phar api/v1/",
             "cp composer.phar api/v2/",
-            "cd ops/app/ && php composer.phar update",
             "cd api/v1/ && php composer.phar update",
             "cd api/v2/ && php composer.phar update"
         ],
