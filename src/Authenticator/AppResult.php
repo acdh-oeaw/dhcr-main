@@ -13,7 +13,7 @@ class AppResult extends Result implements ResultInterface {
     public function isValid(): bool
     {
         if($this->_status === self::NEW_EXTERNAL_IDENTITY)
-            return true;
+            return false;
         parent::isValid();
     }
 }

@@ -200,7 +200,9 @@ class Application extends BaseApplication
             ->add(new AuthenticationMiddleware($this))
             ->add(new AuthorizationMiddleware($this, [
                 'identityDecorator' => function ($auth, $user) {
-                    return $user->setAuthorization($auth);
+                    if($user->getOriginalData() instanceof IdentityInterface)
+                        return $user->setAuthorization($auth);
+                    return;
                 }
             ]));
 

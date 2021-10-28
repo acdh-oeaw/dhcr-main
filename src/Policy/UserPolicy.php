@@ -7,6 +7,7 @@ use Authorization\Policy\Result;
 
 class UserPolicy
 {
+    // approval check
     public function canAccessDashboard(IdentityInterface $user, $data = []) : Result
     {
         $user = $user->getOriginalData();

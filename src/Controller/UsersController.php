@@ -5,7 +5,6 @@ use App\Authenticator\AppResult;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
-use phpDocumentor\Reflection\Types\Mixed_;
 
 /**
  * Users Controller
@@ -32,6 +31,7 @@ class UsersController extends AppController
         'signIn',
         'logout',
         'register',
+        'registrationSuccess',
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
@@ -60,29 +60,14 @@ class UsersController extends AppController
     }
 
     public function beforeFilter(EventInterface $event) {
-        parent::beforeFilter($event);
-
         $result = $this->Authentication->getResult();
-        if($result->isValid() AND !$this->_checkExternalIdentity()) {
-            // renew Auth session on pageload due to possible status or profile changes
-            $user = $this->Authentication->getIdentity();
-            $user = $this->Users->get($user->id);
-            // Set the authorization service to the identity object:
-            // this is configured on Application::middleware (identityDecorator),
-            // but needs to be done again as we re-set the identity.
-            $user->setAuthorization($this->request->getAttribute('authorization'));
-            $this->Authentication->setIdentity($user);
-
-            // send newly registered users to the approval status page
-            $action = $this->request->getParam('action');
-            if((!$user->email_verified OR !$user->approved)
-            AND $action != 'registrationSuccess')
-                return $this->redirect('/users/registration_success');
-
+        if($result->isValid()) {
             // set the contributor layout for logged in users and certain actions only
             if(!in_array($this->request->getParam('action'), self::DEFAULT_LAYOUT))
                 $this->viewBuilder()->setLayout('contributors');
         }
+        // we must RETURN the Response object here for parent class redirects to take effect
+        return parent::beforeFilter($event);
     }
 
     public function beforeRender(EventInterface $event) {
@@ -102,18 +87,16 @@ class UsersController extends AppController
         if($this->_checkExternalIdentity()) {
             return $this->redirect('/users/unknown_identity');
         }
+
         // the user is logged in by session, idp or form
         $result = $this->Authentication->getResult();
         if($result->isValid()) {
             $user = $this->Authentication->getIdentity()->getOriginalData();
-            if(!$user->approved || !$user->email_verified) {
-                return $this->redirect('/users/registration_success');
-            }
 
             $authentication = $this->Authentication->getAuthenticationService();
-            if ($authentication->identifiers()->get('Password')->needsPasswordRehash()) {
+            if($authentication->identifiers()->get('Password')->needsPasswordRehash())
                 $user->password = $this->request->getData('password');
-            }
+
             $user->last_login = date('Y-m-d H:i:s');
             $this->Users->save($user);  // Rehash happens on save.
 
@@ -122,7 +105,8 @@ class UsersController extends AppController
         }
 
         if($this->request->is('post') && !$result->isValid()) {
-            $this->Flash->error('Invalid username or password');
+            // evaluate the result here, AppResult might indicate banned user
+            $this->Flash->error('Invalid username or password.');
         }
 
         // render the login form, providing federated authentication
@@ -234,7 +218,6 @@ class UsersController extends AppController
     public function dashboard()
     {
         $user = $this->getRequest()->getAttribute('identity');
-
         $this->Authorization->authorize($user, 'accessDashboard');
 
         $this->set('title_for_layout', 'DHCR Dashboard');
@@ -286,8 +269,7 @@ class UsersController extends AppController
 
     public function registrationSuccess() {
         $user = $this->Authentication->getIdentity();
-        //if($user->email_verified && $user->approved)
-        if($this->Authorization->can('accessDashboard'))
+        if($user->can('accessDashboard', $user))
             return $this->redirect('/users/dashboard');
 
         $user = $this->Authentication->getIdentity();

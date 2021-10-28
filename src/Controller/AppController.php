@@ -16,6 +16,9 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Core\Configure;
+use Cake\Event\Event;
+use Cake\Event\EventInterface;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -57,6 +60,24 @@ class AppController extends Controller
 
 
 
+    public function beforeFilter(EventInterface $event)
+    {
+        $result = $this->Authentication->getResult();
+        if($result->isValid()) {
+            // send newly registered users to the approval status page
+            $action = $this->request->getParam('action');
+            $user = $this->Authentication->getIdentity();
+            if( !$user->can('accessDashboard', $user)
+            AND $action != 'registrationSuccess'
+            AND !in_array($action, $this->Authentication->getUnauthenticatedActions())) {
+                return $this->redirect('/users/registration_success');
+            }
+        }
+        // we must RETURN the Response object here for the redirect to take effect
+        return parent::beforeFilter($event);
+    }
+
+
     protected function _checkCaptcha(&$errors = array()) : bool
     {
         if(Configure::read('debug')) return true;
@@ -86,5 +107,24 @@ class AppController extends Controller
         // if(!empty($result['error-codes'])) $errors = $result['error-codes'];
         if(!empty($result['success'])) return true;
         return false;
+    }
+
+
+    /** Renew Auth session on pageload due to possible status or profile changes.
+     * We might configure the Session Authenticator ['identify' => true] in App\Application,
+     * but that would create unnecessary db io on each request.
+     * Refresh session only in certain situations.
+     */
+    protected function _refreshAuthSession()
+    {
+        $Users = TableRegistry::getTableLocator()->get('Users');
+        $user = $this->Authentication->getIdentity();
+        $user = $Users->get($user->id);
+        // Set the authorization service to the identity object:
+        // this is configured on Application::middleware (identityDecorator),
+        // but needs to be done again as we re-set the identity.
+        $user->setAuthorization(
+            $this->request->getAttribute('authorization'));
+        $this->Authentication->setIdentity($user);
     }
 }
