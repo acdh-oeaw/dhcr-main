@@ -1,6 +1,4 @@
 <?php
-use Cake\Core\Configure;
-
 $this->Html->css('https://use.fontawesome.com/releases/v5.8.2/css/all.css', ['block' => true]);
 ?>
 
