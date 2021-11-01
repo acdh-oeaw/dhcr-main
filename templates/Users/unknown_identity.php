@@ -1,38 +1,23 @@
 <?php
+use Authentication\View\Helper\IdentityHelper;
+
 $this->set('bodyClasses', 'registration');
-
-$name = '';
-if(!empty($identity['first_name']) OR !empty('sn')) $name = '<dt>Name:</dt><dd>';
-if(!empty($identity['first_name'])) $name .= $identity['first_name'].' ';
-if(!empty($identity['last_name'])) $name .= $identity['last_name'];
-$name = trim($name).'</dd>';
-
-$mail = '';
-if(!empty($identity['email'])) $mail = '<dt>Email:</dt><dd>'.$identity['email'].'</dd>';
-if(empty($mail) AND preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
-    $mail = '<dt>Email:</dt><dd>'.$identity['shib_eppn'].'</dd>';
 ?>
 
 <h2>Are you new to the DHCR?</h2>
 
 <p>
     You have been succesfully identified by an external identity provider,
-    but that identity is not linked to any of our local accounts.
+    but that identity is not linked to a local account.
 </p>
+
+
+<?= $this->element('users/external_identity') ?>
+
+<?php if(!$this->Identity->isLoggedIn()): ?>
 <p>
     Please decide, how to continue.
 </p>
-
-<?php if(!empty($name) OR !empty($mail)): ?>
-<div class="notice">
-    <p>We receive the following data from your provider:</p>
-    <dl>
-        <?= ($name) ?? '' ?>
-        <?= ($mail) ?? '' ?>
-    </dl>
-</div>
-<?php endif; ?>
-
 <div class="grid-columns">
     <div class="grid-item">
         <p>
@@ -56,6 +41,38 @@ if(empty($mail) AND preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_e
             'class' => 'button']) ?>
     </div>
 </div>
+<?php elseif(!$this->Identity->get('shib_eppen')): ?>
+<p>
+    Connect this external identity to your local account.
+</p>
+<div class="grid-columns">
+    <div class="grid-item">
+        <?= $this->Html->link('Ignore', '/users/ignore_identity', [
+            'class' => 'button']) ?>
+    </div>
+    <div class="grid-item">
+        <?= $this->Html->link('Connect', '/users/connect_identity', [
+            'class' => 'blue button']) ?>
+    </div>
+</div>
+<?php elseif($this->Identity->get('shib_eppen') !== $identity['shib_eppen']): ?>
+    <p>
+        You have a valid external identity, that does not match the identity this
+        account is currently connected to.<br>
+        If you decide to connect to that identity, you can only access the DHRC
+        dashboard using the new identity.
+    </p>
+    <div class="grid-columns">
+        <div class="grid-item">
+            <?= $this->Html->link('Ignore', '/users/ignore_identity', [
+                'class' => 'button']) ?>
+        </div>
+        <div class="grid-item">
+            <?= $this->Html->link('Connect New Identity', '/users/connect_identity', [
+                'class' => 'blue button']) ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 
 

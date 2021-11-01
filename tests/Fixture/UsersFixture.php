@@ -115,7 +115,7 @@ class UsersFixture extends TestFixture
                 'shib_eppn' => '2Lorem ipsum dolor sit amet',
                 'password' => '*****',
                 'email_verified' => 1,
-                'active' => 0,
+                'active' => 0,  // the actual ban
                 'approved' => 1,
                 'is_admin' => 1,
                 'user_admin' => 1,

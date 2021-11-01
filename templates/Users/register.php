@@ -57,7 +57,7 @@ so that our moderators can judge about your eligibility to contribute content to
         <label for="terms-info">Terms</label>
         <div class="info" id="terms-info">
             <?= $this->Html->link('Which terms?', '/users/which_terms?', ['id' => 'which_terms']) ?>
-            <div style="display:none" id="terms_content"><?= $this->element('which_terms') ?></div>
+            <div style="display:none" id="terms_content"><?= $this->element('users/which_terms') ?></div>
         </div>
         <?= $this->Form->control('consent', [
             'type' => 'checkbox',
