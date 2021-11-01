@@ -28,6 +28,14 @@ class UsersControllerTest extends TestCase
         'app.Courses',
     ];
 
+    public $controller;
+
+
+    public function setUp(): void {
+        parent::setUp();
+        $this->controller = new UsersController();
+    }
+
 
     protected function _login($userId) {
         $users = TableRegistry::getTableLocator()->get('Users');
@@ -52,18 +60,18 @@ class UsersControllerTest extends TestCase
         ]);
     }
 
-    public function testGetRegister()
+    public function testRegister()
     {
         $this->get('/users/register');
         $this->assertResponseOk();
     }
 
-    public function testGetSignIn() {
+    public function testSignIn() {
         $this->get('/users/sign-in');
         $this->assertResponseOk();
     }
 
-    public function testGetSignInDisabled() {
+    public function testSignInDisabled() {
         $this->enableRetainFlashMessages();
         $this->enableCsrfToken();
         $this->post('/users/sign-in', [
@@ -74,40 +82,71 @@ class UsersControllerTest extends TestCase
         $this->assertFlashMessage('Invalid username or password.');
     }
 
-    public function testGetSignInLoggedIn() {
+    public function testSignInLoggedIn() {
         $this->_login(1);
         $this->get('/users/sign-in');
         $this->assertRedirect('/users/dashboard');
         $this->_logout();
     }
 
-    public function testGetSignInExternalIdentity() {
+    public function testSignInExternalIdentity() {
         $this->_setExternalIdentity();
         $this->get('/users/sign-in');
         $this->assertRedirect('/users/unknown_identity');
     }
 
-    public function testGetDashboardLoggedOut() {
+    public function testUnknownIdentity() {
+        $this->get('/users/unknown_identity');
+        $this->assertRedirect('/users/sign-in');
+        $this->_login(1);
+        $this->get('/users/unknown_identity');
+        $this->assertRedirect('/users/sign-in');    // redirection to dashboard follows
+        $this->_setExternalIdentity();
+        // either logged in or not, or already connected to some other identity
+        $this->get('/users/unknown_identity');
+        $this->assertResponseOk();
+    }
+
+    public function testConnectIdentity() {
+        $this->_setExternalIdentity();
+        $this->get('/users/connect_identity');
+        $this->assertResponseContains('Connect your locally existing account');
+
+        $this->_login(1);
+        $this->_setExternalIdentity();
+        $this->get('/users/connect_identity');
+        $user = $this->getSession()->read('Auth');
+        $this->assertEquals('shib_eppn', $user['shib_eppn']);
+        $this->assertRedirect('/users/dashboard');
+    }
+
+    public function testDashboardLoggedOut() {
         $this->get('/users/dashboard');
         $this->assertHeaderContains('location', '/users/sign-in?redirect=%2Fusers%2Fdashboard');
     }
 
-    public function testGetDashboard() {
+    public function testDashboard() {
         $this->_login(1);
         $this->get('/users/dashboard');
         $this->assertResponseOk();
     }
 
-    public function testGetSignInNotMailVerified() {
-        $user = $this->_login(3);   // not email verified
+    public function testSignInNotMailVerified() {
+        $this->_login(3);   // not email verified
         $this->get('/users/dashboard');
         $this->assertRedirect('/users/registration_success');
+        $this->get('/users/registration_success');
+        $this->assertResponseContains('Please check your inbox');
+        $this->assertResponseContains('Please complete the email confirmation process');
     }
 
-    public function testGetSignInNotApproved() {
-        $user = $this->_login(4);   // not approved
+    public function testSignInNotApproved() {
+        $user = $this->_login(4);   // not approved, email verified
         $this->get('/users/dashboard');
         $this->assertRedirect('/users/registration_success');
+        $this->get('/users/registration_success');
+        $this->assertResponseContains('Your email address has been verified');
+        $this->assertResponseContains('An admin has been notified');
     }
 
     /**

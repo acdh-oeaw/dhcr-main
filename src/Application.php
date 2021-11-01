@@ -119,7 +119,7 @@ class Application extends BaseApplication
             ]),
         ]);
         // let this provider be the last to return a result
-        $service->loadAuthenticator('ServerEnvironment', [
+        $envAuthenticator = $service->loadAuthenticator('ServerEnvironment', [
             'mapping' => [
                 'HTTP_EPPN' => 'shib_eppn',
                 'HTTP_GIVENNAME' => 'first_name',
@@ -128,6 +128,8 @@ class Application extends BaseApplication
             ],
             'token' => 'shib_eppn'
         ]);
+        // Kinda ugly hack! Making the loaded authenticator available for further checks in UsersController.
+        $service->envAuthenticator = $envAuthenticator;
 
         // Load identifiers
         $service->loadIdentifier('Authentication.Password', [
@@ -140,7 +142,8 @@ class Application extends BaseApplication
             'passwordHasher' => [
                 'className' => 'Authentication.Fallback',
                 'hashers' => [
-                    'Authentication.Default', [
+                    'Authentication.Default',
+                    [
                         'className' => 'Authentication.Legacy',
                         'hashType' => 'sha1',
                         'salt' => true

@@ -117,14 +117,18 @@ class AppController extends Controller
      */
     protected function _refreshAuthSession()
     {
-        $Users = TableRegistry::getTableLocator()->get('Users');
-        $user = $this->Authentication->getIdentity();
-        $user = $Users->get($user->id);
-        // Set the authorization service to the identity object:
-        // this is configured on Application::middleware (identityDecorator),
-        // but needs to be done again as we re-set the identity.
-        $user->setAuthorization(
-            $this->request->getAttribute('authorization'));
-        $this->Authentication->setIdentity($user);
+        $result = $this->Authentication->getResult();
+        if($result->isValid()) {
+            $Users = TableRegistry::getTableLocator()->get('Users');
+            $user = $this->Authentication->getIdentity();
+            $user = $Users->get($user->id);
+            // Set the authorization service to the identity object:
+            // this is configured on Application::middleware (identityDecorator),
+            // but needs to be done again as we re-set the identity.
+            $user->setAuthorization(
+                $this->request->getAttribute('authorization'));
+            $this->Authentication->setIdentity($user);
+            $this->getRequest()->getSession()->write('Auth', $user);
+        }
     }
 }

@@ -7,6 +7,7 @@ use Authentication\Authenticator\AbstractAuthenticator;
 use Authentication\Authenticator\Result;
 use Authentication\Authenticator\ResultInterface;
 use Authentication\Identifier\IdentifierInterface;
+use Cake\Core\Configure;
 use Psr\Http\Message\ServerRequestInterface;
 
 
@@ -40,7 +41,7 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
      * @param \Authentication\Identifier\IdentifierInterface $identifier Identifier or identifiers collection.
      * @param array $config Configuration settings.
      */
-    public function __construct(IdentifierInterface $identifier, array $config = [])
+    public function __construct(IdentifierInterface $identifier = null, array $config = [])
     {
         parent::__construct($identifier, $config);
         if(!empty($config['mapping']))
@@ -50,7 +51,8 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
     }
 
 
-    protected function _getData(ServerRequestInterface $request) : array
+
+    public function getData(ServerRequestInterface $request) : array
     {
         $params = $request->getServerParams();
         $result = [];
@@ -58,6 +60,13 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
             if(!empty($params[$key]))
                 $result[$mapping] = $params[$key];
         }
+
+        if(false AND Configure::read('debug')) return [
+            'shib_eppn' => 'foo',
+            'first_name' => 'bar',
+            'last_name' => 'baz',
+            'email' => 'funny'
+        ];
 
         return $result;
     }
@@ -70,7 +79,7 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
      */
     public function authenticate(ServerRequestInterface $request) : ResultInterface
     {
-        $data = $this->_getData($request);
+        $data = $this->getData($request);
 
         if(empty($data))
             return new Result(null, Result::FAILURE_OTHER, ['No data could be extracted from $_SERVER.']);

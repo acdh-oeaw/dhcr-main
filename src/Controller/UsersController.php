@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Authenticator\AppResult;
+use App\Authenticator\ServerEnvironmentAuthenticator;
+use Authentication\AuthenticationService;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
@@ -19,6 +21,7 @@ class UsersController extends AppController
 
     public const ALLOW_UNAUTHENTICATED = [
         'signIn',
+        'logout',   // avoid redirecting
         'register',
         'confirmMail',
         'unknownIdentity',
@@ -82,7 +85,7 @@ class UsersController extends AppController
      * Set parameter $mode = 'identity' to bypass redirection loop and connect a present
      * but unknown external identity to an already existing account.
      */
-    public function signIn()
+    public function signIn($template = null)
     {
         if($this->_checkExternalIdentity()) {
             return $this->redirect('/users/unknown_identity');
@@ -108,9 +111,12 @@ class UsersController extends AppController
             // evaluate the result here, AppResult might indicate banned user
             $this->Flash->error('Invalid username or password.');
         }
-
-        // render the login form, providing federated authentication
-        $this->_setIdentityProviderTarget();
+        if($template === 'connect_identity') {
+            $this->viewBuilder()->setTemplate($template);
+        }else{
+            // render the login form, providing federated authentication
+            $this->_setIdentityProviderTarget();
+        }
     }
 
 
@@ -172,6 +178,11 @@ class UsersController extends AppController
             // return the external identity
             return $result->getData();
         }else{
+            $service = $this->Authentication->getAuthenticationService();
+            $authenticator = $service->envAuthenticator;
+            if($data = $authenticator->getData($this->getRequest())) {
+                return $data;
+            }
             return [];
         }
     }
@@ -194,10 +205,22 @@ class UsersController extends AppController
         $identity = $this->_checkExternalIdentity();
         if(empty($identity))
             return $this->redirect('/users/sign-in');
-
         // connect account with identity
-        $identity = $result->getData();
-        $this->set('identity', $identity);
+        $result = $this->Authentication->getResult();
+        if($result->isValid()) {
+            // save the identity shib_eppn to the user
+            $user = $this->Authentication->getIdentity();
+            $user->shib_eppn = $identity['shib_eppn'];
+            $this->Users->save($user);
+            $this->_refreshAuthSession();
+            $this->Flash->set('Identity connected. Now you can login using your institutional identity provider.');
+            return $this->redirect('/users/dashboard');
+        }
+        // point the form to the regular login action
+        // the additional parameter will render the connect_identity view in case of auth errors
+        $query = '?redirect=/users/connect_identity';
+        $formUrl = '/users/sign-in/connect_identity' . $query;
+        $this->set(compact('identity', 'formUrl'));
     }
 
 
@@ -207,8 +230,11 @@ class UsersController extends AppController
         $identity = $this->_checkExternalIdentity();
         if(empty($identity))
             return $this->redirect('/users/sign-in');
+        $result = $this->Authentication->getResult();
+        if($result->isValid())
+            return $this->redirect('/users/dashboard');
 
-        $identity = $result->getData();
+
 
         $this->set('identity', $identity);
     }
