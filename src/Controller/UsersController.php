@@ -2,8 +2,7 @@
 namespace App\Controller;
 
 use App\Authenticator\AppResult;
-use App\Authenticator\ServerEnvironmentAuthenticator;
-use Authentication\AuthenticationService;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
@@ -231,12 +230,41 @@ class UsersController extends AppController
         if(empty($identity))
             return $this->redirect('/users/sign-in');
         $result = $this->Authentication->getResult();
-        if($result->isValid())
+        if($result->isValid()) {
+            $this->Flash->set('Please log out before registering a new identity.');
             return $this->redirect('/users/dashboard');
+        }
 
+        $user = $this->Users->newEmptyEntity($identity);
+        if($this->request->is('post')) {
+            // patching the entity, validation and other stuff
+            $user = $this->Users->register($this->request->getData());
 
+            if($user AND !$user->hasErrors(false)) {
+                try {
+                    // just prevent local mailing tests from failing
+                    $this->getMailer('User')->send('welcome', [$user]);
+                }catch(Exception $exception) {}
 
-        $this->set('identity', $identity);
+                $session = $this->request->getSession();
+                $session->write('Auth', $user);
+
+                return $this->redirect([
+                    'controller' => 'users',
+                    'action' => 'registration_success'
+                ]);
+            }
+            elseif(!$user) {
+                $this->Flash->set('The record could not be saved.
+                Please try again and contact the administration team, if the problem persists.');
+            }
+            elseif($user->hasErrors(false)) {
+                $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
+            }
+        }
+
+        $this->_setOptions();
+        $this->set(compact('identity','user'));
     }
 
 
