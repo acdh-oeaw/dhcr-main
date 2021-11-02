@@ -61,13 +61,6 @@ class ServerEnvironmentAuthenticator extends AbstractAuthenticator
                 $result[$mapping] = $params[$key];
         }
 
-        if(false AND Configure::read('debug')) return [
-            'shib_eppn' => 'foo',
-            'first_name' => 'bar',
-            'last_name' => 'baz',
-            'email' => 'funny'
-        ];
-
         return $result;
     }
 

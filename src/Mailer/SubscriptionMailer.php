@@ -26,15 +26,8 @@ class SubscriptionMailer extends AppMailer {
     }
 
     public function notification(Subscription $subscription, $courses = []) {
-        $to = $subscription->email;
-        if(Configure::read('debug')) {
-            // prevent mailbombing
-            $debugmail = env('DEBUG_MAIL_TO', false);
-            if($debugmail) $to = $debugmail;
-            else $this->setTransport(new DebugTransport());
-        }
         $this
-            ->setTo($to)
+            ->setTo($this->preventMailbombing($subscription->email))
             ->setSubject('New Course Notification')
             ->setViewVars([
                 'subscription' => $subscription,

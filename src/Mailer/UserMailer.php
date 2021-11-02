@@ -22,6 +22,7 @@ class UserMailer extends AppMailer
         $this
             ->setTo($user->new_email)
             ->setSubject('Confirm your email address')
+            ->setViewVars(['user' => $user])
             ->viewBuilder()
                 ->setTemplate('users/email_confirmation');
     }

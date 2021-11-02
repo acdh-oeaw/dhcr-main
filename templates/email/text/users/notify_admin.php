@@ -20,9 +20,5 @@ User Overview
 
 
 Click here to start the approval process:
-<?= Router::url(array(
-    'controller' => 'users',
-    'action' => 'approve',
-    $user['approval_token']
-), true) ?>
+<?= Router::url('/users/approve/'.$user['approval_token'], true) ?>
 

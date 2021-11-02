@@ -1,4 +1,6 @@
 <?php
+use Cake\Routing\Router;
+
 echo "Dear $user->first_name, \n";
 echo "your DHCR account has just been approved!\n\n";
 

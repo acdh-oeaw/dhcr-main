@@ -75,11 +75,20 @@ class UsersControllerTest extends TestCase
         $this->enableRetainFlashMessages();
         $this->enableCsrfToken();
         $this->post('/users/sign-in', [
-            'email' => 'banned',
+            'email' => 'banned@example.com',
             'password' => '*****'
         ]); // user 2
         $this->assertNoRedirect();
         $this->assertFlashMessage('Invalid username or password.');
+    }
+
+    public function testSignInForm() {
+        $this->enableCsrfToken();
+        $this->post('/users/sign-in', [
+            'email' => 'test@example.com',
+            'password' => '*****'
+        ]); // user 1
+        $this->assertRedirect('/users/dashboard');
     }
 
     public function testSignInLoggedIn() {
@@ -98,6 +107,7 @@ class UsersControllerTest extends TestCase
     public function testUnknownIdentity() {
         $this->get('/users/unknown_identity');
         $this->assertRedirect('/users/sign-in');
+
         $this->_login(1);
         $this->get('/users/unknown_identity');
         $this->assertRedirect('/users/sign-in');    // redirection to dashboard follows
@@ -108,6 +118,9 @@ class UsersControllerTest extends TestCase
     }
 
     public function testConnectIdentity() {
+        $this->get('/users/connect_identity');
+        $this->assertRedirect('/users/sign-in');
+
         $this->_setExternalIdentity();
         $this->get('/users/connect_identity');
         $this->assertResponseContains('Connect your locally existing account');
@@ -118,6 +131,24 @@ class UsersControllerTest extends TestCase
         $user = $this->getSession()->read('Auth');
         $this->assertEquals('shib_eppn', $user['shib_eppn']);
         $this->assertRedirect('/users/dashboard');
+    }
+
+    public function testRegisterIdentity() {
+        $this->get('/users/register_identity');
+        $this->assertRedirect('/users/sign-in');
+
+        $this->_setExternalIdentity();
+        $this->get('/users/register_identity');
+        $this->assertResponseContains('Please complete your account data');
+
+        $this->_login(1);
+        $this->enableRetainFlashMessages();
+        $this->get('/users/register_identity');
+        $this->assertRedirect('/users/dashboard');
+        $this->assertFlashMessage('Please log out before registering a new identity.');
+        $this->_logout();
+
+
     }
 
     public function testDashboardLoggedOut() {
