@@ -235,20 +235,29 @@ class UsersController extends AppController
             return $this->redirect('/users/dashboard');
         }
 
-        $user = $this->Users->newEmptyEntity($identity);
+        $data['approved'] = true;
+        $data['email_verified'] = true;
+        $data['shib_eppn'] = $identity['shib_eppn'];
+        $data['first_name'] = $identity['first_name'] ?? null;
+        $data['last_name'] = $identity['last_name'] ?? null;
+        $data['email'] = $identity['email'] ?? null;
+        if(empty($data['email']) AND preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
+            $data['email'] = $identity['shib_eppn'];
+
+        $user = $this->Users->newEntity($data);
         if($this->request->is('post')) {
             // patching the entity, validation and other stuff
-            $user = $this->Users->register($this->request->getData());
-
             if($user AND !$user->hasErrors(false)) {
-                try {
-                    // just prevent local mailing tests from failing
-                    $this->getMailer('User')->send('welcome', [$user]);
-                }catch(Exception $exception) {}
+                if(empty($user->institution_id))
+                    $user->approved = false;
+                else
+                    try {
+                        // just prevent local mailing tests from failing
+                        $this->getMailer('User')->send('welcome', [$user]);
+                    }catch(Exception $exception) {}
 
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
-
                 return $this->redirect([
                     'controller' => 'users',
                     'action' => 'registration_success'
