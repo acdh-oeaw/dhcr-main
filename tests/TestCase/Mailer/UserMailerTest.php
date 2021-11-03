@@ -48,6 +48,7 @@ class UserMailerTest extends TestCase
     {
         $user = $this->_getUser();
         $this->UserMailer->send('welcome', [$user]);
+        $this->expectNotToPerformAssertions();
     }
 
     /**
@@ -60,6 +61,7 @@ class UserMailerTest extends TestCase
     {
         $user = $this->_getUser();
         $this->UserMailer->send('emailConfirmation', [$user]);
+        $this->expectNotToPerformAssertions();
     }
 
     /**
@@ -71,7 +73,9 @@ class UserMailerTest extends TestCase
     public function testResetPassword(): void
     {
         $user = $this->_getUser();
-        $this->UserMailer->send('resetPassword', [$user]);    }
+        $this->UserMailer->send('resetPassword', [$user]);
+        $this->expectNotToPerformAssertions();
+    }
 
     /**
      * Test notifyAdmin method
@@ -83,5 +87,7 @@ class UserMailerTest extends TestCase
     {
         $user = $this->_getUser();
         $admin = $this->UserMailer->preventMailbombing('admin@example.com');
-        $this->UserMailer->send('notifyAdmin', [$user, $admin]);    }
+        $this->UserMailer->send('notifyAdmin', [$user, $admin]);
+        $this->expectNotToPerformAssertions();
+    }
 }
