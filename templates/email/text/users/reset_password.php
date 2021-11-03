@@ -1,9 +1,9 @@
 <?php
-use Cake\Routing\Router;
+use Cake\Core\Configure;
 
 echo "To change your password, click the link below.\n";
 echo "If you did not request the password reset, you can ignore this email.\n";
 echo "\n";
-echo Router::url('/users/reset_password/'.$user->password_token, true);
+echo Configure::read('dhcr.baseUrl').'users/reset_password/'.$user->password_token;
 echo "\n";
 ?>

@@ -11,7 +11,7 @@ foreach($courses as $course) {
     echo $course->name.", ".$course->institution->name.", "
         .$course->city->name.", ".$course->country->name;
     echo "\n";
-    echo Configure::read("dhcr.baseUrl")."courses/view/".$course->id;
+    echo Configure::read('dhcr.baseUrl').'courses/view/'.$course->id;
     echo "\n\n";
 }
 ?>
@@ -77,7 +77,7 @@ if($subscription->tadirah_objects) {
 --
 
 You can review the filter settings for your subscription here:
-<?php echo Configure::read("dhcr.baseUrl")."subscriptions/edit/".$subscription->confirmation_key; ?>
+<?php echo Configure::read('dhcr.baseUrl').'subscriptions/edit/'.$subscription->confirmation_key; ?>
 
 To completely revoke your subscription, please click here:
-<?php echo Configure::read("dhcr.baseUrl")."subscriptions/delete/".$subscription->confirmation_key; ?>
+<?php echo Configure::read('dhcr.baseUrl').'subscriptions/delete/'.$subscription->confirmation_key; ?>
