@@ -33,7 +33,6 @@ $this->set('bodyClasses', 'registration');
     <?= $this->Form->create($user, ['id' => 'registration_form']) ?>
 
     <?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
-    <?= $this->Form->control('password') ?>
 
     <?= $this->Form->control('institution_id', [
         'label' => ['text' => 'Affiliation', 'class' => 'depending'],

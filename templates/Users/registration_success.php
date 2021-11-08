@@ -19,7 +19,7 @@
                     you may send it again by clicking the button below.
                 </p>
                 <?= $this->Html->link('Send confirmation mail', [
-                    'action' => 'send_confirmation_mail',
+                    'action' => 'verify_mail',
                     'controller' => 'users'],
                     ['class' => 'small blue button']) ?>
             <?php else: ?>

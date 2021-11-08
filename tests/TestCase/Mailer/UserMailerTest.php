@@ -57,10 +57,10 @@ class UserMailerTest extends TestCase
      * @return void
      * @uses \App\Mailer\UserMailer::emailConfirmation()
      */
-    public function testEmailConfirmation(): void
+    public function testConfirmationMail(): void
     {
         $user = $this->_getUser();
-        $this->UserMailer->send('emailConfirmation', [$user]);
+        $this->UserMailer->send('confirmationMail', [$user]);
         $this->expectNotToPerformAssertions();
     }
 

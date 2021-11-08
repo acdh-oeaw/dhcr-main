@@ -17,14 +17,14 @@ class UserMailer extends AppMailer
                 ->setTemplate('users/welcome'); // By default template with same name as method name is used.
     }
 
-    public function emailConfirmation(User $user)
+    public function confirmationMail(User $user)
     {
         $this
             ->setTo($user->new_email)
             ->setSubject('Confirm your email address')
             ->setViewVars(['user' => $user])
             ->viewBuilder()
-                ->setTemplate('users/email_confirmation');
+                ->setTemplate('users/confirmation_mail');
     }
 
     public function resetPassword(User $user)

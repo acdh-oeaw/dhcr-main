@@ -2,7 +2,6 @@
 namespace App\Controller;
 
 use App\Authenticator\AppResult;
-use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
@@ -23,6 +22,8 @@ class UsersController extends AppController
         'logout',   // avoid redirecting
         'register',
         'confirmMail',
+        'requestNewPassword',
+        'resetPassword',
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
@@ -33,6 +34,10 @@ class UsersController extends AppController
         'signIn',
         'logout',
         'register',
+        'verifyMail',
+        'confirmMail',
+        'requestNewPassword',
+        'resetPassword',
         'registrationSuccess',
         'unknownIdentity',
         'connectIdentity',
@@ -44,8 +49,8 @@ class UsersController extends AppController
         'signIn',
         'register',
         'registrationSuccess',
-        'resetpassword',
-        'setpassword',
+        'requestNewPassword',
+        'resetPassword',
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
@@ -194,6 +199,10 @@ class UsersController extends AppController
         if(empty($identity))
             return $this->redirect('/users/sign-in');
 
+        $session = $this->request->getSession();
+        if($session->check('ignoreIdentity'))
+            return $this->redirect('/users/dashboard');
+
         $this->set(compact('identity'));
     }
 
@@ -235,26 +244,31 @@ class UsersController extends AppController
             return $this->redirect('/users/dashboard');
         }
 
-        $data['approved'] = true;
-        $data['email_verified'] = true;
-        $data['shib_eppn'] = $identity['shib_eppn'];
         $data['first_name'] = $identity['first_name'] ?? null;
         $data['last_name'] = $identity['last_name'] ?? null;
         $data['email'] = $identity['email'] ?? null;
         if(empty($data['email']) AND preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
             $data['email'] = $identity['shib_eppn'];
 
+        // validation is on, show errors!
         $user = $this->Users->newEntity($data);
+        $user->approved = true;
+        $user->email_verified = true;
+        $user->shib_eppn = $identity['shib_eppn'];
         if($this->request->is('post')) {
             // patching the entity, validation and other stuff
-            if($user AND !$user->hasErrors(false)) {
-                if(empty($user->institution_id))
+            $this->Users->patchEntity($user, $this->request->getData());
+            if(!$user->hasErrors(false)) {
+                if(empty($user->institution_id)) {
                     $user->approved = false;
-                else
+                    $this->Users->notifyAdmins();
+                }else {
                     try {
-                        // just prevent local mailing tests from failing
                         $this->getMailer('User')->send('welcome', [$user]);
-                    }catch(Exception $exception) {}
+                    } catch (Exception $exception) {}
+                }
+
+                $this->Users->save($user);
 
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
@@ -262,12 +276,7 @@ class UsersController extends AppController
                     'controller' => 'users',
                     'action' => 'registration_success'
                 ]);
-            }
-            elseif(!$user) {
-                $this->Flash->set('The record could not be saved.
-                Please try again and contact the administration team, if the problem persists.');
-            }
-            elseif($user->hasErrors(false)) {
+            }else{
                 $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
             }
         }
@@ -277,14 +286,22 @@ class UsersController extends AppController
     }
 
 
+    public function ignoreIdentity() {
+        $session = $this->request->getSession();
+        $session->write('ignoreIdentity', true);
+        $this->redirect('/users/dashboard');
+    }
+
 
     public function dashboard()
     {
-        $user = $this->getRequest()->getAttribute('identity');
+        $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($user, 'accessDashboard');
 
+        $identity = $this->_checkExternalIdentity();
+
         $this->set('title_for_layout', 'DHCR Dashboard');
-        $this->set(compact('user'));
+        $this->set(compact('user', 'identity'));
     }
 
 
@@ -292,21 +309,23 @@ class UsersController extends AppController
     public function register()
     {
         $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
+        if($this->request->is('post')) {
             if(!$this->_checkCaptcha()) {
                 $this->Flash->set('The CAPTCHA test failed, please try again.');
                 $this->redirect(['controller' => 'users', 'action' => 'register']);
             }
 
             // patching the entity, validation and other stuff
-            $user = $this->Users->register($this->request->getData());
+            $user = $this->Users->newEntity($this->request->getData());
+            $user->email_token = $this->Users->generateToken('email_token');
+            $user->approval_token = $this->Users->generateToken('approval_token');
+            $user->approval_token_expires = $this->Users->getLongTokenExpiry();
 
-            if($user AND !$user->hasErrors(false)) {
+            if(!$user->hasErrors(false)) {
+                $this->Users->save($user);
                 try {
-                    $this->getMailer('User')->send('emailConfirmation', [$user]);
-                }catch(Exception $exception) {
-
-                }
+                    $this->getMailer('User')->send('confirmationMail', [$user]);
+                }catch(Exception $exception) {}
 
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
@@ -315,12 +334,7 @@ class UsersController extends AppController
                     'controller' => 'users',
                     'action' => 'registration_success'
                 ]);
-            }
-            elseif(!$user) {
-                $this->Flash->set('The record could not be saved.
-                Please try again and contact the administration team, if the problem persists.');
-            }
-            elseif($user->hasErrors(false)) {
+            }else{
                 $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
             }
         }
@@ -340,15 +354,19 @@ class UsersController extends AppController
     }
 
 
-    public function sendConfirmationMail() {
+    public function verifyMail() {
         $user = $this->Authentication->getIdentity();
-        if(!empty($user->new_email)) {
-            $user->email_token_expires = $this->Users->getShortTokenExpiry();
+        if($this->request->is('post')) {
+            $this->Users->patchEntity($user, $this->request->getData(), [
+                'fields' => ['new_email']
+            ]);
             $this->Users->save($user);
+        }
+        if(!empty($user->new_email)) {
             try {
-                $this->getMailer('User')->send('emailConfirmation', [$user]);
+                $this->getMailer('User')->send('confirmationMail', [$user]);
             }catch(Exception $exception) {}
-            $this->Flash->set('Confirmation mail has been sent.');
+            $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
         }
         $this->redirect('/users/dashboard');
     }
@@ -358,17 +376,12 @@ class UsersController extends AppController
         if($token) {
             $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
             if($user) {
-                if(!$user->email_verified) {
-                    $user->approval_token_expires = $this->Users->getLongTokenExpiry();
-                    // TODO: route this to a single team account
-                    $admins = $this->Users->getModerators(null, true);
-                    try {
-                        foreach($admins as $admin)
-                            $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
-                    }catch(Exception $exception) {}
-                }
+                // handle new users
+                if(!$user->email_verified)
+                    $this->Users->notifyAdmins();
 
                 $user->email = $user->new_email;
+                $user->new_email = null;
                 $user->email_token = null;
                 $user->email_verified = true;
                 $this->Users->save($user);
@@ -380,6 +393,80 @@ class UsersController extends AppController
             }
         }
         $this->redirect('/');
+    }
+
+
+    public function requestNewPassword($email = null) {
+        $user = $this->Authentication->getIdentity();
+        if($user) $email = $user->email;
+        if(!empty($this->request->data[$this->modelClass]['email'])) {
+            $email = $this->request->data[$this->modelClass]['email'];
+        }
+        if(!empty($email)) {
+            $user = $this->{$this->modelClass}->requestNewPassword($email);
+            if($user AND !empty($user[$this->modelClass]['password_token'])) {
+                $result = $this->_sendUserManagementMail(array(
+                    'template' => 'Users.password_reset',
+                    'subject' => 'Password Reset',
+                    'email' => $email,
+                    'data' => $user
+                ));
+                if($result) {
+                    if(!$this->Auth->user()) $this->Auth->flash('We have sent an email with further instructions to ' . $email . '.');
+                    else $this->Flash->set('We have sent an email with further instructions to ' . $email . '.');
+                }else{
+                    $this->Flash->set('Error while sending the password reset email.');
+                }
+                if($this->Auth->user()) $this->redirect(array(
+                    'plugin' => null,
+                    'controller' => 'users',
+                    'action' => 'dashboard'
+                ));
+                $this->redirect(array(
+                    'plugin' => null,
+                    'controller' => 'users',
+                    'action' => 'login'
+                ));
+            }
+        }
+    }
+
+
+    public function resetPassword($token = null) {
+        if(!empty($token)) {
+            $user = $this->{$this->modelClass}->checkPasswordToken($token);
+            if(empty($user)) {
+                $this->Auth->flash('Invalid password reset token, try again.');
+                $this->redirect(array(
+                    'plugin' => null,
+                    'controller' => 'users',
+                    'action' => 'request_new_password'
+                ));
+            }
+            elseif($user[$this->modelClass]['active'] == 0) {
+                $msg = 'Your account has been locked, you cannot reset your password.';
+                if(Configure::read('Users.adminConfirmRegistration')) {
+                    $msg = 'Your account has not been activated by an administrator, yet.';
+                }
+                $this->Auth->flash($msg);
+                $this->redirect('/');
+            }
+            $id = (!empty($user[$this->modelClass][$this->{$this->modelClass}->primaryKey]))
+                ? $user[$this->modelClass][$this->{$this->modelClass}->primaryKey]
+                : null;
+            if(!empty($this->request->data[$this->modelClass]) AND !empty($id)) {
+                $data = array();
+                $data[$this->modelClass][$this->{$this->modelClass}->primaryKey] = $id;
+                $data[$this->modelClass]['new_password'] = $this->request->data[$this->modelClass]['new_password'];
+                if($this->{$this->modelClass}->resetPassword($data)) {
+                    $this->Auth->flash('Password changed, please login with your new password.');
+                    $this->Auth->logout();
+                    $this->redirect($this->Auth->loginAction);
+                }
+            }
+
+            $this->set('token', $token);
+        }
     }
 
 

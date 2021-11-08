@@ -2,7 +2,8 @@
 namespace App\Model\Table;
 
 use Cake\Core\Configure;
-use Cake\Mailer\Mailer;
+use Cake\Core\Exception\Exception;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
@@ -112,7 +113,6 @@ class UsersTable extends Table
             ->email('new_email', false, 'Please provide a valid email address.')
             ->maxLength('new_email', 255)
             ->allowEmptyString('new_email')
-            ->requirePresence('new_email', 'create')
             ->notEmptyString('new_email', 'Please provide your email address.')
             ->add('new_email', 'unique', [
                 'rule' => function($value, $context) {
@@ -223,11 +223,20 @@ class UsersTable extends Table
     }
 
 
+    public function notifyAdmins() {
+        // TODO: route this to a single team account
+        $admins = $this->getModerators(null, true);
+        try {
+            foreach($admins as $admin)
+                $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
+        }catch(Exception $exception) {}
+    }
+
+
     public function register($data = [])
     {
         $data['new_email'] = $data['email'];
         $data['email_token'] = $this->generateToken('email_token');
-        $data['email_token_expires'] = $this->getShortTokenExpiry();
         $data['approval_token'] = $this->generateToken('approval_token');
         $data['approval_token_expires'] = $this->getLongTokenExpiry();
 

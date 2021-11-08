@@ -11,7 +11,7 @@ class SubscriptionMailer extends AppMailer {
     public function access(Subscription $subscription) {
         $this
             ->setTo($subscription['email'])
-            ->setSubject('Subscription Confirmation')
+            ->setSubject('Your Subscription')
             ->setViewVars(['subscription' => $subscription, 'isNew' => false])
             ->viewBuilder()->setTemplate('subscription/access');
     }

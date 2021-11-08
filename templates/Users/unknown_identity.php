@@ -32,7 +32,7 @@ $this->set('bodyClasses', 'registration');
     </div>
     <div class="grid-item">
         <p>
-            You are new to the DHRC.
+            You are new to the DHCR.
         </p>
         <p>
             Continue with the completion of your account data.
@@ -59,7 +59,7 @@ $this->set('bodyClasses', 'registration');
     <p>
         You have a valid external identity, that does not match the identity this
         account is currently connected to.<br>
-        If you decide to connect to that identity, you can only access the DHRC
+        If you decide to connect to that identity, you can only access the DHCR
         dashboard using the new identity.
     </p>
     <div class="grid-columns">

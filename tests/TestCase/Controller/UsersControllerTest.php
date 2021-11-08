@@ -60,10 +60,28 @@ class UsersControllerTest extends TestCase
         ]);
     }
 
-    public function testRegister()
-    {
+    public function testRegister() {
         $this->get('/users/register');
         $this->assertResponseOk();
+    }
+
+    public function testVerifyMail() {
+
+    }
+
+    public function testConfirmMail() {
+        $user = $this->Users->get(3);
+        $this->get('/users/confirm_mail/'.$user->email_token);
+        $user = $this->Users->get(3);
+        $this->assertTrue($user->email_verified);
+    }
+
+    public function testRequestPasswordReset() {
+
+    }
+
+    public function testResetPassword() {
+
     }
 
     public function testSignIn() {
@@ -139,7 +157,7 @@ class UsersControllerTest extends TestCase
 
         $this->_setExternalIdentity();
         $this->get('/users/register_identity');
-        $this->assertResponseContains('Please complete your account data');
+        $this->assertResponseContains('Account completion');
 
         $this->_login(1);
         $this->enableRetainFlashMessages();
@@ -168,7 +186,6 @@ class UsersControllerTest extends TestCase
         $this->assertRedirect('/users/registration_success');
         $this->get('/users/registration_success');
         $this->assertResponseContains('Please check your inbox');
-        $this->assertResponseContains('Please complete the email confirmation process');
     }
 
     public function testSignInNotApproved() {
