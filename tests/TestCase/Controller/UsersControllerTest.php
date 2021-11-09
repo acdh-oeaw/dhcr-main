@@ -68,7 +68,7 @@ class UsersControllerTest extends TestCase
     }
 
     public function testVerifyMail() {
-
+        $this->markTestIncomplete('Not implemented yet.');
     }
 
     public function testConfirmMail() {
@@ -79,11 +79,11 @@ class UsersControllerTest extends TestCase
     }
 
     public function testRequestPasswordReset() {
-
+        $this->markTestIncomplete('Not implemented yet.');
     }
 
     public function testResetPassword() {
-
+        $this->markTestIncomplete('Not implemented yet.');
     }
 
     public function testSignIn() {

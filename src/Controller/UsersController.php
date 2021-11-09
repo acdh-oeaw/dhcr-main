@@ -397,7 +397,7 @@ class UsersController extends AppController
                 $user->email_token = null;
                 $user->email_verified = true;
                 $user = $this->Users->save($user);
-                
+
                 $this->Authentication->setIdentity($user);
 
                 $this->Flash->set('Your email address has been verified');
