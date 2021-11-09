@@ -21,7 +21,21 @@ class SubscriptionMailerTest extends TestCase
 
     public $fixtures = [
         'app.Subscriptions',
-        'app.Courses'
+        'app.Courses',
+        'app.Disciplines',
+        'app.TadirahObjects',
+        'app.TadirahTechniques',
+        'app.Languages',
+        'app.Countries',
+        'app.Institutions',
+        'app.CourseTypes',
+        'app.Notifications',
+        'app.DisciplinesSubscriptions',
+        'app.SubscriptionsTadirahObjects',
+        'app.SubscriptionsTadirahTechniques',
+        'app.LanguagesSubscriptions',
+        'app.CountriesSubscriptions',
+        'app.CourseTypesSubscriptions'
     ];
 
     public function setUp(): void {
