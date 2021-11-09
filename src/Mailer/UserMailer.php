@@ -36,9 +36,9 @@ class UserMailer extends AppMailer
             ->viewBuilder()->setTemplate('users/reset_password');
     }
 
-    public function notifyAdmin(User $user, $admin) {
+    public function notifyAdmin(User $user, $adminAddress) {
         $this
-            ->setTo($admin)
+            ->setTo($this->preventMailbombing($adminAddress))
             ->setSubject('New Account Request')
             ->setViewVars(['user' => $user])
                 ->viewBuilder()->setTemplate('users/notify_admin');
