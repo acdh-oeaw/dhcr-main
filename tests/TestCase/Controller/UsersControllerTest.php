@@ -30,16 +30,18 @@ class UsersControllerTest extends TestCase
 
     public $controller;
 
+    public $Users;
+
 
     public function setUp(): void {
         parent::setUp();
         $this->controller = new UsersController();
+        $this->Users = TableRegistry::getTableLocator()->get('Users');
     }
 
 
     protected function _login($userId) {
-        $users = TableRegistry::getTableLocator()->get('Users');
-        $user = $users->get($userId);
+        $user = $this->Users->get($userId);
         $this->session(['Auth' => $user]);
         return $user;
     }
@@ -184,6 +186,10 @@ class UsersControllerTest extends TestCase
         $this->_login(3);   // not email verified
         $this->get('/users/dashboard');
         $this->assertRedirect('/users/registration_success');
+    }
+
+    public function testRegistrationSuccess() {
+        $this->_login(3);   // not email verified
         $this->get('/users/registration_success');
         $this->assertResponseContains('Please check your inbox');
     }

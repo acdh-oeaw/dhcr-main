@@ -34,7 +34,7 @@ class PagesController extends AppController
     public function initialize(): void {
         parent::initialize();
 
-        $this->Authentication->allowUnauthenticated(['*']);
+        $this->Authentication->allowUnauthenticated(['info','follow','display']);
         $this->Authorization->skipAuthorization();
     }
 

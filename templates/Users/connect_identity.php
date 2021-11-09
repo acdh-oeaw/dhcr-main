@@ -12,7 +12,7 @@ $this->set('bodyClasses', 'registration');
 <?= $this->element('users/external_identity') ?>
 
 <div class="users form">
-    <?= $this->Form->create(null, ['url' => $formUrl]) ?>
+    <?= $this->Form->create(null, ['url' => '/users/sign-in/connect_identity?redirect=/users/connect_identity']) ?>
 
     <?= $this->Form->control('email') ?>
     <?= $this->Form->control('password') ?>

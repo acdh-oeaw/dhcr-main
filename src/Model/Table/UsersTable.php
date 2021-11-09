@@ -32,6 +32,8 @@ use phpDocumentor\Reflection\Types\Boolean;
  */
 class UsersTable extends Table
 {
+
+    use MailerAwareTrait;
     /**
      * Initialize method
      *
@@ -78,11 +80,6 @@ class UsersTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('university')
-            ->maxLength('university', 255)
-            ->allowEmptyString('university');
-
-        $validator
             ->scalar('shib_eppn')
             ->maxLength('shib_eppn', 255, 'Your Identifier is too long. Please turn to the admin team for support or use the classic login.')
             ->allowEmptyString('shib_eppn')
@@ -122,20 +119,6 @@ class UsersTable extends Table
             ]);
 
         $validator
-            ->requirePresence('institution_id', true)
-            ->add('institution_id', 'allowEmptyIf', [
-                'rule' => function ($value, $context) {
-                    if(empty($value) AND empty($context['data']['university']))
-                        return 'When you do not find your affiliation in the list,
-                        you must provide the country, city and name of your institution in the field below.';
-                    if(!empty($value) AND !empty($context['data']['university']))
-                        return 'Leave this field empty, when you want us to add a new organisation
-                        as indicated in the field below';
-                    return true;
-                }
-            ]);
-
-        $validator
             ->scalar('last_name')
             ->maxLength('last_name', 255, 'Your last name is too long.')
             ->notEmptyString('last_name', 'Please provide your last name.');
@@ -150,16 +133,38 @@ class UsersTable extends Table
             ->maxLength('academic_title', 255, 'Your academic title is too long (> 255 characters). We beg your pardon, that our database cannot take on all your wisdom.')
             ->allowEmptyString('academic_title');
 
+        return $validator;
+    }
+
+    // disable email MX check during invitation evaluation
+    public $invitationMode = false;
+
+    public function validationCreate(Validator $validator) : Validator
+    {
+        $validator
+            ->requirePresence('institution_id', true)
+            ->add('institution_id', 'allowEmptyIf', [
+                'rule' => function ($value, $context) {
+                    if(empty($value) AND empty($context['data']['university']))
+                        return 'When you do not find your affiliation in the list,
+                        you must provide the country, city and name of your institution in the field below.';
+                    if(!empty($value) AND !empty($context['data']['university']))
+                        return 'Leave this field empty, when you want us to add a new organisation
+                        as indicated in the field below';
+                    return true;
+                }
+            ]);
+
         $validator
             ->scalar('about')
             ->notEmptyString('about', 'For verification of your eligibility, please provide reproducible information of your academical teaching involvement.', 'create');
 
         $validator
             ->requirePresence('consent', 'create')
-            ->allowEmptyString(false, 'You must agree to the terms.')
+            ->allowEmptyString('consent', 'You must agree to the terms.')
             ->equals('consent', 1, 'You must agree to the terms.');
 
-        return $validator;
+        return $this->validationDefault($validator);
     }
 
 
@@ -179,8 +184,6 @@ class UsersTable extends Table
         return $rules;
     }
 
-
-    public $invitationMode = false;
 
 
     /**
@@ -223,7 +226,7 @@ class UsersTable extends Table
     }
 
 
-    public function notifyAdmins() {
+    public function notifyAdmins($user) {
         // TODO: route this to a single team account
         $admins = $this->getModerators(null, true);
         try {

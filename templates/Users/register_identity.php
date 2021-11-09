@@ -1,6 +1,4 @@
 <?php
-use Cake\Core\Configure;
-
 $this->set('bodyClasses', 'registration');
 ?>
 

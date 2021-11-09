@@ -18,9 +18,7 @@
                     If the confirmation mail did not come through,
                     you may send it again by clicking the button below.
                 </p>
-                <?= $this->Html->link('Send confirmation mail', [
-                    'action' => 'verify_mail',
-                    'controller' => 'users'],
+                <?= $this->Html->link('Send confirmation mail', '/users/verify_mail',
                     ['class' => 'small blue button']) ?>
             <?php else: ?>
                 <span class="glyphicon glyphicon-ok-circle"></span>
@@ -44,9 +42,8 @@
         <?php if(!$user->email_verified): ?>
             <span class="glyphicon glyphicon-minus-sign"></span>
             <p>
-                Please complete the email confirmation process.<br>
-                Your account will be approved by
-                an administrator subsequently.
+                After completion of the email confirmation process,
+                your account will be approved by an administrator.
             </p>
         <?php else: ?>
             <span class="glyphicon glyphicon-bullhorn"></span>

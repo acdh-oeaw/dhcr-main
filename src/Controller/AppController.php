@@ -68,7 +68,7 @@ class AppController extends Controller
             $action = $this->request->getParam('action');
             $user = $this->Authentication->getIdentity();
             if( !$user->can('accessDashboard', $user)
-            AND $action != 'registrationSuccess'
+            AND !in_array($action, ['registrationSuccess','verifyMail'])
             AND !in_array($action, $this->Authentication->getUnauthenticatedActions())) {
                 return $this->redirect('/users/registration_success');
             }

@@ -42,7 +42,8 @@ class UsersController extends AppController
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
-        'whichTerms'
+        'whichTerms',
+        'verifyMail'
     ];
 
     public const DEFAULT_LAYOUT = [
@@ -54,7 +55,8 @@ class UsersController extends AppController
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
-        'whichTerms'
+        'whichTerms',
+        'verifyMail'
     ];
 
     public function initialize(): void {
@@ -226,9 +228,7 @@ class UsersController extends AppController
         }
         // point the form to the regular login action
         // the additional parameter will render the connect_identity view in case of auth errors
-        $query = '?redirect=/users/connect_identity';
-        $formUrl = '/users/sign-in/connect_identity' . $query;
-        $this->set(compact('identity', 'formUrl'));
+        $this->set(compact('identity'));
     }
 
 
@@ -251,7 +251,7 @@ class UsersController extends AppController
             $data['email'] = $identity['shib_eppn'];
 
         // validation is on, show errors!
-        $user = $this->Users->newEntity($data);
+        $user = $this->Users->newEntity($data, ['validate' => 'create']);
         $user->approved = true;
         $user->email_verified = true;
         $user->shib_eppn = $identity['shib_eppn'];
@@ -316,8 +316,9 @@ class UsersController extends AppController
             }
 
             // patching the entity, validation and other stuff
-            $user = $this->Users->newEntity($this->request->getData());
+            $user = $this->Users->newEntity($this->request->getData(), ['validate' => 'create']);
             $user->email_token = $this->Users->generateToken('email_token');
+            $user->new_email = $user->email;
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
 
@@ -356,19 +357,30 @@ class UsersController extends AppController
 
     public function verifyMail() {
         $user = $this->Authentication->getIdentity();
+        $success = false;
         if($this->request->is('post')) {
             $this->Users->patchEntity($user, $this->request->getData(), [
                 'fields' => ['new_email']
             ]);
-            $this->Users->save($user);
+            if(!$user->getErrors()) {
+                $this->Users->save($user);
+                $success = true;
+            }else{
+                $this->set('user', $user);
+            }
         }
+
         if(!empty($user->new_email)) {
             try {
                 $this->getMailer('User')->send('confirmationMail', [$user]);
             }catch(Exception $exception) {}
-            $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
+            $success = true;
         }
-        $this->redirect('/users/dashboard');
+
+        if($success) {
+            $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
+            $this->redirect('/users/dashboard');
+        }
     }
 
 
@@ -378,14 +390,14 @@ class UsersController extends AppController
             if($user) {
                 // handle new users
                 if(!$user->email_verified)
-                    $this->Users->notifyAdmins();
+                    $this->Users->notifyAdmins($user);
 
                 $user->email = $user->new_email;
                 $user->new_email = null;
                 $user->email_token = null;
                 $user->email_verified = true;
-                $this->Users->save($user);
-
+                $user = $this->Users->save($user);
+                
                 $this->Authentication->setIdentity($user);
 
                 $this->Flash->set('Your email address has been verified');
