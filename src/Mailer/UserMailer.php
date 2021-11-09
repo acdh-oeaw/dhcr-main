@@ -20,7 +20,7 @@ class UserMailer extends AppMailer
     public function confirmationMail(User $user)
     {
         $this
-            ->setTo($user->new_email)
+            ->setTo($this->preventMailbombing($user->new_email))
             ->setSubject('Confirm your email address')
             ->setViewVars(['user' => $user])
             ->viewBuilder()

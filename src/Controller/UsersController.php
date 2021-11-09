@@ -21,7 +21,7 @@ class UsersController extends AppController
         'signIn',
         'logout',   // avoid redirecting
         'register',
-        'confirmMail',
+        'verifyMail',
         'requestNewPassword',
         'resetPassword',
         'unknownIdentity',
@@ -35,7 +35,6 @@ class UsersController extends AppController
         'logout',
         'register',
         'verifyMail',
-        'confirmMail',
         'requestNewPassword',
         'resetPassword',
         'registrationSuccess',
@@ -355,36 +354,35 @@ class UsersController extends AppController
     }
 
 
-    public function verifyMail() {
+    public function verifyMail($token = null) {
         $user = $this->Authentication->getIdentity();
-        $success = false;
-        if($this->request->is('post')) {
-            $this->Users->patchEntity($user, $this->request->getData(), [
-                'fields' => ['new_email']
-            ]);
-            if(!$user->getErrors()) {
-                $this->Users->save($user);
+        if($user) {
+            $success = false;
+            if ($this->request->is('post')) {
+                $this->Users->patchEntity($user, $this->request->getData(), [
+                    'fields' => ['new_email']
+                ]);
+                if (!$user->getErrors()) {
+                    $this->Users->save($user);
+                    $success = true;
+                } else {
+                    $this->set('user', $user);
+                }
+            }
+
+            if(!empty($user->new_email)) {
+                try {
+                    $this->getMailer('User')->send('confirmationMail', [$user]);
+                }catch(Exception $exception) {}
                 $success = true;
-            }else{
-                $this->set('user', $user);
+            }
+
+            if($success) {
+                $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
+                $this->redirect('/users/dashboard');
             }
         }
 
-        if(!empty($user->new_email)) {
-            try {
-                $this->getMailer('User')->send('confirmationMail', [$user]);
-            }catch(Exception $exception) {}
-            $success = true;
-        }
-
-        if($success) {
-            $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
-            $this->redirect('/users/dashboard');
-        }
-    }
-
-
-    public function confirmMail(string $token = null) {
         if($token) {
             $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
             if($user) {
@@ -406,6 +404,7 @@ class UsersController extends AppController
         }
         $this->redirect('/');
     }
+
 
 
     public function requestNewPassword($email = null) {

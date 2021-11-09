@@ -142,7 +142,7 @@ class UsersFixture extends TestFixture
                 'country_id' => 1,
                 'institution_id' => 1,
                 'university' => 'Lorem ipsum dolor sit amet',
-                'email' => '3Lorem ipsum dolor sit amet',
+                'email' => 'test3@example.com',
                 'shib_eppn' => null,
                 'password' => 'Lorem ipsum dolor sit amet',
                 'email_verified' => 0,

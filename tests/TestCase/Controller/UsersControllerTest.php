@@ -68,12 +68,13 @@ class UsersControllerTest extends TestCase
     }
 
     public function testVerifyMail() {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    public function testConfirmMail() {
+        $this->get('/users/verify_mail');
+        $this->assertRedirect('/');
+        $this->_login(3);
+        $this->get('/users/verify_mail');
+        $this->assertRedirect('/users/dashboard');
         $user = $this->Users->get(3);
-        $this->get('/users/confirm_mail/'.$user->email_token);
+        $this->get('/users/verify_mail/'.$user->email_token);
         $user = $this->Users->get(3);
         $this->assertTrue($user->email_verified);
     }
