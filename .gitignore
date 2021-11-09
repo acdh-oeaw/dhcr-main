@@ -36,6 +36,8 @@ nbproject/*
 # Sass preprocessor
 .sass-cache/
 *.css.map
+# Composer
+composer.lock
 
 # Outcommented Files #
 ~*
