@@ -30,16 +30,18 @@ class UsersControllerTest extends TestCase
 
     public $controller;
 
+    public $Users;
+
 
     public function setUp(): void {
         parent::setUp();
         $this->controller = new UsersController();
+        $this->Users = TableRegistry::getTableLocator()->get('Users');
     }
 
 
     protected function _login($userId) {
-        $users = TableRegistry::getTableLocator()->get('Users');
-        $user = $users->get($userId);
+        $user = $this->Users->get($userId);
         $this->session(['Auth' => $user]);
         return $user;
     }
@@ -66,22 +68,55 @@ class UsersControllerTest extends TestCase
     }
 
     public function testVerifyMail() {
+        $this->get('/users/verify_mail');
+        $this->assertRedirect('/');
 
-    }
+        $this->enableRetainFlashMessages();
+        $this->_login(3);   // not verified, new user, hitting the 'send' button
+        $this->get('/users/verify_mail');
+        $this->assertRedirect('/users/dashboard');
+        $this->assertFlashMessage('Confirmation mail has been sent, check your inbox to complete verification.');
 
-    public function testConfirmMail() {
         $user = $this->Users->get(3);
-        $this->get('/users/confirm_mail/'.$user->email_token);
+        $this->get('/users/verify_mail/'.$user->email_token);
         $user = $this->Users->get(3);
         $this->assertTrue($user->email_verified);
     }
 
-    public function testRequestPasswordReset() {
-
-    }
-
     public function testResetPassword() {
+        $this->get('/users/reset_password');
+        $this->assertResponseContains('Please enter your email address');
 
+        $this->enableCsrfToken();
+        $this->enableRetainFlashMessages();
+        $this->post('/users/reset_password', [
+            'email' => 'banned@example.com'
+        ]);
+        $this->assertFlashMessage('This account has been disabled.');
+        $this->assertRedirect('/users/sign-in');
+
+        //$this->enableCsrfToken();
+        $this->post('/users/reset_password', [
+            'email' => 'test@example.com'
+        ]);
+        $this->assertResponseContains('Please check your email inbox');
+        $user = $this->_login(1);
+        $this->assertNotEquals('bbbbb', $user->password_token);
+
+        $this->get('/users/reset_password/'.$user->password_token);
+        $this->assertResponseContains('Now set a new password');
+
+        $this->post('/users/reset_password/'.$user->password_token, [
+            'password' => 'aaaaaa'
+        ]);
+        $this->assertFlashMessage('Password has been set successfully, now log in using your new password.');
+        $this->assertRedirect('/users/sign-in');
+
+        $this->post('/users/sign-in', [
+            'email' => 'test@example.com',
+            'password' => 'aaaaaa'
+        ]);
+        $this->assertRedirect('/users/dashboard');
     }
 
     public function testSignIn() {
@@ -105,6 +140,7 @@ class UsersControllerTest extends TestCase
         $this->post('/users/sign-in', [
             'email' => 'test@example.com',
             'password' => '*****'
+            // corresponding hash: $user->password = '$2y$10$W883gRwZgOMrbBeN6nN6qexdgj2obAvP1vy04.ucooJHXO2azvj4m';
         ]); // user 1
         $this->assertRedirect('/users/dashboard');
     }
@@ -142,6 +178,14 @@ class UsersControllerTest extends TestCase
         $this->_setExternalIdentity();
         $this->get('/users/connect_identity');
         $this->assertResponseContains('Connect your locally existing account');
+
+        $this->_setExternalIdentity();
+        $this->enableCsrfToken();
+        $this->post('/users/sign-in?redirect=/users/connect_identity', [
+            'email' => 'test5@example.com',
+            'password' => '*****'
+        ]);
+        $this->assertRedirect('/users/connect_identity');
 
         $this->_login(1);
         $this->_setExternalIdentity();
@@ -184,6 +228,10 @@ class UsersControllerTest extends TestCase
         $this->_login(3);   // not email verified
         $this->get('/users/dashboard');
         $this->assertRedirect('/users/registration_success');
+    }
+
+    public function testRegistrationSuccess() {
+        $this->_login(3);   // not email verified
         $this->get('/users/registration_success');
         $this->assertResponseContains('Please check your inbox');
     }

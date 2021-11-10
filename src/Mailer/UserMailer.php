@@ -20,7 +20,7 @@ class UserMailer extends AppMailer
     public function confirmationMail(User $user)
     {
         $this
-            ->setTo($user->new_email)
+            ->setTo($this->preventMailbombing($user->new_email))
             ->setSubject('Confirm your email address')
             ->setViewVars(['user' => $user])
             ->viewBuilder()
@@ -36,9 +36,9 @@ class UserMailer extends AppMailer
             ->viewBuilder()->setTemplate('users/reset_password');
     }
 
-    public function notifyAdmin(User $user, $admin) {
+    public function notifyAdmin(User $user, $adminAddress) {
         $this
-            ->setTo($admin)
+            ->setTo($this->preventMailbombing($adminAddress))
             ->setSubject('New Account Request')
             ->setViewVars(['user' => $user])
                 ->viewBuilder()->setTemplate('users/notify_admin');

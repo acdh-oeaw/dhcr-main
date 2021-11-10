@@ -21,8 +21,7 @@ class UsersController extends AppController
         'signIn',
         'logout',   // avoid redirecting
         'register',
-        'confirmMail',
-        'requestNewPassword',
+        'verifyMail',
         'resetPassword',
         'unknownIdentity',
         'connectIdentity',
@@ -35,26 +34,25 @@ class UsersController extends AppController
         'logout',
         'register',
         'verifyMail',
-        'confirmMail',
-        'requestNewPassword',
         'resetPassword',
         'registrationSuccess',
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
-        'whichTerms'
+        'whichTerms',
+        'verifyMail'
     ];
 
     public const DEFAULT_LAYOUT = [
         'signIn',
         'register',
         'registrationSuccess',
-        'requestNewPassword',
         'resetPassword',
         'unknownIdentity',
         'connectIdentity',
         'registerIdentity',
-        'whichTerms'
+        'whichTerms',
+        'verifyMail'
     ];
 
     public function initialize(): void {
@@ -89,9 +87,10 @@ class UsersController extends AppController
      * Set parameter $mode = 'identity' to bypass redirection loop and connect a present
      * but unknown external identity to an already existing account.
      */
-    public function signIn($template = null)
+    public function signIn()
     {
-        if($this->_checkExternalIdentity()) {
+        $redirect = $this->getRequest()->getQuery('redirect');
+        if($identity = $this->_checkExternalIdentity() AND $redirect != '/users/connect_identity') {
             return $this->redirect('/users/unknown_identity');
         }
 
@@ -111,12 +110,13 @@ class UsersController extends AppController
             return $this->redirect($target);
         }
 
-        if($this->request->is('post') && !$result->isValid()) {
+        if($this->request->is('post') AND !$result->isValid()) {
             // evaluate the result here, AppResult might indicate banned user
             $this->Flash->error('Invalid username or password.');
         }
-        if($template === 'connect_identity') {
-            $this->viewBuilder()->setTemplate($template);
+        if($identity AND $redirect === '/users/connect_identity') {
+            $this->viewBuilder()->setTemplate('connect_identity');
+            $this->set('identity', $identity);
         }else{
             // render the login form, providing federated authentication
             $this->_setIdentityProviderTarget();
@@ -226,9 +226,7 @@ class UsersController extends AppController
         }
         // point the form to the regular login action
         // the additional parameter will render the connect_identity view in case of auth errors
-        $query = '?redirect=/users/connect_identity';
-        $formUrl = '/users/sign-in/connect_identity' . $query;
-        $this->set(compact('identity', 'formUrl'));
+        $this->set(compact('identity'));
     }
 
 
@@ -251,7 +249,7 @@ class UsersController extends AppController
             $data['email'] = $identity['shib_eppn'];
 
         // validation is on, show errors!
-        $user = $this->Users->newEntity($data);
+        $user = $this->Users->newEntity($data, ['validate' => 'create']);
         $user->approved = true;
         $user->email_verified = true;
         $user->shib_eppn = $identity['shib_eppn'];
@@ -316,8 +314,9 @@ class UsersController extends AppController
             }
 
             // patching the entity, validation and other stuff
-            $user = $this->Users->newEntity($this->request->getData());
+            $user = $this->Users->newEntity($this->request->getData(), ['validate' => 'create']);
             $user->email_token = $this->Users->generateToken('email_token');
+            $user->new_email = $user->email;
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
 
@@ -354,38 +353,53 @@ class UsersController extends AppController
     }
 
 
-    public function verifyMail() {
+    public function verifyMail($token = null) {
         $user = $this->Authentication->getIdentity();
-        if($this->request->is('post')) {
-            $this->Users->patchEntity($user, $this->request->getData(), [
-                'fields' => ['new_email']
-            ]);
-            $this->Users->save($user);
-        }
-        if(!empty($user->new_email)) {
-            try {
-                $this->getMailer('User')->send('confirmationMail', [$user]);
-            }catch(Exception $exception) {}
-            $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
-        }
-        $this->redirect('/users/dashboard');
-    }
+        if($user AND !$token) {
+            $success = false;
+            if ($this->request->is('post')) {
+                $data = [
+                    'new_email' => $this->request->getData('new_email'),
+                    'email_token' => $this->Users->generateToken('email_token')
+                ];
+                $user->setAccess('*', true);
+                $user = $this->Users->patchEntity($user, $data);
+                if (!$user->getErrors()) {
+                    $this->Users->save($user);
+                    $success = true;
+                } else {
+                    $this->set('user', $user);
+                }
+            }
 
+            if(!empty($user->new_email)) {
+                // this code also runs when hitting the send-again button
+                try {
+                    $this->getMailer('User')->send('confirmationMail', [$user]);
+                }catch(Exception $exception) {}
+                $success = true;
+            }
 
-    public function confirmMail(string $token = null) {
+            if($success) {
+                $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
+                return $this->redirect('/users/dashboard');
+            }
+        }
+
         if($token) {
             $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
             if($user) {
                 // handle new users
                 if(!$user->email_verified)
-                    $this->Users->notifyAdmins();
+                    $this->Users->notifyAdmins($user);
 
                 $user->email = $user->new_email;
                 $user->new_email = null;
                 $user->email_token = null;
                 $user->email_verified = true;
-                $this->Users->save($user);
+                $user = $this->Users->save($user);
 
+                // log the user in
                 $this->Authentication->setIdentity($user);
 
                 $this->Flash->set('Your email address has been verified');
@@ -396,76 +410,63 @@ class UsersController extends AppController
     }
 
 
-    public function requestNewPassword($email = null) {
-        $user = $this->Authentication->getIdentity();
-        if($user) $email = $user->email;
-        if(!empty($this->request->data[$this->modelClass]['email'])) {
-            $email = $this->request->data[$this->modelClass]['email'];
-        }
-        if(!empty($email)) {
-            $user = $this->{$this->modelClass}->requestNewPassword($email);
-            if($user AND !empty($user[$this->modelClass]['password_token'])) {
-                $result = $this->_sendUserManagementMail(array(
-                    'template' => 'Users.password_reset',
-                    'subject' => 'Password Reset',
-                    'email' => $email,
-                    'data' => $user
-                ));
-                if($result) {
-                    if(!$this->Auth->user()) $this->Auth->flash('We have sent an email with further instructions to ' . $email . '.');
-                    else $this->Flash->set('We have sent an email with further instructions to ' . $email . '.');
-                }else{
-                    $this->Flash->set('Error while sending the password reset email.');
-                }
-                if($this->Auth->user()) $this->redirect(array(
-                    'plugin' => null,
-                    'controller' => 'users',
-                    'action' => 'dashboard'
-                ));
-                $this->redirect(array(
-                    'plugin' => null,
-                    'controller' => 'users',
-                    'action' => 'login'
-                ));
-            }
-        }
-    }
-
-
     public function resetPassword($token = null) {
         if(!empty($token)) {
-            $user = $this->{$this->modelClass}->checkPasswordToken($token);
-            if(empty($user)) {
-                $this->Auth->flash('Invalid password reset token, try again.');
-                $this->redirect(array(
-                    'plugin' => null,
-                    'controller' => 'users',
-                    'action' => 'request_new_password'
-                ));
-            }
-            elseif($user[$this->modelClass]['active'] == 0) {
-                $msg = 'Your account has been locked, you cannot reset your password.';
-                if(Configure::read('Users.adminConfirmRegistration')) {
-                    $msg = 'Your account has not been activated by an administrator, yet.';
+            $user = $this->Users->find()->where([
+                'password_token' => $token,
+                'password_token_expires >=' => date('Y-m-d H:i:s')])->contain([])->first();
+            if($user) {
+                if(!$user->active) {
+                    $this->Flash->set('This account has been disabled.');
+                    return $this->redirect('/users/sign-in');
                 }
-                $this->Auth->flash($msg);
-                $this->redirect('/');
-            }
-            $id = (!empty($user[$this->modelClass][$this->{$this->modelClass}->primaryKey]))
-                ? $user[$this->modelClass][$this->{$this->modelClass}->primaryKey]
-                : null;
-            if(!empty($this->request->data[$this->modelClass]) AND !empty($id)) {
-                $data = array();
-                $data[$this->modelClass][$this->{$this->modelClass}->primaryKey] = $id;
-                $data[$this->modelClass]['new_password'] = $this->request->data[$this->modelClass]['new_password'];
-                if($this->{$this->modelClass}->resetPassword($data)) {
-                    $this->Auth->flash('Password changed, please login with your new password.');
-                    $this->Auth->logout();
-                    $this->redirect($this->Auth->loginAction);
-                }
-            }
 
-            $this->set('token', $token);
+                if($this->request->is('post')) {
+                    $user = $this->Users->patchEntity($user, $this->request->getData(), ['fields' => ['password']]);
+                    if(!$user->hasErrors()) {
+                        $user->password_token = null;
+                        $user->password_token_expires = null;
+                        $this->Users->save($user);
+                        $this->Flash->set('Password has been set successfully, now log in using your new password.');
+                        return $this->redirect('/users/sign-in');
+                    }
+                }
+                // render form (password)
+                $this->set('token', $token);
+            }
+            else{
+                $this->Flash->set('The passed token is not valid any more.');
+                return $this->redirect('/users/sign-in');
+            }
+        }
+        elseif(empty($token)) {
+            if($this->request->is('post')) {
+                $user = $this->Users->find()->where([
+                    'email' => $this->request->getData('email'),
+                ])->contain([])->first();
+                if(!empty($user)) {
+                    if(!$user->active) {
+                        $this->Flash->set('This account has been disabled.');
+                        return $this->redirect('/users/sign-in');
+                    }
+
+                    $user->setAccess('*', true);
+                    $user = $this->Users->patchEntity($user, [
+                        'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                        'password_token' => $this->Users->generateToken('password_token')
+                    ]);   // converting the expiry to frozen time type
+                    $this->Users->save($user);
+                    try{
+                        $this->getMailer('User')->send('resetPassword', [$user]);
+                    }catch(Exception $exception) {}
+                    $this->set('mailSent', true);
+
+                }else{
+                    $this->Flash->set('We could not find a user with that address');
+                    return $this->redirect('/users/sign-in');
+                }
+            }
+            // render form (email)
         }
     }
 
