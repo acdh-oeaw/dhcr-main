@@ -81,6 +81,7 @@ $bodyClasses = (!empty($bodyClasses))
     });
 </script>
 
+<?= $this->fetch('script') ?>
 <?= $this->element('matomo') ?>
 
 </body>

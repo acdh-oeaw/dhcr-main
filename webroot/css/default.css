@@ -769,6 +769,11 @@ form .input input.form-error, form .input textarea.form-error, form .input selec
 form .input .radio-inline label, form .input.select:not(.checkbox) .radio-inline label { display: inline; margin-right: 2em; }
 form .input .radio-inline input[type=radio], form .input.select:not(.checkbox) .radio-inline input[type=radio] { width: 10px; margin-right: 10px; display: inline; vertical-align: text-top; }
 form .input .error-message, form .input.select:not(.checkbox) .error-message { grid-row: 2; grid-column: 2; justify-self: stretch; font-weight: bold; color: #020000; }
+form .input.password { position: relative; }
+form .input.password .fa-eye { position: absolute; right: 1.5em; top: 0.26em; cursor: pointer; width: 0; color: transparent; }
+form .input.password .fa-eye::before { color: #1E6BA3; }
+form .input.password .fa-eye:hover::before { color: #6d7278; }
+form .input.password.error .fa-eye { font-size: 1rem; top: 1.32em; right: 2.7em; }
 form .input.info .info { grid-area: input; }
 form .input.info .info :last-child { margin-bottom: 0; }
 form .input.info .checkbox { grid-area: input; grid-row-start: 2; display: block; }

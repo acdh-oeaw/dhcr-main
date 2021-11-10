@@ -1,8 +1,14 @@
 <?php
 use Cake\Core\Configure;
-
+$this->Html->css('https://use.fontawesome.com/releases/v5.8.2/css/all.css', ['block' => true]);
 $this->set('bodyClasses', 'registration');
-?>
+$this->Html->scriptStart(['block' => true]); ?>
+$('#togglePassword').hover(function (e) {
+    $('#password').attr('type', 'text');
+},function (e) {
+    $('#password').attr('type', 'password');
+})
+<?php $this->Html->scriptEnd(); ?>
 
 <h2>User Registration</h2>
 
@@ -24,7 +30,14 @@ $this->set('bodyClasses', 'registration');
     <?= $this->Form->create($user, ['id' => 'registration_form']) ?>
 
     <?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
-    <?= $this->Form->control('password') ?>
+
+    <?php
+    $this->Form->setTemplates([
+        'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>
+        <i class="far fa-eye" id="togglePassword">reveal password</i>']);
+    echo $this->Form->control('password');
+    $this->Form->setTemplates(['input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>']);
+    ?>
 
     <?= $this->Form->control('institution_id', [
         'label' => ['text' => 'Affiliation', 'class' => 'depending'],

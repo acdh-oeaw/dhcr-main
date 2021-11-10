@@ -122,6 +122,31 @@ form {
         }
     }
 
+    .input.password {
+        position: relative;
+        .fa-eye {
+            position: absolute;
+            right: 1.5em;
+            top: 0.26em;
+            cursor: pointer;
+            width: 0;
+            color: transparent;
+            &::before {
+                color: $blue;
+            }
+            &:hover {
+                &::before {
+                    color: $gray;
+                }
+            }
+        }
+        &.error .fa-eye {
+            font-size: 1rem;
+            top: 1.32em;
+            right: 2.7em;
+        }
+    }
+
     .input.info {
         .info {
             grid-area: input;
