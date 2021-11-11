@@ -710,7 +710,7 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 #content #sitemap { display: block; }
 
 #modal-wrapper.sitemap { padding: 15px 0; display: grid; grid-template-areas: ". display ."; grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px); gap: 0; }
-#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; }
+#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; overflow-y: auto; }
 @media only screen and (max-width: 400px) { #modal-wrapper.sitemap { padding: 5px 0; grid-template-columns: 5px auto 5px; }
   #modal-wrapper.sitemap #modal-content { justify-self: stretch; } }
 
