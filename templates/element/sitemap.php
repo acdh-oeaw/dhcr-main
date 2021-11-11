@@ -14,6 +14,22 @@
         <li>
             <p>
                 <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-bullhorn"></span>Impact Stories',
+                    ['controller' => 'Pages', 'action' => 'news'],
+                    ['escape' => false]) ?>
+            </p>
+            <ul class="stories">
+                <li>
+                    <?= $this->Html->link(
+                        'Social Media',
+                        ['controller' => 'Pages', 'action' => 'news', '#' => 'social-media']) ?>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <p>
+                <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-bell"></span>Follow',
                     ['controller' => 'Pages', 'action' => 'follow'],
                     ['escape' => false]) ?>
@@ -23,16 +39,6 @@
                     <?= $this->Html->link(
                         'New Course Alert',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Social Media',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'news']) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Join Our Network',
-                        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
