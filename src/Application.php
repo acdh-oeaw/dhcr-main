@@ -107,6 +107,10 @@ class Application extends BaseApplication
             IdentifierInterface::CREDENTIAL_USERNAME => 'email',
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
         ];
+        $finder = ['all' => [
+            'conditions' => ['active' => true],
+            'contain' => ['UserRoles','Countries']
+        ]];
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');
         $service->loadAuthenticator('Authentication.Form', [
@@ -137,7 +141,7 @@ class Application extends BaseApplication
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Users',
-                'finder' => ['all' => ['conditions' => ['active' => true]]]
+                'finder' => $finder
             ],
             'passwordHasher' => [
                 'className' => 'Authentication.Fallback',
@@ -157,7 +161,7 @@ class Application extends BaseApplication
             'resolver' => [
                 'className' => 'Authentication.Orm',
                 'userModel' => 'Users',
-                'finder' => ['all' => ['conditions' => ['active' => true]]]
+                'finder' => $finder
             ]
         ]);
 

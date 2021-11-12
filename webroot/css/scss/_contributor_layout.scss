@@ -10,6 +10,18 @@
     h2:not(#accordeon .accordeon-item h2) {
         margin-bottom: 1em;
     }
+
+    #dashboard {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        place-items: stretch;
+        grid-gap: 1em;
+        grid-auto-flow: column;
+        .button {
+            height: auto;
+        }
+    }
 }
 
 #footer {

@@ -677,6 +677,8 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 .wrapper { padding: 2em 15px 10vw; max-width: 1000px; margin: 0 auto; width: calc(100% - 2 * 15px); }
 
 #content h2:not(#accordeon .accordeon-item h2) { margin-bottom: 1em; }
+#content #dashboard { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; grid-template-rows: 1fr 1fr; place-items: stretch; grid-gap: 1em; grid-auto-flow: column; }
+#content #dashboard .button { height: auto; }
 
 #footer { margin-top: 100px; }
 
