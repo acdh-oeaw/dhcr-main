@@ -1,8 +1,21 @@
 
+<h3>Stories</h3>
+<p>Collection of links featured in our social media posts</p>
+<ul id="stories" class="custom-bullets"></ul>
+<?php
+$this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' => true]);
+$this->Html->scriptStart(['block' => true]);
+?>
+$(document).ready(function(){
+    let content = new Content();
+    content.load();
+});
+<?php $this->Html->scriptEnd(); ?>
+
 
 <div class="flex-columns">
     <div class="flex-item wide">
-        <h3>Downloads & Dissemination Material</h3>
+        <h3>Dissemination Material</h3>
 
         <div class="feature-link">
             <?= $this->Html->image('dhcr-feature-badge-300.png', ['url' => '/img/dhcr-feature-badge-300.png']) ?>

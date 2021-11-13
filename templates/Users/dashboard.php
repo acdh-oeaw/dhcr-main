@@ -12,7 +12,7 @@ $user = $this->Identity->get();
             <?= trim($user->academic_title.' '.$user->first_name.' '.$user->last_name) ?>
         </p>
         <p>
-            <?= $user->user_role->name ?>
+            <?= (!empty($user)) ? $user->user_role->name : '' ?>
             <?= ($user->user_role_id == 2) ? 'of<br>' . $user->country->name : null ?>
         </p>
         <?= ($user->is_admin) ? '<p>Admin: Yes</p>' : null ?>

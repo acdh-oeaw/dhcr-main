@@ -30,7 +30,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-bell"></span>Follow',
+                    '<span class="glyphicon glyphicon-bell"></span>Follow Us',
                     ['controller' => 'Pages', 'action' => 'follow'],
                     ['escape' => false]) ?>
             </p>
@@ -68,7 +68,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Publications and Dissemination',
+                        'Dissemination and Impact',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'publications']) ?>
                 </li>
                 <li>

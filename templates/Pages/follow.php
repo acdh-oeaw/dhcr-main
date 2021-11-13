@@ -17,6 +17,13 @@
         </div>
     </div>
 
+    <div class="accordeon-item" id="news">
+        <h2><span>News on Social Media</span></h2>
+        <div class="item-content">
+            <?= $this->Element('follow/social_media'); ?>
+        </div>
+    </div>
+
     <div class="accordeon-item" id="newsletter">
         <h2><span>Contributor Newsletter</span></h2>
         <div class="item-content">
