@@ -44,14 +44,14 @@
     </div>
 
     <div class="accordeon-item" id="publications">
-        <h2><span>Publications and Dissemination</span></h2>
+        <h2><span>Dissemination and Impact</span></h2>
         <div class="item-content">
             <?= $this->Element('info/publications') ?>
         </div>
     </div>
 
     <div class="accordeon-item" id="data">
-        <h2><span>Data Export and API</span></h2>
+        <h2><span>Data and API</span></h2>
         <div class="item-content">
             <?= $this->Element('info/data-api') ?>
         </div>
