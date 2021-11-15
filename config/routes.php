@@ -71,7 +71,10 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
+
     $routes->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
+
+    $routes->connect('/news', ['controller' => 'Pages', 'action' => 'news']);
 
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
