@@ -74,7 +74,8 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
 
-    $routes->connect('/news', ['controller' => 'Pages', 'action' => 'news']);
+    $routes->connect('/:arg', ['controller' => 'Pages', 'action' => 'display'])->setPass(['arg'])->setPatterns(['news']);
+    //$routes->connect('/pages/news', ['controller' => 'Pages', 'action' => 'news']);
 
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
