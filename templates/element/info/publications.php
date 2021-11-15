@@ -2,6 +2,7 @@
 <h3>Stories</h3>
 <p>Collection of links featured in our social media posts</p>
 <ul id="stories" class="custom-bullets"></ul>
+<hr style="margin-bottom: 2em">
 <?php
 $this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' => true]);
 $this->Html->scriptStart(['block' => true]);
