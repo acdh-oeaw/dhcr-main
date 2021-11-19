@@ -115,6 +115,8 @@ class UsersController extends AppController
             $this->Flash->error('Invalid username or password.');
         }
         if($identity AND $redirect === '/users/connect_identity') {
+            if($result->isValid())
+                return $this->redirect($redirect);
             $this->viewBuilder()->setTemplate('connect_identity');
             $this->set('identity', $identity);
         }else{

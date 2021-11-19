@@ -41,7 +41,11 @@ class UserRolesFixture extends TestFixture
                 'id' => 1,
                 'name' => 'Lorem ipsum dolor sit amet',
                 'cakeclient_prefix' => 'Lorem ipsum dolor sit amet',
-            ],
+            ],[
+                'id' => 2,
+                'name' => 'Moderators',
+                'cakeclient_prefix' => 'foo'
+            ]
         ];
         parent::init();
     }
