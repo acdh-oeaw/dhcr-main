@@ -200,7 +200,7 @@ class UsersFixture extends TestFixture
             // not connected identity
             [
                 'id' => 5,
-                'user_role_id' => 1,
+                'user_role_id' => 2,
                 'country_id' => 1,
                 'institution_id' => 1,
                 'university' => 'Lorem ipsum dolor sit amet',

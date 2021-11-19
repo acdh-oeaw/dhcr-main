@@ -18,6 +18,7 @@ use Cake\Core\Configure;
 use Cake\Event\EventInterface;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\View\Exception\MissingTemplateException;
 use Cake\Mailer\Mailer;
 
@@ -30,6 +31,8 @@ use Cake\Mailer\Mailer;
  */
 class PagesController extends AppController
 {
+
+    use MailerAwareTrait;
 
     public function initialize(): void {
         parent::initialize();
@@ -56,8 +59,9 @@ class PagesController extends AppController
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Emails');
 
-        if(!empty($this->request->getData()) AND $this->_checkCaptcha()) {
-            $data = $this->request->getData();
+        $data = $this->request->getData();
+        if(!empty($data) AND $this->_checkCaptcha()) {
+
             $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
 	        if(!$email->getErrors()) {
                 //$this->Emails->save($email);
@@ -66,22 +70,12 @@ class PagesController extends AppController
                 $admins = $this->Users->getModerators($country_id, $user_admin = true);
                 if($admins) {
                     foreach($admins as $admin) {
-                        // email logic
-                        $mailer = new Mailer('default');
-                        $mailer->setCc($data['email']);
-                        $mailer->setCc(Configure::read('AppMail.defaultCc'));
-                        $mailer->setReplyTo($data['email'])
-                            ->setSender($data['email'], trim(
-                                $data['first_name'].' '
-                                .$data['last_name']))
-                            ->setTo($admin['email'])
-                            ->setSubject(Configure::read('AppMail.subjectPrefix') . ' New Question')
-                            ->send($data['message']);
+                        $this->getMailer('User')->send('contactForm', [$data, $admin->email]);
                     }
                     $this->Flash->set('Your message has been sent.');
                 }
             }else{
-                $this->Flash->set('We are missing required data to send email, please amend the contact form.');
+                $this->Flash->set('We are missing required data to send email.');
             }
         }elseif(!empty($data) AND !$this->_checkCaptcha()) {
             // repopulate the email form
@@ -90,7 +84,7 @@ class PagesController extends AppController
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
         }else{
 	        // init email form
-            $email = [];
+            $email = $this->Emails->newEmptyEntity();
         }
 
         $moderators = $this->Users->find('all', array(
