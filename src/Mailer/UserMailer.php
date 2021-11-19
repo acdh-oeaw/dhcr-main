@@ -53,7 +53,9 @@ class UserMailer extends AppMailer
                 $data['first_name'].' '
                 .$data['last_name']))
             ->setSubject('New Question')
-            ->deliver($data['message']);
+            ->setViewVars('content', $data['message'])
+            ->viewBuilder()
+                ->setTemplate('default');
     }
 
 }
