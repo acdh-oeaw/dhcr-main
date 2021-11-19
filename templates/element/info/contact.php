@@ -69,7 +69,11 @@ use Cake\Core\Configure;
             'novalidate' => false,
             'id' => 'ContactUsForm',
             'class' => 'captcha-form',
-            'url' => '/info/#contact'
+            'url' => [
+                'controller' => 'pages',
+                'action' => 'info',
+                '#' => 'contact'
+            ]
         ]);
         echo $this->Form->control('email', array(
             'label' => 'Your E-Mail',
