@@ -66,14 +66,13 @@ class PagesController extends AppController
                         // email logic
                         $mailer = new Mailer('default');
                         $mailer->setCc($data['email']);
-                        $mailer->setCc(Configure::read('AppMail.defaultCc'));
                         $mailer->setReplyTo($data['email'])
                             ->setSender($data['email'], trim(
                                 $data['first_name'].' '
                                 .$data['last_name']))
                             ->setTo($admin['email'])
-                            ->setSubject(Configure::read('AppMail.subjectPrefix') . ' New Question')
-                            ->send($data['message']);
+                            ->setSubject('[DHCR] New Question')
+                            ->deliver($data['message']);
                     }
                     $this->Flash->set('Your message has been sent.');
                 }
