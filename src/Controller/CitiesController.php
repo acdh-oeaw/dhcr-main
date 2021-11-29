@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,11 +11,9 @@ namespace App\Controller;
  */
 class CitiesController extends AppController
 {
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
-
-        $this->Authentication->allowUnauthenticated(['add','edit','index', 'view', 'delete']);
-        $this->Authorization->skipAuthorization();
     }
 
     /**
@@ -24,25 +23,8 @@ class CitiesController extends AppController
      */
     public function index()
     {
-        $cities = $this->paginate($this->Cities);
-
+        $cities = $this->paginate($this->Cities, ['contain' => ['Countries']]);
         $this->set(compact('cities'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id City id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $city = $this->Cities->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set(compact('city'));
     }
 
     /**
@@ -62,7 +44,9 @@ class CitiesController extends AppController
             }
             $this->Flash->error(__('The city could not be saved. Please, try again.'));
         }
-        $this->set(compact('city'));
+
+        $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->all();
+        $this->set(compact('city', 'countries'));
     }
 
     /**
@@ -86,7 +70,9 @@ class CitiesController extends AppController
             }
             $this->Flash->error(__('The city could not be saved. Please, try again.'));
         }
-        $this->set(compact('city'));
+        
+        $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->all();
+        $this->set(compact('city', 'countries'));
     }
 
     /**

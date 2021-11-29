@@ -7,13 +7,8 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $city->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $city->id), 'class' => 'side-nav-item']
-            ) ?>
             <?= $this->Html->link(__('List Cities'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
+            <p>&nbsp;</p>
         </div>
     </aside>
     <div class="column-responsive column-80">
@@ -22,10 +17,16 @@
             <fieldset>
                 <legend><?= __('Edit City') ?></legend>
                 <?php
-                    echo $this->Form->control('country_id');
                     echo $this->Form->control('name');
+                    echo $this->Form->control('country_id', [
+                        'type' => 'select',
+                        'label' => 'Country',
+                        'options' => $countries,
+                        'default' => $city->country_id,
+                    ]);
                 ?>
             </fieldset>
+            <p>&nbsp;</p>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>

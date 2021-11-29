@@ -84,6 +84,9 @@ Router::scope('/', function (RouteBuilder $routes) {
     //$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     //$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
 
+    // Added routes for the new backend
+    $routes->connect('/cities', ['controller' => 'Cities', 'action' => 'index']);
+
     /**
      * Connect catchall routes for all controllers.
      *
