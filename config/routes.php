@@ -86,6 +86,7 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     // Added routes for the new backend
     $routes->connect('/cities', ['controller' => 'Cities', 'action' => 'index']);
+    $routes->connect('/institutions', ['controller' => 'Institutions', 'action' => 'index']);
 
     /**
      * Connect catchall routes for all controllers.

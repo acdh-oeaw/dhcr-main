@@ -10,22 +10,22 @@
     <p>&nbsp;</p>
     <h3><?= __('Cities') ?></h3>
     <div class="table-responsive">
-        <table width="80%">
+        <table>
             <thead>
                 <tr>
-                    <th align="left"><?= $this->Paginator->sort('id') ?></th>
-                    <th align="left">Country</th>
-                    <th align="left"><?= $this->Paginator->sort('name') ?></th>
-                    <th class="actions" align="left"><?= __('Actions') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('id') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name') ?></th>
+                    <th align="left" style="padding: 5px">Country</th>
+                    <th class="actions" align="left" style="padding: 5px"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($cities as $city) : ?>
                     <tr>
-                        <td><?= $this->Number->format($city->id) ?></td>
-                        <td><?= h($city->country->name)  ?></td>
-                        <td><?= h($city->name) ?></td>
-                        <td class="actions">
+                        <td style="padding: 5px"><?= h($city->id) ?></td>
+                        <td style="padding: 5px"><?= h($city->name) ?></td>
+                        <td style="padding: 5px"><?= h($city->country->name)  ?></td>
+                        <td class="actions" style="padding: 5px">
                             <?= $this->Html->link(__('Edit'), ['action' => 'edit', $city->id]) ?>
                             &nbsp;&nbsp;&nbsp;
                             <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $city->id], ['confirm' => __('Are you sure you want to delete # {0}?', $city->id)]) ?>
@@ -35,7 +35,6 @@
             </tbody>
         </table>
     </div>
-    <p>&nbsp;</p>
     <div class="paginator">
         <?= $this->Paginator->first('<< ' . __('first')) ?>
         <?= $this->Paginator->prev('< ' . __('previous')) ?>

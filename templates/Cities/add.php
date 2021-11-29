@@ -19,11 +19,7 @@
                 <legend><?= __('Add City') ?></legend>
                 <?php
                 echo $this->Form->control('name');
-                echo $this->Form->control('country_id', [
-                    'type' => 'select',
-                    'label' => 'Country',
-                    'options' => $countries
-                ]);
+                echo $this->Form->control('country_id', ['options' => $countries, 'empty' => true]);
                 ?>
             </fieldset>
             <p>&nbsp;</p>

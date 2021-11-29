@@ -48,7 +48,7 @@ class CitiesController extends AppController
             $this->Flash->error(__('The city could not be saved. Please, try again.'));
         }
 
-        $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->all();
+        $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('city', 'countries'));
     }
 
@@ -73,7 +73,7 @@ class CitiesController extends AppController
             }
             $this->Flash->error(__('The city could not be saved. Please, try again.'));
         }
-        
+
         $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->all();
         $this->set(compact('city', 'countries'));
     }
