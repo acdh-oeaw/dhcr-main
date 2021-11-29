@@ -23,7 +23,10 @@ class CitiesController extends AppController
      */
     public function index()
     {
-        $cities = $this->paginate($this->Cities, ['contain' => ['Countries']]);
+        $cities = $this->paginate($this->Cities, [
+            'contain' => ['Countries'], 
+            'order' => ['id' => 'asc']
+            ]);
         $this->set(compact('cities'));
     }
 
