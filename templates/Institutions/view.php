@@ -11,7 +11,6 @@
             <h4 class="heading"><u><?= __('Actions') ?></u></h4>
             <ul>
                 <li><?= $this->Html->link(__('Edit Institution'), ['action' => 'edit', $institution->id], ['class' => 'side-nav-item']) ?></li>
-                <li><?= $this->Form->postLink(__('Delete Institution'), ['action' => 'delete', $institution->id], ['confirm' => __('Are you sure you want to delete # {0}?', $institution->id), 'class' => 'side-nav-item']) ?></li>
                 <li><?= $this->Html->link(__('List Institutions'), ['action' => 'index'], ['class' => 'side-nav-item']) ?></li>
             </ul>
             <p>&nbsp;</p>

@@ -16,7 +16,7 @@
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name') ?></th>
                     <th align="left" style="padding: 5px">City</th>
                     <th align="left" style="padding: 5px">Country</th>
-                    <th class="actions" align="left" style="padding: 5px"><?= __('Actions') ?></th>
+                    <th class="actions" align="left" style="padding: 5px"><?= __('Action') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,6 @@
                     <td style="padding: 5px"><?= $institution->country->name ?></td>
                     <td class="actions" style="padding: 5px">
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $institution->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $institution->id], ['confirm' => __('Are you sure you want to delete # {0}?', $institution->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
