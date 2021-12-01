@@ -1,5 +1,3 @@
-
-
 <div id="sitemap">
     <ul>
         <li>
@@ -7,7 +5,8 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-home"></span>Home',
                     ['controller' => 'Courses', 'action' => 'index'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
         </li>
 
@@ -16,7 +15,8 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-star"></span>Your Dashboard',
                     ['controller' => 'Users', 'action' => 'dashboard'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
         </li>
 
@@ -25,23 +25,27 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-flag"></span>Needs Attention',
                     ['controller' => 'Users', 'action' => 'attention'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
             <ul class="attention">
                 <li>
                     <?= $this->Html->link(
                         'Account Approval ',
-                        ['controller' => 'Users', 'action' => 'approve']) ?>
+                        ['controller' => 'Users', 'action' => 'approve']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Course Approval',
-                        ['controller' => 'Courses', 'action' => 'approve']) ?>
+                        ['controller' => 'Courses', 'action' => 'approve']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Course Expiry',
-                        ['controller' => 'Users', 'action' => 'approve']) ?>
+                        ['controller' => 'Users', 'action' => 'approve']
+                    ) ?>
                 </li>
             </ul>
         </li>
@@ -51,18 +55,21 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-education"></span>Courses',
                     ['controller' => 'Courses', 'action' => 'index'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
             <ul class="dashboard">
                 <li>
                     <?= $this->Html->link(
                         'My Courses',
-                        ['controller' => 'Courses', 'action' => 'index', 'pass' => ['my']]) ?>
+                        ['controller' => 'Courses', 'action' => 'myCourses']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Moderated Courses',
-                        ['controller' => 'Courses', 'action' => 'index', 'pass' => ['moderated']]) ?>
+                        ['controller' => 'Courses', 'action' => 'index', 'pass' => ['moderated']]
+                    ) ?>
                 </li>
             </ul>
         </li>
@@ -73,18 +80,21 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-user"></span>Contributor Network',
                     ['controller' => 'Users', 'action' => 'index'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
             <ul class="users">
                 <li>
                     <?= $this->Html->link(
                         'Invite ',
-                        ['controller' => 'Users', 'action' => 'invite']) ?>
+                        ['controller' => 'Users', 'action' => 'invite']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Users',
-                        ['controller' => 'Users', 'action' => 'index']) ?>
+                        ['controller' => 'Users', 'action' => 'index']
+                    ) ?>
                 </li>
             </ul>
         </li>
@@ -93,23 +103,27 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-list"></span>Category Lists',
                     ['controller' => 'Pages', 'action' => 'tables'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
             <ul class="tables">
                 <li>
                     <?= $this->Html->link(
                         'Cities',
-                        ['controller' => 'Cities', 'action' => 'index']) ?>
+                        ['controller' => 'Cities', 'action' => 'index']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Institutions',
-                        ['controller' => 'Institutions', 'action' => 'index']) ?>
+                        ['controller' => 'Institutions', 'action' => 'index']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Languages',
-                        ['controller' => 'Languages', 'action' => 'index']) ?>
+                        ['controller' => 'Languages', 'action' => 'index']
+                    ) ?>
                 </li>
             </ul>
         </li>
@@ -119,18 +133,21 @@
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-cog"></span>Profile Settings',
                     ['controller' => 'Users', 'action' => 'profile'],
-                    ['escape' => false]) ?>
+                    ['escape' => false]
+                ) ?>
             </p>
             <ul class="profile">
                 <li>
                     <?= $this->Html->link(
                         'Newsletter',
-                        ['controller' => 'Users', 'action' => 'profile', '#' => 'newsletter']) ?>
+                        ['controller' => 'Users', 'action' => 'profile', '#' => 'newsletter']
+                    ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Log Off',
-                        ['controller' => 'Users', 'action' => 'logout']) ?>
+                        ['controller' => 'Users', 'action' => 'logout']
+                    ) ?>
                 </li>
             </ul>
         </li>

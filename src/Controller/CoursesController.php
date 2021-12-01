@@ -1,7 +1,7 @@
 <?php
+
 namespace App\Controller;
 
-use Cake\Event\EventInterface;
 use Cake\Datasource\Exception\RecordNotFoundException;
 
 
@@ -13,22 +13,22 @@ class CoursesController extends AppController
     public $Courses = null;
 
 
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['index','view']);
+        $this->Authentication->allowUnauthenticated(['index', 'view']);
         $this->Authorization->skipAuthorization();
     }
 
-    public function beforeRender(EventInterface $event) {
-        parent::beforeRender($event);
+    public function index()
+    {
+        // moved from beforeRender
         $this->viewBuilder()->setLayout('home');
-    }
 
-    public function index() {
         $query = $this->request->getQuery();
-        if(!isset($query['recent']) OR ($query['recent'] !== false AND $query['recent'] != 'false'))
+        if (!isset($query['recent']) or ($query['recent'] !== false and $query['recent'] != 'false'))
             $query['recent'] = true;
-        if(!isset($query['sort']))
+        if (!isset($query['sort']))
             $query['sort'] = 'Courses.updated:desc';
         else
             $query['sort'] .= ',Courses.updated:desc';
@@ -52,12 +52,12 @@ class CoursesController extends AppController
         $countries = $this->Countries->getCountries();
 
         $citiesQuery = ['count_recent' => true, 'group' => true];
-        if(!empty($query['country_id'])) $citiesQuery['country_id'] = $query['country_id'];
+        if (!empty($query['country_id'])) $citiesQuery['country_id'] = $query['country_id'];
         $this->Cities->evaluateQuery($citiesQuery);
         $cities = $this->Cities->getCities();
 
         $institutionsQuery = ['count_recent' => true, 'group' => true];
-        if(!empty($query['country_id'])) $institutionsQuery['country_id'] = $query['country_id'];
+        if (!empty($query['country_id'])) $institutionsQuery['country_id'] = $query['country_id'];
         $this->Institutions->evaluateQuery($institutionsQuery);
         $institutions = $this->Institutions->getInstitutions();
 
@@ -76,13 +76,25 @@ class CoursesController extends AppController
         $this->TadirahObjects->evaluateQuery(['count_recent' => true]);
         $objects = $this->TadirahObjects->getTadirahObjects();
 
-        $this->set(compact('courses',
-            'countries','cities','institutions','types',
-            'languages','disciplines','techniques','objects'));
+        $this->set(compact(
+            'courses',
+            'countries',
+            'cities',
+            'institutions',
+            'types',
+            'languages',
+            'disciplines',
+            'techniques',
+            'objects'
+        ));
     }
 
 
-    public function view($id = null) {
+    public function view($id = null)
+    {
+        // moved from beforeRender
+        $this->viewBuilder()->setLayout('home');
+
         $this->loadModel('DhcrCore.Courses');
         $course = $this->Courses->get($id, [
             'contain' => $this->Courses->containments,
@@ -91,7 +103,7 @@ class CoursesController extends AppController
             ]
         ]);
 
-        if(empty($course)) {
+        if (empty($course)) {
             throw new RecordNotFoundException();
         }
 
@@ -99,5 +111,14 @@ class CoursesController extends AppController
         $this->render('index');
     }
 
+    public function myCourses()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('DhcrCore.Courses');
 
+        $user = $this->Authentication->getIdentity();
+
+        $courses = $this->paginate($this->Courses->find('all')->where(['user_id' => $user->id]));
+        $this->set(compact('courses'));
+    }
 }
