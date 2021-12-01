@@ -1,10 +1,12 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Institution[]|\Cake\Collection\CollectionInterface $institutions
  */
 ?>
 <div class="institutions index content">
+    <p>&nbsp;</p>
     <?= $this->Html->link(__('Add Institution'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p>&nbsp;</p>
     <h3><?= __('Institutions') ?></h3>
@@ -20,16 +22,16 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($institutions as $institution): ?>
-                <tr>
-                    <td style="padding: 5px"><?= h($institution->id) ?></td>
-                    <td style="padding: 5px"><?= $this->Html->link(__($institution->name), ['action' => 'view', $institution->id]) ?>
-                    <td style="padding: 5px"><?= $institution->city->name ?></td>
-                    <td style="padding: 5px"><?= $institution->country->name ?></td>
-                    <td class="actions" style="padding: 5px">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $institution->id]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($institutions as $institution) : ?>
+                    <tr>
+                        <td style="padding: 5px"><?= h($institution->id) ?></td>
+                        <td style="padding: 5px"><?= $this->Html->link(__($institution->name), ['action' => 'view', $institution->id]) ?>
+                        <td style="padding: 5px"><?= $institution->city->name ?></td>
+                        <td style="padding: 5px"><?= $institution->country->name ?></td>
+                        <td class="actions" style="padding: 5px">
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $institution->id]) ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

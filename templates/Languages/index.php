@@ -1,10 +1,12 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Language[]|\Cake\Collection\CollectionInterface $languages
  */
 ?>
 <div class="languages index content">
+    <p>&nbsp;</p>
     <?= $this->Html->link(__('Add Language'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p>&nbsp;</p>
     <h3><?= __('Languages') ?></h3>
@@ -18,15 +20,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($languages as $language): ?>
-                <tr>
-                    <td align="left" style="padding: 5px"><?= $this->Number->format($language->id) ?></td>
-                    <td align="left" style="padding: 5px"><?= h($language->name) ?></td>
-                    <td class="actions" align="left" style="padding: 5px">
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $language->id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $language->id], ['confirm' => __('Are you sure you want to delete # {0}?', $language->id)]) ?>
-                    </td>
-                </tr>
+                <?php foreach ($languages as $language) : ?>
+                    <tr>
+                        <td align="left" style="padding: 5px"><?= $this->Number->format($language->id) ?></td>
+                        <td align="left" style="padding: 5px"><?= h($language->name) ?></td>
+                        <td class="actions" align="left" style="padding: 5px">
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $language->id]) ?>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

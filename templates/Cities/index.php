@@ -6,6 +6,7 @@
  */
 ?>
 <div class="cities index content">
+    <p>&nbsp;</p>
     <?= $this->Html->link(__('Add City'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p>&nbsp;</p>
     <h3><?= __('Cities') ?></h3>

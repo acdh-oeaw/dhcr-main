@@ -14,6 +14,7 @@ class CitiesController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        $this->viewBuilder()->setLayout('contributors');
     }
 
     /**
@@ -24,9 +25,9 @@ class CitiesController extends AppController
     public function index()
     {
         $cities = $this->paginate($this->Cities, [
-            'contain' => ['Countries'], 
+            'contain' => ['Countries'],
             'order' => ['id' => 'asc']
-            ]);
+        ]);
         $this->set(compact('cities'));
     }
 
@@ -61,9 +62,7 @@ class CitiesController extends AppController
      */
     public function edit($id = null)
     {
-        $city = $this->Cities->get($id, [
-            'contain' => [],
-        ]);
+        $city = $this->Cities->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $city = $this->Cities->patchEntity($city, $this->request->getData());
             if ($this->Cities->save($city)) {

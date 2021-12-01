@@ -15,8 +15,9 @@ class LanguagesController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        $this->viewBuilder()->setLayout('contributors');
     }
-    
+
     /**
      * Index method
      *
@@ -27,22 +28,6 @@ class LanguagesController extends AppController
         $languages = $this->paginate($this->Languages);
 
         $this->set(compact('languages'));
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Language id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $language = $this->Languages->get($id, [
-            'contain' => ['Subscriptions', 'Courses'],
-        ]);
-
-        $this->set(compact('language'));
     }
 
     /**
@@ -62,8 +47,7 @@ class LanguagesController extends AppController
             }
             $this->Flash->error(__('The language could not be saved. Please, try again.'));
         }
-        $subscriptions = $this->Languages->Subscriptions->find('list', ['limit' => 200]);
-        $this->set(compact('language', 'subscriptions'));
+        $this->set(compact('language'));
     }
 
     /**
@@ -75,9 +59,7 @@ class LanguagesController extends AppController
      */
     public function edit($id = null)
     {
-        $language = $this->Languages->get($id, [
-            'contain' => ['Subscriptions'],
-        ]);
+        $language = $this->Languages->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $language = $this->Languages->patchEntity($language, $this->request->getData());
             if ($this->Languages->save($language)) {
@@ -87,8 +69,7 @@ class LanguagesController extends AppController
             }
             $this->Flash->error(__('The language could not be saved. Please, try again.'));
         }
-        $subscriptions = $this->Languages->Subscriptions->find('list', ['limit' => 200]);
-        $this->set(compact('language', 'subscriptions'));
+        $this->set(compact('language'));
     }
 
     /**

@@ -8,6 +8,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
+            <p>&nbsp;</p>
             <h4 class="heading"><u><?= __('Actions') ?></u></h4>
             <ul>
                 <li><?= $this->Html->link(__('Edit Institution'), ['action' => 'edit', $institution->id], ['class' => 'side-nav-item']) ?></li>

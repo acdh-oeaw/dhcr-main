@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Language $language
@@ -8,6 +9,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
+            <p>&nbsp;</p>
             <?= $this->Html->link(__('List Languages'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <p>&nbsp;</p>
         </div>
@@ -18,7 +20,7 @@
             <fieldset>
                 <legend><?= __('Add Language') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
+                echo $this->Form->control('name');
                 ?>
             </fieldset>
             <p>&nbsp;</p>

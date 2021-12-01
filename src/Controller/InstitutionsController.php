@@ -15,6 +15,7 @@ class InstitutionsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
+        $this->viewBuilder()->setLayout('contributors');
     }
 
     /**
@@ -42,7 +43,7 @@ class InstitutionsController extends AppController
     public function view($id = null)
     {
         $institution = $this->Institutions->get($id, [
-            'contain' => ['Cities', 'Countries', 'Courses', 'Users'],
+            'contain' => ['Cities', 'Countries', 'Courses'],
         ]);
 
         $this->set(compact('institution'));
@@ -80,9 +81,7 @@ class InstitutionsController extends AppController
      */
     public function edit($id = null)
     {
-        $institution = $this->Institutions->get($id, [
-            'contain' => [],
-        ]);
+        $institution = $this->Institutions->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
             if ($this->Institutions->save($institution)) {
@@ -92,8 +91,8 @@ class InstitutionsController extends AppController
             }
             $this->Flash->error(__('The institution could not be saved. Please, try again.'));
         }
-        $cities = $this->Institutions->Cities->find('list', ['limit' => 200]);
-        $countries = $this->Institutions->Countries->find('list', ['limit' => 200]);
+        $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
+        $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('institution', 'cities', 'countries'));
     }
 

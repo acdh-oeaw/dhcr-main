@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var \App\View\AppView $this
  * @var \Cake\Datasource\EntityInterface $city
@@ -7,6 +8,7 @@
 <div class="row">
     <aside class="column">
         <div class="side-nav">
+            <p>&nbsp;</p>
             <?= $this->Html->link(__('List Cities'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <p>&nbsp;</p>
         </div>
@@ -17,13 +19,13 @@
             <fieldset>
                 <legend><?= __('Edit City') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('country_id', [
-                        'type' => 'select',
-                        'label' => 'Country',
-                        'options' => $countries,
-                        'default' => $city->country_id,
-                    ]);
+                echo $this->Form->control('name');
+                echo $this->Form->control('country_id', [
+                    'type' => 'select',
+                    'label' => 'Country',
+                    'options' => $countries,
+                    'default' => $city->country_id,
+                ]);
                 ?>
             </fieldset>
             <p>&nbsp;</p>
