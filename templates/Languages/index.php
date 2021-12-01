@@ -9,7 +9,7 @@
     <p>&nbsp;</p>
     <?= $this->Html->link(__('Add Language'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p>&nbsp;</p>
-    <h3><?= __('Languages') ?></h3>
+    <h3><span class="glyphicon glyphicon-list">&nbsp;</span><?= __('Languages') ?></h3>
     <div class="table-responsive">
         <table>
             <thead>
