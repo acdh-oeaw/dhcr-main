@@ -53,6 +53,9 @@ use Cake\Core\Configure;
             </p>
         </div>
 
+        <?php
+        // Hide contact form, because it does not work
+        /*
         <h3>Contact Form</h3>
         <p>
             Please use our form to automatically let the system address
@@ -100,6 +103,9 @@ use Cake\Core\Configure;
             'data-callback' => 'recaptchaCallback'
         ));
         echo $this->Form->end();
+        ?>
+        */
+        // End of hiding
         ?>
 
         <h3>Bug Report</h3>
