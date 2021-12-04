@@ -68,7 +68,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Moderated Courses',
-                        ['controller' => 'Courses', 'action' => 'index', 'pass' => ['moderated']]
+                        ['controller' => 'Courses', 'action' => 'moderatedCourses']
                     ) ?>
                 </li>
             </ul>
@@ -140,12 +140,12 @@
                 <li>
                     <?= $this->Html->link(
                         'Newsletter',
-                        ['controller' => 'Users', 'action' => 'profile', '#' => 'newsletter']
+                        ['controller' => 'Users', 'action' => 'newsletter']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Log Off',
+                        'Log Out',
                         ['controller' => 'Users', 'action' => 'logout']
                     ) ?>
                 </li>
