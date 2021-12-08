@@ -15,7 +15,6 @@
 namespace App\Controller;
 
 use Cake\Core\Configure;
-use Cake\Event\EventInterface;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Mailer\MailerAwareTrait;
