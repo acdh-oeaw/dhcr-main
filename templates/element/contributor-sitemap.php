@@ -24,7 +24,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-flag"></span>Needs Attention',
-                    ['controller' => 'Users', 'action' => 'attention'],
+                    ['controller' => 'Users', 'action' => 'needsAttention'],
                     ['escape' => false]
                 ) ?>
             </p>
@@ -38,13 +38,13 @@
                 <li>
                     <?= $this->Html->link(
                         'Course Approval',
-                        ['controller' => 'Courses', 'action' => 'approve']
+                        ['controller' => 'Courses', 'action' => 'newCourses']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Course Expiry',
-                        ['controller' => 'Users', 'action' => 'approve']
+                        ['controller' => 'Courses', 'action' => 'question']
                     ) ?>
                 </li>
             </ul>

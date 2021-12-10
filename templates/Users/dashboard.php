@@ -2,7 +2,7 @@
 $user = $this->Identity->get();
 ?>
 
-<h2>Dashboard</h2>
+<h2><span class="glyphicon glyphicon-star"></span> Dashboard</h2>
 
 <div id="dashboard">
 

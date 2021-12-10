@@ -15,6 +15,7 @@
                 <li><?= $this->Html->link(__('Newsletter preferences'), ['action' => 'newsletterPrefs'], ['class' => 'side-nav-item']) ?></li>
                 <li><?= $this->Html->link(__('Moderator preferences'), ['action' => 'moderatorPrefs'], ['class' => 'side-nav-item']) ?></li>
                 </ul>
+                <?php // todo add: my subscriptions? ?>
         </div>
     </aside>
     <div class="column-responsive column-80">
