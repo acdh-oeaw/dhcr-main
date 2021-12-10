@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Authenticator\AppResult;
@@ -55,27 +56,30 @@ class UsersController extends AppController
         'verifyMail'
     ];
 
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
         $this->Authentication->allowUnauthenticated(self::ALLOW_UNAUTHENTICATED);
 
-        if(in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
+        if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
             $this->Authorization->skipAuthorization();
         }
     }
 
-    public function beforeFilter(EventInterface $event) {
+    public function beforeFilter(EventInterface $event)
+    {
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             // set the contributor layout for logged in users and certain actions only
-            if(!in_array($this->request->getParam('action'), self::DEFAULT_LAYOUT))
+            if (!in_array($this->request->getParam('action'), self::DEFAULT_LAYOUT))
                 $this->viewBuilder()->setLayout('contributors');
         }
         // we must RETURN the Response object here for parent class redirects to take effect
         return parent::beforeFilter($event);
     }
 
-    public function beforeRender(EventInterface $event) {
+    public function beforeRender(EventInterface $event)
+    {
         parent::beforeRender($event);
     }
 
@@ -90,17 +94,17 @@ class UsersController extends AppController
     public function signIn()
     {
         $redirect = $this->getRequest()->getQuery('redirect');
-        if($identity = $this->_checkExternalIdentity() AND $redirect != '/users/connect_identity') {
+        if ($identity = $this->_checkExternalIdentity() and $redirect != '/users/connect_identity') {
             return $this->redirect('/users/unknown_identity');
         }
 
         // the user is logged in by session, idp or form
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             $user = $this->Authentication->getIdentity()->getOriginalData();
 
             $authentication = $this->Authentication->getAuthenticationService();
-            if($authentication->identifiers()->get('Password')->needsPasswordRehash())
+            if ($authentication->identifiers()->get('Password')->needsPasswordRehash())
                 $user->password = $this->request->getData('password');
 
             $user->last_login = date('Y-m-d H:i:s');
@@ -110,16 +114,16 @@ class UsersController extends AppController
             return $this->redirect($target);
         }
 
-        if($this->request->is('post') AND !$result->isValid()) {
+        if ($this->request->is('post') and !$result->isValid()) {
             // evaluate the result here, AppResult might indicate banned user
             $this->Flash->error('Invalid username or password.');
         }
-        if($identity AND $redirect === '/users/connect_identity') {
-            if($result->isValid())
+        if ($identity and $redirect === '/users/connect_identity') {
+            if ($result->isValid())
                 return $this->redirect($redirect);
             $this->viewBuilder()->setTemplate('connect_identity');
             $this->set('identity', $identity);
-        }else{
+        } else {
             // render the login form, providing federated authentication
             $this->_setIdentityProviderTarget();
         }
@@ -130,15 +134,16 @@ class UsersController extends AppController
     public function logout()
     {
         $this->Authentication->logout();
-        return $this->redirect(['controller' => 'Users','action' => 'signIn']);
+        return $this->redirect(['controller' => 'Users', 'action' => 'signIn']);
     }
 
 
 
-    protected function _setIdentityProviderTarget() {
+    protected function _setIdentityProviderTarget()
+    {
         // get the shibboleth return parameter
         $here = 'https://dev-dhcr.clarin-dariah.eu/users/sign-in';
-        $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target='.urlencode($here);
+        $get = 'https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login?target=' . urlencode($here);
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $get);
         curl_setopt($ch, CURLOPT_NOBODY, true);
@@ -151,20 +156,20 @@ class UsersController extends AppController
         $url = curl_getinfo($ch, CURLINFO_REDIRECT_URL);
         curl_close($ch);
         $idpTarget = false;
-        if($url) {
+        if ($url) {
             $query = explode('&', explode('?', $url)[1]);
             foreach ($query as $para) {
                 $p = explode('=', $para);
-                if($p[0] == 'return') {
+                if ($p[0] == 'return') {
                     $returnParameter = urldecode($p[1]);
                     // The return parameter contains the idpSelector form action,
                     // which is hardcoded in class IdpSelector.js
                     // Only the target parameter within the return parameter is required
-                    if(strpos($returnParameter, '?') !== false) {
+                    if (strpos($returnParameter, '?') !== false) {
                         $q = explode('&', explode('?', $returnParameter)[1]);
-                        foreach($q as $a) {
+                        foreach ($q as $a) {
                             $b = explode('=', $a);
-                            if($b[0] == 'target')
+                            if ($b[0] == 'target')
                                 $idpTarget = urldecode($b[1]);
                         }
                     }
@@ -177,16 +182,16 @@ class UsersController extends AppController
 
 
 
-    protected function _checkExternalIdentity() : array
+    protected function _checkExternalIdentity(): array
     {
         $result = $this->Authentication->getResult();
-        if($result->getStatus() === AppResult::NEW_EXTERNAL_IDENTITY) {
+        if ($result->getStatus() === AppResult::NEW_EXTERNAL_IDENTITY) {
             // return the external identity
             return $result->getData();
-        }else{
+        } else {
             $service = $this->Authentication->getAuthenticationService();
             $authenticator = $service->envAuthenticator;
-            if($data = $authenticator->getData($this->getRequest())) {
+            if ($data = $authenticator->getData($this->getRequest())) {
                 return $data;
             }
             return [];
@@ -198,11 +203,11 @@ class UsersController extends AppController
     public function unknownIdentity()
     {
         $identity = $this->_checkExternalIdentity();
-        if(empty($identity))
+        if (empty($identity))
             return $this->redirect('/users/sign-in');
 
         $session = $this->request->getSession();
-        if($session->check('ignoreIdentity'))
+        if ($session->check('ignoreIdentity'))
             return $this->redirect('/users/dashboard');
 
         $this->set(compact('identity'));
@@ -213,11 +218,11 @@ class UsersController extends AppController
     public function connectIdentity()
     {
         $identity = $this->_checkExternalIdentity();
-        if(empty($identity))
+        if (empty($identity))
             return $this->redirect('/users/sign-in');
         // connect account with identity
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             // save the identity shib_eppn to the user
             $user = $this->Authentication->getIdentity();
             $user->shib_eppn = $identity['shib_eppn'];
@@ -236,10 +241,10 @@ class UsersController extends AppController
     public function registerIdentity()
     {
         $identity = $this->_checkExternalIdentity();
-        if(empty($identity))
+        if (empty($identity))
             return $this->redirect('/users/sign-in');
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             $this->Flash->set('Please log out before registering a new identity.');
             return $this->redirect('/users/dashboard');
         }
@@ -247,7 +252,7 @@ class UsersController extends AppController
         $data['first_name'] = $identity['first_name'] ?? null;
         $data['last_name'] = $identity['last_name'] ?? null;
         $data['email'] = $identity['email'] ?? null;
-        if(empty($data['email']) AND preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
+        if (empty($data['email']) and preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
             $data['email'] = $identity['shib_eppn'];
 
         // validation is on, show errors!
@@ -255,17 +260,18 @@ class UsersController extends AppController
         $user->approved = true;
         $user->email_verified = true;
         $user->shib_eppn = $identity['shib_eppn'];
-        if($this->request->is('post')) {
+        if ($this->request->is('post')) {
             // patching the entity, validation and other stuff
             $this->Users->patchEntity($user, $this->request->getData());
-            if(!$user->hasErrors(false)) {
-                if(empty($user->institution_id)) {
+            if (!$user->hasErrors(false)) {
+                if (empty($user->institution_id)) {
                     $user->approved = false;
                     $this->Users->notifyAdmins();
-                }else {
+                } else {
                     try {
                         $this->getMailer('User')->send('welcome', [$user]);
-                    } catch (Exception $exception) {}
+                    } catch (Exception $exception) {
+                    }
                 }
 
                 $this->Users->save($user);
@@ -276,17 +282,18 @@ class UsersController extends AppController
                     'controller' => 'users',
                     'action' => 'registration_success'
                 ]);
-            }else{
+            } else {
                 $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
             }
         }
 
         $this->_setOptions();
-        $this->set(compact('identity','user'));
+        $this->set(compact('identity', 'user'));
     }
 
 
-    public function ignoreIdentity() {
+    public function ignoreIdentity()
+    {
         $session = $this->request->getSession();
         $session->write('ignoreIdentity', true);
         $this->redirect('/users/dashboard');
@@ -309,8 +316,8 @@ class UsersController extends AppController
     public function register()
     {
         $user = $this->Users->newEmptyEntity();
-        if($this->request->is('post')) {
-            if(!$this->_checkCaptcha()) {
+        if ($this->request->is('post')) {
+            if (!$this->_checkCaptcha()) {
                 $this->Flash->set('The CAPTCHA test failed, please try again.');
                 $this->redirect(['controller' => 'users', 'action' => 'register']);
             }
@@ -322,11 +329,12 @@ class UsersController extends AppController
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
 
-            if(!$user->hasErrors(false)) {
+            if (!$user->hasErrors(false)) {
                 $this->Users->save($user);
                 try {
                     $this->getMailer('User')->send('confirmationMail', [$user]);
-                }catch(Exception $exception) {}
+                } catch (Exception $exception) {
+                }
 
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
@@ -335,7 +343,7 @@ class UsersController extends AppController
                     'controller' => 'users',
                     'action' => 'registration_success'
                 ]);
-            }else{
+            } else {
                 $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
             }
         }
@@ -345,9 +353,10 @@ class UsersController extends AppController
     }
 
 
-    public function registrationSuccess() {
+    public function registrationSuccess()
+    {
         $user = $this->Authentication->getIdentity();
-        if($user->can('accessDashboard', $user))
+        if ($user->can('accessDashboard', $user))
             return $this->redirect('/users/dashboard');
 
         $user = $this->Authentication->getIdentity();
@@ -355,9 +364,10 @@ class UsersController extends AppController
     }
 
 
-    public function verifyMail($token = null) {
+    public function verifyMail($token = null)
+    {
         $user = $this->Authentication->getIdentity();
-        if($user AND !$token) {
+        if ($user and !$token) {
             $success = false;
             if ($this->request->is('post')) {
                 $data = [
@@ -374,25 +384,26 @@ class UsersController extends AppController
                 }
             }
 
-            if(!empty($user->new_email)) {
+            if (!empty($user->new_email)) {
                 // this code also runs when hitting the send-again button
                 try {
                     $this->getMailer('User')->send('confirmationMail', [$user]);
-                }catch(Exception $exception) {}
+                } catch (Exception $exception) {
+                }
                 $success = true;
             }
 
-            if($success) {
+            if ($success) {
                 $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
                 return $this->redirect('/users/dashboard');
             }
         }
 
-        if($token) {
+        if ($token) {
             $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
-            if($user) {
+            if ($user) {
                 // handle new users
-                if(!$user->email_verified)
+                if (!$user->email_verified)
                     $this->Users->notifyAdmins($user);
 
                 $user->email = $user->new_email;
@@ -412,20 +423,22 @@ class UsersController extends AppController
     }
 
 
-    public function resetPassword($token = null) {
-        if(!empty($token)) {
+    public function resetPassword($token = null)
+    {
+        if (!empty($token)) {
             $user = $this->Users->find()->where([
                 'password_token' => $token,
-                'password_token_expires >=' => date('Y-m-d H:i:s')])->contain([])->first();
-            if($user) {
-                if(!$user->active) {
+                'password_token_expires >=' => date('Y-m-d H:i:s')
+            ])->contain([])->first();
+            if ($user) {
+                if (!$user->active) {
                     $this->Flash->set('This account has been disabled.');
                     return $this->redirect('/users/sign-in');
                 }
 
-                if($this->request->is('post')) {
+                if ($this->request->is('post')) {
                     $user = $this->Users->patchEntity($user, $this->request->getData(), ['fields' => ['password']]);
-                    if(!$user->hasErrors()) {
+                    if (!$user->hasErrors()) {
                         $user->password_token = null;
                         $user->password_token_expires = null;
                         $this->Users->save($user);
@@ -435,19 +448,17 @@ class UsersController extends AppController
                 }
                 // render form (password)
                 $this->set('token', $token);
-            }
-            else{
+            } else {
                 $this->Flash->set('The passed token is not valid any more.');
                 return $this->redirect('/users/sign-in');
             }
-        }
-        elseif(empty($token)) {
-            if($this->request->is('post')) {
+        } elseif (empty($token)) {
+            if ($this->request->is('post')) {
                 $user = $this->Users->find()->where([
                     'email' => $this->request->getData('email'),
                 ])->contain([])->first();
-                if(!empty($user)) {
-                    if(!$user->active) {
+                if (!empty($user)) {
+                    if (!$user->active) {
                         $this->Flash->set('This account has been disabled.');
                         return $this->redirect('/users/sign-in');
                     }
@@ -458,12 +469,12 @@ class UsersController extends AppController
                         'password_token' => $this->Users->generateToken('password_token')
                     ]);   // converting the expiry to frozen time type
                     $this->Users->save($user);
-                    try{
+                    try {
                         $this->getMailer('User')->send('resetPassword', [$user]);
-                    }catch(Exception $exception) {}
+                    } catch (Exception $exception) {
+                    }
                     $this->set('mailSent', true);
-
-                }else{
+                } else {
                     $this->Flash->set('We could not find a user with that address');
                     return $this->redirect('/users/sign-in');
                 }
@@ -473,49 +484,50 @@ class UsersController extends AppController
     }
 
 
-    public function approve($key = null) {
-        if(empty($key)) return $this->redirect('/users/dashboard');
+    public function approve($key = null)
+    {
+        if (empty($key)) return $this->redirect('/users/dashboard');
 
         $redirect = false;
         $admin = $this->Authentication->getIdentity();
-        if($admin AND $admin->is_admin AND ctype_digit($key)) {
+        if ($admin and $admin->is_admin and ctype_digit($key)) {
             // we are accessing the method using the admin dashboard, using user ids as the key
             $user = $this->Users->get($key);
-            if(!$user) {
-                $this->Flash->set('An account with id '.$key.' could not be found.');
+            if (!$user) {
+                $this->Flash->set('An account with id ' . $key . ' could not be found.');
                 $redirect = true;
             }
-        }else{
+        } else {
             // admins retrieve a link in their notification email to approve directly
             $user = $this->Users->find()->contain([])->where([
                 'Users.approval_token' => $key,
                 'approved' => 0
             ])->first();
-            if(!$user) {
+            if (!$user) {
                 $this->Flash->set('The requested account has already been accepted.');
                 $redirect = true;
             }
         }
 
-        if($user) {
-            if($user = $this->Users->approve($key)) {
+        if ($user) {
+            if ($user = $this->Users->approve($key)) {
                 $this->getMailer('User')->send('welcome', [$user]);
                 $this->Flash->set('The account has been approved successfully.');
                 $redirect = true;
-            }else{
+            } else {
                 // we have missing data or errors - set user to render approval form
                 $this->set('user', $user);
-                if($admin AND $admin->is_admin)
+                if ($admin and $admin->is_admin)
                     $this->Flash->set('Approval failed, please amend the account.');
                 else
                     $this->Flash->set('Approval not possible, please log in to amend the account.');
             }
-        }else{
+        } else {
             $redirect = true;
         }
 
-        if($redirect) {
-            if($admin) return $this->redirect('/users/dashboard');
+        if ($redirect) {
+            if ($admin) return $this->redirect('/users/dashboard');
             return $this->redirect('/');
         }
         // TODO: create approval view/form/process
@@ -562,22 +574,24 @@ class UsersController extends AppController
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->_setOptions();
-    }
+    // Disabled by PA 10-12-2021: This method is replaced by profile() and it's 4 sub-pages
+    // public function edit($id = null)
+    // {
+    //     $user = $this->Users->get($id, [
+    //         'contain' => [],
+    //     ]);
+    //     if ($this->request->is(['patch', 'post', 'put'])) {
+    //         $user = $this->Users->patchEntity($user, $this->request->getData());
+    //         if ($this->Users->save($user)) {
+    //             $this->Flash->success(__('The user has been saved.'));
+
+    //             return $this->redirect(['action' => 'index']);
+    //         }
+    //         $this->Flash->error(__('The user could not be saved. Please, try again.'));
+    //     }
+    //     $this->_setOptions();
+    // }
 
     /**
      * Delete method
@@ -599,10 +613,8 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-
-
-
-    protected function _setOptions() {
+    protected function _setOptions()
+    {
         $institutions = $this->Users->Institutions->find('list', [
             'fields' => ['Institutions.id', 'Institutions.name', 'Countries.name'], // restrict selected fields
             'keyField' => 'id',
@@ -611,17 +623,76 @@ class UsersController extends AppController
         ])->contain(['Countries'])->toArray();
         // restore alphabetical country order, sort option on finder does not have effect
         ksort($institutions);
-        foreach($institutions as $country => &$country_list)
+        foreach ($institutions as $country => &$country_list)
             asort($country_list);
         $countries = $this->Users->Countries->find('list', [
-            'order' => 'Countries.name ASC'])->toArray();
+            'order' => 'Countries.name ASC'
+        ])->toArray();
         $userRoles = $this->Users->UserRoles->find('list')->toArray();
 
-        $this->set(compact('institutions','countries','userRoles'));
+        $this->set(compact('institutions', 'countries', 'userRoles'));
     }
 
-    public function whichTerms() {
-        if(!str_ends_with($_SERVER['REQUEST_URI'], '?'))
+    public function whichTerms()
+    {
+        if (!str_ends_with($_SERVER['REQUEST_URI'], '?'))
             $this->redirect('/users/which-terms?');
     }
+
+    public function profile()   // todo change to edit
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+
+        $institutions = $this->Users->Institutions->find('list', ['order' => 'name asc']);
+
+        $this->set(compact('user', 'institutions'));
+    }
+
+    public function changeEmail()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+
+        $this->set(compact('user'));
+    }
+
+    public function changePassword()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->redirect('/users/change-email');
+        // todo send password mail
+        // set flash message
+        // redirect to dashboard
+    }
+
+    public function newsletterPrefs()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+
+        $this->set(compact('user'));
+    }
+
+    public function moderatorPrefs()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+
+        $this->set(compact('user'));
+    }
+
+    public function newAccounts()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+
+        $users = $this->Users->get($id, [
+            'contain' => ['Institutions', 'Countries', 'Courses'],
+        ]);
+
+        $this->set(compact('user'));
+    }
+
+
 }
