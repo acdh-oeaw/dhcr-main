@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Authenticator\AppResult;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
+use Cake\I18n\FrozenDate;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
@@ -639,7 +640,7 @@ class UsersController extends AppController
             $this->redirect('/users/which-terms?');
     }
 
-    public function profile()   // todo change to edit
+    public function profile()
     {
         $this->viewBuilder()->setLayout('contributors');
         $user = $this->Authentication->getIdentity();
@@ -687,7 +688,7 @@ class UsersController extends AppController
         $this->viewBuilder()->setLayout('contributors');
         // $user = $this->Authentication->getIdentity();
 
-        $users = $this->Users->find('all')
+        $users = $this->Users->find()
             ->select([
                 "academic_title",
                 "first_name",
@@ -705,5 +706,25 @@ class UsersController extends AppController
             ->toList();
 
         $this->set(compact('users'));
+    }
+
+    public function needsAttention()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('Courses');
+
+        $pendingAccountRequests = $this->Users->find()->where(['approved' => 0])->count();
+        $pendingCourseRequests = $this->Courses->find()->where(['approved' => 0])->count();
+
+        // todo: check exact period for expiry mails
+        $expiryDate = new FrozenDate('-9 months');
+        $expiredCourses = $this->Courses->find()
+            ->where(['
+            updated <=' => $expiryDate,
+            'active' => 1])
+            ->count();
+        // todo: show all for admin and show only country specific for moderator, only user specific for contributor
+
+        $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
 }
