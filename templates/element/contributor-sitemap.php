@@ -140,7 +140,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Newsletter',
-                        ['controller' => 'Users', 'action' => 'newsletter']
+                        ['controller' => 'Users', 'action' => 'newsletterPrefs']
                     ) ?>
                 </li>
                 <li>

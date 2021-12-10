@@ -719,9 +719,11 @@ class UsersController extends AppController
         // todo: check exact period for expiry mails
         $expiryDate = new FrozenDate('-9 months');
         $expiredCourses = $this->Courses->find()
-            ->where(['
-            updated <=' => $expiryDate,
-            'active' => 1])
+            ->where([
+                'updated <=' => $expiryDate,
+                'active' => 1,
+                'deleted' => 0
+            ])
             ->count();
         // todo: show all for admin and show only country specific for moderator, only user specific for contributor
 

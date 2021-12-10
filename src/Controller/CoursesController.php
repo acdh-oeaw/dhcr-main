@@ -121,4 +121,18 @@ class CoursesController extends AppController
         $courses = $this->paginate($this->Courses->find('all')->where(['user_id' => $user->id]));
         $this->set(compact('courses'));
     }
+
+    public function newCourses()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('DhcrCore.Courses');
+
+        $courses = $this->Courses->find()
+            ->contain(['Institutions'])
+            ->where(['approved' => 0])
+            ->order(['Courses.created' => 'desc'])
+            ->toList();
+
+        $this->set(compact('courses'));
+    }
 }
