@@ -685,14 +685,25 @@ class UsersController extends AppController
     public function newAccounts()
     {
         $this->viewBuilder()->setLayout('contributors');
-        $user = $this->Authentication->getIdentity();
+        // $user = $this->Authentication->getIdentity();
 
-        $users = $this->Users->get($id, [
-            'contain' => ['Institutions', 'Countries', 'Courses'],
-        ]);
+        $users = $this->Users->find('all')
+            ->select([
+                "academic_title",
+                "first_name",
+                "last_name",
+                'institution_id',
+                "Institutions.name",
+                "university",
+                "about",
+                "email",
+                "created"
+            ])
+            ->contain(["Institutions"])
+            ->where(['approved' => 0])
+            ->order(['Users.created' => 'desc'])
+            ->toList();
 
-        $this->set(compact('user'));
+        $this->set(compact('users'));
     }
-
-
 }

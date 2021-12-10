@@ -32,7 +32,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Account Approval ',
-                        ['controller' => 'Users', 'action' => 'approve']
+                        ['controller' => 'Users', 'action' => 'newAccounts']
                     ) ?>
                 </li>
                 <li>
