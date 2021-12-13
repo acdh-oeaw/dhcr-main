@@ -3,7 +3,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-home"></span>Home',
+                    '<span class="glyphicon glyphicon-home"></span>Course Registry',
                     ['controller' => 'Courses', 'action' => 'index'],
                     ['escape' => false]
                 ) ?>
@@ -13,7 +13,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-star"></span>Your Dashboard',
+                    '<span class="glyphicon glyphicon-star"></span>Dashboard',
                     ['controller' => 'Users', 'action' => 'dashboard'],
                     ['escape' => false]
                 ) ?>
@@ -32,7 +32,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Account Approval ',
-                        ['controller' => 'Users', 'action' => 'newAccounts']
+                        ['controller' => 'Users', 'action' => 'newUsers']
                     ) ?>
                 </li>
                 <li>
@@ -44,7 +44,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Course Expiry',
-                        ['controller' => 'Courses', 'action' => 'question']
+                        ['controller' => 'Courses', 'action' => 'expiredCourses']
                     ) ?>
                 </li>
             </ul>

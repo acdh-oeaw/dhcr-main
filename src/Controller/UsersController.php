@@ -683,7 +683,7 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function newAccounts()
+    public function newUsers()
     {
         $this->viewBuilder()->setLayout('contributors');
         // $user = $this->Authentication->getIdentity();
