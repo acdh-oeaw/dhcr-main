@@ -1,9 +1,5 @@
-<?php
-// debug($pendingAccountRequests);
-?>
-<?= $this->Html->link(__('Back to Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']) ?>
 <p></p>
-<h2><span class="glyphicon glyphicon-flag"></span> Needs attention</h2>
+<h2><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Needs attention</h2>
 
 <div id="dashboard">
 
