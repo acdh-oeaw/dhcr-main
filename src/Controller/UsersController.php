@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Authenticator\AppResult;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
-use Cake\I18n\FrozenDate;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
@@ -111,7 +110,7 @@ class UsersController extends AppController
             $user->last_login = date('Y-m-d H:i:s');
             $this->Users->save($user);  // Rehash happens on save.
 
-            $target = $this->Authentication->getLoginRedirect() ?? '/users/dashboard';
+            $target = $this->Authentication->getLoginRedirect() ?? '/dashboard/index';
             return $this->redirect($target);
         }
 
@@ -300,20 +299,6 @@ class UsersController extends AppController
         $this->redirect('/users/dashboard');
     }
 
-
-    public function dashboard()
-    {
-        $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'accessDashboard');
-
-        $identity = $this->_checkExternalIdentity();
-
-        $this->set('title_for_layout', 'DHCR Dashboard');
-        $this->set(compact('user', 'identity'));
-    }
-
-
-
     public function register()
     {
         $user = $this->Users->newEmptyEntity();
@@ -358,7 +343,8 @@ class UsersController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         if ($user->can('accessDashboard', $user))
-            return $this->redirect('/users/dashboard');
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']
+                );
 
         $user = $this->Authentication->getIdentity();
         $this->set('user', $user);
@@ -706,27 +692,5 @@ class UsersController extends AppController
             ->toList();
 
         $this->set(compact('users'));
-    }
-
-    public function needsAttention()
-    {
-        $this->viewBuilder()->setLayout('contributors');
-        $this->loadModel('Courses');
-
-        $pendingAccountRequests = $this->Users->find()->where(['approved' => 0])->count();
-        $pendingCourseRequests = $this->Courses->find()->where(['approved' => 0])->count();
-
-        // todo: check exact period for expiry mails
-        $expiryDate = new FrozenDate('-9 months');
-        $expiredCourses = $this->Courses->find()
-            ->where([
-                'updated <=' => $expiryDate,
-                'active' => 1,
-                'deleted' => 0
-            ])
-            ->count();
-        // todo: show all for admin and show only country specific for moderator, only user specific for contributor
-
-        $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
 }
