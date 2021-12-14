@@ -11,7 +11,6 @@ use Cake\Core\Configure;
     <?= $this->fetch('css') ?>
 
     <title>
-        <!-- <?= $cakeDescription ?>: -->
         <?= $this->fetch('title') ?>
     </title>
 
