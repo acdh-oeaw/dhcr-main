@@ -14,7 +14,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-star"></span>Dashboard',
-                    ['controller' => 'Users', 'action' => 'dashboard'],
+                    ['controller' => 'Dashboard', 'action' => 'index'],
                     ['escape' => false]
                 ) ?>
             </p>
@@ -24,7 +24,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-flag"></span>Needs Attention',
-                    ['controller' => 'Users', 'action' => 'needsAttention'],
+                    ['controller' => 'Dashboard', 'action' => 'needsAttention'],
                     ['escape' => false]
                 ) ?>
             </p>
