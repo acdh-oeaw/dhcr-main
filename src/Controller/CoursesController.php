@@ -119,14 +119,13 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
 
         $courses = $this->paginate($this->Courses->find('all')->where(['user_id' => $user->id]));
-        $this->set(compact('user', 'courses'));
+        $this->set(compact('courses'));
     }
 
     public function newCourses()
     {
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
-        $user = $this->Authentication->getIdentity();
 
         $courses = $this->Courses->find()
             ->contain(['Institutions'])
@@ -134,6 +133,6 @@ class CoursesController extends AppController
             ->order(['Courses.created' => 'desc'])
             ->toList();
 
-        $this->set(compact('user', 'courses'));
+        $this->set(compact('courses'));
     }
 }

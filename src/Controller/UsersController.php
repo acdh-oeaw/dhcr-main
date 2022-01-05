@@ -672,7 +672,7 @@ class UsersController extends AppController
     public function newUsers()
     {
         $this->viewBuilder()->setLayout('contributors');
-        $user = $this->Authentication->getIdentity();
+        // $user = $this->Authentication->getIdentity();
 
         $users = $this->Users->find()
             ->select([
@@ -691,6 +691,6 @@ class UsersController extends AppController
             ->order(['Users.created' => 'desc'])
             ->toList();
 
-        $this->set(compact('user', 'users'));
+        $this->set(compact('users'));
     }
 }
