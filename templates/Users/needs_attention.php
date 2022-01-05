@@ -1,7 +1,7 @@
 <?php
 // debug($pendingAccountRequests);
 ?>
-<?= $this->Html->link(__('Back to Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']) ?>
+<?= $this->Html->link(__('Back to Dashboard'), ['action' => 'dashboard'], ['class' => 'side-nav-item']) ?>
 <p></p>
 <h2><span class="glyphicon glyphicon-flag"></span> Needs attention</h2>
 
@@ -12,11 +12,11 @@
         Account Approval<br>' . $pendingAccountRequests . '<p></p>',
         [
             'controller' => 'users',
-            'action' => 'newUsers'
+            'action' => 'newAccounts'
         ],
         [
             'class' => 'blue button',
-            'title' => 'Account Approval',
+            'title' => 'Profile Settings',
             'escape' => false
         ]
     ) ?>
@@ -29,7 +29,7 @@
         ],
         [
             'class' => 'blue button',
-            'title' => 'Course Expiry',
+            'title' => 'Profile Settings',
             'escape' => false
         ]
     ) ?>
@@ -42,7 +42,7 @@
         ],
         [
             'class' => 'blue button',
-            'title' => 'Course Approval',
+            'title' => 'Profile Settings',
             'escape' => false
         ]
     ) ?>

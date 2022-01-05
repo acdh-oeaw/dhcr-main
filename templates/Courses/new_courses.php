@@ -2,7 +2,7 @@
     <p>&nbsp;</p>
     <h3><span class="glyphicon glyphicon-user">&nbsp;</span><?= __('New Courses') ?></h3>
     <p>&nbsp;</p>
-    <?= $this->Html->link(__('Back to Needs attention'), ['controller' => 'Dashboard', 'action' => 'needsAttention'], ['class' => 'side-nav-item']) ?>
+    <?= $this->Html->link(__('Back to Needs attention'), ['controller' => 'Users', 'action' => 'needsAttention'], ['class' => 'side-nav-item']) ?>
     <p>&nbsp;</p>
     <div class="table-responsive">
         <table>

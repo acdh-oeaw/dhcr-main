@@ -5,7 +5,7 @@
 echo $this->Html->link(__('Home'), ['controller' => 'Courses', 'action' => 'index'], ['class' => 'side-nav-item']);
 echo ' / ';
 // First depth
-echo $this->Html->link(__('Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']);
+echo $this->Html->link(__('Dashboard'), ['controller' => 'Users', 'action' => 'dashboard'], ['class' => 'side-nav-item']);
 // *** End Breadcrums
 echo '<p></p>';
 // Welcome user
@@ -31,7 +31,7 @@ echo '</font></strong>';
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-flag"></span><br>Needs Attention<p></p>',
         [
-            'controller' => 'dashboard',
+            'controller' => 'users',
             'action' => 'needsAttention'
         ],
         [
