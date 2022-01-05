@@ -1,5 +1,29 @@
 <p></p>
-
+<?php
+// *** Begin Breadcrums
+// Home
+echo $this->Html->link(__('Home'), ['controller' => 'Courses', 'action' => 'index'], ['class' => 'side-nav-item']);
+echo ' / ';
+// First depth
+echo $this->Html->link(__('Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']);
+// *** End Breadcrums
+echo '<p></p>';
+// Welcome user
+echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
+    . ', thanks for contributing to the DHCR as <strong><font color="black"> ';
+switch ($user->user_role_id) {
+    case 1:
+        echo 'administrator.';
+        break;
+    case 2:
+        echo 'moderator</font></strong> of  <strong><font color="black">' . $user->country->name . '.';
+        break;
+    case 3:
+        echo 'contributor.';
+        break;
+}
+echo '</font></strong>';
+?>
 <p></p>
 <h2><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Dashboard</h2>
 <p></p>

@@ -45,8 +45,6 @@ class DashboardController extends AppController
             ->count();
         // todo: show all for admin and show only country specific for moderator, only user specific for contributor
 
-        $this->set('title', 'Needs Attention');
-        $user = $this->Authentication->getIdentity();
-        $this->set(compact('user', 'pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
+        $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
 }
