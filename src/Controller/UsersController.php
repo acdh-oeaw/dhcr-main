@@ -208,7 +208,7 @@ class UsersController extends AppController
 
         $session = $this->request->getSession();
         if ($session->check('ignoreIdentity'))
-            return $this->redirect('/dashboard/index');
+            return $this->redirect('/users/dashboard');
 
         $this->set(compact('identity'));
     }
@@ -229,7 +229,7 @@ class UsersController extends AppController
             $this->Users->save($user);
             $this->_refreshAuthSession();
             $this->Flash->set('Identity connected. Now you can login using your institutional identity provider.');
-            return $this->redirect('/dashboard/index');
+            return $this->redirect('/users/dashboard');
         }
         // point the form to the regular login action
         // the additional parameter will render the connect_identity view in case of auth errors
@@ -246,7 +246,7 @@ class UsersController extends AppController
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
             $this->Flash->set('Please log out before registering a new identity.');
-            return $this->redirect('/dashboard/index');
+            return $this->redirect('/users/dashboard');
         }
 
         $data['first_name'] = $identity['first_name'] ?? null;
@@ -296,7 +296,7 @@ class UsersController extends AppController
     {
         $session = $this->request->getSession();
         $session->write('ignoreIdentity', true);
-        $this->redirect('/dashboard/index');
+        $this->redirect('/users/dashboard');
     }
 
     public function register()
@@ -382,7 +382,7 @@ class UsersController extends AppController
 
             if ($success) {
                 $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
-                return $this->redirect('/dashboard/index');
+                return $this->redirect('/users/dashboard');
             }
         }
 
@@ -403,7 +403,7 @@ class UsersController extends AppController
                 $this->Authentication->setIdentity($user);
 
                 $this->Flash->set('Your email address has been verified');
-                return $this->redirect('/dashboard/index');
+                return $this->redirect('/users/dashboard');
             }
         }
         $this->redirect('/');
@@ -473,7 +473,7 @@ class UsersController extends AppController
 
     public function approve($key = null)
     {
-        if (empty($key)) return $this->redirect('/dashboard/index');
+        if (empty($key)) return $this->redirect('/users/dashboard');
 
         $redirect = false;
         $admin = $this->Authentication->getIdentity();
@@ -514,7 +514,7 @@ class UsersController extends AppController
         }
 
         if ($redirect) {
-            if ($admin) return $this->redirect('/dashboard/index');
+            if ($admin) return $this->redirect('/users/dashboard');
             return $this->redirect('/');
         }
         // TODO: create approval view/form/process
