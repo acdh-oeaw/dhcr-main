@@ -16,6 +16,8 @@ class LanguagesController extends AppController
     {
         parent::initialize();
         $this->viewBuilder()->setLayout('contributors');
+        $user = $this->Authentication->getIdentity();
+        $this->set(compact('user'));
     }
 
     /**
