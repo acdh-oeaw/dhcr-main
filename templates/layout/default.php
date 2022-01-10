@@ -10,6 +10,11 @@ use Cake\Core\Configure;
     <?= $this->Html->css('default.css') ?>
     <?= $this->fetch('css') ?>
 
+    <title>
+        <!-- <?= $cakeDescription ?>: -->
+        <?= $this->fetch('title') ?>
+    </title>
+
     <?= $this->Html->meta('icon') ?>
 </head>
 <?php $bodyClasses = (!empty($bodyClasses)) ? ' class="'.$bodyClasses.'"' : ''; ?>
