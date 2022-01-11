@@ -53,8 +53,8 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-education"></span>Courses',
-                    ['controller' => 'Courses', 'action' => 'index'],
+                    '<span class="glyphicon glyphicon-education"></span>Administrate Courses',
+                    ['controller' => 'Dashboard', 'action' => 'admin-courses'],
                     ['escape' => false]
                 ) ?>
             </p>
@@ -79,7 +79,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-user"></span>Contributor Network',
-                    ['controller' => 'Users', 'action' => 'index'],
+                    ['controller' => 'Dashboard', 'action' => 'contributorNetwork'],
                     ['escape' => false]
                 ) ?>
             </p>
@@ -102,7 +102,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-list"></span>Category Lists',
-                    ['controller' => 'Pages', 'action' => 'tables'],
+                    ['controller' => 'Dashboard', 'action' => 'categoryLists'],
                     ['escape' => false]
                 ) ?>
             </p>

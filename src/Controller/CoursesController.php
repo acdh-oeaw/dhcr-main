@@ -117,9 +117,9 @@ class CoursesController extends AppController
         $this->loadModel('DhcrCore.Courses');
 
         // Set breadcrums
-        $breadcrumTitles[0] = 'Courses';
+        $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'courses';
+        $breadcrumActions[0] = 'adminCourses';
         $breadcrumTitles[1] = 'My Courses';
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';

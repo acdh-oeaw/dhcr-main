@@ -45,14 +45,14 @@
         ]
     ) ?>
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-education"></span><br>Courses<p></p>',
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>Administrate Courses<p></p>',
         [
-            'controller' => 'Courses',
+            'controller' => 'Dashboard',
             'action' => 'adminCourses'
         ],
         [
             'class' => 'blue button',
-            'title' => 'Contributor Network',
+            'title' => 'Administrate Courses',
             'escape' => false
         ]
     ) ?>

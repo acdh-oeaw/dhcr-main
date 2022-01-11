@@ -54,4 +54,26 @@ class DashboardController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->set(compact('user', 'pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
+
+    public function adminCourses()
+    {
+        $this->loadModel('Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'courses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+        $myCoursesNr = $this->Courses->find()->where(['user_id' => $user->id])->count();
+        if($user->user_role_id < 3) {
+            // Moderator oder Administrator
+            // todo: implement after finishing moderated courses
+            $moderatedCoursesNr = 1;
+        } else {
+            $moderatedCoursesNr = 0;
+        }
+        $this->set(compact('user', 'myCoursesNr', 'moderatedCoursesNr'));
+    }
 }
