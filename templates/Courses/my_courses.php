@@ -6,8 +6,8 @@
  */
 ?>
 <div class="courses index content">
-    <p>&nbsp;</p>
-    <h3><span class="glyphicon glyphicon-education">&nbsp;</span><?= __('My Courses') ?></h3>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;My Courses</h2>
     <div class="table-responsive">
         <table>
             <thead>

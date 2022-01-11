@@ -1,9 +1,6 @@
 <div class="index content">
-    <p>&nbsp;</p>
-    <h3><span class="glyphicon glyphicon-user">&nbsp;</span><?= __('New Account Requests') ?></h3>
-    <p>&nbsp;</p>
-    <?= $this->Html->link(__('Back to Needs attention'), ['controller' => 'dashboard', 'action' => 'needsAttention'], ['class' => 'side-nav-item']) ?>
-    <p>&nbsp;</p>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Account approval</h2>
     <div class="table-responsive">
         <table>
             <thead>

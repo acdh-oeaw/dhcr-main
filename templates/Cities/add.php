@@ -6,13 +6,8 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <p>&nbsp;</p>
-            <?= $this->Html->link(__('List Cities'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <p>&nbsp;</p>
-        </div>
-    </aside>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Add City</h2>
     <div class="column-responsive column-80">
         <div class="cities form content">
             <?= $this->Form->create($city) ?>

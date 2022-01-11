@@ -27,6 +27,15 @@ class LanguagesController extends AppController
      */
     public function index()
     {
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Languages';
+        $breadcrumControllers[1] = 'Languages';
+        $breadcrumActions[1] = 'index';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $languages = $this->paginate($this->Languages);
 
         $this->set(compact('languages'));
@@ -39,6 +48,18 @@ class LanguagesController extends AppController
      */
     public function add()
     {
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Languages';
+        $breadcrumControllers[1] = 'Languages';
+        $breadcrumActions[1] = 'index';
+        $breadcrumTitles[2] = 'Add Language';
+        $breadcrumControllers[2] = 'Languages';
+        $breadcrumActions[2] = 'add';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $language = $this->Languages->newEmptyEntity();
         if ($this->request->is('post')) {
             $language = $this->Languages->patchEntity($language, $this->request->getData());
@@ -61,6 +82,18 @@ class LanguagesController extends AppController
      */
     public function edit($id = null)
     {
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Languages';
+        $breadcrumControllers[1] = 'Languages';
+        $breadcrumActions[1] = 'index';
+        $breadcrumTitles[2] = 'Edit Language';
+        $breadcrumControllers[2] = 'Languages';
+        $breadcrumActions[2] = 'edit';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $language = $this->Languages->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $language = $this->Languages->patchEntity($language, $this->request->getData());

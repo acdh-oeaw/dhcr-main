@@ -6,10 +6,10 @@
  */
 ?>
 <div class="institutions index content">
-    <p>&nbsp;</p>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Institutions</h2>
     <?= $this->Html->link(__('Add Institution'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <p>&nbsp;</p>
-    <h3><span class="glyphicon glyphicon-list">&nbsp;</span><?= __('Institutions') ?></h3>
+    <p></p>
     <div class="table-responsive">
         <table>
             <thead>
@@ -37,13 +37,12 @@
         </table>
     </div>
     <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
+        <?= $this->Paginator->first('<< ' . __('first')) ?>
+        <?= $this->Paginator->prev('< ' . __('previous')) ?>
+        <?= $this->Paginator->numbers() ?>
+        <?= $this->Paginator->next(__('next') . ' >') ?>
+        <?= $this->Paginator->last(__('last') . ' >>') ?>
+        <p>&nbsp;</p>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>

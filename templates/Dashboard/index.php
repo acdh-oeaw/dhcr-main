@@ -1,5 +1,21 @@
 <p></p>
-
+<div id="welcome_user">
+            <?php
+            echo '<p></p>';
+            // Welcome user
+            echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
+                . ', thanks for contributing to the DHCR';
+            switch ($user->user_role_id) {
+                case 1:
+                    echo ' as <strong><font color="black"> administrator</font></strong>';
+                    break;
+                case 2:
+                    echo ' as <strong><font color="black"> moderator</font></strong> of  <strong><font color="black">' . $user->country->name .'</font></strong>';
+                    break;
+            }
+            echo '.';
+            ?>
+        </div>
 <p></p>
 <h2><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Dashboard</h2>
 <p></p>

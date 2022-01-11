@@ -629,6 +629,13 @@ class UsersController extends AppController
     public function profile()
     {
         $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Profile Settings';
+        $breadcrumControllers[0] = 'Users';
+        $breadcrumActions[0] = 'profile';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $institutions = $this->Users->Institutions->find('list', ['order' => 'name asc']);
@@ -639,6 +646,16 @@ class UsersController extends AppController
     public function changeEmail()
     {
         $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Profile Settings';
+        $breadcrumControllers[0] = 'Users';
+        $breadcrumActions[0] = 'profile';
+        $breadcrumTitles[1] = 'Change Email Address';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'changeEmail';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $this->set(compact('user'));
@@ -672,6 +689,16 @@ class UsersController extends AppController
     public function newUsers()
     {
         $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $breadcrumTitles[1] = 'Account Approval';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'newUsers';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $users = $this->Users->find()

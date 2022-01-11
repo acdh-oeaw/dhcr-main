@@ -116,6 +116,15 @@ class CoursesController extends AppController
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
 
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'courses';
+        $breadcrumTitles[1] = 'My Courses';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'myCourses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $courses = $this->paginate($this->Courses->find('all')->where(['user_id' => $user->id]));
@@ -126,6 +135,16 @@ class CoursesController extends AppController
     {
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $breadcrumTitles[1] = 'Course Approval';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'newCourses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $courses = $this->Courses->find()

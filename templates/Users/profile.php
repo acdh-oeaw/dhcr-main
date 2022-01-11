@@ -1,13 +1,8 @@
-<?php
-// debug($user);
-// die();
-?>
 <div class="row">
+    <p></p>
+    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Profile Settings</h2>
     <aside class="column">
         <div class="side-nav">
-            <p>&nbsp;</p>
-            <h3><span class="glyphicon glyphicon-cog">&nbsp;</span><?= __('My Profile') ?></h3>
-            <p>&nbsp;</p>
             <h4 class="heading"><u><?= __('Actions') ?></u></h4>
             <ul>
                 <li><?= $this->Html->link(__('Change E-mail address ('.$user->email .')'), ['action' => 'changeEmail'], ['class' => 'side-nav-item']) ?></li>
@@ -15,7 +10,6 @@
                 <li><?= $this->Html->link(__('Newsletter preferences'), ['action' => 'newsletterPrefs'], ['class' => 'side-nav-item']) ?></li>
                 <li><?= $this->Html->link(__('Moderator preferences'), ['action' => 'moderatorPrefs'], ['class' => 'side-nav-item']) ?></li>
                 </ul>
-                <?php // todo add: my subscriptions? ?>
         </div>
     </aside>
     <div class="column-responsive column-80">

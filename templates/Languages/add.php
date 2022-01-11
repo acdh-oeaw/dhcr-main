@@ -7,13 +7,8 @@
  */
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <p>&nbsp;</p>
-            <?= $this->Html->link(__('List Languages'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <p>&nbsp;</p>
-        </div>
-    </aside>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Add Language</h2>
     <div class="column-responsive column-80">
         <div class="languages form content">
             <?= $this->Form->create($language) ?>

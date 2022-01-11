@@ -3,22 +3,15 @@
 // die();
 ?>
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <p>&nbsp;</p>
-            <h3><span class="glyphicon glyphicon-cog">&nbsp;</span><?= __('Change Email address') ?></h3>
-            <p>&nbsp;</p>
-            <?= $this->Html->link(__('Back to profile'), ['action' => 'profile'], ['class' => 'side-nav-item']) ?>
-            <p>&nbsp;</p>
-        </div>
-    </aside>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Change Email Address</h2>
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
-                <legend><?= __('Change Email address') ?></legend>
+                <legend><?= __('Change Email Address') ?></legend>
                 <?php
-                echo $this->Form->control('new_email', ['label' => 'New Email address']);
+                echo $this->Form->control('new_email', ['label' => 'New Email Address']);
                 echo $this->Form->control('password');
                 ?>
             </fieldset>
