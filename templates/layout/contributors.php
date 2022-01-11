@@ -60,13 +60,19 @@ $bodyClasses = (!empty($bodyClasses))
         <div id="breadcrums">
             <p></p>
             <?php
-            // Home
-            echo $this->Html->link(__('Home'), ['controller' => 'Courses', 'action' => 'index'], ['class' => 'side-nav-item']);
-            echo ' / ';
-            // First depth
+            // Breadcrum for backend home (Dashboard)
             echo $this->Html->link(__('Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']);
-            // Second depth
-            echo (isset($title)) ? ' / ' . $title : '';
+            // Breadcrums for all other depths
+            if(isset($breadcrumTitles)) {
+                for($i=0; $i < sizeof($breadcrumTitles); $i++) {
+                    if($i<sizeof($breadcrumTitles)-1) {
+                        echo ' / ' . $this->Html->link(__($breadcrumTitles[$i]), ['controller' => $breadcrumControllers[$i],
+                            'action' => $breadcrumActions[$i]], ['class' => 'side-nav-item']);
+                    } else {
+                        echo ' / ' . $breadcrumTitles[$i];
+                    }
+                }
+            }
             ?>
         </div>
 
@@ -75,19 +81,16 @@ $bodyClasses = (!empty($bodyClasses))
             echo '<p></p>';
             // Welcome user
             echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
-                . ', thanks for contributing to the DHCR as <strong><font color="black"> ';
+                . ', thanks for contributing to the DHCR';
             switch ($user->user_role_id) {
                 case 1:
-                    echo 'administrator.';
+                    echo ' as <strong><font color="black"> administrator</font></strong>';
                     break;
                 case 2:
-                    echo 'moderator</font></strong> of  <strong><font color="black">' . $user->country->name . '.';
-                    break;
-                case 3:
-                    echo 'contributor.';
+                    echo ' as <strong><font color="black"> moderator</font></strong> of  <strong><font color="black">' . $user->country->name .'</font></strong>';
                     break;
             }
-            echo '</font></strong>';
+            echo '.';
             ?>
         </div>
 

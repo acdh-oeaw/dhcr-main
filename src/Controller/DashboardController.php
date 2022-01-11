@@ -31,6 +31,13 @@ class DashboardController extends AppController
         $this->loadModel('Users');
         $this->loadModel('Courses');
 
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $pendingAccountRequests = $this->Users->find()->where(['approved' => 0])->count();
         $pendingCourseRequests = $this->Courses->find()->where(['approved' => 0])->count();
 
