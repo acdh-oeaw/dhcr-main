@@ -97,4 +97,25 @@ class DashboardController extends AppController
         }
         $this->set(compact('totalUsers'));
     }
+
+    public function categoryLists()
+    {
+        $this->loadModel('Cities');
+        $this->loadModel('Institutions');
+        $this->loadModel('Languages');
+        
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+
+        $totalCities = $this->Cities->find()->count();
+        $totalInstitutions = $this->Institutions->find()->count();
+        $totalLanguages = $this->Languages->find()->count();
+
+        $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages'));
+    }
 }
