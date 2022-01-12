@@ -1,14 +1,16 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Change Email Address</h2>
+    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Newsletter Preferences</h2>
+    <p></p>
+    This is a description of our newsletter, which motivates the user to subscribe.
+    <p>&nbsp;</p>
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
-                <legend><?= __('Change Email Address') ?></legend>
+                <legend><?= __('Subscription preferences') ?></legend>
                 <?php
-                echo $this->Form->control('new_email', ['label' => 'New Email Address']);
-                echo $this->Form->control('password');
+                echo $this->Form->control('mail_list', ['label' => 'Newsletter subscription']);
                 ?>
             </fieldset>
             <p>&nbsp;</p>

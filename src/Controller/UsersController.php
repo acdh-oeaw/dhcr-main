@@ -670,9 +670,19 @@ class UsersController extends AppController
         // redirect to dashboard
     }
 
-    public function newsletterPrefs()
+    public function newsletter()
     {
         $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Profile Settings';
+        $breadcrumControllers[0] = 'Users';
+        $breadcrumActions[0] = 'profile';
+        $breadcrumTitles[1] = 'Newsletter Preferences';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'newsletter';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
 
         $this->set(compact('user'));

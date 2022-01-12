@@ -7,7 +7,7 @@
             <ul>
                 <li><?= $this->Html->link(__('Change E-mail address ('.$user->email .')'), ['action' => 'changeEmail'], ['class' => 'side-nav-item']) ?></li>
                 <li><?= $this->Html->link(__('Change Password'), ['action' => 'changePassword'], ['class' => 'side-nav-item']) ?></li>
-                <li><?= $this->Html->link(__('Newsletter preferences'), ['action' => 'newsletterPrefs'], ['class' => 'side-nav-item']) ?></li>
+                <li><?= $this->Html->link(__('Newsletter preferences'), ['action' => 'newsletter'], ['class' => 'side-nav-item']) ?></li>
                 <li><?= $this->Html->link(__('Moderator preferences'), ['action' => 'moderatorPrefs'], ['class' => 'side-nav-item']) ?></li>
                 </ul>
         </div>
