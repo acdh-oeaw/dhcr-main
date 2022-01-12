@@ -7,7 +7,7 @@
 ?>
 <div class="languages index content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Languages</h2>
+    <h2><span class="glyphicon glyphicon-text-background"></span>&nbsp;&nbsp;&nbsp;Languages</h2>
     <?= $this->Html->link(__('Add Language'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p></p>
     <h3><span class="glyphicon glyphicon-list">&nbsp;</span><?= __('Languages') ?></h3>

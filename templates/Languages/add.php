@@ -8,7 +8,7 @@
 ?>
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Add Language</h2>
+    <h2><span class="glyphicon glyphicon-text-background"></span>&nbsp;&nbsp;&nbsp;Add Language</h2>
     <div class="column-responsive column-80">
         <div class="languages form content">
             <?= $this->Form->create($language) ?>

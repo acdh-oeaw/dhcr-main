@@ -4,20 +4,20 @@
 <div id="dashboard">
 
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-education"></span><br>
-        My Courses<br>' . $myCoursesNr . '<p></p>',
+        '<p></p><span class="glyphicon glyphicon-plus"></span><br>
+        Add Course<p></p>',
         [
             'controller' => 'courses',
-            'action' => 'myCourses'
+            'action' => 'add'
         ],
         [
             'class' => 'blue button',
-            'title' => 'My Courses',
+            'title' => 'Add Course',
             'escape' => false
         ]
     ) ?>
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-education"></span><br>
+        '<p></p><span class="glyphicon glyphicon-th"></span><br>
         Moderated Courses<br>' . $moderatedCoursesNr . '<p></p>',
         [
             'controller' => 'courses',
@@ -26,6 +26,19 @@
         [
             'class' => 'blue button',
             'title' => 'Moderated Courses',
+            'escape' => false
+        ]
+    ) ?>
+    <?= $this->Html->link(
+        '<p></p><span class="glyphicon glyphicon-th-large"></span><br>
+        My Courses<br>' . $myCoursesNr . '<p></p>',
+        [
+            'controller' => 'courses',
+            'action' => 'myCourses'
+        ],
+        [
+            'class' => 'blue button',
+            'title' => 'My Courses',
             'escape' => false
         ]
     ) ?>

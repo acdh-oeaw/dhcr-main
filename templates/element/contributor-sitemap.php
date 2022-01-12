@@ -61,6 +61,12 @@
             <ul class="dashboard">
                 <li>
                     <?= $this->Html->link(
+                        'Add Course',
+                        ['controller' => 'Courses', 'action' => 'add']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
                         'My Courses',
                         ['controller' => 'Courses', 'action' => 'myCourses']
                     ) ?>

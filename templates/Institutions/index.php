@@ -7,7 +7,7 @@
 ?>
 <div class="institutions index content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Institutions</h2>
+    <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Institutions</h2>
     <?= $this->Html->link(__('Add Institution'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p></p>
     <div class="table-responsive">

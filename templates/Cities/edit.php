@@ -7,7 +7,7 @@
 ?>
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Edit City</h2>
+    <h2><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Edit City</h2>
     <div class="column-responsive column-80">
         <div class="cities form content">
             <?= $this->Form->create($city) ?>

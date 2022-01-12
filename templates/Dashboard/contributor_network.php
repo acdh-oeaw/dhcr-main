@@ -4,7 +4,7 @@
 <div id="dashboard">
 
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-user"></span><br>
+        '<p></p><span class="glyphicon glyphicon-plus"></span><br>
         Invite User<p></p>',
         [
             'controller' => 'users',

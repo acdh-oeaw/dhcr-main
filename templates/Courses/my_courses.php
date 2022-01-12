@@ -7,7 +7,7 @@
 ?>
 <div class="courses index content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;My Courses</h2>
+    <h2><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;&nbsp;My Courses</h2>
     <div class="table-responsive">
         <table>
             <thead>
