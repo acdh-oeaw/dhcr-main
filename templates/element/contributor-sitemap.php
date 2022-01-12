@@ -32,19 +32,19 @@
                 <li>
                     <?= $this->Html->link(
                         'Account Approval ',
-                        ['controller' => 'Users', 'action' => 'newUsers']
+                        ['controller' => 'Users', 'action' => 'accountApproval']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Course Approval',
-                        ['controller' => 'Courses', 'action' => 'newCourses']
+                        ['controller' => 'Courses', 'action' => 'courseApproval']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
                         'Course Expiry',
-                        ['controller' => 'Courses', 'action' => 'expiredCourses']
+                        ['controller' => 'Courses', 'action' => 'expired']
                     ) ?>
                 </li>
             </ul>
@@ -54,7 +54,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-education"></span>Administrate Courses',
-                    ['controller' => 'Dashboard', 'action' => 'admin-courses'],
+                    ['controller' => 'Dashboard', 'action' => 'adminCourses'],
                     ['escape' => false]
                 ) ?>
             </p>
@@ -68,7 +68,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Moderated Courses',
-                        ['controller' => 'Courses', 'action' => 'moderatedCourses']
+                        ['controller' => 'Courses', 'action' => 'moderated']
                     ) ?>
                 </li>
             </ul>
@@ -140,7 +140,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Newsletter',
-                        ['controller' => 'Users', 'action' => 'newsletterPrefs']
+                        ['controller' => 'Users', 'action' => 'newsletter']
                     ) ?>
                 </li>
                 <li>

@@ -686,7 +686,7 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function newUsers()
+    public function accountApproval()
     {
         $this->viewBuilder()->setLayout('contributors');
 
@@ -696,7 +696,7 @@ class UsersController extends AppController
         $breadcrumActions[0] = 'needsAttention';
         $breadcrumTitles[1] = 'Account Approval';
         $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'newUsers';
+        $breadcrumActions[1] = 'accountApproval';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user = $this->Authentication->getIdentity();

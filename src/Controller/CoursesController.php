@@ -131,7 +131,7 @@ class CoursesController extends AppController
         $this->set(compact('user', 'courses'));
     }
 
-    public function newCourses()
+    public function courseApproval()
     {
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
@@ -142,7 +142,7 @@ class CoursesController extends AppController
         $breadcrumActions[0] = 'needsAttention';
         $breadcrumTitles[1] = 'Course Approval';
         $breadcrumControllers[1] = 'Courses';
-        $breadcrumActions[1] = 'newCourses';
+        $breadcrumActions[1] = 'courseApproval';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user = $this->Authentication->getIdentity();

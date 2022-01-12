@@ -8,7 +8,7 @@
         Account Approval<br>' . $pendingAccountRequests . '<p></p>',
         [
             'controller' => 'users',
-            'action' => 'newUsers'
+            'action' => 'accountApproval'
         ],
         [
             'class' => 'blue button',
@@ -21,7 +21,7 @@
         Course Expiry<br>' . $expiredCourses . '<p></p>',
         [
             'controller' => 'courses',
-            'action' => 'expiredCourses'
+            'action' => 'expired'
         ],
         [
             'class' => 'blue button',
@@ -34,7 +34,7 @@
         Course Approval<br>' . $pendingCourseRequests . '<p></p>',
         [
             'controller' => 'courses',
-            'action' => 'newCourses'
+            'action' => 'courseApproval'
         ],
         [
             'class' => 'blue button',

@@ -35,12 +35,12 @@
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-list"></span><br>Category Lists<p></p>',
         [
-            'controller' => 'Backend',
+            'controller' => 'dashboard',
             'action' => 'categoryLists'
         ],
         [
             'class' => 'blue button',
-            'title' => 'Courses',
+            'title' => 'Category Lists',
             'escape' => false
         ]
     ) ?>
@@ -71,8 +71,8 @@
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-user"></span><br>Contributor Network<p></p>',
         [
-            'controller' => 'Users',
-            'action' => 'showOptions'
+            'controller' => 'Dashboard',
+            'action' => 'contributorNetwork'
         ],
         [
             'class' => 'blue button',
