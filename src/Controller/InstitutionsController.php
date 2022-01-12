@@ -53,8 +53,20 @@ class InstitutionsController extends AppController
      */
     public function view($id = null)
     {
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Institutions';
+        $breadcrumControllers[1] = 'Institutions';
+        $breadcrumActions[1] = 'index';
+        $breadcrumTitles[2] = 'Institution Details';
+        $breadcrumControllers[2] = 'Institutions';
+        $breadcrumActions[2] = 'view';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $institution = $this->Institutions->get($id, [
-            'contain' => ['Cities', 'Countries', 'Courses'],
+            'contain' => ['Cities', 'Countries'],
         ]);
 
         $this->set(compact('institution'));
