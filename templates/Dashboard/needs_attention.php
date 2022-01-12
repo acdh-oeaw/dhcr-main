@@ -17,7 +17,7 @@
         ]
     ) ?>
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-list"></span><br>
+        '<p></p><span class="glyphicon glyphicon-flag"></span><br>
         Course Expiry<br>' . $expiredCourses . '<p></p>',
         [
             'controller' => 'courses',

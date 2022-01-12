@@ -1,10 +1,10 @@
 <p></p>
-<h2><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Administrate Courses</h2>
+<h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;Administrate Courses</h2>
 
 <div id="dashboard">
 
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-user"></span><br>
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>
         My Courses<br>' . $myCoursesNr . '<p></p>',
         [
             'controller' => 'courses',
@@ -17,7 +17,7 @@
         ]
     ) ?>
     <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-list"></span><br>
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>
         Moderated Courses<br>' . $moderatedCoursesNr . '<p></p>',
         [
             'controller' => 'courses',

@@ -76,4 +76,25 @@ class DashboardController extends AppController
         }
         $this->set(compact('user', 'myCoursesNr', 'moderatedCoursesNr'));
     }
+
+    public function contributorNetwork()
+    {
+        $this->loadModel('Users');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+
+        if($user->user_role_id > 0) {
+            // Administrator
+            $totalUsers = $this->Users->find()->count();
+        } else {
+            $totalUsers = 0;
+        }
+        $this->set(compact('totalUsers'));
+    }
 }
