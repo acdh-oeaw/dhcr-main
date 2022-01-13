@@ -59,8 +59,8 @@
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-cog"></span><br>Profile Settings<p></p>',
         [
-            'controller' => 'Users',
-            'action' => 'profile'
+            'controller' => 'Dashboard',
+            'action' => 'profileSettings'
         ],
         [
             'class' => 'blue button',

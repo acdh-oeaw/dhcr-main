@@ -632,8 +632,12 @@ class UsersController extends AppController
 
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
-        $breadcrumControllers[0] = 'Users';
-        $breadcrumActions[0] = 'profile';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'profileSettings';
+        $breadcrumTitles[1] = 'Edit Profile';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'profile';
+
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user = $this->Authentication->getIdentity();
@@ -649,8 +653,8 @@ class UsersController extends AppController
 
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
-        $breadcrumControllers[0] = 'Users';
-        $breadcrumActions[0] = 'profile';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'profileSettings';
         $breadcrumTitles[1] = 'Change Email Address';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'changeEmail';
@@ -676,9 +680,9 @@ class UsersController extends AppController
 
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
-        $breadcrumControllers[0] = 'Users';
-        $breadcrumActions[0] = 'profile';
-        $breadcrumTitles[1] = 'Newsletter Preferences';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'profileSettings';
+        $breadcrumTitles[1] = 'Newsletter';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'newsletter';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));

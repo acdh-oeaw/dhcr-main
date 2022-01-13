@@ -1,17 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Profile Settings</h2>
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><u><?= __('Actions') ?></u></h4>
-            <ul>
-                <li><?= $this->Html->link(__('Change E-mail address ('.$user->email .')'), ['action' => 'changeEmail'], ['class' => 'side-nav-item']) ?></li>
-                <li><?= $this->Html->link(__('Change Password'), ['action' => 'changePassword'], ['class' => 'side-nav-item']) ?></li>
-                <li><?= $this->Html->link(__('Newsletter preferences'), ['action' => 'newsletter'], ['class' => 'side-nav-item']) ?></li>
-                <li><?= $this->Html->link(__('Moderator preferences'), ['action' => 'moderatorPrefs'], ['class' => 'side-nav-item']) ?></li>
-                </ul>
-        </div>
-    </aside>
+    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Edit Profile</h2>
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
@@ -22,7 +11,7 @@
                 echo $this->Form->control('first_name');
                 echo $this->Form->control('last_name');
                 echo $this->Form->control('institution_id');
-                echo $this->Form->control('about');                
+                echo $this->Form->control('about', ['label' => 'About Me']);                
                 ?>
             </fieldset>
             <p>&nbsp;</p>

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\I18n\FrozenDate;
+use Cake\I18n\FrozenTime;
 
 class DashboardController extends AppController
 {
@@ -110,12 +111,26 @@ class DashboardController extends AppController
         $breadcrumActions[0] = 'categoryLists';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        $user = $this->Authentication->getIdentity();
+        // $user = $this->Authentication->getIdentity();
 
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
         $totalLanguages = $this->Languages->find()->count();
 
         $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages'));
+    }
+
+    public function profileSettings()
+    {
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Profile Settings';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'profileSettings';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+        $last_login = new FrozenTime($user->last_login);
+        
+        $this->set(compact('last_login'));
     }
 }
