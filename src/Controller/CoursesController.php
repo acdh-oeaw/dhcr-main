@@ -111,10 +111,39 @@ class CoursesController extends AppController
         $this->render('index');
     }
 
-    public function myCourses()
+    public function add()
     {
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Add Course';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'add';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        // $user = $this->Authentication->getIdentity();
+
+        $course = $this->Courses->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $course = $this->Courses->patchEntity($course, $this->request->getData());
+            if ($this->Courses->save($course)) {
+                $this->Flash->success(__('The course has been saved.'));
+
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+            }
+            $this->Flash->error(__('The course could not be saved. Please, try again.'));
+        }
+        $this->set(compact('course'));
+    }
+
+    public function myCourses()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('Courses');
 
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
@@ -134,7 +163,7 @@ class CoursesController extends AppController
     public function courseApproval()
     {
         $this->viewBuilder()->setLayout('contributors');
-        $this->loadModel('DhcrCore.Courses');
+        $this->loadModel('Courses');
 
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
