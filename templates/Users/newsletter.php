@@ -1,16 +1,18 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Newsletter</h2>
+    <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Contributor Mailing List</h2>
     <p></p>
-    Placeholder for a description of our newsletter, which informs the user about this communication channel.
-    <p>&nbsp;</p>
+    <p>As a lecturer, national moderator or program director, you may want to sign up to our newsletter. It addresses everybody involved in the
+    contribution of course metadata for the DHCR.</p>
+    <p>Stay informed about recent developments regarding the team or new technical features of the DHCR.</p>
+    <p>Check the box below to subscribe, or uncheck to unsubscribe.</p>
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
                 <legend><?= __('Preferences') ?></legend>
                 <?php
-                echo $this->Form->control('mail_list', ['label' => 'Newsletter subscription']);
+                echo $this->Form->control('mail_list', ['label' => 'Contributor Mailing List subscription']);
                 ?>
             </fieldset>
             <p>&nbsp;</p>

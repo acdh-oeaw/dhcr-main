@@ -17,14 +17,14 @@
     ) ?>
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-pencil"></span><br>
-        Newsletter<p></p>',
+        Contributor Mailing List<p></p>',
         [
             'controller' => 'users',
             'action' => 'newsletter'
         ],
         [
             'class' => 'blue button',
-            'title' => 'Newsletter',
+            'title' => 'Contributor Mailing List',
             'escape' => false
         ]
     ) ?>

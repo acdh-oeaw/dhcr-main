@@ -80,7 +80,6 @@
             </ul>
         </li>
 
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -104,6 +103,7 @@
                 </li>
             </ul>
         </li>
+
         <li>
             <p>
                 <?= $this->Html->link(
@@ -145,17 +145,21 @@
             <ul class="profile">
                 <li>
                     <?= $this->Html->link(
-                        'Newsletter',
+                        'Contributor Mailing List',
                         ['controller' => 'Users', 'action' => 'newsletter']
                     ) ?>
                 </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Log Out',
-                        ['controller' => 'Users', 'action' => 'logout']
-                    ) ?>
-                </li>
             </ul>
+        </li>
+
+        <li>
+            <p>
+                <?= $this->Html->link(
+                        '<span class="glyphicon glyphicon-log-out"></span>Logout',
+                        ['controller' => 'Users', 'action' => 'logout'],
+                        ['escape' => false]
+                ) ?>
+            </p>
         </li>
 
     </ul>
