@@ -91,13 +91,13 @@
             <ul class="users">
                 <li>
                     <?= $this->Html->link(
-                        'Invite ',
+                        'Invite User',
                         ['controller' => 'Users', 'action' => 'invite']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Users',
+                        'Administrate Users',
                         ['controller' => 'Users', 'action' => 'index']
                     ) ?>
                 </li>

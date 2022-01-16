@@ -62,7 +62,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Add this Course')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

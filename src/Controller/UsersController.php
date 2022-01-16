@@ -692,14 +692,6 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function moderatorPrefs()
-    {
-        $this->viewBuilder()->setLayout('contributors');
-        $user = $this->Authentication->getIdentity();
-
-        $this->set(compact('user'));
-    }
-
     public function accountApproval()
     {
         $this->viewBuilder()->setLayout('contributors');
@@ -733,5 +725,34 @@ class UsersController extends AppController
             ->toList();
 
         $this->set(compact('user', 'users'));
+    }
+
+    public function invite()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Invite User';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'invite';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $invitedUser = $this->Users->newEmptyEntity();
+        if ($this->request->is('post')) {
+            $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('The invitation has been sent.'));
+
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+            }
+            $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
+        }
+
+        $user = $this->Authentication->getIdentity();
+        
+        $this->set(compact('invitedUser', 'user'));
     }
 }
