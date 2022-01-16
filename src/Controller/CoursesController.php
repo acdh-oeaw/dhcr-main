@@ -17,7 +17,7 @@ class CoursesController extends AppController
     {
         parent::initialize();
         $this->Authentication->allowUnauthenticated(['index', 'view']);
-        $this->Authorization->skipAuthorization();
+        // $this->Authorization->skipAuthorization();
     }
 
     public function index()
@@ -125,8 +125,6 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        // $user = $this->Authentication->getIdentity();
-
         $course = $this->Courses->newEmptyEntity();
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
@@ -138,6 +136,11 @@ class CoursesController extends AppController
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
         $this->set(compact('course'));
+
+        // $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($course);
+
+
     }
 
     public function myCourses()
