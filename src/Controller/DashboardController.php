@@ -127,10 +127,5 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'profileSettings';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-        $last_login = new FrozenTime($user->last_login);
-        
-        $this->set(compact('last_login'));
     }
 }

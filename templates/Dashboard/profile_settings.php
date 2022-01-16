@@ -1,11 +1,6 @@
 <p></p>
 <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Profile Settings</h2>
 
-<div>
-    <b>Last Login: <i><?=$last_login->i18nFormat('dd-MM-yyyy HH:mm') ?></i></b>
-    <p></p>
-</div>
-
 <div id="dashboard">
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-envelope"></span><br>
