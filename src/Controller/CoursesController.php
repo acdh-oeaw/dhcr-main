@@ -12,12 +12,18 @@ class CoursesController extends AppController
 
     public $Courses = null;
 
+    public const SKIP_AUTHORIZATION = [
+        'index',
+        'view'
+    ];
 
     public function initialize(): void
     {
         parent::initialize();
         $this->Authentication->allowUnauthenticated(['index', 'view']);
-        // $this->Authorization->skipAuthorization();
+        if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
+            $this->Authorization->skipAuthorization();
+        }
     }
 
     public function index()
