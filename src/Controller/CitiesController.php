@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+
 /**
  * Cities Controller
  *
@@ -11,12 +13,13 @@ namespace App\Controller;
  */
 class CitiesController extends AppController
 {
-    public function initialize(): void
+    public function beforeRender(EventInterface $event)
     {
-        parent::initialize();
-        $this->viewBuilder()->setLayout('contributors');
+        parent::beforeRender($event);
+        // required for contributors menu
         $user = $this->Authentication->getIdentity();
-        $this->set(compact('user'));
+        $this->set('user_role_id', $user->user_role_id);
+        $this->viewBuilder()->setLayout('contributors');
     }
 
     /**

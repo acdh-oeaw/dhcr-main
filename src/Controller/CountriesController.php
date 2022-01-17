@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+
 /**
  * Countries Controller
  *
@@ -14,6 +16,14 @@ class CountriesController extends AppController
 
     public $modelClass = 'DhcrCore.Countries';
 
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+        // required for contributors menu
+        $user = $this->Authentication->getIdentity();
+        $this->set('user_role_id', $user->user_role_id);
+        $this->viewBuilder()->setLayout('contributors');
+    }
 
     /**
      * Index method

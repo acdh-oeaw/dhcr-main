@@ -81,6 +81,14 @@ class UsersController extends AppController
     public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
+        // required for contributors menu
+        $user = $this->Authentication->getIdentity();
+        if(is_null($user)) {
+            $user_role_id = 0;
+        } else {
+            $user_role_id = $user->user_role_id;
+        }
+        $this->set('user_role_id', $user_role_id);
     }
 
 

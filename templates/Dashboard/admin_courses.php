@@ -2,8 +2,8 @@
 <h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;Administrate Courses</h2>
 
 <div id="dashboard">
-
-    <?= $this->Html->link(
+    <?php
+    echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-plus"></span><br>
         Add Course<p></p>',
         [
@@ -14,22 +14,22 @@
             'class' => 'blue button',
             'title' => 'Add Course',
             'escape' => false
-        ]
-    ) ?>
-    <?= $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-th"></span><br>
-        Moderated Courses<br>' . $moderatedCoursesNr . '<p></p>',
-        [
-            'controller' => 'courses',
-            'action' => 'moderatedCourses'
-        ],
-        [
-            'class' => 'blue button',
-            'title' => 'Moderated Courses',
-            'escape' => false
-        ]
-    ) ?>
-    <?= $this->Html->link(
+        ]);
+        if( in_array($user->user_role_id, [1, 2] )) {
+            echo $this->Html->link(
+                '<p></p><span class="glyphicon glyphicon-th"></span><br>
+                Moderated Courses<br>' . $moderatedCoursesNr . '<p></p>',
+                [
+                    'controller' => 'courses',
+                    'action' => 'moderatedCourses'
+                ],
+                [
+                    'class' => 'blue button',
+                    'title' => 'Moderated Courses',
+                    'escape' => false
+            ]);        
+        }
+        echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-th-large"></span><br>
         My Courses<br>' . $myCoursesNr . '<p></p>',
         [
@@ -40,6 +40,6 @@
             'class' => 'blue button',
             'title' => 'My Courses',
             'escape' => false
-        ]
-    ) ?>
+        ]);
+        ?>
 </div>

@@ -5,54 +5,95 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\I18n\FrozenDate;
-use Cake\I18n\FrozenTime;
+use Cake\Event\EventInterface;
 
 class DashboardController extends AppController
 {
     public function initialize(): void
     {
         parent::initialize();
+    }
+
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+        // required for contributors menu
+        $user = $this->Authentication->getIdentity();
+        $this->set('user_role_id', $user->user_role_id);
         $this->viewBuilder()->setLayout('contributors');
+    }
+
+    // Helpers for Needs Attention dashboard
+    private function getpendingAccountRequests() {
+        $this->loadModel('Users');
+        return $this->Users->find()->where(['approved' => 0])->count();
+    }
+
+    private function getPendingCourseRequests() {
+        $this->loadModel('Courses');
+        return $this->Courses->find()->where(['approved' => 0])->count();
+    }
+
+    private function getExpiredCourses() {
+        $this->loadModel('Courses');
+        $user = $this->Authentication->getIdentity();        
+        $expiryDate = new FrozenDate('-10 months'); // in new implementation the expiry mails will be sent after 10 months
+        if( in_array($user->user_role_id, [1, 2]) ) {
+            $expiredCourses = $this->Courses->find()
+                                            ->where([
+                                                'updated <=' => $expiryDate,
+                                                'active' => 1,
+                                                'deleted' => 0
+                                            ])
+                                            ->count();
+        } else {
+            $expiredCourses = $this->Courses->find()
+                                            ->where([
+                                                'updated <=' => $expiryDate,
+                                                'active' => 1,
+                                                'deleted' => 0,
+                                                'user_id' => $user->id
+                                            ])
+                                            ->count();
+        }
+        return $expiredCourses;
+    }
+
+    // Helpers for Administrate Courses dashboard
+    private function getMyCoursesCount($user_id) {
+        $this->loadModel('Courses');
+        return $this->Courses->find()->where(['user_id' => $user_id])->count();
     }
 
     public function index()
     {
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($user, 'accessDashboard');
-
         // $identity = $this->_checkExternalIdentity();
 
-        $this->set('title_for_layout', 'DHCR Dashboard');
-        $this->set(compact('user'));
-    }
+        $totalNeedsAttention = $this->getExpiredCourses();
+        if( in_array($user->user_role_id, [1, 2]) ) {
+            $totalNeedsAttention += $this->getpendingAccountRequests() + $this->getPendingCourseRequests();
+        }
+        $totalAdministrateCourses = $this->getMyCoursesCount($user->id); // todo add moderator courses count
 
+        $this->set('title_for_layout', 'DHCR Dashboard');
+        $this->set(compact('user', 'totalNeedsAttention', 'totalAdministrateCourses'));
+    }
 
     public function needsAttention()
     {
-        $this->loadModel('Users');
-        $this->loadModel('Courses');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'needsAttention';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        $pendingAccountRequests = $this->Users->find()->where(['approved' => 0])->count();
-        $pendingCourseRequests = $this->Courses->find()->where(['approved' => 0])->count();
-
-        $expiryDate = new FrozenDate('-10 months'); // in new implementation the expiry mails will be sent after 10 months
-        $expiredCourses = $this->Courses->find()
-            ->where([
-                'updated <=' => $expiryDate,
-                'active' => 1,
-                'deleted' => 0
-            ])
-            ->count();
-        // todo: show all for admin and show only country specific for moderator, only user specific for contributor
-
-        $this->set('title', 'Needs Attention');
         $user = $this->Authentication->getIdentity();
+        $pendingAccountRequests = $this->getpendingAccountRequests();
+        $pendingCourseRequests = $this->getPendingCourseRequests();
+        $expiredCourses = $this->getExpiredCourses();
+
         $this->set(compact('user', 'pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
 
@@ -67,7 +108,8 @@ class DashboardController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user = $this->Authentication->getIdentity();
-        $myCoursesNr = $this->Courses->find()->where(['user_id' => $user->id])->count();
+        
+        $myCoursesNr = $this->getMyCoursesCount($user->id);
         if($user->user_role_id < 3) {
             // Moderator oder Administrator
             // todo: implement after finishing moderated courses

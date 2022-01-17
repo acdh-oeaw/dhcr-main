@@ -29,18 +29,16 @@
                 ) ?>
             </p>
             <ul class="attention">
-                <li>
-                    <?= $this->Html->link(
-                        'Account Approval ',
-                        ['controller' => 'Users', 'action' => 'accountApproval']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Course Approval',
-                        ['controller' => 'Courses', 'action' => 'courseApproval']
-                    ) ?>
-                </li>
+                <?php
+                if( in_array($user_role_id, [1, 2] )) {
+                    echo '<li>';
+                        echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'accountApproval']);
+                    echo '</li>';
+                    echo '<li>';
+                        echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'courseApproval']);
+                    echo '</li>';
+                }
+                ?>
                 <li>
                     <?= $this->Html->link(
                         'Course Expiry',
@@ -71,15 +69,19 @@
                         ['controller' => 'Courses', 'action' => 'myCourses']
                     ) ?>
                 </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Moderated Courses',
-                        ['controller' => 'Courses', 'action' => 'moderated']
-                    ) ?>
-                </li>
+                <?php
+                if( in_array($user_role_id, [1, 2] )) {
+                echo '<li>';
+                    echo $this->Html->link('Moderated Courses', ['controller' => 'Courses', 'action' => 'moderated'] );
+                echo '</li>';
+                }
+                ?>
             </ul>
         </li>
 
+        <?php
+        if( in_array($user_role_id, [1, 2] )) {
+        ?>
         <li>
             <p>
                 <?= $this->Html->link(
@@ -133,6 +135,9 @@
                 </li>
             </ul>
         </li>
+        <?php
+        }
+        ?>
 
         <li>
             <p>
@@ -145,10 +150,29 @@
             <ul class="profile">
                 <li>
                     <?= $this->Html->link(
+                        'Change Email Address',
+                        ['controller' => 'Users', 'action' => 'changeEmail']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Change Password',
+                        ['controller' => 'Users', 'action' => 'changePassword']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
                         'Contributor Mailing List',
                         ['controller' => 'Users', 'action' => 'newsletter']
                     ) ?>
                 </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Edit Profile',
+                        ['controller' => 'Users', 'action' => 'profile']
+                    ) ?>
+                </li>
+
             </ul>
         </li>
 
