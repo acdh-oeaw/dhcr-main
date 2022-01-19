@@ -1,11 +1,11 @@
 <p>
     As a lecturer, national moderator or programme director,
     you may want to sign up to our newsletter.
-    It adresses everybody involved with the contribution of course
+    It addresses everybody involved in the contribution of course
     metadata for the DHCR.
 </p>
 <p>
-    Stay informed about recent development regarding the team or
+    Stay informed about recent developments regarding the team or
     new technical features of the DHCR: Sign up for the newsletter in your profile settings. <br>
     If you are not a contributor yet, please sign in to the DHCR.
 </p>
