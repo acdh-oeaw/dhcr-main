@@ -4,7 +4,7 @@
     <p>
         Subscribe for e-mail alerts on new courses,
         find recent news about DH courses on social media.
-        Lecturers can sign up for the contributor newsletter.
+        Lecturers can sign up for the Contributor Mailing List.
     </p>
 </div>
 
@@ -25,7 +25,7 @@
     </div>
 
     <div class="accordeon-item" id="newsletter">
-        <h2><span>Contributor Newsletter</span></h2>
+        <h2><span>Contributor Mailing List</span></h2>
         <div class="item-content">
             <?= $this->Element('follow/newsletter') ?>
         </div>
