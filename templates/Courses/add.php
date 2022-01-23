@@ -39,7 +39,7 @@
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
-                echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'empty' => true]);
+                echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
                 echo $this->Form->control('department', ['label' => 'Department*']);
                 ?>
                 <p>&nbsp;</p>

@@ -158,11 +158,11 @@ class CoursesController extends AppController
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
-
-        $this->set(compact('course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+        $user = $this->Authentication->getIdentity();
+        $this->set(compact('user', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
                             'tadirah_techniques', 'tadirah_objects'));
 
-        // $user = $this->Authentication->getIdentity();
+        
         $this->Authorization->authorize($course);
     }
 
