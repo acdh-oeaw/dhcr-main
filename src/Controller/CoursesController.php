@@ -142,6 +142,8 @@ class CoursesController extends AppController
         $course = $this->Courses->newEmptyEntity();
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
+            debug($course);
+            die();
             if ($this->Courses->save($course)) {
                 $this->Flash->success(__('The course has been saved.'));
 
@@ -149,12 +151,19 @@ class CoursesController extends AppController
             }
             $this->Flash->error(__('The course could not be saved. Please, try again.'));
         }
-        $this->set(compact('course'));
+        $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
+        $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
+        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
+        $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
+        $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
+        $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
+        $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+
+        $this->set(compact('course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+                            'tadirah_techniques', 'tadirah_objects'));
 
         // $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($course);
-
-
     }
 
     public function myCourses()
