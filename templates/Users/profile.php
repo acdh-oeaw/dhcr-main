@@ -8,9 +8,9 @@
                 <legend><?= __('Edit Profile') ?></legend>
                 <?php
                 echo $this->Form->control('academic_title');
-                echo $this->Form->control('first_name');
-                echo $this->Form->control('last_name');
-                echo $this->Form->control('institution_id');
+                echo $this->Form->control('first_name', ['label' => 'First Name*']);
+                echo $this->Form->control('last_name', ['label' => 'Last Name*']);
+                echo $this->Form->control('institution_id', ['label' => 'Institution*']);
                 echo $this->Form->control('about', ['label' => 'About Me']);                
                 ?>
             </fieldset>
