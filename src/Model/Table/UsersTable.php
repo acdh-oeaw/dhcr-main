@@ -115,7 +115,7 @@ class UsersTable extends Table
                 'rule' => function($value, $context) {
                     return !(bool) $context['providers']['table']->find()->where(['email' => $value])->count();
                 },
-                'message' => 'Your email address is not unique to our database.'
+                'message' => 'Your email address is not unique in our database.'
             ]);
 
         $validator

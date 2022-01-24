@@ -641,6 +641,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Profile updated.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
             } else {
                 $this->Flash->error(__('Profile could not be updated. Please, try again.'));
             }
@@ -697,6 +698,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->getData());
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Contributor Mailing List subscription updated.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
             } else {
                 $this->Flash->error(__('Contributor Mailing List subscription could not be updated. Please, try again.'));
             }
