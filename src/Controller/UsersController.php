@@ -636,6 +636,16 @@ class UsersController extends AppController
 
     public function profile()
     {
+        $user = $this->Users->get($this->Authentication->getIdentity()->id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Profile updated.'));
+            } else {
+                $this->Flash->error(__('Profile could not be updated. Please, try again.'));
+            }
+        }
+
         $this->viewBuilder()->setLayout('contributors');
 
         // Set breadcrums
@@ -647,8 +657,6 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'profile';
 
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
 
         $institutions = $this->Users->Institutions->find('list', ['order' => 'name asc']);
 
