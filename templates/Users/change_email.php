@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-cog"></span>&nbsp;&nbsp;&nbsp;Change Email Address</h2>
+    <h2><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;&nbsp;Change Email Address</h2>
     <div class="column-responsive column-80">
         <b>Current Email Address: <p><i><?=$user->email ?></i></b>
         <p></p>

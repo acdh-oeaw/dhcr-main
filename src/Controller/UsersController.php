@@ -684,8 +684,35 @@ class UsersController extends AppController
 
     public function changePassword()
     {
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->get($this->Authentication->getIdentity()->id);
+            // set token and send mail
+            $user->setAccess('*', true);
+            $user = $this->Users->patchEntity($user, [
+                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                    'password_token' => $this->Users->generateToken('password_token')
+                    ]);   // converting the expiry to frozen time type
+            $this->Users->save($user);
+            try {
+                $this->getMailer('User')->send('resetPassword', [$user]);
+            } catch (Exception $exception) {
+            }
+            $this->Flash->success(__('Password reset mail has been sent.'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+        }
+        
+        $this->viewBuilder()->setLayout('contributors');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Profile Settings';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'profileSettings';
+        $breadcrumTitles[1] = 'Change Password';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'changePassword';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
         $user = $this->Authentication->getIdentity();
-        $this->redirect('/users/change-email');
         // todo send password mail
         // set flash message
         // redirect to dashboard
@@ -770,6 +797,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             if ($this->Users->save($user)) {
+                // todo add sent mail
                 $this->Flash->success(__('The invitation has been sent.'));
 
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
