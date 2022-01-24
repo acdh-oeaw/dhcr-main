@@ -6,6 +6,7 @@ use App\Authenticator\AppResult;
 use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
+use Authentication\PasswordHasher\DefaultPasswordHasher;
 
 /**
  * Users Controller
@@ -666,8 +667,22 @@ class UsersController extends AppController
 
     public function changeEmail()
     {
+        $user = $this->Users->get($this->Authentication->getIdentity()->id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $hashedPassword = $user->password;
+            $submittedPassword = $this->request->getData()['password'];
+            $hasher = new DefaultPasswordHasher();
+            if($hasher->check($submittedPassword, $hashedPassword)) {
+                $user = $this->Users->patchEntity($user, [
+                    'email' => $this->request->getData()['new_email']]);
+                $this->Users->save($user);
+                $this->Flash->success(__('New Email Address has been saved.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+            } else {
+                $this->Flash->error(__('Wrong password.'));
+            }
+        }
         $this->viewBuilder()->setLayout('contributors');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
@@ -675,10 +690,8 @@ class UsersController extends AppController
         $breadcrumTitles[1] = 'Change Email Address';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'changeEmail';
+
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-
         $this->set(compact('user'));
     }
 
@@ -686,23 +699,27 @@ class UsersController extends AppController
     {
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->get($this->Authentication->getIdentity()->id);
-            // set token and send mail
-            $user->setAccess('*', true);
-            $user = $this->Users->patchEntity($user, [
-                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
-                    'password_token' => $this->Users->generateToken('password_token')
-                    ]);   // converting the expiry to frozen time type
-            $this->Users->save($user);
-            try {
-                $this->getMailer('User')->send('resetPassword', [$user]);
-            } catch (Exception $exception) {
+            if($user != null) {
+                // set token and send mail
+                $user->setAccess('*', true);
+                $user = $this->Users->patchEntity($user, [
+                        'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                        'password_token' => $this->Users->generateToken('password_token')
+                        ]);   // converting the expiry to frozen time type
+                $this->Users->save($user);
+                try {
+                    $this->getMailer('User')->send('resetPassword', [$user]);
+                    $this->Flash->success(__('Password reset mail has been sent.'));
+                    return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+                } catch (Exception $exception) {
+                }
+                $this->Flash->error(__('Error. Mail not sent.'));
+            } else {
+                $this->Flash->error(__('Error. User not found.'));
             }
-            $this->Flash->success(__('Password reset mail has been sent.'));
-            return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
         }
         
         $this->viewBuilder()->setLayout('contributors');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
@@ -711,11 +728,6 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'changePassword';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-        // todo send password mail
-        // set flash message
-        // redirect to dashboard
     }
 
     public function newsletter()
