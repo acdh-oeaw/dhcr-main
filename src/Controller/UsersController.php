@@ -684,6 +684,16 @@ class UsersController extends AppController
 
     public function newsletter()
     {
+        $user = $this->Users->get($this->Authentication->getIdentity()->id);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user = $this->Users->patchEntity($user, $this->request->getData());
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('Contributor Mailing List subscription updated.'));
+            } else {
+                $this->Flash->error(__('Contributor Mailing List subscription could not be updated. Please, try again.'));
+            }
+        }
+        
         $this->viewBuilder()->setLayout('contributors');
 
         // Set breadcrums
@@ -694,8 +704,6 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'newsletter';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
 
         $this->set(compact('user'));
     }

@@ -69,6 +69,7 @@ class User extends Entity implements AuthorizationIdentity, AuthenticationIdenti
         'academic_title' => true,
         'about' => true,
         'consent' => true,
+        'mail_list' => true,
         '*' => false
     ];
 

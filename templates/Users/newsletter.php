@@ -2,7 +2,7 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Contributor Mailing List</h2>
     <p></p>
-    <p>As a lecturer, national moderator or program director, you may want to sign up to our newsletter. It addresses everybody involved in the
+    <p>As a lecturer, national moderator or programme director, you may want to sign up to our newsletter. It addresses everybody involved in the
     contribution of course metadata for the DHCR.</p>
     <p>Stay informed about recent developments regarding the team or new technical features of the DHCR.</p>
     <p>Check the box below to subscribe, or uncheck to unsubscribe.</p>
