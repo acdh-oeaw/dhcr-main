@@ -30,18 +30,15 @@
                 <p></p>
                 <b><u>Note for non-English countries</u></b><br>
                 Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course 
-                Registry are in English, the fields below give you the possibility to localize or personalize the invitation message:
+                Registry are in English, the fields below give you the possibility to localize the invitation message:
                 <p></p>
                 <?php
                 $message = 
 'Dear colleague,
 
-We would like to kindly invite you to include your teaching activities in the Digital Humanities Course Registry (DHCR). The activities could 
-consist of any course or module in a BA, MA, or PhD programme including summer schools or continuing education that combine humanities content 
-with digital or computational components.
+We would like to kindly invite you to include your teaching activities in the Digital Humanities Course Registry (DHCR). The activities could consist of any course or module in a BA, MA, or PhD programme including summer schools or continuing education that combine humanities content with digital or computational components.
 
-The mission of the DH course registry is to provide an up-to-date picture of the teaching and training opportunities in the DH field in Europe. 
-Various stakeholders benefit from this overview in the following way:
+The mission of the DH course registry is to provide an up-to-date picture of the teaching and training opportunities in the DH field in Europe. Various stakeholders benefit from this overview in the following way:
 
 -Lecturers and researchers can promote their teaching and educational activities beyond the usual university networks
 -Students can identify DH programmes or exchange opportunities in their home country or abroad
@@ -53,12 +50,9 @@ To add your teaching and educational activities to the registry, please proceed 
 3. Click Add course
 4. Fill in the details of your course
 
-The data that you provide will be reviewed by the national moderator who has the task of monitoring and curating the DHCR in your
-country.
+The data that you provide will be reviewed by the national moderator who has the task of monitoring and curating the DHCR in your country.
 
-We sincerely hope you will contribute to our effort to expand the
-knowledge on how technology can support research in the humanities and
-social sciences.
+We sincerely hope you will contribute to our effort to expand the knowledge on how technology can support research in the humanities and social sciences.
 
 Best wishes and thank you for your effort,
 

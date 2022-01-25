@@ -11,65 +11,51 @@ $('#togglePassword').hover(function (e) {
 <?php $this->Html->scriptEnd(); ?>
 
 <h2>User Registration</h2>
-
 <p>
-    Open an account as a lecturer, programme director or national moderator.<br>
-    After registration, you will be able to add your courses to the registry.
+Lecturers, programme directors and/or national moderators who want to add or curate course metadata to the registry are invited to 
+open a DHCR account by filling in this registration form.
 </p>
 <?php if(!$user->hasErrors(false)) : ?>
-    <p class="notice">
-        You only need to register an account with the DHRC, if you are a lecturer or other academic institution member
-        and want to add or curate course meta data.
-        All other audience may use the publicly available content and functionality freely.
-        See this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">tutorial video</a> for advice
-        on how to browse or filter our listed courses.
-    </p>
+<p class="notice">
+All other users can use the registry, without registration. See this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">
+tutorial video</a> to learn how to browse or filter the courses.
+</p>
 <?php endif; ?>
 
 <div class="optionals headspace">
-    <?= $this->Form->create($user, ['id' => 'registration_form']) ?>
-
-    <?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
-
     <?php
+    echo $this->Form->create($user, ['id' => 'registration_form']);
+    echo $this->Form->control('academic_title');
+    echo $this->Form->control('first_name');
+    echo $this->Form->control('last_name');
+    echo $this->Form->control('about', [
+        'type' => 'textarea',
+        'label' => 'Your Position',
+        'placeholder' => 'Please provide some verifiable details about your position (e.g. lecturer, assistant, professor), so that our moderators can judge about your eligibility to contribute content to the DHCR.',
+        ]);
+    echo $this->Form->control('institution_id', [
+        'label' => ['text' => 'Affiliation', 'class' => 'depending'],
+        'empty' => '- pick your affiliation -',
+        'required' => false
+        ]);
+    echo $this->Form->control('university', [
+        'label' => ['text' => 'Other Organisation', 'class' => 'depending'],
+        'type' => 'textarea',
+        'placeholder' => 'If you cannot find your affiliation in the dropdown list above, we need the country, city and name of your organisation provided here instead.'
+    ]);
+    echo $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']);
     $this->Form->setTemplates([
         'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>
         <i class="far fa-eye" id="togglePassword">reveal password</i>']);
     echo $this->Form->control('password');
     $this->Form->setTemplates(['input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>']);
-    ?>
-
-    <?= $this->Form->control('institution_id', [
-        'label' => ['text' => 'Affiliation', 'class' => 'depending'],
-        'empty' => '- pick your affiliation -',
-        'required' => false
-    ]) ?>
-    <?= $this->Form->control('university', [
-        'label' => ['text' => 'Other Organisation', 'class' => 'depending'],
-        'type' => 'textarea',
-        'placeholder' => 'If you cannot find your affiliation in the dropdown list above,
-we need the country, city and name of your organisation provided here instead.'
-    ]) ?>
-
-    <?= $this->Form->control('academic_title') ?>
-    <?= $this->Form->control('first_name') ?>
-    <?= $this->Form->control('last_name') ?>
-
-    <?= $this->Form->control('about', [
-        'type' => 'textarea',
-        'label' => 'Your Position',
-        'placeholder' => 'Please provide some verifiable details about your position (e.g. lecturer, assistant, professor),
-so that our moderators can judge about your eligibility to contribute content to the DHCR.',
-    ]) ?>
-
-    <?php
-    $classes = ['input','info','required'];
+    $classes = ['input', 'info', 'required'];
     if($this->Form->isFieldError('consent')) $classes[] = 'error';
     ?>
     <div class="<?= implode(' ', $classes) ?>">
-        <label for="terms-info">Terms</label>
+        <label for="terms-info">Privacy Conditions</label>
         <div class="info" id="terms-info">
-            <?= $this->Html->link('Which terms?', '/users/which_terms?', ['id' => 'which_terms']) ?>
+            <?= $this->Html->link('View', '/users/which_terms?', ['id' => 'which_terms']) ?>
             <div style="display:none" id="terms_content"><?= $this->element('users/which_terms') ?></div>
         </div>
         <?= $this->Form->control('consent', [
@@ -83,14 +69,14 @@ so that our moderators can judge about your eligibility to contribute content to
     </div>
 
     <div class="input info">
-        <label for="newsletter-info">Newsletter</label>
+        <label for="newsletter-info">Contributor Mailing List</label>
         <div class="info" id="newsletter-info">
-            By signing into our contributor newsletter, we can reach out to you about
-            technical updates or news concerning the DHCR platform, team or network.
+        If you contribute courses to the DHRC, it is recommended to sign up for our Contributor Mailing List to stay informed about recent 
+        technical developments, staff updates and much more.
         </div>
         <?= $this->Form->control('mail_list', [
             'value' => 1,
-            'label' => 'Yes, subscribe me!',
+            'label' => 'Yes, subscribe to the Contributor Mailing List!',
             'required' => false,
             'type' => 'checkbox'
         ]) ?>
