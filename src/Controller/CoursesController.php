@@ -180,9 +180,13 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user_id = $this->Authentication->getIdentity()->id;
-        $myCourses = $this->Courses->find('all', ['order' => 'Courses.updated desc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
-        //todo & updated 2 jr
-        $this->set(compact('myCourses'));
+        //todo: change query, don't include > 2yr 
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated desc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
+        $this->set(compact('courses'));
+        // "customize" view
+        $this->set('course_icon', 'th-large');
+        $this->set('course_view_type', 'My Courses');
+        $this->render('courses-list');
     }
 
     public function courseApproval()
