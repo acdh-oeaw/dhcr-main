@@ -36,24 +36,32 @@
                 $message = 
 'Dear colleague,
 
-We would like to kindly invite you to include your teaching activity into the Digital Humanities Course Registry (DHCR).
+We would like to kindly invite you to include your teaching activities in the Digital Humanities Course Registry (DHCR). The activities could 
+consist of any course or module in a BA, MA, or PhD programme including summer schools or continuing education that combine humanities content 
+with digital or computational components.
 
-This resource offers an overview and search environment of courses related to Digital Humanities that are offered at universities and research institutes within your home country and the rest of Europe. The initiative endorses the principle that sharing knowledge is in the best interest of students, lecturers and researchers.
+The mission of the DH course registry is to provide an up-to-date picture of the teaching and training opportunities in the DH field in Europe. 
+Various stakeholders benefit from this overview in the following way:
 
-Our aim is twofold: 
-1) we want to offer students the opportunity to identify courses of their interest at home or abroad.
-2) we want to offer lecturers the possibility to get an overview of teaching activities elsewhere. 
-We strongly encourage the use of the DHCR as a way for lecturers to grant access to their teaching resources to peers.
+-Lecturers and researchers can promote their teaching and educational activities beyond the usual university networks
+-Students can identify DH programmes or exchange opportunities in their home country or abroad
+-Programme administrators can use the platform to promote and facilitate students and staff exchange
 
-To ensure that the Course Registry grows into a sustainable resource with the widest possible coverage we need your help.
+To add your teaching and educational activities to the registry, please proceed as follows:
+1. Set your password
+2. Go to Administrate Courses
+3. Click Add course
+4. Fill in the details of your course
 
-After setting your password you can enter the data about your course by clicking: Administrate Courses, Add Course.
+The data that you provide will be reviewed by the national moderator who has the task of monitoring and curating the DHCR in your
+country.
 
-The data that you provide will be reviewed and processed by the national coordinator who has the task of monitoring and curating the DHCR in your country. 
-
-We sincerely hope you will contribute to our effort to expand the knowledge on how technology can support research in the humanities and social sciences.
+We sincerely hope you will contribute to our effort to expand the
+knowledge on how technology can support research in the humanities and
+social sciences.
 
 Best wishes and thank you for your effort,
+
 
 ' .ucfirst($user->academic_title) . ' ' . ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) . ' (moderator) and the Course Registry Team';
 
