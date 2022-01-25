@@ -1,51 +1,53 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Courses[]|\Cake\Collection\CollectionInterface $courses
- */
-?>
 <div class="courses index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-th-large"></span>&nbsp;&nbsp;&nbsp;My Courses</h2>
     <div class="table-responsive">
+    <p>
+    <b>Course Status</b><br>
+    <font color="green">Green:</font> Actively maintained.<br>
+    <font color="orange">Orange:</font> Reminder sent, course needs to be updated.<br>
+    <font color="red">Red:</font> Outdated, not shown in public registry.
+    </p>
         <table>
             <thead>
                 <tr>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('id') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('approved') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('active') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('created') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('updated') ?></th>
-                    <th class="actions" align="left" style="padding: 5px"><?= __('Action') ?></th>
+                    <th align="left" style="padding: 5px">Actions</th>
+                    <th align="left" style="padding: 5px">Updated</th>
+                    <th align="left" style="padding: 5px">Course Name</th>
+                    <th align="left" style="padding: 5px">Education type</th>
+                    <th align="left" style="padding: 5px">Institution</th>
+                    <th align="left" style="padding: 5px">Department</th>
+                    <th align="left" style="padding: 5px">Source URL</th>
+                    
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($courses as $course) : ?>
+                <?php foreach ($myCourses as $myCourse) : ?>
                     <tr>
-                        <td style="padding: 5px"><?= h($course->id) ?></td>
-                        <td style="padding: 5px"><?= $this->Html->link(__($course->name), ['action' => 'view', $course->id]) ?>
-                        <td style="padding: 5px"><?= ($course->approved == 1 ? 'Yes' : 'No') ?></td>
-                        <td style="padding: 5px"><?= ($course->active == 1 ? 'Yes' : 'No') ?></td>
-                        <td style="padding: 5px"><?= ($course->created != null) ? $course->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) : '' ?></td>
-                        <td style="padding: 5px"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
-                        <td class="actions" style="padding: 5px">
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $course->id]) ?>
+                        <td style="padding: 5px">
+                            <?= $this->Html->link(__('Share'), ['action' => 'view', $myCourse->id]) ?>
+                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $myCourse->id]) ?>
                         </td>
+                        <td style="padding: 5px" bgcolor="
+                        <?php
+                        if($myCourse->updated->wasWithinLast('10 Months')) {
+                            echo 'green';
+                        } elseif ($myCourse->updated->wasWithinLast('18 Months')) {
+                            echo 'orange';
+                        } else {
+                            echo 'red';
+                        }
+                        ?>
+                        "><font color="black"><?= $myCourse->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></td>
+                        <td style="padding: 5px"><?= $this->Html->link(__($myCourse->name), ['action' => 'view', $myCourse->id]) ?>
+                        <td style="padding: 5px"><?= $myCourse->course_type->name ?></td>
+                        <td style="padding: 5px"><?= $myCourse->institution->name ?></td>
+                        <td style="padding: 5px"><?= $myCourse->department ?></td>
+                        <td style="padding: 5px"><?= $this->Html->link('Link', $myCourse->info_url) ?>
+                        
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-    </div>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
