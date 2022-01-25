@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\I18n\FrozenTime;
 
 class CoursesController extends AppController
 {
@@ -186,6 +187,32 @@ class CoursesController extends AppController
         // "customize" view
         $this->set('course_icon', 'th-large');
         $this->set('course_view_type', 'My Courses');
+        $this->render('courses-list');
+    }
+
+    public function expired()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $breadcrumTitles[1] = 'Course Expiry';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'myCourses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user_id = $this->Authentication->getIdentity()->id;
+        //todo: change query, don't include > 2yr
+        $tooOld = new FrozenTime('-10 Months');
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
+                                ->where(['user_id' => $user_id, 'Courses.updated <' => $tooOld ]);
+        $this->set(compact('courses'));
+        // "customize" view
+        $this->set('course_icon', 'bell');
+        $this->set('course_view_type', 'Course Expiry');
         $this->render('courses-list');
     }
 
