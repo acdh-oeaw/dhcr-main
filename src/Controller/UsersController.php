@@ -673,17 +673,31 @@ class UsersController extends AppController
             $submittedPassword = $this->request->getData()['password'];
             $hasher = new DefaultPasswordHasher();
             if($hasher->check($submittedPassword, $hashedPassword)) {
-                $user = $this->Users->patchEntity($user, [
-                    'email' => $this->request->getData()['new_email']]);
-                $this->Users->save($user);
-                $this->Flash->success(__('New Email Address has been saved.'));
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+                // user submitted the correct password
+                $data = [
+                    'new_email' => $this->request->getData('new_email'),
+                    'email_token' => $this->Users->generateToken('email_token')
+                    ];
+                $user->setAccess('*', true);
+                $user = $this->Users->patchEntity($user, $data);
+                if (!$user->getErrors()) {
+                    $this->Users->save($user);
+                    try {
+                        $this->getMailer('User')->send('confirmationMail', [$user]);
+                        $this->Flash->success(__('Confirmation mail has been sent, check your inbox to complete verification.'));
+                        return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+                    } catch (Exception $exception) {
+                    }
+                    $this->Flash->error(__('Error. Mail not sent.'));
+                } else {
+                    $this->Flash->error(__('Error saving token.'));
+                }
             } else {
                 $this->Flash->error(__('Wrong password.'));
             }
         }
         $this->viewBuilder()->setLayout('contributors');
-        // Set breadcrums
+        // set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'profileSettings';
@@ -810,7 +824,8 @@ class UsersController extends AppController
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             if ($this->Users->save($user)) {
                 // todo add sent mail
-                $this->Flash->success(__('The invitation has been sent.'));
+                // $this->Flash->success(__('The invitation has been sent.'));
+                $this->Flash->error(__('Sending mail not implemented yet.'));
 
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }

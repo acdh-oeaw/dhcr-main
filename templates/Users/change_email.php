@@ -4,17 +4,21 @@
     <div class="column-responsive column-80">
         <b>Current Email Address: <p><i><?=$user->email ?></i></b>
         <p></p>
+        <p>
+        To change your email address, we need to verify you have access to the provided address.
+        <br>Please submit the form below to start the process.
+        </p>
         <div class="users form content">
             <?= $this->Form->create($user) ?>
             <fieldset>
                 <legend><?= __('Change Email Address') ?></legend>
                 <?php
-                echo $this->Form->control('new_email', ['label' => 'New Email Address']);
-                echo $this->Form->control('password');
+                echo $this->Form->control('new_email', ['label' => 'New Email Address*', 'placeholder' => 'Preferably, use your institutional address']);
+                echo $this->Form->control('password', ['label' => 'Current Password*']);
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Verify Email Address')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
