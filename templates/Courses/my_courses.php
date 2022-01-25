@@ -44,7 +44,6 @@
                         <td style="padding: 5px"><?= $myCourse->institution->name ?></td>
                         <td style="padding: 5px"><?= $myCourse->department ?></td>
                         <td style="padding: 5px"><?= $this->Html->link('Link', $myCourse->info_url) ?>
-                        
                     </tr>
                 <?php endforeach; ?>
             </tbody>

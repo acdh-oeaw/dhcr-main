@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\I18n\FrozenTime;
 
 class CoursesController extends AppController
 {
@@ -183,9 +182,7 @@ class CoursesController extends AppController
         $user_id = $this->Authentication->getIdentity()->id;
         $myCourses = $this->Courses->find('all', ['order' => 'Courses.updated desc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
         //todo & updated 2 jr
-        $now = new FrozenTime('now');
-
-        $this->set(compact('myCourses', 'now'));
+        $this->set(compact('myCourses'));
     }
 
     public function courseApproval()
