@@ -18,7 +18,7 @@
     ) ?>
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-cog"></span><br>
-        Administrate Users<br>' . $totalUsers . '<p></p>',
+        Administrate Users<br>( ' . $totalUsers . ' )<p></p>',
         [
             'controller' => 'users',
             'action' => 'index'
