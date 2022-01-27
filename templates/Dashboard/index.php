@@ -21,7 +21,7 @@
 <div id="dashboard">
     <?php
     echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-flag"></span><br>Needs Attention<br>'. $totalNeedsAttention .'<p></p>',
+        '<p></p><span class="glyphicon glyphicon-flag"></span><br>Needs Attention<br>( '. $totalNeedsAttention .' )<p></p>',
         [
             'controller' => 'dashboard',
             'action' => 'needsAttention'
@@ -45,7 +45,7 @@
         ]);
     }
     echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-education"></span><br>Administrate Courses<br>' . $totalAdministrateCourses .'<p></p>',
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>Administrate Courses<br>( ' . $totalAdministrateCourses .' )<p></p>',
         [
             'controller' => 'Dashboard',
             'action' => 'adminCourses'

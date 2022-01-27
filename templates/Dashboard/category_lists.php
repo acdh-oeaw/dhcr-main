@@ -5,7 +5,7 @@
 
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-home"></span><br>
-        Cities<br>' . $totalCities . '<p></p>',
+        Cities<br>( ' . $totalCities . ' )<p></p>',
         [
             'controller' => 'cities',
             'action' => 'index'
@@ -18,7 +18,7 @@
     ) ?>
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-text-background"></span><br>
-        Languages<br>' . $totalLanguages . '<p></p>',
+        Languages<br>( ' . $totalLanguages . ' )<p></p>',
         [
             'controller' => 'languages',
             'action' => 'index'
@@ -31,7 +31,7 @@
     ) ?>
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-book"></span><br>
-        Institutions<br>' . $totalInstitutions . '<p></p>',
+        Institutions<br>( ' . $totalInstitutions . ' )<p></p>',
         [
             'controller' => 'institutions',
             'action' => 'index'

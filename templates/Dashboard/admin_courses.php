@@ -18,7 +18,7 @@
         if( in_array($user->user_role_id, [1, 2] )) {
             echo $this->Html->link(
                 '<p></p><span class="glyphicon glyphicon-th"></span><br>
-                Moderated Courses<br>' . $moderatedCoursesNr . '<p></p>',
+                Moderated Courses<br>( ' . $moderatedCoursesNr . ' )<p></p>',
                 [
                     'controller' => 'courses',
                     'action' => 'moderatedCourses'
@@ -31,7 +31,7 @@
         }
         echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-th-large"></span><br>
-        My Courses<br>' . $myCoursesNr . '<p></p>',
+        My Courses<br>( ' . $myCoursesNr . ' )<p></p>',
         [
             'controller' => 'courses',
             'action' => 'myCourses'
