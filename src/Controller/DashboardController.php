@@ -71,14 +71,15 @@ class DashboardController extends AppController
         $this->Authorization->authorize($user, 'accessDashboard');
         // $identity = $this->_checkExternalIdentity();
 
-        $totalNeedsAttention = $this->getExpiredCourses();
-        if( in_array($user->user_role_id, [1, 2]) ) {
-            $totalNeedsAttention += $this->getpendingAccountRequests() + $this->getPendingCourseRequests();
-        }
-        $totalAdministrateCourses = $this->getMyCoursesCount($user->id); // todo add moderator courses count
+        // $totalNeedsAttention = $this->getExpiredCourses();
+        // if( in_array($user->user_role_id, [1, 2]) ) {
+        //     $totalNeedsAttention += $this->getpendingAccountRequests() + $this->getPendingCourseRequests();
+        // }
+        // $totalAdministrateCourses = $this->getMyCoursesCount($user->id); // todo add moderator courses count
 
         $this->set('title_for_layout', 'DHCR Dashboard');
-        $this->set(compact('user', 'totalNeedsAttention', 'totalAdministrateCourses'));
+        $this->set(compact('user'));
+        // $this->set(compact('user', 'totalNeedsAttention', 'totalAdministrateCourses'));
     }
 
     public function needsAttention()

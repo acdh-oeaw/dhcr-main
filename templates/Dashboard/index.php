@@ -21,7 +21,7 @@
 <div id="dashboard">
     <?php
     echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-flag"></span><br>Needs Attention<br>( '. $totalNeedsAttention .' )<p></p>',
+        '<p></p><span class="glyphicon glyphicon-flag"></span><br>Needs Attention<p></p>',
         [
             'controller' => 'dashboard',
             'action' => 'needsAttention'
@@ -33,7 +33,7 @@
     ]);
     if( in_array($user->user_role_id, [1, 2] )) {
         echo $this->Html->link(
-            '<p></p><span class="glyphicon glyphicon-list"></span><br>Category Lists<p></p>',
+            '<p></p><span class="glyphicon glyphicon-list"></span><br>Category Lists<p>&nbsp;</p>',
             [
                 'controller' => 'dashboard',
                 'action' => 'categoryLists'
@@ -45,7 +45,7 @@
         ]);
     }
     echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-education"></span><br>Administrate Courses<br>( ' . $totalAdministrateCourses .' )<p></p>',
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>Administrate Courses<p>&nbsp;</p>',
         [
             'controller' => 'Dashboard',
             'action' => 'adminCourses'
@@ -56,7 +56,7 @@
             'escape' => false
     ]);
     echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-cog"></span><br>Profile Settings<p></p>',
+        '<p></p><span class="glyphicon glyphicon-cog"></span><br>Profile Settings<p>&nbsp;</p>',
         [
             'controller' => 'Dashboard',
             'action' => 'profileSettings'
@@ -68,7 +68,7 @@
     ]);
     if( in_array($user->user_role_id, [1, 2] )) {
         echo $this->Html->link(
-            '<p></p><span class="glyphicon glyphicon-user"></span><br>Contributor Network<p></p>',
+            '<p></p><span class="glyphicon glyphicon-user"></span><br>Contributor Network<p>&nbsp;</p>',
             [
                 'controller' => 'Dashboard',
                 'action' => 'contributorNetwork'
