@@ -14,54 +14,31 @@
                 If the institution is not in the list, go to 
                 <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?> first.
                 <p></p>
-                <?= $this->Form->control('institution_id', ['label' => 'Institution', 'options' => ['1', '2'], 'empty' => true]) ?>
+                <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => ['1', '2'], 'empty' => true]) ?>
                 <p>&nbsp;</p>
                 <h3>Step 2: Enter personal details of the user</h3>
                 <p></p>
                 <?php
                 echo $this->Form->control('academic_title');
-                echo $this->Form->control('first_name');
-                echo $this->Form->control('last_name');
+                echo $this->Form->control('first_name', ['label' => 'First Name*']);
+                echo $this->Form->control('last_name', ['label' => 'Last Name*']);
+                echo $this->Form->control('email', ['label' => 'Email Address*']);
                 ?>
                 <p>&nbsp;</p>
-                <h3>Step 3: Personalize the invitation email</h3>
-                <p></p>
-                <?= $this->Form->control('email', ['label' => 'Email Address of the user']) ?>
+                <h3>Step 3: Localize the invitation email</h3>
                 <p></p>
                 <b><u>Note for non-English countries</u></b><br>
                 Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course 
-                Registry are in English, the fields below give you the possibility to localize the invitation message:
+                Registry are in English, you have the possibility to localize the invitation message.
                 <p></p>
+                <b><u>Preview localized messages</u> (opens in new window)</b><br>
                 <?php
-                $message = 
-'Dear colleague,
-
-We would like to kindly invite you to include your teaching activities in the Digital Humanities Course Registry (DHCR). The activities could consist of any course or module in a BA, MA, or PhD programme including summer schools or continuing education that combine humanities content with digital or computational components.
-
-The mission of the DH course registry is to provide an up-to-date picture of the teaching and training opportunities in the DH field in Europe. Various stakeholders benefit from this overview in the following way:
-
--Lecturers and researchers can promote their teaching and educational activities beyond the usual university networks
--Students can identify DH programmes or exchange opportunities in their home country or abroad
--Programme administrators can use the platform to promote and facilitate students and staff exchange
-
-To add your teaching and educational activities to the registry, please proceed as follows:
-1. Set your password
-2. Go to Administrate Courses
-3. Click Add course
-4. Fill in the details of your course
-
-The data that you provide will be reviewed by the national moderator who has the task of monitoring and curating the DHCR in your country.
-
-We sincerely hope you will contribute to our effort to expand the knowledge on how technology can support research in the humanities and social sciences.
-
-Best wishes and thank you for your effort,
-
-
-' .ucfirst($user->academic_title) . ' ' . ucfirst($user->first_name) . ' ' . ucfirst($user->last_name) . ' (moderator) and the Course Registry Team';
-
-
-                echo $this->Form->control('subject', ['default' => 'Join the Digital Humanities Course Registry']);
-                echo $this->Form->control('message', ['rows' => 20, 'default' => $message]);
+                foreach($inviteTranslations as $inviteTranslation) {
+                    echo $this->Html->link($inviteTranslation->name, ['controller' => 'inviteTranslations', 
+                        'action' => 'view', $inviteTranslation->id], ['target' => '_blank']) . '<br>';
+                    }
+                echo '<p></p>';
+                echo $this->Form->control('inviteTranslation', ['label' => 'Choose localization*', 'options' => $languageList]);
                 ?>
             </fieldset>
             <p>&nbsp;</p>

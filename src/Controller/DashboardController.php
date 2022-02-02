@@ -146,6 +146,7 @@ class DashboardController extends AppController
         $this->loadModel('Cities');
         $this->loadModel('Institutions');
         $this->loadModel('Languages');
+        $this->loadModel('InviteTranslations');
         
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
@@ -158,8 +159,9 @@ class DashboardController extends AppController
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
         $totalLanguages = $this->Languages->find()->count();
+        $totalInviteTranslations = $this->InviteTranslations->find()->count();
 
-        $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages'));
+        $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages', 'totalInviteTranslations'));
     }
 
     public function profileSettings()

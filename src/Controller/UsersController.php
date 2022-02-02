@@ -833,7 +833,10 @@ class UsersController extends AppController
         }
 
         $user = $this->Authentication->getIdentity();
+        $this->loadModel('InviteTranslations');
+        $inviteTranslations = $this->InviteTranslations->find()->where(['active ' => true])->order(['sortOrder' => 'ASC']);
+        $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         
-        $this->set(compact('invitedUser', 'user'));
+        $this->set(compact('invitedUser', 'user', 'inviteTranslations', 'languageList'));
     }
 }
