@@ -62,7 +62,7 @@ class InviteTranslationsController extends AppController
         $breadcrumTitles[1] = 'Invite Translations';
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'index';
-        $breadcrumTitles[2] = $inviteTranslation->name;
+        $breadcrumTitles[2] = 'Invite Translation Details';
         $breadcrumControllers[2] = 'inviteTranslations';
         $breadcrumActions[2] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
