@@ -15,4 +15,17 @@ class UserPolicy
             return new Result(true);
         return new Result(false, 'User not approved');
     }
+
+    public function canEditCourse(IdentityInterface $user, $course = []) : Result
+    {
+        $user = $user->getOriginalData();
+        if($course->user_id == $user->id) {     // User is editing own course
+            return new Result(true);
+        } elseif ( ($user->user_role_id == 2) && ($course->country_id == $user->country_id) ) { // Moderator is editing in moderated country
+            return new Result(true);
+        } elseif ($user->is_admin) {    //  Admin can edit everything
+            return new Result(true);
+        }
+        return new Result(true, 'You are not allowed to edit this course');
+    }
 }

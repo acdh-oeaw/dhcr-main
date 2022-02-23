@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add Course</h2>
+    <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Edit Course</h2>
     <div class="column-responsive column-80">
         Please provide the meta data in <b><u>English</u></b>, independent from the language the course is held in.
         <p>&nbsp;</p>

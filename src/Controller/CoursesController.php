@@ -142,8 +142,18 @@ class CoursesController extends AppController
         $course = $this->Courses->newEmptyEntity();
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
-            debug($course);
-            die();
+            // set updated
+            $course->set('updated', date("Y-m-d H:i:s") );
+            // set user_id
+            $course->set('user_id', $this->Authentication->getIdentity()->id);                        
+            // set city_id
+            $query = $this->Courses->Institutions->find('all')->where(['id' => $course->institution_id]);
+            $course->set('city_id', $query->first()->city_id);
+            // set country_id
+            $course->set('country_id', $query->first()->country_id);
+            // set course_parent_type
+            $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
+            $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
             if ($this->Courses->save($course)) {
                 $this->Flash->success(__('The course has been saved.'));
 
@@ -164,6 +174,36 @@ class CoursesController extends AppController
 
         
         $this->Authorization->authorize($course);
+    }
+
+    public function edit($id = null)
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('DhcrCore.Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Edit Course';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'edit';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $user = $this->Authentication->getIdentity();
+        $course = $this->Courses->get($id);
+        $this->Authorization->authorize($user, 'editCourse');
+        
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $course = $this->Courses->patchEntity($course, $this->request->getData());
+            if ($this->Courses->save($course)) {
+                $this->Flash->success(__('The course has been updated.'));
+
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+            }
+            $this->Flash->error(__('The course could not be updated. Please, try again.'));
+        }
+        $this->set(compact('course'));
     }
 
     public function myCourses()
