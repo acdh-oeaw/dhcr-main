@@ -14,7 +14,7 @@
         <table>
             <thead>
                 <tr>
-                    <th align="left" style="padding: 5px">Actions</th>
+                    <th align="center" style="padding: 5px">Actions</th>
                     <th align="left" style="padding: 5px">Updated</th>
                     <th align="left" style="padding: 5px">Course Name</th>
                     <th align="left" style="padding: 5px">Education type</th>
@@ -27,9 +27,9 @@
             <tbody>
                 <?php foreach ($courses as $course) : ?>
                     <tr>
-                        <td style="padding: 5px">
+                        <td style="padding: 5px" align="center">
                             <?= $this->Html->link(__('Share'), ['action' => 'view', $course->id]) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $course->id]) ?>
+                            <?= $this->Html->link(__('Update/Edit'), ['action' => 'edit', $course->id]) ?>
                         </td>
                         <td style="padding: 5px" bgcolor="
                         <?php
