@@ -196,7 +196,7 @@ class CoursesController extends AppController
             // die();
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
-            // $course->set('updated', date("Y-m-d H:i:s") );
+            $course->set('updated', date("Y-m-d H:i:s") );
             // set city_id
             $query = $this->Courses->Institutions->find('all')->where(['id' => $course->institution_id]);
             $course->set('city_id', $query->first()->city_id);
