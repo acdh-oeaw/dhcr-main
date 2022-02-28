@@ -190,9 +190,10 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($user, 'editCourse');
 
+        $course = $this->Courses->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            debug($this->request->getData());
-            die();
+            // debug($this->request->getData());
+            // die();
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
             // $course->set('updated', date("Y-m-d H:i:s") );
@@ -211,7 +212,6 @@ class CoursesController extends AppController
             }
             $this->Flash->error(__('The course could not be updated. Please, try again.'));
         }
-        $course = $this->Courses->get($id);
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
