@@ -7,12 +7,12 @@
         <div class="courses form content">
             <?= $this->Form->create($course) ?>
             <fieldset>
-                <legend><?= __('Add Course') ?></legend>
+                <legend><?= __('Edit Course') ?></legend>
                 <?php
                 echo $this->Form->control('name', ['label' => 'Course Name* (in English)']);
                 echo $this->Form->control('online_course');
-                echo $this->Form->control('course_type_id', ['label' => 'Education Type*', 'options' => $course_types,  'empty' => true]);
-                echo $this->Form->control('language_id', ['label' => 'Language*', 'options' => $languages, 'empty' => true]);
+                echo $this->Form->control('course_type_id', ['label' => 'Education Type*', 'options' => $course_types]);
+                echo $this->Form->control('language_id', ['label' => 'Language*', 'options' => $languages]);
                 ?>
                 <p>&nbsp;</p>
                 Credit points rewarded within the European Credit Transfer and Accumulation System (ECTS). Leave blank if not applicable:
@@ -38,7 +38,7 @@
                 echo $this->Form->control('start_date', ['label' => 'Start Date*']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
-                echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
+                echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
                 echo $this->Form->control('department', ['label' => 'Department*']);
                 ?>
@@ -62,7 +62,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Add this Course')) ?>
+            <?= $this->Form->button(__('Update this Course')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

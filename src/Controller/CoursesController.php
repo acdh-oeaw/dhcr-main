@@ -140,6 +140,7 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $course = $this->Courses->newEmptyEntity();
+        $this->Authorization->authorize($course);
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
@@ -171,9 +172,6 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->set(compact('user', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
                             'tadirah_techniques', 'tadirah_objects'));
-
-        
-        $this->Authorization->authorize($course);
     }
 
     public function edit($id = null)
@@ -190,20 +188,40 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $user = $this->Authentication->getIdentity();
-        $course = $this->Courses->get($id);
         $this->Authorization->authorize($user, 'editCourse');
-        
 
         if ($this->request->is(['patch', 'post', 'put'])) {
+            debug($this->request->getData());
+            die();
             $course = $this->Courses->patchEntity($course, $this->request->getData());
+            // set updated
+            // $course->set('updated', date("Y-m-d H:i:s") );
+            // set city_id
+            $query = $this->Courses->Institutions->find('all')->where(['id' => $course->institution_id]);
+            $course->set('city_id', $query->first()->city_id);
+            // set country_id
+            $course->set('country_id', $query->first()->country_id);
+            // set course_parent_type
+            $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
+            $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
             if ($this->Courses->save($course)) {
                 $this->Flash->success(__('The course has been updated.'));
 
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+                return $this->redirect(['controller' => 'Courses', 'action' => 'myCourses']);
             }
             $this->Flash->error(__('The course could not be updated. Please, try again.'));
         }
-        $this->set(compact('course'));
+        $course = $this->Courses->get($id);
+        $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
+        $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
+        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
+        $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
+        $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
+        $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
+        $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+        $user = $this->Authentication->getIdentity();
+        $this->set(compact('user', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+                            'tadirah_techniques', 'tadirah_objects'));
     }
 
     public function myCourses()
