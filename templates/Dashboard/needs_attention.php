@@ -6,7 +6,8 @@
     if( in_array($user->user_role_id, [1, 2] )) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
-            Account Approval<br>( ' . $pendingAccountRequests . ' )<p></p>',
+            Account Approval<br>
+            <font color="#60a845">(&nbsp;' . $pendingAccountRequests . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'users',
                 'action' => 'accountApproval'
@@ -19,7 +20,8 @@
     }    
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-bell"></span><br>
-        Course Expiry<br>( ' . $expiredCourses . ' )<p></p>',
+        Course Expiry<br>
+        <font color="#60a845">(&nbsp;' . $expiredCourses . '&nbsp;)</font><p></p>',
         [
             'controller' => 'courses',
             'action' => 'expired'
@@ -32,7 +34,8 @@
     if( in_array($user->user_role_id, [1, 2] )) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-education"></span><br>
-            Course Approval<br>( ' . $pendingCourseRequests . ' )<p></p>',
+            Course Approval<br>
+            <font color="#60a845">(&nbsp;' . $pendingCourseRequests . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'courses',
                 'action' => 'courseApproval'

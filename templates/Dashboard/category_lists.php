@@ -4,7 +4,8 @@
     <?php
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-home"></span><br>
-        Cities<br>( ' . $totalCities . ' )<p></p>',
+        Cities<br>
+        <font color="#60a845">(&nbsp;' . $totalCities . '&nbsp;)</font><p></p>',
         [
             'controller' => 'cities',
             'action' => 'index'
@@ -16,7 +17,8 @@
         ]);
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-text-background"></span><br>
-        Languages<br>( ' . $totalLanguages . ' )<p></p>',
+        Languages<br>
+        <font color="#60a845">(&nbsp;' . $totalLanguages . '&nbsp;)</font><p></p>',
         [
             'controller' => 'languages',
             'action' => 'index'
@@ -28,7 +30,8 @@
         ]);
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-book"></span><br>
-        Institutions<br>( ' . $totalInstitutions . ' )<p></p>',
+        Institutions<br>
+        <font color="#60a845">(&nbsp;' . $totalInstitutions . '&nbsp;)</font><p></p>',
         [
             'controller' => 'institutions',
             'action' => 'index'
@@ -40,7 +43,8 @@
         ]);
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-text-color"></span><br>
-        Invite Translations<br>( ' . $totalInviteTranslations . ' )<p></p>',
+        Invite Translations<br>
+        <font color="#60a845">(&nbsp;' . $totalInviteTranslations . '&nbsp;)</font><p></p>',
         [
             'controller' => 'inviteTranslations',
             'action' => 'index'
