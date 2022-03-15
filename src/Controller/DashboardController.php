@@ -23,20 +23,31 @@ class DashboardController extends AppController
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    // Helpers for Needs Attention dashboard
-    private function getpendingAccountRequests() {
+    public function index()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user, 'accessDashboard');
+        // $identity = $this->_checkExternalIdentity();
+
+        $this->set('title_for_layout', 'DHCR Dashboard');
+        $this->set(compact('user'));
+    }
+
+    public function needsAttention()
+    {
         $this->loadModel('Users');
-        return $this->Users->find()->where(['approved' => 0])->count();
-    }
-
-    private function getPendingCourseRequests() {
         $this->loadModel('Courses');
-        return $this->Courses->find()->where(['approved' => 0])->count();
-    }
 
-    private function getExpiredCourses() {
-        $this->loadModel('Courses');
-        $user = $this->Authentication->getIdentity();        
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+        $pendingAccountRequests = $this->Users->find()->where(['approved' => 0])->count();
+        $pendingCourseRequests = $this->Courses->find()->where(['approved' => 0])->count();
+        
         $expiryDate = new FrozenDate('-10 months'); // in new implementation the expiry mails will be sent after 10 months
         if( $user->user_role_id == 2 || $user->is_admin ) {
             $expiredCourses = $this->Courses->find()
@@ -56,50 +67,7 @@ class DashboardController extends AppController
                                             ])
                                             ->count();
         }
-        return $expiredCourses;
-    }
-
-    // Helpers for Administrate Courses dashboard
-    private function getMyCoursesCount($user) {
-        $this->loadModel('Courses');
-        return $this->Courses->find()->where(['user_id' => $user->id])->count();
-    }
-    
-    private function getModeratedCoursesCount($user) {
-        $this->loadModel('Courses');
-        // return $this->Courses->find()->where(['user_id' => $user_id])->count();
-        return 1;
-    }
-    
-    private function getAllCoursesCount($user) {
-        $this->loadModel('Courses');
-        // return $this->Courses->find()->where(['user_id' => $user_id])->count();
-        return 2;
-    }
-
-    public function index()
-    {
-        $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'accessDashboard');
-        // $identity = $this->_checkExternalIdentity();
-
-        $this->set('title_for_layout', 'DHCR Dashboard');
-        $this->set(compact('user'));
-    }
-
-    public function needsAttention()
-    {
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Needs Attention';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'needsAttention';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-        $pendingAccountRequests = $this->getpendingAccountRequests();
-        $pendingCourseRequests = $this->getPendingCourseRequests();
-        $expiredCourses = $this->getExpiredCourses();
-
+        
         $this->set(compact('user', 'pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }
 
@@ -115,10 +83,11 @@ class DashboardController extends AppController
 
         $user = $this->Authentication->getIdentity();
         
-        $myCoursesCount = $this->getMyCoursesCount($user);
-        $moderatedCoursesCount = $this->getModeratedCoursesCount($user);
-        $allCoursesCount = $this->getAllCoursesCount($user);
-        
+        $myCoursesCount = $this->Courses->find()->where(['user_id' => $user->id])->count();
+        // $moderatedCoursesCount = return $this->Courses->find()->where(['user_id' => $user_id])->count();
+        $moderatedCoursesCount = 1;
+        // $allCoursesCount = return $this->Courses->find()->where(['user_id' => $user_id])->count();
+        $allCoursesCount = 2;
         $this->set(compact('user', 'myCoursesCount', 'moderatedCoursesCount', 'allCoursesCount'));
     }
 
