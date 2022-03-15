@@ -292,7 +292,7 @@ class UsersController extends AppController
                     'action' => 'registration_success'
                 ]);
             } else {
-                $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
+                $this->Flash->set('There are errors! Please check the form and amend the indicated fields.');
             }
         }
 
@@ -339,7 +339,7 @@ class UsersController extends AppController
                     'action' => 'registration_success'
                 ]);
             } else {
-                $this->Flash->set('We have errors! Please check the form and amend the indicated fields');
+                $this->Flash->set('There are errors! Please check the form and amend the indicated fields.');
             }
         }
         // render form
@@ -511,7 +511,7 @@ class UsersController extends AppController
                 $this->Flash->set('The account has been approved successfully.');
                 $redirect = true;
             } else {
-                // we have missing data or errors - set user to render approval form
+                // There are missing data or errors - set user to render approval form
                 $this->set('user', $user);
                 if ($admin and $admin->is_admin)
                     $this->Flash->set('Approval failed, please amend the account.');
