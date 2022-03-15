@@ -38,7 +38,7 @@ class DashboardController extends AppController
         $this->loadModel('Courses');
         $user = $this->Authentication->getIdentity();        
         $expiryDate = new FrozenDate('-10 months'); // in new implementation the expiry mails will be sent after 10 months
-        if( in_array($user->user_role_id, [1, 2]) ) {
+        if( $user->user_role_id == 2 || $user->is_admin ) {
             $expiredCourses = $this->Courses->find()
                                             ->where([
                                                 'updated <=' => $expiryDate,
@@ -60,9 +60,21 @@ class DashboardController extends AppController
     }
 
     // Helpers for Administrate Courses dashboard
-    private function getMyCoursesCount($user_id) {
+    private function getMyCoursesCount($user) {
         $this->loadModel('Courses');
-        return $this->Courses->find()->where(['user_id' => $user_id])->count();
+        return $this->Courses->find()->where(['user_id' => $user->id])->count();
+    }
+    
+    private function getModeratedCoursesCount($user) {
+        $this->loadModel('Courses');
+        // return $this->Courses->find()->where(['user_id' => $user_id])->count();
+        return 1;
+    }
+    
+    private function getAllCoursesCount($user) {
+        $this->loadModel('Courses');
+        // return $this->Courses->find()->where(['user_id' => $user_id])->count();
+        return 2;
     }
 
     public function index()
@@ -71,15 +83,8 @@ class DashboardController extends AppController
         $this->Authorization->authorize($user, 'accessDashboard');
         // $identity = $this->_checkExternalIdentity();
 
-        // $totalNeedsAttention = $this->getExpiredCourses();
-        // if( in_array($user->user_role_id, [1, 2]) ) {
-        //     $totalNeedsAttention += $this->getpendingAccountRequests() + $this->getPendingCourseRequests();
-        // }
-        // $totalAdministrateCourses = $this->getMyCoursesCount($user->id); // todo add moderator courses count
-
         $this->set('title_for_layout', 'DHCR Dashboard');
         $this->set(compact('user'));
-        // $this->set(compact('user', 'totalNeedsAttention', 'totalAdministrateCourses'));
     }
 
     public function needsAttention()
@@ -110,15 +115,11 @@ class DashboardController extends AppController
 
         $user = $this->Authentication->getIdentity();
         
-        $myCoursesNr = $this->getMyCoursesCount($user->id);
-        if($user->user_role_id < 3) {
-            // Moderator oder Administrator
-            // todo: implement after finishing moderated courses
-            $moderatedCoursesNr = 1;
-        } else {
-            $moderatedCoursesNr = 0;
-        }
-        $this->set(compact('user', 'myCoursesNr', 'moderatedCoursesNr'));
+        $myCoursesCount = $this->getMyCoursesCount($user);
+        $moderatedCoursesCount = $this->getModeratedCoursesCount($user);
+        $allCoursesCount = $this->getAllCoursesCount($user);
+        
+        $this->set(compact('user', 'myCoursesCount', 'moderatedCoursesCount', 'allCoursesCount'));
     }
 
     public function contributorNetwork()
@@ -133,13 +134,12 @@ class DashboardController extends AppController
 
         $user = $this->Authentication->getIdentity();
 
-        if($user->user_role_id > 0) {
-            // Administrator
+        if( $user->is_admin ) {
             $totalUsers = $this->Users->find()->count();
         } else {
             $totalUsers = 0;
         }
-        $this->set(compact('totalUsers'));
+        $this->set(compact('user', 'totalUsers'));
     }
 
     public function categoryLists()
@@ -155,14 +155,18 @@ class DashboardController extends AppController
         $breadcrumActions[0] = 'categoryLists';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        // $user = $this->Authentication->getIdentity();
+        $user = $this->Authentication->getIdentity();
 
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
         $totalLanguages = $this->Languages->find()->count();
-        $totalInviteTranslations = $this->InviteTranslations->find()->count();
+        if ($user->is_admin) {
+            $totalInviteTranslations = $this->InviteTranslations->find()->count();
+        } else {
+            $totalInviteTranslations = 0;
+        }
 
-        $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages', 'totalInviteTranslations'));
+        $this->set(compact('user', 'totalCities', 'totalInstitutions', 'totalLanguages', 'totalInviteTranslations'));
     }
 
     public function profileSettings()

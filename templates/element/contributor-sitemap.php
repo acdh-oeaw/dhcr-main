@@ -9,7 +9,6 @@
                 ) ?>
             </p>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -19,7 +18,6 @@
                 ) ?>
             </p>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -30,7 +28,7 @@
             </p>
             <ul class="attention">
                 <?php
-                if( in_array($user_role_id, [1, 2] )) {
+                if( $user->user_role_id == 2 || $user->is_admin ) {
                     echo '<li>';
                         echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'accountApproval']);
                     echo '</li>';
@@ -47,7 +45,6 @@
                 </li>
             </ul>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -70,17 +67,21 @@
                     ) ?>
                 </li>
                 <?php
-                if( in_array($user_role_id, [1, 2] )) {
+                if( $user->user_role_id == 2 || $user->is_admin ) {
                 echo '<li>';
                     echo $this->Html->link('Moderated Courses', ['controller' => 'Courses', 'action' => 'moderated'] );
                 echo '</li>';
                 }
+                if( $user->is_admin ) {
+                    echo '<li>';
+                        echo $this->Html->link('All Courses', ['controller' => 'Courses', 'action' => 'all'] );
+                    echo '</li>';
+                }    
                 ?>
             </ul>
         </li>
-
         <?php
-        if( in_array($user_role_id, [1, 2] )) {
+        if( $user->user_role_id == 2 || $user->is_admin ) {
         ?>
         <li>
             <p>
@@ -98,14 +99,21 @@
                     ) ?>
                 </li>
                 <li>
-                    <?= $this->Html->link(
-                        'Administrate Users',
-                        ['controller' => 'Users', 'action' => 'index']
-                    ) ?>
+                    <?php
+                    if( $user->is_admin ) {
+                        echo $this->Html->link(
+                            'Administrate Users',
+                            ['controller' => 'Users', 'action' => 'index']
+                        ); 
+                    }
+                    ?>
                 </li>
             </ul>
         </li>
-
+        <?php 
+        } 
+        if( $user->user_role_id == 2 || $user->is_admin ) {
+        ?>
         <li>
             <p>
                 <?= $this->Html->link(
@@ -128,10 +136,24 @@
                     ) ?>
                 </li>
                 <li>
-                    <?= $this->Html->link(
+                    <?php 
+                    if( $user->is_admin ) {
+                    echo $this->Html->link(
                         'Languages',
                         ['controller' => 'Languages', 'action' => 'index']
-                    ) ?>
+                        );
+                    }
+                    ?>
+                </li>
+                <li>
+                    <?php 
+                    if( $user->is_admin ) {
+                    echo $this->Html->link(
+                        'Invite Translations',
+                        ['controller' => 'Languages', 'action' => 'inviteTranslations']
+                        );
+                    }
+                    ?>
                 </li>
             </ul>
         </li>

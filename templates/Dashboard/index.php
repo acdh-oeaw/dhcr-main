@@ -6,10 +6,10 @@
                 . ', thanks for contributing to the DHCR';
             switch ($user->user_role_id) {
                 case 1:
-                    echo ' as <strong><font color="black"> administrator</font></strong>';
+                    echo ' as <strong><font color="60a845"> administrator</font></strong>';
                     break;
                 case 2:
-                    echo ' as <strong><font color="black"> moderator</font></strong> of  <strong><font color="black">' . $user->country->name .'</font></strong>';
+                    echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name .'</font></strong>';
                     break;
             }
             echo '.';
@@ -31,7 +31,7 @@
             'title' => 'Needs Attention',
             'escape' => false
     ]);
-    if( in_array($user->user_role_id, [1, 2] )) {
+    if( $user->user_role_id == 2 || $user->is_admin ) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-list"></span><br>Category Lists<p>&nbsp;</p>',
             [
@@ -66,7 +66,7 @@
             'title' => 'Profile Settings',
             'escape' => false
     ]);
-    if( in_array($user->user_role_id, [1, 2] )) {
+    if( $user->user_role_id == 2 || $user->is_admin ) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>Contributor Network<p>&nbsp;</p>',
             [

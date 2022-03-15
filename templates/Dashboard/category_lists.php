@@ -15,19 +15,21 @@
             'title' => 'Cities',
             'escape' => false
         ]);
-    echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-text-background"></span><br>
-        Languages<br>
-        <font color="#60a845">(&nbsp;' . $totalLanguages . '&nbsp;)</font><p></p>',
-        [
-            'controller' => 'languages',
-            'action' => 'index'
-        ],
-        [
-            'class' => 'blue button',
-            'title' => 'Languages',
-            'escape' => false
-        ]);
+    if( $user->is_admin ) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-text-background"></span><br>
+            Languages<br>
+            <font color="#60a845">(&nbsp;' . $totalLanguages . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'languages',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Languages',
+                'escape' => false
+            ]);
+    }
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-book"></span><br>
         Institutions<br>
@@ -41,18 +43,20 @@
             'title' => 'Institutions',
             'escape' => false
         ]);
-    echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-text-color"></span><br>
-        Invite Translations<br>
-        <font color="#60a845">(&nbsp;' . $totalInviteTranslations . '&nbsp;)</font><p></p>',
-        [
-            'controller' => 'inviteTranslations',
-            'action' => 'index'
-        ],
-        [
-            'class' => 'blue button',
-            'title' => ' Invite Translations',
-            'escape' => false
-        ]);
+    if( $user->is_admin ) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-text-color"></span><br>
+            Invite Translations<br>
+            <font color="#60a845">(&nbsp;' . $totalInviteTranslations . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'inviteTranslations',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => ' Invite Translations',
+                'escape' => false
+            ]);
+    }
     ?>
 </div>

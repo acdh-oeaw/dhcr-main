@@ -3,7 +3,7 @@
 
 <div id="dashboard">
     <?php
-    if( in_array($user->user_role_id, [1, 2] )) {
+    if( $user->user_role_id == 2 || $user->is_admin ) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
             Account Approval<br>
@@ -17,7 +17,7 @@
                 'title' => 'Account Approval',
                 'escape' => false
         ]);
-    }    
+    }
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-bell"></span><br>
         Course Expiry<br>
@@ -31,7 +31,7 @@
             'title' => 'Course Expiry',
             'escape' => false
         ]);
-    if( in_array($user->user_role_id, [1, 2] )) {
+    if( $user->user_role_id == 2 || $user->is_admin ) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-education"></span><br>
             Course Approval<br>
