@@ -31,11 +31,11 @@
                 Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course 
                 Registry are in English, you have the possibility to localize the invitation message.
                 <p></p>
-                <b><u>Preview localized messages</u> (opens in new window)</b><br>
+                <b>Preview localized messages</b><br>
                 <?php
                 foreach($inviteTranslations as $inviteTranslation) {
                     echo $this->Html->link($inviteTranslation->name, ['controller' => 'inviteTranslations', 
-                        'action' => 'view', $inviteTranslation->id], ['target' => '_blank']) . '<br>';
+                        'action' => 'view', $inviteTranslation->id]) . '<br>';
                     }
                 echo '<p></p>';
                 echo $this->Form->control('inviteTranslation', ['label' => 'Choose localization*', 'options' => $languageList]);
