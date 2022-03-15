@@ -4,11 +4,11 @@
     <div class="table-responsive">
     <p>
     <?php
-    if($course_view_type == 'My Courses') { ?>
+    if($course_view_type != 'Course Expiry') { ?>
     <b>Course Status</b><br>
-    <font color="green">Green:</font> Actively maintained.<br>
-    <font color="orange">Orange:</font> Reminder sent, course needs to be updated.<br>
-    <font color="red">Red:</font> Outdated, not shown in public registry.
+    <font color="green">Green:</font> Actively maintained<br>
+    <font color="orange">Orange:</font> Reminder sent, course needs to be updated<br>
+    <font color="red">Red:</font> Outdated, not shown in public registry
     <?php } ?>
     </p>
         <table>

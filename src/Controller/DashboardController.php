@@ -84,10 +84,16 @@ class DashboardController extends AppController
         $user = $this->Authentication->getIdentity();
         
         $myCoursesCount = $this->Courses->find()->where(['user_id' => $user->id])->count();
-        // $moderatedCoursesCount = return $this->Courses->find()->where(['user_id' => $user_id])->count();
-        $moderatedCoursesCount = 1;
-        // $allCoursesCount = return $this->Courses->find()->where(['user_id' => $user_id])->count();
-        $allCoursesCount = 2;
+        if($user->user_role_id == 2) {
+            $moderatedCoursesCount = $this->Courses->find()->where(['country_id' => $user->country_id])->count();
+        } else {
+            $moderatedCoursesCount = 0;
+        }
+        if($user->is_admin) {
+            $allCoursesCount = $this->Courses->find()->count();
+        } else {
+            $allCoursesCount = 0;
+        }
         $this->set(compact('user', 'myCoursesCount', 'moderatedCoursesCount', 'allCoursesCount'));
     }
 

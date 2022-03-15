@@ -240,7 +240,7 @@ class CoursesController extends AppController
 
         $user_id = $this->Authentication->getIdentity()->id;
         //todo: change query, don't include > 2yr 
-        $courses = $this->Courses->find('all', ['order' => 'Courses.updated desc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
         $this->set(compact('courses'));
         // "customize" view
         $this->set('course_icon', 'th-large');
@@ -271,6 +271,31 @@ class CoursesController extends AppController
         // "customize" view
         $this->set('course_icon', 'bell');
         $this->set('course_view_type', 'Course Expiry');
+        $this->render('courses-list');
+    }
+
+    public function moderatedCourses()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('Courses');
+
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Moderated Courses';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'moderatedCourses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+
+        $user = $this->Authentication->getIdentity();
+        $country_id = $this->Authentication->getIdentity()->country_id;
+        //todo: change query, don't include > 2yr 
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['Courses.country_id' => $country_id]);
+        $this->set(compact('user', 'courses'));
+        // "customize" view
+        $this->set('course_icon', 'th');
+        $this->set('course_view_type', 'Moderated Courses');
         $this->render('courses-list');
     }
 

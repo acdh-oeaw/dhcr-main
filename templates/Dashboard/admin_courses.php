@@ -50,11 +50,11 @@
                 <font color="#60a845">(&nbsp;' . $allCoursesCount . '&nbsp;)</font><p></p>',
                 [
                     'controller' => 'courses',
-                    'action' => 'moderatedCourses'
+                    'action' => 'allCourses'
                 ],
                 [
                     'class' => 'blue button',
-                    'title' => 'Moderated Courses',
+                    'title' => 'All Courses',
                     'escape' => false
             ]);        
         }
