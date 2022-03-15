@@ -68,7 +68,7 @@ class IdpSelector {
         this.element.append($('<p></p>').append('Use your institutional account to log in.<br>\n' +
             'If your organisation is not available in the list of institutions below, \n' +
             'please use our <a href="'+BASE_URL+'users/register">registration form</a> ' +
-            'and classic login.'))
+            'and the classic login.'))
         let form = $('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
         form.submit(function(event) { this.submit() }.bind(this))
         let formDiv = $('<div class="users form"></div>').append(form)
@@ -95,7 +95,7 @@ class IdpSelector {
             $('.loginAlternative').toggle()
         }.bind(this))
         let searchButton = $('<a href="#idpSearch" class="button small inputAlternativeButton" style="display:none">Organization Search</a>')
-        let listButton = $('<a href="#idpList" class="button small inputAlternativeButton">Organization List</a>')
+        let listButton = $('<a href="#idpList" class="button small inputAlternativeButton">Organisation List</a>')
         listButton.click(function(e) {
             e.preventDefault()
             $('.inputAlternative').toggle()
