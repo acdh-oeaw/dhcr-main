@@ -4,13 +4,10 @@
             <?php
             echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
                 . ', thanks for contributing to the DHCR';
-            switch ($user->user_role_id) {
-                case 1:
-                    echo ' as <strong><font color="60a845"> administrator</font></strong>';
-                    break;
-                case 2:
-                    echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name .'</font></strong>';
-                    break;
+            if($user->is_admin) {
+                echo ' as <strong><font color="60a845"> administrator</font></strong>';
+            } elseif($user->user_role_id == 2) {
+                echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name .'</font></strong>';
             }
             echo '.';
             ?>
