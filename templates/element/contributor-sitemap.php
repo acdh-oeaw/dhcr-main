@@ -67,7 +67,7 @@
                     ) ?>
                 </li>
                 <?php
-                if( $user->user_role_id == 2 || $user->is_admin ) {
+                if( $user->user_role_id == 2) {
                 echo '<li>';
                     echo $this->Html->link('Moderated Courses', ['controller' => 'Courses', 'action' => 'moderated'] );
                 echo '</li>';
