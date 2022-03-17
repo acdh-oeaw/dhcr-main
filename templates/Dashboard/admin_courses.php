@@ -15,7 +15,7 @@
             'title' => 'Add Course',
             'escape' => false
         ]);
-    if( $user->user_role_id == 2 || $user->is_admin ) {
+    if( $user->user_role_id == 2) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-th"></span><br>
             Moderated Courses<br>
