@@ -828,14 +828,21 @@ class UsersController extends AppController
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
-            $messageContent = $inviteMessage->messageBody .'\n\n' .h(ucfirst($user->academic_title)) .' ' 
-                .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name)) .' ' .h($inviteMessage->messageSignature);
+            $messageBody = $inviteMessage->messageBody;
+            if($user->academic_title != null) {
+                $fullName = h(ucfirst($user->academic_title)) .' ';
+            } else {
+                $fullName = '';
+            }
+            $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
+            $messageBody = str_replace('<fullname>', $fullName, $messageBody);
+
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setSubject($inviteMessage->subject)
-                    ->deliver($messageContent);
+                    ->deliver($messageBody);
                 $this->Flash->success(__('The invitation has been sent.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
             }
