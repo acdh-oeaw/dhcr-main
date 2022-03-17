@@ -4,14 +4,23 @@
     <div class="table-responsive">
     <p>
     <?php
-    if($course_view_type != 'Course Expiry') { ?>
+    if($course_view_type != 'Course Expiry' && $coursesCount > 0) { ?>
     <b>Course Status</b><br>
     <font color="green">Green:</font> Actively maintained<br>
     <font color="orange">Orange:</font> Reminder sent, course needs to be updated<br>
     <font color="red">Red:</font> Outdated, not shown in public registry
-    <?php } ?>
+    <?php
+    }
+    if($coursesCount == 0) {
+        echo 'No courses in this list.';
+    }
+    if($course_view_type == 'My Courses' && $coursesCount == 0) {
+        echo '<p>Click ' .$this->Html->link(__('here'), ['action' => 'add']) .' to add one.</p>';
+    }
+    ?>
     </p>
         <table>
+            <?php if($coursesCount > 0 ) { ?>
             <thead>
                 <tr>
                     <th align="center" style="padding: 5px">Actions</th>
@@ -24,6 +33,7 @@
                     
                 </tr>
             </thead>
+            <?php } ?>
             <tbody>
                 <?php foreach ($courses as $course) : ?>
                     <tr>

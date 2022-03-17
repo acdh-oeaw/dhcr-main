@@ -229,11 +229,11 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        $user_id = $this->Authentication->getIdentity()->id;
         //todo: change query, don't include > 2yr
         $user = $this->Authentication->getIdentity();
-        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
-        $this->set(compact('user', 'courses'));
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user->id]);
+        $coursesCount = $this->Courses->find()->where(['user_id' => $user->id])->count();
+        $this->set(compact('user', 'courses', 'coursesCount'));
         // "customize" view
         $this->set('course_icon', 'th-large');
         $this->set('course_view_type', 'My Courses');
@@ -260,7 +260,8 @@ class CoursesController extends AppController
         $tooOld = new FrozenTime('-10 Months');
         $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                 ->where(['user_id' => $user_id, 'Courses.updated <' => $tooOld ]);
-        $this->set(compact('user', 'courses'));
+        $coursesCount = $this->Courses->find()->where(['user_id' => $user->id, 'Courses.updated <' => $tooOld])->count();
+        $this->set(compact('user', 'courses', 'coursesCount'));
         // "customize" view
         $this->set('course_icon', 'bell');
         $this->set('course_view_type', 'Course Expiry');
@@ -285,7 +286,8 @@ class CoursesController extends AppController
         $country_id = $this->Authentication->getIdentity()->country_id;
         //todo: change query, don't include > 2yr 
         $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['Courses.country_id' => $country_id]);
-        $this->set(compact('user', 'courses'));
+        $coursesCount = $this->Courses->find()->where(['Courses.country_id' => $country_id])->count();
+        $this->set(compact('user', 'courses', 'coursesCount'));
         // "customize" view
         $this->set('course_icon', 'th');
         $this->set('course_view_type', 'Moderated Courses');
