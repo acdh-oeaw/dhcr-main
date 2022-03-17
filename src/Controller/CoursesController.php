@@ -24,14 +24,6 @@ class CoursesController extends AppController
         if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
             $this->Authorization->skipAuthorization();
         }
-        // required for contributors menu
-        $user = $this->Authentication->getIdentity();
-        if(is_null($user)) {
-            $user_role_id = 0;
-        } else {
-            $user_role_id = $user->user_role_id;
-        }
-        $this->set('user_role_id', $user_role_id);
     }
 
     public function index()
@@ -102,7 +94,6 @@ class CoursesController extends AppController
             'objects'
         ));
     }
-
 
     public function view($id = null)
     {
@@ -239,9 +230,10 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
         $user_id = $this->Authentication->getIdentity()->id;
-        //todo: change query, don't include > 2yr 
+        //todo: change query, don't include > 2yr
+        $user = $this->Authentication->getIdentity();
         $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user_id]);
-        $this->set(compact('courses'));
+        $this->set(compact('user', 'courses'));
         // "customize" view
         $this->set('course_icon', 'th-large');
         $this->set('course_view_type', 'My Courses');
@@ -262,12 +254,13 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        $user_id = $this->Authentication->getIdentity()->id;
+        $user = $this->Authentication->getIdentity();
+        $user_id = $user->id;
         //todo: change query, don't include > 2yr
         $tooOld = new FrozenTime('-10 Months');
         $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                 ->where(['user_id' => $user_id, 'Courses.updated <' => $tooOld ]);
-        $this->set(compact('courses'));
+        $this->set(compact('user', 'courses'));
         // "customize" view
         $this->set('course_icon', 'bell');
         $this->set('course_view_type', 'Course Expiry');
