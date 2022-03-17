@@ -14,7 +14,7 @@
                 If the institution is not in the list, go to 
                 <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?> first.
                 <p></p>
-                <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => ['1', '2'], 'empty' => true]) ?>
+                <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'empty' => true]) ?>
                 <p>&nbsp;</p>
                 <h3>Step 2: Enter personal details of the user</h3>
                 <p></p>

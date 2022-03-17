@@ -7,6 +7,7 @@ use Cake\Core\Exception\Exception;
 use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
+use Cake\Mailer\Mailer;
 
 /**
  * Users Controller
@@ -809,7 +810,10 @@ class UsersController extends AppController
     public function invite()
     {
         $this->viewBuilder()->setLayout('contributors');
-
+        $this->loadModel('Institutions');
+        $this->loadModel('InviteTranslations');
+        $user = $this->Authentication->getIdentity();
+        
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
@@ -822,21 +826,26 @@ class UsersController extends AppController
         $invitedUser = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
-            if ($this->Users->save($user)) {
-                // todo add sent mail
-                // $this->Flash->success(__('The invitation has been sent.'));
-                $this->Flash->error(__('Sending mail not implemented yet.'));
-
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+            $inviteTranslationId = $this->request->getData('inviteTranslation');
+            $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
+            $messageContent = $inviteMessage->messageBody .'\n\n' .h(ucfirst($user->academic_title)) .' ' 
+                .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name)) .' ' .h($inviteMessage->messageSignature);
+            if ($this->Users->save($invitedUser)) {
+                $mailer = new Mailer('default');
+                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                    ->setTo($invitedUser->email)
+                    ->setSubject($inviteMessage->subject)
+                    ->deliver($messageContent);
+                $this->Flash->success(__('The invitation has been sent.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
             }
             $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
         }
 
-        $user = $this->Authentication->getIdentity();
-        $this->loadModel('InviteTranslations');
+        $institutions = $this->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $inviteTranslations = $this->InviteTranslations->find()->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         
-        $this->set(compact('invitedUser', 'user', 'inviteTranslations', 'languageList'));
+        $this->set(compact('invitedUser', 'user', 'institutions', 'inviteTranslations', 'languageList'));
     }
 }
