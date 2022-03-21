@@ -8,6 +8,7 @@ use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\Mailer\Mailer;
+use Cake\Core\Configure;
 
 /**
  * Users Controller
@@ -828,6 +829,14 @@ class UsersController extends AppController
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
+            // set password token
+            $user->setAccess('*', true);
+            $user = $this->Users->patchEntity($user, [
+                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                    'password_token' => $this->Users->generateToken('password_token')
+                    ]);
+            // set password link
+            $passwordLink = Configure::read('dhcr.baseUrl') .'users/reset_password/' .$user->password_token;
             //  personalize message
             $messageBody = $inviteMessage->messageBody;
             if($user->academic_title != null) {
@@ -837,12 +846,7 @@ class UsersController extends AppController
             }
             $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
-            // set password token
-            $user->setAccess('*', true);
-            $user = $this->Users->patchEntity($user, [
-                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
-                    'password_token' => $this->Users->generateToken('password_token')
-                    ]);
+            $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('invite');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
