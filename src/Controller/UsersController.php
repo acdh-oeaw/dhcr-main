@@ -852,6 +852,9 @@ class UsersController extends AppController
                 $mailer = new Mailer('default');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
+                    ->setCc(env('APP_MAIL_DEFAULT_CC'))
+                    ->setBcc($user->email)
+                    ->setReplyTo($user->email)
                     ->setSubject($inviteMessage->subject)
                     ->deliver($messageBody);
                 $this->Flash->success(__('The invitation has been sent.'));
