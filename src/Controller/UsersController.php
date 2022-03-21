@@ -837,7 +837,7 @@ class UsersController extends AppController
                 'password_token' => $this->Users->generateToken('password_token')
                 ]);
             // set password link
-            $passwordLink = env('DHCR_BASE_URL') .'users/reset_password/' .$user->password_token;
+            $passwordLink = env('DHCR_BASE_URL') .'users/reset_password/' .$invitedUser->password_token;
             //  personalize message
             $messageBody = $inviteMessage->messageBody;
             if($user->academic_title != null) {
