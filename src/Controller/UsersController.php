@@ -832,7 +832,7 @@ class UsersController extends AppController
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
             // set password token
             $invitedUser->setAccess('*', true);
-            $invitedUser = $this->Users->patchEntity($user, [
+            $invitedUser = $this->Users->patchEntity($invitedUser, [
                 'password_token_expires' => new FrozenTime('+ 2 days'),
                 'password_token' => $this->Users->generateToken('password_token')
                 ]);
