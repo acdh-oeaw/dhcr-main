@@ -835,7 +835,7 @@ class UsersController extends AppController
                 $fullName = '';
             }
             $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
-            $messageBody = str_replace('<fullname>', $fullName, $messageBody);
+            $messageBody = str_replace('-fullname-', $fullName, $messageBody);
 
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
