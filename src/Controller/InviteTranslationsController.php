@@ -71,11 +71,6 @@ class InviteTranslationsController extends AppController
         $this->set(compact('inviteTranslation', 'user'));
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $inviteTranslation = $this->InviteTranslations->newEmptyEntity();
@@ -84,9 +79,12 @@ class InviteTranslationsController extends AppController
             $nextSortOrder = $query->select(['sortOrder' => $query->func()->max('sortorder')])->first()->sortOrder + 1;
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
             $inviteTranslation->sortOrder = $nextSortOrder;
+            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
+                $this->Flash->success(__('Error: -fullname- missing in message.'));
+                return $this->redirect(['action' => 'index']);
+            }
             if ($this->InviteTranslations->save($inviteTranslation)) {
                 $this->Flash->success(__('The invite translation has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The invite translation could not be saved. Please, try again.'));
@@ -106,13 +104,6 @@ class InviteTranslationsController extends AppController
         $this->set(compact('inviteTranslation'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Invite Translation id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
         $inviteTranslation = $this->InviteTranslations->get($id, [
@@ -120,9 +111,12 @@ class InviteTranslationsController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
+            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
+                $this->Flash->success(__('Error: -fullname- missing in message.'));
+                return $this->redirect(['action' => 'index']);
+            }
             if ($this->InviteTranslations->save($inviteTranslation)) {
                 $this->Flash->success(__('The invite translation has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The invite translation could not be saved. Please, try again.'));
