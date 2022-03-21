@@ -45,7 +45,7 @@
                         <?php
                         if($course->updated->wasWithinLast('10 Months')) {
                             echo 'green';
-                        } elseif ($course->updated->wasWithinLast('18 Months')) {
+                        } elseif ($course->updated->wasWithinLast('12 Months')) {
                             echo 'orange';
                         } else {
                             echo 'red';
