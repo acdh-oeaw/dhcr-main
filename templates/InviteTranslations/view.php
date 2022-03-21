@@ -1,9 +1,3 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\InviteTranslation $inviteTranslation
- */
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Invite Translation Details</h2>
@@ -15,10 +9,17 @@
             <?= h($inviteTranslation->subject) ?>
             <p></p>
             <b><u>Message</u></b></br>
-            <?= $this->Text->autoParagraph(h($inviteTranslation->messageBody)); ?>
-            <p></p>
-            <?= h(ucfirst($user->academic_title)) .' ' .h(ucfirst($user->first_name))  .' ' 
-                .h(ucfirst($user->last_name)) . ' ' .h($inviteTranslation->messageSignature) ?>
+            <?php
+            $messageBody = $inviteTranslation->messageBody;
+            if($user->academic_title != null) {
+                $fullName = h(ucfirst($user->academic_title)) .' ';
+            } else {
+                $fullName = '';
+            }
+            $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
+            $messageBody = str_replace('-fullname-', $fullName, $messageBody);
+            echo $this->Text->autoParagraph(h($messageBody));
+            ?>
         </div>
     </div>
 </div>
