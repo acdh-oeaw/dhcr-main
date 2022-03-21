@@ -20,6 +20,10 @@
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             echo $this->Text->autoParagraph(h($messageBody));
             ?>
+            <p></p>
+            --<br>
+            The Digital Humanities Course Registry:<br>
+            <?= env('DHCR_BASE_URL'); ?>
         </div>
     </div>
 </div>
