@@ -828,6 +828,7 @@ class UsersController extends AppController
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
+            //  personalize message
             $messageBody = $inviteMessage->messageBody;
             if($user->academic_title != null) {
                 $fullName = h(ucfirst($user->academic_title)) .' ';
@@ -836,9 +837,14 @@ class UsersController extends AppController
             }
             $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
-
+            // set password token
+            $user->setAccess('*', true);
+            $user = $this->Users->patchEntity($user, [
+                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                    'password_token' => $this->Users->generateToken('password_token')
+                    ]);
             if ($this->Users->save($invitedUser)) {
-                $mailer = new Mailer('default');
+                $mailer = new Mailer('invite');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setSubject($inviteMessage->subject)
