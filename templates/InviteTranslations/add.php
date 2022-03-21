@@ -9,9 +9,13 @@
                 <?php
                     echo $this->Form->control('name', ['label' => 'Translation Name / Language']);
                     echo $this->Form->control('subject');
-                    echo '<p>Note: The text <strong><i>-fullname-</i></strong> in the message is required and will be 
-                        automatically replaced by the academic title, first name and last name of the person who is sending the invitation. 
-                        Please do not change or translate it. Take a look at the English translation as an example of how to use it.</p>';
+                    echo '<p>The following words are required in the message:<br>
+                        <strong><i><u>-fullname-</u></i></strong><br>
+                        This will be automatically replaced by the academic title, first name and last name of the person who is sending the invitation.<br>
+                        <strong><i><u>-passwordlink-</u></i></strong><br>
+                        This will be automatically replaced by a link where the user can set his password. This link is only visible in the email.</p><p>
+                        Please do not change or translate those words.
+                        <br>Take a look at the English translation as an example of how to use it.</p>';
                     echo $this->Form->control('messageBody', ['label' => 'Message']);
                     echo $this->Form->control('active');
                 ?>
