@@ -229,11 +229,20 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
 
-        //todo: change query, don't include > 2yr
         $user = $this->Authentication->getIdentity();
-        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where(['user_id' => $user->id]);
-        $coursesCount = $this->Courses->find()->where(['user_id' => $user->id])->count();
-        $this->set(compact('user', 'courses', 'coursesCount'));
+        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
+                                                        'deleted' => 0,
+                                                        'Courses.updated >=' => new FrozenTime('-18 months'),
+                                                        'user_id' => $user->id
+                                                        ]);
+        $coursesCount = $this->Courses->find()->where([
+                                                        'deleted' => 0,
+                                                        'Courses.updated >=' => new FrozenTime('-18 months'),
+                                                        'user_id' => $user->id                                                        
+                                                        ])
+                                                        ->count();
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('courses', 'coursesCount'));
         // "customize" view
         $this->set('course_icon', 'th-large');
         $this->set('course_view_type', 'My Courses');
