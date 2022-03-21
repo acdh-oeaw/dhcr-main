@@ -79,8 +79,12 @@ class InviteTranslationsController extends AppController
             $nextSortOrder = $query->select(['sortOrder' => $query->func()->max('sortorder')])->first()->sortOrder + 1;
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
             $inviteTranslation->sortOrder = $nextSortOrder;
-            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
+            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for -fullname-
                 $this->Flash->success(__('Error: -fullname- missing in message.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            if( !strpos($inviteTranslation->messageBody, '-passwordlink-') ) {  // check for -passwordlink-
+                $this->Flash->success(__('Error: -passwordlink- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }
             if ($this->InviteTranslations->save($inviteTranslation)) {
@@ -113,6 +117,10 @@ class InviteTranslationsController extends AppController
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
             if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
                 $this->Flash->success(__('Error: -fullname- missing in message.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            if( !strpos($inviteTranslation->messageBody, '-passwordlink-') ) {  // check for -passwordlink-
+                $this->Flash->success(__('Error: -passwordlink- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }
             if ($this->InviteTranslations->save($inviteTranslation)) {
