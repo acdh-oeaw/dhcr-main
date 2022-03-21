@@ -81,12 +81,6 @@ class InviteTranslationsTable extends Table
             ->notEmptyString('messageBody');
 
         $validator
-            ->scalar('messageSignature')
-            ->maxLength('messageSignature', 255)
-            ->requirePresence('messageSignature', 'create')
-            ->notEmptyString('messageSignature');
-
-        $validator
             ->boolean('active')
             ->requirePresence('active', 'create')
             ->notEmptyString('active');

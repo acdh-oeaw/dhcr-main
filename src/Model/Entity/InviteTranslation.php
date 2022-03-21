@@ -13,7 +13,6 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property string $subject
  * @property string $messageBody
- * @property string $messageSignature
  * @property \Cake\I18n\FrozenTime $created
  * @property \Cake\I18n\FrozenTime $updated
  * @property bool $active
@@ -34,7 +33,6 @@ class InviteTranslation extends Entity
         'name' => true,
         'subject' => true,
         'messageBody' => true,
-        'messageSignature' => true,
         'created' => true,
         'updated' => true,
         'active' => true,
