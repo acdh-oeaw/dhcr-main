@@ -848,7 +848,7 @@ class UsersController extends AppController
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
             if ($this->Users->save($invitedUser)) {
-                $mailer = new Mailer('invite');
+                $mailer = new Mailer('default');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setSubject($inviteMessage->subject)
