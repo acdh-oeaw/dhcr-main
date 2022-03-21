@@ -165,7 +165,7 @@
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-cog"></span>Profile Settings',
-                    ['controller' => 'Users', 'action' => 'profile'],
+                    ['controller' => 'Dashboard', 'action' => 'profileSettings'],
                     ['escape' => false]
                 ) ?>
             </p>
