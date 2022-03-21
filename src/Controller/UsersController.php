@@ -9,6 +9,7 @@ use Cake\Mailer\MailerAwareTrait;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\Mailer\Mailer;
 use Cake\Core\Configure;
+use Cake\I18n\FrozenTime;
 
 /**
  * Users Controller
@@ -830,13 +831,13 @@ class UsersController extends AppController
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
             // set password token
-            $user->setAccess('*', true);
-            $user = $this->Users->patchEntity($user, [
-                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
-                    'password_token' => $this->Users->generateToken('password_token')
-                    ]);
+            $invitedUser->setAccess('*', true);
+            $invitedUser = $this->Users->patchEntity($user, [
+                'password_token_expires' => new FrozenTime('+ 2 days'),
+                'password_token' => $this->Users->generateToken('password_token')
+                ]);
             // set password link
-            $passwordLink = Configure::read('dhcr.baseUrl') .'users/reset_password/' .$user->password_token;
+            $passwordLink = env('DHCR_BASE_URL') .'users/reset_password/' .$user->password_token;
             //  personalize message
             $messageBody = $inviteMessage->messageBody;
             if($user->academic_title != null) {
