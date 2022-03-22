@@ -722,6 +722,10 @@ class UsersController extends AppController
         $invitedUser = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
+            // set country_id
+            $country_id = $this->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
+            $invitedUser->set('country_id', $country_id);
+            // set invite_message
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
             // set password token
