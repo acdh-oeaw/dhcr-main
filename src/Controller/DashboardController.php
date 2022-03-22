@@ -50,7 +50,8 @@ class DashboardController extends AppController
             $pendingCourseRequests = $this->Courses->find()->where([
                                                                     'approved' => 0,
                                                                     'deleted' => 0
-                                                                    ])->count();
+                                                                    ])
+                                                                    ->count();
             $expiredCourses = $this->Courses->find()->where([
                                                                     'active' => 1,
                                                                     'deleted' => 0,
@@ -117,7 +118,8 @@ class DashboardController extends AppController
                                                                     'updated >=' => $hideDate,
                                                                     'country_id' => $user->country_id,
                                                                     'approved' => 1
-                                                                    ])->count();
+                                                                    ])
+                                                                    ->count();
         } else {
             $moderatedCoursesCount = 0;
         }
