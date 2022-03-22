@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Language[]|\Cake\Collection\CollectionInterface $languages
- */
-?>
 <div class="languages index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-text-background"></span>&nbsp;&nbsp;&nbsp;Languages</h2>

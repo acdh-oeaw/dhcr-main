@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Institution[]|\Cake\Collection\CollectionInterface $institutions
- */
-?>
 <div class="institutions index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Institutions</h2>

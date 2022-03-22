@@ -3,10 +3,8 @@ use Cake\Core\Configure;
 use Cake\Error\Debugger;
 
 $this->layout = 'error';
-
 if (Configure::read('debug')) :
     $this->layout = 'dev_error';
-
     $this->assign('title', $message);
     $this->assign('templateName', 'error500.ctp');
 
@@ -28,11 +26,9 @@ if (Configure::read('debug')) :
 <?php endif; ?>
 <?php
     echo $this->element('auto_table_warning');
-
     if (extension_loaded('xdebug')) :
         xdebug_print_function_stack();
     endif;
-
     $this->end();
 endif;
 ?>

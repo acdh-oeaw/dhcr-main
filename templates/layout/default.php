@@ -6,21 +6,17 @@ use Cake\Core\Configure;
 <html lang="en">
 <head>
     <?= $this->Element('meta') ?>
-
     <?= $this->Html->css('default.css') ?>
     <?= $this->fetch('css') ?>
-
     <title>
         <?= $this->fetch('title') ?>
     </title>
-
     <?= $this->Html->meta('icon') ?>
 </head>
 <?php $bodyClasses = (!empty($bodyClasses)) ? ' class="'.$bodyClasses.'"' : ''; ?>
 <body<?= $bodyClasses ?>>
 <div class="wrapper">
     <div id="page-head">
-
         <?= $this->Html->link('<span class="glyphicon glyphicon-home"></span><span>Home</span>',
             '/', [
                 'class' => 'blue menu icon button',
@@ -36,7 +32,6 @@ use Cake\Core\Configure;
                 'title' => 'Menu'
         ]) ?>
         <?= $this->element('sitemap') ?>
-
         <h1>
             Digital Humanities Course Registry
             <?= $this->Html->image('logo-500.png', [
@@ -46,19 +41,14 @@ use Cake\Core\Configure;
                 'url' => '/']) ?>
         </h1>
     </div>
-
     <div id="content">
         <?= $this->fetch('content') ?>
     </div>
-
     <?= $this->element('default_footer') ?>
-
 </div>
 <?= $this->Flash->render('flash') ?>
-
 <?= $this->Html->script('jquery-3.4.1.min.js') ?>
 <?= $this->Html->script(['modal','sitemap']) ?>
-
 <script type="application/javascript">
     var BASE_URL = '<?= Router::url('/', true) ?>';
     var sitemap;
@@ -81,6 +71,5 @@ echo $this->element('matomo');
 if(!Configure::read('debug'))
     echo $this->Html->script('https://www.google.com/recaptcha/api.js');
 ?>
-
 </body>
 </html>

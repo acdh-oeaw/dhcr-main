@@ -1,5 +1,4 @@
 <div class="row">
-
 <div class="column-responsive column-80">
     <p></p>
     <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Edit Invite Translation</h2>

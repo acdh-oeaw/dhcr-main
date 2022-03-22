@@ -1,11 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Language $language
- * @var string[]|\Cake\Collection\CollectionInterface $subscriptions
- */
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-text-background"></span>&nbsp;&nbsp;&nbsp;Edit Language</h2>

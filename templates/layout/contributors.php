@@ -1,5 +1,4 @@
 <?php
-
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -16,20 +15,15 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <?= $this->Element('meta') ?>
-
     <?= $this->Html->css('contributors.css') ?>
-
     <?= $this->Html->meta('icon') ?>
 </head>
-
 <?php
 $bodyClasses = (!empty($bodyClasses))
     ? 'users ' . $this->request->getParam('action') . ' ' . $bodyClasses
     : 'users ' . $this->request->getParam('action'); ?>
-
 <body class="<?= $bodyClasses ?>">
     <div class="wrapper">
         <div id="page-head">
@@ -56,13 +50,12 @@ $bodyClasses = (!empty($bodyClasses))
             </div>
             <?= $this->element('contributor-sitemap') ?>
         </div>
-
         <div id="breadcrums">
             <p></p>
             <?php
-            // Breadcrum for backend home (Dashboard)
+            // breadcrum for backend home (dashboard)
             echo $this->Html->link(__('Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']);
-            // Breadcrums for all other depths
+            // breadcrums for all other depths
             if(isset($breadcrumTitles)) {
                 for($i=0; $i < sizeof($breadcrumTitles); $i++) {
                     if($i<sizeof($breadcrumTitles)-1) {
@@ -75,24 +68,16 @@ $bodyClasses = (!empty($bodyClasses))
             }
             ?>
         </div>
-
         <div id="content">
             <?= $this->fetch('content') ?>
         </div>
-
         <?= $this->element('default_footer') ?>
-
     </div>
-
     <?= $this->Flash->render('flash') ?>
-
     <?= $this->Html->script('jquery-3.4.1.min.js') ?>
-
     <?= $this->Html->script('/leaflet/leaflet') ?>
     <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
-
     <?= $this->Html->script(['modal', 'sitemap', 'accordeon']) ?>
-
     <script type="application/javascript">
         var sitemap;
         $(document).ready(function() {
@@ -105,10 +90,7 @@ $bodyClasses = (!empty($bodyClasses))
             });
         });
     </script>
-
     <?= $this->fetch('script') ?>
     <?= $this->element('matomo') ?>
-
 </body>
-
 </html>

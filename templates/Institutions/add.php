@@ -1,12 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Institution $institution
- * @var \Cake\Collection\CollectionInterface|string[] $cities
- * @var \Cake\Collection\CollectionInterface|string[] $countries
- */
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Add Institution</h2>

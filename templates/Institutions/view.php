@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Institution $institution
- */
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Institution Details</h2>

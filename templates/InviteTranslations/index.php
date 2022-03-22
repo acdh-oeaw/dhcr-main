@@ -1,9 +1,3 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\InviteTranslation[]|\Cake\Collection\CollectionInterface $inviteTranslations
- */
-?>
 <div class="inviteTranslations index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Invite Translations</h2>
