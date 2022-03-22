@@ -213,7 +213,7 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $user = $this->Authentication->getIdentity();
         // todo add auth
-        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
+        $courses = $this->Courses->find('all', ['order' => 'Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
                                                         'deleted' => 0,
                                                         'Courses.updated >=' => new FrozenTime('-18 months'),
                                                         'user_id' => $user->id
@@ -324,7 +324,7 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
         // todo add auth
         $hideDate = new FrozenTime('-18 months');
-        $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
+        $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                     ->where([
                             'deleted' => 0,
                             'Courses.updated >=' => $hideDate,

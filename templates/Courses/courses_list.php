@@ -3,14 +3,26 @@
     <h2><span class="glyphicon glyphicon-<?=$course_icon?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_view_type?></h2>
     <div class="table-responsive">
     <p>
-    <?php
-    if($course_view_type != 'Course Expiry' && $coursesCount > 0) { ?>
-    <b>Course Status</b><br>
+    <strong><u>Course Status</u></strong><br>
     <font color="green">Green:</font> Actively maintained<br>
     <font color="orange">Orange:</font> Reminder sent, course needs to be updated<br>
     <font color="red">Red:</font> Outdated, not shown in public registry
+    </p>
     <?php
-    }
+    echo '<p><strong><u>Sorting Order</u></strong><br> ';
+    switch($course_view_type) {
+        case 'Course Expiry':
+            echo 'Most outdated course first';
+            break;
+        case 'My Courses':
+            echo 'Course Name';
+            break;
+        case 'Moderated Courses':
+        case 'All Courses':
+            echo 'Institution, Course Name';
+            break;
+        }
+    echo '</p>';
     if($coursesCount == 0) {
         echo 'No courses in this list.';
     }
