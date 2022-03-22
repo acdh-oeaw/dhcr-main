@@ -6,30 +6,18 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 
-/**
- * Institutions Controller
- *
- * @property \App\Model\Table\InstitutionsTable $Institutions
- * @method \App\Model\Entity\Institution[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class InstitutionsController extends AppController
 {
     public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
-        // required for contributors menu
-        $user = $this->Authentication->getIdentity();
-        $this->set('user_role_id', $user->user_role_id);
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
     public function index()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -38,24 +26,16 @@ class InstitutionsController extends AppController
         $breadcrumControllers[1] = 'Institutions';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $this->paginate = [
-            'contain' => ['Cities', 'Countries'],
-        ];
+        $this->paginate = ['contain' => ['Cities', 'Countries']];
         $institutions = $this->paginate($this->Institutions);
-
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('institutions'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Institution id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -67,21 +47,14 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $institution = $this->Institutions->get($id, [
-            'contain' => ['Cities', 'Countries'],
-        ]);
-
+        $institution = $this->Institutions->get($id, ['contain' => ['Cities', 'Countries']]);
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('institution'));
     }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -93,32 +66,25 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $institution = $this->Institutions->newEmptyEntity();
         if ($this->request->is('post')) {
             $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
             if ($this->Institutions->save($institution)) {
                 $this->Flash->success(__('The institution has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The institution could not be saved. Please, try again.'));
         }
-
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('institution', 'cities', 'countries'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Institution id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit($id = null)
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -130,39 +96,18 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $institution = $this->Institutions->get($id);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
             if ($this->Institutions->save($institution)) {
                 $this->Flash->success(__('The institution has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The institution could not be saved. Please, try again.'));
         }
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('institution', 'cities', 'countries'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id Institution id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $institution = $this->Institutions->get($id);
-        if ($this->Institutions->delete($institution)) {
-            $this->Flash->success(__('The institution has been deleted.'));
-        } else {
-            $this->Flash->error(__('The institution could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
     }
 }
