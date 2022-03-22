@@ -12,33 +12,10 @@ use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use ArrayObject;
 
-/**
- * Subscriptions Model
- *
- * @property \App\Model\Table\NotificationsTable&\Cake\ORM\Association\HasMany $Notifications
- *
- * @method \App\Model\Entity\Subscription get($primaryKey, $options = [])
- * @method \App\Model\Entity\Subscription newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Subscription[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Subscription|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Subscription saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Subscription patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Subscription[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Subscription findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class SubscriptionsTable extends Table
 {
-
     use MailerAwareTrait;
 
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -93,12 +70,6 @@ class SubscriptionsTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
@@ -134,20 +105,11 @@ class SubscriptionsTable extends Table
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
     public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->isUnique(['email']));
-
         return $rules;
     }
-
 
     public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
         foreach ($data as $key => $value) {
@@ -156,7 +118,6 @@ class SubscriptionsTable extends Table
             }
         }
     }
-
 
     public static $containments = [
         'Disciplines',
@@ -167,7 +128,6 @@ class SubscriptionsTable extends Table
         'CourseTypes',
         'Notifications' // courses will be filtered over notifications already being sent
     ];
-
 
     // called by cron using console command
     public function processSubscriptions() {
@@ -183,8 +143,6 @@ class SubscriptionsTable extends Table
         ];
     }
 
-
-
     public function getSubscriptions() {
         return $this->find('all', [
             'contain' => self::$containments
@@ -192,8 +150,6 @@ class SubscriptionsTable extends Table
             'Subscriptions.confirmed' => true
         ])->toArray();
     }
-
-
 
     public function processSubscription(Subscription $subscription) {
         $result = false;

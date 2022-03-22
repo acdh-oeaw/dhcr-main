@@ -11,35 +11,10 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use phpDocumentor\Reflection\Types\Boolean;
 
-/**
- * Users Model
- *
- * @property \App\Model\Table\UserRolesTable&\Cake\ORM\Association\BelongsTo $UserRoles
- * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
- * @property \App\Model\Table\InstitutionsTable&\Cake\ORM\Association\BelongsTo $Institutions
- * @property \App\Model\Table\CoursesTable&\Cake\ORM\Association\HasMany $Courses
- *
- * @method \App\Model\Entity\User get($primaryKey, $options = [])
- * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class UsersTable extends Table
 {
-
     use MailerAwareTrait;
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+
     public function initialize(array $config) : void
     {
         parent::initialize($config);
@@ -67,12 +42,6 @@ class UsersTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator) : Validator
     {
         $validator
@@ -167,33 +136,14 @@ class UsersTable extends Table
         return $this->validationDefault($validator);
     }
 
-
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
     public function buildRules(RulesChecker $rules) : RulesChecker
     {
         $rules->add($rules->existsIn(['user_role_id'], 'UserRoles'));
         $rules->add($rules->existsIn(['country_id'], 'Countries'));
         $rules->add($rules->existsIn(['institution_id'], 'Institutions'));
-
         return $rules;
     }
 
-
-
-    /**
-     * @param int|null $country_id
-     * @param bool $user_admin
-     * @return array
-     *
-     * Used in contact form, course or user approval notifications,
-     * (repeated) course revalidation requests.
-     */
     public function getModerators(int $country_id = null, bool $user_admin = true) : array
     {
         $admins = [];
@@ -225,7 +175,6 @@ class UsersTable extends Table
         return $admins;
     }
 
-
     public function notifyAdmins($user) {
         // TODO: route this to a single team account
         $admins = $this->getModerators(null, true);
@@ -234,7 +183,6 @@ class UsersTable extends Table
                 $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
         }catch(Exception $exception) {}
     }
-
 
     public function register($data = [])
     {
@@ -252,7 +200,6 @@ class UsersTable extends Table
         }
         return $user;
     }
-
 
     public function getShortTokenExpiry() {
         return date('Y-m-d H:i:s', time() + 60*60*1);
