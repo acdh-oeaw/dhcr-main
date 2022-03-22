@@ -16,7 +16,6 @@ declare(strict_types=1);
  */
 namespace App;
 
-
 use Authentication\IdentityInterface;
 use Cake\Core\Configure;
 use Cake\Core\Exception\MissingPluginException;
@@ -39,7 +38,6 @@ use Authorization\Policy\OrmResolver;
 use Cake\Routing\Router;
 use Psr\Http\Message\ServerRequestInterface;
 
-
 /**
  * Application setup class.
  *
@@ -59,15 +57,10 @@ class Application extends BaseApplication
     {
         // Call parent to load bootstrap from files.
         parent::bootstrap();
-
         $this->addPlugin('DhcrCore');
-
-
-
         if (PHP_SAPI === 'cli') {
             $this->bootstrapCli();
         }
-
         /*
          * Only try to load DebugKit in development mode
          * Debug Kit should not be installed on a production system
@@ -75,12 +68,10 @@ class Application extends BaseApplication
         if (Configure::read('debug')) {
             //$this->addPlugin('DebugKit');
         }
-
         // Load more plugins here
         $this->addPlugin('Authentication');
         $this->addPlugin('Authorization');
     }
-
 
     /**
      * Returns a service provider instance.
@@ -91,7 +82,6 @@ class Application extends BaseApplication
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $service = new AuthenticationService();
-
         // Define where users should be redirected to when they are not authenticated
         $service->setConfig([
             'unauthenticatedRedirect' => Router::url([
@@ -102,7 +92,6 @@ class Application extends BaseApplication
             ]),
             'queryParam' => 'redirect',
         ]);
-
         $fields = [
             IdentifierInterface::CREDENTIAL_USERNAME => 'email',
             IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
@@ -134,7 +123,6 @@ class Application extends BaseApplication
         ]);
         // Kinda ugly hack! Making the loaded authenticator available for further checks in UsersController.
         $service->envAuthenticator = $envAuthenticator;
-
         // Load identifiers
         $service->loadIdentifier('Authentication.Password', [
             'fields' => $fields,
@@ -164,17 +152,14 @@ class Application extends BaseApplication
                 'finder' => $finder
             ]
         ]);
-
         return $service;
     }
-
 
     public function getAuthorizationService(ServerRequestInterface $request) : AuthorizationServiceInterface
     {
         $resolver = new OrmResolver();
         return new AuthorizationService($resolver);
     }
-
 
     /**
      * Setup the middleware queue your application will use.
@@ -212,7 +197,6 @@ class Application extends BaseApplication
                     return;
                 }
             ]));
-
         return $middlewareQueue;
     }
 
@@ -230,9 +214,7 @@ class Application extends BaseApplication
         } catch (MissingPluginException $e) {
             // Do not halt if the plugin is missing
         }
-
         $this->addPlugin('Migrations');
-
         // Load more plugins here
     }
 }
