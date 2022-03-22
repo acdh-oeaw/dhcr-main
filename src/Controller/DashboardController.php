@@ -115,7 +115,8 @@ class DashboardController extends AppController
             $moderatedCoursesCount = $this->Courses->find()->where([
                                                                     'deleted' => 0,
                                                                     'updated >=' => $hideDate,
-                                                                    'country_id' => $user->country_id
+                                                                    'country_id' => $user->country_id,
+                                                                    'approved' => 1
                                                                     ])->count();
         } else {
             $moderatedCoursesCount = 0;
