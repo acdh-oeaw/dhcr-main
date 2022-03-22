@@ -346,6 +346,39 @@ class CoursesController extends AppController
         $this->render('courses-list');
     }
 
+    public function allCourses()
+    {
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('DhcrCore.Courses');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'All Courses';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'allCourses';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        $hideDate = new FrozenTime('-18 months');
+        $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
+                    ->where([
+                            'deleted' => 0,
+                            'Courses.updated >=' => $hideDate,
+                            ]);
+        $coursesCount = $this->Courses->find()->where([
+                                                        'deleted' => 0,
+                                                        'Courses.updated >=' => $hideDate,
+                                                        ])
+                                                        ->count();
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('courses', 'coursesCount'));
+        // "customize" view
+        $this->set('course_icon', 'list-alt');
+        $this->set('course_view_type', 'All Courses');
+        $this->render('courses-list');
+    }
+
     public function courseApproval()
     {
         $this->viewBuilder()->setLayout('contributors');
