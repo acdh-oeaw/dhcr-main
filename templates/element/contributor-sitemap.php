@@ -150,7 +150,7 @@
                     if( $user->is_admin ) {
                     echo $this->Html->link(
                         'Invite Translations',
-                        ['controller' => 'Languages', 'action' => 'inviteTranslations']
+                        ['controller' => 'InviteTranslations', 'action' => 'index']
                         );
                     }
                     ?>
