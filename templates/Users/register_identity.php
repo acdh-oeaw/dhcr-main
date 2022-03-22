@@ -1,9 +1,7 @@
 <?php
 $this->set('bodyClasses', 'registration');
 ?>
-
 <h2>Account completion</h2>
-
 <p>
     To start contributing to the DHCR, please complete your account data.
     If you do not find your organisation in the available options in the form,
@@ -16,7 +14,6 @@ $this->set('bodyClasses', 'registration');
     At any time you can choose using classic login by setting a password via the password reset button,
     underneath the classic login form.
 </p>
-
 <?php if(!$user->hasErrors(false)) : ?>
     <p class="notice">
         You only need to register an account with the DHRC, if you are a lecturer or other academic institution member
@@ -26,12 +23,9 @@ $this->set('bodyClasses', 'registration');
         on how to browse or filter our listed courses.
     </p>
 <?php endif; ?>
-
 <div class="optionals headspace">
     <?= $this->Form->create($user, ['id' => 'registration_form']) ?>
-
     <?= $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']) ?>
-
     <?= $this->Form->control('institution_id', [
         'label' => ['text' => 'Affiliation', 'class' => 'depending'],
         'empty' => '- pick your affiliation -',
@@ -43,11 +37,9 @@ $this->set('bodyClasses', 'registration');
         'placeholder' => 'If you cannot find your affiliation in the dropdown list above,
 we need the country, city and name of your organisation provided here instead.'
     ]) ?>
-
     <?= $this->Form->control('academic_title') ?>
     <?= $this->Form->control('first_name') ?>
     <?= $this->Form->control('last_name') ?>
-
     <?php
     $classes = ['input','info','required'];
     if($this->Form->isFieldError('consent')) $classes[] = 'error';
@@ -67,7 +59,6 @@ we need the country, city and name of your organisation provided here instead.'
         ]) ?>
         <?= ($this->Form->isFieldError('consent')) ? $this->Form->error('consent') : '' ?>
     </div>
-
     <div class="input info">
         <label for="newsletter-info">Newsletter</label>
         <div class="info" id="newsletter-info">
@@ -81,16 +72,10 @@ we need the country, city and name of your organisation provided here instead.'
             'type' => 'checkbox'
         ]) ?>
     </div>
-
-
-
     <?= $this->Form->button(__('Register')) ?>
     <?= $this->Form->end() ?>
 </div>
-
-
 <?php $this->Html->scriptStart(['block' => true]); ?>
-
 $(document).ready( function() {
     $('#which_terms').click(function(event) {
         event.preventDefault()
@@ -100,5 +85,3 @@ $(document).ready( function() {
     })
 })
 <?php $this->Html->scriptEnd(); ?>
-
-

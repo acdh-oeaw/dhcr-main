@@ -8,9 +8,7 @@ $('#togglePassword').hover(function (e) {
     $('#password').attr('type', 'password');
 })
 <?php $this->Html->scriptEnd(); ?>
-
 <h2>Reset your password</h2>
-
 <?php if(!empty($mailSent)): ?>
 <p>
     Please check your email inbox to complete the password reset.<br>
@@ -18,15 +16,10 @@ $('#togglePassword').hover(function (e) {
 </p>
 <?php else: ?>
     <?php if(empty($token)): ?>
-    <p>
-        Please enter your email address.
-    </p>
+    <p>Please enter your email address.</p>
     <?php else: ?>
-    <p>
-        Now set a new password and you are ready to log in again!
-    </p>
+    <p>Now set a new password and you are ready to log in again!</p>
     <?php endif; ?>
-
     <div class="headspace">
         <?= $this->Form->create() ?>
         <?php

@@ -1,6 +1,3 @@
-
-
-
 <h2>Subscribe to new courses.</h2>
 <p>
     After confirmation of your e-mail address,
@@ -12,6 +9,4 @@
     you can request the confirmation mail
     here again to edit your existing subscription.
 </p>
-
-
 <?= $this->element('follow/subscription') ?>

@@ -9,7 +9,6 @@ $('#togglePassword').hover(function (e) {
     $('#password').attr('type', 'password');
 })
 <?php $this->Html->scriptEnd(); ?>
-
 <h2>User Registration</h2>
 <p>
 Lecturers, programme directors and/or national moderators who want to add or curate course metadata to the registry are invited to 
@@ -21,7 +20,6 @@ All other users can use the registry, without registration. See this <a href="ht
 tutorial video</a> to learn how to browse or filter the courses.
 </p>
 <?php endif; ?>
-
 <div class="optionals headspace">
     <?php
     echo $this->Form->create($user, ['id' => 'registration_form']);
@@ -67,7 +65,6 @@ tutorial video</a> to learn how to browse or filter the courses.
         ]) ?>
         <?= ($this->Form->isFieldError('consent')) ? $this->Form->error('consent') : '' ?>
     </div>
-
     <div class="input info">
         <label for="newsletter-info">Contributor Mailing List</label>
         <div class="info" id="newsletter-info">
@@ -81,17 +78,12 @@ tutorial video</a> to learn how to browse or filter the courses.
             'type' => 'checkbox'
         ]) ?>
     </div>
-
-
-
     <?= $this->Form->button(__('Register'), [
         'class' => 'right g-recaptcha',
         'data-sitekey' => Configure::read('reCaptchaPublicKey'),
         'data-callback' => 'recaptchaCallback']) ?>
     <?= $this->Form->end() ?>
 </div>
-
-
 <?php
 $this->Html->scriptStart(['block' => true]);
 ?>

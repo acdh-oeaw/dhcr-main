@@ -1,4 +1,3 @@
-
 <div class="title">
     <h2>Follow the DH Course Registry</h2>
     <p>
@@ -7,7 +6,6 @@
         Lecturers can sign up for the Contributor Mailing List.
     </p>
 </div>
-
 <div id="accordeon">
     <div class="accordeon-item" id="course-alert">
         <h2><span>Course Alert</span></h2>
@@ -16,14 +14,12 @@
             <?= $this->Element('follow/subscription') ?>
         </div>
     </div>
-
     <div class="accordeon-item" id="news">
         <h2><span>News on Social Media</span></h2>
         <div class="item-content">
             <?= $this->Element('follow/social_media'); ?>
         </div>
     </div>
-
     <div class="accordeon-item" id="newsletter">
         <h2><span>Contributor Mailing List</span></h2>
         <div class="item-content">
@@ -31,7 +27,6 @@
         </div>
     </div>
 </div>
-
 <?php $this->Html->script(['accordeon','hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>
     $(document).ready( function() {
@@ -39,6 +34,3 @@
         sitemap.setAccordeonHandler(accordeon, 'follow');
     });
 <?php $this->Html->scriptEnd(); ?>
-
-
-

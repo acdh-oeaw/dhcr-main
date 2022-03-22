@@ -1,9 +1,3 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Subscription $subscription
- */
-?>
 <?php $this->start('page_head'); ?>
 <div class="title">
     <?php
@@ -19,7 +13,6 @@
         echo '<p>Update your subscription settings to stay informed about new DH courses of your interest.</p>';
     }
     ?>
-
     <p>
         To completely revoke your subscription, please click here:<br>
         <?= $this->Html->link('Delete my subscription',
@@ -28,7 +21,6 @@
     </p>
 </div>
 <?php $this->end(); ?>
-
 <div class="subscriptions-form">
     <?= $this->Form->create($subscription) ?>
     <fieldset class="invisible">
@@ -51,17 +43,14 @@
                     'NULL' => 'both'
                 ], $options);
         echo '</div></div>';
-
         echo $this->element('dropdown_checkbox', ['fieldname' => 'course_types._ids']);
         echo $this->element('dropdown_checkbox', ['fieldname' => 'languages._ids']);
-
         echo $this->element('dropdown_checkbox', ['fieldname' => 'countries._ids']);
         echo $this->element('dropdown_checkbox', ['fieldname' => 'disciplines._ids']);
         echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_objects._ids','label' => 'Objects']);
         echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_techniques._ids','label' => 'Techniques']);
         ?>
     </fieldset>
-
     <?= $this->Form->submit('Submit', array(
         'class' => 'small blue button right',
     )) ?>
