@@ -1,4 +1,3 @@
-
 <h3>Stories</h3>
 <p>Collection of links featured in our social media posts</p>
 <ul id="stories" class="custom-bullets"></ul>
@@ -12,12 +11,9 @@ $(document).ready(function(){
     content.load();
 });
 <?php $this->Html->scriptEnd(); ?>
-
-
 <div class="flex-columns">
     <div class="flex-item wide">
         <h3>Dissemination Material</h3>
-
         <div class="feature-link">
             <?= $this->Html->image('dhcr-feature-badge-300.png', ['url' => '/img/dhcr-feature-badge-300.png']) ?>
             <p>
@@ -39,15 +35,12 @@ $(document).ready(function(){
                 Please download our full logo package.
             </p>
         </div>
-
         <h4>DHCR Promotion Video</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
             <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0"
                     allow="encrypted-media" allowfullscreen></iframe>
         </div>
-
-
     </div>
     <div class="flex-item publications narrow">
         <h3>Selected Presentations & Publications</h3>
@@ -111,5 +104,3 @@ $(document).ready(function(){
         </p>
     </div>
 </div>
-
-

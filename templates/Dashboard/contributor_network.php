@@ -1,6 +1,5 @@
 <p></p>
 <h2><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Contributor Network</h2>
-
 <div id="dashboard">
     <?php
     echo $this->Html->link(

@@ -1,6 +1,5 @@
 <p></p>
 <h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;Administrate Courses</h2>
-
 <div id="dashboard">
     <?php
     echo $this->Html->link(

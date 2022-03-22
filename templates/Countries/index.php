@@ -1,9 +1,3 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Country[]|\Cake\Collection\CollectionInterface $countries
- */
-?>
 <div class="countries index content">
     <?= $this->Html->link(__('New Country'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Countries') ?></h3>

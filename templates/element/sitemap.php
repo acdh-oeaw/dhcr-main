@@ -1,5 +1,3 @@
-
-
 <div id="sitemap">
     <ul>
         <li>
@@ -10,7 +8,6 @@
                     ['escape' => false]) ?>
             </p>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -26,7 +23,6 @@
                 </li>
             </ul>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -47,7 +43,6 @@
                 </li>
             </ul>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -93,7 +88,6 @@
                 </li>
             </ul>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(

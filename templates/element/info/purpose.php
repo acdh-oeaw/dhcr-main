@@ -1,7 +1,6 @@
 <?php
 use Cake\Core\Configure;
 ?>
-
 <div class="flex-columns">
     <div class="flex-item">
         <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>

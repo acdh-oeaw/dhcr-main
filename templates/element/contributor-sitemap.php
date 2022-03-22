@@ -160,7 +160,6 @@
         <?php
         }
         ?>
-
         <li>
             <p>
                 <?= $this->Html->link(
@@ -197,7 +196,6 @@
 
             </ul>
         </li>
-
         <li>
             <p>
                 <?= $this->Html->link(

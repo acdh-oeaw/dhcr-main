@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \Cake\Datasource\EntityInterface $city
- */
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Edit City</h2>

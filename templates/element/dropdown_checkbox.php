@@ -1,25 +1,19 @@
 <?php
 use Cake\Utility\Inflector;
-
-
 $classes = (empty($classes)) ? 'input dropdown-checkbox' : $classes;
 //TODO: check how errors are delivered in Cake.3
 $classes .= (!empty($errors) AND !empty($habtmModel) AND !empty($errors[$habtmModel])) ? ' error' : '';
-
 $tableName = preg_replace('/._ids$/', '', $fieldname);
 $variableName = Inflector::variable($tableName);
 if(empty($label)) $label = ucwords(str_replace(['-','_'], ' ', $tableName));
 ?>
-
 <div class="<?= $classes ?>">
 	<label for="<?= $fieldname ?>">
 		<?= $label ?>
 	</label>
-
         <div id="<?= $variableName.'-ids-toggle' ?>" class="checklist-toggle">
             <span class="display"> - none selected - </span>
         </div>
-
 		<div id="<?= $variableName.'-ids-checklist' ?>"
 			class="checklist" style="display:none">
             <?php
@@ -34,9 +28,7 @@ if(empty($label)) $label = ucwords(str_replace(['-','_'], ' ', $tableName));
             ));
 			?>
 		</div>
-
 </div>
-
 <?php
 if(empty($dropdownScript)) {
 	$this->set('dropdownScript', true);
@@ -44,7 +36,6 @@ if(empty($dropdownScript)) {
 	?>
 	if(!dropdownScript) {
 		var dropdownScript = 1;
-
 		jQuery(document).ready(function() {
 			var toggle = $('.checklist-toggle');
 			var checklist = $('.checklist');
@@ -53,12 +44,10 @@ if(empty($dropdownScript)) {
 					$(this).next('.checklist').toggle();
 				});
 			});
-
 			toggle.each(function(index) {
 				var checklist = $(this).next('.checklist');
 				dc_writeDisplay(this, checklist);
 				var currentToggle = this;
-
 				// rewrite the display on-change
 				var inputlist = checklist.find('input[type=checkbox]');
 				inputlist.each(function(key) {
@@ -68,7 +57,6 @@ if(empty($dropdownScript)) {
 				});
 			});
 		});
-
 		// dc - namespace for dropdown-checklist
 		function dc_writeDisplay(toggle, checklist) {
 			var selected = checklist.find('input[type=checkbox]:checked');
@@ -80,11 +68,9 @@ if(empty($dropdownScript)) {
 			if(!display) display = ' - none selected - ';
 			$(toggle).find('.display').text(display);
 		}
-
 		function closeList(selector) {
 			$(selector).toggle();
 		}
-
 		function deselectList(selector) {
 			console.log(selector);
             $(selector + ' :checkbox').prop('checked', false);
@@ -95,5 +81,3 @@ if(empty($dropdownScript)) {
 	$this->Html->scriptEnd();
 }
 ?>
-
-

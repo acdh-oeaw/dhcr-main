@@ -1,10 +1,3 @@
-<?php
-
-/**
- * @var \App\View\AppView $this
- * @var \Cake\Datasource\EntityInterface[]|\Cake\Collection\CollectionInterface $cities
- */
-?>
 <div class="cities index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Cities</h2>

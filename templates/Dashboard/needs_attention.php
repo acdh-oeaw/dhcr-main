@@ -1,6 +1,5 @@
 <p></p>
 <h2><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Needs attention</h2>
-
 <div id="dashboard">
     <?php
     if( $user->user_role_id == 2 || $user->is_admin ) {

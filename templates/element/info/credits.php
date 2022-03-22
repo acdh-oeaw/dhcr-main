@@ -1,8 +1,6 @@
-
 <?php
 $o = array('target' => '_blank');
 ?>
-
 <div class="flex-columns">
     <div class="flex-item wide">
         <h3>Initiative</h3>
@@ -62,8 +60,5 @@ $o = array('target' => '_blank');
             Lea Giesecke - <a href="https://linia-design.de/info/" target="_blank">Linia Design</a><br />
             Nicolai Herzog - <a href="http://www.nicolaiherzog.de" target="_blank">Website</a>
         </p>
-        
     </div>
 </div>
-
-

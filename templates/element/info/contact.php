@@ -1,8 +1,6 @@
 <?php
-
 use Cake\Core\Configure;
 ?>
-
 <div class="flex-columns">
     <div class="flex-item">
         <h3>National Moderators</h3>
@@ -29,7 +27,6 @@ use Cake\Core\Configure;
                 echo $this->Html->link(
                     $mod['first_name'] . ' ' . $mod['last_name'],
                     'mailto:' . $mod['email']);
-
             }
             echo '</div>';
             ?>
@@ -52,19 +49,16 @@ use Cake\Core\Configure;
                 ?>
             </p>
         </div>
-
         <h3>Contact Form</h3>
         <p>
             Please use our form to automatically let the system address
             all moderators or admins in charge of your concern.
         </p>
-
         <?php
         $options = [
             'Admin Staff' => ['administrators' => 'Administrators'],
             'National Moderators' => $countries
         ];
-
         echo $this->Form->create($email, [
             'novalidate' => false,
             'id' => 'ContactUsForm',
@@ -101,7 +95,6 @@ use Cake\Core\Configure;
         ));
         echo $this->Form->end();
         ?>
-
         <h3>Bug Report</h3>
         <p>
             In case you find a bug, please file a report here:
@@ -111,4 +104,3 @@ use Cake\Core\Configure;
            target="_blank">Bug Report</a>
     </div>
 </div>
-

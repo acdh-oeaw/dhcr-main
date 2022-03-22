@@ -1,26 +1,17 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Subscription $subscription
- */
-
 use Cake\Core\Configure;
 ?>
-
 <div class="subscriptions-form optionals headspace">
     <?= $this->Form->create($subscription, [
         'novalidate' => false,
         'class' => 'captcha-form',
         'url' => ['controller' => 'subscriptions', 'action' => 'add']
     ]) ?>
-
-
-    <?php
+    <?php   // todo everything in 1 php tag
     echo $this->Form->control('email');
     echo $this->Form->control('country_id', [
         'empty' => '- Where are you from? (optional) -']);
     ?>
-
     <?php
     $classes = ['input','info','required'];
     if($this->Form->isFieldError('consent')) $classes[] = 'error';
@@ -40,9 +31,6 @@ use Cake\Core\Configure;
         ]) ?>
         <?= ($this->Form->isFieldError('consent')) ? $this->Form->error('consent') : '' ?>
     </div>
-
-
-
     <?= $this->Form->submit('Submit', array(
         'class' => 'g-recaptcha small blue button right',
         'data-sitekey' => Configure::read('reCaptchaPublicKey'),
