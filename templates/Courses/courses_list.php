@@ -9,25 +9,26 @@
     <font color="red">Red:</font> Outdated, not shown in public registry
     </p>
     <?php
-    echo '<p><strong><u>Sorting Order</u></strong><br> ';
-    switch($course_view_type) {
-        case 'Course Expiry':
-            echo 'Most outdated course first';
-            break;
-        case 'My Courses':
-            echo 'Course Name';
-            break;
-        case 'Moderated Courses':
-        case 'All Courses':
-            echo 'Institution, Course Name';
-            break;
-        }
-    echo '</p>';
     if($coursesCount == 0) {
-        echo 'No courses in this list.';
-    }
-    if($course_view_type == 'My Courses' && $coursesCount == 0) {
-        echo '<p>Click ' .$this->Html->link(__('here'), ['action' => 'add']) .' to add one.</p>';
+        echo '<p>No courses in this list.</p>';
+        if($course_view_type == 'My Courses') {
+            echo '<p>Click ' .$this->Html->link(__('here'), ['action' => 'add']) .' to add one.</p>';
+        }
+    } else {
+        echo '<p><strong><u>Sorting Order</u></strong><br> ';
+        switch($course_view_type) {
+            case 'Course Expiry':
+                echo 'Most outdated course first';
+                break;
+            case 'My Courses':
+                echo 'Course Name';
+                break;
+            case 'Moderated Courses':
+            case 'All Courses':
+                echo 'Institution, Course Name';
+                break;
+            }
+        echo '</p>';
     }
     ?>
     </p>
@@ -37,6 +38,7 @@
                 <tr>
                     <th align="center" style="padding: 5px">Actions</th>
                     <th align="left" style="padding: 5px">Updated</th>
+                    <th align="left" style="padding: 5px">Active</th>
                     <th align="left" style="padding: 5px">Course Name</th>
                     <th align="left" style="padding: 5px">Education type</th>
                     <th align="left" style="padding: 5px">Institution</th>
@@ -64,6 +66,7 @@
                         }
                         ?>
                         "><font color="black"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></td>
+                        <td style="padding: 5px"><?= ($course->active) ? 'Yes' : 'No' ?></td>
                         <td style="padding: 5px"><?= $this->Html->link(__($course->name), ['action' => 'view', $course->id]) ?>
                         <td style="padding: 5px"><?= $course->course_type->name ?></td>
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
