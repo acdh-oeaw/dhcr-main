@@ -31,7 +31,7 @@ class DashboardController extends AppController
     public function needsAttention()
     {
         $this->loadModel('Users');
-        $this->loadModel('Courses');        
+        $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
         $breadcrumControllers[0] = 'Dashboard';
@@ -96,7 +96,7 @@ class DashboardController extends AppController
 
     public function adminCourses()
     {
-        $this->loadModel('Courses');
+        $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
