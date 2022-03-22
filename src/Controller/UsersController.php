@@ -11,16 +11,9 @@ use Cake\Mailer\Mailer;
 use Cake\Core\Configure;
 use Cake\I18n\FrozenTime;
 
-/**
- * Users Controller
- *
- * @property \App\Model\Table\UsersTable $Users
- *
- */
 class UsersController extends AppController
 {
     use MailerAwareTrait;
-
 
     public const ALLOW_UNAUTHENTICATED = [
         'signIn',
@@ -64,7 +57,6 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->Authentication->allowUnauthenticated(self::ALLOW_UNAUTHENTICATED);
-
         if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
             $this->Authorization->skipAuthorization();
         }
@@ -82,26 +74,12 @@ class UsersController extends AppController
         return parent::beforeFilter($event);
     }
 
-    public function beforeRender(EventInterface $event)
-    {
-        parent::beforeRender($event);
-        // required for contributors menu
-        $user = $this->Authentication->getIdentity();
-        if(is_null($user)) {
-            $user_role_id = 0;
-        } else {
-            $user_role_id = $user->user_role_id;
-        }
-        $this->set('user_role_id', $user_role_id);
-    }
-
-
     /**
      * @param string|null $mode
      * @return \Cake\Http\Response|void|null
      *
      * Set parameter $mode = 'identity' to bypass redirection loop and connect a present
-     * but unknown external identity to an already existing account.
+     * but unknown external identity to an already existing account
      */
     public function signIn()
     {
@@ -109,23 +87,18 @@ class UsersController extends AppController
         if ($identity = $this->_checkExternalIdentity() and $redirect != '/users/connect_identity') {
             return $this->redirect('/users/unknown_identity');
         }
-
         // the user is logged in by session, idp or form
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
             $user = $this->Authentication->getIdentity()->getOriginalData();
-
             $authentication = $this->Authentication->getAuthenticationService();
             if ($authentication->identifiers()->get('Password')->needsPasswordRehash())
                 $user->password = $this->request->getData('password');
-
             $user->last_login = date('Y-m-d H:i:s');
-            $this->Users->save($user);  // Rehash happens on save.
-
+            $this->Users->save($user);  // Rehash happens on save
             $target = $this->Authentication->getLoginRedirect() ?? '/dashboard/index';
             return $this->redirect($target);
         }
-
         if ($this->request->is('post') and !$result->isValid()) {
             // evaluate the result here, AppResult might indicate banned user
             $this->Flash->error('Invalid username or password.');
@@ -141,15 +114,11 @@ class UsersController extends AppController
         }
     }
 
-
-
     public function logout()
     {
         $this->Authentication->logout();
         return $this->redirect(['controller' => 'Users', 'action' => 'signIn']);
     }
-
-
 
     protected function _setIdentityProviderTarget()
     {
@@ -192,8 +161,6 @@ class UsersController extends AppController
         $this->set(compact('idpTarget'));
     }
 
-
-
     protected function _checkExternalIdentity(): array
     {
         $result = $this->Authentication->getResult();
@@ -210,22 +177,16 @@ class UsersController extends AppController
         }
     }
 
-
-
     public function unknownIdentity()
     {
         $identity = $this->_checkExternalIdentity();
         if (empty($identity))
             return $this->redirect('/users/sign-in');
-
         $session = $this->request->getSession();
         if ($session->check('ignoreIdentity'))
             return $this->redirect('/dashboard/index');
-
         $this->set(compact('identity'));
     }
-
-
 
     public function connectIdentity()
     {
@@ -248,8 +209,6 @@ class UsersController extends AppController
         $this->set(compact('identity'));
     }
 
-
-
     public function registerIdentity()
     {
         $identity = $this->_checkExternalIdentity();
@@ -260,13 +219,11 @@ class UsersController extends AppController
             $this->Flash->set('Please log out before registering a new identity.');
             return $this->redirect('/dashboard/index');
         }
-
         $data['first_name'] = $identity['first_name'] ?? null;
         $data['last_name'] = $identity['last_name'] ?? null;
         $data['email'] = $identity['email'] ?? null;
         if (empty($data['email']) and preg_match("/^[^@]+@[^@]+\.[a-z]{2,6}$/i", $identity['shib_eppn']))
             $data['email'] = $identity['shib_eppn'];
-
         // validation is on, show errors!
         $user = $this->Users->newEntity($data, ['validate' => 'create']);
         $user->approved = true;
@@ -285,9 +242,7 @@ class UsersController extends AppController
                     } catch (Exception $exception) {
                     }
                 }
-
                 $this->Users->save($user);
-
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
                 return $this->redirect([
@@ -298,11 +253,9 @@ class UsersController extends AppController
                 $this->Flash->set('There are errors! Please check the form and amend the indicated fields.');
             }
         }
-
         $this->_setOptions();
         $this->set(compact('identity', 'user'));
     }
-
 
     public function ignoreIdentity()
     {
@@ -319,24 +272,20 @@ class UsersController extends AppController
                 $this->Flash->set('The CAPTCHA test failed, please try again.');
                 $this->redirect(['controller' => 'users', 'action' => 'register']);
             }
-
             // patching the entity, validation and other stuff
             $user = $this->Users->newEntity($this->request->getData(), ['validate' => 'create']);
             $user->email_token = $this->Users->generateToken('email_token');
             $user->new_email = $user->email;
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
-
             if (!$user->hasErrors(false)) {
                 $this->Users->save($user);
                 try {
                     $this->getMailer('User')->send('confirmationMail', [$user]);
-                } catch (Exception $exception) {
-                }
-
+                } catch (Exception $exception) {    // todo handle empty catch statement
+                }   
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
-
                 return $this->redirect([
                     'controller' => 'users',
                     'action' => 'registration_success'
@@ -350,18 +299,15 @@ class UsersController extends AppController
         $this->set('user', $user);
     }
 
-
     public function registrationSuccess()
     {
         $user = $this->Authentication->getIdentity();
         if ($user->can('accessDashboard', $user))
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']
-                );
-
+                );  // todo clean up
         $user = $this->Authentication->getIdentity();
         $this->set('user', $user);
     }
-
 
     public function verifyMail($token = null)
     {
@@ -372,7 +318,7 @@ class UsersController extends AppController
                 $data = [
                     'new_email' => $this->request->getData('new_email'),
                     'email_token' => $this->Users->generateToken('email_token')
-                ];
+                    ];
                 $user->setAccess('*', true);
                 $user = $this->Users->patchEntity($user, $data);
                 if (!$user->getErrors()) {
@@ -382,7 +328,6 @@ class UsersController extends AppController
                     $this->set('user', $user);
                 }
             }
-
             if (!empty($user->new_email)) {
                 // this code also runs when hitting the send-again button
                 try {
@@ -391,36 +336,30 @@ class UsersController extends AppController
                 }
                 $success = true;
             }
-
             if ($success) {
                 $this->Flash->set('Confirmation mail has been sent, check your inbox to complete verification.');
                 return $this->redirect('/dashboard/index');
             }
         }
-
         if ($token) {
             $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
             if ($user) {
                 // handle new users
                 if (!$user->email_verified)
                     $this->Users->notifyAdmins($user);
-
                 $user->email = $user->new_email;
                 $user->new_email = null;
                 $user->email_token = null;
                 $user->email_verified = true;
                 $user = $this->Users->save($user);
-
                 // log the user in
                 $this->Authentication->setIdentity($user);
-
                 $this->Flash->set('Your email address has been verified');
                 return $this->redirect('/dashboard/index');
             }
         }
         $this->redirect('/');
     }
-
 
     public function resetPassword($token = null)
     {
@@ -434,7 +373,6 @@ class UsersController extends AppController
                     $this->Flash->set('This account has been disabled.');
                     return $this->redirect('/users/sign-in');
                 }
-
                 if ($this->request->is('post')) {
                     $user = $this->Users->patchEntity($user, $this->request->getData(), ['fields' => ['password']]);
                     if (!$user->hasErrors()) {
@@ -461,7 +399,6 @@ class UsersController extends AppController
                         $this->Flash->set('This account has been disabled.');
                         return $this->redirect('/users/sign-in');
                     }
-
                     $user->setAccess('*', true);
                     $user = $this->Users->patchEntity($user, [
                         'password_token_expires' => $this->Users->getShortTokenExpiry(),
@@ -478,15 +415,13 @@ class UsersController extends AppController
                     return $this->redirect('/users/sign-in');
                 }
             }
-            // render form (email)
+            // render form (email)  // todo: what does this mean???
         }
     }
-
 
     public function approve($key = null)
     {
         if (empty($key)) return $this->redirect('/dashboard/index');
-
         $redirect = false;
         $admin = $this->Authentication->getIdentity();
         if ($admin and $admin->is_admin and ctype_digit($key)) {
@@ -507,7 +442,6 @@ class UsersController extends AppController
                 $redirect = true;
             }
         }
-
         if ($user) {
             if ($user = $this->Users->approve($key)) {
                 $this->getMailer('User')->send('welcome', [$user]);
@@ -524,92 +458,66 @@ class UsersController extends AppController
         } else {
             $redirect = true;
         }
-
         if ($redirect) {
             if ($admin) return $this->redirect('/dashboard/index');
             return $this->redirect('/');
         }
-        // TODO: create approval view/form/process
+        // TODO: create approval view/form/process  // todo: this part is missing???
     }
 
-
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['UserRoles', 'Countries', 'Institutions'],
-        ];
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        $this->viewBuilder()->setLayout('contributors');
+        $this->paginate = ['contain' => ['UserRoles', 'Countries', 'Institutions']];
         $users = $this->paginate($this->Users);
-
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function view($id = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => ['UserRoles', 'Countries', 'Institutions'],
-        ]);
-
-        $this->set('user', $user);
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        $this->viewBuilder()->setLayout('contributors');
+        $viewedUser = $this->Users->get($id, ['contain' => ['UserRoles', 'Countries', 'Institutions']]);
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('viewedUser'));
     }
 
+    public function edit($id = null)
+    {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        // $this->viewBuilder()->setLayout('contributors');
+        // $editUser = $this->Users->get($id);
+        // if ($this->request->is(['patch', 'post', 'put'])) {
+        //     $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
+        //     if ($this->Users->save($editUser)) {
+        //         $this->Flash->success(__('The user has been saved.'));
+        //         return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+        //     }
+        //     $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        // }
+        // $this->_setOptions();
+        $this->set(compact('user')); // required for contributors menu
+    }
 
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-
-    // Disabled by PA 10-12-2021: This method is replaced by profile() and it's 4 sub-pages
-    // public function edit($id = null)
-    // {
-    //     $user = $this->Users->get($id, [
-    //         'contain' => [],
-    //     ]);
-    //     if ($this->request->is(['patch', 'post', 'put'])) {
-    //         $user = $this->Users->patchEntity($user, $this->request->getData());
-    //         if ($this->Users->save($user)) {
-    //             $this->Flash->success(__('The user has been saved.'));
-
-    //             return $this->redirect(['action' => 'index']);
-    //         }
-    //         $this->Flash->error(__('The user could not be saved. Please, try again.'));
-    //     }
-    //     $this->_setOptions();
-    // }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        // --- todo select reason
+        // $this->request->allowMethod(['post', 'delete']);
+        // $deleteUser = $this->Users->get($id);
+        // if ($this->Users->delete($deleteUser)) {
+        //     $this->Flash->success(__('The user has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+        // }
+        // return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+        $this->set(compact('user')); // required for contributors menu
     }
 
     protected function _setOptions()
@@ -628,7 +536,6 @@ class UsersController extends AppController
             'order' => 'Countries.name ASC'
         ])->toArray();
         $userRoles = $this->Users->UserRoles->find('list')->toArray();
-
         $this->set(compact('institutions', 'countries', 'userRoles'));
     }
 
@@ -650,9 +557,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Profile could not be updated. Please, try again.'));
             }
         }
-
         $this->viewBuilder()->setLayout('contributors');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
@@ -660,12 +565,10 @@ class UsersController extends AppController
         $breadcrumTitles[1] = 'Edit Profile';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'profile';
-
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $institutions = $this->Users->Institutions->find('list', ['order' => 'name asc']);
-
-        $this->set(compact('user', 'institutions'));
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('institutions'));
     }
 
     public function changeEmail()
@@ -707,22 +610,21 @@ class UsersController extends AppController
         $breadcrumTitles[1] = 'Change Email Address';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'changeEmail';
-
+        $this->set(compact('user')); // required for contributors menu
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $this->set(compact('user'));
     }
 
     public function changePassword()
     {
+        $user = $this->Users->get($this->Authentication->getIdentity()->id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->get($this->Authentication->getIdentity()->id);
             if($user != null) {
                 // set token and send mail
                 $user->setAccess('*', true);
                 $user = $this->Users->patchEntity($user, [
-                        'password_token_expires' => $this->Users->getShortTokenExpiry(),
-                        'password_token' => $this->Users->generateToken('password_token')
-                        ]);   // converting the expiry to frozen time type
+                                                        'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                                                        'password_token' => $this->Users->generateToken('password_token')
+                                                        ]);
                 $this->Users->save($user);
                 try {
                     $this->getMailer('User')->send('resetPassword', [$user]);
@@ -735,7 +637,6 @@ class UsersController extends AppController
                 $this->Flash->error(__('Error. User not found.'));
             }
         }
-        
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
@@ -744,6 +645,7 @@ class UsersController extends AppController
         $breadcrumTitles[1] = 'Change Password';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'changePassword';
+        $this->set(compact('user')); // required for contributors menu
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
     }
 
@@ -759,9 +661,7 @@ class UsersController extends AppController
                 $this->Flash->error(__('Contributor Mailing List subscription could not be updated. Please, try again.'));
             }
         }
-        
         $this->viewBuilder()->setLayout('contributors');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
@@ -770,14 +670,14 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'newsletter';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $this->set(compact('user'));
+        $this->set(compact('user')); // required for contributors menu
     }
 
     public function accountApproval()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
-
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
         $breadcrumControllers[0] = 'Dashboard';
@@ -786,36 +686,31 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'accountApproval';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-
-        $users = $this->Users->find()
-            ->select([
-                "academic_title",
-                "first_name",
-                "last_name",
-                'institution_id',
-                "Institutions.name",
-                "university",
-                "about",
-                "email",
-                "created"
-            ])
-            ->contain(["Institutions"])
-            ->where(['approved' => 0])
-            ->order(['Users.created' => 'desc'])
-            ->toList();
-
-        $this->set(compact('user', 'users'));
+        if($user->is_admin) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1
+                                            ]);
+        } elseif ($user->user_role_id == 2) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1,
+                                            'country_id' => $user->country_id
+                                            ]);
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('users'));
     }
 
     public function invite()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('Institutions');
         $this->loadModel('InviteTranslations');
-        $user = $this->Authentication->getIdentity();
-        
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
@@ -824,7 +719,6 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'invite';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $invitedUser = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
@@ -835,7 +729,7 @@ class UsersController extends AppController
             $invitedUser = $this->Users->patchEntity($invitedUser, [
                 'password_token_expires' => new FrozenTime('+ 2 days'),
                 'password_token' => $this->Users->generateToken('password_token')
-                ]);
+            ]);
             // set password link
             $passwordLink = env('DHCR_BASE_URL') .'users/reset_password/' .$invitedUser->password_token;
             //  personalize message
@@ -862,11 +756,10 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
         }
-
         $institutions = $this->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $inviteTranslations = $this->InviteTranslations->find()->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
-        
-        $this->set(compact('invitedUser', 'user', 'institutions', 'inviteTranslations', 'languageList'));
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('invitedUser', 'institutions', 'inviteTranslations', 'languageList'));
     }
 }
