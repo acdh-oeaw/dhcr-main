@@ -425,4 +425,19 @@ class CoursesController extends AppController
         $this->set('course_view_type', 'Course Approval');
         $this->render('courses-list');
     }
+
+    public function approve($id = null)
+    {
+        $user = $this->Authentication->getIdentity();
+        // todo $this->Authorization->authorize($user, 'approveCourse');
+        $this->loadModel('DhcrCore.Courses');
+        $course = $this->Courses->get($id);
+        $course->set('approved', 1);
+        if ($this->Courses->save($course)) {
+            $this->Flash->success(__('The course has been approved.'));    
+        } else {
+            $this->Flash->error(__('Error approving the course.'));
+        }
+        return $this->redirect(['controller' => 'Dashboard', 'action' => 'needsAttention']);
+    }
 }
