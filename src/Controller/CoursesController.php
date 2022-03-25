@@ -227,7 +227,7 @@ class CoursesController extends AppController
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
         // "customize" view
-        $this->set('course_icon', 'th-large');
+        $this->set('course_icon', 'education');
         $this->set('course_view_type', 'My Courses');
         $this->render('courses-list');
     }

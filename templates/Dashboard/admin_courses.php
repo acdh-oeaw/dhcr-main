@@ -30,7 +30,7 @@
             ]);        
         }
         echo $this->Html->link(
-        '<p></p><span class="glyphicon glyphicon-th-large"></span><br>
+        '<p></p><span class="glyphicon glyphicon-education"></span><br>
         My Courses<br>
         <font color="#60a845">(&nbsp;' . $myCoursesCount . '&nbsp;)</font><p></p>',
         [
