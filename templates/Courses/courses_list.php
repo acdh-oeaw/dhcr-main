@@ -2,6 +2,9 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-<?=$course_icon?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_view_type?></h2>
     <div class="table-responsive">
+    <?php
+    if( in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) ) {
+    ?>
     <p>
     <strong><u>Course Status</u></strong><br>
     <font color="green">Green:</font> Actively maintained<br>
@@ -9,10 +12,14 @@
     <font color="red">Red:</font> Outdated, not shown in public registry
     </p>
     <?php
+    }
     if($coursesCount == 0) {
         echo '<p>No courses in this list.</p>';
         if($course_view_type == 'My Courses') {
             echo '<p>Click ' .$this->Html->link(__('here'), ['action' => 'add']) .' to add one.</p>';
+        }
+        if($course_view_type == 'Course Approval') {
+            echo '<p>You are up to date!</p>';
         }
     } else {
         echo '<p><strong><u>Sorting Order</u></strong><br> ';
@@ -27,6 +34,9 @@
             case 'All Courses':
                 echo 'Institution, Course Name';
                 break;
+            case 'Course Approval':
+                echo 'Most recent added course';
+                break;
             }
         echo '</p>';
     }
@@ -40,11 +50,10 @@
                     <th align="left" style="padding: 5px">Updated</th>
                     <th align="left" style="padding: 5px">Active</th>
                     <th align="left" style="padding: 5px">Course Name</th>
-                    <th align="left" style="padding: 5px">Education type</th>
+                    <th align="left" style="padding: 5px">Education Type</th>
                     <th align="left" style="padding: 5px">Institution</th>
                     <th align="left" style="padding: 5px">Department</th>
                     <th align="left" style="padding: 5px">Source URL</th>
-                    
                 </tr>
             </thead>
             <?php } ?>
@@ -52,8 +61,13 @@
                 <?php foreach ($courses as $course) : ?>
                     <tr>
                         <td style="padding: 5px" align="center">
-                            <?= $this->Html->link(__('Share'), ['action' => 'view', $course->id]) ?>
-                            <?= $this->Html->link(__('Update/Edit'), ['action' => 'edit', $course->id]) ?>
+                            <?php
+                            if($course_view_type == 'Course Approval') {
+                                echo $this->Html->link(__('Approve'), ['action' => 'approve', $course->id]) .'<br>';
+                            }
+                            echo $this->Html->link(__('Update/Edit'), ['action' => 'edit', $course->id]) .'<br>';
+                            echo $this->Html->link(__('Share'), ['action' => 'view', $course->id]);
+                            ?>
                         </td>
                         <td style="padding: 5px" bgcolor="
                         <?php

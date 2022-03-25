@@ -234,6 +234,8 @@ class CoursesController extends AppController
 
     public function expired()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
@@ -244,8 +246,6 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
         $reminderDate = new FrozenTime('-10 months');
         $hideDate =     new FrozenTime('-18 months');
         if($user->is_admin) {
@@ -311,6 +311,8 @@ class CoursesController extends AppController
 
     public function moderatedCourses()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
@@ -321,8 +323,6 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'moderatedCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
         $hideDate = new FrozenTime('-18 months');
         $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                     ->where([
@@ -348,6 +348,8 @@ class CoursesController extends AppController
 
     public function allCourses()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
@@ -358,8 +360,6 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'allCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
         $hideDate = new FrozenTime('-18 months');
         $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                     ->where([
@@ -381,6 +381,8 @@ class CoursesController extends AppController
 
     public function courseApproval()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
@@ -391,22 +393,36 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'courseApproval';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
         if($user->is_admin) {
-            $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['Institutions'])
+            $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['CourseTypes', 'Institutions'])
                         ->where([
                                 'approved' => 0,
                                 'deleted' => 0
                                 ]);
+            $coursesCount = $this->Courses->find()->where([
+                                'approved' => 0,
+                                'deleted' => 0
+                                ])
+                                ->count();
         } elseif($user->user_role_id == 2) {
-            $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['Institutions'])
+            $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['CourseTypes', 'Institutions'])
                         ->where([
                                 'approved' => 0,
-                                'active' => 1,
+                                'deleted' => 0,
                                 'Courses.country_id' => $user->country_id
                                 ]);
+            $coursesCount = $this->Courses->find()->where([
+                                'approved' => 0,
+                                'deleted' => 0,
+                                'Courses.country_id' => $user->country_id
+                                ])
+                                ->count();
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('courses'));
+        $this->set(compact('courses', 'coursesCount'));
+        // "customize" view
+        $this->set('course_icon', 'education');
+        $this->set('course_view_type', 'Course Approval');
+        $this->render('courses-list');
     }
 }
