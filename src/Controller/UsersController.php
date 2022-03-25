@@ -725,6 +725,9 @@ class UsersController extends AppController
             // set country_id
             $country_id = $this->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
             $invitedUser->set('country_id', $country_id);
+            // set approved and email verified, since the mod checked this
+            $invitedUser->set('approved', 1);
+            $invitedUser->set('email_verified', 1);
             // set invite_message
             $inviteTranslationId = $this->request->getData('inviteTranslation');
             $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
