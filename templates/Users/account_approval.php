@@ -4,8 +4,11 @@
     <div class="table-responsive">
         <table>
             <thead>
+                <?php
+                if($usersCount > 0) {
+                    ?>
                 <tr>
-                    <th class="actions" align="left" style="padding: 5px"><?= __('Actions') ?></th>
+                    <th class="actions" align="center" style="padding: 5px">Actions</th>
                     <th align="left" style="padding: 5px">Name</th>
                     <th align="left" style="padding: 5px">Institution</th>
                     <th align="left" style="padding: 5px">New institution?</th>
@@ -13,12 +16,20 @@
                     <th align="left" style="padding: 5px">Email</th>
                     <th align="left" style="padding: 5px">Request Date</th>
                 </tr>
+                <?php
+                }
+                ?>
             </thead>
             <tbody>
                 <?php foreach ($users as $key => $user) : ?>
                     <tr>
-                        <td style="padding: 5px"><?= 'Edit Approve Delete' //$this->Html->link(__($institution->name), ['action' => 'view', $institution->id]) 
-                                                    ?>
+                        <td style="padding: 5px" align="center">
+                            <?php
+                            echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
+                            echo $this->Html->link(__('View status'), ['action' => 'view', $user->id]) .'<br>';
+                            echo $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) .'<br>';
+                            echo $this->Html->link(__('Delete'), ['action' => 'delete', $user->id]);
+                            ?>
                         <td style="padding: 5px"><?= h($user->academic_title . ' ' . $user->first_name . ' ' . $user->last_name) ?></td>
                         <td style="padding: 5px"><?= ($user->institution_id != null) ? h($user->institution->name) : '' ?></td>
                         <td style="padding: 5px"><?= h($user->university) ?></td>
@@ -29,5 +40,11 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
+        <?php
+        if($usersCount == 0) {
+            echo '<p>No pending account requests.</p>';
+            echo '<p>You are up to date!</p>';
+        }
+        ?>
     </div>
 </div>

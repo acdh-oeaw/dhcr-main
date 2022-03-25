@@ -692,16 +692,27 @@ class UsersController extends AppController
                                             'approved' => 0,
                                             'active' => 1
                                             ]);
+            $usersCount = $this->Users->find()->where([
+                                                        'approved' => 0,
+                                                        'active' => 1
+                                                        ])
+                                                        ->count();
         } elseif ($user->user_role_id == 2) {
             $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
                                     ->where([
                                             'approved' => 0,
                                             'active' => 1,
-                                            'country_id' => $user->country_id
+                                            'Users.country_id' => $user->country_id
                                             ]);
+            $usersCount = $this->Users->find()->where([
+                                                'approved' => 0,
+                                                'active' => 1,
+                                                'Users.country_id' => $user->country_id
+                                                ])
+                                                ->count();
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users'));
+        $this->set(compact('users', 'usersCount'));
     }
 
     public function invite()
