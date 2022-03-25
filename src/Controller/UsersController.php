@@ -481,7 +481,19 @@ class UsersController extends AppController
         $user = $this->Authentication->getIdentity();
         // todo add auth
         $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Administrate Users';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'all';
+        $breadcrumTitles[2] = 'User Details';
+        $breadcrumControllers[2] = 'Users';
+        $breadcrumActions[2] = 'view';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $viewedUser = $this->Users->get($id, ['contain' => ['UserRoles', 'Countries', 'Institutions']]);
+        // todo check if user exists
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('viewedUser'));
     }

@@ -26,11 +26,11 @@
                         <td style="padding: 5px" align="center">
                             <?php
                             echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
-                            echo $this->Html->link(__('View status'), ['action' => 'view', $user->id]) .'<br>';
+                            echo $this->Html->link(__('View_Details'), ['action' => 'view', $user->id]) .'<br>';
                             echo $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) .'<br>';
                             echo $this->Html->link(__('Delete'), ['action' => 'delete', $user->id]);
                             ?>
-                        <td style="padding: 5px"><?= h($user->academic_title . ' ' . $user->first_name . ' ' . $user->last_name) ?></td>
+                        <td style="padding: 5px"><?= ucfirst($user->academic_title) .' ' .ucfirst($user->first_name) .' ' .ucfirst($user->last_name)?></td>
                         <td style="padding: 5px"><?= ($user->institution_id != null) ? h($user->institution->name) : '' ?></td>
                         <td style="padding: 5px"><?= h($user->university) ?></td>
                         <td style="padding: 5px"><?= h($user->about) ?></td>
