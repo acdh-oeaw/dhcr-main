@@ -11,7 +11,7 @@
                     <th class="actions" align="center" style="padding: 5px">Actions</th>
                     <th align="left" style="padding: 5px">Name</th>
                     <th align="left" style="padding: 5px">Institution</th>
-                    <th align="left" style="padding: 5px">New institution?</th>
+                    <th align="left" style="padding: 5px">Other Organisation</th>
                     <th align="left" style="padding: 5px">About</th>
                     <th align="left" style="padding: 5px">Email</th>
                     <th align="left" style="padding: 5px">Request Date</th>
@@ -25,8 +25,8 @@
                     <tr>
                         <td style="padding: 5px" align="center">
                             <?php
+                            echo $this->Html->link(__('Details'), ['action' => 'view', $user->id]) .'<br>';
                             echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
-                            echo $this->Html->link(__('View_Details'), ['action' => 'view', $user->id]) .'<br>';
                             echo $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) .'<br>';
                             echo $this->Html->link(__('Delete'), ['action' => 'delete', $user->id]);
                             ?>
