@@ -100,10 +100,20 @@
                 </li>
                 <li>
                     <?php
+                    if( $user->user_role_id == 2 ) {
+                        echo $this->Html->link(
+                            'Moderated Users',
+                            ['controller' => 'Users', 'action' => 'moderated']
+                        ); 
+                    }
+                    ?>
+                </li>
+                <li>
+                    <?php
                     if( $user->is_admin ) {
                         echo $this->Html->link(
-                            'Administrate Users',
-                            ['controller' => 'Users', 'action' => 'index']
+                            'All Users',
+                            ['controller' => 'Users', 'action' => 'all']
                         ); 
                     }
                     ?>

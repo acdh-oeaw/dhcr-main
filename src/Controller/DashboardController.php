@@ -138,21 +138,30 @@ class DashboardController extends AppController
 
     public function contributorNetwork()
     {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
         $this->loadModel('Users');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-        if( $user->is_admin ) {
-            $totalUsers = $this->Users->find()->where(['active' => 1])->count();
+        if( $user->user_role_id == 2 ) {
+            $moderatedUsersCount = $this->Users->find()->where([
+                                                                'active' => 1,
+                                                                'country_id' => $user->country_id
+                                                                ])
+                                                                ->count();
         } else {
-            $totalUsers = 0;
+            $moderatedUsersCount = 0;
+        }
+        if( $user->is_admin ) {
+            $allUsersCount = $this->Users->find()->where(['active' => 1])->count();
+        } else {
+            $allUsersCount = 0;
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('totalUsers'));
+        $this->set(compact('moderatedUsersCount', 'allUsersCount'));
     }
 
     public function categoryLists()

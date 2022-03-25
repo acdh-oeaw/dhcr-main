@@ -21,7 +21,7 @@
             <font color="#60a845">(&nbsp;' . $moderatedCoursesCount . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'courses',
-                'action' => 'moderatedCourses'
+                'action' => 'moderated'
             ],
             [
                 'class' => 'blue button',
@@ -49,7 +49,7 @@
                 <font color="#60a845">(&nbsp;' . $allCoursesCount . '&nbsp;)</font><p></p>',
                 [
                     'controller' => 'courses',
-                    'action' => 'allCourses'
+                    'action' => 'all'
                 ],
                 [
                     'class' => 'blue button',

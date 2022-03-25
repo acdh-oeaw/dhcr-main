@@ -309,7 +309,7 @@ class CoursesController extends AppController
         $this->render('courses-list');
     }
 
-    public function moderatedCourses()
+    public function moderated()
     {
         $user = $this->Authentication->getIdentity();
         // todo add auth
@@ -346,7 +346,7 @@ class CoursesController extends AppController
         $this->render('courses-list');
     }
 
-    public function allCourses()
+    public function all()
     {
         $user = $this->Authentication->getIdentity();
         // todo add auth
