@@ -34,7 +34,14 @@
                         <td style="padding: 5px"><?= h($user->email) ?></td>
                         <td style="padding: 5px"><?= ($user->institution_id != null) ? h($user->institution->name) : '' ?></td>
                         <td style="padding: 5px"><?= h($user->university) ?></td>
-                        <td style="padding: 5px"><?= h($user->about) ?></td>
+                        <?php
+                        if(strlen($user->about) >= 150) {
+                            $about = substr($user->about, 0, 145) .'.....';
+                        } else {
+                            $about = $user->about;
+                        }
+                        ?>
+                        <td style="padding: 5px"><?= h($about) ?></td>
                         <?php if($users_view_type == 'Account Approval') { ?>
                             <td style="padding: 5px"><?= $user->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
                         <?php } ?>
