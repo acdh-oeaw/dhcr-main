@@ -41,31 +41,33 @@
                 <?php } ?>
             </thead>
             <tbody>
-                <?php foreach ($users as $key => $user) : ?>
+                <?php foreach ($users as $key => $listedUser) : ?>
                     <tr>
                         <td style="padding: 5px" align="center">
                             <?php
                             if ($users_view_type == 'Account Approval') {
-                                echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
+                                echo $this->Html->link(__('Approve'), ['action' => 'approve', $listedUser->id]) .'<br>';
                             }
-                            echo $this->Html->link(__('View'), ['action' => 'view', $user->id]) .'<br>';
-                            echo $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) .'<br>';
-                            echo $this->Html->link(__('Disable'), ['action' => 'disable', $user->id]);
+                            echo $this->Html->link(__('View'), ['action' => 'view', $listedUser->id]) .'<br>';
+                            echo $this->Html->link(__('Edit'), ['action' => 'edit', $listedUser->id]) .'<br>';
+                            if($user->is_admin) {
+                                echo $this->Html->link(__('Disable'), ['action' => 'disable', $listedUser->id]);
+                            }
                             ?>
-                        <td style="padding: 5px"><?= ucfirst($user->academic_title) .' ' .ucfirst($user->first_name) .' ' .ucfirst($user->last_name)?></td>
-                        <td style="padding: 5px"><?= h($user->email) ?></td>
-                        <td style="padding: 5px"><?= ($user->institution_id != null) ? h($user->institution->name) : '' ?></td>
-                        <td style="padding: 5px"><?= h($user->university) ?></td>
+                        <td style="padding: 5px"><?= ucfirst($listedUser->academic_title) .' ' .ucfirst($listedUser->first_name) .' ' .ucfirst($listedUser->last_name)?></td>
+                        <td style="padding: 5px"><?= h($listedUser->email) ?></td>
+                        <td style="padding: 5px"><?= ($listedUser->institution_id != null) ? h($listedUser->institution->name) : '' ?></td>
+                        <td style="padding: 5px"><?= h($listedUser->university) ?></td>
                         <?php
-                        if(strlen($user->about) >= 150) {
-                            $about = substr($user->about, 0, 145) .'.....';
+                        if(strlen($listedUser->about) >= 150) {
+                            $about = substr($listedUser->about, 0, 145) .'.....';
                         } else {
-                            $about = $user->about;
+                            $about = $listedUser->about;
                         }
                         ?>
                         <td style="padding: 5px"><?= h($about) ?></td>
                         <?php if($users_view_type == 'Account Approval') { ?>
-                            <td style="padding: 5px"><?= $user->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
+                            <td style="padding: 5px"><?= $listedUser->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
                         <?php } ?>
                     </tr>
                 <?php endforeach; ?>

@@ -839,9 +839,9 @@ class UsersController extends AppController
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
-        $breadcrumTitles[1] = 'Moderated Users';
+        $breadcrumTitles[1] = 'All Users';
         $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'moderated';
+        $breadcrumActions[1] = 'all';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->is_admin) {
             $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ]);
