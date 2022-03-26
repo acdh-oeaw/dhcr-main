@@ -23,10 +23,12 @@
                     <tr>
                         <td style="padding: 5px" align="center">
                             <?php
-                            echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
+                            if ($users_view_type == 'Account Approval') {
+                                echo $this->Html->link(__('Approve'), ['action' => 'approve', $user->id]) .'<br>';
+                            }
                             echo $this->Html->link(__('View'), ['action' => 'view', $user->id]) .'<br>';
                             echo $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) .'<br>';
-                            echo $this->Html->link(__('Disable'), ['action' => 'delete', $user->id]);
+                            echo $this->Html->link(__('Disable'), ['action' => 'disable', $user->id]);
                             ?>
                         <td style="padding: 5px"><?= ucfirst($user->academic_title) .' ' .ucfirst($user->first_name) .' ' .ucfirst($user->last_name)?></td>
                         <td style="padding: 5px"><?= h($user->email) ?></td>

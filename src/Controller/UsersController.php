@@ -489,12 +489,9 @@ class UsersController extends AppController
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
-        $breadcrumTitles[1] = 'Administrate Users';
+        $breadcrumTitles[1] = 'User Details';
         $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'all';
-        $breadcrumTitles[2] = 'User Details';
-        $breadcrumControllers[2] = 'Users';
-        $breadcrumActions[2] = 'view';
+        $breadcrumActions[1] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $viewedUser = $this->Users->get($id, ['contain' => ['UserRoles', 'Countries', 'Institutions']]);
         // todo check if user exists
@@ -801,40 +798,28 @@ class UsersController extends AppController
         $this->set(compact('invitedUser', 'institutions', 'inviteTranslations', 'languageList'));
     }
 
-    public function accountApproval()
+    public function moderated()
     {
         $user = $this->Authentication->getIdentity();
         // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
-        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'needsAttention';
-        $breadcrumTitles[1] = 'Account Approval';
-        $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'accountApproval';
+        $breadcrumActions[0] = 'contributorNetwork';
+        if ($user->user_role_id == 2) {
+            $breadcrumTitles[1] = 'Moderated Users';
+            $breadcrumControllers[1] = 'Users';
+            $breadcrumActions[1] = 'moderated';
+        }
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1
-                                            ]);
-            $usersCount = $this->Users->find()->where([
-                                                        'approved' => 0,
-                                                        'active' => 1
-                                                        ])
-                                                        ->count();
-        } elseif ($user->user_role_id == 2) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1,
-                                            'Users.country_id' => $user->country_id
-                                            ]);
-            $usersCount = $this->Users->find()->where([
-                                                'approved' => 0,
-                                                'active' => 1,
+        if ($user->user_role_id == 2) {
+            $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])
+                                        ->where([
+                                                'Users.country_id' => $user->country_id
+                                                ]);
+            $usersCount = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])
+                                        ->where([
                                                 'Users.country_id' => $user->country_id
                                                 ])
                                                 ->count();
@@ -843,7 +828,7 @@ class UsersController extends AppController
         $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'user');
-        $this->set('users_view_type', 'Account Approval');
+        $this->set('users_view_type', 'Moderated Users');
         $this->render('users-list');
     }
 }
