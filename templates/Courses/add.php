@@ -33,7 +33,7 @@
                 For recurring start dates, please enter all dates over one full year, when students can start the course. These dates only 
                 consist of [month]-[day] and are meant to be valid in subsequent years. One-off start dates consist of a full date 
                 [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon. <br>
-                The course will disappear from the list, after the last one-off date has expired:
+                The course will disappear from the list after the last one-off date has expired:
                 <?php
                 echo $this->Form->control('start_date', ['label' => 'Start Date*']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
@@ -54,12 +54,11 @@
                 echo $this->Form->control('courses_tadirah_techniques', ['label' => 'Tadirah Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
                 echo $this->Form->control('courses_tadirah_objects', ['label' => 'Tadirah Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
                 ?>
-                <p>&nbsp;</p>
-                Check this box to show the course in the registry. If you leave this box unchecked, the course will not appear in the public 
-                listing, so you can complete editing later.
-                <?php
-                echo $this->Form->control('active', ['label' => 'Show course in the registry']);
-                ?>
+                <p>&nbsp;
+                <?= $this->Form->control('active', ['label' => 'Show course in the registry']); ?>
+                Check this box if your course is ready to be published in the registry.<br>
+                When unchecked, you will be able to complete the course description later.
+                </p>
             </fieldset>
             <p>&nbsp;</p>
             <?= $this->Form->button(__('Add this Course')) ?>
