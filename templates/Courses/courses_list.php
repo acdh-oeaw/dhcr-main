@@ -8,7 +8,7 @@
     <p>
     <strong><u>Course Status</u></strong><br>
     <font color="green">Green:</font> Actively maintained<br>
-    <font color="orange">Orange:</font> Reminder sent, course needs to be updated<br>
+    <font color="orange">Yellow:</font> Reminder sent, course needs to be updated<br>
     <font color="red">Red:</font> Outdated, not shown in public registry
     </p>
     <?php
@@ -72,11 +72,11 @@
                         <td style="padding: 5px" bgcolor="
                         <?php
                         if($course->updated->wasWithinLast('10 Months')) {
-                            echo 'green';
+                            echo '#81d41a'; //    // 
                         } elseif ($course->updated->wasWithinLast('12 Months')) {
-                            echo 'orange';
+                            echo '#ffbf00';
                         } else {
-                            echo 'red';
+                            echo '#ff4000';
                         }
                         ?>
                         "><font color="black"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></td>
