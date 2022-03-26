@@ -361,16 +361,18 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'allCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $hideDate = new FrozenTime('-18 months');
-        $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
-                    ->where([
-                            'deleted' => 0,
-                            'Courses.updated >=' => $hideDate,
-                            ]);
-        $coursesCount = $this->Courses->find()->where([
-                                                        'deleted' => 0,
-                                                        'Courses.updated >=' => $hideDate,
-                                                        ])
-                                                        ->count();
+        if($user->is_admin) {
+            $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
+                        ->where([
+                                'deleted' => 0,
+                                'Courses.updated >=' => $hideDate,
+                                ]);
+            $coursesCount = $this->Courses->find()->where([
+                                                            'deleted' => 0,
+                                                            'Courses.updated >=' => $hideDate,
+                                                            ])
+                                                            ->count();
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
         // "customize" view
