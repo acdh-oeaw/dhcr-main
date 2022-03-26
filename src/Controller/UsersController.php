@@ -421,7 +421,9 @@ class UsersController extends AppController
 
     public function approve($key = null)
     {
-        if (empty($key)) return $this->redirect('/dashboard/index');
+        if (empty($key)) {
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
         $redirect = false;
         $admin = $this->Authentication->getIdentity();
         if ($admin and $admin->is_admin and ctype_digit($key)) {
@@ -459,10 +461,12 @@ class UsersController extends AppController
             $redirect = true;
         }
         if ($redirect) {
-            if ($admin) return $this->redirect('/dashboard/index');
-            return $this->redirect('/');
+            if ($admin) {
+                $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+            } else {
+                return $this->redirect('/');
+            }
         }
-        // TODO: create approval view/form/process  // todo: this part is missing???
     }
 
     public function index()
@@ -795,5 +799,51 @@ class UsersController extends AppController
         $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('invitedUser', 'institutions', 'inviteTranslations', 'languageList'));
+    }
+
+    public function accountApproval()
+    {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $breadcrumTitles[1] = 'Account Approval';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'accountApproval';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if($user->is_admin) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1
+                                            ]);
+            $usersCount = $this->Users->find()->where([
+                                                        'approved' => 0,
+                                                        'active' => 1
+                                                        ])
+                                                        ->count();
+        } elseif ($user->user_role_id == 2) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1,
+                                            'Users.country_id' => $user->country_id
+                                            ]);
+            $usersCount = $this->Users->find()->where([
+                                                'approved' => 0,
+                                                'active' => 1,
+                                                'Users.country_id' => $user->country_id
+                                                ])
+                                                ->count();
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'user');
+        $this->set('users_view_type', 'Account Approval');
+        $this->render('users-list');
     }
 }
