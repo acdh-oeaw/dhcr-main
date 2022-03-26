@@ -493,7 +493,7 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $viewedUser = $this->Users->get($id, ['contain' => ['UserRoles', 'Countries', 'Institutions']]);
+        $viewedUser = $this->Users->get($id, ['contain' => ['Countries', 'Institutions']]);
         // todo check if user exists
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('viewedUser'));

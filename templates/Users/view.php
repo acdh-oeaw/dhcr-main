@@ -61,44 +61,39 @@
             <table>
                 <tr>
                     <th align="left" style="padding: 5px">Email Address</th>
-                    <td style="padding: 5px"><?= $viewedUser->email ?></td>
+                    <td style="padding: 5px"><?= h($viewedUser->email) ?></td>
                 </tr>
                 <tr>
-                    <th align="left" style="padding: 5px">Newsletter</th>
-                    <td style="padding: 5px"><?= ($viewedUser->mail_list) ? 'Yes'  : 'No'; ?></td>
+                    <th align="left" style="padding: 5px">Contributor Mailing List</th>
+                    <td style="padding: 5px"><?= ($viewedUser->mail_list) ? 'Yes' : 'No'; ?></td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Institution</th>
-                    <td style="padding: 5px"><?= $viewedUser->institution_id ?></td>
+                    <td style="padding: 5px"><?= h($viewedUser->institution->name) ?></td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">About</th>
-                    <td style="padding: 5px"><?= $viewedUser->about ?></td>
+                    <td style="padding: 5px"><?= $this->Text->autoParagraph(h($viewedUser->about)) ?></td>
                 </tr>
             </table>
             <p></p>
-            <strong><u>User role</u></strong>
+            <strong><u>User roles</u></strong>
             <table>
                 <tr>
                     <th align="left" style="padding: 5px">Moderator</th>
-                    <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? 'Yes'  : 'No'; ?></td>
+                    <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? 'Yes' : 'No'; ?></td>
                 </tr>
-                <?php
-                // if($viewedUser->user_role_id == 2) {
-                if(true) {
-                ?>
                 <tr>
-                    <th align="left" style="padding: 5px">For country</th>
-                    <td style="padding: 5px"><?= $viewedUser->country_id ?></td>
+                    <th align="left" style="padding: 5px">Moderated country</th>
+                    <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? h($viewedUser->country->name) : '-' ?></td>
                 </tr>
-                <?php } ?>
                 <tr>
                     <th align="left" style="padding: 5px">Admin</th>
-                    <td style="padding: 5px"><?= ($viewedUser->is_admin == 2) ? 'Yes'  : 'No'; ?></td>
+                    <td style="padding: 5px"><?= ($viewedUser->is_admin == 2) ? 'Yes' : 'No'; ?></td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">User-admin</th>
-                    <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes'  : 'No'; ?></td>
+                    <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes' : 'No'; ?></td>
                 </tr>
             </table>
         </div>
