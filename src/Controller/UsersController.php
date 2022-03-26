@@ -725,6 +725,10 @@ class UsersController extends AppController
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'user');
+        $this->set('users_view_type', 'Account Approval');
+        $this->render('users-list');
     }
 
     public function invite()
