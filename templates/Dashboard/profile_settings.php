@@ -16,7 +16,7 @@
     ) ?>
     <?= $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-pencil"></span><br>
-        Contributor Mailing List<p></p>',
+        Sign up to the Mailing List<p></p>',
         [
             'controller' => 'users',
             'action' => 'newsletter'
