@@ -807,11 +807,9 @@ class UsersController extends AppController
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
-        if ($user->user_role_id == 2) {
-            $breadcrumTitles[1] = 'Moderated Users';
-            $breadcrumControllers[1] = 'Users';
-            $breadcrumActions[1] = 'moderated';
-        }
+        $breadcrumTitles[1] = 'Moderated Users';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'moderated';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->user_role_id == 2) {
             $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])
@@ -829,6 +827,31 @@ class UsersController extends AppController
         // "customize" view
         $this->set('users_icon', 'user');
         $this->set('users_view_type', 'Moderated Users');
+        $this->render('users-list');
+    }
+
+    public function all()
+    {
+        $user = $this->Authentication->getIdentity();
+        // todo add auth
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Moderated Users';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'moderated';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if ($user->is_admin) {
+            $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ]);
+            $usersCount = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])->count();
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'user');
+        $this->set('users_view_type', 'All Users');
         $this->render('users-list');
     }
 }

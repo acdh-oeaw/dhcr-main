@@ -2,6 +2,28 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-<?=$users_icon?>"></span>&nbsp;&nbsp;&nbsp;<?=$users_view_type?></h2>
     <div class="table-responsive">
+    <?php
+    if($usersCount == 0) {
+        if($users_view_type == 'Account Approval') {
+            echo '<p>No pending account requests.</p>';
+            echo '<p>You are up to date!</p>';
+        } else {
+            echo '<p>No users found.</p>';
+        }
+    } else {
+        echo '<p><strong><u>Sorting Order</u></strong><br> ';
+        switch($users_view_type) {
+            case 'Account Approval':
+                echo 'Latest created account first';
+                break;
+            case 'Moderated Users':
+            case 'All Users':
+                echo 'Institution, User Last Name';
+                break;
+            }
+        echo '</p>';
+    }
+    ?>
         <table>
             <thead>
                 <?php if($usersCount > 0) { ?>
@@ -49,11 +71,5 @@
                 <?php endforeach; ?>
             </tbody>
         </table>
-        <?php
-        if($usersCount == 0 && $users_view_type == 'Account Approval') {
-            echo '<p>No pending account requests.</p>';
-            echo '<p>You are up to date!</p>';
-        }
-        ?>
     </div>
 </div>
