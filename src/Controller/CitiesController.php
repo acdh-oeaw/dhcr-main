@@ -16,6 +16,11 @@ class CitiesController extends AppController
 
     public function index()
     {
+        $user = $this->Authentication->getIdentity();
+        if( !($user->user_role_id == 2 || $user->is_admin)) {
+            $this->Flash->error(__('Not authorized to cities index'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -24,18 +29,27 @@ class CitiesController extends AppController
         $breadcrumControllers[1] = 'Cities';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $cities = $this->paginate($this->Cities, [
             'contain' => ['Countries'],
             'order' => ['id' => 'asc']
         ]);
-        $user = $this->Authentication->getIdentity();
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('cities'));
     }
 
     public function add()
     {
+        $city = $this->Cities->newEmptyEntity();
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($city);
+        if ($this->request->is('post')) {
+            $city = $this->Cities->patchEntity($city, $this->request->getData());
+            if ($this->Cities->save($city)) {
+                $this->Flash->success(__('The city has been added.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The city could not be added. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -47,24 +61,24 @@ class CitiesController extends AppController
         $breadcrumControllers[2] = 'Cities';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $city = $this->Cities->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $city = $this->Cities->patchEntity($city, $this->request->getData());
-            if ($this->Cities->save($city)) {
-                $this->Flash->success(__('The city has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The city could not be saved. Please, try again.'));
-        }
         $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc']);
-        $user = $this->Authentication->getIdentity();
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('city', 'countries'));
     }
 
     public function edit($id = null)
     {
+        $city = $this->Cities->get($id);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($city);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $city = $this->Cities->patchEntity($city, $this->request->getData());
+            if ($this->Cities->save($city)) {
+                $this->Flash->success(__('The city has been updated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The city could not be updated. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -76,18 +90,7 @@ class CitiesController extends AppController
         $breadcrumControllers[2] = 'Cities';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $city = $this->Cities->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $city = $this->Cities->patchEntity($city, $this->request->getData());
-            if ($this->Cities->save($city)) {
-                $this->Flash->success(__('The city has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The city could not be saved. Please, try again.'));
-        }
         $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->all();
-        $user = $this->Authentication->getIdentity();
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('city', 'countries'));
     }
