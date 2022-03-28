@@ -17,7 +17,10 @@ class LanguagesController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        if( !$user->is_admin ) {
+            $this->Flash->error(__('Not authorized to languages index'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -33,8 +36,17 @@ class LanguagesController extends AppController
 
     public function add()
     {
+        $language = $this->Languages->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($language);
+        if ($this->request->is('post')) {
+            $language = $this->Languages->patchEntity($language, $this->request->getData());
+            if ($this->Languages->save($language)) {
+                $this->Flash->success(__('The language has been added.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The language could not be added. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -46,23 +58,23 @@ class LanguagesController extends AppController
         $breadcrumControllers[2] = 'Languages';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $language = $this->Languages->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $language = $this->Languages->patchEntity($language, $this->request->getData());
-            if ($this->Languages->save($language)) {
-                $this->Flash->success(__('The language has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The language could not be saved. Please, try again.'));
-        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('language'));
     }
 
     public function edit($id = null)
     {
+        $language = $this->Languages->get($id);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($language);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $language = $this->Languages->patchEntity($language, $this->request->getData());
+            if ($this->Languages->save($language)) {
+                $this->Flash->success(__('The language has been updated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The language could not be updated. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -74,15 +86,6 @@ class LanguagesController extends AppController
         $breadcrumControllers[2] = 'Languages';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $language = $this->Languages->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $language = $this->Languages->patchEntity($language, $this->request->getData());
-            if ($this->Languages->save($language)) {
-                $this->Flash->success(__('The language has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The language could not be saved. Please, try again.'));
-        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('language'));
     }
