@@ -17,7 +17,10 @@ class InstitutionsController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        if( !($user->user_role_id == 2 || $user->is_admin)) {
+            $this->Flash->error(__('Not authorized to institutions index'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -34,8 +37,9 @@ class InstitutionsController extends AppController
 
     public function view($id = null)
     {
+        $institution = $this->Institutions->get($id, ['contain' => ['Cities', 'Countries']]);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($institution);
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -47,14 +51,23 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $institution = $this->Institutions->get($id, ['contain' => ['Cities', 'Countries']]);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('institution'));
     }
+
     public function add()
     {
+        $institution = $this->Institutions->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($institution);
+        if ($this->request->is('post')) {
+            $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
+            if ($this->Institutions->save($institution)) {
+                $this->Flash->success(__('The institution has been added.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The institution could not be added. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -66,15 +79,6 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $institution = $this->Institutions->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
-            if ($this->Institutions->save($institution)) {
-                $this->Flash->success(__('The institution has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The institution could not be saved. Please, try again.'));
-        }
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('user')); // required for contributors menu
@@ -83,8 +87,17 @@ class InstitutionsController extends AppController
 
     public function edit($id = null)
     {
+        $institution = $this->Institutions->get($id);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($institution);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
+            if ($this->Institutions->save($institution)) {
+                $this->Flash->success(__('The institution has been updated.'));
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The institution could not be updated. Please, try again.'));
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -96,15 +109,6 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $institution = $this->Institutions->get($id);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $institution = $this->Institutions->patchEntity($institution, $this->request->getData());
-            if ($this->Institutions->save($institution)) {
-                $this->Flash->success(__('The institution has been saved.'));
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The institution could not be saved. Please, try again.'));
-        }
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('user')); // required for contributors menu
