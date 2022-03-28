@@ -30,4 +30,21 @@ class UserPolicy
         }
         return new Result(true, 'You are not allowed to edit this course');
     }
+
+    // from here all checks for dashboards
+    public function canAccessContributorNetwork(IdentityInterface $user, $data = []) : Result
+    {
+        if( $user->is_admin || ($user->user_role_id == 2) ) {
+            return new Result(true);
+        }
+        return new Result(false, 'Not autorized for contibutorNetwork');
+    }
+
+    public function canAccessCategoryLists(IdentityInterface $user, $data = []) : Result
+    {
+        if( $user->is_admin || ($user->user_role_id == 2) ) {
+            return new Result(true);
+        }
+        return new Result(false, 'Not autorized for categoryLists');
+    }
 }

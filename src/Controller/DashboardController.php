@@ -30,6 +30,7 @@ class DashboardController extends AppController
 
     public function needsAttention()
     {
+        $user = $this->Authentication->getIdentity();
         $this->loadModel('Users');
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
@@ -37,10 +38,8 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'needsAttention';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
         $reminderDate = new FrozenTime('-10 months');
-        $hideDate =     new FrozenTime('-18 months');
+        $hideDate = new FrozenTime('-18 months');
         if($user->is_admin) {
             $pendingAccountRequests = $this->Users->find()->where([
                                                                     'approved' => 0,
@@ -97,15 +96,14 @@ class DashboardController extends AppController
 
     public function adminCourses()
     {
+        $user = $this->Authentication->getIdentity();
         $this->loadModel('DhcrCore.Courses');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'courses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
-        $hideDate =     new FrozenTime('-18 months');
+        $hideDate = new FrozenTime('-18 months');
         $myCoursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
                                                         'updated >=' => $hideDate,
@@ -139,7 +137,7 @@ class DashboardController extends AppController
     public function contributorNetwork()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($user, 'accessContributorNetwork');
         $this->loadModel('Users');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
@@ -166,6 +164,8 @@ class DashboardController extends AppController
 
     public function categoryLists()
     {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user, 'accessCategoryLists');
         $this->loadModel('Cities');
         $this->loadModel('Institutions');
         $this->loadModel('Languages');
@@ -175,8 +175,6 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
-        $user = $this->Authentication->getIdentity();
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
         if($user->is_admin) {
@@ -192,11 +190,11 @@ class DashboardController extends AppController
 
     public function profileSettings()
     {
+        $user = $this->Authentication->getIdentity();
         // Set breadcrums
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'profileSettings';
-        $user = $this->Authentication->getIdentity();
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
     }
