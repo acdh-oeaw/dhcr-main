@@ -16,7 +16,10 @@ class InviteTranslationsController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        if( !$user->is_admin) {
+            $this->Flash->error(__('Not authorized to invitetranslations index'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -32,18 +35,16 @@ class InviteTranslationsController extends AppController
 
     public function view($id = null)
     {
-        $user = $this->Authentication->getIdentity();
         $inviteTranslation = $this->InviteTranslations->get($id);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($inviteTranslation);
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
-        $breadcrumTitles[1] = 'Invite Translations';
+        $breadcrumTitles[1] = 'Invite Translation Details';
         $breadcrumControllers[1] = 'inviteTranslations';
-        $breadcrumActions[1] = 'index';
-        $breadcrumTitles[2] = 'Invite Translation Details';
-        $breadcrumControllers[2] = 'inviteTranslations';
-        $breadcrumActions[2] = 'view';
+        $breadcrumActions[1] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('inviteTranslation'));
@@ -51,9 +52,9 @@ class InviteTranslationsController extends AppController
 
     public function add()
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
         $inviteTranslation = $this->InviteTranslations->newEmptyEntity();
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($inviteTranslation);
         if ($this->request->is('post')) {
             $query = $this->InviteTranslations->find();
             $nextSortOrder = $query->select(['sortOrder' => $query->func()->max('sortorder')])->first()->sortOrder + 1;
@@ -68,10 +69,10 @@ class InviteTranslationsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             if ($this->InviteTranslations->save($inviteTranslation)) {
-                $this->Flash->success(__('The invite translation has been saved.'));
+                $this->Flash->success(__('The invite translation has been added.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The invite translation could not be saved. Please, try again.'));
+            $this->Flash->error(__('The invite translation could not be added. Please, try again.'));
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
@@ -90,11 +91,9 @@ class InviteTranslationsController extends AppController
 
     public function edit($id = null)
     {
+        $inviteTranslation = $this->InviteTranslations->get($id);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $inviteTranslation = $this->InviteTranslations->get($id, [
-            'contain' => [],
-        ]);
+        $this->Authorization->authorize($inviteTranslation);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
             if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
@@ -106,10 +105,10 @@ class InviteTranslationsController extends AppController
                 return $this->redirect(['action' => 'index']);
             }
             if ($this->InviteTranslations->save($inviteTranslation)) {
-                $this->Flash->success(__('The invite translation has been saved.'));
+                $this->Flash->success(__('The invite translation has been updated.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The invite translation could not be saved. Please, try again.'));
+            $this->Flash->error(__('The invite translation could not be updated. Please, try again.'));
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
