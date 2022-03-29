@@ -37,7 +37,7 @@
             <font color="#60a845">(&nbsp;' . $pendingCourseRequests . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'courses',
-                'action' => 'courseApproval'
+                'action' => 'approve'
             ],
             [
                 'class' => 'blue button',

@@ -109,22 +109,12 @@ class CoursesController extends AppController
 
     public function add()
     {
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Administrate Courses';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'adminCourses';
-        $breadcrumTitles[1] = 'Add Course';
-        $breadcrumControllers[1] = 'Courses';
-        $breadcrumActions[1] = 'add';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $course = $this->Courses->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($course);
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
-            // set updated
             $course->set('updated', date("Y-m-d H:i:s") );
             // set user_id
             $course->set('user_id', $this->Authentication->getIdentity()->id);                        
@@ -137,11 +127,20 @@ class CoursesController extends AppController
             $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
             $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
             if ($this->Courses->save($course)) {
-                $this->Flash->success(__('The course has been saved.'));
+                $this->Flash->success(__('The course has been added.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }
-            $this->Flash->error(__('The course could not be saved. Please, try again.'));
+            $this->Flash->error(__('The course could not be added. Please, try again.'));
         }
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Add Course';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'add';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -156,19 +155,10 @@ class CoursesController extends AppController
 
     public function edit($id = null)
     {
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Administrate Courses';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'adminCourses';
-        $breadcrumTitles[1] = 'Edit Course';
-        $breadcrumControllers[1] = 'Courses';
-        $breadcrumActions[1] = 'edit';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'editCourse');
         $course = $this->Courses->get($id);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($course);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
@@ -187,6 +177,15 @@ class CoursesController extends AppController
             }
             $this->Flash->error(__('The course could not be updated. Please, try again.'));
         }
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Edit Course';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'edit';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -201,8 +200,9 @@ class CoursesController extends AppController
 
     public function myCourses()
     {
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+        $user = $this->Authentication->getIdentity();
+        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -211,8 +211,6 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
         $courses = $this->Courses->find('all', ['order' => 'Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
                                                         'deleted' => 0,
                                                         'Courses.updated >=' => new FrozenTime('-18 months'),
@@ -234,10 +232,9 @@ class CoursesController extends AppController
 
     public function expired()
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+        $user = $this->Authentication->getIdentity();
+        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
         $breadcrumControllers[0] = 'Dashboard';
@@ -247,7 +244,7 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $reminderDate = new FrozenTime('-10 months');
-        $hideDate =     new FrozenTime('-18 months');
+        $hideDate = new FrozenTime('-18 months');
         if($user->is_admin) {
             $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                                 ->where([
@@ -311,10 +308,9 @@ class CoursesController extends AppController
 
     public function moderated()
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+        $user = $this->Authentication->getIdentity();
+        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -324,20 +320,25 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'moderatedCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $hideDate = new FrozenTime('-18 months');
-        $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
-                    ->where([
-                            'deleted' => 0,
-                            'Courses.updated >=' => $hideDate,
-                            'Courses.country_id' => $user->country_id,
-                            'approved' => 1
-                            ]);
-        $coursesCount = $this->Courses->find()->where([
+        if($user->user_role_id == 2) {
+            $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
+                                                ->where([
                                                         'deleted' => 0,
                                                         'Courses.updated >=' => $hideDate,
                                                         'Courses.country_id' => $user->country_id,
                                                         'approved' => 1
-                                                        ])
-                                                        ->count();
+                                                        ]);
+            $coursesCount = $this->Courses->find()->where([
+                                                            'deleted' => 0,
+                                                            'Courses.updated >=' => $hideDate,
+                                                            'Courses.country_id' => $user->country_id,
+                                                            'approved' => 1
+                                                            ])
+                                                            ->count();
+        } else {
+            $this->Flash->error(__('Not authorized to moderated courses'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
         // "customize" view
@@ -348,10 +349,9 @@ class CoursesController extends AppController
 
     public function all()
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+        $user = $this->Authentication->getIdentity();
+        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -372,6 +372,9 @@ class CoursesController extends AppController
                                                             'Courses.updated >=' => $hideDate,
                                                             ])
                                                             ->count();
+        } else {
+            $this->Flash->error(__('Not authorized to all courses'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
@@ -381,12 +384,22 @@ class CoursesController extends AppController
         $this->render('courses-list');
     }
 
-    public function courseApproval()
+    public function approve($id = null)
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
         $this->loadModel('DhcrCore.Courses');
+        $user = $this->Authentication->getIdentity();
+        if($id != null) {
+            $course = $this->Courses->get($id);
+            $this->Authorization->authorize($course);
+            $course->set('approved', 1);
+            if ($this->Courses->save($course)) {
+                $this->Flash->success(__('The course has been approved.'));    
+            } else {
+                $this->Flash->error(__('Error approving the course.'));
+            }
+            return $this->redirect(['controller' => 'Courses', 'action' => 'approve']);
+        }
+        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Needs Attention';
         $breadcrumControllers[0] = 'Dashboard';
@@ -419,6 +432,9 @@ class CoursesController extends AppController
                                 'Courses.country_id' => $user->country_id
                                 ])
                                 ->count();
+        } else {
+            $this->Flash->error(__('Not authorized to course approval'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
@@ -426,20 +442,5 @@ class CoursesController extends AppController
         $this->set('course_icon', 'education');
         $this->set('course_view_type', 'Course Approval');
         $this->render('courses-list');
-    }
-
-    public function approve($id = null)
-    {
-        $user = $this->Authentication->getIdentity();
-        // todo $this->Authorization->authorize($user, 'approveCourse');
-        $this->loadModel('DhcrCore.Courses');
-        $course = $this->Courses->get($id);
-        $course->set('approved', 1);
-        if ($this->Courses->save($course)) {
-            $this->Flash->success(__('The course has been approved.'));    
-        } else {
-            $this->Flash->error(__('Error approving the course.'));
-        }
-        return $this->redirect(['controller' => 'Dashboard', 'action' => 'needsAttention']);
     }
 }

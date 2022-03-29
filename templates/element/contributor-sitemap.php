@@ -33,7 +33,7 @@
                         echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'accountApproval']);
                     echo '</li>';
                     echo '<li>';
-                        echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'courseApproval']);
+                        echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'approve']);
                     echo '</li>';
                 }
                 ?>
