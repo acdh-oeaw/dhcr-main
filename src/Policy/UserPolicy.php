@@ -62,21 +62,4 @@ class UserPolicy
         }
         return false;
     }
-
-    // from here all checks for dashboards
-    public function canAccessContributorNetwork(IdentityInterface $user, $data = [])
-    {
-        if( $user->is_admin || ($user->user_role_id == 2) ) {
-            return true;
-        }
-        return false;
-    }
-
-    public function canAccessCategoryLists(IdentityInterface $user, $data = [])
-    {
-        if( $user->is_admin || ($user->user_role_id == 2) ) {
-            return true;
-        }
-        return false;
-    }
 }

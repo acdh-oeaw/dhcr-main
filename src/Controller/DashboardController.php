@@ -137,7 +137,6 @@ class DashboardController extends AppController
     public function contributorNetwork()
     {
         $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'accessContributorNetwork');
         $this->loadModel('Users');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
@@ -150,13 +149,13 @@ class DashboardController extends AppController
                                                                 'country_id' => $user->country_id
                                                                 ])
                                                                 ->count();
-        } else {
+            $allUsersCount = 0;
+        } elseif( $user->is_admin ) {
             $moderatedUsersCount = 0;
-        }
-        if( $user->is_admin ) {
             $allUsersCount = $this->Users->find()->where(['active' => 1])->count();
         } else {
-            $allUsersCount = 0;
+            $this->Flash->error(__('Not authorized to contributor network'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('moderatedUsersCount', 'allUsersCount'));
@@ -165,7 +164,6 @@ class DashboardController extends AppController
     public function categoryLists()
     {
         $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'accessCategoryLists');
         $this->loadModel('Cities');
         $this->loadModel('Institutions');
         $this->loadModel('Languages');
@@ -175,6 +173,10 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if( !($user->user_role_id == 2 || $user->is_admin) ) {
+            $this->Flash->error(__('Not authorized to category lists'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
         if($user->is_admin) {
