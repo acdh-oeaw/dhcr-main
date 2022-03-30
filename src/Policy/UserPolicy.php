@@ -3,48 +3,80 @@ namespace App\Policy;
 
 use App\Model\Entity\User;
 use Authorization\IdentityInterface;
-use Authorization\Policy\Result;
 
 class UserPolicy
 {
     // approval check
-    public function canAccessDashboard(IdentityInterface $user, $data = []) : Result
+    public function canAccessDashboard(IdentityInterface $user, $data = [])
     {
         $user = $user->getOriginalData();
-        if($user->email_verified && $user->approved)
-            return new Result(true);
-        return new Result(false, 'User not approved');
+        if($user->email_verified && $user->approved) {
+            return true;
+        }
+        return false;
     }
 
-    public function canEditCourse(IdentityInterface $user, $course = []) : Result
+    public function canApprove(IdentityInterface $user, IdentityInterface $approvingUser)
     {
-        $user = $user->getOriginalData();
-        if($course->user_id == $user->id) {     // User is editing own course
-            return new Result(true);
+        // moderator can approve in moderated country
+        if($user->user_role_id == 2 && ($approvingUser->country_id == $user->country_id)) {
+            return true;
         }
-        if ( ($user->user_role_id == 2) && ($course->country_id == $user->country_id) ) { // Moderator is editing in moderated country
-            return new Result(true);
+        // admin can approve all
+        if($user->is_admin) {   
+            return true;
         }
-        if ($user->is_admin) {    //  Admin can edit everything
-            return new Result(true);
+        return false;
+    }
+
+    public function canView(IdentityInterface $user, IdentityInterface $viewedUser)
+    {
+        // moderator can view in own country
+        if($user->user_role_id == 2 && ($viewedUser->country_id == $user->country_id) ) {
+            return true;
         }
-        return new Result(true, 'You are not allowed to edit this course');
+        // admin can view all
+        if($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
+    public function canEdit(IdentityInterface $user, IdentityInterface $viewedUser)
+    {
+        // not implemented yet
+        return false;
+    }
+    
+        public function canDelete(IdentityInterface $user, IdentityInterface $viewedUser)
+    {
+        // not implemented yet
+        return false;
+    }
+
+    public function canInvite(IdentityInterface $user, IdentityInterface $viewedUser)
+    {
+        // moderator and admin can both invite
+        if($user->user_role_id == 2 || $user->is_admin) {
+            return true;
+        }
+        return false;
     }
 
     // from here all checks for dashboards
-    public function canAccessContributorNetwork(IdentityInterface $user, $data = []) : Result
+    public function canAccessContributorNetwork(IdentityInterface $user, $data = [])
     {
         if( $user->is_admin || ($user->user_role_id == 2) ) {
-            return new Result(true);
+            return true;
         }
-        return new Result(false, 'Not autorized for contibutorNetwork');
+        return false;
     }
 
-    public function canAccessCategoryLists(IdentityInterface $user, $data = []) : Result
+    public function canAccessCategoryLists(IdentityInterface $user, $data = [])
     {
         if( $user->is_admin || ($user->user_role_id == 2) ) {
-            return new Result(true);
+            return true;
         }
-        return new Result(false, 'Not autorized for categoryLists');
+        return false;
     }
 }

@@ -9,7 +9,7 @@
             <font color="#60a845">(&nbsp;' . $pendingAccountRequests . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'users',
-                'action' => 'accountApproval'
+                'action' => 'approve'
             ],
             [
                 'class' => 'blue button',

@@ -411,79 +411,95 @@ class UsersController extends AppController
                     }
                     $this->set('mailSent', true);
                 } else {
-                    $this->Flash->set('We could not find a user with that address');
+                    $this->Flash->set('No user with that emailaddress found.');
                     return $this->redirect('/users/sign-in');
                 }
             }
-            // render form (email)  // todo: what does this mean???
+            // render form (email)  // todo: merge with changePassword()
         }
     }
 
     public function approve($key = null)
     {
-        if (empty($key)) {
-            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
-        }
-        $redirect = false;
-        $admin = $this->Authentication->getIdentity();
-        if ($admin and $admin->is_admin and ctype_digit($key)) {
-            // we are accessing the method using the admin dashboard, using user ids as the key
-            $user = $this->Users->get($key);
-            if (!$user) {
-                $this->Flash->set('An account with id ' . $key . ' could not be found.');
-                $redirect = true;
-            }
-        } else {
-            // admins retrieve a link in their notification email to approve directly
-            $user = $this->Users->find()->contain([])->where([
-                'Users.approval_token' => $key,
-                'approved' => 0
-            ])->first();
-            if (!$user) {
-                $this->Flash->set('The requested account has already been accepted.');
-                $redirect = true;
-            }
-        }
-        if ($user) {
-            if ($user = $this->Users->approve($key)) {
-                $this->getMailer('User')->send('welcome', [$user]);
-                $this->Flash->set('The account has been approved successfully.');
-                $redirect = true;
-            } else {
-                // There are missing data or errors - set user to render approval form
-                $this->set('user', $user);
-                if ($admin and $admin->is_admin)
-                    $this->Flash->set('Approval failed, please amend the account.');
-                else
-                    $this->Flash->set('Approval not possible, please log in to amend the account.');
-            }
-        } else {
-            $redirect = true;
-        }
-        if ($redirect) {
-            if ($admin) {
-                $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
-            } else {
-                return $this->redirect('/');
-            }
-        }
-    }
-
-    public function index()
-    {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        if(is_numeric($key)) {    // access from web interface
+            $approvingUser = $this->Users->get($key);
+            if (!$approvingUser) {
+                $this->Flash->set('An account with id ' . $key . ' could not be found.');
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+            }
+        } elseif($key != null) {    // check if access from email with token
+            $approvingUser = $this->Users->find()->where([
+                                                        'Users.approval_token' => $key,
+                                                        'approved' => 0
+                                                        ])
+                                                        ->first();
+            if (!$approvingUser) {
+                $this->Flash->set('Token invalid. Please check your dashboard.');
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'approve']);
+            }
+        }
+        if(isset($approvingUser)) {    // the specified user exists
+            $this->Authorization->authorize($approvingUser);
+            $approvingUser->set('approved', 1);
+            if($this->Users->save($approvingUser)) {
+                $this->getMailer('User')->send('welcome', [$approvingUser]);
+                $this->Flash->set('The account has been approved successfully.');
+            } else {
+                    $this->Flash->set('Approval failed.');
+            }
+            return $this->redirect(['controller' => 'Users', 'action' => 'approve']);
+        }
         $this->viewBuilder()->setLayout('contributors');
-        $this->paginate = ['contain' => ['UserRoles', 'Countries', 'Institutions']];
-        $users = $this->paginate($this->Users);
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $breadcrumTitles[1] = 'Account Approval';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'approve';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if($user->is_admin) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1
+                                            ]);
+            $usersCount = $this->Users->find()->where([
+                                                        'approved' => 0,
+                                                        'active' => 1
+                                                        ])
+                                                        ->count();
+        } elseif ($user->user_role_id == 2) {
+            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
+                                    ->where([
+                                            'approved' => 0,
+                                            'active' => 1,
+                                            'Users.country_id' => $user->country_id
+                                            ]);
+            $usersCount = $this->Users->find()->where([
+                                                'approved' => 0,
+                                                'active' => 1,
+                                                'Users.country_id' => $user->country_id
+                                                ])
+                                                ->count();
+        } else {
+            $this->Flash->error(__('Not authorized to user approval'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+        }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users'));
-    }
+        $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'user');
+        $this->set('users_view_type', 'Account Approval');
+        $this->render('users-list');
+}
 
     public function view($id = null)
     {
+        $viewedUser = $this->Users->get($id, ['contain' => ['Countries', 'Institutions']]);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
+        $this->Authorization->authorize($viewedUser);
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
@@ -493,14 +509,14 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $viewedUser = $this->Users->get($id, ['contain' => ['Countries', 'Institutions']]);
-        // todo check if user exists
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('viewedUser'));
     }
 
     public function edit($id = null)
     {
+        // todo: implement
+        //
         $user = $this->Authentication->getIdentity();
         // todo add auth
         // $this->viewBuilder()->setLayout('contributors');
@@ -519,6 +535,8 @@ class UsersController extends AppController
 
     public function delete($id = null)
     {
+        // todo: implement
+        //
         $user = $this->Authentication->getIdentity();
         // todo add auth
         // --- todo select reason
@@ -533,6 +551,7 @@ class UsersController extends AppController
         $this->set(compact('user')); // required for contributors menu
     }
 
+    // todo: move up
     protected function _setOptions()
     {
         $institutions = $this->Users->Institutions->find('list', [
@@ -686,68 +705,11 @@ class UsersController extends AppController
         $this->set(compact('user')); // required for contributors menu
     }
 
-    public function accountApproval()
-    {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Needs Attention';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'needsAttention';
-        $breadcrumTitles[1] = 'Account Approval';
-        $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'accountApproval';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1
-                                            ]);
-            $usersCount = $this->Users->find()->where([
-                                                        'approved' => 0,
-                                                        'active' => 1
-                                                        ])
-                                                        ->count();
-        } elseif ($user->user_role_id == 2) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1,
-                                            'Users.country_id' => $user->country_id
-                                            ]);
-            $usersCount = $this->Users->find()->where([
-                                                'approved' => 0,
-                                                'active' => 1,
-                                                'Users.country_id' => $user->country_id
-                                                ])
-                                                ->count();
-        }
-        $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
-        // "customize" view
-        $this->set('users_icon', 'user');
-        $this->set('users_view_type', 'Account Approval');
-        $this->render('users-list');
-    }
-
     public function invite()
     {
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        $this->viewBuilder()->setLayout('contributors');
-        $this->loadModel('Institutions');
-        $this->loadModel('InviteTranslations');
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Contributor Network';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'contributorNetwork';
-        $breadcrumTitles[1] = 'Invite User';
-        $breadcrumControllers[1] = 'Users';
-        $breadcrumActions[1] = 'invite';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $invitedUser = $this->Users->newEmptyEntity();
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($invitedUser);
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             // set country_id
@@ -791,6 +753,17 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
         }
+        $this->viewBuilder()->setLayout('contributors');
+        $this->loadModel('Institutions');
+        $this->loadModel('InviteTranslations');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Invite User';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'invite';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $institutions = $this->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $inviteTranslations = $this->InviteTranslations->find()->where(['active ' => true])->order(['sortOrder' => 'ASC']);
         $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
@@ -801,7 +774,6 @@ class UsersController extends AppController
     public function moderated()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
@@ -821,6 +793,9 @@ class UsersController extends AppController
                                                 'Users.country_id' => $user->country_id
                                                 ])
                                                 ->count();
+        } else {
+            $this->Flash->error(__('Not authorized to moderated users'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));
@@ -833,7 +808,6 @@ class UsersController extends AppController
     public function all()
     {
         $user = $this->Authentication->getIdentity();
-        // todo add auth
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
@@ -846,6 +820,9 @@ class UsersController extends AppController
         if ($user->is_admin) {
             $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ]);
             $usersCount = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])->count();
+        } else {
+            $this->Flash->error(__('Not authorized to all users'));
+            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));

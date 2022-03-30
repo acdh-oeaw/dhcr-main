@@ -30,7 +30,7 @@
                 <?php
                 if( $user->user_role_id == 2 || $user->is_admin ) {
                     echo '<li>';
-                        echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'accountApproval']);
+                        echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'approve']);
                     echo '</li>';
                     echo '<li>';
                         echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'approve']);
