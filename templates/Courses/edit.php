@@ -61,7 +61,7 @@
                 </p>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Update this Course')) ?>
+            <?= $this->Form->button(__('Update Course')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
