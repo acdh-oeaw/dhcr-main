@@ -15,10 +15,15 @@ class InviteTranslationsTable extends Table
         parent::initialize($config);
 
         $this->setTable('invite_translations');
-        $this->setDisplayField('name');
+        $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('Languages', [
+            'foreignKey' => 'language_id',
+            'joinType' => 'INNER',
+        ]);
     }
 
     public function validationDefault(Validator $validator): Validator
@@ -30,13 +35,8 @@ class InviteTranslationsTable extends Table
         $validator
             ->integer('sortOrder')
             ->requirePresence('sortOrder', 'create')
-            ->notEmptyString('sortOrder');
-
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 40)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('sortOrder')
+            ->add('sortOrder', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
             ->scalar('subject')
@@ -55,5 +55,13 @@ class InviteTranslationsTable extends Table
             ->notEmptyString('active');
 
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['sortOrder']), ['errorField' => 'sortOrder']);
+        $rules->add($rules->existsIn(['language_id'], 'Languages'), ['errorField' => 'language_id']);
+
+        return $rules;
     }
 }

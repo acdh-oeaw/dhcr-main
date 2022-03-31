@@ -8,8 +8,8 @@ use Cake\ORM\Entity;
 class InviteTranslation extends Entity
 {
     protected $_accessible = [
+        'language_id' => true,
         'sortOrder' => true,
-        'name' => true,
         'subject' => true,
         'messageBody' => true,
         'created' => true,

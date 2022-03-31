@@ -8,17 +8,17 @@
             <thead>
                 <tr>
                     <th align="left" style="padding: 5px">Sort Order</th>
-                    <th align="left" style="padding: 5px">Name</th>
+                    <th align="left" style="padding: 5px">Language</th>
                     <th align="left" style="padding: 5px">Subject</th>
                     <th align="left" style="padding: 5px">Active</th>
-                    <th align="left" style="padding: 5px">Actions</th>
+                    <th align="left" style="padding: 5px">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($inviteTranslations as $inviteTranslation): ?>
                 <tr>
                     <td style="padding: 5px" align="center"><?= $this->Number->format($inviteTranslation->sortOrder) ?></td>
-                    <td style="padding: 5px"><?= h($inviteTranslation->name) ?></td>
+                    <td style="padding: 5px"><?= h($inviteTranslation->language->name) ?></td>
                     <td style="padding: 5px"><?= $this->Html->link(__(h($inviteTranslation->subject)), ['action' => 'view', $inviteTranslation->id]) ?></td>
                     <td style="padding: 5px" align="center"><?= ($inviteTranslation->active) ? 'Yes' : 'No' ?></td>
                     <td class="actions" style="padding: 5px" align="center"><?= $this->Html->link(__('Edit'), ['action' => 'edit', $inviteTranslation->id]) ?></td>

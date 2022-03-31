@@ -707,6 +707,8 @@ class UsersController extends AppController
 
     public function invite()
     {
+        $this->loadModel('Institutions');
+        $this->loadModel('InviteTranslations');
         $invitedUser = $this->Users->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($invitedUser);
@@ -754,8 +756,6 @@ class UsersController extends AppController
             $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
         }
         $this->viewBuilder()->setLayout('contributors');
-        $this->loadModel('Institutions');
-        $this->loadModel('InviteTranslations');
         // Set breadcrums
         $breadcrumTitles[0] = 'Contributor Network';
         $breadcrumControllers[0] = 'Dashboard';
@@ -765,8 +765,12 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'invite';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $institutions = $this->Institutions->find('list', ['order' => 'Institutions.name asc']);
-        $inviteTranslations = $this->InviteTranslations->find()->where(['active ' => true])->order(['sortOrder' => 'ASC']);
-        $languageList = $this->InviteTranslations->find('list')->where(['active ' => true])->order(['sortOrder' => 'ASC']);
+        $inviteTranslations = $this->InviteTranslations->find('all', ['order' => 'sortOrder asc', 'contain' => 'Languages'])
+                                                        ->where(['active ' => true]);
+        $languageList = [];
+        foreach($inviteTranslations as $inviteTranslation) {
+            $languageList += [$inviteTranslation->id => $inviteTranslation->language->name];
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('invitedUser', 'institutions', 'inviteTranslations', 'languageList'));
     }

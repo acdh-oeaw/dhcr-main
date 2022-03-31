@@ -3,7 +3,7 @@
     <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Invite Translation Details</h2>
     <div class="column-responsive column-80">
         <div class="inviteTranslations view content">
-            <h3><?= h($inviteTranslation->name) ?></h3>
+            <h3><?= h($inviteTranslation->language->name) ?></h3>
             <p></p>
             <b><u>Subject</u></b></br>
             <?= h($inviteTranslation->subject) ?>

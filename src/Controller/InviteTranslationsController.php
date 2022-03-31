@@ -28,14 +28,14 @@ class InviteTranslationsController extends AppController
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $inviteTranslations = $this->InviteTranslations->find('all', ['order' => 'sortOrder asc']);
+        $inviteTranslations = $this->InviteTranslations->find('all', ['order' => 'sortOrder asc', 'contain' => 'Languages']);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('inviteTranslations'));
     }
 
     public function view($id = null)
     {
-        $inviteTranslation = $this->InviteTranslations->get($id);
+        $inviteTranslation = $this->InviteTranslations->get($id, ['contain' => 'Languages']);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($inviteTranslation);
         // Set breadcrums
@@ -85,8 +85,9 @@ class InviteTranslationsController extends AppController
         $breadcrumControllers[2] = 'inviteTranslations';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $languages = $this->InviteTranslations->Languages->find('list', ['order' => 'Languages.name asc']);
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('inviteTranslation'));
+        $this->set(compact('inviteTranslation', 'languages'));
     }
 
     public function edit($id = null)
@@ -121,7 +122,8 @@ class InviteTranslationsController extends AppController
         $breadcrumControllers[2] = 'inviteTranslations';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $languages = $this->InviteTranslations->Languages->find('list', ['order' => 'Languages.name asc']);
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('inviteTranslation'));
+        $this->set(compact('inviteTranslation', 'languages'));
     }
 }

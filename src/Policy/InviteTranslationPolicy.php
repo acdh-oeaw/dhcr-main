@@ -26,7 +26,12 @@ class InviteTranslationPolicy
 
     public function canView(IdentityInterface $user, InviteTranslation $inviteTranslation)
     {
-        if($user->user_role_id == 2 || $user->is_admin) {   // moderators can view only
+        // moderators can only view active translations
+        if($user->user_role_id == 2 && $inviteTranslation->active ) {
+            return true;
+        }
+        // admin can view everything
+        if($user->is_admin) {   // moderators can view only
             return true;
         }
         return false;

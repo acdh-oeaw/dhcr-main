@@ -34,7 +34,7 @@
                 <b>Preview localized messages</b><br>
                 <?php
                 foreach($inviteTranslations as $inviteTranslation) {
-                    echo $this->Html->link($inviteTranslation->name, ['controller' => 'inviteTranslations', 
+                    echo $this->Html->link($inviteTranslation->language->name, ['controller' => 'inviteTranslations', 
                         'action' => 'view', $inviteTranslation->id]) . '<br>';
                     }
                 echo '<p></p>';
