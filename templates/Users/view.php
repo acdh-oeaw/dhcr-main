@@ -69,7 +69,7 @@
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Institution:</th>
-                    <td style="padding: 5px"><?= h($viewedUser->institution->name) ?></td>
+                    <td style="padding: 5px"><?= (isset($viewedUser->institution_id)) ? h($viewedUser->institution->name) : '<font color="red">Empty!</font>' ?></td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">About:</th>
