@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Contributor Mailing List</h2>
+    <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Sign up to the Mailing List</h2>
     <p></p>
     <p>As a lecturer, national moderator or programme director, you may want to sign up to our newsletter. It addresses everybody involved in the
     contribution of course metadata for the DHCR.</p>

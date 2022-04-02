@@ -23,7 +23,7 @@
         ],
         [
             'class' => 'blue button',
-            'title' => 'Contributor Mailing List',
+            'title' => 'Sign up to the Mailing List',
             'escape' => false
         ]
     ) ?>

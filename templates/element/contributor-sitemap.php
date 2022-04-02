@@ -193,7 +193,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Contributor Mailing List',
+                        'Sign up to the Mailing List',
                         ['controller' => 'Users', 'action' => 'newsletter']
                     ) ?>
                 </li>

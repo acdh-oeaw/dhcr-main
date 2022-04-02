@@ -689,7 +689,7 @@ class UsersController extends AppController
         $breadcrumTitles[0] = 'Profile Settings';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'profileSettings';
-        $breadcrumTitles[1] = 'Contributor Mailing List';
+        $breadcrumTitles[1] = 'Sign up to the Mailing List';
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'newsletter';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
