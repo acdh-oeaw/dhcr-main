@@ -708,6 +708,11 @@ class UsersController extends AppController
         $this->Authorization->authorize($invitedUser);
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
+            // check if an institution is selected
+            if(!$invitedUser->institution_id) {
+                $this->Flash->error(__('No institution selected!'));
+                return $this->redirect(['action' => 'invite']);
+            }
             // set country_id
             $country_id = $this->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
             $invitedUser->set('country_id', $country_id);
