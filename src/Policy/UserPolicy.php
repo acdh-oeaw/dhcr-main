@@ -42,18 +42,19 @@ class UserPolicy
         return false;
     }
 
-    public function canEdit(IdentityInterface $user, IdentityInterface $viewedUser)
+    public function canEdit(IdentityInterface $user, IdentityInterface $editUser)
     {
-        // not implemented yet
+        // moderator can edit in own country
+        if($user->user_role_id == 2 && ($editUser->country_id == $user->country_id) ) {
+            return true;
+        }
+        // admin can edit all
+        if($user->is_admin) {
+            return true;
+        }
         return false;
     }
     
-        public function canDelete(IdentityInterface $user, IdentityInterface $viewedUser)
-    {
-        // not implemented yet
-        return false;
-    }
-
     public function canInvite(IdentityInterface $user, IdentityInterface $viewedUser)
     {
         // moderator and admin can both invite

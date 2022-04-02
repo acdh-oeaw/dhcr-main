@@ -515,43 +515,37 @@ class UsersController extends AppController
 
     public function edit($id = null)
     {
-        // todo: implement
-        //
+        $editUser = $this->Users->get($id,['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
-        // todo add auth
-        // $this->viewBuilder()->setLayout('contributors');
-        // $editUser = $this->Users->get($id);
-        // if ($this->request->is(['patch', 'post', 'put'])) {
-        //     $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
-        //     if ($this->Users->save($editUser)) {
-        //         $this->Flash->success(__('The user has been saved.'));
-        //         return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
-        //     }
-        //     $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        // }
-        // $this->_setOptions();
+        $this->Authorization->authorize($editUser);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            if($user->is_admin) {
+                $editUser->setAccess('user_role_id', true);
+                $editUser->setAccess('is_admin', true);
+                $editUser->setAccess('user_admin', true);
+                $editUser->setAccess('active', true);
+            }
+            $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
+            if ($this->Users->save($editUser)) {
+                $this->Flash->success(__('The user has been updated.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+            }
+            $this->Flash->error(__('The user could not be updated. Please, try again.'));
+        }
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Edit User';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'edit';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $institutions = $this->Users->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('editUser', 'institutions'));
     }
 
-    public function delete($id = null)
-    {
-        // todo: implement
-        //
-        $user = $this->Authentication->getIdentity();
-        // todo add auth
-        // --- todo select reason
-        // $this->request->allowMethod(['post', 'delete']);
-        // $deleteUser = $this->Users->get($id);
-        // if ($this->Users->delete($deleteUser)) {
-        //     $this->Flash->success(__('The user has been deleted.'));
-        // } else {
-        //     $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        // }
-        // return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
-        $this->set(compact('user')); // required for contributors menu
-    }
-
-    // todo: move up
     protected function _setOptions()
     {
         $institutions = $this->Users->Institutions->find('list', [
