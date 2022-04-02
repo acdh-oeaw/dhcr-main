@@ -286,10 +286,7 @@ class UsersController extends AppController
                 }   
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
-                return $this->redirect([
-                    'controller' => 'users',
-                    'action' => 'registration_success'
-                ]);
+                return $this->redirect(['controller' => 'users', 'action' => 'registration_success']);
             } else {
                 $this->Flash->set('There are errors! Please check the form and amend the indicated fields.');
             }
