@@ -50,9 +50,6 @@
                             }
                             echo $this->Html->link(__('View'), ['action' => 'view', $listedUser->id]) .'<br>';
                             echo $this->Html->link(__('Edit'), ['action' => 'edit', $listedUser->id]) .'<br>';
-                            if($user->is_admin) {
-                                echo $this->Html->link(__('Disable'), ['action' => 'disable', $listedUser->id]);
-                            }
                             ?>
                         <td style="padding: 5px"><?= ucfirst($listedUser->academic_title) .' ' .ucfirst($listedUser->first_name) .' ' .ucfirst($listedUser->last_name)?></td>
                         <td style="padding: 5px"><?= h($listedUser->email) ?></td>
