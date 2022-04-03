@@ -28,7 +28,7 @@ tutorial video</a> to learn how to browse or filter the courses.
     echo $this->Form->control('last_name');
     echo $this->Form->control('about', [
         'type' => 'textarea',
-        'label' => 'Your Position',
+        'label' => ['text' => 'Your Position', 'class' => 'depending'],
         'placeholder' => 'Please provide some verifiable details about your position (e.g. lecturer, assistant, professor), so that our moderators can judge about your eligibility to contribute content to the DHCR.',
         ]);
     echo $this->Form->control('institution_id', [
@@ -37,7 +37,7 @@ tutorial video</a> to learn how to browse or filter the courses.
         'required' => false
         ]);
     echo $this->Form->control('university', [
-        'label' => ['text' => 'Other Organisation', 'class' => 'depending'],
+        'label' => ['text' => 'Other Organisation'],
         'type' => 'textarea',
         'placeholder' => 'If you cannot find your affiliation in the dropdown list above, we need the country, city and name of your organisation provided here instead.'
     ]);
