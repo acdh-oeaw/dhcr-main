@@ -528,6 +528,9 @@ class UsersController extends AppController
                 $editUser->setAccess('active', true);
             }
             $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
+            // set country_id
+            $country_id = $this->Users->Institutions->find()->where(['id' => $editUser->institution_id])->first()->country_id;
+            $editUser->set('country_id', $country_id);    
             if ($this->Users->save($editUser)) {
                 $this->Flash->success(__('The user has been updated.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
