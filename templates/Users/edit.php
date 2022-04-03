@@ -10,15 +10,8 @@
                 <p><h3>Account Status</h3></p>
                 Email Verified: <font color=" <?= ($editUser->email_verified) ? 'green">Yes' : 'red">No' ?></font><br>
                 Password Set: <font color=" <?= ($editUser->password != null) ? 'green">Yes' : 'red">No' ?></font><br>
-                Approved: <font color=" 
+                Approved: <font color=" <?=($editUser->approved) ? 'green">Yes</font>' : 'red">No</font>' ?><br>
                 <?php
-                if ($editUser->approved) {
-                    echo 'green">Yes</font>';
-                } else {
-                    echo 'red">No</font>&nbsp;&nbsp;&nbsp;';
-                    echo $this->Html->link(__('Click here to approve'), ['action' => 'approve', $editUser->id]) .'<br>';
-                }
-                echo '<br>';
                 if($user->is_admin) {   // only admin can disable user
                     echo $this->Form->control('active');
                 } else {
