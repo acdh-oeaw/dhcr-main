@@ -145,6 +145,7 @@ class DashboardController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if( $user->user_role_id == 2 ) {
             $moderatedUsersCount = $this->Users->find()->where([
+                                                                'approved' => 1,
                                                                 'active' => 1,
                                                                 'country_id' => $user->country_id
                                                                 ])
