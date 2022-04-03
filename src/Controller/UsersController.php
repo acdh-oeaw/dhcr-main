@@ -278,6 +278,11 @@ class UsersController extends AppController
             $user->new_email = $user->email;
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
+            // set country_id
+            if($user->institution_id) {
+                $country_id = $this->Users->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
+                $user->set('country_id', $country_id);    
+            }
             if (!$user->hasErrors(false)) {
                 $this->Users->save($user);
                 try {
