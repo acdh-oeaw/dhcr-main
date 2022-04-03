@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\I18n\FrozenTime;
 use Cake\Event\EventInterface;
+use Cake\Core\Configure;
 
 class DashboardController extends AppController
 {
@@ -38,8 +38,6 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'needsAttention';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $reminderDate = new FrozenTime('-10 months');
-        $hideDate = new FrozenTime('-18 months');
         if($user->is_admin) {
             $pendingAccountRequests = $this->Users->find()->where([
                                                                     'approved' => 0,
@@ -54,8 +52,8 @@ class DashboardController extends AppController
             $expiredCourses = $this->Courses->find()->where([
                                                                     'active' => 1,
                                                                     'deleted' => 0,
-                                                                    'updated <=' => $reminderDate,
-                                                                    'updated >=' => $hideDate
+                                                                    'updated <' => Configure::read('courseWarnDate'),
+                                                                    'updated >' => Configure::read('courseArchiveDate')
                                                                     ])
                                                                     ->count();
         } elseif($user->user_role_id == 2) {
@@ -73,8 +71,8 @@ class DashboardController extends AppController
             $expiredCourses = $this->Courses->find()->where([
                                                                     'active' => 1,
                                                                     'deleted' => 0,
-                                                                    'updated <=' => $reminderDate,
-                                                                    'updated >=' => $hideDate,
+                                                                    'updated <' => Configure::read('courseWarnDate'),
+                                                                    'updated >' => Configure::read('courseArchiveDate'),
                                                                     'country_id' => $user->country_id
                                                                     ])
                                                                     ->count();
@@ -84,8 +82,8 @@ class DashboardController extends AppController
             $expiredCourses = $this->Courses->find()->where([
                                                             'active' => 1,
                                                             'deleted' => 0,
-                                                            'updated <=' => $reminderDate,
-                                                            'updated >=' => $hideDate,
+                                                            'updated <' => Configure::read('courseWarnDate'),
+                                                            'updated >' => Configure::read('courseArchiveDate'),
                                                             'user_id' => $user->id
                                                             ])
                                                             ->count();
@@ -103,19 +101,18 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'courses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $hideDate = new FrozenTime('-18 months');
         $myCoursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
-                                                        'updated >=' => $hideDate,
+                                                        'updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ])
                                                         ->count();
         if($user->user_role_id == 2) {
             $moderatedCoursesCount = $this->Courses->find()->where([
+                                                                    'approved' => 1,
                                                                     'deleted' => 0,
-                                                                    'updated >=' => $hideDate,
+                                                                    'updated >' => Configure::read('courseArchiveDate'),
                                                                     'country_id' => $user->country_id,
-                                                                    'approved' => 1
                                                                     ])
                                                                     ->count();
         } else {
@@ -124,7 +121,7 @@ class DashboardController extends AppController
         if($user->is_admin) {
             $allCoursesCount = $this->Courses->find()->where([
                                                             'deleted' => 0,
-                                                            'updated >=' => $hideDate
+                                                            'updated >' => Configure::read('courseArchiveDate'),
                                                             ])
                                                             ->count();
         } else {

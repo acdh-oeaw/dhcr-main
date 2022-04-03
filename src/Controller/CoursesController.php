@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
-use Cake\I18n\FrozenTime;
+use Cake\Core\Configure;
 
 class CoursesController extends AppController
 {
@@ -213,12 +213,12 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $courses = $this->Courses->find('all', ['order' => 'Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
                                                         'deleted' => 0,
-                                                        'Courses.updated >=' => new FrozenTime('-18 months'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ]);
         $coursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
-                                                        'Courses.updated >=' => new FrozenTime('-18 months'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id                                                        
                                                         ])
                                                         ->count();
@@ -243,22 +243,20 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $reminderDate = new FrozenTime('-10 months');
-        $hideDate = new FrozenTime('-18 months');
         if($user->is_admin) {
             $courses = $this->Courses->find('all', ['order' => 'Courses.updated asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate')
                                                         ]);
                         
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate')
                                                         ])
                                                         ->count();
         } elseif($user->user_role_id == 2) {
@@ -266,16 +264,16 @@ class CoursesController extends AppController
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate,
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id
                                                         ]);
                         
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate,
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id
                                                         ])
                                                         ->count();
@@ -284,16 +282,16 @@ class CoursesController extends AppController
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate,
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ]);
                         
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <=' => $reminderDate,
-                                                        'Courses.updated >=' => $hideDate,
+                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ])
                                                         ->count();
@@ -319,18 +317,17 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'moderatedCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $hideDate = new FrozenTime('-18 months');
         if($user->user_role_id == 2) {
             $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                                 ->where([
                                                         'deleted' => 0,
-                                                        'Courses.updated >=' => $hideDate,
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id,
                                                         'approved' => 1
                                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                                             'deleted' => 0,
-                                                            'Courses.updated >=' => $hideDate,
+                                                            'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                             'Courses.country_id' => $user->country_id,
                                                             'approved' => 1
                                                             ])
@@ -360,16 +357,15 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'allCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $hideDate = new FrozenTime('-18 months');
         if($user->is_admin) {
             $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                         ->where([
                                 'deleted' => 0,
-                                'Courses.updated >=' => $hideDate,
+                                'Courses.updated >' => Configure::read('courseArchiveDate')
                                 ]);
             $coursesCount = $this->Courses->find()->where([
                                                             'deleted' => 0,
-                                                            'Courses.updated >=' => $hideDate,
+                                                            'Courses.updated >' => Configure::read('courseArchiveDate')
                                                             ])
                                                             ->count();
         } else {
