@@ -3,6 +3,16 @@
     <h2><span class="glyphicon glyphicon-<?=$course_icon?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_view_type?></h2>
     <div class="table-responsive">
     <?php
+    if($course_view_type == 'My Courses') {
+        echo $this->Html->image('dhcr-feature-badge-300.png', [
+                                    'url' => '/img/dhcr-feature-badge-300.png',
+                                    'target' => '_blank',
+                                    'width' => 150,
+                                    'height' => 67
+                                    ]);
+        echo '<p>Please mind contributing to the DHCR project by sharing your courses on social media or 
+                placing the DHCR-featured badge on institutional websites.</p>';
+    }
     if( in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) ) {
     ?>
     <p>
