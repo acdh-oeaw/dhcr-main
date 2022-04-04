@@ -210,10 +210,10 @@ Type::build('timestamp')
 //  After this date, the course owner receives emails with the request to update the course.
 Configure::write('courseWarnDate', new FrozenTime('-300 Days'));
 //  After this date, the course is shown as expired in the backend, in yellow
-Configure::write('courseYellowDate', new FrozenTime('-328 Days'));
+Configure::write('courseYellowDate', new FrozenTime('-331 Days'));
 //  After this date, the course is shown in red
-Configure::write('courseRedDate', new FrozenTime('-482 Days'));
+Configure::write('courseRedDate', new FrozenTime('-490 Days'));
 //  After this date, the course is not shown in the public registry, but still shown in the backend.
-Configure::write('courseHideDate', new FrozenTime('-70 Weeks'));
+Configure::write('courseHideDate', new FrozenTime('-70 Weeks'));    // = 490 Days
 //  After this date, the course is not shown in the backend so it can't be updated. The course is archived.
 Configure::write('courseArchiveDate', new FrozenTime('-2 Years'));

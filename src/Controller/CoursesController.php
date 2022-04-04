@@ -248,14 +248,14 @@ class CoursesController extends AppController
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate')
                                                         ]);
                         
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate')
                                                         ])
                                                         ->count();
@@ -264,7 +264,7 @@ class CoursesController extends AppController
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id
                                                         ]);
@@ -272,7 +272,7 @@ class CoursesController extends AppController
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id
                                                         ])
@@ -282,7 +282,7 @@ class CoursesController extends AppController
                                                 ->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ]);
@@ -290,7 +290,7 @@ class CoursesController extends AppController
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
                                                         'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseWarnDate'),
+                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'user_id' => $user->id
                                                         ])

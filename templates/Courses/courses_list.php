@@ -1,3 +1,7 @@
+<?php
+use Cake\Core\Configure;
+?>
+
 <div class="courses index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-<?=$course_icon?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_view_type?></h2>
@@ -18,7 +22,7 @@
     <p>
     <strong><u>Course Status</u></strong><br>
     <font color="green">Green:</font> Actively maintained<br>
-    <font color="orange">Yellow:</font> Reminder sent, course needs to be updated<br>
+    <font color="orange">Yellow:</font> Reminder sent more than 1 month ago, course needs to be updated<br>
     <font color="red">Red:</font> Outdated, not shown in public registry
     </p>
     <?php
@@ -81,9 +85,9 @@
                         </td>
                         <td style="padding: 5px" bgcolor="
                         <?php
-                        if($course->updated->wasWithinLast('10 Months')) {
-                            echo '#81d41a'; //    // 
-                        } elseif ($course->updated->wasWithinLast('12 Months')) {
+                        if($course->updated > Configure::read('courseYellowDate')) {
+                            echo '#81d41a';
+                        } elseif ( ($course->updated < Configure::read('courseYellowDate')) && ($course->updated > Configure::read('courseRedDate')) ) {
                             echo '#ffbf00';
                         } else {
                             echo '#ff4000';
