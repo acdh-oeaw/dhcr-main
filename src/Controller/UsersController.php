@@ -443,6 +443,11 @@ class UsersController extends AppController
         }
         if(isset($approvingUser)) {    // the specified user exists
             $this->Authorization->authorize($approvingUser);
+            // check if an institution is selected
+            if(!$approvingUser->institution_id) {
+                $this->Flash->error(__('No institution provided. Edit user data!'));
+                return $this->redirect(['action' => 'approve']);
+            }
             $approvingUser->set('approved', 1);
             if($this->Users->save($approvingUser)) {
                 $this->getMailer('User')->send('welcome', [$approvingUser]);
