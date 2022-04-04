@@ -320,19 +320,21 @@ class CoursesController extends AppController
         if($user->user_role_id == 2) {
             $courses = $this->Courses->find('all', ['order' => 'Institutions.name asc, Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])
                                                 ->where([
+                                                        'approved' => 1,
+                                                        'active' => 1,
+                                                        'deleted' => 0,
+                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
+                                                        'Courses.country_id' => $user->country_id
+                                                        ]);
+            $coursesCount = $this->Courses->find()->where([
+                                                        'approved' => 1,
+                                                        'active' => 1,
                                                         'deleted' => 0,
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id,
-                                                        'approved' => 1
-                                                        ]);
-            $coursesCount = $this->Courses->find()->where([
-                                                            'deleted' => 0,
-                                                            'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                            'Courses.country_id' => $user->country_id,
-                                                            'approved' => 1
-                                                            ])
-                                                            ->count();
-        } else {
+                                                        ])
+                                                        ->count();
+    } else {
             $this->Flash->error(__('Not authorized to moderated courses'));
             return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
