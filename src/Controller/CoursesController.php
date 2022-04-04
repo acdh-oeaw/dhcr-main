@@ -410,10 +410,12 @@ class CoursesController extends AppController
             $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['CourseTypes', 'Institutions'])
                         ->where([
                                 'approved' => 0,
+                                'active' => 1,
                                 'deleted' => 0
                                 ]);
             $coursesCount = $this->Courses->find()->where([
                                 'approved' => 0,
+                                'active' => 1,
                                 'deleted' => 0
                                 ])
                                 ->count();
@@ -421,11 +423,13 @@ class CoursesController extends AppController
             $courses = $this->Courses->find()->order(['Courses.created' => 'desc'])->contain(['CourseTypes', 'Institutions'])
                         ->where([
                                 'approved' => 0,
+                                'active' => 1,
                                 'deleted' => 0,
                                 'Courses.country_id' => $user->country_id
                                 ]);
             $coursesCount = $this->Courses->find()->where([
                                 'approved' => 0,
+                                'active' => 1,
                                 'deleted' => 0,
                                 'Courses.country_id' => $user->country_id
                                 ])

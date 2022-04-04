@@ -46,6 +46,7 @@ class DashboardController extends AppController
                                                                     ->count();
             $pendingCourseRequests = $this->Courses->find()->where([
                                                                     'approved' => 0,
+                                                                    'active' => 1,
                                                                     'deleted' => 0
                                                                     ])
                                                                     ->count();
@@ -65,6 +66,7 @@ class DashboardController extends AppController
                                                                     ->count();
             $pendingCourseRequests = $this->Courses->find()->where([
                                                                     'approved' => 0,
+                                                                    'active' => 1,
                                                                     'deleted' => 0,
                                                                     'country_id' => $user->country_id
                                                                     ])->count();
