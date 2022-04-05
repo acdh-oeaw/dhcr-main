@@ -7,7 +7,7 @@
             <fieldset>
                 <legend><?= __('Add Invite Translation') ?></legend>
                 <?php
-                    echo $this->Form->control('language_id');
+                    echo $this->Form->control('language_id', ['empty' => true]);
                     echo $this->Form->control('subject');
                     echo '<p>The following words are required in the message:<br>
                         <strong><i><u>-fullname-</u></i></strong><br>
