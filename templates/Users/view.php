@@ -77,25 +77,27 @@
                 </tr>
             </table>
             <p></p>
-            <strong><u>User roles</u></strong>
-            <table>
-                <tr>
-                    <th align="left" style="padding: 5px">Moderator:</th>
-                    <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? 'Yes' : 'No'; ?></td>
-                </tr>
-                <tr>
-                    <th align="left" style="padding: 5px">Moderated country:</th>
-                    <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? h($viewedUser->country->name) : '-' ?></td>
-                </tr>
-                <tr>
-                    <th align="left" style="padding: 5px">Admin:</th>
-                    <td style="padding: 5px"><?= ($viewedUser->is_admin == 2) ? 'Yes' : 'No'; ?></td>
-                </tr>
-                <tr>
-                    <th align="left" style="padding: 5px">User-admin:</th>
-                    <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes' : 'No'; ?></td>
-                </tr>
-            </table>
+            <?php if($user->is_admin) { // only admin can see user roles ?>
+                <strong><u>User roles</u></strong>
+                <table>
+                    <tr>
+                        <th align="left" style="padding: 5px">Moderator:</th>
+                        <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? 'Yes' : 'No'; ?></td>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding: 5px">Moderated country:</th>
+                        <td style="padding: 5px"><?= ($viewedUser->user_role_id == 2) ? h($viewedUser->country->name) : '-' ?></td>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding: 5px">Admin:</th>
+                        <td style="padding: 5px"><?= ($viewedUser->is_admin == 2) ? 'Yes' : 'No'; ?></td>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding: 5px">User-admin:</th>
+                        <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes' : 'No'; ?></td>
+                    </tr>
+                </table>
+            <?php } ?>
         </div>
     </div>
 </div>
