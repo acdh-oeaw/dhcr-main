@@ -9,23 +9,22 @@
             <fieldset>
                 <legend><?= __('Invite User') ?></legend>
                 <p></p>
-                <h3>Step 1: Choose / Create Institution for the new user</h3>
-                <p></p>Choose an institution from the list below. <br>
-                If the institution is not in the list, go to 
-                <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?> first.
+                <h3>Step 1: Select an institution for the new user</h3>
+                <p></p><i>Select an institution from the drop-down list. If the institution is not listed, go to 
+                <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?>.</i>
                 <p></p>
                 <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'empty' => true]) ?>
                 <p>&nbsp;</p>
-                <h3>Step 2: Enter personal details of the user</h3>
+                <h3>Step 2: Enter the personal details of the user</h3>
                 <p></p>
                 <?php
                 echo $this->Form->control('academic_title');
                 echo $this->Form->control('first_name', ['label' => 'First Name*']);
                 echo $this->Form->control('last_name', ['label' => 'Last Name*']);
-                echo $this->Form->control('email', ['label' => 'Email Address*']);
+                echo $this->Form->control('email', ['label' => 'Institutional Email Address*']);
                 ?>
                 <p>&nbsp;</p>
-                <h3>Step 3: Localize the invitation email</h3>
+                <h3>Step 3: Personalize the invitation email</h3>
                 <p></p>
                 <b><u>Note for non-English countries</u></b><br>
                 Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course 
