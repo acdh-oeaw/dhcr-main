@@ -467,23 +467,27 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'approve';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if($user->is_admin) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1
-                                            ]);
+            $users = $this->paginate($this->Users->find()->where([
+                                                                'approved' => 0,
+                                                                'active' => 1
+                                                                ]), 
+                                    ['order' => ['Users.created' => 'desc'], 
+                                    'contain' => ['Institutions'],
+                                    ]);
             $usersCount = $this->Users->find()->where([
                                                         'approved' => 0,
                                                         'active' => 1
                                                         ])
                                                         ->count();
         } elseif ($user->user_role_id == 2) {
-            $users = $this->Users->find()->contain(['Institutions'])->order(['Users.created' => 'desc'])
-                                    ->where([
-                                            'approved' => 0,
-                                            'active' => 1,
-                                            'Users.country_id' => $user->country_id
-                                            ]);
+            $users = $this->paginate($this->Users->find()->where([
+                                                                'approved' => 0,
+                                                                'active' => 1,
+                                                                'Users.country_id' => $user->country_id
+                                                                ]), 
+                                    ['order' => ['Users.created' => 'desc'], 
+                                    'contain' => ['Institutions'],
+                                    ]);
             $usersCount = $this->Users->find()->where([
                                                 'approved' => 0,
                                                 'active' => 1,
@@ -797,15 +801,15 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'moderated';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->user_role_id == 2) {
-            $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])
-                                        ->where([
-                                                'Users.country_id' => $user->country_id
-                                                ]);
-            $usersCount = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])
-                                        ->where([
-                                                'Users.country_id' => $user->country_id
-                                                ])
-                                                ->count();
+            $users = $this->paginate($this->Users->find()->where([
+                                                                'approved' => 1,
+                                                                'active' => 1,
+                                                                'Users.country_id' => $user->country_id,
+                                                                ]), 
+                                    ['order' => ['last_name' => 'asc'], 
+                                    'contain' => ['Institutions'],
+                                    ]);
+            $usersCount = $this->Users->find()->where(['Users.country_id' => $user->country_id])->count();
         } else {
             $this->Flash->error(__('Not authorized to moderated users'));
             return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
@@ -831,8 +835,8 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'all';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->is_admin) {
-            $users = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ]);
-            $usersCount = $this->Users->find('all', ['order' => 'Institutions.name asc, Users.last_name asc', 'contain' => ['Institutions'] ])->count();
+            $users = $this->paginate($this->Users, ['contain' => 'Institutions', 'order' => ['last_name' => 'asc']]);
+            $usersCount = $this->Users->find()->count();
         } else {
             $this->Flash->error(__('Not authorized to all users'));
             return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);

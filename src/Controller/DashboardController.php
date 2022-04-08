@@ -153,7 +153,7 @@ class DashboardController extends AppController
             $allUsersCount = 0;
         } elseif( $user->is_admin ) {
             $moderatedUsersCount = 0;
-            $allUsersCount = $this->Users->find()->where(['active' => 1])->count();
+            $allUsersCount = $this->Users->find()->count();
         } else {
             $this->Flash->error(__('Not authorized to contributor network'));
             return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
