@@ -9,31 +9,30 @@
             <fieldset>
                 <legend><?= __('Edit Course') ?></legend>
                 <?php
-                echo $this->Form->control('name', ['label' => 'Course Name* (in English)']);
+                echo $this->Form->control('name', ['label' => 'Course Name*']);
                 echo $this->Form->control('online_course');
                 echo $this->Form->control('course_type_id', ['label' => 'Education Type*', 'options' => $course_types]);
                 echo $this->Form->control('language_id', ['label' => 'Language*', 'options' => $languages]);
+                echo $this->Form->control('ects', ['label' => 'ECTS']);
                 ?>
+                Credit points rewarded within the European Credit Transfer and Accumulation System (ECTS). <br>Leave blank if not applicable.
                 <p>&nbsp;</p>
-                Credit points rewarded within the European Credit Transfer and Accumulation System (ECTS). Leave blank if not applicable:
-                <?php
-                echo $this->Form->control('ects');
-                ?>
-                <p>&nbsp;</p>
-                Official publication location of your course information, where more detailed information like curricula or module handbooks 
-                are available:
                 <?php
                 echo $this->Form->control('info_url', ['label' => 'Source URL*']);
+                echo 'The public web address of the course description and syllabus.<p>&nbsp;</p>';
                 echo $this->Form->control('contact_name', ['label' => 'Lecturer Name']);
                 echo $this->Form->control('contact_mail', ['label' => 'Lecturer E-Mail']);
-                echo $this->Form->control('description', ['label' => 'Description (in English)']);
-                echo $this->Form->control('access_requirements', ['label' => 'Access Requirements (in English)']);
+                echo $this->Form->control('description', ['label' => 'Description']);
+                echo $this->Form->control('access_requirements', ['label' => 'Access Requirements']);
                 ?>
                 <p>&nbsp;</p>
-                For recurring start dates, please enter all dates over one full year, when students can start the course. These dates only 
-                consist of [month]-[day] and are meant to be valid in subsequent years. One-off start dates consist of a full date 
-                [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon. <br>
-                The course will disappear from the list after the last one-off date has expired:
+                <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course. 
+                These dates only consist of [month]-[day] and are meant to be valid in subsequent years. The National Moderator of your country 
+                will be reminded after 1 year to review your course and, if applicable, to revalidate it. This way, the course is being kept 
+                ‘active’ and users can find it when browsing the registry for a course.</p>
+                <p><strong><u>One-off start dates</u></strong> consist of a full date 
+                [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
+                The course will disappear from the list after the last one-off date has expired.</p>
                 <?php
                 echo $this->Form->control('start_date', ['label' => 'Start Date*']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
