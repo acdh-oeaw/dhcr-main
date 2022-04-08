@@ -20,8 +20,7 @@
                 echo $this->Form->control('ects');
                 ?>
                 <p>&nbsp;</p>
-                Official publication location of your course information, where more detailed information like curricula or module handbooks 
-                are available:
+                The public web address of the course description and syllabus:
                 <?php
                 echo $this->Form->control('info_url', ['label' => 'Source URL*']);
                 echo $this->Form->control('contact_name', ['label' => 'Lecturer Name']);
@@ -30,10 +29,13 @@
                 echo $this->Form->control('access_requirements', ['label' => 'Access Requirements (in English)']);
                 ?>
                 <p>&nbsp;</p>
-                For recurring start dates, please enter all dates over one full year, when students can start the course. These dates only 
-                consist of [month]-[day] and are meant to be valid in subsequent years. One-off start dates consist of a full date 
-                [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon. <br>
-                The course will disappear from the list after the last one-off date has expired:
+                <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course. 
+                These dates only consist of [month]-[day] and are meant to be valid in subsequent years. The National Moderator of your country 
+                will be reminded after 1 year to review your course and, if applicable, to revalidate it. This way, the course is being kept 
+                ‘active’ and users can find it when browsing the registry for a course.</p>
+                <p><strong><u>One-off start dates</u></strong> consist of a full date 
+                [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
+                The course will disappear from the list after the last one-off date has expired:</p>
                 <?php
                 echo $this->Form->control('start_date', ['label' => 'Start Date*']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
