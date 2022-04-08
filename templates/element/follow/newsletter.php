@@ -6,6 +6,6 @@
 <div class="buttons">
     <?= $this->Html->link('Sign up to the Mailing List', ['controller' => 'Users', 'action' => 'newsletter'],
         ['class' => 'button', 'id' => 'login-button']) ?>
-    <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'signIn'],
+    <?= $this->Html->link('Register', ['controller' => 'Users', 'action' => 'register'],
         ['class' => 'blue button', 'id' => 'register-button']) ?>
 </div>
