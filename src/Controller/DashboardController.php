@@ -41,7 +41,8 @@ class DashboardController extends AppController
         if($user->is_admin) {
             $pendingAccountRequests = $this->Users->find()->where([
                                                                     'approved' => 0,
-                                                                    'active' => 1
+                                                                    'active' => 1,
+                                                                    'Courses.updated >' => Configure::read('courseArchiveDate')
                                                                     ])
                                                                     ->count();
             $pendingCourseRequests = $this->Courses->find()->where([
@@ -61,7 +62,8 @@ class DashboardController extends AppController
             $pendingAccountRequests = $this->Users->find()->where([
                                                                     'approved' => 0,
                                                                     'active' => 1,
-                                                                    'country_id' => $user->country_id
+                                                                    'country_id' => $user->country_id,
+                                                                    'Courses.updated >' => Configure::read('courseArchiveDate')
                                                                     ])
                                                                     ->count();
             $pendingCourseRequests = $this->Courses->find()->where([

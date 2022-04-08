@@ -18,6 +18,7 @@ use Cake\Core\Configure;
                 placing the DHCR-featured badge on institutional websites.</p>';
     }
     if( in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) ) {
+        // don't show for course approval
     ?>
     <p>
     <strong><u>Course Status</u></strong><br>
@@ -35,24 +36,6 @@ use Cake\Core\Configure;
         if($course_view_type == 'Course Approval') {
             echo '<p>You are up to date!</p>';
         }
-    } else {
-        echo '<p><strong><u>Sorting Order</u></strong><br> ';
-        switch($course_view_type) {
-            case 'Course Expiry':
-                echo 'Most outdated course first';
-                break;
-            case 'My Courses':
-                echo 'Course Name';
-                break;
-            case 'Moderated Courses':
-            case 'All Courses':
-                echo 'Institution, Course Name';
-                break;
-            case 'Course Approval':
-                echo 'Most recent added course';
-                break;
-            }
-        echo '</p>';
     }
     ?>
     </p>
@@ -61,9 +44,9 @@ use Cake\Core\Configure;
             <thead>
                 <tr>
                     <th align="center" style="padding: 5px">Actions</th>
-                    <th align="left" style="padding: 5px">Updated</th>
-                    <th align="left" style="padding: 5px">Active</th>
-                    <th align="left" style="padding: 5px">Course Name</th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('updated') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('active') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name', ['label' => 'Course Name']) ?></th>
                     <th align="left" style="padding: 5px">Education Type</th>
                     <th align="left" style="padding: 5px">Institution</th>
                     <th align="left" style="padding: 5px">Department</th>
@@ -94,7 +77,7 @@ use Cake\Core\Configure;
                         }
                         ?>
                         "><font color="black"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></td>
-                        <td style="padding: 5px"><?= ($course->active) ? 'Yes' : 'No' ?></td>
+                        <td style="padding: 5px"><font color="<?= ($course->active) ? 'green">Yes' : 'red">No' ?></font></td>
                         <td style="padding: 5px"><?= $this->Html->link(__($course->name), ['action' => 'view', $course->id]) ?>
                         <td style="padding: 5px"><?= $course->course_type->name ?></td>
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
@@ -104,5 +87,14 @@ use Cake\Core\Configure;
                 <?php endforeach; ?>
             </tbody>
         </table>
+    </div>
+    <div class="paginator">
+        <?= $this->Paginator->first('<< ' . __('first')) ?>
+        <?= $this->Paginator->prev('< ' . __('previous')) ?>
+        <?= $this->Paginator->numbers() ?>
+        <?= $this->Paginator->next(__('next') . ' >') ?>
+        <?= $this->Paginator->last(__('last') . ' >>') ?>
+        <p>&nbsp;</p>
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
