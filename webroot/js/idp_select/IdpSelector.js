@@ -26,7 +26,7 @@ class IdpSelector {
                     matcherCallbackName:    'match',
                     selectionCallbackName:  'select',
                     optionFactoryName:      'createOption',
-                    emptyOptionlistContent: $('<li aria-role="empty">Please use our <a href="/users/register">registration form</a>, if you cannot find your institution</li>')
+                    emptyOptionlistContent: $('<li aria-role="empty">Please use the <a href="/users/register">registration form</a>, if you cannot find your institution</li>')
                 }
             )
         }.bind(this))
@@ -67,7 +67,7 @@ class IdpSelector {
         this.element.append($('<h2>Federated Login</h2>'))
         this.element.append($('<p></p>').append('Use your institutional account to log in.<br>\n' +
             'If your organisation is not available in the list of institutions below, \n' +
-            'please use our <a href="'+BASE_URL+'users/register">registration form</a> ' +
+            'please use the <a href="'+BASE_URL+'users/register">registration form</a> ' +
             'and the classic login.'))
         let form = $('<form method="get" accept-charset="utf-8" autocomplete="off" action="https://dhcr.clarin-dariah.eu/Shibboleth.sso/Login"></form>')
         form.submit(function(event) { this.submit() }.bind(this))
