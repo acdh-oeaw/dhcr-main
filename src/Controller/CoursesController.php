@@ -141,6 +141,7 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $userInstitution = $this->Courses->Institutions->find()->where(['id' => $user->institution_id])->first();
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -149,7 +150,7 @@ class CoursesController extends AppController
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+        $this->set(compact('userInstitution' ,'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
                             'tadirah_techniques', 'tadirah_objects'));
     }
 
