@@ -17,7 +17,7 @@ use Cake\Core\Configure;
         echo '<p>Please mind contributing to the DHCR project by sharing your courses on social media or 
                 placing the DHCR-featured badge on institutional websites.</p>';
     }
-    if( in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) ) {
+    if( in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) && $coursesCount > 0) {
         // don't show for course approval
     ?>
     <p>

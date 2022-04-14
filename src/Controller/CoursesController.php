@@ -212,11 +212,14 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $courses = $this->Courses->find('all', ['order' => 'Courses.name asc', 'contain' => ['CourseTypes', 'Institutions'] ])->where([
-                                                        'deleted' => 0,
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'user_id' => $user->id
-                                                        ]);
+        $courses = $this->paginate($this->Courses->find()->where([
+                                                                'deleted' => 0,
+                                                                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                                                                'user_id' => $user->id
+                                                                ]),
+                                                                ['order' => ['Courses.name' => 'asc'], 
+                                                                'contain' => ['CourseTypes', 'Institutions']
+                                                                ]);
         $coursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
