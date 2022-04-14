@@ -217,9 +217,9 @@ class CoursesController extends AppController
                                                                 'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                                 'user_id' => $user->id
                                                                 ]),
-                                                                ['order' => ['Courses.name' => 'asc'], 
-                                                                'contain' => ['CourseTypes', 'Institutions']
-                                                                ]);
+                                                    ['order' => ['Courses.name' => 'asc'], 
+                                                    'contain' => ['CourseTypes', 'Institutions']
+                                                    ]);
         $coursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
@@ -439,8 +439,8 @@ class CoursesController extends AppController
                                                                     'approved' => 0,
                                                                     'active' => 1,
                                                                     'deleted' => 0,
-                                                                    'Courses.country_id' => $user->country_id,
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate'),
+                                                                    'Courses.country_id' => $user->country_id
                                                                     ]), 
                                         ['order' => ['Courses.created' => 'desc'], 
                                         'contain' => ['CourseTypes', 'Institutions']
@@ -449,8 +449,8 @@ class CoursesController extends AppController
                                 'approved' => 0,
                                 'active' => 1,
                                 'deleted' => 0,
+                                'Courses.updated >' => Configure::read('courseArchiveDate'),
                                 'Courses.country_id' => $user->country_id,
-                                'Courses.updated >' => Configure::read('courseArchiveDate')
                                 ])
                                 ->count();
         } else {

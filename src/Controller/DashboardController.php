@@ -47,7 +47,8 @@ class DashboardController extends AppController
             $pendingCourseRequests = $this->Courses->find()->where([
                                                                     'approved' => 0,
                                                                     'active' => 1,
-                                                                    'deleted' => 0
+                                                                    'deleted' => 0,
+                                                                    'updated >' => Configure::read('courseArchiveDate')
                                                                     ])
                                                                     ->count();
             $expiredCourses = $this->Courses->find()->where([
@@ -68,6 +69,7 @@ class DashboardController extends AppController
                                                                     'approved' => 0,
                                                                     'active' => 1,
                                                                     'deleted' => 0,
+                                                                    'updated >' => Configure::read('courseArchiveDate'),
                                                                     'country_id' => $user->country_id
                                                                     ])->count();
             $expiredCourses = $this->Courses->find()->where([
