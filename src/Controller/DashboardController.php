@@ -152,11 +152,15 @@ class DashboardController extends AppController
                                                                 'country_id' => $user->country_id
                                                                 ])
                                                                 ->count();
-            $allUsersCount = 0;
-        } elseif( $user->is_admin ) {
+        } else {
             $moderatedUsersCount = 0;
+        }
+        if( $user->is_admin ) {
             $allUsersCount = $this->Users->find()->count();
         } else {
+            $allUsersCount = 0;
+        }
+        if ( (!$user->is_admin && !($user->user_role_id == 2)) ) {
             $this->Flash->error(__('Not authorized to contributor network'));
             return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
         }
