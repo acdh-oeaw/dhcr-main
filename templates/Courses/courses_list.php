@@ -50,6 +50,7 @@ use Cake\Core\Configure;
                     <th align="left" style="padding: 5px">Education Type</th>
                     <th align="left" style="padding: 5px">Institution</th>
                     <th align="left" style="padding: 5px">Department</th>
+                    <th align="left" style="padding: 5px">Created by</th>
                     <th align="left" style="padding: 5px">Source URL</th>
                 </tr>
             </thead>
@@ -82,6 +83,7 @@ use Cake\Core\Configure;
                         <td style="padding: 5px"><?= $course->course_type->name ?></td>
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
                         <td style="padding: 5px"><?= $course->department ?></td>
+                        <td style="padding: 5px"><?= $course->user->first_name .' ' .$course->user->last_name ?></td>
                         <td style="padding: 5px"><?= $this->Html->link('Link', $course->info_url) ?>
                     </tr>
                 <?php endforeach; ?>

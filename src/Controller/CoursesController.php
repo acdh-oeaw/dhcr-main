@@ -218,7 +218,7 @@ class CoursesController extends AppController
                                                                 'user_id' => $user->id
                                                                 ]),
                                                     ['order' => ['Courses.name' => 'asc'], 
-                                                    'contain' => ['CourseTypes', 'Institutions']
+                                                    'contain' => ['CourseTypes', 'Institutions', 'Users']
                                                     ]);
         $coursesCount = $this->Courses->find()->where([
                                                         'deleted' => 0,
@@ -249,13 +249,13 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if($user->is_admin) {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
+                                                                    'Courses.active' => 1,
+                                                                    'Courses.deleted' => 0,
                                                                     'Courses.updated <' => Configure::read('courseYellowDate'),
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate')
                                                                     ]), 
                                         ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
@@ -266,14 +266,14 @@ class CoursesController extends AppController
                                                         ->count();
         } elseif($user->user_role_id == 2) {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                        'active' => 1,
-                                                        'deleted' => 0,
+                                                        'Courses.active' => 1,
+                                                        'Courses.deleted' => 0,
                                                         'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id
                                                         ]), 
                                         ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
@@ -285,14 +285,14 @@ class CoursesController extends AppController
                                                         ->count();
         } else {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                        'active' => 1,
-                                                        'deleted' => 0,
+                                                        'Courses.active' => 1,
+                                                        'Courses.deleted' => 0,
                                                         'Courses.updated <' => Configure::read('courseYellowDate'),
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'user_id' => $user->id
+                                                        'Courses.user_id' => $user->id
                                                         ]), 
                                         ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                                         'active' => 1,
@@ -326,19 +326,19 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if($user->user_role_id == 2) {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'approved' => 1,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
+                                                                    'Courses.approved' => 1,
+                                                                    'Courses.active' => 1,
+                                                                    'Courses.deleted' => 0,
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                                     'Courses.country_id' => $user->country_id
                                                                     ]), 
                                     ['order' => ['Courses.name' => 'asc'], 
-                                    'contain' => ['CourseTypes', 'Institutions']
+                                    'contain' => ['CourseTypes', 'Institutions', 'Users']
                                     ]);
             $coursesCount = $this->Courses->find()->where([
-                                                        'approved' => 1,
-                                                        'active' => 1,
-                                                        'deleted' => 0,
+                                                        'Courses.approved' => 1,
+                                                        'Courses.active' => 1,
+                                                        'Courses.deleted' => 0,
                                                         'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                         'Courses.country_id' => $user->country_id,
                                                         ])
@@ -374,7 +374,7 @@ class CoursesController extends AppController
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                                     ]), 
                                         ['order' => ['Courses.name' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                                             'deleted' => 0,
@@ -419,13 +419,13 @@ class CoursesController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if($user->is_admin) {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
+                                                                    'Courses.approved' => 0,
+                                                                    'Courses.active' => 1,
+                                                                    'Courses.deleted' => 0,
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                                     ]), 
                                         ['order' => ['Courses.created' => 'desc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                 'approved' => 0,
@@ -436,14 +436,14 @@ class CoursesController extends AppController
                                 ->count();
         } elseif($user->user_role_id == 2) {
             $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
+                                                                    'Courses.approved' => 0,
+                                                                    'Courses.active' => 1,
+                                                                    'Courses.deleted' => 0,
                                                                     'Courses.updated >' => Configure::read('courseArchiveDate'),
                                                                     'Courses.country_id' => $user->country_id
                                                                     ]), 
                                         ['order' => ['Courses.created' => 'desc'], 
-                                        'contain' => ['CourseTypes', 'Institutions']
+                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
                                         ]);
             $coursesCount = $this->Courses->find()->where([
                                 'approved' => 0,
