@@ -1,7 +1,7 @@
 <div class="title">
     <h2>Follow the DH Course Registry</h2>
     <p>Subscribe for email alerts on new courses or follow us on social media.<br>
-    Lecturers can sign up for the Contributor Mailing List.</p>
+    As a lecturer, national moderator or programme director can sign up for the Contributor Mailing List.</p>
 </div>
 <div id="accordeon">
     <div class="accordeon-item" id="course-alert">
