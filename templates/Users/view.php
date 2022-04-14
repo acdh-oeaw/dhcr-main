@@ -3,6 +3,8 @@
     <h2><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;User Details</h2>
     <div class="column-responsive column-80">
         <div class="view content">
+            <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $viewedUser->id], ['class' => 'button float-right']) ?>
+            <p></p>
             <h3><?= ucfirst($viewedUser->academic_title) .' ' .ucfirst($viewedUser->first_name) .' ' .ucfirst($viewedUser->last_name)?></h3>
             <p></p>
             <strong><u>Account status</u></strong>
