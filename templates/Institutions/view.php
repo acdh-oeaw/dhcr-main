@@ -1,6 +1,8 @@
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Institution Details</h2>
+    <?= $this->Html->link(__('Edit Institution'), ['action' => 'edit', $institution->id], ['class' => 'button float-right']) ?>
+    <p></p>
     <div class="column-responsive column-80">
         <div class="institutions view content">
             <h3><?= h($institution->name) ?></h3>
