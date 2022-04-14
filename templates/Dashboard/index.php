@@ -6,7 +6,11 @@
                 . ', thanks for contributing to the DHCR';
             if($user->is_admin) {
                 echo ' as <strong><font color="60a845"> administrator</font></strong>';
-            } elseif($user->user_role_id == 2) {
+            }
+            if($user->is_admin && $user->user_role_id == 2) {
+                echo ' and ';
+            }
+            if($user->user_role_id == 2) {
                 echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name .'</font></strong>';
             }
             echo '.';
