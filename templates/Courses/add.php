@@ -115,4 +115,4 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
             <?= $this->Form->end() ?>
         </div>
     </div>
-</div>
+</div> 
