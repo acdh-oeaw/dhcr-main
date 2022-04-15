@@ -11,7 +11,8 @@ return [
         'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
     ],
     'map' => [
-        'apiKey' => env('MAP_API_KEY', '__MAP_API_KEY__')
+        'apiKey'    => env('MAP_API_KEY', '__MAP_API_KEY__'),
+        'apiKey2022' => env('MAP_API_KEY2022', '__MAP_API_KEY2022__'),
     ],
 
     'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),

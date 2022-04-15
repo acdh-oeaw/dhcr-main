@@ -1,4 +1,5 @@
 <?php
+use Cake\Core\Configure;
 echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.js');
 echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css');
 ?>
@@ -72,7 +73,7 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
                 <div id='map' style='width: 600px; height: 450px;'></div>
                 <pre id="coordinates" class="coordinates"></pre>
                 <script>
-                    mapboxgl.accessToken = '<?= env('MAP_API_KEY_2022') ?>';
+                    mapboxgl.accessToken = '<?= Configure::read('map.apiKey2022') ?>';
                     const coordinates = document.getElementById('coordinates');
                     const map = new mapboxgl.Map({
                         container: 'map', // container ID
