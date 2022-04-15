@@ -32,9 +32,7 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
                 ?>
                 <p>&nbsp;</p>
                 <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course. 
-                These dates only consist of [month]-[day] and are meant to be valid in subsequent years. The National Moderator of your country 
-                will be reminded after 1 year to review your course and, if applicable, to revalidate it. This way, the course is being kept 
-                ‘active’ and users can find it when browsing the registry for a course.</p>
+                These dates only consist of [month]-[day] and are meant to be valid in subsequent years.</p>
                 <p><strong><u>One-off start dates</u></strong> consist of a full date 
                 [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
                 The course will disappear from the list after the last one-off date has expired.</p>
@@ -44,57 +42,43 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
+                
+                
                 echo $this->Form->control('department', ['label' => 'Department*']);
+                // TODO: change to hidden
                 echo $this->Form->control('lon', ['default' => $userInstitution->lon]);
                 echo $this->Form->control('lat', ['default' => $userInstitution->lat]);
+                //  <p>&nbsp;</p>
                 ?>
-                <p>&nbsp;</p>
                 <b>Location</b><br>
-                 Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker. 
+                 Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
                  Changing your selection from the institutions list above will overwrite the current coordinate value.<br>
-                 -You can zoom using the scroll wheel<br>
-                 -Place the blue marker on the location, to confirm the location
+                 -You can zoom using the scroll wheel.<br>
+                 -You can move the map, by dragging with the mouse.<br>
+                 -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
-                <style>
-                    .coordinates {
-                    background: rgba(0, 0, 0, 0.5);
-                    color: #fff;
-                    position: absolute;
-                    bottom: 40px;
-                    left: 10px;
-                    padding: 5px 10px;
-                    margin: 0;
-                    font-size: 11px;
-                    line-height: 18px;
-                    border-radius: 3px;
-                    display: none;
-                    }
-                </style>
                 <div id='map' style='width: 600px; height: 450px;'></div>
-                <pre id="coordinates" class="coordinates"></pre>
                 <script>
                     mapboxgl.accessToken = '<?= Configure::read('map.apiKey') ?>';
-                    const coordinates = document.getElementById('coordinates');
                     const map = new mapboxgl.Map({
                         container: 'map', // container ID
                         style: 'mapbox://styles/mapbox/streets-v11', // style URL
                         center: [<?= $userInstitution->lon ?>, <?= $userInstitution->lat ?>], // starting position [lng, lat]
                         zoom: 9 // starting zoom
                         });
-                    // add zoom and rotation controls to the map
+                    // add zoom controls to the map
                     map.addControl(new mapboxgl.NavigationControl());
-                    // add draggable marker
+                    // add draggable marker (blue)
                     const marker = new mapboxgl.Marker({
                         draggable: true
-                    })
-                    .setLngLat([<?= $userInstitution->lon ?>, <?= $userInstitution->lat ?>])
-                    .addTo(map);
+                        })
+                        .setLngLat([<?= $userInstitution->lon ?>, <?= $userInstitution->lat ?>])
+                        .addTo(map);
                     function onDragEnd() {
+                        // update hidden form fields with the location selected by user
                         const lngLat = marker.getLngLat();
-                        coordinates.style.display = 'block';
-                        coordinates.innerHTML = `Longitude: ${lngLat.lng}<br />Latitude: ${lngLat.lat}`;
-                        document.getElementById('lon').value = `${lngLat.lng}`;
-                        document.getElementById('lat').value = `${lngLat.lat}`;
+                        document.getElementById('lon').value = lngLat.lng;
+                        document.getElementById('lat').value = lngLat.lat;
                     }
                     marker.on('dragend', onDragEnd);
                 </script>
