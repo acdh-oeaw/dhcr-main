@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\CoursesTable;
@@ -107,18 +108,19 @@ class CoursesTableTest extends TestCase
 
 
 
-    public function testGetFilter() {
+    public function testGetFilter()
+    {
         $SubscriptionsTable = TableRegistry::getTableLocator()->get('Subscriptions');
         $subscriptions = $SubscriptionsTable->getSubscriptions();
-        foreach($subscriptions as $row) {
+        foreach ($subscriptions as $row) {
             $options = $this->Courses->getFilter($row);
 
-            if($row['online_course'] !== null)
+            if ($row['online_course'] !== null)
                 $this->assertArrayHasKey('Courses.online_course', $options['conditions']);
             else
                 $this->assertArrayNotHasKey('Courses.online_course', $options['conditions']);
 
-            if($row['notifications'])
+            if ($row['notifications'])
                 $this->assertArrayHasKey('Courses.id NOT IN', $options['conditions']);
             else
                 $this->assertArrayNotHasKey('Courses.id NOT IN', $options['conditions']);
@@ -127,17 +129,22 @@ class CoursesTableTest extends TestCase
 
 
 
-    public function testGetSubscriptionCourses() {
+    public function testGetSubscriptionCourses()
+    {
         $SubscriptionsTable = TableRegistry::getTableLocator()->get('Subscriptions');
-        $subscription = $SubscriptionsTable->get(1,
-            ['contain' => $SubscriptionsTable::$containments]);
+        $subscription = $SubscriptionsTable->get(
+            1,
+            ['contain' => $SubscriptionsTable::$containments]
+        );
         $result = $this->Courses->getSubscriptionCourses($subscription);
         // the first subscription has all filters set, should find first course,
         // but there's already a notification for course id 1
         $this->assertEquals(0, count($result));
 
-        $subscription = $SubscriptionsTable->get(2,
-            ['contain' => $SubscriptionsTable::$containments]);
+        $subscription = $SubscriptionsTable->get(
+            2,
+            ['contain' => $SubscriptionsTable::$containments]
+        );
         $result = $this->Courses->getSubscriptionCourses($subscription);
         // second subscription will find course id 3
         // has discipline 1 set as filter
@@ -148,8 +155,10 @@ class CoursesTableTest extends TestCase
         $this->assertEquals(1, count($result[0]['disciplines']));
         // add more tests with advanced criteria here...
 
-        $subscription = $SubscriptionsTable->get(4,
-            ['contain' => $SubscriptionsTable::$containments]);
+        $subscription = $SubscriptionsTable->get(
+            4,
+            ['contain' => $SubscriptionsTable::$containments]
+        );
         $result = $this->Courses->getSubscriptionCourses($subscription);
         // subscription 4 has online_course = null, no filters at all
         $this->assertEquals(1, $result[0]['id']);

@@ -31,14 +31,14 @@ class Sharing {
 
     addHandlers() {
         // open dialogue
-        $(document).on('click', '.sharing.button', function(e) {
+        $(document).on('click', '.sharing.button', function (e) {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
             Sharing.createSharingDialog(this.app.data[id]);
         }.bind(this));
 
         // copy link
-        $(document).on('click', '#copy-link', function(e) {
+        $(document).on('click', '#copy-link', function (e) {
             this.copyLink();
         }.bind(this));
     }
@@ -57,7 +57,7 @@ class Sharing {
         text.select();
         text.setSelectionRange(0, 99999);
         let feedback = 'Copied to clipboard!';
-        if(typeof document.execCommand === 'function')
+        if (typeof document.execCommand === 'function')
             document.execCommand("copy");
         else
             feedback = 'Unable to copy text'
@@ -67,7 +67,7 @@ class Sharing {
             visibility: 'visible',
             opacity: 1
         });
-        setTimeout(function() {
+        setTimeout(function () {
             $(tooltip).animate({ opacity: 0 }, 1000)
         }, 1000);
     }
@@ -87,11 +87,11 @@ class Sharing {
     // function for opening sharing links in a new window/popup
     // https://stackoverflow.com/questions/26547292/how-create-a-facebook-share-button-without-sdk-or-custom-app-id
     static openURLInPopup(url, windowId, width, height) {
-        if (typeof(width) == "undefined") {
+        if (typeof (width) == "undefined") {
             width = 800;
             height = 600;
         }
-        if (typeof(height) == "undefined") {
+        if (typeof (height) == "undefined") {
             height = 600;
         }
         window.open(url, windowId || 'window' + Math.floor(Math.random() * 10000 + 1),
@@ -111,7 +111,7 @@ class Sharing {
             .attr('href', encodeURI(href))
             .attr('target', '_blank')
             .html('<svg><use href="#twitter"></use></svg></span><span>Tweet</span>');
-        button.on('click', function(e) {
+        button.on('click', function (e) {
             e.preventDefault();
             Sharing.openURLInPopup(href, '_blank');
         });
@@ -121,16 +121,16 @@ class Sharing {
     static createFaceBook(course) {
         let url = BASE_URL + 'courses/view/' + course.id;
         let body = '&quote=Look at this Course at in the Digital Humanities Course Registry:'
-        + '\nTitle: ' + course.name
-        + '\nAt: ' + course.institution.name + ', ' + course.department
-        + '\nIn: ' + course.city.name + ', ' + course.country.name;
+            + '\nTitle: ' + course.name
+            + '\nAt: ' + course.institution.name + ', ' + course.department
+            + '\nIn: ' + course.city.name + ', ' + course.country.name;
         let href = 'https://www.facebook.com/sharer/sharer.php?u=' + url + body;
 
         let button = $('<a></a>').addClass('sharing-option single')
             .attr('href', encodeURI(href))
             .attr('target', '_blank')
             .html('<svg><use href="#facebook"></use></svg></span><span>Facebook</span>');
-        button.on('click', function(e) {
+        button.on('click', function (e) {
             e.preventDefault();
             Sharing.openURLInPopup(href, '_blank');
         });

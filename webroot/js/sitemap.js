@@ -1,7 +1,7 @@
 
 'use strict';
 
-class Sitemap extends Modal{
+class Sitemap extends Modal {
 
 
     constructor() {
@@ -17,12 +17,12 @@ class Sitemap extends Modal{
     }
 
     addAccordeonHandlers() {
-        if($('#accordeon').length) {
-            $.each($('#modal-wrapper.sitemap ul.' + this.sitemapClassname + ' li a'), function(i, item) {
-                $(item).on('click', function(e) {
+        if ($('#accordeon').length) {
+            $.each($('#modal-wrapper.sitemap ul.' + this.sitemapClassname + ' li a'), function (i, item) {
+                $(item).on('click', function (e) {
                     e.preventDefault();
                     let href = $(e.target).attr("href");
-                    this.accordeon.openHash(href.substring(href.indexOf('#')+1));
+                    this.accordeon.openHash(href.substring(href.indexOf('#') + 1));
                     this.close();
                 }.bind(this));
             }.bind(this));
