@@ -11,13 +11,21 @@
                 echo $this->Form->control('country_id', ['options' => $countries, 'empty' => true]);
                 echo $this->Form->control('name');
                 echo $this->Form->control('description');
-                echo $this->Form->control('url');
-                echo $this->Form->control('lon');
-                echo $this->Form->control('lat');
+                echo $this->Form->control('url');echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
+                echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
+                ?>
+                <b>Location</b><br>
+                Select the location on the map below.<br>
+                -You can zoom using the scroll wheel.<br>
+                -You can move the map, by dragging with the mouse.<br>
+                -Place the blue marker on the correct position, to confirm the location.
+                <p></p>
+                <?php
+                echo $this->element('locationpicker');  // include locationpicker
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Edit Institution')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

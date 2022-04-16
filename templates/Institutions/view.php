@@ -20,14 +20,6 @@
                     <th align="left" style="padding: 5px"><?= __('Url') ?></th>
                     <td style="padding: 5px"><?= h($institution->url) ?></td>
                 </tr>
-                <tr>
-                    <th align="left" style="padding: 5px"><?= __('Lat') ?></th>
-                    <td style="padding: 5px"><?= $this->Number->format($institution->lat) ?></td>
-                </tr>
-                <tr>
-                    <th align="left" style="padding: 5px"><?= __('Lon') ?></th>
-                    <td style="padding: 5px"><?= $this->Number->format($institution->lon) ?></td>
-                </tr>
             </table>
             <div class="text" style="padding: 5px">
                 <strong><?= __('Description') ?></strong>
@@ -35,6 +27,10 @@
                     <?= $this->Text->autoParagraph(h($institution->description)); ?>
                 </blockquote>
             </div>
+            <strong>&nbsp;Location</strong>
+            <?php
+                echo $this->element('locationpicker');  // include locationpicker
+            ?>
         </div>
     </div>
 </div>

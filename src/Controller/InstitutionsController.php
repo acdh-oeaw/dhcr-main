@@ -51,8 +51,9 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $mapInit = ['lon' => $institution->lon, 'lat' => $institution->lat];
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('institution'));
+        $this->set(compact('institution', 'mapInit'));
     }
 
     public function add()
@@ -79,10 +80,12 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $userInstitution = $this->Institutions->find()->where(['id' => $user->institution_id])->first();
+        $mapInit = ['lon' => $userInstitution->lon, 'lat' => $userInstitution->lat];
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('institution', 'cities', 'countries'));
+        $this->set(compact('mapInit', 'institution', 'cities', 'countries'));
     }
 
     public function edit($id = null)
@@ -109,9 +112,10 @@ class InstitutionsController extends AppController
         $breadcrumControllers[2] = 'Institutions';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $mapInit = ['lon' => $institution->lon, 'lat' => $institution->lat];
         $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
         $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('institution', 'cities', 'countries'));
+        $this->set(compact('mapInit', 'institution', 'cities', 'countries'));
     }
 }
