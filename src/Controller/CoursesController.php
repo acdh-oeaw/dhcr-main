@@ -192,6 +192,7 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $userInstitution = $this->Courses->Institutions->find()->where(['id' => $user->institution_id])->first();
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -199,9 +200,14 @@ class CoursesController extends AppController
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+        // required for changing map to location of selected institution
+        $institutionsLocations = [];
+        foreach($this->Courses->Institutions->find() as $institution) {
+            $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
+        }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('user', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
-                            'tadirah_techniques', 'tadirah_objects'));
+        $this->set(compact('userInstitution', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+                            'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
     }
 
     public function myCourses()

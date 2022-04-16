@@ -1,6 +1,3 @@
-<?php
-use Cake\Core\Configure;
-?>
 <div class="row">
     <p></p>
     <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add Course</h2>
@@ -40,34 +37,9 @@ use Cake\Core\Configure;
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
-                // update map when an institution is selected
-                ?>
-                <script>
-                    var institutionSelector = document.getElementById("institution-id");
-                    var institutionId = null;
-                    var institutionsLocations = <?php echo json_encode($institutionsLocations); ?>
-
-                    institutionSelector.addEventListener(
-                        'change',
-                        function() {
-                            map.setCenter([
-                                institutionsLocations[institutionSelector.value]['lon'], 
-                                institutionsLocations[institutionSelector.value]['lat']
-                            ]);
-                            map.setZoom(9);
-                            marker.setLngLat([
-                                institutionsLocations[institutionSelector.value]['lon'], 
-                                institutionsLocations[institutionSelector.value]['lat']
-                            ]);
-                        }
-                    );
-                </script>
-                <?php                
                 echo $this->Form->control('department', ['label' => 'Department*']);
-                // TODO: change to hidden
-                echo $this->Form->control('lon', ['default' => $userInstitution->lon]);
-                echo $this->Form->control('lat', ['default' => $userInstitution->lat]);
-                //  <p>&nbsp;</p>
+                echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $userInstitution->lon]);
+                echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $userInstitution->lat]);
                 ?>
                 <b>Location</b><br>
                  Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
@@ -76,37 +48,9 @@ use Cake\Core\Configure;
                  -You can move the map, by dragging with the mouse.<br>
                  -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
-                <?php
-                echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.js');
-                echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css');
-                ?>
-                <div id='map' style='width: 600px; height: 450px;'></div>
-                <script>
-                    mapboxgl.accessToken = '<?= Configure::read('map.apiKey') ?>';
-                    const map = new mapboxgl.Map({
-                        container: 'map', // container ID
-                        style: 'mapbox://styles/mapbox/streets-v11', // style URL
-                        center: [<?= $userInstitution->lon ?>, <?= $userInstitution->lat ?>], // starting position [lng, lat]
-                        zoom: 9 // starting zoom
-                        });
-                    // add zoom controls to the map
-                    map.addControl(new mapboxgl.NavigationControl());
-                    // add draggable marker (blue)
-                    const marker = new mapboxgl.Marker({
-                        draggable: true
-                        })
-                        .setLngLat([<?= $userInstitution->lon ?>, <?= $userInstitution->lat ?>])
-                        .addTo(map);
-                    function onDragEnd() {
-                        // update hidden form fields with the location selected by user
-                        const lngLat = marker.getLngLat();
-                        document.getElementById('lon').value = lngLat.lng;
-                        document.getElementById('lat').value = lngLat.lat;
-                    }
-                    marker.on('dragend', onDragEnd);
-                </script>
-                <p></p>
-                <?php
+                <?php 
+                echo $this->element('locationpicker');  // include locationpicker incl. handeling of institution selector
+                echo '<p></p>';
                 echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
                 echo $this->Form->control('courses_tadirah_techniques', ['label' => 'Tadirah Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
                 echo $this->Form->control('courses_tadirah_objects', ['label' => 'Tadirah Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
