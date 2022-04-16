@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\Core\Configure;
@@ -15,7 +16,7 @@ class UsersTable extends Table
 {
     use MailerAwareTrait;
 
-    public function initialize(array $config) : void
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -42,7 +43,7 @@ class UsersTable extends Table
         ]);
     }
 
-    public function validationDefault(Validator $validator) : Validator
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -61,7 +62,7 @@ class UsersTable extends Table
             ->scalar('password')
             ->maxLength('password', 255, 'Your password is too long.')
             ->minLength('password', 6, 'Your password is to short, it should be at least 6 characters.')
-            ->allowEmptyString('password', 'Please provide a password.', function($context) {
+            ->allowEmptyString('password', 'Please provide a password.', function ($context) {
                 return $context['providers']['table']->invitationMode;
             });
 
@@ -70,8 +71,9 @@ class UsersTable extends Table
             ->email('email', false, 'Email address looks strange.')
             ->add('email', 'unique', [
                 'rule' => 'validateUnique', 'provider' => 'table',
-                'message' => 'Email address is already in use.'])
-            ->email('email', true, 'Email MX check failed.', function($context) {
+                'message' => 'Email address is already in use.'
+            ])
+            ->email('email', true, 'Email MX check failed.', function ($context) {
                 return $context['providers']['table']->invitationMode;
             });
 
@@ -81,7 +83,7 @@ class UsersTable extends Table
             ->allowEmptyString('new_email')
             ->notEmptyString('new_email', 'Please provide your email address.')
             ->add('new_email', 'unique', [
-                'rule' => function($value, $context) {
+                'rule' => function ($value, $context) {
                     return !(bool) $context['providers']['table']->find()->where(['email' => $value])->count();
                 },
                 'message' => 'Your email address is not unique in our database.'
@@ -108,16 +110,16 @@ class UsersTable extends Table
     // disable email MX check during invitation evaluation
     public $invitationMode = false;
 
-    public function validationCreate(Validator $validator) : Validator
+    public function validationCreate(Validator $validator): Validator
     {
         $validator
             ->requirePresence('institution_id', true)
             ->add('institution_id', 'allowEmptyIf', [
                 'rule' => function ($value, $context) {
-                    if(empty($value) AND empty($context['data']['university']))
+                    if (empty($value) and empty($context['data']['university']))
                         return 'When you do not find your affiliation in the list,
                         you must provide the country, city and name of your institution in the field below.';
-                    if(!empty($value) AND !empty($context['data']['university']))
+                    if (!empty($value) and !empty($context['data']['university']))
                         return 'Leave this field empty, when you want us to add a new organisation
                         as indicated in the field below';
                     return true;
@@ -136,7 +138,7 @@ class UsersTable extends Table
         return $this->validationDefault($validator);
     }
 
-    public function buildRules(RulesChecker $rules) : RulesChecker
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_role_id'], 'UserRoles'));
         $rules->add($rules->existsIn(['country_id'], 'Countries'));
@@ -144,20 +146,20 @@ class UsersTable extends Table
         return $rules;
     }
 
-    public function getModerators(int $country_id = null, bool $user_admin = true) : array
+    public function getModerators(int $country_id = null, bool $user_admin = true): array
     {
         $admins = [];
         // try fetching the moderator in charge of the user's country,
-        if($country_id) {
+        if ($country_id) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.country_id' => $country_id,
-                    'Users.user_role_id' => 2,	// moderators
+                    'Users.user_role_id' => 2,    // moderators
                     'Users.active' => 1
                 ])->toArray();
         }
         // then user_admin
-        if(empty($admins) AND $user_admin) {
+        if (empty($admins) and $user_admin) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.user_admin' => 1,
@@ -165,7 +167,7 @@ class UsersTable extends Table
                 ])->toArray();
         }
         // then admin
-        if(empty($admins)) {
+        if (empty($admins)) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.is_admin' => 1,
@@ -175,13 +177,15 @@ class UsersTable extends Table
         return $admins;
     }
 
-    public function notifyAdmins($user) {
+    public function notifyAdmins($user)
+    {
         // TODO: route this to a single team account
         $admins = $this->getModerators(null, true);
         try {
-            foreach($admins as $admin)
+            foreach ($admins as $admin)
                 $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
-        }catch(Exception $exception) {}
+        } catch (Exception $exception) {
+        }
     }
 
     public function register($data = [])
@@ -192,20 +196,22 @@ class UsersTable extends Table
         $data['approval_token_expires'] = $this->getLongTokenExpiry();
 
         $user = $this->newEntity($data);
-        if($user->hasErrors()) {
+        if ($user->hasErrors()) {
             return $user;
         }
-        if(!$this->save($user)) {
+        if (!$this->save($user)) {
             return false;
         }
         return $user;
     }
 
-    public function getShortTokenExpiry() {
-        return date('Y-m-d H:i:s', time() + 60*60*1);
+    public function getShortTokenExpiry()
+    {
+        return date('Y-m-d H:i:s', time() + 60 * 60 * 1);
     }
 
-    public function getLongTokenExpiry() {
-        return date('Y-m-d H:i:s', time() + 60*60*24*7);
+    public function getLongTokenExpiry()
+    {
+        return date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 7);
     }
 }

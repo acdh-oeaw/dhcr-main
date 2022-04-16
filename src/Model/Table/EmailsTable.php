@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
@@ -19,7 +20,7 @@ class EmailsTable extends Table
         $this->belongsTo('Countries', [
             'foreignKey' => 'country_id'
         ]);
-    
+
         $this->addBehavior('Timestamp', [
             'events' => [
                 'Model.beforeSave' => [
@@ -35,7 +36,7 @@ class EmailsTable extends Table
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
-        
+
         $validator
             ->requirePresence('country_id');
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Entity;
 
 use Authorization\AuthorizationService;
@@ -37,29 +38,34 @@ class User extends Entity implements AuthorizationIdentity, AuthenticationIdenti
         'password',
     ];
 
-    protected function _setPassword(string $password) : string
+    protected function _setPassword(string $password): string
     {
         $hasher = new DefaultPasswordHasher();
         return $hasher->hash($password);
     }
 
-    public function can(string $action, $resource): bool {
+    public function can(string $action, $resource): bool
+    {
         return $this->authorization->can($this, $action, $resource);
     }
 
-    public function canResult(string $action, $resource): ResultInterface {
+    public function canResult(string $action, $resource): ResultInterface
+    {
         return $this->authorization->canResult($this, $action, $resource);
     }
 
-    public function applyScope(string $action, $resource) {
+    public function applyScope(string $action, $resource)
+    {
         return $this->authorization->applyScope($this, $action, $resource);
     }
 
-    public function getIdentifier() {
+    public function getIdentifier()
+    {
         return $this->id;
     }
 
-    public function getOriginalData() {
+    public function getOriginalData()
+    {
         return $this;
     }
 

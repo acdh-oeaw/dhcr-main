@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Subscription;
@@ -193,7 +194,7 @@ class CoursesTable extends Table
         return $rules;
     }
 
-    public function getSubscriptionCourses(Subscription $subscription) : array
+    public function getSubscriptionCourses(Subscription $subscription): array
     {
         $options = $this->getFilter($subscription);
         $query = $this->find('all', $options);
@@ -206,33 +207,33 @@ class CoursesTable extends Table
         return $query->distinct()->toArray();
     }
 
-    public function getFilter(Subscription $subscription) : array
+    public function getFilter(Subscription $subscription): array
     {
         $conditions = [
             'Courses.updated >' => $subscription->created,
             'Courses.active' => true,
             'Courses.deleted' => false
         ];
-        if($subscription->online_course !== null)
+        if ($subscription->online_course !== null)
             $conditions['Courses.online_course'] = $subscription->online_course;
 
-        if($subscription->notifications) {
+        if ($subscription->notifications) {
             $excludes = collection($subscription->notifications)
                 ->extract('course_id')->toList();
             if ($excludes) $conditions['Courses.id NOT IN'] = $excludes;
         }
         return [
             'conditions' => $conditions,
-            'contain' => ['Disciplines','Countries','Cities','Institutions']
+            'contain' => ['Disciplines', 'Countries', 'Cities', 'Institutions']
         ];
     }
 
-    private function __match_association(Query &$query, Subscription $subscription, string $assoc) : void
+    private function __match_association(Query &$query, Subscription $subscription, string $assoc): void
     {
-        if($subscription->{$assoc}) {
+        if ($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
-                return $q->where([Inflector::camelize($assoc).'.id IN' => $ids]);
+                return $q->where([Inflector::camelize($assoc) . '.id IN' => $ids]);
             });
         }
     }

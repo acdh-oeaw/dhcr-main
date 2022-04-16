@@ -36,4 +36,3 @@ class SubscriptionMailer extends AppMailer {
     }
 
 }
-?>

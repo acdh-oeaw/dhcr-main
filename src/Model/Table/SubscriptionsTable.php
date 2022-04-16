@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Table;
 
 use App\Model\Entity\Subscription;
@@ -111,7 +112,8 @@ class SubscriptionsTable extends Table
         return $rules;
     }
 
-    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    {
         foreach ($data as $key => $value) {
             if (is_string($value)) {
                 $data[$key] = trim($value);
@@ -130,11 +132,12 @@ class SubscriptionsTable extends Table
     ];
 
     // called by cron using console command
-    public function processSubscriptions() {
+    public function processSubscriptions()
+    {
         $subscriptions = $this->getSubscriptions();
         $courses = 0;
-        foreach($subscriptions as $subscription) {
-            if($this->processSubscription($subscription))
+        foreach ($subscriptions as $subscription) {
+            if ($this->processSubscription($subscription))
                 $courses++;
         }
         return [
@@ -143,7 +146,8 @@ class SubscriptionsTable extends Table
         ];
     }
 
-    public function getSubscriptions() {
+    public function getSubscriptions()
+    {
         return $this->find('all', [
             'contain' => self::$containments
         ])->where([
@@ -151,15 +155,17 @@ class SubscriptionsTable extends Table
         ])->toArray();
     }
 
-    public function processSubscription(Subscription $subscription) {
+    public function processSubscription(Subscription $subscription)
+    {
         $result = false;
-        if($subscription->confirmed) {
+        if ($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
             // get only courses that the subscriber did not receive a notification about before
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
-            if($courses) {
+            if ($courses) {
                 $this->getMailer('Subscription')->send('notification', [
-                    $subscription, $courses]);
+                    $subscription, $courses
+                ]);
                 // prevent double notifications, to be filtered by above method CoursesTable::getSubscriptoinCourses()
                 $this->Notifications->saveSent($subscription->id, $courses);
             }
@@ -167,5 +173,4 @@ class SubscriptionsTable extends Table
         }
         return $result;
     }
-
 }

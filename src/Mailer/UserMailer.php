@@ -59,4 +59,3 @@ class UserMailer extends AppMailer
     }
 
 }
-?>

@@ -6,24 +6,28 @@ use Cake\Core\Configure;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\Transport\DebugTransport;
 
-class AppMailer extends Mailer {
+class AppMailer extends Mailer
+{
 
-    public function __construct($config = null) {
+    public function __construct($config = null)
+    {
         parent::__construct($config);
         $this->setDomain(Configure::read('dhcr.baseUrl'));
     }
 
-    public function setSubject(String $subject) : Mailer {
+    public function setSubject(String $subject): Mailer
+    {
         return parent::setSubject(sprintf('[DH Course Registry] %s', $subject));
     }
 
-    public function preventMailbombing($to) {
-        if(Configure::read('debug')) {
+    public function preventMailbombing($to)
+    {
+        if (Configure::read('debug')) {
             // prevent mailbombing
             $debugmail = env('DEBUG_MAIL_TO', false);
-            if($debugmail) {
+            if ($debugmail) {
                 return $debugmail;
-            }else{
+            } else {
                 $this->setTransport(new DebugTransport());
             }
         }
