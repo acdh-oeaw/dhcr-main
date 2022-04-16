@@ -8,7 +8,6 @@ use Cake\Event\EventInterface;
 use Cake\Mailer\MailerAwareTrait;
 use Authentication\PasswordHasher\DefaultPasswordHasher;
 use Cake\Mailer\Mailer;
-use Cake\Core\Configure;
 use Cake\I18n\FrozenTime;
 
 class UsersController extends AppController
