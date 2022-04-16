@@ -13,8 +13,9 @@
             'class' => 'blue button',
             'title' => 'Add Course',
             'escape' => false
-        ]);
-    if( $user->user_role_id == 2) {
+        ]
+    );
+    if ($user->user_role_id == 2) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-th"></span><br>
             Moderated Courses<br>
@@ -27,9 +28,10 @@
                 'class' => 'blue button',
                 'title' => 'Moderated Courses',
                 'escape' => false
-            ]);        
-        }
-        echo $this->Html->link(
+            ]
+        );
+    }
+    echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-education"></span><br>
         My Courses<br>
         <font color="#60a845">(&nbsp;' . $myCoursesCount . '&nbsp;)</font><p></p>',
@@ -41,21 +43,23 @@
             'class' => 'blue button',
             'title' => 'My Courses',
             'escape' => false
-        ]);
-        if( $user->is_admin ) {
-            echo $this->Html->link(
-                '<p></p><span class="glyphicon glyphicon glyphicon-list-alt"></span><br>
+        ]
+    );
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon glyphicon-list-alt"></span><br>
                 All Courses<br>
                 <font color="#60a845">(&nbsp;' . $allCoursesCount . '&nbsp;)</font><p></p>',
-                [
-                    'controller' => 'courses',
-                    'action' => 'all'
-                ],
-                [
-                    'class' => 'blue button',
-                    'title' => 'All Courses',
-                    'escape' => false
-            ]);        
-        }
-        ?>
+            [
+                'controller' => 'courses',
+                'action' => 'all'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'All Courses',
+                'escape' => false
+            ]
+        );
+    }
+    ?>
 </div>

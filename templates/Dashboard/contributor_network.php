@@ -13,8 +13,9 @@
             'class' => 'blue button',
             'title' => 'Invite User',
             'escape' => false
-        ]);
-    if( $user->user_role_id == 2 ) {
+        ]
+    );
+    if ($user->user_role_id == 2) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
             Moderated Users<br>
@@ -27,9 +28,10 @@
                 'class' => 'blue button',
                 'title' => 'Moderated Users',
                 'escape' => false
-        ]); 
+            ]
+        );
     }
-    if( $user->is_admin ) {
+    if ($user->is_admin) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
             All Users<br>
@@ -42,7 +44,8 @@
                 'class' => 'blue button',
                 'title' => 'All Users',
                 'escape' => false
-        ]); 
+            ]
+        );
     }
     ?>
 </div>

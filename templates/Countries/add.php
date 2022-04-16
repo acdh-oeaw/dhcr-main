@@ -11,11 +11,11 @@
             <fieldset>
                 <legend><?= __('Add Country') ?></legend>
                 <?php
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('domain_name');
-                    echo $this->Form->control('alpha_3');
-                    echo $this->Form->control('stop_words');
-                    echo $this->Form->control('subscriptions._ids', ['options' => $subscriptions]);
+                echo $this->Form->control('name');
+                echo $this->Form->control('domain_name');
+                echo $this->Form->control('alpha_3');
+                echo $this->Form->control('stop_words');
+                echo $this->Form->control('subscriptions._ids', ['options' => $subscriptions]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

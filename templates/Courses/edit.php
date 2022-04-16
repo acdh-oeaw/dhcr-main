@@ -26,11 +26,11 @@
                 echo $this->Form->control('access_requirements', ['label' => 'Access Requirements']);
                 ?>
                 <p>&nbsp;</p>
-                <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course. 
-                These dates only consist of [month]-[day] and are meant to be valid in subsequent years.</p>
-                <p><strong><u>One-off start dates</u></strong> consist of a full date 
-                [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
-                The course will disappear from the list after the last one-off date has expired.</p>
+                <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course.
+                    These dates only consist of [month]-[day] and are meant to be valid in subsequent years.</p>
+                <p><strong><u>One-off start dates</u></strong> consist of a full date
+                    [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
+                    The course will disappear from the list after the last one-off date has expired.</p>
                 <?php
                 echo $this->Form->control('start_date', ['label' => 'Start Date*']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
@@ -42,13 +42,13 @@
                 echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
                 ?>
                 <b>Location</b><br>
-                 Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
-                 Changing your selection from the institutions list above will overwrite the current coordinate value.<br>
-                 -You can zoom using the scroll wheel.<br>
-                 -You can move the map, by dragging with the mouse.<br>
-                 -Place the blue marker on the correct position, to confirm the location.
+                Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
+                Changing your selection from the institutions list above will overwrite the current coordinate value.<br>
+                -You can zoom using the scroll wheel.<br>
+                -You can move the map, by dragging with the mouse.<br>
+                -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
-                <?php 
+                <?php
                 echo $this->element('locationpicker');  // include locationpicker
                 echo $this->element('update_map_by_institution');  // include handling of institution selector
                 echo '<p></p>';
@@ -57,9 +57,9 @@
                 echo $this->Form->control('courses_tadirah_objects', ['label' => 'Tadirah Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
                 ?>
                 <p>&nbsp;
-                <?= $this->Form->control('active', ['label' => 'Show course in the registry']); ?>
-                Check this box if your course is ready to be published in the registry.<br>
-                When unchecked, you will be able to complete the course description later.
+                    <?= $this->Form->control('active', ['label' => 'Show course in the registry']); ?>
+                    Check this box if your course is ready to be published in the registry.<br>
+                    When unchecked, you will be able to complete the course description later.
                 </p>
             </fieldset>
             <p>&nbsp;</p>
