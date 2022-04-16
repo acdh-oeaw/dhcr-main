@@ -38,8 +38,8 @@
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
                 echo $this->Form->control('department', ['label' => 'Department*']);
-                echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $userInstitution->lon]);
-                echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $userInstitution->lat]);
+                echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
+                echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
                 ?>
                 <b>Location</b><br>
                  Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
@@ -49,7 +49,8 @@
                  -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
                 <?php
-                echo $this->element('courseLocationpicker');  // include locationpicker incl. handeling of institution selector
+                echo $this->element('locationpicker');  // include locationpicker
+                echo $this->element('update_map_by_institution');  // include handling of institution selector
                 echo '<p></p>';
                 echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
                 echo $this->Form->control('courses_tadirah_techniques', ['label' => 'Tadirah Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);

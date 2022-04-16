@@ -142,6 +142,7 @@ class CoursesController extends AppController
         $breadcrumActions[1] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $userInstitution = $this->Courses->Institutions->find()->where(['id' => $user->institution_id])->first();
+        $mapInit = ['lon' => $userInstitution->lon, 'lat' => $userInstitution->lat];
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -155,7 +156,7 @@ class CoursesController extends AppController
             $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('userInstitution' ,'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+        $this->set(compact('mapInit' ,'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
                             'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
     }
 
@@ -192,7 +193,7 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $userInstitution = $this->Courses->Institutions->find()->where(['id' => $user->institution_id])->first();
+        $mapInit = ['lon' => $course->lon, 'lat' => $course->lat];
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
@@ -206,7 +207,7 @@ class CoursesController extends AppController
             $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('userInstitution', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
+        $this->set(compact('mapInit', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
                             'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
     }
 
