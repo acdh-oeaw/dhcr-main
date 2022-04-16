@@ -7,8 +7,8 @@ $this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' =
 $this->Html->scriptStart(['block' => true]);
 ?>
 $(document).ready(function(){
-    let content = new Content();
-    content.load();
+let content = new Content();
+content.load();
 });
 <?php $this->Html->scriptEnd(); ?>
 <div class="flex-columns">
@@ -38,8 +38,7 @@ $(document).ready(function(){
         <h4>DHCR Promotion Video</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0"
-                    allow="encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/D-5kmQoPvOU?rel=0" allow="encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
     <div class="flex-item publications narrow">
@@ -56,17 +55,17 @@ $(document).ready(function(){
         </p>
         <p>
             Gheldof, T., Wessels, L., Wissik, T. (2019). <i>The DH Course Registry:
-            An International Platform for Finding and Promoting DH Courses.</i>
+                An International Platform for Finding and Promoting DH Courses.</i>
             Poster presentation at the DH Benelux, 11 – 13 September 2019, Liège, Belgium.
         </p>
         <p>
             Schmeer, H., Wissik, T. (2019). <i>Data about DH Training and Education:
-            the API for the DH Course Registry and its Use Cases.</i>
+                the API for the DH Course Registry and its Use Cases.</i>
             In DARIAH Annual Event 2019: Humanities Data – Book of Abstracts, Warsaw, Poland, 71-73.
         </p>
         <p>
             Wissik, T. (2019). <i>The Role of Research Infrastructures in the Area of DH Education,
-            Training and Competence Building.</i>
+                Training and Competence Building.</i>
             In Allegrezza, Stefano (ed.) AIUCD 2019 - Book of Abstracts, Udine 2019, Italy,
             Associazione per l’Informatica Umanistica e la Cultura Digitale, 233-235.
         </p>
@@ -77,7 +76,7 @@ $(document).ready(function(){
         </p>
         <p>
             Wissik, T. (2018). <i>The Role of Research Infrastructures in the Area of Education & Training:
-            The DH Course Registry and the #dariahTeach Platform as Examples.</i>
+                The DH Course Registry and the #dariahTeach Platform as Examples.</i>
             Presentation at the DH2018 pre-conference on “Innovations in Digital Humanities Pedagogy:
             Local, National, and International Training”, 25 June 2018, Mexico City, Mexico.
         </p>

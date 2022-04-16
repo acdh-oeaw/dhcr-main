@@ -1,4 +1,5 @@
 <?php
+
 use Cake\Core\Configure;
 ?>
 <div class="subscriptions-form optionals headspace">
@@ -10,11 +11,12 @@ use Cake\Core\Configure;
     <?php   // todo everything in 1 php tag
     echo $this->Form->control('email');
     echo $this->Form->control('country_id', [
-        'empty' => '- Where are you from? (optional) -']);
+        'empty' => '- Where are you from? (optional) -'
+    ]);
     ?>
     <?php
-    $classes = ['input','info','required'];
-    if($this->Form->isFieldError('consent')) $classes[] = 'error';
+    $classes = ['input', 'info', 'required'];
+    if ($this->Form->isFieldError('consent')) $classes[] = 'error';
     ?>
     <div class="<?= implode(' ', $classes) ?>">
         <label for="privacy-declaration">Terms</label>

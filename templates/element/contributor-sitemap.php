@@ -28,12 +28,12 @@
             </p>
             <ul class="attention">
                 <?php
-                if( $user->user_role_id == 2 || $user->is_admin ) {
+                if ($user->user_role_id == 2 || $user->is_admin) {
                     echo '<li>';
-                        echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'approve']);
+                    echo $this->Html->link('Account Approval', ['controller' => 'Users', 'action' => 'approve']);
                     echo '</li>';
                     echo '<li>';
-                        echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'approve']);
+                    echo $this->Html->link('Course Approval', ['controller' => 'Courses', 'action' => 'approve']);
                     echo '</li>';
                 }
                 ?>
@@ -67,106 +67,106 @@
                     ) ?>
                 </li>
                 <?php
-                if( $user->user_role_id == 2) {
-                echo '<li>';
-                    echo $this->Html->link('Moderated Courses', ['controller' => 'Courses', 'action' => 'moderated'] );
-                echo '</li>';
-                }
-                if( $user->is_admin ) {
+                if ($user->user_role_id == 2) {
                     echo '<li>';
-                        echo $this->Html->link('All Courses', ['controller' => 'Courses', 'action' => 'all'] );
+                    echo $this->Html->link('Moderated Courses', ['controller' => 'Courses', 'action' => 'moderated']);
                     echo '</li>';
-                }    
+                }
+                if ($user->is_admin) {
+                    echo '<li>';
+                    echo $this->Html->link('All Courses', ['controller' => 'Courses', 'action' => 'all']);
+                    echo '</li>';
+                }
                 ?>
             </ul>
         </li>
         <?php
-        if( $user->user_role_id == 2 || $user->is_admin ) {
+        if ($user->user_role_id == 2 || $user->is_admin) {
         ?>
-        <li>
-            <p>
-                <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-user"></span>Contributor Network',
-                    ['controller' => 'Dashboard', 'action' => 'contributorNetwork'],
-                    ['escape' => false]
-                ) ?>
-            </p>
-            <ul class="users">
-                <li>
+            <li>
+                <p>
                     <?= $this->Html->link(
-                        'Invite User',
-                        ['controller' => 'Users', 'action' => 'invite']
+                        '<span class="glyphicon glyphicon-user"></span>Contributor Network',
+                        ['controller' => 'Dashboard', 'action' => 'contributorNetwork'],
+                        ['escape' => false]
                     ) ?>
-                </li>
-                <li>
-                    <?php
-                    if( $user->user_role_id == 2 ) {
-                        echo $this->Html->link(
-                            'Moderated Users',
-                            ['controller' => 'Users', 'action' => 'moderated']
-                        ); 
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php
-                    if( $user->is_admin ) {
-                        echo $this->Html->link(
-                            'All Users',
-                            ['controller' => 'Users', 'action' => 'all']
-                        ); 
-                    }
-                    ?>
-                </li>
-            </ul>
-        </li>
-        <?php 
-        } 
-        if( $user->user_role_id == 2 || $user->is_admin ) {
+                </p>
+                <ul class="users">
+                    <li>
+                        <?= $this->Html->link(
+                            'Invite User',
+                            ['controller' => 'Users', 'action' => 'invite']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($user->user_role_id == 2) {
+                            echo $this->Html->link(
+                                'Moderated Users',
+                                ['controller' => 'Users', 'action' => 'moderated']
+                            );
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'All Users',
+                                ['controller' => 'Users', 'action' => 'all']
+                            );
+                        }
+                        ?>
+                    </li>
+                </ul>
+            </li>
+        <?php
+        }
+        if ($user->user_role_id == 2 || $user->is_admin) {
         ?>
-        <li>
-            <p>
-                <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-list"></span>Category Lists',
-                    ['controller' => 'Dashboard', 'action' => 'categoryLists'],
-                    ['escape' => false]
-                ) ?>
-            </p>
-            <ul class="tables">
-                <li>
+            <li>
+                <p>
                     <?= $this->Html->link(
-                        'Cities',
-                        ['controller' => 'Cities', 'action' => 'index']
+                        '<span class="glyphicon glyphicon-list"></span>Category Lists',
+                        ['controller' => 'Dashboard', 'action' => 'categoryLists'],
+                        ['escape' => false]
                     ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Institutions',
-                        ['controller' => 'Institutions', 'action' => 'index']
-                    ) ?>
-                </li>
-                <li>
-                    <?php 
-                    if( $user->is_admin ) {
-                    echo $this->Html->link(
-                        'Languages',
-                        ['controller' => 'Languages', 'action' => 'index']
-                        );
-                    }
-                    ?>
-                </li>
-                <li>
-                    <?php 
-                    if( $user->is_admin ) {
-                    echo $this->Html->link(
-                        'Invite Translations',
-                        ['controller' => 'InviteTranslations', 'action' => 'index']
-                        );
-                    }
-                    ?>
-                </li>
-            </ul>
-        </li>
+                </p>
+                <ul class="tables">
+                    <li>
+                        <?= $this->Html->link(
+                            'Cities',
+                            ['controller' => 'Cities', 'action' => 'index']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link(
+                            'Institutions',
+                            ['controller' => 'Institutions', 'action' => 'index']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'Languages',
+                                ['controller' => 'Languages', 'action' => 'index']
+                            );
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'Invite Translations',
+                                ['controller' => 'InviteTranslations', 'action' => 'index']
+                            );
+                        }
+                        ?>
+                    </li>
+                </ul>
+            </li>
         <?php
         }
         ?>
@@ -209,9 +209,9 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                        '<span class="glyphicon glyphicon-log-out"></span>Logout',
-                        ['controller' => 'Users', 'action' => 'logout'],
-                        ['escape' => false]
+                    '<span class="glyphicon glyphicon-log-out"></span>Logout',
+                    ['controller' => 'Users', 'action' => 'logout'],
+                    ['escape' => false]
                 ) ?>
             </p>
         </li>

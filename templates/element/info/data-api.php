@@ -1,4 +1,5 @@
 <?php
+
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 ?>
@@ -9,8 +10,11 @@ use Cake\Routing\Router;
             The following entity relationship diagram gives an overview of entities
             in the DHCR. For a full description of their fields, please visit the
             API documentation on
-            <?= $this->Html->link('SwaggerHub', 'https://app.swaggerhub.com/apis/hashmich/DHCR-API',
-                ['target' => '_blank']) ?>.  
+            <?= $this->Html->link(
+                'SwaggerHub',
+                'https://app.swaggerhub.com/apis/hashmich/DHCR-API',
+                ['target' => '_blank']
+            ) ?>.
         </p>
         <p><?= $this->Html->image('DHCR_ERD.png', ['url' => '/img/DHCR ERD.png']) ?></p>
         <h3>Data API</h3>
