@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,6 +15,7 @@ declare(strict_types=1);
  * @since     3.3.0
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App;
 
 use Authentication\IdentityInterface;
@@ -45,7 +47,8 @@ use Psr\Http\Message\ServerRequestInterface;
  * want to use in your application.
  */
 class Application extends BaseApplication
-    implements AuthenticationServiceProviderInterface,
+implements
+    AuthenticationServiceProviderInterface,
     AuthorizationServiceProviderInterface
 {
     /**
@@ -98,7 +101,7 @@ class Application extends BaseApplication
         ];
         $finder = ['all' => [
             'conditions' => ['active' => true],
-            'contain' => ['UserRoles','Countries']
+            'contain' => ['UserRoles', 'Countries']
         ]];
         // Load the authenticators. Session should be first.
         $service->loadAuthenticator('Authentication.Session');
@@ -155,7 +158,7 @@ class Application extends BaseApplication
         return $service;
     }
 
-    public function getAuthorizationService(ServerRequestInterface $request) : AuthorizationServiceInterface
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
     {
         $resolver = new OrmResolver();
         return new AuthorizationService($resolver);
@@ -192,7 +195,7 @@ class Application extends BaseApplication
             ->add(new AuthenticationMiddleware($this))
             ->add(new AuthorizationMiddleware($this, [
                 'identityDecorator' => function ($auth, $user) {
-                    if($user->getOriginalData() instanceof IdentityInterface)
+                    if ($user->getOriginalData() instanceof IdentityInterface)
                         return $user->setAuthorization($auth);
                     return;
                 }

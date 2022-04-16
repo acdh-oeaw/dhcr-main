@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Policy;
@@ -10,7 +11,7 @@ class LanguagePolicy
 {
     public function canAdd(IdentityInterface $user, Language $language)
     {
-        if($user->is_admin) {
+        if ($user->is_admin) {
             return true;
         }
         return false;
@@ -18,7 +19,7 @@ class LanguagePolicy
 
     public function canEdit(IdentityInterface $user, Language $language)
     {
-        if($user->is_admin) {
+        if ($user->is_admin) {
             return true;
         }
         return false;

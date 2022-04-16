@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Policy;
@@ -10,7 +11,7 @@ class CityPolicy
 {
     public function canAdd(IdentityInterface $user, City $city)
     {
-        if($user->user_role_id == 2 || $user->is_admin) {
+        if ($user->user_role_id == 2 || $user->is_admin) {
             return true;
         }
         return false;
@@ -18,7 +19,7 @@ class CityPolicy
 
     public function canEdit(IdentityInterface $user, City $city)
     {
-        if($user->user_role_id == 2 || $user->is_admin) {
+        if ($user->user_role_id == 2 || $user->is_admin) {
             return true;
         }
         return false;
