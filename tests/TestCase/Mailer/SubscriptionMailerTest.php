@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Test\TestCase\Mailer;
@@ -40,12 +41,14 @@ class SubscriptionMailerTest extends TestCase
         'app.CoursesDisciplines'
     ];
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->SubscriptionMailer = new SubscriptionMailer();
     }
 
-    protected function _getSubscription($id) {
+    protected function _getSubscription($id)
+    {
         $table = TableRegistry::getTableLocator()->get('Subscriptions');
         $options = ['contain' => $table::$containments];
         $subscription = $table->get($id, $options);
@@ -54,8 +57,9 @@ class SubscriptionMailerTest extends TestCase
         return $subscription;
     }
 
-    protected function _getCourses($subscription) {
-        if(!$subscription->confirmed) return [];
+    protected function _getCourses($subscription)
+    {
+        if (!$subscription->confirmed) return [];
         $table = TableRegistry::getTableLocator()->get('Courses');
         return $table->getSubscriptionCourses($subscription);
     }

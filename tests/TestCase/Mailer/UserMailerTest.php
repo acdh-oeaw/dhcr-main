@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Test\TestCase\Mailer;
@@ -23,12 +24,14 @@ class UserMailerTest extends TestCase
         'app.Users'
     ];
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->UserMailer = new UserMailer();
     }
 
-    protected function _getUser() {
+    protected function _getUser()
+    {
         $users = TableRegistry::getTableLocator()->get('Users');
         $user = $users->get(1);
         // this method draws in the DEBUG_MAIL_TO variable, if present
