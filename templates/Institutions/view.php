@@ -29,7 +29,7 @@
             </div>
             <strong>&nbsp;Location</strong>
             <?php
-                echo $this->element('locationpicker');  // include locationpicker
+            echo $this->element('locationpicker');  // include locationpicker
             ?>
         </div>
     </div>

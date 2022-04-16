@@ -11,12 +11,12 @@
             <b><u>Message</u></b></br>
             <?php
             $messageBody = $inviteTranslation->messageBody;
-            if($user->academic_title != null) {
-                $fullName = h(ucfirst($user->academic_title)) .' ';
+            if ($user->academic_title != null) {
+                $fullName = h(ucfirst($user->academic_title)) . ' ';
             } else {
                 $fullName = '';
             }
-            $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
+            $fullName = $fullName . h(ucfirst($user->first_name)) . ' ' . h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             echo $this->Text->autoParagraph(h($messageBody));
             ?>

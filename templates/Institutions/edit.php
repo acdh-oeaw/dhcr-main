@@ -11,7 +11,8 @@
                 echo $this->Form->control('country_id', ['options' => $countries, 'empty' => true]);
                 echo $this->Form->control('name');
                 echo $this->Form->control('description');
-                echo $this->Form->control('url');echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
+                echo $this->Form->control('url');
+                echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
                 echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
                 ?>
                 <b>Location</b><br>
