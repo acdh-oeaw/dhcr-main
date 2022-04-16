@@ -149,9 +149,14 @@ class CoursesController extends AppController
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+        // required for changing map to location of selected institution
+        $institutionsLocations = [];
+        foreach($this->Courses->Institutions->find() as $institution) {
+            $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('userInstitution' ,'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
-                            'tadirah_techniques', 'tadirah_objects'));
+                            'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
     }
 
     public function edit($id = null)

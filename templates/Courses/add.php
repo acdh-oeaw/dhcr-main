@@ -1,7 +1,5 @@
 <?php
 use Cake\Core\Configure;
-echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.js');
-echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css');
 ?>
 <div class="row">
     <p></p>
@@ -42,8 +40,29 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
-                
-                
+                // update map when an institution is selected
+                ?>
+                <script>
+                    var institutionSelector = document.getElementById("institution-id");
+                    var institutionId = null;
+                    var institutionsLocations = <?php echo json_encode($institutionsLocations); ?>
+
+                    institutionSelector.addEventListener(
+                        'change',
+                        function() {
+                            map.setCenter([
+                                institutionsLocations[institutionSelector.value]['lon'], 
+                                institutionsLocations[institutionSelector.value]['lat']
+                            ]);
+                            map.setZoom(9);
+                            marker.setLngLat([
+                                institutionsLocations[institutionSelector.value]['lon'], 
+                                institutionsLocations[institutionSelector.value]['lat']
+                            ]);
+                        }
+                    );
+                </script>
+                <?php                
                 echo $this->Form->control('department', ['label' => 'Department*']);
                 // TODO: change to hidden
                 echo $this->Form->control('lon', ['default' => $userInstitution->lon]);
@@ -57,6 +76,10 @@ echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css'
                  -You can move the map, by dragging with the mouse.<br>
                  -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
+                <?php
+                echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.js');
+                echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css');
+                ?>
                 <div id='map' style='width: 600px; height: 450px;'></div>
                 <script>
                     mapboxgl.accessToken = '<?= Configure::read('map.apiKey') ?>';
