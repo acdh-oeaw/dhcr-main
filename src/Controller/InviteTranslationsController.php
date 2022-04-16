@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -16,9 +17,9 @@ class InviteTranslationsController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        if( !$user->is_admin) {
+        if (!$user->is_admin) {
             $this->Flash->error(__('Not authorized to invitetranslations index'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
@@ -60,11 +61,11 @@ class InviteTranslationsController extends AppController
             $nextSortOrder = $query->select(['sortOrder' => $query->func()->max('sortorder')])->first()->sortOrder + 1;
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
             $inviteTranslation->sortOrder = $nextSortOrder;
-            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for -fullname-
+            if (!strpos($inviteTranslation->messageBody, '-fullname-')) {  // check for -fullname-
                 $this->Flash->success(__('Error: -fullname- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }
-            if( !strpos($inviteTranslation->messageBody, '-passwordlink-') ) {  // check for -passwordlink-
+            if (!strpos($inviteTranslation->messageBody, '-passwordlink-')) {  // check for -passwordlink-
                 $this->Flash->success(__('Error: -passwordlink- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }
@@ -97,11 +98,11 @@ class InviteTranslationsController extends AppController
         $this->Authorization->authorize($inviteTranslation);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $inviteTranslation = $this->InviteTranslations->patchEntity($inviteTranslation, $this->request->getData());
-            if( !strpos($inviteTranslation->messageBody, '-fullname-') ) {  // check for required text in message body
+            if (!strpos($inviteTranslation->messageBody, '-fullname-')) {  // check for required text in message body
                 $this->Flash->success(__('Error: -fullname- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }
-            if( !strpos($inviteTranslation->messageBody, '-passwordlink-') ) {  // check for -passwordlink-
+            if (!strpos($inviteTranslation->messageBody, '-passwordlink-')) {  // check for -passwordlink-
                 $this->Flash->success(__('Error: -passwordlink- missing in message.'));
                 return $this->redirect(['action' => 'index']);
             }

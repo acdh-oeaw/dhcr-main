@@ -278,16 +278,16 @@ class UsersController extends AppController
             $user->approval_token = $this->Users->generateToken('approval_token');
             $user->approval_token_expires = $this->Users->getLongTokenExpiry();
             // set country_id
-            if($user->institution_id) {
+            if ($user->institution_id) {
                 $country_id = $this->Users->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
-                $user->set('country_id', $country_id);    
+                $user->set('country_id', $country_id);
             }
             if (!$user->hasErrors(false)) {
                 $this->Users->save($user);
                 try {
                     $this->getMailer('User')->send('confirmationMail', [$user]);
                 } catch (Exception $exception) {    // todo handle empty catch statement
-                }   
+                }
                 $session = $this->request->getSession();
                 $session->write('Auth', $user);
                 return $this->redirect(['controller' => 'users', 'action' => 'registration_success']);
@@ -304,8 +304,9 @@ class UsersController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         if ($user->can('accessDashboard', $user))
-            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']
-                );  // todo clean up
+            return $this->redirect(
+                ['controller' => 'Dashboard', 'action' => 'index']
+            );  // todo clean up
         $user = $this->Authentication->getIdentity();
         $this->set('user', $user);
     }
@@ -319,7 +320,7 @@ class UsersController extends AppController
                 $data = [
                     'new_email' => $this->request->getData('new_email'),
                     'email_token' => $this->Users->generateToken('email_token')
-                    ];
+                ];
                 $user->setAccess('*', true);
                 $user = $this->Users->patchEntity($user, $data);
                 if (!$user->getErrors()) {
@@ -423,36 +424,36 @@ class UsersController extends AppController
     public function approve($key = null)
     {
         $user = $this->Authentication->getIdentity();
-        if(is_numeric($key)) {    // access from web interface
+        if (is_numeric($key)) {    // access from web interface
             $approvingUser = $this->Users->get($key);
             if (!$approvingUser) {
                 $this->Flash->set('An account with id ' . $key . ' could not be found.');
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
             }
-        } elseif($key != null) {    // check if access from email with token
+        } elseif ($key != null) {    // check if access from email with token
             $approvingUser = $this->Users->find()->where([
-                                                        'Users.approval_token' => $key,
-                                                        'approved' => 0
-                                                        ])
-                                                        ->first();
+                'Users.approval_token' => $key,
+                'approved' => 0
+            ])
+                ->first();
             if (!$approvingUser) {
                 $this->Flash->set('Token invalid. Please check your dashboard.');
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'approve']);
             }
         }
-        if(isset($approvingUser)) {    // the specified user exists
+        if (isset($approvingUser)) {    // the specified user exists
             $this->Authorization->authorize($approvingUser);
             // check if an institution is selected
-            if(!$approvingUser->institution_id) {
+            if (!$approvingUser->institution_id) {
                 $this->Flash->error(__('No institution provided. Edit user data!'));
                 return $this->redirect(['action' => 'approve']);
             }
             $approvingUser->set('approved', 1);
-            if($this->Users->save($approvingUser)) {
+            if ($this->Users->save($approvingUser)) {
                 $this->getMailer('User')->send('welcome', [$approvingUser]);
                 $this->Flash->set('The account has been approved successfully.');
             } else {
-                    $this->Flash->set('Approval failed.');
+                $this->Flash->set('Approval failed.');
             }
             return $this->redirect(['controller' => 'Users', 'action' => 'approve']);
         }
@@ -465,37 +466,43 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'approve';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $users = $this->paginate($this->Users->find()->where([
-                                                                'approved' => 0,
-                                                                'active' => 1
-                                                                ]), 
-                                    ['order' => ['Users.created' => 'desc'], 
-                                    'contain' => ['Institutions'],
-                                    ]);
+        if ($user->is_admin) {
+            $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 0,
+                    'active' => 1
+                ]),
+                [
+                    'order' => ['Users.created' => 'desc'],
+                    'contain' => ['Institutions'],
+                ]
+            );
             $usersCount = $this->Users->find()->where([
-                                                        'approved' => 0,
-                                                        'active' => 1
-                                                        ])
-                                                        ->count();
+                'approved' => 0,
+                'active' => 1
+            ])
+                ->count();
         } elseif ($user->user_role_id == 2) {
-            $users = $this->paginate($this->Users->find()->where([
-                                                                'approved' => 0,
-                                                                'active' => 1,
-                                                                'Users.country_id' => $user->country_id
-                                                                ]), 
-                                    ['order' => ['Users.created' => 'desc'], 
-                                    'contain' => ['Institutions'],
-                                    ]);
+            $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 0,
+                    'active' => 1,
+                    'Users.country_id' => $user->country_id
+                ]),
+                [
+                    'order' => ['Users.created' => 'desc'],
+                    'contain' => ['Institutions'],
+                ]
+            );
             $usersCount = $this->Users->find()->where([
-                                                'approved' => 0,
-                                                'active' => 1,
-                                                'Users.country_id' => $user->country_id
-                                                ])
-                                                ->count();
+                'approved' => 0,
+                'active' => 1,
+                'Users.country_id' => $user->country_id
+            ])
+                ->count();
         } else {
             $this->Flash->error(__('Not authorized to user approval'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));
@@ -503,7 +510,7 @@ class UsersController extends AppController
         $this->set('users_icon', 'user');
         $this->set('users_view_type', 'Account Approval');
         $this->render('users-list');
-}
+    }
 
     public function view($id = null)
     {
@@ -525,11 +532,11 @@ class UsersController extends AppController
 
     public function edit($id = null)
     {
-        $editUser = $this->Users->get($id,['contain' => ['Countries']]);
+        $editUser = $this->Users->get($id, ['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($editUser);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if($user->is_admin) {
+            if ($user->is_admin) {
                 $editUser->setAccess('user_role_id', true);
                 $editUser->setAccess('is_admin', true);
                 $editUser->setAccess('user_admin', true);
@@ -538,7 +545,7 @@ class UsersController extends AppController
             $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
             // set country_id
             $country_id = $this->Users->Institutions->find()->where(['id' => $editUser->institution_id])->first()->country_id;
-            $editUser->set('country_id', $country_id);    
+            $editUser->set('country_id', $country_id);
             if ($this->Users->save($editUser)) {
                 $this->Flash->success(__('The user has been updated.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
@@ -617,12 +624,12 @@ class UsersController extends AppController
             $hashedPassword = $user->password;
             $submittedPassword = $this->request->getData()['password'];
             $hasher = new DefaultPasswordHasher();
-            if($hasher->check($submittedPassword, $hashedPassword)) {
+            if ($hasher->check($submittedPassword, $hashedPassword)) {
                 // user submitted the correct password
                 $data = [
                     'new_email' => $this->request->getData('new_email'),
                     'email_token' => $this->Users->generateToken('email_token')
-                    ];
+                ];
                 $user->setAccess('*', true);
                 $user = $this->Users->patchEntity($user, $data);
                 if (!$user->getErrors()) {
@@ -657,13 +664,13 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($this->Authentication->getIdentity()->id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if($user != null) {
+            if ($user != null) {
                 // set token and send mail
                 $user->setAccess('*', true);
                 $user = $this->Users->patchEntity($user, [
-                                                        'password_token_expires' => $this->Users->getShortTokenExpiry(),
-                                                        'password_token' => $this->Users->generateToken('password_token')
-                                                        ]);
+                    'password_token_expires' => $this->Users->getShortTokenExpiry(),
+                    'password_token' => $this->Users->generateToken('password_token')
+                ]);
                 $this->Users->save($user);
                 try {
                     $this->getMailer('User')->send('resetPassword', [$user]);
@@ -722,7 +729,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             // check if an institution is selected
-            if(!$invitedUser->institution_id) {
+            if (!$invitedUser->institution_id) {
                 $this->Flash->error(__('No institution selected!'));
                 return $this->redirect(['action' => 'invite']);
             }
@@ -742,15 +749,15 @@ class UsersController extends AppController
                 'password_token' => $this->Users->generateToken('password_token')
             ]);
             // set password link
-            $passwordLink = env('DHCR_BASE_URL') .'users/reset_password/' .$invitedUser->password_token;
+            $passwordLink = env('DHCR_BASE_URL') . 'users/reset_password/' . $invitedUser->password_token;
             //  personalize message
             $messageBody = $inviteMessage->messageBody;
-            if($user->academic_title != null) {
-                $fullName = h(ucfirst($user->academic_title)) .' ';
+            if ($user->academic_title != null) {
+                $fullName = h(ucfirst($user->academic_title)) . ' ';
             } else {
                 $fullName = '';
             }
-            $fullName = $fullName .h(ucfirst($user->first_name)) .' ' .h(ucfirst($user->last_name));
+            $fullName = $fullName . h(ucfirst($user->first_name)) . ' ' . h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
             if ($this->Users->save($invitedUser)) {
@@ -778,9 +785,9 @@ class UsersController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $institutions = $this->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $inviteTranslations = $this->InviteTranslations->find('all', ['order' => 'sortOrder asc', 'contain' => 'Languages'])
-                                                        ->where(['active ' => true]);
+            ->where(['active ' => true]);
         $languageList = [];
-        foreach($inviteTranslations as $inviteTranslation) {
+        foreach ($inviteTranslations as $inviteTranslation) {
             $languageList += [$inviteTranslation->id => $inviteTranslation->language->name];
         }
         $this->set(compact('user')); // required for contributors menu
@@ -800,18 +807,21 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'moderated';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->user_role_id == 2) {
-            $users = $this->paginate($this->Users->find()->where([
-                                                                'approved' => 1,
-                                                                'active' => 1,
-                                                                'Users.country_id' => $user->country_id,
-                                                                ]), 
-                                    ['order' => ['last_name' => 'asc'], 
-                                    'contain' => ['Institutions'],
-                                    ]);
+            $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 1,
+                    'active' => 1,
+                    'Users.country_id' => $user->country_id,
+                ]),
+                [
+                    'order' => ['last_name' => 'asc'],
+                    'contain' => ['Institutions'],
+                ]
+            );
             $usersCount = $this->Users->find()->where(['Users.country_id' => $user->country_id])->count();
         } else {
             $this->Flash->error(__('Not authorized to moderated users'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));
@@ -838,7 +848,7 @@ class UsersController extends AppController
             $usersCount = $this->Users->find()->count();
         } else {
             $this->Flash->error(__('Not authorized to all users'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));

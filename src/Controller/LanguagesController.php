@@ -17,9 +17,9 @@ class LanguagesController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        if( !$user->is_admin ) {
+        if (!$user->is_admin) {
             $this->Flash->error(__('Not authorized to languages index'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,6 +13,7 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
@@ -33,7 +35,7 @@ class AppController extends Controller
 
 
 
-	/**
+    /**
      * Initialization hook method.
      *
      * Use this method to add common initialization code like loading components.
@@ -42,7 +44,8 @@ class AppController extends Controller
      *
      * @return void
      */
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
 
         // Set the Cache-Control as private for 3600 seconds
@@ -63,13 +66,15 @@ class AppController extends Controller
     public function beforeFilter(EventInterface $event)
     {
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             // send newly registered users to the approval status page
             $action = $this->request->getParam('action');
             $user = $this->Authentication->getIdentity();
-            if( !$user->can('accessDashboard', $user)
-            AND !in_array($action, ['registrationSuccess','verifyMail'])
-            AND !in_array($action, $this->Authentication->getUnauthenticatedActions())) {
+            if (
+                !$user->can('accessDashboard', $user)
+                and !in_array($action, ['registrationSuccess', 'verifyMail'])
+                and !in_array($action, $this->Authentication->getUnauthenticatedActions())
+            ) {
                 return $this->redirect('/users/registration_success');
             }
         }
@@ -78,14 +83,14 @@ class AppController extends Controller
     }
 
 
-    protected function _checkCaptcha(&$errors = array()) : bool
+    protected function _checkCaptcha(&$errors = array()): bool
     {
-        if(Configure::read('debug')) return true;
+        if (Configure::read('debug')) return true;
 
         $ip = $_SERVER['REMOTE_ADDR'];
-        if(!empty($_SERVER['HTTP_CLIENT_IP']))
+        if (!empty($_SERVER['HTTP_CLIENT_IP']))
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
 
         $data = [
@@ -102,10 +107,10 @@ class AppController extends Controller
         $result = curl_exec($ch);
         curl_close($ch);
 
-        if(empty($result)) return false;
+        if (empty($result)) return false;
         $result = json_decode($result, true);
         // if(!empty($result['error-codes'])) $errors = $result['error-codes'];
-        if(!empty($result['success'])) return true;
+        if (!empty($result['success'])) return true;
         return false;
     }
 
@@ -118,7 +123,7 @@ class AppController extends Controller
     protected function _refreshAuthSession()
     {
         $result = $this->Authentication->getResult();
-        if($result->isValid()) {
+        if ($result->isValid()) {
             $Users = TableRegistry::getTableLocator()->get('Users');
             $user = $this->Authentication->getIdentity();
             $user = $Users->get($user->id);
@@ -126,7 +131,8 @@ class AppController extends Controller
             // this is configured on Application::middleware (identityDecorator),
             // but needs to be done again as we re-set the identity.
             $user->setAuthorization(
-                $this->request->getAttribute('authorization'));
+                $this->request->getAttribute('authorization')
+            );
             $this->Authentication->setIdentity($user);
             $this->getRequest()->getSession()->write('Auth', $user);
         }

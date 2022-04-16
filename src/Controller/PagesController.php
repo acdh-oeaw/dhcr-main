@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -12,6 +13,7 @@
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Core\Configure;
@@ -33,56 +35,60 @@ class PagesController extends AppController
 
     use MailerAwareTrait;
 
-    public function initialize(): void {
+    public function initialize(): void
+    {
         parent::initialize();
 
-        $this->Authentication->allowUnauthenticated(['info','follow','display']);
+        $this->Authentication->allowUnauthenticated(['info', 'follow', 'display']);
         $this->Authorization->skipAuthorization();
     }
 
 
 
-	public function follow() {
+    public function follow()
+    {
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Subscriptions');
         $subscription = $this->Subscriptions->newEmptyEntity();
         $countries = $this->Subscriptions->Countries->find('list', [
-            'order' => ['Countries.name' => 'ASC']]);
-        $this->set(compact('subscription','countries'));
+            'order' => ['Countries.name' => 'ASC']
+        ]);
+        $this->set(compact('subscription', 'countries'));
     }
 
 
 
-	public function info() {
+    public function info()
+    {
         $this->loadModel('Users');
         $this->loadModel('DhcrCore.Countries');
         $this->loadModel('Emails');
 
         $data = $this->request->getData();
-        if(!empty($data) AND $this->_checkCaptcha()) {
+        if (!empty($data) and $this->_checkCaptcha()) {
 
             $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
-	        if(!$email->getErrors()) {
+            if (!$email->getErrors()) {
                 //$this->Emails->save($email);
                 // try fetching the moderator in charge of the user's country
                 $country_id = ($data['country_id'] == 'administrators') ? null : $data['country_id'];
                 $admins = $this->Users->getModerators($country_id, $user_admin = true);
-                if($admins) {
-                    foreach($admins as $admin) {
+                if ($admins) {
+                    foreach ($admins as $admin) {
                         $this->getMailer('User')->send('contactForm', [$data, $admin->email]);
                     }
                     $this->Flash->set('Your message has been sent.');
                 }
-            }else{
+            } else {
                 $this->Flash->set('We are missing required data to send email.');
             }
-        }elseif(!empty($data) AND !$this->_checkCaptcha()) {
+        } elseif (!empty($data) and !$this->_checkCaptcha()) {
             // repopulate the email form
             $data = $this->request->getData();
             $email = $this->Emails->newEntity($data);
             $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
-        }else{
-	        // init email form
+        } else {
+            // init email form
             $email = $this->Emails->newEmptyEntity();
         }
 
@@ -97,19 +103,19 @@ class PagesController extends AppController
             'conditions' => array('Users.user_admin' => 1)
         ));
         $country_ids = array();
-        if($moderators) foreach($moderators as $mod) {
-            if(!empty($mod['country_id']) AND !in_array($mod['country_id'], $country_ids))
+        if ($moderators) foreach ($moderators as $mod) {
+            if (!empty($mod['country_id']) and !in_array($mod['country_id'], $country_ids))
                 $country_ids[] = $mod['country_id'];
         }
         $countries = $this->Countries->find('list')
             ->order(['Countries.name ASC'])
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
-        $this->set(compact('countries','moderators','userAdmins','email'));
+        $this->set(compact('countries', 'moderators', 'userAdmins', 'email'));
     }
 
 
-	/**
+    /**
      * Displays a view
      *
      * @param array ...$path Path segments.
@@ -118,7 +124,8 @@ class PagesController extends AppController
      * @throws \Cake\Http\Exception\NotFoundException When the view file could not
      *   be found or \Cake\View\Exception\MissingTemplateException in debug mode.
      */
-    public function display(...$path) {
+    public function display(...$path)
+    {
         $count = count($path);
         if (!$count) {
             return $this->redirect('/');

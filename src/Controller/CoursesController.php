@@ -115,9 +115,9 @@ class CoursesController extends AppController
         $this->Authorization->authorize($course);
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
-            $course->set('updated', date("Y-m-d H:i:s") );
+            $course->set('updated', date("Y-m-d H:i:s"));
             // set user_id
-            $course->set('user_id', $this->Authentication->getIdentity()->id);                        
+            $course->set('user_id', $this->Authentication->getIdentity()->id);
             // set city_id
             $query = $this->Courses->Institutions->find('all')->where(['id' => $course->institution_id]);
             $course->set('city_id', $query->first()->city_id);
@@ -152,12 +152,22 @@ class CoursesController extends AppController
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
         // required for changing map to location of selected institution
         $institutionsLocations = [];
-        foreach($this->Courses->Institutions->find() as $institution) {
+        foreach ($this->Courses->Institutions->find() as $institution) {
             $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('mapInit' ,'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
-                            'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
+        $this->set(compact(
+            'mapInit',
+            'course',
+            'languages',
+            'course_types',
+            'course_duration_units',
+            'institutions',
+            'disciplines',
+            'tadirah_techniques',
+            'tadirah_objects',
+            'institutionsLocations'
+        ));
     }
 
     public function edit($id = null)
@@ -169,7 +179,7 @@ class CoursesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
-            $course->set('updated', date("Y-m-d H:i:s") );
+            $course->set('updated', date("Y-m-d H:i:s"));
             // set city_id
             $query = $this->Courses->Institutions->find('all')->where(['id' => $course->institution_id]);
             $course->set('city_id', $query->first()->city_id);
@@ -203,12 +213,22 @@ class CoursesController extends AppController
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
         // required for changing map to location of selected institution
         $institutionsLocations = [];
-        foreach($this->Courses->Institutions->find() as $institution) {
+        foreach ($this->Courses->Institutions->find() as $institution) {
             $institutionsLocations[$institution->id] = ['lon' => $institution->lon, 'lat' => $institution->lat];
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('mapInit', 'course', 'languages', 'course_types', 'course_duration_units', 'institutions', 'disciplines', 
-                            'tadirah_techniques', 'tadirah_objects', 'institutionsLocations'));
+        $this->set(compact(
+            'mapInit',
+            'course',
+            'languages',
+            'course_types',
+            'course_duration_units',
+            'institutions',
+            'disciplines',
+            'tadirah_techniques',
+            'tadirah_objects',
+            'institutionsLocations'
+        ));
     }
 
     public function myCourses()
@@ -224,20 +244,23 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $courses = $this->paginate($this->Courses->find()->where([
-                                                                'deleted' => 0,
-                                                                'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                                'user_id' => $user->id
-                                                                ]),
-                                                    ['order' => ['Courses.name' => 'asc'], 
-                                                    'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                                    ]);
+        $courses = $this->paginate(
+            $this->Courses->find()->where([
+                'deleted' => 0,
+                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                'user_id' => $user->id
+            ]),
+            [
+                'order' => ['Courses.name' => 'asc'],
+                'contain' => ['CourseTypes', 'Institutions', 'Users']
+            ]
+        );
         $coursesCount = $this->Courses->find()->where([
-                                                        'deleted' => 0,
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'user_id' => $user->id                                                        
-                                                        ])
-                                                        ->count();
+            'deleted' => 0,
+            'Courses.updated >' => Configure::read('courseArchiveDate'),
+            'user_id' => $user->id
+        ])
+            ->count();
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
         // "customize" view
@@ -259,61 +282,70 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'myCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'Courses.active' => 1,
-                                                                    'Courses.deleted' => 0,
-                                                                    'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                                    'Courses.updated >' => Configure::read('courseArchiveDate')
-                                                                    ]), 
-                                        ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+        if ($user->is_admin) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated <' => Configure::read('courseYellowDate'),
+                    'Courses.updated >' => Configure::read('courseArchiveDate')
+                ]),
+                [
+                    'order' => ['Courses.updated' => 'asc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                                        'active' => 1,
-                                                        'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate')
-                                                        ])
-                                                        ->count();
-        } elseif($user->user_role_id == 2) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                        'Courses.active' => 1,
-                                                        'Courses.deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'Courses.country_id' => $user->country_id
-                                                        ]), 
-                                        ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+                'active' => 1,
+                'deleted' => 0,
+                'Courses.updated <' => Configure::read('courseYellowDate'),
+                'Courses.updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
+        } elseif ($user->user_role_id == 2) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated <' => Configure::read('courseYellowDate'),
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                    'Courses.country_id' => $user->country_id
+                ]),
+                [
+                    'order' => ['Courses.updated' => 'asc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                                        'active' => 1,
-                                                        'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'Courses.country_id' => $user->country_id
-                                                        ])
-                                                        ->count();
+                'active' => 1,
+                'deleted' => 0,
+                'Courses.updated <' => Configure::read('courseYellowDate'),
+                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                'Courses.country_id' => $user->country_id
+            ])
+                ->count();
         } else {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                        'Courses.active' => 1,
-                                                        'Courses.deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'Courses.user_id' => $user->id
-                                                        ]), 
-                                        ['order' => ['Courses.updated' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated <' => Configure::read('courseYellowDate'),
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                    'Courses.user_id' => $user->id
+                ]),
+                [
+                    'order' => ['Courses.updated' => 'asc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                                        'active' => 1,
-                                                        'deleted' => 0,
-                                                        'Courses.updated <' => Configure::read('courseYellowDate'),
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'user_id' => $user->id
-                                                        ])
-                                                        ->count();
+                'active' => 1,
+                'deleted' => 0,
+                'Courses.updated <' => Configure::read('courseYellowDate'),
+                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                'user_id' => $user->id
+            ])
+                ->count();
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
@@ -336,28 +368,31 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'moderatedCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->user_role_id == 2) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'Courses.approved' => 1,
-                                                                    'Courses.active' => 1,
-                                                                    'Courses.deleted' => 0,
-                                                                    'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                                    'Courses.country_id' => $user->country_id
-                                                                    ]), 
-                                    ['order' => ['Courses.name' => 'asc'], 
-                                    'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                    ]);
+        if ($user->user_role_id == 2) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.approved' => 1,
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                    'Courses.country_id' => $user->country_id
+                ]),
+                [
+                    'order' => ['Courses.name' => 'asc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                                        'Courses.approved' => 1,
-                                                        'Courses.active' => 1,
-                                                        'Courses.deleted' => 0,
-                                                        'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                        'Courses.country_id' => $user->country_id,
-                                                        ])
-                                                        ->count();
-    } else {
+                'Courses.approved' => 1,
+                'Courses.active' => 1,
+                'Courses.deleted' => 0,
+                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                'Courses.country_id' => $user->country_id,
+            ])
+                ->count();
+        } else {
             $this->Flash->error(__('Not authorized to moderated courses'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
@@ -380,22 +415,25 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'allCourses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'deleted' => 0,
-                                                                    'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                                    ]), 
-                                        ['order' => ['Courses.name' => 'asc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+        if ($user->is_admin) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'deleted' => 0,
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                ]),
+                [
+                    'order' => ['Courses.name' => 'asc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                                            'deleted' => 0,
-                                                            'Courses.updated >' => Configure::read('courseArchiveDate')
-                                                            ])
-                                                            ->count();
+                'deleted' => 0,
+                'Courses.updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
         } else {
             $this->Flash->error(__('Not authorized to all courses'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));
@@ -409,12 +447,12 @@ class CoursesController extends AppController
     {
         $this->loadModel('DhcrCore.Courses');
         $user = $this->Authentication->getIdentity();
-        if($id != null) {
+        if ($id != null) {
             $course = $this->Courses->get($id);
             $this->Authorization->authorize($course);
             $course->set('approved', 1);
             if ($this->Courses->save($course)) {
-                $this->Flash->success(__('The course has been approved.'));    
+                $this->Flash->success(__('The course has been approved.'));
             } else {
                 $this->Flash->error(__('Error approving the course.'));
             }
@@ -429,45 +467,51 @@ class CoursesController extends AppController
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'courseApproval';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'Courses.approved' => 0,
-                                                                    'Courses.active' => 1,
-                                                                    'Courses.deleted' => 0,
-                                                                    'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                                    ]), 
-                                        ['order' => ['Courses.created' => 'desc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+        if ($user->is_admin) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.approved' => 0,
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                ]),
+                [
+                    'order' => ['Courses.created' => 'desc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                'approved' => 0,
-                                'active' => 1,
-                                'deleted' => 0,
-                                'Courses.updated >' => Configure::read('courseArchiveDate')
-                                ])
-                                ->count();
-        } elseif($user->user_role_id == 2) {
-            $courses = $this->paginate($this->Courses->find()->where([
-                                                                    'Courses.approved' => 0,
-                                                                    'Courses.active' => 1,
-                                                                    'Courses.deleted' => 0,
-                                                                    'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                                                    'Courses.country_id' => $user->country_id
-                                                                    ]), 
-                                        ['order' => ['Courses.created' => 'desc'], 
-                                        'contain' => ['CourseTypes', 'Institutions', 'Users']
-                                        ]);
+                'approved' => 0,
+                'active' => 1,
+                'deleted' => 0,
+                'Courses.updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
+        } elseif ($user->user_role_id == 2) {
+            $courses = $this->paginate(
+                $this->Courses->find()->where([
+                    'Courses.approved' => 0,
+                    'Courses.active' => 1,
+                    'Courses.deleted' => 0,
+                    'Courses.updated >' => Configure::read('courseArchiveDate'),
+                    'Courses.country_id' => $user->country_id
+                ]),
+                [
+                    'order' => ['Courses.created' => 'desc'],
+                    'contain' => ['CourseTypes', 'Institutions', 'Users']
+                ]
+            );
             $coursesCount = $this->Courses->find()->where([
-                                'approved' => 0,
-                                'active' => 1,
-                                'deleted' => 0,
-                                'Courses.updated >' => Configure::read('courseArchiveDate'),
-                                'Courses.country_id' => $user->country_id,
-                                ])
-                                ->count();
+                'approved' => 0,
+                'active' => 1,
+                'deleted' => 0,
+                'Courses.updated >' => Configure::read('courseArchiveDate'),
+                'Courses.country_id' => $user->country_id,
+            ])
+                ->count();
         } else {
             $this->Flash->error(__('Not authorized to course approval'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('courses', 'coursesCount'));

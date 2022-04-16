@@ -17,9 +17,9 @@ class CitiesController extends AppController
     public function index()
     {
         $user = $this->Authentication->getIdentity();
-        if( !($user->user_role_id == 2 || $user->is_admin)) {
+        if (!($user->user_role_id == 2 || $user->is_admin)) {
             $this->Flash->error(__('Not authorized to cities index'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';

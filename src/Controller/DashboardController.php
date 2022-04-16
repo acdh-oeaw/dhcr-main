@@ -38,59 +38,59 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'needsAttention';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if($user->is_admin) {
+        if ($user->is_admin) {
             $pendingAccountRequests = $this->Users->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    ])
-                                                                    ->count();
+                'approved' => 0,
+                'active' => 1,
+            ])
+                ->count();
             $pendingCourseRequests = $this->Courses->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
-                                                                    'updated >' => Configure::read('courseArchiveDate')
-                                                                    ])
-                                                                    ->count();
+                'approved' => 0,
+                'active' => 1,
+                'deleted' => 0,
+                'updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
             $expiredCourses = $this->Courses->find()->where([
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
-                                                                    'updated <' => Configure::read('courseYellowDate'),
-                                                                    'updated >' => Configure::read('courseArchiveDate')
-                                                                    ])
-                                                                    ->count();
-        } elseif($user->user_role_id == 2) {
+                'active' => 1,
+                'deleted' => 0,
+                'updated <' => Configure::read('courseYellowDate'),
+                'updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
+        } elseif ($user->user_role_id == 2) {
             $pendingAccountRequests = $this->Users->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    'country_id' => $user->country_id,
-                                                                    ])
-                                                                    ->count();
+                'approved' => 0,
+                'active' => 1,
+                'country_id' => $user->country_id,
+            ])
+                ->count();
             $pendingCourseRequests = $this->Courses->find()->where([
-                                                                    'approved' => 0,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
-                                                                    'updated >' => Configure::read('courseArchiveDate'),
-                                                                    'country_id' => $user->country_id
-                                                                    ])->count();
+                'approved' => 0,
+                'active' => 1,
+                'deleted' => 0,
+                'updated >' => Configure::read('courseArchiveDate'),
+                'country_id' => $user->country_id
+            ])->count();
             $expiredCourses = $this->Courses->find()->where([
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
-                                                                    'updated <' => Configure::read('courseYellowDate'),
-                                                                    'updated >' => Configure::read('courseArchiveDate'),
-                                                                    'country_id' => $user->country_id
-                                                                    ])
-                                                                    ->count();
+                'active' => 1,
+                'deleted' => 0,
+                'updated <' => Configure::read('courseYellowDate'),
+                'updated >' => Configure::read('courseArchiveDate'),
+                'country_id' => $user->country_id
+            ])
+                ->count();
         } else {
             $pendingAccountRequests = 0;
             $pendingCourseRequests = 0;
             $expiredCourses = $this->Courses->find()->where([
-                                                            'active' => 1,
-                                                            'deleted' => 0,
-                                                            'updated <' => Configure::read('courseYellowDate'),
-                                                            'updated >' => Configure::read('courseArchiveDate'),
-                                                            'user_id' => $user->id
-                                                            ])
-                                                            ->count();
+                'active' => 1,
+                'deleted' => 0,
+                'updated <' => Configure::read('courseYellowDate'),
+                'updated >' => Configure::read('courseArchiveDate'),
+                'user_id' => $user->id
+            ])
+                ->count();
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
@@ -106,29 +106,29 @@ class DashboardController extends AppController
         $breadcrumActions[0] = 'courses';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $myCoursesCount = $this->Courses->find()->where([
-                                                        'deleted' => 0,
-                                                        'updated >' => Configure::read('courseArchiveDate'),
-                                                        'user_id' => $user->id
-                                                        ])
-                                                        ->count();
-        if($user->user_role_id == 2) {
+            'deleted' => 0,
+            'updated >' => Configure::read('courseArchiveDate'),
+            'user_id' => $user->id
+        ])
+            ->count();
+        if ($user->user_role_id == 2) {
             $moderatedCoursesCount = $this->Courses->find()->where([
-                                                                    'approved' => 1,
-                                                                    'active' => 1,
-                                                                    'deleted' => 0,
-                                                                    'updated >' => Configure::read('courseArchiveDate'),
-                                                                    'country_id' => $user->country_id,
-                                                                    ])
-                                                                    ->count();
+                'approved' => 1,
+                'active' => 1,
+                'deleted' => 0,
+                'updated >' => Configure::read('courseArchiveDate'),
+                'country_id' => $user->country_id,
+            ])
+                ->count();
         } else {
             $moderatedCoursesCount = 0;
         }
-        if($user->is_admin) {
+        if ($user->is_admin) {
             $allCoursesCount = $this->Courses->find()->where([
-                                                            'deleted' => 0,
-                                                            'updated >' => Configure::read('courseArchiveDate'),
-                                                            ])
-                                                            ->count();
+                'deleted' => 0,
+                'updated >' => Configure::read('courseArchiveDate'),
+            ])
+                ->count();
         } else {
             $allCoursesCount = 0;
         }
@@ -145,24 +145,24 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if( $user->user_role_id == 2 ) {
+        if ($user->user_role_id == 2) {
             $moderatedUsersCount = $this->Users->find()->where([
-                                                                'approved' => 1,
-                                                                'active' => 1,
-                                                                'country_id' => $user->country_id
-                                                                ])
-                                                                ->count();
+                'approved' => 1,
+                'active' => 1,
+                'country_id' => $user->country_id
+            ])
+                ->count();
         } else {
             $moderatedUsersCount = 0;
         }
-        if( $user->is_admin ) {
+        if ($user->is_admin) {
             $allUsersCount = $this->Users->find()->count();
         } else {
             $allUsersCount = 0;
         }
-        if ( (!$user->is_admin && !($user->user_role_id == 2)) ) {
+        if ((!$user->is_admin && !($user->user_role_id == 2))) {
             $this->Flash->error(__('Not authorized to contributor network'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('moderatedUsersCount', 'allUsersCount'));
@@ -180,13 +180,13 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if( !($user->user_role_id == 2 || $user->is_admin) ) {
+        if (!($user->user_role_id == 2 || $user->is_admin)) {
             $this->Flash->error(__('Not authorized to category lists'));
-            return $this->redirect(['controller' => 'Dashboard' , 'action' => 'index']);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $totalCities = $this->Cities->find()->count();
         $totalInstitutions = $this->Institutions->find()->count();
-        if($user->is_admin) {
+        if ($user->is_admin) {
             $totalLanguages = $this->Languages->find()->count();
             $totalInviteTranslations = $this->InviteTranslations->find()->count();
         } else {
