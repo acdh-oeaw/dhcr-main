@@ -11,7 +11,7 @@ $this->Html->script('https://shared.acdh.oeaw.ac.at/dhcr/content.js', ['block' =
 $this->Html->scriptStart(['block' => true]);
 ?>
 $(document).ready(function(){
-    let content = new Content();
-    content.load();
+let content = new Content();
+content.load();
 });
 <?php $this->Html->scriptEnd(); ?>

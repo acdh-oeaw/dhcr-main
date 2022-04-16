@@ -2,11 +2,11 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-envelope"></span>&nbsp;&nbsp;&nbsp;Change Email Address</h2>
     <div class="column-responsive column-80">
-        <b>Current Email Address: <p><i><?=$user->email ?></i></b>
+        <b>Current Email Address: <p><i><?= $user->email ?></i></b>
         <p></p>
         <p>
-        To change your email address, first fill in the form below so that we can verify it.
-        <br>Please submit the form below to start the process.
+            To change your email address, first fill in the form below so that we can verify it.
+            <br>Please submit the form below to start the process.
         </p>
         <div class="users form content">
             <?= $this->Form->create($user) ?>

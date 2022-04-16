@@ -10,8 +10,8 @@
                 <legend><?= __('Invite User') ?></legend>
                 <p></p>
                 <h3>Step 1: Select an institution for the new user</h3>
-                <p></p><i>Select an institution from the drop-down list. If the institution is not listed, go to 
-                <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?>.</i>
+                <p></p><i>Select an institution from the drop-down list. If the institution is not listed, go to
+                    <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?>.</i>
                 <p></p>
                 <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'empty' => true]) ?>
                 <p>&nbsp;</p>
@@ -27,15 +27,17 @@
                 <h3>Step 3: Personalize the invitation email</h3>
                 <p></p>
                 <b><u>Note for non-English countries</u></b><br>
-                Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course 
+                Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course
                 Registry are in English, you have the possibility to localize the invitation message.
                 <p></p>
                 <b>Preview localized messages</b><br>
                 <?php
-                foreach($inviteTranslations as $inviteTranslation) {
-                    echo $this->Html->link($inviteTranslation->language->name, ['controller' => 'inviteTranslations', 
-                        'action' => 'view', $inviteTranslation->id]) . '<br>';
-                    }
+                foreach ($inviteTranslations as $inviteTranslation) {
+                    echo $this->Html->link($inviteTranslation->language->name, [
+                        'controller' => 'inviteTranslations',
+                        'action' => 'view', $inviteTranslation->id
+                    ]) . '<br>';
+                }
                 echo '<p></p>';
                 echo $this->Form->control('inviteTranslation', ['label' => 'Choose localization*', 'options' => $languageList]);
                 ?>

@@ -11,7 +11,7 @@
                 echo $this->Form->control('first_name', ['label' => 'First Name*']);
                 echo $this->Form->control('last_name', ['label' => 'Last Name*']);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*']);
-                echo $this->Form->control('about', ['label' => 'About Me']);                
+                echo $this->Form->control('about', ['label' => 'About Me']);
                 ?>
             </fieldset>
             <p>&nbsp;</p>

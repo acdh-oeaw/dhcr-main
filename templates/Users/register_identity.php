@@ -14,7 +14,7 @@ $this->set('bodyClasses', 'registration');
     At any time you can choose using classic login by setting a password via the password reset button,
     underneath the classic login form.
 </p>
-<?php if(!$user->hasErrors(false)) : ?>
+<?php if (!$user->hasErrors(false)) : ?>
     <p class="notice">
         You only need to register an account with the DHRC, if you are a lecturer or other academic institution member
         and want to add or curate course meta data.
@@ -41,8 +41,8 @@ we need the country, city and name of your organisation provided here instead.'
     <?= $this->Form->control('first_name') ?>
     <?= $this->Form->control('last_name') ?>
     <?php
-    $classes = ['input','info','required'];
-    if($this->Form->isFieldError('consent')) $classes[] = 'error';
+    $classes = ['input', 'info', 'required'];
+    if ($this->Form->isFieldError('consent')) $classes[] = 'error';
     ?>
     <div class="<?= implode(' ', $classes) ?>">
         <label for="terms-info">Terms</label>
@@ -77,11 +77,11 @@ we need the country, city and name of your organisation provided here instead.'
 </div>
 <?php $this->Html->scriptStart(['block' => true]); ?>
 $(document).ready( function() {
-    $('#which_terms').click(function(event) {
-        event.preventDefault()
-        let modal = new Modal('Privacy Conditions for DHCR Contributors')
-        modal.add($('#terms_content').contents().clone())
-        modal.create()
-    })
+$('#which_terms').click(function(event) {
+event.preventDefault()
+let modal = new Modal('Privacy Conditions for DHCR Contributors')
+modal.add($('#terms_content').contents().clone())
+modal.create()
+})
 })
 <?php $this->Html->scriptEnd(); ?>

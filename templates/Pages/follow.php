@@ -1,7 +1,7 @@
 <div class="title">
     <h2>Follow the DH Course Registry</h2>
     <p>Subscribe for email alerts on new courses or follow us on social media.<br>
-    As a lecturer, national moderator or programme director can sign up for the Contributor Mailing List.</p>
+        As a lecturer, national moderator or programme director can sign up for the Contributor Mailing List.</p>
 </div>
 <div id="accordeon">
     <div class="accordeon-item" id="course-alert">
@@ -24,10 +24,10 @@
         </div>
     </div>
 </div>
-<?php $this->Html->script(['accordeon','hash'], ['block' => true]); ?>
+<?php $this->Html->script(['accordeon', 'hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>
-    $(document).ready( function() {
-        let accordeon = new Accordeon('accordeon');
-        sitemap.setAccordeonHandler(accordeon, 'follow');
-    });
+$(document).ready( function() {
+let accordeon = new Accordeon('accordeon');
+sitemap.setAccordeonHandler(accordeon, 'follow');
+});
 <?php $this->Html->scriptEnd(); ?>

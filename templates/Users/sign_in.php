@@ -1,5 +1,7 @@
 <?php
+
 use Cake\Routing\Router;
+
 $this->set('bodyClasses', 'login');
 ?>
 <div id="classicLogin" style="display:none" class="loginAlternative">
@@ -24,29 +26,31 @@ $this->set('bodyClasses', 'login');
         <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'button small']) ?>
         <?= $this->Html->link('Federated Login', '/users/sign-in/#idpSelect', [
             'class' => 'blue button small',
-            'id' => 'federatedLogin']) ?>
+            'id' => 'federatedLogin'
+        ]) ?>
     </div>
 </div>
 <?php
-if($idpTarget) {
+if ($idpTarget) {
     echo '<div id="idpSelect" class="loginAlternative"></div>';
-    $this->Html->script(['idp_select/IdpSelector.js',
+    $this->Html->script([
+        'idp_select/IdpSelector.js',
         'idp_select/TypeAhead.js',
         'js_cookie'
-    ],['block' => true]);
+    ], ['block' => true]);
     $this->Html->scriptStart(['block' => true]); ?>
     $('#federatedLogin').click(function(e) {
-        e.preventDefault()
-        $('.loginAlternative').toggle()
+    e.preventDefault()
+    $('.loginAlternative').toggle()
     }.bind(this))
     let IdpSelectorClass = new IdpSelector('#idpSelect',
-        '<?= $idpTarget ?>',
-        '<?= Router::url("/js/idp_select/DiscoFeed.json") ?>');
-    <?php $this->Html->scriptEnd();
-}else{
+    '<?= $idpTarget ?>',
+    '<?= Router::url("/js/idp_select/DiscoFeed.json") ?>');
+<?php $this->Html->scriptEnd();
+} else {
     $this->Html->scriptStart(['block' => true]); ?>
     $('#classicLogin').css({display:'block'})
     $('#federatedLogin').css({display:'none'})
-    <?php $this->Html->scriptEnd();
+<?php $this->Html->scriptEnd();
 }
 ?>

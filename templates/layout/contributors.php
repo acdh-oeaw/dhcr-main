@@ -1,4 +1,5 @@
 <?php
+
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -15,6 +16,7 @@
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <?= $this->Element('meta') ?>
     <?= $this->Html->css('contributors.css') ?>
@@ -24,6 +26,7 @@
 $bodyClasses = (!empty($bodyClasses))
     ? 'users ' . $this->request->getParam('action') . ' ' . $bodyClasses
     : 'users ' . $this->request->getParam('action'); ?>
+
 <body class="<?= $bodyClasses ?>">
     <div class="wrapper">
         <div id="page-head">
@@ -56,13 +59,15 @@ $bodyClasses = (!empty($bodyClasses))
             // breadcrum for backend home (dashboard)
             echo $this->Html->link(__('Dashboard'), ['controller' => 'Dashboard', 'action' => 'index'], ['class' => 'side-nav-item']);
             // breadcrums for all other depths
-            if(isset($breadcrumTitles)) {
-                for($i=0; $i < sizeof($breadcrumTitles); $i++) {
-                    if($i<sizeof($breadcrumTitles)-1) {
-                        echo ' / ' . $this->Html->link(__($breadcrumTitles[$i]), ['controller' => $breadcrumControllers[$i],
-                            'action' => $breadcrumActions[$i]], ['class' => 'side-nav-item']);
+            if (isset($breadcrumTitles)) {
+                for ($i = 0; $i < sizeof($breadcrumTitles); $i++) {
+                    if ($i < sizeof($breadcrumTitles) - 1) {
+                        echo ' / ' . $this->Html->link(__($breadcrumTitles[$i]), [
+                            'controller' => $breadcrumControllers[$i],
+                            'action' => $breadcrumActions[$i]
+                        ], ['class' => 'side-nav-item']);
                     } else {
-                        echo ' / <b>' . $breadcrumTitles[$i] .'</b>';
+                        echo ' / <b>' . $breadcrumTitles[$i] . '</b>';
                     }
                 }
             }
@@ -93,4 +98,5 @@ $bodyClasses = (!empty($bodyClasses))
     <?= $this->fetch('script') ?>
     <?= $this->element('matomo') ?>
 </body>
+
 </html>

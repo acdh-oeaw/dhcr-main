@@ -18,5 +18,6 @@ $this->set('bodyClasses', 'registration');
 <div class="login-alternatives">
     <?= $this->Html->link('Reset Password', '/users/reset_password', ['class' => 'button small']) ?>
     <?= $this->Html->link('Go Back', '/users/unknown_identity', [
-        'class' => 'blue button small']) ?>
+        'class' => 'blue button small'
+    ]) ?>
 </div>

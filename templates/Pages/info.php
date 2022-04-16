@@ -2,14 +2,16 @@
     'alt' => 'CLARIN-DARIAH joint logo',
     'width' => 256,
     'height' => 200,
-    'class' => 'joint-logo']) ?>
+    'class' => 'joint-logo'
+]) ?>
 <h1>
     Digital Humanities Course Registry
     <?= $this->Html->image('logo-500.png', [
         'alt' => 'logo',
         'width' => 500,
         'height' => 114,
-        'url' => '/']) ?>
+        'url' => '/'
+    ]) ?>
 </h1>
 <div class="title intent">
     <p>
@@ -65,20 +67,20 @@
         <div class="item-content" id="imprint-content"></div>
     </div>
 </div>
-<?php $this->Html->script(['accordeon','hash'], ['block' => true]); ?>
+<?php $this->Html->script(['accordeon', 'hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>
-    $(document).ready( function() {
-        let accordeon = new Accordeon('accordeon');
-        $('#imprint-content').load('https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=7435');
-        $('#footer .imprint').on('click', function(e) {
-            e.preventDefault();
-            accordeon.openHash('imprint');
-        });
-        $('#contact-button').on('click', function(e) {
-            e.preventDefault();
-            accordeon.openHash('contact');
-        });
-        sitemap.setAccordeonHandler(accordeon, 'info');
-    });
+$(document).ready( function() {
+let accordeon = new Accordeon('accordeon');
+$('#imprint-content').load('https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=7435');
+$('#footer .imprint').on('click', function(e) {
+e.preventDefault();
+accordeon.openHash('imprint');
+});
+$('#contact-button').on('click', function(e) {
+e.preventDefault();
+accordeon.openHash('contact');
+});
+sitemap.setAccordeonHandler(accordeon, 'info');
+});
 <?php $this->Html->scriptEnd(); ?>
 <?php $this->Html->css('info', ['block' => true]); ?>

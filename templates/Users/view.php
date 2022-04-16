@@ -5,56 +5,56 @@
         <div class="view content">
             <?= $this->Html->link(__('Edit User'), ['action' => 'edit', $viewedUser->id], ['class' => 'button float-right']) ?>
             <p></p>
-            <h3><?= ucfirst($viewedUser->academic_title) .' ' .ucfirst($viewedUser->first_name) .' ' .ucfirst($viewedUser->last_name)?></h3>
+            <h3><?= ucfirst($viewedUser->academic_title) . ' ' . ucfirst($viewedUser->first_name) . ' ' . ucfirst($viewedUser->last_name) ?></h3>
             <p></p>
             <strong><u>Account status</u></strong>
             <table>
                 <tr>
                     <th align="left" style="padding: 5px">Email Verified:</th>
                     <td style="padding: 5px">
-                    <?php
-                    if($viewedUser->email_verified) {
-                        echo '<font color="green">Yes</font>';
-                    } else {
-                        echo '<font color="red">No</font>';
-                    }
-                    ?>
+                        <?php
+                        if ($viewedUser->email_verified) {
+                            echo '<font color="green">Yes</font>';
+                        } else {
+                            echo '<font color="red">No</font>';
+                        }
+                        ?>
                     </td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Password Set:</th>
                     <td style="padding: 5px">
-                    <?php
-                    if($viewedUser->password != null) {
-                        echo '<font color="green">Yes</font>';
-                    } else {
-                        echo '<font color="red">No</font>';
-                    }
-                    ?>
+                        <?php
+                        if ($viewedUser->password != null) {
+                            echo '<font color="green">Yes</font>';
+                        } else {
+                            echo '<font color="red">No</font>';
+                        }
+                        ?>
                     </td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Approved:</th>
                     <td style="padding: 5px">
-                    <?php
-                    if($viewedUser->approved) {
-                        echo '<font color="green">Yes</font>';
-                    } else {
-                        echo '<font color="red">No</font>';
-                    }
-                    ?>
+                        <?php
+                        if ($viewedUser->approved) {
+                            echo '<font color="green">Yes</font>';
+                        } else {
+                            echo '<font color="red">No</font>';
+                        }
+                        ?>
                     </td>
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Active:</th>
                     <td style="padding: 5px">
-                    <?php
-                    if($viewedUser->active) {
-                        echo '<font color="green">Yes</font>';
-                    } else {
-                        echo '<font color="red">No</font>';
-                    }
-                    ?>
+                        <?php
+                        if ($viewedUser->active) {
+                            echo '<font color="green">Yes</font>';
+                        } else {
+                            echo '<font color="red">No</font>';
+                        }
+                        ?>
                     </td>
                 </tr>
             </table>
@@ -79,7 +79,8 @@
                 </tr>
             </table>
             <p></p>
-            <?php if($user->is_admin) { // only admin can see user roles ?>
+            <?php if ($user->is_admin) { // only admin can see user roles 
+            ?>
                 <strong><u>User roles</u></strong>
                 <table>
                     <tr>
