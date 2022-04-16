@@ -5,9 +5,9 @@
         <p></p>
         <div class="users form content">
             <?= $this->Form->create() ?>
-            Click the button below to receive an email with the password reset link.
+            Click the button below to receive an email with a link to change your password.
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Change password')) ?>
+            <?= $this->Form->button(__('Request password change email')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

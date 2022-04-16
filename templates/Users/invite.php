@@ -43,7 +43,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Invite this user')) ?>
+            <?= $this->Form->button(__('Invite User')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

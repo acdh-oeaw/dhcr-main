@@ -21,7 +21,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Update Invite Translation')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

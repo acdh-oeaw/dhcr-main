@@ -17,7 +17,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->button(__('Update City')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
