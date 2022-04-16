@@ -49,7 +49,7 @@
                  -Place the blue marker on the correct position, to confirm the location.
                 <p></p>
                 <?php 
-                echo $this->element('locationpicker');  // include locationpicker incl. handeling of institution selector
+                echo $this->element('courseLocationpicker');  // include locationpicker incl. handeling of institution selector
                 echo '<p></p>';
                 echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
                 echo $this->Form->control('courses_tadirah_techniques', ['label' => 'Tadirah Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
