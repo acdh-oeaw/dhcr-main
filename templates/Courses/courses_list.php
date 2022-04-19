@@ -90,7 +90,7 @@ use Cake\Core\Configure;
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
                         <td style="padding: 5px"><?= $course->department ?></td>
                         <?php if (in_array($course_view_type, ['Course Approval', 'Course Expiry'])) {
-                            echo '<td style="padding: 5px">' .$course->user->first_name . ' ' . $course->user->last_name .'</td>';
+                            echo '<td style="padding: 5px">' . $course->user->first_name . ' ' . $course->user->last_name . '</td>';
                         } ?>
                         <td style="padding: 5px"><?= $this->Html->link('Link', $course->info_url) ?>
                     </tr>
