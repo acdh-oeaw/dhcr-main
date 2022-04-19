@@ -77,7 +77,7 @@ use Cake\Core\Configure;
                         } elseif (($course->updated < Configure::read('courseYellowDate')) && ($course->updated > Configure::read('courseRedDate'))) {
                             echo '#ffbf00';
                         } else {
-                            echo '#ff4000';
+                            echo '#fc2530'; // alternatives e86547  fc4920  f90411
                         }
                         ?>
                         ">
