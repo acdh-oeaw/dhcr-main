@@ -9,24 +9,23 @@
             <fieldset>
                 <legend><?= __('Add Course') ?></legend>
                 <?php
-                echo $this->Form->control('name', ['label' => 'Course Name*']);
+                echo $this->Form->control('name', ['label' => 'Course Name*', 'placeholder' => 'Please provide the course name in English']);
                 echo $this->Form->control('online_course');
                 echo $this->Form->control('course_type_id', ['label' => 'Education Type*', 'options' => $course_types,  'empty' => true]);
                 echo $this->Form->control('language_id', ['label' => 'Language*', 'options' => $languages, 'empty' => true]);
-                echo $this->Form->control('ects', ['label' => 'ECTS']);
+                echo $this->Form->control('ects', ['label' => 'ECTS', 'placeholder' => 'Leave blank if not applicable']);
                 ?>
-                Credit points rewarded within the European Credit Transfer and Accumulation System (ECTS). <br>Leave blank if not applicable.
+                Credit points rewarded within the European Credit Transfer and Accumulation System (ECTS).
                 <p>&nbsp;</p>
                 <?php
-                echo $this->Form->control('info_url', ['label' => 'Source URL*']);
-                echo 'The public web address of the course description and syllabus.<p>&nbsp;</p>';
+                echo $this->Form->control('info_url', ['label' => 'Course URL*', 'placeholder' => 'The public web address of the course description and syllabus']);
                 echo $this->Form->control('contact_name', ['label' => 'Lecturer Name']);
                 echo $this->Form->control('contact_mail', ['label' => 'Lecturer E-Mail']);
-                echo $this->Form->control('description', ['label' => 'Description']);
-                echo $this->Form->control('access_requirements', ['label' => 'Access Requirements']);
+                echo $this->Form->control('description', ['label' => 'Description', 'placeholder' => 'Please provide the course description in English']);
+                echo $this->Form->control('access_requirements', ['label' => 'Entry Requirements', 'placeholder' => 'For instance: if you want to enroll in this MA module, you need to hold a BA degree in X, Y, Z']);
                 ?>
                 <p>&nbsp;</p>
-                <p>For <strong>recurring start dates</strong>, please enter all dates over one full year, when students can start the course.
+                <p>For <strong><u>recurring start dates</u></strong>, please enter all dates over one full year, when students can start the course.
                     These dates only consist of [month]-[day] and are meant to be valid in subsequent years.</p>
                 <p><strong><u>One-off start dates</u></strong> consist of a full date
                     [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
@@ -41,7 +40,7 @@
                 echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
                 echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
                 ?>
-                <b>Location</b><br>
+                <strong><u>Location</u></strong><br>
                 Coordinates can be drawn in from the institution selector above. If not applicable, adjust using the location picker.<br>
                 Changing your selection from the institutions list above will overwrite the current coordinate value.<br>
                 -You can zoom using the scroll wheel.<br>
@@ -53,9 +52,15 @@
                 echo $this->element('update_map_by_institution');  // include handling of institution selector
                 echo '<p></p>';
                 echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
-                echo $this->Form->control('courses_tadirah_techniques', ['label' => 'Tadirah Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
-                echo $this->Form->control('courses_tadirah_objects', ['label' => 'Tadirah Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
+                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
+                echo $this->Form->control('courses_tadirah_techniques', ['label' => 'TaDiRAH Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
+                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
+                echo $this->Form->control('courses_tadirah_objects', ['label' => 'TaDiRAH Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
+                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
                 ?>
+                <strong><u>TaDiRAH</u></strong> is a taxonomy of Digital Research Activities in the Humanities, that includes labels for tasks, techniques and objects,
+                and other sub-disciplines from the field of Social Sciences and the Humanities. Learn more at:
+                <a href="https://tadirah.info">https://tadirah.info</a>
                 <p>&nbsp;
                     <?= $this->Form->control('active', ['label' => 'Show course in the registry']); ?>
                     Check this box if your course is ready to be published in the registry.<br>
