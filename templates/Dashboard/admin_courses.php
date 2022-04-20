@@ -19,7 +19,7 @@
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-th"></span><br>
             Moderated Courses<br>
-            <font color="#60a845">(&nbsp;' . $moderatedCoursesCount . '&nbsp;)</font><p></p>',
+            <font color="#81d41a">(&nbsp;' . $moderatedCoursesCount . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'courses',
                 'action' => 'moderated'
@@ -34,7 +34,7 @@
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-education"></span><br>
         My Courses<br>
-        <font color="#60a845">(&nbsp;' . $myCoursesCount . '&nbsp;)</font><p></p>',
+        <font color="#81d41a">(&nbsp;' . $myCoursesCount . '&nbsp;)</font><p></p>',
         [
             'controller' => 'courses',
             'action' => 'myCourses'
@@ -49,7 +49,7 @@
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon glyphicon-list-alt"></span><br>
                 All Courses<br>
-                <font color="#60a845">(&nbsp;' . $allCoursesCount . '&nbsp;)</font><p></p>',
+                <font color="#81d41a">(&nbsp;' . $allCoursesCount . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'courses',
                 'action' => 'all'

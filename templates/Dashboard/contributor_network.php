@@ -19,7 +19,7 @@
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
             Moderated Users<br>
-            <font color="#60a845">(&nbsp;' . $moderatedUsersCount . '&nbsp;)</font><p></p>',
+            <font color="#81d41a">(&nbsp;' . $moderatedUsersCount . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'users',
                 'action' => 'moderated'
@@ -35,7 +35,7 @@
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>
             All Users<br>
-            <font color="#60a845">(&nbsp;' . $allUsersCount . '&nbsp;)</font><p></p>',
+            <font color="#81d41a">(&nbsp;' . $allUsersCount . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'users',
                 'action' => 'all'
