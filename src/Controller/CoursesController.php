@@ -168,6 +168,11 @@ class CoursesController extends AppController
             'tadirah_objects',
             'institutionsLocations'
         ));
+        // "customize" view
+        $this->set('course_icon', 'plus');
+        $this->set('course_action', 'Add Course');
+        $this->set('course_submit_label', 'Add Course');
+        $this->render('add_edit');
     }
 
     public function edit($id = null)
@@ -229,6 +234,11 @@ class CoursesController extends AppController
             'tadirah_objects',
             'institutionsLocations'
         ));
+        // "customize" view
+        $this->set('course_icon', 'pencil');
+        $this->set('course_action', 'Edit Course');
+        $this->set('course_submit_label', 'Update Course');
+        $this->render('add_edit');
     }
 
     public function myCourses()

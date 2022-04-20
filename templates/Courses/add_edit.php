@@ -1,13 +1,13 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add Course</h2>
+    <h2><span class="glyphicon glyphicon-<?=$course_icon ?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_action ?></h2>
     <div class="column-responsive column-80">
         Please provide the meta data in <b><u>English</u></b>, independent from the language the course is held in.
         <p>&nbsp;</p>
         <div class="courses form content">
             <?= $this->Form->create($course) ?>
             <fieldset>
-                <legend><?= __('Add Course') ?></legend>
+                <legend><?= __($course_action) ?></legend>
                 <?php
                 echo $this->Form->control('name', ['label' => 'Course Name*', 'placeholder' => 'Please provide the course name in English']);
                 echo $this->Form->control('online_course');
@@ -68,7 +68,7 @@
                 </p>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Add Course')) ?>
+            <?= $this->Form->button(__($course_submit_label )) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
