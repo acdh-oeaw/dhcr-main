@@ -74,17 +74,20 @@ use Cake\Core\Configure;
                         <?php
                         if ($course->updated > Configure::read('courseYellowDate')) {
                             echo '#81d41a';
+                            $textColor = 'black';
                         } elseif (($course->updated < Configure::read('courseYellowDate')) && ($course->updated > Configure::read('courseRedDate'))) {
                             echo '#ffbf00';
+                            $textColor = 'black';
                         } else {
                             echo '#fc2530'; // alternatives e86547  fc4920  f90411
+                            $textColor = 'white';
                         }
                         ?>
                         ">
-                            <font color="black"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font>
+                        <strong><font color="<?=$textColor?>"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></strong>
                         </td>
                         <td style="padding: 5px">
-                            <font color="<?= ($course->active) ? 'green">Yes' : 'red">No' ?></font></td>
+                            <strong><font color="<?= ($course->active) ? 'green">Yes' : 'red">No' ?></font></strong></td>
                         <td style=" padding: 5px"><?= $this->Html->link(__($course->name), ['action' => 'view', $course->id]) ?>
                         <td style="padding: 5px"><?= $course->course_type->name ?></td>
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
