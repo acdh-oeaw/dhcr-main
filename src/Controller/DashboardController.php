@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Authentication\IdentityInterface;
 use Cake\Event\EventInterface;
 use Cake\Core\Configure;
 
@@ -20,42 +21,14 @@ class DashboardController extends AppController
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    public function index()
+    private function getPendingAccountRequests(IdentityInterface $user)
     {
-        $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user, 'accessDashboard');
-        // $identity = $this->_checkExternalIdentity();
-        $this->set(compact('user')); // required for contributors menu
-    }
-
-    public function needsAttention()
-    {
-        $user = $this->Authentication->getIdentity();
         $this->loadModel('Users');
-        $this->loadModel('DhcrCore.Courses');
-        // Set breadcrums
-        $breadcrumTitles[0] = 'Needs Attention';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'needsAttention';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $pendingAccountRequests = 0;
         if ($user->is_admin) {
             $pendingAccountRequests = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
-            ])
-                ->count();
-            $pendingCourseRequests = $this->Courses->find()->where([
-                'approved' => 0,
-                'active' => 1,
-                'deleted' => 0,
-                'updated >' => Configure::read('courseArchiveDate')
-            ])
-                ->count();
-            $expiredCourses = $this->Courses->find()->where([
-                'active' => 1,
-                'deleted' => 0,
-                'updated <' => Configure::read('courseYellowDate'),
-                'updated >' => Configure::read('courseArchiveDate')
             ])
                 ->count();
         } elseif ($user->user_role_id == 2) {
@@ -65,6 +38,23 @@ class DashboardController extends AppController
                 'country_id' => $user->country_id,
             ])
                 ->count();
+        }
+        return $pendingAccountRequests;
+    }
+
+    private function getPendingCourseRequests(IdentityInterface $user)
+    {
+        $this->loadModel('DhcrCore.Courses');
+        $pendingCourseRequests = 0;
+        if ($user->is_admin) {
+            $pendingCourseRequests = $this->Courses->find()->where([
+                'approved' => 0,
+                'active' => 1,
+                'deleted' => 0,
+                'updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
+        } elseif ($user->user_role_id == 2) {
             $pendingCourseRequests = $this->Courses->find()->where([
                 'approved' => 0,
                 'active' => 1,
@@ -72,6 +62,22 @@ class DashboardController extends AppController
                 'updated >' => Configure::read('courseArchiveDate'),
                 'country_id' => $user->country_id
             ])->count();
+        }
+        return $pendingCourseRequests;
+    }
+
+    private function getExpiredCourses(IdentityInterface $user)
+    {
+        $this->loadModel('DhcrCore.Courses');
+        if ($user->is_admin) {
+            $expiredCourses = $this->Courses->find()->where([
+                'active' => 1,
+                'deleted' => 0,
+                'updated <' => Configure::read('courseYellowDate'),
+                'updated >' => Configure::read('courseArchiveDate')
+            ])
+                ->count();
+        } elseif ($user->user_role_id == 2) {
             $expiredCourses = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
@@ -81,8 +87,6 @@ class DashboardController extends AppController
             ])
                 ->count();
         } else {
-            $pendingAccountRequests = 0;
-            $pendingCourseRequests = 0;
             $expiredCourses = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
@@ -92,6 +96,33 @@ class DashboardController extends AppController
             ])
                 ->count();
         }
+        return $expiredCourses;
+    }
+
+    public function index()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user, 'accessDashboard');
+        // $identity = $this->_checkExternalIdentity();
+        $pendingAccountRequests = $this->getPendingAccountRequests($user);
+        $pendingCourseRequests = $this->getPendingCourseRequests($user);
+        $expiredCourses = $this->getExpiredCourses($user);
+        $totalNeedsattention = $pendingAccountRequests + $pendingCourseRequests + $expiredCourses;
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses', 'totalNeedsattention'));
+    }
+
+    public function needsAttention()
+    {
+        $user = $this->Authentication->getIdentity();
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Needs Attention';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'needsAttention';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $pendingAccountRequests = $this->getPendingAccountRequests($user);
+        $pendingCourseRequests = $this->getPendingCourseRequests($user);
+        $expiredCourses = $this->getExpiredCourses($user);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses'));
     }

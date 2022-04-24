@@ -1,20 +1,37 @@
 <p></p>
 <div id="welcome_user">
-    <p></p>
-    <?php
-    echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
-        . ', thanks for contributing to the DHCR';
-    if ($user->is_admin) {
-        echo ' as <strong><font color="60a845"> administrator</font></strong>';
-    }
-    if ($user->is_admin && $user->user_role_id == 2) {
-        echo ' and ';
-    }
-    if ($user->user_role_id == 2) {
-        echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name . '</font></strong>';
-    }
-    echo '.';
-    ?>
+    <p>
+        <?php
+        // welcome line
+        echo 'Hello ' . ucfirst(trim($user->academic_title)) . ' ' . ucfirst(trim($user->first_name)) . ' ' . ucfirst(trim($user->last_name))
+            . ', thanks for contributing to the DHCR';
+        if ($user->is_admin) {
+            echo ' as <strong><font color="60a845"> administrator</font></strong>';
+        }
+        if ($user->is_admin && $user->user_role_id == 2) {
+            echo ' and ';
+        }
+        if ($user->user_role_id == 2) {
+            echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name . '</font></strong>';
+        }
+        echo '.</p>';
+        // needs attention counts on one line
+        echo '<font color="60a845"><strong>';
+        if ($user->is_admin || $user->user_role_id == 2) {
+            if ($pendingAccountRequests > 0) {
+                echo '<span class="glyphicon glyphicon-pushpin"></span> Account Approval: ' .$pendingAccountRequests .'&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+            }
+            if ($pendingCourseRequests > 0) {
+                echo '<span class="glyphicon glyphicon-pushpin"></span> Course Approval: ' .$pendingCourseRequests .'&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+            }
+        }
+        echo '<span class="glyphicon glyphicon-pushpin"></span> Course expiry: ' .$expiredCourses .'<br>';
+        echo '-OR-<br>';
+        if ($totalNeedsattention != 9999) {
+            echo '<span class="glyphicon glyphicon-check"></span> You are up to date';
+        }
+        echo '</strong></font>';
+        ?>
 </div>
 <p></p>
 <h2><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Dashboard</h2>
