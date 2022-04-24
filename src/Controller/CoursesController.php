@@ -211,7 +211,7 @@ class CoursesController extends AppController
         $mapInit = ['lon' => $course->lon, 'lat' => $course->lat];
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
-        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
+        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc']);
         $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
