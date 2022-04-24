@@ -23,9 +23,9 @@ use Cake\Core\Configure;
         ?>
             <p>
                 <strong><u>Course Status</u></strong><br>
-                <font color="green">Green:</font> Actively maintained<br>
-                <font color="orange">Yellow:</font> Reminder sent more than 1 month ago, course needs to be updated<br>
-                <font color="red">Red:</font> Outdated, not shown in public registry
+                <strong><font color="green">Green:</font></strong> Actively maintained<br>
+                <strong><font color="orange">Yellow:</font></strong> Reminder sent more than 1 month ago, needs to be updated<br>
+                <strong><font color="red">Red:</font></strong> Outdated, not shown in public registry
             </p>
         <?php
         }
@@ -54,7 +54,7 @@ use Cake\Core\Configure;
                         <?php if (in_array($course_view_type, ['Course Approval', 'Course Expiry'])) {
                             echo '<th align="left" style="padding: 5px">Created by</th>';
                         } ?>
-                        <th align="left" style="padding: 5px">Source URL</th>
+                        <th align="left" style="padding: 5px">Course URL</th>
                     </tr>
                 </thead>
             <?php } ?>
