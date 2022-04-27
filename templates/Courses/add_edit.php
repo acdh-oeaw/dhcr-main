@@ -2,7 +2,7 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-<?=$course_icon ?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_action ?></h2>
     <div class="column-responsive column-80">
-        Please provide the meta data in <b><u>English</u></b>, independent from the language the course is held in.
+        Please provide the metadata in <b><u>English</u></b>, independent from the language the course is held in.
         <p>&nbsp;</p>
         <div class="courses form content">
             <?= $this->Form->create($course) ?>
@@ -52,13 +52,13 @@
                 echo $this->element('update_map_by_institution');  // include handling of institution selector
                 echo '<p></p>';
                 echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
+                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
                 echo $this->Form->control('courses_tadirah_techniques', ['label' => 'TaDiRAH Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
+                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
                 echo $this->Form->control('courses_tadirah_objects', ['label' => 'TaDiRAH Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item of this list by holding the shift key.</i><p></p>';
+                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
                 ?>
-                <strong><u>TaDiRAH</u></strong> is a taxonomy of Digital Research Activities in the Humanities, that includes labels for tasks, techniques and objects,
+                <strong><u>TaDiRAH</u></strong> is a taxonomy of Digital Research Activities in the Humanities that includes labels for tasks, techniques and objects,
                 and other sub-disciplines from the field of Social Sciences and the Humanities. Learn more at:
                 <a href="https://tadirah.info">https://tadirah.info</a>
                 <p>&nbsp;
