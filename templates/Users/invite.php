@@ -27,7 +27,7 @@
                 <h3>Step 3: Personalize the invitation email</h3>
                 <p></p>
                 <b><u>Note for non-English countries</u></b><br>
-                Users may respond better to an invitation in their mother language. Although the interface and the meta data in the Course
+                Users may respond better to an invitation in their mother language. Although the interface and the metadata in the Course
                 Registry are in English, you have the possibility to localize the invitation message.
                 <p></p>
                 <b>Preview localized messages</b><br>
