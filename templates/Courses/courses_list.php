@@ -15,17 +15,23 @@ use Cake\Core\Configure;
                 'width' => 150,
                 'height' => 67
             ]);
-            echo '<p>Please mind contributing to the DHCR project by sharing your courses on social media or 
-                placing the DHCR-featured badge on institutional websites.</p>';
+            echo '<p>Please help promote the DH course registry by sharing your courses on social media or placing the DHCR-featured 
+            badge on institutional websites.</p>';
         }
         if (in_array($course_view_type, ['Course Expiry', 'My Courses', 'Moderated Courses', 'All Courses']) && $coursesCount > 0) {
             // don't show for course approval
         ?>
             <p>
                 <strong><u>Course Status</u></strong><br>
-                <strong><font color="green">Green:</font></strong> Actively maintained<br>
-                <strong><font color="orange">Yellow:</font></strong> Reminder sent more than 1 month ago, needs to be updated<br>
-                <strong><font color="red">Red:</font></strong> Outdated, not shown in public registry
+                <strong>
+                    <font color="green">Green:</font>
+                </strong> Actively maintained<br>
+                <strong>
+                    <font color="orange">Yellow:</font>
+                </strong> Reminder sent more than 1 month ago, needs to be updated<br>
+                <strong>
+                    <font color="red">Red:</font>
+                </strong> Outdated, not shown in public registry
             </p>
         <?php
         }
@@ -84,10 +90,13 @@ use Cake\Core\Configure;
                         }
                         ?>
                         ">
-                        <strong><font color="<?=$textColor?>"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font></strong>
+                            <strong>
+                                <font color="<?= $textColor ?>"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font>
+                            </strong>
                         </td>
                         <td style="padding: 5px">
-                            <strong><font color="<?= ($course->active) ? 'green">Yes' : 'red">No' ?></font></strong></td>
+                            <strong>
+                                <font color="<?= ($course->active) ? 'green">Yes' : 'red">No' ?></font></strong></td>
                         <td style=" padding: 5px"><?= $this->Html->link(__($course->name), ['action' => 'view', $course->id]) ?>
                         <td style="padding: 5px"><?= $course->course_type->name ?></td>
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
