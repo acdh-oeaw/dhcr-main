@@ -109,7 +109,8 @@ class UsersController extends AppController
             $this->set('identity', $identity);
         } else {
             // render the login form, providing federated authentication
-            $this->_setIdentityProviderTarget();
+            // $this->_setIdentityProviderTarget(); // PA 30-04-22 temporary disabled federated login
+            $this->set('idpTarget', false);
         }
     }
 
