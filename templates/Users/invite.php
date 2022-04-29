@@ -10,8 +10,8 @@
                 <legend><?= __('Invite User') ?></legend>
                 <p></p>
                 <h3>Step 1: Select an institution for the new user</h3>
-                <p></p><i>Select an institution from the drop-down list. If the institution is not listed, go to
-                    <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?>.</i>
+                <p></p>Select an institution from the drop-down list. If the institution is not listed, go to
+                    <?= $this->Html->link('Add Institution', ['controller' => 'institutions', 'action' => 'add']) ?>.
                 <p></p>
                 <?= $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'empty' => true]) ?>
                 <p>&nbsp;</p>
