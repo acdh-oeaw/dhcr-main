@@ -159,7 +159,7 @@
                         <?php
                         if ($user->is_admin) {
                             echo $this->Html->link(
-                                'Invite Translations',
+                                'Translations',
                                 ['controller' => 'InviteTranslations', 'action' => 'index']
                             );
                         }

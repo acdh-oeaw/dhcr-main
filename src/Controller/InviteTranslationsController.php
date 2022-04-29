@@ -25,7 +25,7 @@ class InviteTranslationsController extends AppController
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
-        $breadcrumTitles[1] = 'Invite Translations';
+        $breadcrumTitles[1] = 'Translations';
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
@@ -43,7 +43,7 @@ class InviteTranslationsController extends AppController
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
-        $breadcrumTitles[1] = 'Invite Translation Details';
+        $breadcrumTitles[1] = 'Translation Details';
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'view';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
@@ -73,16 +73,16 @@ class InviteTranslationsController extends AppController
                 $this->Flash->success(__('The invite translation has been added.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The invite translation could not be added. Please, try again.'));
+            $this->Flash->error(__('The translation could not be added. Please, try again.'));
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
-        $breadcrumTitles[1] = 'Invite Translations';
+        $breadcrumTitles[1] = 'Translations';
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'index';
-        $breadcrumTitles[2] = 'Add Invite Translation';
+        $breadcrumTitles[2] = 'Add Translation';
         $breadcrumControllers[2] = 'inviteTranslations';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
@@ -110,16 +110,16 @@ class InviteTranslationsController extends AppController
                 $this->Flash->success(__('The invite translation has been updated.'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The invite translation could not be updated. Please, try again.'));
+            $this->Flash->error(__('The translation could not be updated. Please, try again.'));
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
-        $breadcrumTitles[1] = 'Invite Translations';
+        $breadcrumTitles[1] = 'Translations';
         $breadcrumControllers[1] = 'inviteTranslations';
         $breadcrumActions[1] = 'index';
-        $breadcrumTitles[2] = 'Edit Invite Translation';
+        $breadcrumTitles[2] = 'Edit Translation';
         $breadcrumControllers[2] = 'inviteTranslations';
         $breadcrumActions[2] = 'edit';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));

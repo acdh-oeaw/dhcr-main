@@ -1,8 +1,9 @@
 <div class="inviteTranslations index content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Invite Translations</h2>
-    <?= $this->Html->link(__('Add Invite Translation'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Translations</h2>
+    <?= $this->Html->link(__('Add Translation'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p></p>
+    <p><u>List of the translations for the invite user email</u></p>
     <div class="table-responsive">
         <table>
             <thead>
@@ -10,7 +11,7 @@
                     <th align="left" style="padding: 5px">Sort Order</th>
                     <th align="left" style="padding: 5px">Language</th>
                     <th align="left" style="padding: 5px">Subject</th>
-                    <th align="left" style="padding: 5px">Active</th>
+                    <th align="left" style="padding: 5px">Published</th>
                     <th align="left" style="padding: 5px">Action</th>
                 </tr>
             </thead>

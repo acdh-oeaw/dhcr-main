@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Invite Translation Details</h2>
+    <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Translation Details</h2>
     <div class="column-responsive column-80">
         <div class="inviteTranslations view content">
             <h3><?= h($inviteTranslation->language->name) ?></h3>

@@ -49,7 +49,7 @@
     if ($user->is_admin) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-text-color"></span><br>
-            Invite Translations<br>
+            Translations<br>
             <font color="#81d41a">(&nbsp;' . $totalInviteTranslations . '&nbsp;)</font><p></p>',
             [
                 'controller' => 'inviteTranslations',
@@ -57,7 +57,7 @@
             ],
             [
                 'class' => 'blue button',
-                'title' => ' Invite Translations',
+                'title' => 'Translations',
                 'escape' => false
             ]
         );
