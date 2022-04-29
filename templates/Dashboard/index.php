@@ -12,7 +12,7 @@
             echo ' and ';
         }
         if ($user->user_role_id == 2) {
-            echo ' as <strong><font color="60a845"> moderator</font></strong> </font></strong>'; //of  <strong><font color="60a845">' . $user->country->name . '
+            echo ' as <strong><font color="60a845"> moderator of <strong><font color="60a845">' . $user->country->name . '</font></strong> </font></strong>';
         }
         echo '.</p>';
         // *** start of notification area ***
@@ -47,7 +47,7 @@
         }
         echo '</strong></font></p>';
         // newsletter alert
-        if (!$user->mail_list) {
+        if (!$newsletterSubscription) {
             echo '<p>';
             echo $this->Html->link(
                 '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Subscribe to our mailing list to stay 

@@ -102,7 +102,8 @@ class DashboardController extends AppController
     public function index()
     {
         $this->loadModel('Users');
-        $user = $this->Users->get($this->Authentication->getIdentity()->id);    // make sure the current newsletter prefs are loaded
+        $user = $this->Authentication->getIdentity();
+        $newsletterSubscription = $this->Users->get($user->id)->mail_list;
         $this->Authorization->authorize($user, 'accessDashboard');
         // $identity = $this->_checkExternalIdentity();
         $pendingAccountRequests = $this->getPendingAccountRequests($user);
@@ -110,7 +111,7 @@ class DashboardController extends AppController
         $expiredCourses = $this->getExpiredCourses($user);
         $totalNeedsattention = $pendingAccountRequests + $pendingCourseRequests + $expiredCourses;
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses', 'totalNeedsattention'));
+        $this->set(compact('newsletterSubscription', 'pendingAccountRequests', 'pendingCourseRequests', 'expiredCourses', 'totalNeedsattention'));
     }
 
     public function needsAttention()
