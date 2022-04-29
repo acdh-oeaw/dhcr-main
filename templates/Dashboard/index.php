@@ -12,25 +12,51 @@
             echo ' and ';
         }
         if ($user->user_role_id == 2) {
-            echo ' as <strong><font color="60a845"> moderator</font></strong> of  <strong><font color="60a845">' . $user->country->name . '</font></strong>';
+            echo ' as <strong><font color="60a845"> moderator</font></strong> </font></strong>'; //of  <strong><font color="60a845">' . $user->country->name . '
         }
         echo '.</p>';
+        // *** start of notification area ***
         // needs attention counts on one line
-        echo '<font color="60a845"><strong>';
+        echo '<p>';
         if ($user->is_admin || $user->user_role_id == 2) {
             if ($pendingAccountRequests > 0) {
-                echo '<span class="glyphicon glyphicon-pushpin"></span> Account Approval: ' .$pendingAccountRequests .'&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+                echo $this->Html->link(
+                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Account Approval:',
+                    ['controller' => 'users', 'action' => 'approve'],
+                    ['title' => 'Account Approval', 'escape' => false]
+                );
+                echo ' ' . $pendingAccountRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp</strong></font>';
             }
             if ($pendingCourseRequests > 0) {
-                echo '<span class="glyphicon glyphicon-pushpin"></span> Course Approval: ' .$pendingCourseRequests .'&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;';
+                echo $this->Html->link(
+                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Approval:',
+                    ['controller' => 'courses', 'action' => 'approve'],
+                    ['title' => 'Course Approval', 'escape' => false]
+                );
+                echo ' ' . $pendingCourseRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</strong></font>';
             }
         }
-        echo '<span class="glyphicon glyphicon-pushpin"></span> Course expiry: ' .$expiredCourses .'<br>';
-        echo '-OR-<br>';
-        if ($totalNeedsattention != 9999) {
-            echo '<span class="glyphicon glyphicon-check"></span> You are up to date';
+        echo $this->Html->link(
+            '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Expiry:',
+            ['controller' => 'courses', 'action' => 'expired'],
+            ['title' => 'Course Expiry', 'escape' => false]
+        );
+        echo ' ' . $expiredCourses . '</strong></font>';
+        if ($totalNeedsattention == 0) {
+            echo '<font color="60a845"><strong><span class="glyphicon glyphicon-check"></span> You are up to date</strong></font>';
         }
-        echo '</strong></font>';
+        echo '</strong></font></p>';
+        // newsletter alert
+        if (!$user->mail_list) {
+            echo '<p>';
+            echo $this->Html->link(
+                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span>  Sign up for the Contributor Mailing List here',
+                ['controller' => 'users', 'action' => 'newsletter'],
+                ['title' => 'Sign up', 'escape' => false]
+            );
+            echo '</p>';
+        }
+        // *** end of notification area ***
         ?>
 </div>
 <p></p>

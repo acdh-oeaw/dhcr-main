@@ -101,7 +101,8 @@ class DashboardController extends AppController
 
     public function index()
     {
-        $user = $this->Authentication->getIdentity();
+        $this->loadModel('Users');
+        $user = $this->Users->get($this->Authentication->getIdentity()->id);    // make sure the current newsletter prefs are loaded
         $this->Authorization->authorize($user, 'accessDashboard');
         // $identity = $this->_checkExternalIdentity();
         $pendingAccountRequests = $this->getPendingAccountRequests($user);
