@@ -50,7 +50,8 @@
         if (!$user->mail_list) {
             echo '<p>';
             echo $this->Html->link(
-                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span>  Sign up for the Contributor Mailing List here',
+                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Subscribe to our mailing list to stay 
+                informed about the latest news and technical releases',
                 ['controller' => 'users', 'action' => 'newsletter'],
                 ['title' => 'Sign up', 'escape' => false]
             );
