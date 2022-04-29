@@ -12,7 +12,7 @@
             echo ' and ';
         }
         if ($user->user_role_id == 2) {
-            echo ' as <strong><font color="60a845"> moderator of <strong><font color="60a845">' . $user->country->name . '</font></strong> </font></strong>';
+            echo ' as <strong><font color="60a845"> moderator of <strong><font color="60a845">' . $user->country->name . '</font></strong>';
         }
         echo '.</p>';
         // *** start of notification area ***
