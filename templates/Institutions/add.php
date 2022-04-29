@@ -19,7 +19,7 @@
                 Select the location on the map below.<br>
                 -You can zoom using the scroll wheel.<br>
                 -You can move the map, by dragging with the mouse.<br>
-                -Place the blue marker on the correct position, to confirm the location.
+                -Place the blue marker on the correct position, it will be saved automatically.
                 <p></p>
                 <?php
                 echo $this->element('locationpicker');  // include locationpicker
