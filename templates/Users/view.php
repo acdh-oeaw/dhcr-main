@@ -96,7 +96,7 @@
                         <td style="padding: 5px"><?= ($viewedUser->is_admin == 2) ? 'Yes' : 'No'; ?></td>
                     </tr>
                     <tr>
-                        <th align="left" style="padding: 5px">User-admin:</th>
+                        <th align="left" style="padding: 5px">Show as admin on contact page:</th>
                         <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes' : 'No'; ?></td>
                     </tr>
                 </table>

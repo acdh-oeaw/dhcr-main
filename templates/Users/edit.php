@@ -35,7 +35,7 @@
                     echo 'Moderated country: ';
                     echo ($editUser->user_role_id == 2) ? h($editUser->country->name) : '-';
                     echo $this->Form->control('is_admin', ['label' => 'Administrator']);
-                    echo $this->Form->control('user_admin', ['label' => 'User Admin']);
+                    echo $this->Form->control('user_admin', ['label' => 'Show as admin on contact page']);
                 }
                 ?>
             </fieldset>
