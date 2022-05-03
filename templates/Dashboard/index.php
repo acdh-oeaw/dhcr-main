@@ -12,7 +12,7 @@
             echo ' and ';
         }
         if ($user->user_role_id == 2) {
-            echo ' as <strong><font color="60a845"> moderator of <strong><font color="60a845">' . $user->country->name . '</font></strong>';
+            echo ' as <strong><font color="60a845"> moderator</font></strong> of <strong><font color="60a845">' . $user->country->name . '</font></strong>';
         }
         echo '.</p>';
         // *** start of notification area ***
@@ -50,12 +50,12 @@
         if (!$newsletterSubscription) {
             echo '<p>';
             echo $this->Html->link(
-                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Subscribe to our mailing list to stay 
-                informed about the latest news and technical releases',
+                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Subscribe',
                 ['controller' => 'users', 'action' => 'newsletter'],
-                ['title' => 'Sign up', 'escape' => false]
+                ['title' => 'Subscribe', 'escape' => false]
             );
-            echo '</p>';
+            echo ' to our mailing list to stay 
+            informed about the latest news and technical releases</p>';
         }
         // *** end of notification area ***
         ?>
