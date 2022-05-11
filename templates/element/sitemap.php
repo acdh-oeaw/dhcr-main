@@ -12,46 +12,6 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-bullhorn"></span>Impact Stories',
-                    ['controller' => 'Pages', 'action' => 'news'],
-                    ['escape' => false]
-                ) ?>
-            </p>
-            <ul class="stories">
-                <li>
-                    <?= $this->Html->link(
-                        'Social Media',
-                        ['controller' => 'Pages', 'action' => 'news', '#' => 'social-media']
-                    ) ?>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <p>
-                <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-bell"></span>Follow Us',
-                    ['controller' => 'Pages', 'action' => 'follow'],
-                    ['escape' => false]
-                ) ?>
-            </p>
-            <ul class="follow">
-                <li>
-                    <?= $this->Html->link(
-                        'New Course Alert',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Contributor Newsletter',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']
-                    ) ?>
-                </li>
-            </ul>
-        </li>
-        <li>
-            <p>
-                <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-info-sign"></span>About the DH Course Registry',
                     ['controller' => 'Pages', 'action' => 'info'],
                     ['escape' => false]
@@ -115,6 +75,35 @@
                     <?= $this->Html->link(
                         'Sign-In',
                         ['controller' => 'Users', 'action' => 'signIn']
+                    ) ?>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <p>
+                <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-bell"></span>Follow Us',
+                    ['controller' => 'Pages', 'action' => 'follow'],
+                    ['escape' => false]
+                ) ?>
+            </p>
+            <ul class="follow">
+                <li>
+                    <?= $this->Html->link(
+                        'Social Media',
+                        ['controller' => 'Pages', 'action' => 'news', '#' => 'social-media']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'New Course Alert',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
+                        'Contributor Newsletter',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']
                     ) ?>
                 </li>
             </ul>
