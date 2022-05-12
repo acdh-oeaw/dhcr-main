@@ -13,7 +13,7 @@
 </p>
 <div class="buttons">
     <?= $this->Html->link(
-        'Sign In',
+        'Login',
         ['controller' => 'Users', 'action' => 'signIn'],
         ['class' => 'button', 'id' => 'login-button']
     ) ?>
