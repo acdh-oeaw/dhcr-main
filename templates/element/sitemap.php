@@ -65,7 +65,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-off"></span>Contribute to the DHCR',
+                    '<span class="glyphicon glyphicon-th"></span>Contribute to the DHCR',
                     ['controller' => 'Pages', 'action' => 'contribute'],
                     ['escape' => false]
                 ) ?>
@@ -73,7 +73,7 @@
             <ul class="contribute">
                 <li>
                     <?= $this->Html->link(
-                        'Sign-In',
+                        'Login',
                         ['controller' => 'Users', 'action' => 'signIn']
                     ) ?>
                 </li>
@@ -82,7 +82,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-bell"></span>Follow Us',
+                    '<span class="glyphicon glyphicon-bullhorn"></span>Follow Us',
                     ['controller' => 'Pages', 'action' => 'follow'],
                     ['escape' => false]
                 ) ?>
