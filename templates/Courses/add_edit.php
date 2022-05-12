@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-<?=$course_icon ?>"></span>&nbsp;&nbsp;&nbsp;<?=$course_action ?></h2>
+    <h2><span class="glyphicon glyphicon-<?= $course_icon ?>"></span>&nbsp;&nbsp;&nbsp;<?= $course_action ?></h2>
     <div class="column-responsive column-80">
         Please provide the metadata in <b><u>English</u></b>, independent from the language the course is held in.
         <p>&nbsp;</p>
@@ -50,13 +50,30 @@
                 <?php
                 echo $this->element('locationpicker');  // include locationpicker
                 echo $this->element('update_map_by_institution');  // include handling of institution selector
-                echo '<p></p>';
-                echo $this->Form->control('courses_disciplines', ['label' => 'Disciplines*', 'options' => $disciplines, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
-                echo $this->Form->control('courses_tadirah_techniques', ['label' => 'TaDiRAH Techniques*', 'options' => $tadirah_techniques, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
-                echo $this->Form->control('courses_tadirah_objects', ['label' => 'TaDiRAH Objects*', 'options' => $tadirah_objects, 'multiple' => 'multiple']);
-                echo '<i>You can select more than one item in this list by holding the shift key.</i><p></p>';
+                echo '<p></p><hr><p></p>';
+                echo $this->Form->control('disciplines._ids', [
+                    'label' => 'Disciplines*',
+                    'options' => $disciplines,
+                    'multiple' => 'checkbox',
+                    'val' => $selectedDisciplines
+                ]);
+                echo '<i>You can select more than one item.</i><p></p>';
+                echo '<p></p><hr><p></p>';
+                echo $this->Form->control('tadirah_techniques._ids', [
+                    'label' => 'TaDiRAH Techniques*',
+                    'options' => $tadirah_techniques,
+                    'multiple' => 'checkbox',
+                    'val' => $selectedTadirahTechniques
+                ]);
+                echo '<i>You can select more than one item.</i><p></p>';
+                echo '<p></p><hr><p></p>';
+                echo $this->Form->control('tadirah_objects._ids', [
+                    'label' => 'TaDiRAH Objects*', 
+                    'options' => $tadirah_objects, 
+                    'multiple' => 'checkbox',
+                    'val' => $selectedTadirahObjects
+                ]);
+                echo '<i>You can select more than one item.</i><p></p>';
                 ?>
                 <strong><u>TaDiRAH</u></strong> is a taxonomy of Digital Research Activities in the Humanities that includes labels for tasks, techniques and objects,
                 and other sub-disciplines from the field of Social Sciences and the Humanities. Learn more at:
@@ -68,7 +85,7 @@
                 </p>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__($course_submit_label )) ?>
+            <?= $this->Form->button(__($course_submit_label)) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

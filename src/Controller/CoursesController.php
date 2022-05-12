@@ -148,8 +148,11 @@ class CoursesController extends AppController
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
         $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
+        $selectedDisciplines = [];
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
+        $selectedTadirahTechniques = [];
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+        $selectedTadirahObjects = [];
         // required for changing map to location of selected institution
         $institutionsLocations = [];
         foreach ($this->Courses->Institutions->find() as $institution) {
@@ -164,8 +167,11 @@ class CoursesController extends AppController
             'course_duration_units',
             'institutions',
             'disciplines',
+            'selectedDisciplines',
             'tadirah_techniques',
+            'selectedTadirahTechniques',
             'tadirah_objects',
+            'selectedTadirahObjects',
             'institutionsLocations'
         ));
         // "customize" view
@@ -182,6 +188,9 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($course);
         if ($this->request->is(['patch', 'post', 'put'])) {
+
+            // debug($this->request);
+            
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
             $course->set('updated', date("Y-m-d H:i:s"));
@@ -214,8 +223,23 @@ class CoursesController extends AppController
         $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc']);
         $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
+        $results = $this->Courses->CoursesDisciplines->find('all')->where(['course_id' => $course->id]);
+        $selectedDisciplines = [];
+        foreach($results as $result) {
+            $selectedDisciplines[] = $result->discipline_id;
+        }
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
+        $results = $this->Courses->CoursesTadirahTechniques->find('all')->where(['course_id' => $course->id]);
+        $selectedTadirahTechniques = [];
+        foreach($results as $result) {
+            $selectedTadirahTechniques[] = $result->tadirah_technique_id;
+        }
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
+        $results = $this->Courses->CoursesTadirahObjects->find('all')->where(['course_id' => $course->id]);
+        $selectedTadirahObjects = [];
+        foreach($results as $result) {
+            $selectedTadirahObjects[] = $result->tadirah_object_id;
+        }
         // required for changing map to location of selected institution
         $institutionsLocations = [];
         foreach ($this->Courses->Institutions->find() as $institution) {
@@ -230,8 +254,11 @@ class CoursesController extends AppController
             'course_duration_units',
             'institutions',
             'disciplines',
+            'selectedDisciplines',
             'tadirah_techniques',
+            'selectedTadirahTechniques',
             'tadirah_objects',
+            'selectedTadirahObjects',
             'institutionsLocations'
         ));
         // "customize" view
