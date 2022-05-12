@@ -61,7 +61,7 @@
         ?>
 </div>
 <p></p>
-<h2><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Dashboard</h2>
+<h2><span class="glyphicon glyphicon-modal-window"></span>&nbsp;&nbsp;&nbsp;Dashboard</h2>
 <p></p>
 <div id="dashboard">
     <?php

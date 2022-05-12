@@ -12,7 +12,7 @@
         <li>
             <p>
                 <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-star"></span>Dashboard',
+                    '<span class="glyphicon glyphicon-modal-window"></span>Dashboard',
                     ['controller' => 'Dashboard', 'action' => 'index'],
                     ['escape' => false]
                 ) ?>
