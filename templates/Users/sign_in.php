@@ -5,7 +5,7 @@ use Cake\Routing\Router;
 $this->set('bodyClasses', 'login');
 ?>
 <div id="classicLogin" style="display:none" class="loginAlternative">
-    <h2>Classic Login</h2>
+    <h2>Login</h2>
     <p>Use your e-mail address and DHRC password to log in. <br>
         Reset your password if you forgot it or never set one.</p>
     <p>If you do not have a DHCR account and were not able to log in using the federated login,
