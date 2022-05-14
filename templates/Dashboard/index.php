@@ -21,31 +21,32 @@
         if ($user->is_admin || $user->user_role_id == 2) {
             if ($pendingAccountRequests > 0) {
                 echo $this->Html->link(
-                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Account Approval:',
+                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Account Approval: ',
                     ['controller' => 'users', 'action' => 'approve'],
                     ['title' => 'Account Approval', 'escape' => false]
                 );
-                echo ' ' . $pendingAccountRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp</strong></font>';
+                echo $pendingAccountRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp</strong></font>';
             }
             if ($pendingCourseRequests > 0) {
                 echo $this->Html->link(
-                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Approval:',
+                    '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Approval: ',
                     ['controller' => 'courses', 'action' => 'approve'],
                     ['title' => 'Course Approval', 'escape' => false]
                 );
-                echo ' ' . $pendingCourseRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</strong></font>';
+                echo $pendingCourseRequests . '&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;</strong></font>';
             }
         }
-        echo $this->Html->link(
-            '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Expiry:',
-            ['controller' => 'courses', 'action' => 'expired'],
-            ['title' => 'Course Expiry', 'escape' => false]
-        );
-        echo ' ' . $expiredCourses . '</strong></font>';
+        if ($expiredCourses > 0) {
+            echo $this->Html->link(
+                '<font color="60a845"><strong><span class="glyphicon glyphicon-pushpin"></span> Course Expiry: ',
+                ['controller' => 'courses', 'action' => 'expired'],
+                ['title' => 'Course Expiry', 'escape' => false]
+            );
+            echo $expiredCourses . '</strong></font>';
+        }
         if ($totalNeedsattention == 0) {
             echo '<font color="60a845"><strong><span class="glyphicon glyphicon-check"></span> You are up to date</strong></font>';
         }
-        echo '</strong></font></p>';
         // newsletter alert
         if (!$newsletterSubscription) {
             echo '<p>';
@@ -54,8 +55,7 @@
                 ['controller' => 'users', 'action' => 'newsletter'],
                 ['title' => 'Subscribe', 'escape' => false]
             );
-            echo ' to our mailing list to stay 
-            informed about the latest news and technical releases</p>';
+            echo ' to our mailing list to stay informed about the latest news and technical releases</p>';
         }
         // *** end of notification area ***
         ?>
