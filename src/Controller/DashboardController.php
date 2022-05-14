@@ -240,4 +240,15 @@ class DashboardController extends AppController
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
     }
+
+    public function help()
+    {
+        $user = $this->Authentication->getIdentity();
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Help';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'help';
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
+    }
 }

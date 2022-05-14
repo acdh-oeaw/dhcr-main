@@ -203,7 +203,30 @@
                         ['controller' => 'Users', 'action' => 'profile']
                     ) ?>
                 </li>
-
+            </ul>
+        </li>
+        <li>
+            <p>
+                <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-question-sign"></span>Help',
+                    ['controller' => 'Dashboard', 'action' => 'help'],
+                    ['escape' => false]
+                ) ?>
+            </p>
+            <ul class="profile">
+                <li>
+                    <?= $this->Html->link(
+                        'Contributor FAQ',
+                        ['controller' => 'Help', 'action' => 'contributorFaq']
+                    ) ?>
+                </li>
+                <?php
+                if ($user->user_role_id == 2 || $user->is_admin) {
+                    echo '<li>';
+                    echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
+                    echo '</li>';
+                }
+                ?>
             </ul>
         </li>
         <li>

@@ -129,5 +129,17 @@
             ]
         );
     }
+    echo $this->Html->link(
+        '<p></p><span class="glyphicon glyphicon-question-sign"></span><br>Help<p>&nbsp;</p>',
+        [
+            'controller' => 'Dashboard',
+            'action' => 'help'
+        ],
+        [
+            'class' => 'blue button',
+            'title' => 'Help',
+            'escape' => false
+        ]
+    );
     ?>
 </div>
