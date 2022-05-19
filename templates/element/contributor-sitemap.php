@@ -205,7 +205,9 @@
                 </li>
             </ul>
         </li>
-        <li>
+        <?php
+        // temporarly hide help menu items
+        /* <li>
             <p>
                 <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-question-sign"></span>Help',
@@ -229,6 +231,8 @@
                 ?>
             </ul>
         </li>
+        */
+        ?>
         <li>
             <p>
                 <?= $this->Html->link(
