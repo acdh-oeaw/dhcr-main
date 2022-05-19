@@ -58,7 +58,7 @@ use Cake\Core\Configure;
                         <th align="left" style="padding: 5px">Institution</th>
                         <th align="left" style="padding: 5px">Department</th>
                         <?php if (in_array($course_view_type, ['Course Approval', 'Course Expiry'])) {
-                            echo '<th align="left" style="padding: 5px">Created by</th>';
+                            echo '<th align="left" style="padding: 5px">Maintainer</th>';
                         } ?>
                         <th align="left" style="padding: 5px">Course URL</th>
                     </tr>
@@ -102,7 +102,7 @@ use Cake\Core\Configure;
                         <td style="padding: 5px"><?= $course->institution->name ?></td>
                         <td style="padding: 5px"><?= $course->department ?></td>
                         <?php if (in_array($course_view_type, ['Course Approval', 'Course Expiry'])) {
-                            echo '<td style="padding: 5px">' . $course->user->first_name . ' ' . $course->user->last_name . '</td>';
+                            echo '<td style="padding: 5px">' . $course->contact_name . '</td>';
                         } ?>
                         <td style="padding: 5px"><?= $this->Html->link('Link', $course->info_url) ?>
                     </tr>
