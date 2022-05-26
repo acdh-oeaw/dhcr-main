@@ -8,7 +8,7 @@ $this->set('bodyClasses', 'login');
     <h2>Login</h2>
     <p>Use your e-mail address and DHCR password to log in. <br>
         Reset your password if you forgot it or never set one.</p>
-    <p>If you do not have a DHCR account and were not able to log in using the federated login,
+    <p>If you do not have a DHCR account<?php // and were not able to log in using the federated login ?>,
         please use the <?= $this->Html->link('registration form', '/users/register') ?>.</p>
     <p class="notice">You only need to sign-in to the DHRC, if you are a lecturer or other academic institution member
         and want to add or curate course meta data.
