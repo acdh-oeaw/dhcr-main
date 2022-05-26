@@ -2,7 +2,7 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Invite User</h2>
     <div class="column-responsive column-80">
-        The user will recieve an email to set their password and join the DH-Courseregistry.
+        The user will receive an email to set their password and join the DH-Courseregistry.
         <p>&nbsp;</p>
         <div class="courses form content">
             <?= $this->Form->create($invitedUser) ?>

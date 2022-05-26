@@ -3,7 +3,7 @@
     <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Translations</h2>
     <?= $this->Html->link(__('Add Translation'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <p></p>
-    <p><u>List of the translations for the invite user email</u></p>
+    <p><u>List of translations for the user invitation email</u></p>
     <div class="table-responsive">
         <table>
             <thead>

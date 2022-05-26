@@ -50,27 +50,27 @@
                 <?php
                 echo $this->element('locationpicker');  // include locationpicker
                 echo $this->element('update_map_by_institution');  // include handling of institution selector
-                echo '<p></p><hr><p></p>';
+                echo '<p></p>';
                 echo $this->Form->control('disciplines._ids', [
                     'label' => 'Disciplines*',
                     'options' => $disciplines,
-                    'multiple' => 'checkbox',
+                    'multiple' => 'multiple',
                     'val' => $selectedDisciplines
                 ]);
                 echo '<i>You can select more than one item.</i><p></p>';
-                echo '<p></p><hr><p></p>';
+                echo '<p></p>';
                 echo $this->Form->control('tadirah_techniques._ids', [
                     'label' => 'TaDiRAH Techniques*',
                     'options' => $tadirah_techniques,
-                    'multiple' => 'checkbox',
+                    'multiple' => 'multiple',
                     'val' => $selectedTadirahTechniques
                 ]);
                 echo '<i>You can select more than one item.</i><p></p>';
-                echo '<p></p><hr><p></p>';
+                echo '<p></p>';
                 echo $this->Form->control('tadirah_objects._ids', [
                     'label' => 'TaDiRAH Objects*', 
                     'options' => $tadirah_objects, 
-                    'multiple' => 'checkbox',
+                    'multiple' => 'multiple',
                     'val' => $selectedTadirahObjects
                 ]);
                 echo '<i>You can select more than one item.</i><p></p>';

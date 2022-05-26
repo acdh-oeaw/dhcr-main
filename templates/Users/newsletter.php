@@ -2,10 +2,9 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Sign up to the Mailing List</h2>
     <p></p>
-    <p>As a lecturer, national moderator or programme director, you may want to sign up to our Contributor Mailing List.<br>
-        It addresses everybody involved in the contribution of course metadata for the DHCR.</p>
-    <p>Stay informed about recent developments regarding the team or new technical features of the DHCR.</p>
-    <p>Check the box below to subscribe, or uncheck to unsubscribe.</p>
+    <p>National moderators, lecturers or programme directors who add or curate course metadata are invited to join 
+        our contributor mailing list to stay informed about the latest developments.</p>
+    <p>Check or uncheck the box below to update your subscription preferences.</p>
     <div class="column-responsive column-80">
         <div class="users form content">
             <?= $this->Form->create($user) ?>

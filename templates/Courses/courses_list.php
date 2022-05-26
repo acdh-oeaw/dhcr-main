@@ -31,7 +31,7 @@ use Cake\Core\Configure;
                 </strong> Reminder sent more than 1 month ago, needs to be updated<br>
                 <strong>
                     <font color="red">Red:</font>
-                </strong> Outdated, not shown in public registry
+                </strong> Outdated, not shown in the public registry
             </p>
         <?php
         }
