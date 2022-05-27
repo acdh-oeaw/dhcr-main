@@ -83,9 +83,11 @@ class UsersController extends AppController
     public function signIn()
     {
         $redirect = $this->getRequest()->getQuery('redirect');
-        if ($identity = $this->_checkExternalIdentity() and $redirect != '/users/connect_identity') {
-            return $this->redirect('/users/unknown_identity');
-        }
+        // PA 27-05-22 temporary change
+        $identity = false;
+        // if ($identity = $this->_checkExternalIdentity() and $redirect != '/users/connect_identity') {
+        //     return $this->redirect('/users/unknown_identity');
+        // }
         // the user is logged in by session, idp or form
         $result = $this->Authentication->getResult();
         if ($result->isValid()) {
