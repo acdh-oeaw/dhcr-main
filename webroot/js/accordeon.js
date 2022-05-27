@@ -13,7 +13,7 @@ class Accordeon {
 
         this.hash = new Hash();
         // open current fragment, if any
-        if(this.hash.fragment.length > 0) {
+        if (this.hash.fragment.length > 0) {
             $('#' + this.hash.fragment).addClass('open');
             location.href = '#' + this.hash.fragment;   // scroll page to section
         }
@@ -22,8 +22,8 @@ class Accordeon {
     }
 
     addHandlers() {
-        for(let i = 0; this.handles.length > i; i++) {
-            $(this.handles[i]).click(function() {
+        for (let i = 0; this.handles.length > i; i++) {
+            $(this.handles[i]).click(function () {
                 this.clickHandler(this.handles[i]);
             }.bind(this));
         }
@@ -66,9 +66,9 @@ class Accordeon {
     }
 
     toggleItem(handle) {
-        if($(handle).closest('.accordeon-item').hasClass('open')) {
+        if ($(handle).closest('.accordeon-item').hasClass('open')) {
             this.closeItem(handle);
-        }else{
+        } else {
             this.openItem(handle);
         }
     }

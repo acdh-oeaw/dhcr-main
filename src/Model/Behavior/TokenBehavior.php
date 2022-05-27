@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model\Behavior;
 
 use Cake\ORM\Behavior;
@@ -18,24 +19,28 @@ class TokenBehavior extends Behavior
         'fieldname' => null
     ];
 
-    public function generateToken($length = 16) {
+    public function generateToken($fieldname = null): string
+    {
         $time = substr((string)time(), -6, 6);
         $possible = '0123456789abcdefghijklmnopqrstuvwxyz';
+        $length = 16;
         // create an unique token
         do {
             $token = '';
-            for($i = 0; $i < $length - 6; $i++) {
+            for ($i = 0; $i < $length - 6; $i++) {
                 $token .= substr($possible, mt_rand(0, strlen($possible) - 1), 1);
             }
             $token = $time . $token;
-        } while(!$this->isUnique());
+        } while (!$this->isUnique($token, $fieldname));
         return $token;
     }
 
-    public function isUnique() {
-        if(empty($this->_defaultConfig['fieldname'])) return true;
-        return !(bool) $this->_table->find('all',  ['conditions' => [
-            $this->_table->getAlias().'.'.$this->_defaultConfig['fieldname'] => $token
-        ]])->count();
+    public function isUnique(string $token, string $fieldname = null)
+    {
+        if (empty($fieldname) and empty($this->_defaultConfig['fieldname'])) return true;
+        if (empty($fieldname)) $fieldname = $this->_defaultConfig['fieldname'];
+        return !(bool) $this->_table->find()->where([
+            $this->_table->getAlias() . '.' . $fieldname => $token
+        ])->count();
     }
 }

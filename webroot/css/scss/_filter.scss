@@ -8,17 +8,18 @@
     width: calc(100% - 16px);
     @include clearfix;
 
-    button {
+    button, .button {
         margin-right: 15px;
         transform-origin: left center;
-        padding-top: 1px;
+        padding: 1px 12px 0;
+        height: 24px;
     }
     #reset {
         float: right;
         color: white;
-        font-weight: bold;
         cursor: pointer;
-        padding: 0 15px;
+        border: none;
+
         &::after {
             pointer-events: none;
             content: '';
@@ -38,7 +39,7 @@
         &:hover {
             text-decoration: none;
             &::after {
-                transform: rotate(90deg);
+                transform: scale(1.05);
             }
         }
     }
@@ -70,10 +71,11 @@
             margin-bottom: 0.3em;
 
             @include reset-select;
+
             .input.select {
-                overflow-x: hidden;
+                overflow: hidden;
                 width: auto;
-                display: inline-block;
+                display: inline-grid;   // override reset-select
                 border-radius: 14px;
                 border: 2px solid $blue;
                 position: relative;
@@ -127,7 +129,7 @@
                 }
                 &:hover {
                     &::before {
-                        transform: rotate(90deg);
+                        transform: scale(1.05);
                     }
                 }
             }

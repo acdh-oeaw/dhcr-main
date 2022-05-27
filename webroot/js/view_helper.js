@@ -5,8 +5,8 @@
 class ViewHelper {
 
     static months(i) {
-        let months = ['Jan','Feb','Mar','Apr','May','June','July','Aug','Sept','Oct','Nov','Dec'];
-        if(typeof i != "undefined" && i >= 0 && i <= 11) return months[i];
+        let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+        if (typeof i != "undefined" && i >= 0 && i <= 11) return months[i];
         return months;
     }
 
@@ -33,10 +33,10 @@ class ViewHelper {
 
     static createLink(href, text, external = true) {
         text = text || href;
-        if(text == href && text.length > 60)
+        if (text == href && text.length > 60)
             text = text.substr(0, 60) + '...';
         let result = $('<a></a>').attr('href', href).html(text);
-        if(external) result.attr('target', '_blank');
+        if (external) result.attr('target', '_blank');
         return result[0].outerHTML;
     }
 
@@ -49,23 +49,23 @@ class ViewHelper {
     static createTermData(term, data, key) {
         let empty = '-';
         let value = ViewHelper.getValue(data, key);
-        if(value === false) value = empty;
-        if(key == 'updated') {
+        if (value === false) value = empty;
+        if (key == 'updated') {
             let date = new Date(data.updated);
             value = date.getFullYear() + ', ' + ViewHelper.months(date.getMonth()) + ' ' + date.getDate() + '.'
         }
-        if(key == 'contact_name') {
+        if (key == 'contact_name') {
             let name = ViewHelper.getValue(data, 'contact_name');
             let mail = ViewHelper.getValue(data, 'contact_mail');
-            if(name !== false) value = name;
-            if(mail !== false && name === false) name = mail;
-            if(mail !== false)
+            if (name !== false) value = name;
+            if (mail !== false && name === false) name = mail;
+            if (mail !== false)
                 value = ViewHelper.createLink('mailto:' + mail, name, false);
         }
-        if(key == 'info_url') {
+        if (key == 'info_url') {
             value = ViewHelper.createLink(value);
         }
-        if(key == 'online_course')
+        if (key == 'online_course')
             value = (data.online_course) ? 'online' : 'campus';
         let result = '<p class="term">' + term + '</p>';
         result += '<p class="data">' + value + '</p>';
@@ -76,8 +76,8 @@ class ViewHelper {
         let empty = false;
         let split = key.split('.');
         let value = data[key] || empty;
-        if(split.length == 2) value = data[split[0]][split[1]] || empty;
-        if(typeof value == 'string' && value.match(/^null$|^nan$/i)) value = empty;
+        if (split.length == 2) value = data[split[0]][split[1]] || empty;
+        if (typeof value == 'string' && value.match(/^null$|^nan$/i)) value = empty;
         return value;
     }
 
@@ -103,7 +103,7 @@ class ViewHelper {
     static createGridContainer(items = [], classes = '') {
         classes = (classes == '') ? 'grid-container' : 'grid-container ' + classes;
         let result = '<div class="' + classes + '">';
-        for(let i = 0; i < items.length; i++) result += items[i];
+        for (let i = 0; i < items.length; i++) result += items[i];
         result += '</div>';
         return result;
     }
@@ -117,7 +117,7 @@ class ViewHelper {
 
     static getTiming(course, dateSeparator = ', ', recurringSeparator = ', ', durationSeparator = '<br />', verbose = false) {
         let result = '';
-        if(course.start_date) {
+        if (course.start_date) {
             let split = course.start_date.split(/[;,]/);
             let lastMonth;
             let start = '';
@@ -130,14 +130,14 @@ class ViewHelper {
                 start += day + ' ' + ViewHelper.months()[date.getMonth()];
                 if (!course.recurring) start += ' ' + date.getFullYear();
             }
-            if(verbose && start.length > 0 && course.recurring) start = 'each ' + start;
+            if (verbose && start.length > 0 && course.recurring) start = 'each ' + start;
             result = start;
         }
-        if(course.recurring) {
+        if (course.recurring) {
             if (result != '') result += recurringSeparator;
             result += '<span class="recurring">recurring</span>';
         }
-        if(course.duration) {
+        if (course.duration) {
             if (result != '') result += durationSeparator;
             result += course.duration + ' ' + course.course_duration_unit.name;
         }
@@ -179,10 +179,10 @@ class ViewHelper {
 
     static concat(collection) {
         let retval = '';
-        collection.forEach(function(node) {
-            if(node instanceof jQuery) retval += node.prop('outerHTML');
-            if(typeof node == 'string') retval += node;
-            if(typeof node.outerHTML === 'string') retval += node.outerHTML;
+        collection.forEach(function (node) {
+            if (node instanceof jQuery) retval += node.prop('outerHTML');
+            if (typeof node == 'string') retval += node;
+            if (typeof node.outerHTML === 'string') retval += node.outerHTML;
         });
         return retval;
     }

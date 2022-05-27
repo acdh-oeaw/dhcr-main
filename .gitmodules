@@ -10,7 +10,3 @@
 	path = api/v2
 	url = ../DHCR-API.git
 	branch = API_v2
-[submodule "ops"]
-    path = ops
-    url = ../dhcr-back-end.git
-    branch = master

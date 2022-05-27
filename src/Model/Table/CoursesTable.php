@@ -1,49 +1,16 @@
 <?php
+
 namespace App\Model\Table;
 
+use App\Model\Entity\Subscription;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Utility\Inflector;
 use Cake\Validation\Validator;
 
-/**
- * Courses Model
- *
- * @property \App\Model\Table\UsersTable&\Cake\ORM\Association\BelongsTo $Users
- * @property \App\Model\Table\DeletionReasonsTable&\Cake\ORM\Association\BelongsTo $DeletionReasons
- * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
- * @property \App\Model\Table\CitiesTable&\Cake\ORM\Association\BelongsTo $Cities
- * @property \App\Model\Table\InstitutionsTable&\Cake\ORM\Association\BelongsTo $Institutions
- * @property \App\Model\Table\CourseParentTypesTable&\Cake\ORM\Association\BelongsTo $CourseParentTypes
- * @property \App\Model\Table\CourseTypesTable&\Cake\ORM\Association\BelongsTo $CourseTypes
- * @property \App\Model\Table\LanguagesTable&\Cake\ORM\Association\BelongsTo $Languages
- * @property \App\Model\Table\CourseDurationUnitsTable&\Cake\ORM\Association\BelongsTo $CourseDurationUnits
- * @property \App\Model\Table\NotificationsTable&\Cake\ORM\Association\HasMany $Notifications
- * @property \App\Model\Table\DisciplinesTable&\Cake\ORM\Association\BelongsToMany $Disciplines
- * @property \App\Model\Table\TadirahActivitiesTable&\Cake\ORM\Association\BelongsToMany $TadirahActivities
- * @property \App\Model\Table\TadirahObjectsTable&\Cake\ORM\Association\BelongsToMany $TadirahObjects
- * @property \App\Model\Table\TadirahTechniquesTable&\Cake\ORM\Association\BelongsToMany $TadirahTechniques
- *
- * @method \App\Model\Entity\Course get($primaryKey, $options = [])
- * @method \App\Model\Entity\Course newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Course[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Course|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Course saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Course patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Course[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Course findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class CoursesTable extends Table
 {
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -106,12 +73,6 @@ class CoursesTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
@@ -219,14 +180,7 @@ class CoursesTable extends Table
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['deletion_reason_id'], 'DeletionReasons'));
@@ -237,55 +191,49 @@ class CoursesTable extends Table
         $rules->add($rules->existsIn(['course_type_id'], 'CourseTypes'));
         $rules->add($rules->existsIn(['language_id'], 'Languages'));
         $rules->add($rules->existsIn(['course_duration_unit_id'], 'CourseDurationUnits'));
-
         return $rules;
     }
 
-
-
-    public function getSubscriptionCourses($subscription = array()) {
+    public function getSubscriptionCourses(Subscription $subscription): array
+    {
         $options = $this->getFilter($subscription);
         $query = $this->find('all', $options);
-
         $this->__match_association($query, $subscription, 'disciplines');
         $this->__match_association($query, $subscription, 'languages');
         $this->__match_association($query, $subscription, 'countries');
         $this->__match_association($query, $subscription, 'course_types');
         $this->__match_association($query, $subscription, 'tadirah_objects');
         $this->__match_association($query, $subscription, 'tadirah_techniques');
-
         return $query->distinct()->toArray();
     }
 
-
-
-    public function getFilter($subscription) {
+    public function getFilter(Subscription $subscription): array
+    {
         $conditions = [
-            'Courses.updated >' => $subscription['created'],
+            'Courses.updated >' => $subscription->created,
             'Courses.active' => true,
             'Courses.deleted' => false
         ];
-        if($subscription['online_course'] !== null) $conditions['Courses.online_course'] = $subscription['online_course'];
+        if ($subscription->online_course !== null)
+            $conditions['Courses.online_course'] = $subscription->online_course;
 
-        if($subscription->notifications) {
-            $excludes = collection($subscription['notifications'])
+        if ($subscription->notifications) {
+            $excludes = collection($subscription->notifications)
                 ->extract('course_id')->toList();
             if ($excludes) $conditions['Courses.id NOT IN'] = $excludes;
         }
-        $options = [
+        return [
             'conditions' => $conditions,
-            'contain' => ['Disciplines','Countries','Cities','Institutions']
+            'contain' => ['Disciplines', 'Countries', 'Cities', 'Institutions']
         ];
-        return $options;
     }
 
-
-
-    private function __match_association(&$query, $subscription, $assoc) {
-        if($subscription->{$assoc}) {
+    private function __match_association(Query &$query, Subscription $subscription, string $assoc): void
+    {
+        if ($subscription->{$assoc}) {
             $ids = collection($subscription->{$assoc})->extract('id')->toList();
             $query->matching(Inflector::camelize($assoc), function ($q) use ($ids, $assoc) {
-                return $q->where([Inflector::camelize($assoc).'.id IN' => $ids]);
+                return $q->where([Inflector::camelize($assoc) . '.id IN' => $ids]);
             });
         }
     }

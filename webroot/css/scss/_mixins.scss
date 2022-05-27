@@ -77,9 +77,13 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
 
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {
-    .input.select {
-        position: relative;
+    .input.select:not(.checkbox) {
         @include caret;
+        display: grid;
+        grid-template-areas: 'input';
+        justify-items: start;       // left/right orientation
+        align-items: start;         // top/bottom
+        justify-content: stretch;   // align the grid itself
         select {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -88,6 +92,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
             cursor: pointer;
             background-color: transparent;
             font-family: Metropolis;
+            grid-area: input;
             &:hover {
                 background-color: #eee;
             }
@@ -105,11 +110,13 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     &::after {
         content: '';
         display: block;
-        position: absolute;
         width: 8px;
         height: 8px;
-        right: 15px;
-        top: 5px;
+        margin-top: 6px;
+        margin-right: 8px;
+        grid-area: input;
+        justify-self: end;
+        align-self: start;
         border: 2px solid $blue;
         border-top: none;
         border-left: none;
@@ -120,7 +127,7 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
     }
     &:hover::after {
         transform: rotate(225deg);
-        top: 10px;
+        margin-top: 10px;
     }
 }
 
@@ -130,5 +137,37 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
         content: "";
         clear: both;
         display: table;
+    }
+}
+
+
+@mixin notifications() {
+    .notice, .error {
+        padding: 1.2em;
+        border: 1px solid #ffbf01;
+        border-radius: 5px;
+        background-color: #ffe59cf7;
+        font-weight: bolder;
+        color: $text-color;
+        font-size: 0.8rem;
+        margin-bottom: 2em;
+        input, label {
+            font-size: 1rem;
+        }
+        select {
+            font-size: 0.9rem;
+        }
+        dd {
+            color: $text-color;
+            font-size: 1em;
+        }
+        h1,h2,h3,h4,dt {
+            font-size: 1em;
+            color: $text-color;
+        }
+    }
+    .error {
+        border: 1px solid #af3434;
+        background-color: #e8adad;
     }
 }

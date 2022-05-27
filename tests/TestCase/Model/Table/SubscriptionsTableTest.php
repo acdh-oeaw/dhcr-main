@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Test\TestCase\Model\Table;
 
 use App\Model\Table\SubscriptionsTable;
@@ -102,11 +103,12 @@ class SubscriptionsTableTest extends TestCase
 
 
 
-    public function testGetSubscriptions() {
+    public function testGetSubscriptions()
+    {
         $result = $this->SubscriptionsTable->getSubscriptions();
         // the other test record should be rejected by the method's filter criteria 'confirmed'
         $this->assertEquals(4, count($result));
-        foreach($result as $row) {
+        foreach ($result as $row) {
             $this->assertArrayHasKey('confirmed', $row);
             $this->assertTrue($row->confirmed);
             $this->assertArrayHasKey('course_types', $row);
@@ -122,10 +124,10 @@ class SubscriptionsTableTest extends TestCase
 
 
     // test only the loop body of processSubscriptions
-    public function testProcessSubscription() {
+    public function testProcessSubscription()
+    {
         $options = ['contain' => $this->SubscriptionsTable::$containments];
-        // we are sending mails here!
-        Configure::write('debug', true);
+
         $subscription = $this->SubscriptionsTable->get(1, $options);    // has notification on course 1, course 2 deleted, course 3 & 4 not online,
         $result = $this->SubscriptionsTable->processSubscription($subscription);
         $this->assertTrue($result === 0);
@@ -142,7 +144,8 @@ class SubscriptionsTableTest extends TestCase
 
 
 
-    public function testSendNotification() {
+    public function testSendNotification()
+    {
         $this->markTestIncomplete('Not implemented yet.');
     }
 }

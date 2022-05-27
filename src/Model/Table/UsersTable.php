@@ -1,39 +1,22 @@
 <?php
+
 namespace App\Model\Table;
 
+use Cake\Core\Configure;
+use Cake\Core\Exception\Exception;
+use Cake\Mailer\MailerAwareTrait;
+use Cake\ORM\Entity;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use phpDocumentor\Reflection\Types\Boolean;
 
-/**
- * Users Model
- *
- * @property \App\Model\Table\UserRolesTable&\Cake\ORM\Association\BelongsTo $UserRoles
- * @property \App\Model\Table\CountriesTable&\Cake\ORM\Association\BelongsTo $Countries
- * @property \App\Model\Table\InstitutionsTable&\Cake\ORM\Association\BelongsTo $Institutions
- * @property \App\Model\Table\CoursesTable&\Cake\ORM\Association\HasMany $Courses
- *
- * @method \App\Model\Entity\User get($primaryKey, $options = [])
- * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\User[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\User|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\User patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\User[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\User findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class UsersTable extends Table
 {
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
-    public function initialize(array $config) : void
+    use MailerAwareTrait;
+
+    public function initialize(array $config): void
     {
         parent::initialize($config);
 
@@ -42,6 +25,8 @@ class UsersTable extends Table
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->addBehavior('Token');
 
         $this->belongsTo('UserRoles', [
             'foreignKey' => 'user_role_id',
@@ -58,156 +43,123 @@ class UsersTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
-    public function validationDefault(Validator $validator) : Validator
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->scalar('university')
-            ->maxLength('university', 255)
-            ->allowEmptyString('university');
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email')
-            ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
-        $validator
             ->scalar('shib_eppn')
-            ->maxLength('shib_eppn', 255)
+            ->maxLength('shib_eppn', 255, 'Your Identifier is too long. Please turn to the admin team for support or use the classic login.')
             ->allowEmptyString('shib_eppn')
-            ->add('shib_eppn', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->add('shib_eppn', 'unique', [
+                'rule' => 'validateUnique', 'provider' => 'table',
+                'message' => 'Your identity is already used by an other account. Please turn to our admin team '
+            ]);
 
         $validator
             ->scalar('password')
-            ->maxLength('password', 255)
-            ->allowEmptyString('password');
+            ->maxLength('password', 255, 'Your password is too long.')
+            ->minLength('password', 6, 'Your password is to short, it should be at least 6 characters.')
+            ->allowEmptyString('password', 'Please provide a password.', function ($context) {
+                return $context['providers']['table']->invitationMode;
+            });
 
         $validator
-            ->boolean('email_verified')
-            ->notEmptyString('email_verified');
+            ->setStopOnFailure(true)
+            ->email('email', false, 'Email address looks strange.')
+            ->add('email', 'unique', [
+                'rule' => 'validateUnique', 'provider' => 'table',
+                'message' => 'Email address is already in use.'
+            ])
+            ->email('email', true, 'Email MX check failed.', function ($context) {
+                return $context['providers']['table']->invitationMode;
+            });
 
         $validator
-            ->boolean('active')
-            ->notEmptyString('active');
-
-        $validator
-            ->boolean('approved')
-            ->notEmptyString('approved');
-
-        $validator
-            ->boolean('is_admin')
-            ->notEmptyString('is_admin');
-
-        $validator
-            ->boolean('user_admin')
-            ->notEmptyString('user_admin');
-
-        $validator
-            ->dateTime('last_login')
-            ->allowEmptyDateTime('last_login');
-
-        $validator
-            ->scalar('password_token')
-            ->maxLength('password_token', 255)
-            ->allowEmptyString('password_token');
-
-        $validator
-            ->scalar('email_token')
-            ->maxLength('email_token', 255)
-            ->allowEmptyString('email_token');
-
-        $validator
-            ->scalar('approval_token')
-            ->maxLength('approval_token', 255)
-            ->allowEmptyString('approval_token');
-
-        $validator
-            ->scalar('new_email')
+            ->email('new_email', false, 'Please provide a valid email address.')
             ->maxLength('new_email', 255)
-            ->allowEmptyString('new_email');
-
-        $validator
-            ->dateTime('password_token_expires')
-            ->allowEmptyDateTime('password_token_expires');
-
-        $validator
-            ->dateTime('email_token_expires')
-            ->allowEmptyDateTime('email_token_expires');
-
-        $validator
-            ->dateTime('approval_token_expires')
-            ->allowEmptyDateTime('approval_token_expires');
+            ->allowEmptyString('new_email')
+            ->notEmptyString('new_email', 'Please provide your email address.')
+            ->add('new_email', 'unique', [
+                'rule' => function ($value, $context) {
+                    return !(bool) $context['providers']['table']->find()->where(['email' => $value])->count();
+                },
+                'message' => 'Your email address is not unique in our database.'
+            ]);
 
         $validator
             ->scalar('last_name')
-            ->maxLength('last_name', 255)
-            ->allowEmptyString('last_name');
+            ->maxLength('last_name', 255, 'Your last name is too long.')
+            ->notEmptyString('last_name', 'Please provide your last name.');
 
         $validator
             ->scalar('first_name')
-            ->maxLength('first_name', 255)
-            ->allowEmptyString('first_name');
+            ->maxLength('first_name', 255, 'Your first name is too long.')
+            ->notEmptyString('first_name', 'Please provide your first name.');
 
         $validator
             ->scalar('academic_title')
-            ->maxLength('academic_title', 255)
+            ->maxLength('academic_title', 255, 'Your academic title is too long (> 255 characters). We beg your pardon, that our database cannot take on all your wisdom.')
             ->allowEmptyString('academic_title');
-
-        $validator
-            ->scalar('about')
-            ->allowEmptyString('about');
-
-        $validator
-            ->boolean('mail_list')
-            ->notEmptyString('mail_list');
 
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
-    public function buildRules(RulesChecker $rules) : RulesChecker
+    // disable email MX check during invitation evaluation
+    public $invitationMode = false;
+
+    public function validationCreate(Validator $validator): Validator
     {
-        $rules->add($rules->isUnique(['email']));
-        $rules->add($rules->isUnique(['shib_eppn']));
+        $validator
+            ->requirePresence('institution_id', true)
+            ->add('institution_id', 'allowEmptyIf', [
+                'rule' => function ($value, $context) {
+                    if (empty($value) and empty($context['data']['university']))
+                        return 'When you do not find your affiliation in the list,
+                        you must provide the country, city and name of your institution in the field below.';
+                    if (!empty($value) and !empty($context['data']['university']))
+                        return 'Leave this field empty, when you want us to add a new organisation
+                        as indicated in the field below';
+                    return true;
+                }
+            ]);
+
+        $validator
+            ->scalar('about')
+            ->notEmptyString('about', 'For verification of your eligibility, please provide reproducible information of your academical teaching involvement.', 'create');
+
+        $validator
+            ->requirePresence('consent', 'create')
+            ->allowEmptyString('consent', 'You must agree to the terms.')
+            ->equals('consent', 1, 'You must agree to the terms.');
+
+        return $this->validationDefault($validator);
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
         $rules->add($rules->existsIn(['user_role_id'], 'UserRoles'));
         $rules->add($rules->existsIn(['country_id'], 'Countries'));
         $rules->add($rules->existsIn(['institution_id'], 'Institutions'));
-
         return $rules;
     }
 
-
-
-    public function getModerators($country_id = null, $user_admin = true) : array
+    public function getModerators(int $country_id = null, bool $user_admin = true): array
     {
         $admins = [];
         // try fetching the moderator in charge of the user's country,
-        if(!empty($country_id)) {
+        if ($country_id) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.country_id' => $country_id,
-                    'Users.user_role_id' => 2,	// moderators
+                    'Users.user_role_id' => 2,    // moderators
                     'Users.active' => 1
                 ])->toArray();
         }
         // then user_admin
-        if(empty($admins) AND $user_admin) {
+        if (empty($admins) and $user_admin) {
             $admins = $this->find()
                 ->distinct()->where([
                     'Users.user_admin' => 1,
@@ -215,13 +167,51 @@ class UsersTable extends Table
                 ])->toArray();
         }
         // then admin
-        if(empty($admins)) {
+        if (empty($admins)) {
             $admins = $this->find()
                 ->distinct()->where([
-                    'Users.user_role_id' => 1,	// admins - do not check for the 'is_admin' flag, as it is currently also set for the mods
+                    'Users.is_admin' => 1,
                     'Users.active' => 1
                 ])->toArray();
         }
         return $admins;
+    }
+
+    public function notifyAdmins($user)
+    {
+        // TODO: route this to a single team account
+        $admins = $this->getModerators(null, true);
+        try {
+            foreach ($admins as $admin)
+                $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
+        } catch (Exception $exception) {
+        }
+    }
+
+    public function register($data = [])
+    {
+        $data['new_email'] = $data['email'];
+        $data['email_token'] = $this->generateToken('email_token');
+        $data['approval_token'] = $this->generateToken('approval_token');
+        $data['approval_token_expires'] = $this->getLongTokenExpiry();
+
+        $user = $this->newEntity($data);
+        if ($user->hasErrors()) {
+            return $user;
+        }
+        if (!$this->save($user)) {
+            return false;
+        }
+        return $user;
+    }
+
+    public function getShortTokenExpiry()
+    {
+        return date('Y-m-d H:i:s', time() + 60 * 60 * 1);
+    }
+
+    public function getLongTokenExpiry()
+    {
+        return date('Y-m-d H:i:s', time() + 60 * 60 * 24 * 7);
     }
 }

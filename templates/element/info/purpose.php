@@ -1,7 +1,7 @@
 <?php
+
 use Cake\Core\Configure;
 ?>
-
 <div class="flex-columns">
     <div class="flex-item">
         <?= $this->Html->image('students.png', ['class' => 'illustration', 'alt' => 'illustration']); ?>
@@ -55,24 +55,21 @@ use Cake\Core\Configure;
         <h4>The Course Registry</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/pvFKq67-21I?rel=0"
-                    allow="encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/pvFKq67-21I?rel=0" allow="encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
     <div class="flex-item triple">
         <h4>How to use as a Student</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/s-YsnpKCaUE?rel=0"
-                    allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/s-YsnpKCaUE?rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
     <div class="flex-item triple">
         <h4>How to use as a Lecturer</h4>
         <div class="iframe-container">
             <?= $this->Html->image('16x9.png', ['class' => 'ratio']) ?>
-            <iframe src="https://www.youtube.com/embed/X87p0XoBlZo?rel=0"
-                    allow="encrypted-media" allowfullscreen></iframe>
+            <iframe src="https://www.youtube.com/embed/X87p0XoBlZo?rel=0" allow="encrypted-media" allowfullscreen></iframe>
         </div>
     </div>
 </div>

@@ -10,16 +10,16 @@ class Hash {
     // pushes fragment to browser history and adds it to browser address bar
     push(hash) {
         this.fragment = String(hash);
-        if(history.pushState)
+        if (history.pushState)
             history.pushState(null, document.title, '#' + hash);
         else
             window.location.hash = hash;
     }
 
     pushQuery(query) {
-        if(history.pushState) {
+        if (history.pushState) {
             history.pushState(null, document.title, window.location.pathname + query);
-        }else {
+        } else {
             window.location = BASE_URL + query;
         }
     }
@@ -31,7 +31,7 @@ class Hash {
         let scrollV, scrollH, loc = window.location;
         if (history.pushState) {
             history.pushState(null, document.title, loc.pathname);
-        }else{
+        } else {
             // Prevent scrolling by storing the page's current scroll offset
             scrollV = document.body.scrollTop;
             scrollH = document.body.scrollLeft;

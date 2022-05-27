@@ -5,9 +5,9 @@ class App {
 
     defaults() {
         return {
-            apiUrl:     'http://localhost/DH-API/',
-            mapApiKey:  'pass key using constructor options',
-            filter:     {},
+            apiUrl: 'http://localhost/DH-API/',
+            mapApiKey: 'pass key using constructor options',
+            filter: {},
             breakPoint: 750,
             id: false,
             action: 'index',    // the controller action called. the app will behave differently...
@@ -24,11 +24,11 @@ class App {
         this.pageload = true;
         this.lastMobileScreen = 0;  // table
 
-        if(typeof options == 'object')
+        if (typeof options == 'object')
             options = Object.assign(this.defaults(), options);
         else options = this.defaults();
 
-        for(var key in options) {
+        for (var key in options) {
             this[key] = options[key];
         }
 
@@ -51,11 +51,11 @@ class App {
 
         this.status = 'index';
         // load data
-        if(this.action == 'index') {
+        if (this.action == 'index') {
             this.filter = new Filter(this);
             this.getCourses();
         }
-        if(this.action == 'view') {
+        if (this.action == 'view') {
             this.status = 'view';
             this.getCourse();
             this.hash.remove();
@@ -68,7 +68,7 @@ class App {
         this.resizeListener();
 
         this.iframe = App.inIframe();
-        if(this.iframe) {
+        if (this.iframe) {
             /*if(!this.checkWhitelist()) {
                 alert('You are visiting the DHCR through an iframe, which is fine.\n' +
                     'If you are this site\'s admin, please get in touch with us to get whitelisted. \n' +
@@ -84,20 +84,20 @@ class App {
 
     resizeListener() {
         let mediaQuery = window.matchMedia('(max-width: ' + this.breakPoint + 'px)');
-        if(!mediaQuery.matches)  {
+        if (!mediaQuery.matches) {
             this.layout = 'screen';
             $('.expansion-row td').attr('colspan', 5);
             this.slider.reset();
-        }else{
+        } else {
             this.layout = 'mobile';
             $('.expansion-row td').attr('colspan', 4);
             this.slider.updateSize();
-            if(this.layout == 'mobile') {
-                if(this.status == 'view') {
+            if (this.layout == 'mobile') {
+                if (this.status == 'view') {
                     this.slider.setPosition('table');
                     this.slider.hideControl();
                 }
-                if(this.status == 'index') this.slider.showControl();
+                if (this.status == 'index') this.slider.showControl();
             }
         }
         this.updateSize();
@@ -105,7 +105,7 @@ class App {
 
     updateSize() {
         let bottom = 20;
-        if(this.layout == 'mobile') bottom += parseInt($('#slide-control').css('bottom')) + 5;
+        if (this.layout == 'mobile') bottom += parseInt($('#slide-control').css('bottom')) + 5;
         $('#container').css({
             // get header outer height including margins (true)
             height: $('body').height() - ($('#header').outerHeight(true) + bottom) + 'px'
@@ -114,12 +114,12 @@ class App {
 
     getCourse() {
         // called on view action only, show error if no data available
-        if(typeof course != 'undefined' && Object.keys(course).length > 0) {
+        if (typeof course != 'undefined' && Object.keys(course).length > 0) {
             this.data = {};
             this.data[course.id] = course;
             this.map.setMarkers(this.data, false);
             this.setCourse();
-        }else{
+        } else {
             // course is not found
             this.handleError('The record you are looking for does not exist');
         }
@@ -127,19 +127,19 @@ class App {
 
     getCourses() {
         // check for preset object served on pageload to speed up loading time
-        if(this.pageload) {
+        if (this.pageload) {
             this.pageload = false;
-            if(typeof courses != 'undefined' && courses.length > 0) {
+            if (typeof courses != 'undefined' && courses.length > 0) {
                 this.data = {};
                 for (var i = 0; courses.length > i; i++) {
                     this.data[courses[i].id] = courses[i];
                 }
                 this.map.setMarkers(this.data);
                 this.setTable();
-            }else{
+            } else {
                 this.handleError('No courses match your filter conditions.');
             }
-        }else{
+        } else {
             // query massaging
             this.filter.selected.sort.push('Courses.updated:desc');
             let query = this.filter.createQuery();
@@ -154,12 +154,12 @@ class App {
                 cache: true,
                 context: this,
                 crossDomain: true
-            }).done(function( data ) {
+            }).done(function (data) {
                 this.data = {};
                 // global variable courses is available anyhow,
                 // but _be_ sure to keep re-generation of the view in callback
                 window.courses = data.courses; // courses is required next to data to keep the order of entries
-                for(var i = 0; data.courses.length > i; i++) {
+                for (var i = 0; data.courses.length > i; i++) {
                     this.data[data.courses[i].id] = data.courses[i];
                 }
                 this.map.setMarkers(this.data);
@@ -175,7 +175,7 @@ class App {
         this.view.createTable();
         this.scrollable.updateSize();
         this.status = 'index';
-        if(this.layout == 'mobile') {
+        if (this.layout == 'mobile') {
             this.slider.setPosition(this.lastMobileScreen);
             this.slider.showControl();
         }
@@ -186,16 +186,16 @@ class App {
         id = id || this.id;
         this.status = 'view';
         this.view.createView(this.data[id]);
-        if(this.action == 'index') this.map.openMarker(id);
-        if(this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
+        if (this.action == 'index') this.map.openMarker(id);
+        if (this.action == 'view') this.map.map.setView([this.data[id].lat, this.data[id].lon], 5);
         this.scrollable.updateSize();
 
-        if(this.layout == 'mobile') {
+        if (this.layout == 'mobile') {
             this.lastMobileScreen = this.slider.position;
             this.slider.setPosition('table');
             this.slider.hideControl();
         }
-        if(!$('body').hasClass('view')) $('body').addClass('view');
+        if (!$('body').hasClass('view')) $('body').addClass('view');
     }
 
     handleError(data) {
@@ -204,10 +204,10 @@ class App {
         this.view.setErrorMessage(msg);
     }
 
-    static inIframe () {
+    static inIframe() {
         try {
             return window.self !== window.top;
-        }catch(e) {
+        } catch (e) {
             console.log(e);
             return false;
         }

@@ -11,22 +11,17 @@ return [
         'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
     ],
     'map' => [
-        'apiKey' => env('MAP_API_KEY', '__MAP_API_KEY__')
+        'apiKey'    => env('MAP_API_KEY', '__MAP_API_KEY__'),
+        'apiKey2022' => env('MAP_API_KEY2022', '__MAP_API_KEY2022__'),
     ],
 
     'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),
     'reCaptchaPrivateKey' => env('RECAPTCHA_PRIVATE_KEY', '__RECAPTCHA_PRIVATE_KEY__'),
-    'AppMail' => [
-        'defaultFrom' => [env('APP_MAIL_DEFAULT_FROM', '__REPLYTO_MAIL__') => 'DH Course Registry'],
-        'defaultCc' => env('APP_MAIL_DEFAULT_CC', '__CC_MAIL__'),
-        'subjectPrefix' => '[DH Course Registry]',
-        'debugMailTo' => env('DEBUG_MAIL_TO', '__DEBUG_MAIL_TO__')
-    ],
 
 
 
 
-/**
+    /**
      * Debug Level:
      *
      * Production Mode:
@@ -131,7 +126,7 @@ return [
             'prefix' => 'myapp_cake_core_',
             'path' => CACHE . 'persistent/',
             'serialize' => true,
-            'duration' => '+1 years',
+            'duration' => '+1 second',
             'url' => env('CACHE_CAKECORE_URL', null),
         ],
 
@@ -146,7 +141,7 @@ return [
             'prefix' => 'myapp_cake_model_',
             'path' => CACHE . 'models/',
             'serialize' => true,
-            'duration' => '+1 years',
+            'duration' => '+1 second',
             'url' => env('CACHE_CAKEMODEL_URL', null),
         ],
 
@@ -224,7 +219,7 @@ return [
      */
     'EmailTransport' => [
         'default' => [
-            'className' => env('MAIL_TRANSPORT_CLASS', 'Cake\Mailer\Transport\SmtpTransport'),
+            'className' => 'Cake\Mailer\Transport\SmtpTransport',
             /*
              * The following keys are used in SMTP transports:
              */
@@ -235,9 +230,9 @@ return [
             'password' => null,
             'client' => null,
             'tls' => null,
-            'log' => false,		// enabling this will print the full messages into the log
+            'log' => false,        // enabling this will print the full messages into the log
             'charset' => 'utf-8',
-        ],
+        ]
     ],
 
     /**
@@ -254,8 +249,13 @@ return [
             'transport' => 'default',
             'from' => [env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'],
             'headerCharset' => 'utf-8',
+            // TODO: put a team email address here
             'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
-        ],
+            // what about default cC?
+            'emailFormat' => 'text',
+            'template' => 'default',
+            'layout' => 'default'
+        ]
     ],
 
     /**
@@ -306,12 +306,12 @@ return [
             'quoteIdentifiers' => false,
 
             /**
-             * During development, if using MySQL < 5.6, uncommenting the
-             * following line could boost the speed at which schema metadata is
-             * fetched from the database. It can also be set directly with the
-             * mysql configuration directive 'innodb_stats_on_metadata = 0'
-             * which is the recommended value in production environments
-             */
+         * During development, if using MySQL < 5.6, uncommenting the
+         * following line could boost the speed at which schema metadata is
+         * fetched from the database. It can also be set directly with the
+         * mysql configuration directive 'innodb_stats_on_metadata = 0'
+         * which is the recommended value in production environments
+         */
             //'init' => ['SET GLOBAL innodb_stats_on_metadata = 0'],
 
             //'url' => env('DATABASE_URL', null),

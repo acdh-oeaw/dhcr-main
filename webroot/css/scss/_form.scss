@@ -1,22 +1,23 @@
 .optionals {
 
     .required > label {
-        &::after{
+        &::after {
             content: ' *';
             vertical-align: super;
         }
     }
-}
-.input.paragraph {
-    p { margin-bottom: 0; }
+    .depending > label, label.depending {
+        &::after {
+            content: ' (*)';
+            vertical-align: super;
+        }
+    }
 }
 
 form {
     @include clearfix;
-    fieldset.invisible {
-        border: none;
-        margin-top: 3em;
-    }
+    @include notifications;
+
     label {
         font-weight: bold;
         color: $blue;
@@ -31,8 +32,19 @@ form {
         box-sizing:border-box;
         padding: 5px 5px 3px;
         font-size: 0.9em;
-        font-family: Metropolis;
+        font-family: Metropolis, serif;
         color: inherit;
+        outline: none;
+        &:focus, &:focus-visible, &:active {
+            border-width: 2px;
+        }
+        &::placeholder {
+            color: #aaa;
+        }
+        &[readonly] {
+            border: 2px solid #ddd;
+            color: #aaa;
+        }
     }
     input[readonly] {
         border: none;
@@ -40,16 +52,13 @@ form {
         padding-top: 8px;
         color: $gray;
     }
-    textarea[readonly],textarea[disabled] {
-        border: none;
-        color: $gray;
-    }
+
 
     @include reset-select;
 
     .checkbox {
         margin-left: 0;
-        padding: 5px;
+        padding: 0;
 
         label {
             display: inline;
@@ -62,7 +71,7 @@ form {
         }
     }
 
-    .input {
+    .input, .input.select:not(.checkbox) {
         display: grid;
         grid-template-columns: 1fr 2fr;
         grid-template-areas: 'label input';
@@ -89,7 +98,7 @@ form {
             justify-self: stretch;
             width: 100%;
             &.form-error {
-                border-color: $red;
+                border-color: #020000;
             }
         }
         .radio-inline {
@@ -108,9 +117,50 @@ form {
             grid-row: 2;
             grid-column: 2;
             justify-self: stretch;
-            font-size: 0.9em;
             font-weight: bold;
-            color: $red;
+            color: #020000;
+        }
+    }
+
+    .input.password {
+        position: relative;
+        .fa-eye {
+            position: absolute;
+            right: 1.5em;
+            top: 0.26em;
+            cursor: pointer;
+            width: 0;
+            color: transparent;
+            &::before {
+                color: $blue;
+            }
+            &:hover {
+                &::before {
+                    color: $gray;
+                }
+            }
+        }
+        &.error .fa-eye {
+            font-size: 1rem;
+            top: 1.32em;
+            right: 2.7em;
+        }
+    }
+
+    .input.info {
+        .info {
+            grid-area: input;
+            :last-child {
+                margin-bottom: 0;
+            }
+        }
+        .checkbox {
+            grid-area: input;
+            grid-row-start: 2;
+            display: block;
+        }
+        .error-message {
+            grid-row: 3;
         }
     }
 }

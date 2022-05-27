@@ -13,19 +13,19 @@ class Slider {
 
         this.position = 0;
 
-        this.control.addEventListener('click', function() {
+        this.control.addEventListener('click', function () {
             this.toggle();
         }.bind(this));
 
-        this.dragStartListener = function(e) {
+        this.dragStartListener = function (e) {
             this.dragStart(e)
         }.bind(this);
 
-        this.dragMoveListener = function(e) {
+        this.dragMoveListener = function (e) {
             this.dragMove(e)
         }.bind(this);
 
-        this.dragEndListener = function(e) {
+        this.dragEndListener = function (e) {
             this.dragEnd(e)
         }.bind(this);
     }
@@ -60,7 +60,7 @@ class Slider {
     updateSize() {
         this.viewportWidth = parseInt(this.container.clientWidth);
         this.cssMargin = parseInt(window.getComputedStyle(this.slide).getPropertyValue('margin-right'));
-        if(parseInt(this.slide.style.marginLeft) != 0) {
+        if (parseInt(this.slide.style.marginLeft) != 0) {
             this.slide.style.marginLeft = - (this.viewportWidth + this.cssMargin) + 'px';
         }
     }
@@ -79,9 +79,9 @@ class Slider {
             this.position = 1;
         }
 
-        $(this.slide).animate( {
+        $(this.slide).animate({
             "margin-left": margin + "px"
-        }, 500, function() {
+        }, 500, function () {
             this.sliding = false;
             this.control.style.backgroundPositionX = iconPosition;
         }.bind(this));
@@ -94,11 +94,11 @@ class Slider {
     }
 
     setPosition(position = 0) {
-        if(position == 0 || position == 'table') {
-            if(this.position == 1) this.toggle();
+        if (position == 0 || position == 'table') {
+            if (this.position == 1) this.toggle();
         }
-        if(position == 1 || position == 'map') {
-            if(this.position == 0) this.toggle();
+        if (position == 1 || position == 'map') {
+            if (this.position == 0) this.toggle();
         }
     }
 
@@ -124,18 +124,18 @@ class Slider {
                 ? event.clientX
                 : event.touches[0].clientX;
 
-        this.move +=  clientX - this.lastX;
+        this.move += clientX - this.lastX;
         this.lastX = clientX;
 
         let sensitivity = 3;
 
         // swipe to right - show left screen
-        if(this.move > (this.viewportWidth + this.cssMargin) / sensitivity) {
-            if(this.position == 1) this.toggle();
+        if (this.move > (this.viewportWidth + this.cssMargin) / sensitivity) {
+            if (this.position == 1) this.toggle();
         }
         // swipe to left (negative) - show rihgt screen
-        if(this.move < - (this.viewportWidth + this.cssMargin) / sensitivity) {
-            if(this.position == 0) this.toggle();
+        if (this.move < - (this.viewportWidth + this.cssMargin) / sensitivity) {
+            if (this.position == 0) this.toggle();
         }
     }
 

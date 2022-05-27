@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Model\Table;
 
+use App\Model\Entity\Subscription;
 use Cake\Core\Configure;
 use Cake\Mailer\Email;
+use Cake\Mailer\MailerAwareTrait;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -10,30 +13,10 @@ use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use ArrayObject;
 
-/**
- * Subscriptions Model
- *
- * @property \App\Model\Table\NotificationsTable&\Cake\ORM\Association\HasMany $Notifications
- *
- * @method \App\Model\Entity\Subscription get($primaryKey, $options = [])
- * @method \App\Model\Entity\Subscription newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\Subscription[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\Subscription|false save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Subscription saveOrFail(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\Subscription patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\Subscription[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Subscription findOrCreate($search, callable $callback = null, $options = [])
- *
- * @mixin \Cake\ORM\Behavior\TimestampBehavior
- */
 class SubscriptionsTable extends Table
 {
-    /**
-     * Initialize method
-     *
-     * @param array $config The configuration for the Table.
-     * @return void
-     */
+    use MailerAwareTrait;
+
     public function initialize(array $config): void
     {
         parent::initialize($config);
@@ -88,12 +71,6 @@ class SubscriptionsTable extends Table
         ]);
     }
 
-    /**
-     * Default validation rules.
-     *
-     * @param \Cake\Validation\Validator $validator Validator instance.
-     * @return \Cake\Validation\Validator
-     */
     public function validationDefault(Validator $validator): \Cake\Validation\Validator
     {
         $validator
@@ -129,29 +106,20 @@ class SubscriptionsTable extends Table
         return $validator;
     }
 
-    /**
-     * Returns a rules checker object that will be used for validating
-     * application integrity.
-     *
-     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
-     * @return \Cake\ORM\RulesChecker
-     */
     public function buildRules(RulesChecker $rules): \Cake\ORM\RulesChecker
     {
         $rules->add($rules->isUnique(['email']));
-
         return $rules;
     }
 
-
-    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options) {
+    public function beforeMarshal(Event $event, ArrayObject $data, ArrayObject $options)
+    {
         foreach ($data as $key => $value) {
             if (is_string($value)) {
                 $data[$key] = trim($value);
             }
         }
     }
-
 
     public static $containments = [
         'Disciplines',
@@ -163,13 +131,13 @@ class SubscriptionsTable extends Table
         'Notifications' // courses will be filtered over notifications already being sent
     ];
 
-
     // called by cron using console command
-    public function processSubscriptions() {
+    public function processSubscriptions()
+    {
         $subscriptions = $this->getSubscriptions();
         $courses = 0;
-        foreach($subscriptions as $subscription) {
-            if($this->processSubscription($subscription))
+        foreach ($subscriptions as $subscription) {
+            if ($this->processSubscription($subscription))
                 $courses++;
         }
         return [
@@ -178,50 +146,31 @@ class SubscriptionsTable extends Table
         ];
     }
 
-
-
-    public function getSubscriptions() {
-        $subscriptions = $this->find('all', [
+    public function getSubscriptions()
+    {
+        return $this->find('all', [
             'contain' => self::$containments
         ])->where([
             'Subscriptions.confirmed' => true
         ])->toArray();
-        return $subscriptions;
     }
 
-
-
-    public function processSubscription($subscription = []) {
+    public function processSubscription(Subscription $subscription)
+    {
         $result = false;
-        if($subscription->confirmed) {
+        if ($subscription->confirmed) {
             $CoursesTable = TableRegistry::getTableLocator()->get('Courses');
+            // get only courses that the subscriber did not receive a notification about before
             $courses = $CoursesTable->getSubscriptionCourses($subscription);
-            if($courses) {
-                $this->sendNotification($subscription, $courses);
+            if ($courses) {
+                $this->getMailer('Subscription')->send('notification', [
+                    $subscription, $courses
+                ]);
+                // prevent double notifications, to be filtered by above method CoursesTable::getSubscriptoinCourses()
                 $this->Notifications->saveSent($subscription->id, $courses);
             }
             $result = count($courses);
         }
         return $result;
     }
-
-
-
-    private function sendNotification($subscription, $courses = []) {
-        $recipient = $subscription->email;
-        if(Configure::read('debug')) $recipient = Configure::read('AppMail.debugMailTo');
-        $Email = new Email('default');
-        $Email->setFrom(Configure::read('AppMail.defaultFrom'))
-            ->setTo($recipient)
-            ->setSubject(Configure::read('AppMail.subjectPrefix').' New Course Notification')
-            ->setEmailFormat('text')
-            ->setViewVars([
-                'subscription' => $subscription,
-                'courses' => $courses])
-            ->viewBuilder()->setTemplate('subscriptions/subscription_notification');
-            $Email->send();
-    }
-
-
-
 }

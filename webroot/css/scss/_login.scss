@@ -1,54 +1,107 @@
 body.login {
     .wrapper {
         max-width: 750px;
+
+        .loginAlternative {
+            &#classicLogin {
+                @include notifications;
+            }
+
+            .users.form {
+                margin-top: 2em;
+                button[disabled] {
+                    color: #bbb;
+                    border-color: #bbb;
+                    transform: none;
+                    cursor: default;
+                }
+
+                .taWrapper {
+                    position: relative;
+                    ul.idpSelectDropDown {
+                        position: absolute;
+                        top: 30px;
+                        right: 0;
+                        border: 1px solid $blue;
+                        border-radius: 5px;
+                        padding: 5px;
+                        width: 60%;
+                        height: auto;
+                        background-color: #fff;
+                        box-shadow: 10px 10px 8px #aaa;
+                        z-index: 1000;
+
+                        li {
+                            display: block;
+                            cursor: pointer;
+                            margin-bottom: 0.5em;
+                            &:hover {
+                                color: $blue;
+                            }
+                            &.selected {
+                                background-color: $blue;
+                                color: #fff;
+                            }
+                        }
+                    }
+                }
+            }
+            .login-alternatives {
+                display: flex;
+                justify-content: space-between;
+                margin: 6em 0 4em;
+                gap: 1em;
+                flex-wrap: wrap;
+            }
+        }
     }
 }
 
-.users.form {
-    margin-top: 2em;
-    button[disabled] {
-        color: #bbb;
-        border-color: #bbb;
-        transform: none;
-        cursor: default;
+body.registration {
+    #content {
+        @include notifications;
     }
 }
 
-#login-alternatives {
-    display: flex;
-    justify-content: space-between;
-    margin: 6em 0 4em;
-    gap: 1em;
-    flex-wrap: wrap;
-}
 
+#registration_success {
+    .status-container {
+        margin-bottom: 3em;
+        display: grid;
+        grid-row-gap: 0.5em;
+        grid-column-gap: 0.5em;
+        grid-template-columns: 100px auto;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "icon header"
+            "icon text"
+            "icon button";
 
-.taWrapper {
-    position: relative;
-    ul.idpSelectDropDown {
-        position: absolute;
-        top: 30px;
-        right: 0;
-        border: 1px solid $blue;
-        border-radius: 5px;
-        padding: 5px;
-        width: 60%;
-        height: auto;
-        background-color: #fff;
-        box-shadow: 10px 10px 8px #aaa;
-        z-index: 1000;
-
-        li {
+        h3, p, span, .button {
+            margin: 0;
             display: block;
-            cursor: pointer;
-            margin-bottom: 0.5em;
-            &:hover {
-                color: $blue;
+            align-self: start;
+            justify-self: start;
+        }
+        h3 {
+            grid-area: header;
+        }
+        .glyphicon {
+            grid-area: icon;
+            color: #fff;
+            background-color: $green;
+            padding: 0.3em;
+            font-size: 3em;
+            border-radius: 0.3em;
+            &.glyphicon-minus-sign, &.glyphicon-ok-circle {
+                background-color: $light-gray;
             }
-            &.selected {
-                background-color: $blue;
-                color: #fff;
-            }
+        }
+        p {
+            grid-area: text;
+        }
+        .button {
+            grid-area: button;
         }
     }
 }

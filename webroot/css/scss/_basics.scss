@@ -271,12 +271,14 @@ hr {
     margin: 0;
 }
 
-
-
 .hidden { display: none; }
 .right  { float: right;  }
 .clearfix {
     @include clearfix;
+}
+
+.headspace {
+    margin-top: 3em;
 }
 
 
@@ -344,6 +346,24 @@ table {
     }
 }
 
+
+.grid-columns {
+    display: grid;
+    grid-column-gap: 4em;
+    grid-row-gap: 6em;
+    place-items: stretch;
+    grid-template-columns: repeat(2, 1fr);
+    @include respond-to(handhelds) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .grid-item {
+        display: grid;
+        *:last-child {
+            align-self: end;
+            justify-self: start;
+        }
+    }
+}
 
 
 .css-columns {

@@ -12,8 +12,14 @@
     on URLs provided with the data.
 </p>
 <div class="buttons">
-    <?= $this->Html->link('Sign In', '/ops/users/login',
-        ['class' => 'button', 'id' => 'login-button']) ?>
-    <?= $this->Html->link('Contact Us', ['controller' => 'Pages', 'action' => 'info', '#' => 'contact'],
-        ['class' => 'blue button', 'id' => 'contact-button']) ?>
+    <?= $this->Html->link(
+        'Login',
+        ['controller' => 'Users', 'action' => 'signIn'],
+        ['class' => 'button', 'id' => 'login-button']
+    ) ?>
+    <?= $this->Html->link(
+        'Contact Us',
+        ['controller' => 'Pages', 'action' => 'info', '#' => 'contact'],
+        ['class' => 'blue button', 'id' => 'contact-button']
+    ) ?>
 </div>

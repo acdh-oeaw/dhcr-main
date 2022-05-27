@@ -15,7 +15,7 @@ class Scrollable {
 
     constructor(elm, options) {
         if (!options) options = this.defaults();
-        else options = {...this.defaults(), ...options};
+        else options = { ...this.defaults(), ...options };
 
         this.thumbWidth = options.thumbWidth;
         this.thumbColor = options.thumbColor;
@@ -184,14 +184,14 @@ class Scrollable {
 
         let newScrollbarWidth = Scrollable.getSystemScrollbarWidth();
 
-        if(this.systemScrollbarWidth != newScrollbarWidth) {
+        if (this.systemScrollbarWidth != newScrollbarWidth) {
             // after zooming, recalculate the negative margin effect, as scrollbar width changes
             this.systemScrollbarWidth = newScrollbarWidth;
             this.margin = 50 + this.systemScrollbarWidth + this.paddingRight;
             this.backPadding = this.margin + this.trackWidth - this.systemScrollbarWidth;
-            if(this.thumbWidth > this.trackWidth)
+            if (this.thumbWidth > this.trackWidth)
                 this.backPadding = this.margin + this.thumbWidth - this.systemScrollbarWidth;
-            if(this.scrollState) {
+            if (this.scrollState) {
                 Object.assign(this.container.style, {
                     marginRight: -this.margin + 'px',
                     paddingRight: this.backpadding + 10 + 'px'
@@ -199,9 +199,9 @@ class Scrollable {
             }
         }
 
-        if(test) {
+        if (test) {
             // test for prior state
-            if(!this.scrollState) this.enable();
+            if (!this.scrollState) this.enable();
             // if outer styles have changed...
             let outerStyles = window.getComputedStyle(this.element, null);
             this.paddingTop = parseInt(outerStyles.getPropertyValue('padding-top'));
@@ -211,8 +211,8 @@ class Scrollable {
             this.thumb.style.height = `${thumbHeight}px`;
             this.track.style.height = this.element.clientHeight - this.paddingTop - this.paddingBottom + 'px';
             this.updateScrollPosition();
-        }else{
-            if(this.scrollState) this.disable();
+        } else {
+            if (this.scrollState) this.disable();
         }
     }
 
@@ -297,12 +297,12 @@ class Scrollable {
         this.thumb.style.display = 'block';
 
         this.container.addEventListener('scroll', this.scrollListener);
-        this.thumb.addEventListener('mousedown', this.dragStartListener, {passive: true});
+        this.thumb.addEventListener('mousedown', this.dragStartListener, { passive: true });
         window.addEventListener('mousemove', this.dragMoveListener);
-        window.addEventListener('mouseup', this.dragEndListener, {passive: true});
-        this.thumb.addEventListener('touchstart', this.dragStartListener, {passive: true});
+        window.addEventListener('mouseup', this.dragEndListener, { passive: true });
+        this.thumb.addEventListener('touchstart', this.dragStartListener, { passive: true });
         window.addEventListener('touchmove', this.dragMoveListener);
-        window.addEventListener('touchend', this.dragEndListener, {passive: true});
+        window.addEventListener('touchend', this.dragEndListener, { passive: true });
 
         this.scrollState = true
     }

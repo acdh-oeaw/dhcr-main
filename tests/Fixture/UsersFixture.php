@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Test\Fixture;
 
 use Cake\TestSuite\Fixture\TestFixture;
@@ -71,7 +72,7 @@ class UsersFixture extends TestFixture
      *
      * @return void
      */
-    public function init() : void
+    public function init(): void
     {
         $this->records = [
             [
@@ -80,9 +81,133 @@ class UsersFixture extends TestFixture
                 'country_id' => 1,
                 'institution_id' => 1,
                 'university' => 'Lorem ipsum dolor sit amet',
-                'email' => 'Lorem ipsum dolor sit amet',
+                'email' => 'test@example.com',
                 'shib_eppn' => 'Lorem ipsum dolor sit amet',
+                'password' => '$2y$10$W883gRwZgOMrbBeN6nN6qexdgj2obAvP1vy04.ucooJHXO2azvj4m',   // password: *****
+                'email_verified' => 1,
+                'active' => 1,
+                'approved' => 1,
+                'is_admin' => 1,
+                'user_admin' => 1,
+                'last_login' => '2021-05-04 16:19:43',
+                'password_token' => 'bbbbb',
+                'email_token' => 'aaaaa',
+                'approval_token' => 'Lorem ipsum dolor sit amet',
+                'new_email' => 'Lorem ipsum dolor sit amet',
+                'password_token_expires' => '2021-05-04 16:19:43',
+                'email_token_expires' => '2021-05-04 16:19:43',
+                'approval_token_expires' => '2021-05-04 16:19:43',
+                'last_name' => 'Doe',
+                'first_name' => 'John',
+                'academic_title' => 'Sir',
+                'about' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2021-05-04 16:19:43',
+                'modified' => '2021-05-04 16:19:43',
+                'mail_list' => 1,
+            ],
+            // banned
+            [
+                'id' => 2,
+                'user_role_id' => 1,
+                'country_id' => 1,
+                'institution_id' => 1,
+                'university' => 'Lorem ipsum dolor sit amet',
+                'email' => 'banned@example.com',
+                'shib_eppn' => '2Lorem ipsum dolor sit amet',
+                'password' => '$2y$10$W883gRwZgOMrbBeN6nN6qexdgj2obAvP1vy04.ucooJHXO2azvj4m',   // password: *****
+                'email_verified' => 1,
+                'active' => 0,  // the actual ban
+                'approved' => 1,
+                'is_admin' => 1,
+                'user_admin' => 1,
+                'last_login' => '2021-05-04 16:19:43',
+                'password_token' => 'Lorem ipsum dolor sit amet',
+                'email_token' => '2Lorem ipsum dolor sit amet',
+                'approval_token' => 'Lorem ipsum dolor sit amet',
+                'new_email' => 'Lorem ipsum dolor sit amet',
+                'password_token_expires' => '2021-05-04 16:19:43',
+                'email_token_expires' => '2021-05-04 16:19:43',
+                'approval_token_expires' => '2021-05-04 16:19:43',
+                'last_name' => 'Lorem ipsum dolor sit amet',
+                'first_name' => 'Lorem ipsum dolor sit amet',
+                'academic_title' => 'Lorem ipsum dolor sit amet',
+                'about' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2021-05-04 16:19:43',
+                'modified' => '2021-05-04 16:19:43',
+                'mail_list' => 1,
+            ],
+            // not verified, not enabled
+            [
+                'id' => 3,
+                'user_role_id' => 1,
+                'country_id' => 1,
+                'institution_id' => 1,
+                'university' => 'Lorem ipsum dolor sit amet',
+                'email' => 'test3@example.com',
+                'shib_eppn' => null,
                 'password' => 'Lorem ipsum dolor sit amet',
+                'email_verified' => 0,
+                'active' => 1,
+                'approved' => 0,
+                'is_admin' => 1,
+                'user_admin' => 1,
+                'last_login' => '2021-05-04 16:19:43',
+                'password_token' => 'Lorem ipsum dolor sit amet',
+                'email_token' => '3LoremIpsum',
+                'approval_token' => 'Lorem ipsum dolor sit amet',
+                'new_email' => 'Lorem ipsum dolor sit amet',
+                'password_token_expires' => '2021-05-04 16:19:43',
+                'email_token_expires' => '2021-05-04 16:19:43',
+                'approval_token_expires' => '2021-05-04 16:19:43',
+                'last_name' => 'Lorem ipsum dolor sit amet',
+                'first_name' => 'Lorem ipsum dolor sit amet',
+                'academic_title' => 'Lorem ipsum dolor sit amet',
+                'about' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2021-05-04 16:19:43',
+                'modified' => '2021-05-04 16:19:43',
+                'mail_list' => 1,
+            ],
+            // not enabled
+            [
+                'id' => 4,
+                'user_role_id' => 1,
+                'country_id' => 1,
+                'institution_id' => 1,
+                'university' => 'Lorem ipsum dolor sit amet',
+                'email' => '4Lorem ipsum dolor sit amet',
+                'shib_eppn' => null,
+                'password' => 'Lorem ipsum dolor sit amet',
+                'email_verified' => 1,
+                'active' => 1,
+                'approved' => 0,
+                'is_admin' => 1,
+                'user_admin' => 1,
+                'last_login' => '2021-05-04 16:19:43',
+                'password_token' => 'Lorem ipsum dolor sit amet',
+                'email_token' => 'Lorem ipsum dolor sit amet',
+                'approval_token' => 'Lorem ipsum dolor sit amet',
+                'new_email' => 'Lorem ipsum dolor sit amet',
+                'password_token_expires' => '2021-05-04 16:19:43',
+                'email_token_expires' => '2021-05-04 16:19:43',
+                'approval_token_expires' => '2021-05-04 16:19:43',
+                'last_name' => 'Lorem ipsum dolor sit amet',
+                'first_name' => 'Lorem ipsum dolor sit amet',
+                'academic_title' => 'Lorem ipsum dolor sit amet',
+                'about' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+                'created' => '2021-05-04 16:19:43',
+                'modified' => '2021-05-04 16:19:43',
+                'mail_list' => 1,
+            ],
+            // not connected identity
+            [
+                'id' => 5,
+                'user_role_id' => 2,
+                'country_id' => 1,
+                'institution_id' => 1,
+                'university' => 'Lorem ipsum dolor sit amet',
+                'email' => 'test5@example.com',
+                'shib_eppn' => null,
+                'password' => '$2y$10$W883gRwZgOMrbBeN6nN6qexdgj2obAvP1vy04.ucooJHXO2azvj4m',
                 'email_verified' => 1,
                 'active' => 1,
                 'approved' => 1,
@@ -103,7 +228,7 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
-            ],
+            ]
         ];
         parent::init();
     }

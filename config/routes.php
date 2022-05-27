@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration
  *
@@ -17,6 +18,7 @@
  * @link          https://cakephp.org CakePHP(tm) Project
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
+
 use Cake\Http\Middleware\CsrfProtectionMiddleware;
 use Cake\Routing\RouteBuilder;
 use Cake\Routing\Router;
@@ -71,7 +73,11 @@ Router::scope('/', function (RouteBuilder $routes) {
 
     $routes->connect('/info', ['controller' => 'Pages', 'action' => 'info']);
     $routes->connect('/pages/info', ['controller' => 'Pages', 'action' => 'info']);
+
     $routes->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
+
+    $routes->connect('/:arg', ['controller' => 'Pages', 'action' => 'display'])->setPass(['arg'])->setPatterns(['news']);
+    //$routes->connect('/pages/news', ['controller' => 'Pages', 'action' => 'news']);
 
     $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
 
@@ -79,6 +85,13 @@ Router::scope('/', function (RouteBuilder $routes) {
     //$routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
     //$routes->connect('/logout', ['controller' => 'Users', 'action' => 'logout']);
     //$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
+
+    // Added routes for the new backend
+    $routes->connect('/cities', ['controller' => 'Cities', 'action' => 'index']);
+    $routes->connect('/institutions', ['controller' => 'Institutions', 'action' => 'index']);
+    $routes->connect('/languages', ['controller' => 'Languages', 'action' => 'index']);
+    $routes->connect('/dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
+    $routes->connect('/invite-translations', ['controller' => 'inviteTranslations', 'action' => 'index']);
 
     /**
      * Connect catchall routes for all controllers.

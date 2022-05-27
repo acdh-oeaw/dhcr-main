@@ -1,8 +1,8 @@
 <?php
+
 use Cake\Core\Configure;
 use Cake\Routing\Router;
 ?>
-
 <div class="flex-columns">
     <div class="flex-item">
         <h3>Data Model</h3>
@@ -10,12 +10,13 @@ use Cake\Routing\Router;
             The following entity relationship diagram gives an overview of entities
             in the DHCR. For a full description of their fields, please visit the
             API documentation on
-            <?= $this->Html->link('SwaggerHub', 'https://app.swaggerhub.com/apis/hashmich/DHCR-API',
-                ['target' => '_blank']) ?>.
-    
+            <?= $this->Html->link(
+                'SwaggerHub',
+                'https://app.swaggerhub.com/apis/hashmich/DHCR-API',
+                ['target' => '_blank']
+            ) ?>.
         </p>
         <p><?= $this->Html->image('DHCR_ERD.png', ['url' => '/img/DHCR ERD.png']) ?></p>
-        
         <h3>Data API</h3>
         <p>
             For data export, analysis or custom visualisations, a public JSON data API is available.
@@ -33,7 +34,6 @@ use Cake\Routing\Router;
             To achive the same results, both parameters "recent" and "sort=Courses.updated:desc"
             have to be explicitly set in API calls.
         </p>
-        
     </div>
     <div class="flex-item">
         <h3>Data Life Cycle</h3>
@@ -44,7 +44,6 @@ use Cake\Routing\Router;
             National moderators are also requested to approve newly created entries.
         </p>
         <p><?= $this->Html->image('DHCR_processes.png', ['url' => '/img/DHCR processes.png']) ?></p>
-        
         <h3>Embedding and Filtering</h3>
         <p>
             The DHCR can be embedded into any other website by using an iframe.

@@ -612,6 +612,8 @@ hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
 .clearfix::after { content: ""; clear: both; display: table; }
 
+.headspace { margin-top: 3em; }
+
 .recurring { background: url("../img/repeat.png") right bottom/contain no-repeat; padding-right: 1.4em; padding-bottom: 0.2em; line-height: 0.85em; font-size: inherit; display: inline-block; }
 
 table .recurring { color: transparent; height: 15px; width: 15px; display: inline-block; background: url("../img/repeat.png") center/contain no-repeat; vertical-align: middle; }
@@ -626,6 +628,11 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 .flex-columns .flex-item.triple { flex: 0 1 30%; min-width: 200px; }
 @media only screen and (max-width: 750px) { .flex-columns { display: block; }
   .flex-columns .flex-item { margin-bottom: 3em; min-width: initial; padding: 0; } }
+
+.grid-columns { display: grid; grid-column-gap: 4em; grid-row-gap: 6em; place-items: stretch; grid-template-columns: repeat(2, 1fr); }
+@media only screen and (max-width: 750px) { .grid-columns { grid-template-columns: repeat(1, 1fr); } }
+.grid-columns .grid-item { display: grid; }
+.grid-columns .grid-item *:last-child { align-self: end; justify-self: start; }
 
 .css-columns { column-count: 2; column-gap: 1em; }
 @media only screen and (max-width: 400px) { .css-columns { column-count: 1; } }
@@ -652,7 +659,7 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 .tooltip:hover .tooltiptext { visibility: visible; opacity: 1;
 }
 */
-.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; color: #ccc; }
+.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; border: none; color: #ccc; }
 @media only screen and (max-width: 750px) { .flash-message { top: 20px; right: 20px; } }
 
 #modal-wrapper, .modal-wrapper { position: fixed; z-index: 1000000; width: 100vw; height: 100vh; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; }
@@ -697,7 +704,7 @@ body.users #page-head #logo:hover, body.users #page-head #logo.animate, body.use
 #content #sitemap { display: block; }
 
 #modal-wrapper.sitemap { padding: 15px 0; display: grid; grid-template-areas: ". display ."; grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px); gap: 0; }
-#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; }
+#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; overflow-y: auto; }
 @media only screen and (max-width: 400px) { #modal-wrapper.sitemap { padding: 5px 0; grid-template-columns: 5px auto 5px; }
   #modal-wrapper.sitemap #modal-content { justify-self: stretch; } }
 
@@ -842,31 +849,31 @@ body.index #container #table table th .asc, body.view #container #table table th
 
 #filter-buttons { border-bottom: 2px solid #1E6BA3; margin-bottom: 15px; padding: 2px 0 15px; position: relative; width: calc(100% - 16px); }
 #filter-buttons::after { content: ""; clear: both; display: table; }
-#filter-buttons button { margin-right: 15px; transform-origin: left center; padding-top: 1px; }
-#filter-buttons #reset { float: right; color: white; font-weight: bold; cursor: pointer; padding: 0 15px; }
+#filter-buttons button, #filter-buttons .button { margin-right: 15px; transform-origin: left center; padding: 1px 12px 0; height: 24px; }
+#filter-buttons #reset { float: right; color: white; cursor: pointer; border: none; }
 #filter-buttons #reset::after { pointer-events: none; content: ''; position: relative; display: inline-block; box-sizing: border-box; width: 1em; height: 1em; border-radius: 100%; border: 2px solid #1E6BA3; background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%); background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, #1E6BA3 0%, #1E6BA3 44%, white 44%, white 56%, #1E6BA3 56%, #1E6BA3 100%); transition: all 0.3s ease; top: 2px; margin-left: 8px; }
 #filter-buttons #reset:hover { text-decoration: none; }
-#filter-buttons #reset:hover::after { transform: rotate(90deg); }
+#filter-buttons #reset:hover::after { transform: scale(1.05); }
 
 #modal-wrapper #modal-content { display: flex; flex-direction: column; align-items: stretch; align-content: flex-start; flex-wrap: nowrap; }
 #modal-wrapper #modal-content #modal-scroll-container { margin-top: 1em; overflow: hidden auto; }
 #modal-wrapper #modal-content hr { margin-bottom: 1em; }
 #modal-wrapper #modal-content .selector-wrapper { display: inline-flex; flex-wrap: wrap; align-items: baseline; margin-bottom: 0.3em; }
 #modal-wrapper #modal-content .selector-wrapper::after { content: ""; clear: both; display: table; }
-#modal-wrapper #modal-content .selector-wrapper .input.select { position: relative; }
-#modal-wrapper #modal-content .selector-wrapper .input.select::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-#modal-wrapper #modal-content .selector-wrapper .input.select:hover::after { transform: rotate(225deg); top: 10px; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select:hover { background-color: #eee; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select::-ms-expand { display: none; }
-#modal-wrapper #modal-content .selector-wrapper .input.select select:focus::-ms-value { background-color: transparent; }
-#modal-wrapper #modal-content .selector-wrapper .input.select { overflow-x: hidden; width: auto; display: inline-block; border-radius: 14px; border: 2px solid #1E6BA3; position: relative; margin-right: 1em; margin-bottom: 0.6em; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) { display: grid; grid-template-areas: 'input'; justify-items: start; align-items: start; justify-content: stretch; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox)::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox):hover::after { transform: rotate(225deg); margin-top: 10px; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; grid-area: input; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:hover { background-color: #eee; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select::-ms-expand { display: none; }
+#modal-wrapper #modal-content .selector-wrapper .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
+#modal-wrapper #modal-content .selector-wrapper .input.select { overflow: hidden; width: auto; display: inline-grid; border-radius: 14px; border: 2px solid #1E6BA3; position: relative; margin-right: 1em; margin-bottom: 0.6em; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select { height: 26px; padding: 7px 12px 5px; border: none; font-size: 12px; line-height: 13px; font-weight: bold; color: #1E6BA3; width: 180px; }
 #modal-wrapper #modal-content .selector-wrapper .input.select select optgroup { font-weight: bold; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item { display: inline-block; border: 2px solid #1E6BA3; border-radius: 14px; padding: 7px 20px 6px 30px; margin-left: 1em; margin-bottom: 0.6em; font-size: 12px; line-height: 13px; font-weight: bold; color: white; background-color: #1E6BA3; position: relative; cursor: pointer; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item:first-child { margin-left: 0; }
 #modal-wrapper #modal-content .selector-wrapper .selection-item::before { pointer-events: none; content: ''; position: absolute; display: block; box-sizing: border-box; width: 10px; height: 10px; background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%); background: linear-gradient(-45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%), linear-gradient(45deg, transparent 0%, transparent 44%, white 44%, white 56%, transparent 56%, transparent 100%); transition: all 0.3s ease; top: 8px; left: 12px; }
-#modal-wrapper #modal-content .selector-wrapper .selection-item:hover::before { transform: rotate(90deg); }
+#modal-wrapper #modal-content .selector-wrapper .selection-item:hover::before { transform: scale(1.05); }
 #modal-wrapper #modal-content .radio-selector { list-style: none; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; margin: 0; margin-bottom: 1rem; border: 2px solid #1E6BA3; border-radius: 14px; overflow: hidden; padding: 0; box-sizing: border-box; width: 100%; }
 #modal-wrapper #modal-content .radio-selector li { font-size: 12px; font-weight: bold; color: #1E6BA3; padding: 3px 8px 2px; margin: 0; flex: 1 1 20%; }
 #modal-wrapper #modal-content .radio-selector li.label { padding-left: 15px; flex: 0 0 130px; }

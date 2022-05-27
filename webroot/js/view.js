@@ -13,44 +13,44 @@ class View {
 
     addHandlers() {
         // table row expansion
-        $(document).on('click', '#table .course-row', function(e) {
+        $(document).on('click', '#table .course-row', function (e) {
             let targetRow = $(e.target).closest('.course-row');
             let id = targetRow.attr('data-id');
 
-            if(this.toggleRow(id)) {
+            if (this.toggleRow(id)) {
                 this.app.map.openMarker(id);
                 this.app.hash.push(id);
-            }else{
+            } else {
                 this.app.map.closeMarker();
                 this.app.hash.remove();
             }
         }.bind(this));
 
         // table row expansion handlers
-        $(document).on('click', '#table .show_view', function(e) {
+        $(document).on('click', '#table .show_view', function (e) {
             e.preventDefault();
             let id = $(e.target).attr('data-id');
             this.app.setCourse(id);
             this.app.map.openMarker(id);
             // this differs from map show_view action on mobiles -> definition in Map.addHandlers
         }.bind(this));
-        $(document).on('click', '#table .show_map', function(e) {
+        $(document).on('click', '#table .show_map', function (e) {
             let id = $(e.target).attr('data-id');
             this.app.slider.setPosition('map');
             this.app.map.openMarker(id);    // should already be open
         }.bind(this));
 
         // close view
-        $(document).on('click', '.close_view', function(e) {
+        $(document).on('click', '.close_view', function (e) {
             e.preventDefault();
             this.closeView();
         }.bind(this));
 
-        $(document).on('click', '.show_sort_options', function(e) {
+        $(document).on('click', '.show_sort_options', function (e) {
             this.app.filter.helper.createSortModal();
         }.bind(this));
 
-        $(document).on('click', '.show_filter_options', function(e) {
+        $(document).on('click', '.show_filter_options', function (e) {
             this.app.filter.helper.createFilterModal();
         }.bind(this));
     }
@@ -59,7 +59,7 @@ class View {
         let buttons = $('<div id="filter-buttons"></div>');
         buttons.append($('<button>Filter</button>').addClass('blue x-small show_filter_options'));
         buttons.append($('<button>Sorting</button>').addClass('blue x-small show_sort_options'));
-        if(!this.app.filter.isEmpty() || this.app.filter.selected.sort.length > 0) {
+        if (!this.app.filter.isEmpty() || this.app.filter.selected.sort.length > 0) {
             buttons.append($('<a>Clear All</a>').addClass('x-small blue clear button')
                 .attr('href', BASE_URL).attr('id', 'reset'));
         }
@@ -69,7 +69,7 @@ class View {
     createTable() {
         this.clearView();
         this.createFilterPanel();
-        if(Object.keys(this.app.data) <= 0) {
+        if (Object.keys(this.app.data) <= 0) {
             // do not clear View/call handleError to keep the filter buttons clear button available
             $(this.element).addClass('error').append('<p>No courses match your filter conditions.</p>');
             return;
@@ -92,20 +92,20 @@ class View {
         let type = $('<th class="type show_sort_options"></th>');
         type.html('Type' + this.app.filter.helper.getSortIndicator('CourseTypes.name'));
 
-        headrow.append(name,uni,loc,date,type);
+        headrow.append(name, uni, loc, date, type);
 
-        for(let i = 0; courses.length > i; i++) {
+        for (let i = 0; courses.length > i; i++) {
             let id = courses[i].id;
             let row = this.createTableRow(this.app.data[id]);
-            if(row) table.append(row);
+            if (row) table.append(row);
         }
         $(this.element).append(table);
-        if(this.app.hash.fragment && !isNaN(this.app.hash.fragment)) {
+        if (this.app.hash.fragment && !isNaN(this.app.hash.fragment)) {
             let id = this.app.hash.fragment;
-            if(this.openRow(id)) {
+            if (this.openRow(id)) {
                 this.scrollToRow(id);
                 // we need a timeout to wait until map has stopped moving (and closing open popups)
-                setTimeout(function(){
+                setTimeout(function () {
                     this.app.map.openMarker(id);
                 }.bind(this), 1500);
             }
@@ -114,18 +114,18 @@ class View {
 
     scrollToRow(id) {
         let row = document.getElementById('course-row-' + id);
-        if(typeof row != 'undefined' && row)
-            $(this.element).animate({scrollTop: row.offsetTop}, 1000 );
+        if (typeof row != 'undefined' && row)
+            $(this.element).animate({ scrollTop: row.offsetTop }, 1000);
     }
 
     toggleRow(id) {
         $('.expansion-row').remove();
-        if(typeof id != 'undefined') {
+        if (typeof id != 'undefined') {
             let targetRow = $('tr[data-id=' + id + ']');
             // close all others
             $('.expanded[data-id!=' + id + ']').removeClass('expanded');
             targetRow.toggleClass('expanded');
-            if(targetRow.hasClass('expanded')) {
+            if (targetRow.hasClass('expanded')) {
                 // opening
                 let course = this.app.data[id];
                 let colspan = (this.app.layout == 'screen') ? 5 : 4;
@@ -133,7 +133,7 @@ class View {
                 targetRow.after(expansion);     // insert
                 return true;    // wheter or not to open popups on map
             }
-        }else{
+        } else {
             // close all
             $('.expanded').removeClass('expanded');
         }
@@ -141,9 +141,9 @@ class View {
     }
 
     openRow(id) {
-        if(typeof id != 'undefined' && id > 0 && !isNaN(id)) {
+        if (typeof id != 'undefined' && id > 0 && !isNaN(id)) {
             let targetRow = $('tr[data-id=' + id + ']');
-            if(!targetRow.hasClass('expanded')) {
+            if (!targetRow.hasClass('expanded')) {
                 // remove others
                 $('.expansion-row').remove();
                 $('.expanded').removeClass('expanded');
@@ -162,7 +162,7 @@ class View {
     createTableRow(course) {
         let tr = $('<tr></tr>').addClass('course-row').attr('data-id', course.id).attr('id', 'course-row-' + course.id);
         let duration = ViewHelper.getTiming(course, ',<br />', ' ', '<br />');
-        if(typeof course.course_type == 'undefined') {
+        if (typeof course.course_type == 'undefined') {
             return false;
         }
         let type = course.course_type.name;
@@ -193,9 +193,9 @@ class View {
 
         el.append($('<h1>' + course.name + '</h1>'));
         el.append($('<p class="subtitle">' + course.course_type.name + ', ' + timing + '</p>'));
-        if(course.description != null && course.description.length > 0)
+        if (course.description != null && course.description.length > 0)
             el.append($('<div class="text"><p class="strong">Description</p>' + course.description + '</div>'));
-        if(course.access_requirements.length > 0)
+        if (course.access_requirements.length > 0)
             el.append($('<div class="text"><p class="strong">Access Requirements</p>' + course.access_requirements + '</div>'));
 
         el.append($('<hr />'));
@@ -215,7 +215,7 @@ class View {
         helper.createTermData('Record Id', course, 'id').createGridItem();
         helper.createTermData('Last Revised', course, 'updated').createGridItem();
 
-        if(course.info_url.length > 0 && course.info_url != 'null') {
+        if (course.info_url.length > 0 && course.info_url != 'null') {
             helper.createTermData('Source URL', course, 'info_url').createGridItem('single-col');
         }
 
@@ -242,18 +242,18 @@ class View {
             popups: false
         });
         let id = course.id;
-        map.setMarkers({id: course});
+        map.setMarkers({ id: course });
         map.map.setView([course.lat, course.lon], 5);
-        map.map.on('click', function() { map.map.scrollWheelZoom.enable(); });
-        map.map.on('focus', function() { map.map.scrollWheelZoom.enable(); });
-        map.map.on('mouseout', function() { map.map.scrollWheelZoom.disable()});
-        map.map.on('blur', function() { map.map.scrollWheelZoom.disable()});
+        map.map.on('click', function () { map.map.scrollWheelZoom.enable(); });
+        map.map.on('focus', function () { map.map.scrollWheelZoom.enable(); });
+        map.map.on('mouseout', function () { map.map.scrollWheelZoom.disable() });
+        map.map.on('blur', function () { map.map.scrollWheelZoom.disable() });
     }
 
     setErrorMessage(msg) {
         msg = msg || 'Something went wrong';
         this.clearView();
-        $(this.element).addClass('error').text(msg);
+        $(this.element).text(msg);
     }
 
     setLoader() {
@@ -267,10 +267,10 @@ class View {
     }
 
     closeView() {
-        if(this.app.action == 'index') {
+        if (this.app.action == 'index') {
             this.app.setTable();
         }
-        if(this.app.action == 'view') {
+        if (this.app.action == 'view') {
             // reload
             window.location = BASE_URL;
         }

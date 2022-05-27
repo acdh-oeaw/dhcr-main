@@ -85,6 +85,8 @@ hr { height: 2px; background-color: #1E6BA3; border: none; margin: 0; }
 
 .clearfix::after { content: ""; clear: both; display: table; }
 
+.headspace { margin-top: 3em; }
+
 .recurring { background: url("../img/repeat.png") right bottom/contain no-repeat; padding-right: 1.4em; padding-bottom: 0.2em; line-height: 0.85em; font-size: inherit; display: inline-block; }
 
 table .recurring { color: transparent; height: 15px; width: 15px; display: inline-block; background: url("../img/repeat.png") center/contain no-repeat; vertical-align: middle; }
@@ -99,6 +101,11 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 .flex-columns .flex-item.triple { flex: 0 1 30%; min-width: 200px; }
 @media only screen and (max-width: 750px) { .flex-columns { display: block; }
   .flex-columns .flex-item { margin-bottom: 3em; min-width: initial; padding: 0; } }
+
+.grid-columns { display: grid; grid-column-gap: 4em; grid-row-gap: 6em; place-items: stretch; grid-template-columns: repeat(2, 1fr); }
+@media only screen and (max-width: 750px) { .grid-columns { grid-template-columns: repeat(1, 1fr); } }
+.grid-columns .grid-item { display: grid; }
+.grid-columns .grid-item *:last-child { align-self: end; justify-self: start; }
 
 .css-columns { column-count: 2; column-gap: 1em; }
 @media only screen and (max-width: 400px) { .css-columns { column-count: 1; } }
@@ -679,7 +686,7 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 #content #sitemap { display: block; }
 
 #modal-wrapper.sitemap { padding: 15px 0; display: grid; grid-template-areas: ". display ."; grid-template-columns: min(15px) min(calc(100% - 2*15px), 90rem) min(40px); gap: 0; }
-#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; }
+#modal-wrapper.sitemap #modal-content { grid-area: display; align-self: start; justify-self: end; width: initial; overflow-y: auto; }
 @media only screen and (max-width: 400px) { #modal-wrapper.sitemap { padding: 5px 0; grid-template-columns: 5px auto 5px; }
   #modal-wrapper.sitemap #modal-content { justify-self: stretch; } }
 
@@ -725,42 +732,57 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 
 #footer { margin-top: 100px; }
 
-.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; color: #ccc; }
+.flash-message { position: fixed; width: 300px; height: auto; background-color: rgba(0, 0, 0, 0.8); z-index: 10000000; right: 50px; top: 50px; padding: 30px; border-radius: 8px; border: none; color: #ccc; }
 @media only screen and (max-width: 750px) { .flash-message { top: 20px; right: 20px; } }
 
 .optionals .required > label::after { content: ' *'; vertical-align: super; }
-
-.input.paragraph p { margin-bottom: 0; }
+.optionals .depending > label::after, .optionals label.depending::after { content: ' (*)'; vertical-align: super; }
 
 form::after { content: ""; clear: both; display: table; }
-form fieldset.invisible { border: none; margin-top: 3em; }
+form .notice, form .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
+form .notice input, form .notice label, form .error input, form .error label { font-size: 1rem; }
+form .notice select, form .error select { font-size: 0.9rem; }
+form .notice dd, form .error dd { color: #6d7278; font-size: 1em; }
+form .notice h1, form .notice h2, form .notice h3, form .notice h4, form .notice dt, form .error h1, form .error h2, form .error h3, form .error h4, form .error dt { font-size: 1em; color: #6d7278; }
+form .error { border: 1px solid #af3434; background-color: #e8adad; }
 form label { font-weight: bold; color: #1E6BA3; }
-form input, form textarea, form select { border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 5px 5px 3px; font-size: 0.9em; font-family: Metropolis; color: inherit; }
+form input, form textarea, form select { border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 5px 5px 3px; font-size: 0.9em; font-family: Metropolis, serif; color: inherit; outline: none; }
+form input:focus, form input:focus-visible, form input:active, form textarea:focus, form textarea:focus-visible, form textarea:active, form select:focus, form select:focus-visible, form select:active { border-width: 2px; }
+form input::placeholder, form textarea::placeholder, form select::placeholder { color: #aaa; }
+form input[readonly], form textarea[readonly], form select[readonly] { border: 2px solid #ddd; color: #aaa; }
 form input[readonly] { border: none; font-weight: bold; padding-top: 8px; color: #6d7278; }
-form textarea[readonly], form textarea[disabled] { border: none; color: #6d7278; }
-form .input.select { position: relative; }
-form .input.select::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-form .input.select:hover::after { transform: rotate(225deg); top: 10px; }
-form .input.select select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; }
-form .input.select select:hover { background-color: #eee; }
-form .input.select select::-ms-expand { display: none; }
-form .input.select select:focus::-ms-value { background-color: transparent; }
-form .checkbox { margin-left: 0; padding: 5px; }
+form .input.select:not(.checkbox) { display: grid; grid-template-areas: 'input'; justify-items: start; align-items: start; justify-content: stretch; }
+form .input.select:not(.checkbox)::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+form .input.select:not(.checkbox):hover::after { transform: rotate(225deg); margin-top: 10px; }
+form .input.select:not(.checkbox) select { -webkit-appearance: none; -moz-appearance: none; appearance: none; outline: none; cursor: pointer; background-color: transparent; font-family: Metropolis; grid-area: input; }
+form .input.select:not(.checkbox) select:hover { background-color: #eee; }
+form .input.select:not(.checkbox) select::-ms-expand { display: none; }
+form .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
+form .checkbox { margin-left: 0; padding: 0; }
 form .checkbox label { display: inline; }
 form .checkbox input[type=checkbox] { width: 10px; margin-right: 10px; display: inline; vertical-align: middle; }
-form .input { display: grid; grid-template-columns: 1fr 2fr; grid-template-areas: 'label input'; grid-column-gap: 1em; grid-row-gap: 0.5em; justify-items: start; align-items: start; justify-content: stretch; grid-auto-flow: row; grid-auto-rows: auto; margin-bottom: 1em; }
-@media only screen and (max-width: 750px) { form .input { grid-column-gap: 1em; } }
-form .input label { grid-area: label; margin-bottom: 0.5em; min-width: 88px; }
-form .input input, form .input textarea, form .input select, form .input .radio-inline, form .input .checklist-toggle { grid-area: input; justify-self: stretch; width: 100%; }
-form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error { border-color: #020000; }
-form .input .radio-inline label { display: inline; margin-right: 2em; }
-form .input .radio-inline input[type=radio] { width: 10px; margin-right: 10px; display: inline; vertical-align: text-top; }
-form .input .error-message { grid-row: 2; grid-column: 2; justify-self: stretch; font-size: 0.9em; font-weight: bold; color: #020000; }
+form .input, form .input.select:not(.checkbox) { display: grid; grid-template-columns: 1fr 2fr; grid-template-areas: 'label input'; grid-column-gap: 1em; grid-row-gap: 0.5em; justify-items: start; align-items: start; justify-content: stretch; grid-auto-flow: row; grid-auto-rows: auto; margin-bottom: 1em; }
+@media only screen and (max-width: 750px) { form .input, form .input.select:not(.checkbox) { grid-column-gap: 1em; } }
+form .input label, form .input.select:not(.checkbox) label { grid-area: label; margin-bottom: 0.5em; min-width: 88px; }
+form .input input, form .input textarea, form .input select, form .input .radio-inline, form .input .checklist-toggle, form .input.select:not(.checkbox) input, form .input.select:not(.checkbox) textarea, form .input.select:not(.checkbox) select, form .input.select:not(.checkbox) .radio-inline, form .input.select:not(.checkbox) .checklist-toggle { grid-area: input; justify-self: stretch; width: 100%; }
+form .input input.form-error, form .input textarea.form-error, form .input select.form-error, form .input .radio-inline.form-error, form .input .checklist-toggle.form-error, form .input.select:not(.checkbox) input.form-error, form .input.select:not(.checkbox) textarea.form-error, form .input.select:not(.checkbox) select.form-error, form .input.select:not(.checkbox) .radio-inline.form-error, form .input.select:not(.checkbox) .checklist-toggle.form-error { border-color: #020000; }
+form .input .radio-inline label, form .input.select:not(.checkbox) .radio-inline label { display: inline; margin-right: 2em; }
+form .input .radio-inline input[type=radio], form .input.select:not(.checkbox) .radio-inline input[type=radio] { width: 10px; margin-right: 10px; display: inline; vertical-align: text-top; }
+form .input .error-message, form .input.select:not(.checkbox) .error-message { grid-row: 2; grid-column: 2; justify-self: stretch; font-weight: bold; color: #020000; }
+form .input.password { position: relative; }
+form .input.password .fa-eye { position: absolute; right: 1.5em; top: 0.26em; cursor: pointer; width: 0; color: transparent; }
+form .input.password .fa-eye::before { color: #1E6BA3; }
+form .input.password .fa-eye:hover::before { color: #6d7278; }
+form .input.password.error .fa-eye { font-size: 1rem; top: 1.32em; right: 2.7em; }
+form .input.info .info { grid-area: input; }
+form .input.info .info :last-child { margin-bottom: 0; }
+form .input.info .checkbox { grid-area: input; grid-row-start: 2; display: block; }
+form .input.info .error-message { grid-row: 3; }
 
 .input.dropdown-checkbox::after { content: ""; clear: both; display: table; }
 .input.dropdown-checkbox .checklist-toggle { cursor: pointer; position: relative; margin-bottom: 1px; border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 1px 5px 0px; }
-.input.dropdown-checkbox .checklist-toggle::after { content: ''; display: block; position: absolute; width: 8px; height: 8px; right: 15px; top: 5px; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
-.input.dropdown-checkbox .checklist-toggle:hover::after { transform: rotate(225deg); top: 10px; }
+.input.dropdown-checkbox .checklist-toggle::after { content: ''; display: block; width: 8px; height: 8px; margin-top: 6px; margin-right: 8px; grid-area: input; justify-self: end; align-self: start; border: 2px solid #1E6BA3; border-top: none; border-left: none; transform: rotate(45deg); cursor: pointer; pointer-events: none; transition: all 0.3s ease; }
+.input.dropdown-checkbox .checklist-toggle:hover::after { transform: rotate(225deg); margin-top: 10px; }
 .input.dropdown-checkbox .checklist-toggle:hover { background-color: #eee; }
 .input.dropdown-checkbox .checklist-toggle .display { overflow: hidden; font-size: 0.9em; font-family: Metropolis; }
 .input.dropdown-checkbox .checklist { grid-area: input; justify-self: stretch; border: 1px solid #1E6BA3; border-radius: 4px; background-color: #fff; -ms-box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; padding: 4px; margin-top: 3em; }
@@ -814,16 +836,34 @@ body.stories ul li.linklist-list-element-green { background-color: #60a845; }
 body.stories ul li:hover { opacity: 0.3; filter: alpha(opacity=30); }
 
 body.login .wrapper { max-width: 750px; }
+body.login .wrapper .loginAlternative#classicLogin .notice, body.login .wrapper .loginAlternative#classicLogin .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
+body.login .wrapper .loginAlternative#classicLogin .notice input, body.login .wrapper .loginAlternative#classicLogin .notice label, body.login .wrapper .loginAlternative#classicLogin .error input, body.login .wrapper .loginAlternative#classicLogin .error label { font-size: 1rem; }
+body.login .wrapper .loginAlternative#classicLogin .notice select, body.login .wrapper .loginAlternative#classicLogin .error select { font-size: 0.9rem; }
+body.login .wrapper .loginAlternative#classicLogin .notice dd, body.login .wrapper .loginAlternative#classicLogin .error dd { color: #6d7278; font-size: 1em; }
+body.login .wrapper .loginAlternative#classicLogin .notice h1, body.login .wrapper .loginAlternative#classicLogin .notice h2, body.login .wrapper .loginAlternative#classicLogin .notice h3, body.login .wrapper .loginAlternative#classicLogin .notice h4, body.login .wrapper .loginAlternative#classicLogin .notice dt, body.login .wrapper .loginAlternative#classicLogin .error h1, body.login .wrapper .loginAlternative#classicLogin .error h2, body.login .wrapper .loginAlternative#classicLogin .error h3, body.login .wrapper .loginAlternative#classicLogin .error h4, body.login .wrapper .loginAlternative#classicLogin .error dt { font-size: 1em; color: #6d7278; }
+body.login .wrapper .loginAlternative#classicLogin .error { border: 1px solid #af3434; background-color: #e8adad; }
+body.login .wrapper .loginAlternative .users.form { margin-top: 2em; }
+body.login .wrapper .loginAlternative .users.form button[disabled] { color: #bbb; border-color: #bbb; transform: none; cursor: default; }
+body.login .wrapper .loginAlternative .users.form .taWrapper { position: relative; }
+body.login .wrapper .loginAlternative .users.form .taWrapper ul.idpSelectDropDown { position: absolute; top: 30px; right: 0; border: 1px solid #1E6BA3; border-radius: 5px; padding: 5px; width: 60%; height: auto; background-color: #fff; box-shadow: 10px 10px 8px #aaa; z-index: 1000; }
+body.login .wrapper .loginAlternative .users.form .taWrapper ul.idpSelectDropDown li { display: block; cursor: pointer; margin-bottom: 0.5em; }
+body.login .wrapper .loginAlternative .users.form .taWrapper ul.idpSelectDropDown li:hover { color: #1E6BA3; }
+body.login .wrapper .loginAlternative .users.form .taWrapper ul.idpSelectDropDown li.selected { background-color: #1E6BA3; color: #fff; }
+body.login .wrapper .loginAlternative .login-alternatives { display: flex; justify-content: space-between; margin: 6em 0 4em; gap: 1em; flex-wrap: wrap; }
 
-.users.form { margin-top: 2em; }
-.users.form button[disabled] { color: #bbb; border-color: #bbb; transform: none; cursor: default; }
+body.registration #content .notice, body.registration #content .error { padding: 1.2em; border: 1px solid #ffbf01; border-radius: 5px; background-color: #ffe59cf7; font-weight: bolder; color: #6d7278; font-size: 0.8rem; margin-bottom: 2em; }
+body.registration #content .notice input, body.registration #content .notice label, body.registration #content .error input, body.registration #content .error label { font-size: 1rem; }
+body.registration #content .notice select, body.registration #content .error select { font-size: 0.9rem; }
+body.registration #content .notice dd, body.registration #content .error dd { color: #6d7278; font-size: 1em; }
+body.registration #content .notice h1, body.registration #content .notice h2, body.registration #content .notice h3, body.registration #content .notice h4, body.registration #content .notice dt, body.registration #content .error h1, body.registration #content .error h2, body.registration #content .error h3, body.registration #content .error h4, body.registration #content .error dt { font-size: 1em; color: #6d7278; }
+body.registration #content .error { border: 1px solid #af3434; background-color: #e8adad; }
 
-#login-alternatives { display: flex; justify-content: space-between; margin: 6em 0 4em; gap: 1em; flex-wrap: wrap; }
-
-.taWrapper { position: relative; }
-.taWrapper ul.idpSelectDropDown { position: absolute; top: 30px; right: 0; border: 1px solid #1E6BA3; border-radius: 5px; padding: 5px; width: 60%; height: auto; background-color: #fff; box-shadow: 10px 10px 8px #aaa; z-index: 1000; }
-.taWrapper ul.idpSelectDropDown li { display: block; cursor: pointer; margin-bottom: 0.5em; }
-.taWrapper ul.idpSelectDropDown li:hover { color: #1E6BA3; }
-.taWrapper ul.idpSelectDropDown li.selected { background-color: #1E6BA3; color: #fff; }
+#registration_success .status-container { margin-bottom: 3em; display: grid; grid-row-gap: 0.5em; grid-column-gap: 0.5em; grid-template-columns: 100px auto; grid-template-rows: auto; grid-template-areas: "icon header" "icon text" "icon button"; }
+#registration_success .status-container h3, #registration_success .status-container p, #registration_success .status-container span, #registration_success .status-container .button { margin: 0; display: block; align-self: start; justify-self: start; }
+#registration_success .status-container h3 { grid-area: header; }
+#registration_success .status-container .glyphicon { grid-area: icon; color: #fff; background-color: #61A845; padding: 0.3em; font-size: 3em; border-radius: 0.3em; }
+#registration_success .status-container .glyphicon.glyphicon-minus-sign, #registration_success .status-container .glyphicon.glyphicon-ok-circle { background-color: #d8d8d8; }
+#registration_success .status-container p { grid-area: text; }
+#registration_success .status-container .button { grid-area: button; }
 
 /*# sourceMappingURL=default.css.map */
