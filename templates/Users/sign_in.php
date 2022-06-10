@@ -12,13 +12,13 @@ $this->set('bodyClasses', 'login');
         <li>If you do not have a DHCR account<?php // and were not able to log in using the federated login ?>, 
         please use the <?= $this->Html->link('registration form', '/users/register') ?> to create one.</li>
     </ul>
-    <p class="notice">You need to login to the DHCR if you are a lecturer or other academic institution member and 
+    <p class="notice">You need to log in to the DHCR if you are a lecturer or other academic institution member and 
         want to add or curate course metadata. All other audience may use the publicly available content and functionality 
         freely. Watch this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">video tutorial</a> to learn how to browse or 
         filter the courses in the registry.</p>
     <div class="users form">
         <?= $this->Form->create() ?>
-        <?= $this->Form->control('email') ?>
+        <?= $this->Form->control('email', ['label' => 'Email Address']) ?>
         <?= $this->Form->control('password') ?>
         <?= $this->Form->button(__('Login'), ['class' => 'right']); ?>
         <?= $this->Form->end() ?>
