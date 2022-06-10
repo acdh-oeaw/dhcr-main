@@ -1,4 +1,11 @@
 # The Digital Humanities Course Registry - DHCR
+
+## Release notes
+Release notes of the latest version can be found here: [RELEASE_NOTES.md](RELEASE_NOTES.md)
+
+## Old content
+The text below is outdated and needs to be updated:
+
 The applications currently consists of three sub-apps. 
 This is the DHCR Front-End and the site's main entry point, which resembles all publicly available parts of the DHCR. 
 The administrative back-end (contributors, moderators and admins) is plugged in as a submodule in the directory `ops` (operations), while the JSON-API is made available `api/v1` (eventually incompatible new API versions will get their own directory, while maintaining the legacy version). 
