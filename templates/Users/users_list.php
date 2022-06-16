@@ -26,7 +26,6 @@
                         } ?>
                         <th align="left" style="padding: 5px">Institution</th>
                         <th align="left" style="padding: 5px">Other Organisation</th>
-                        <th align="left" style="padding: 5px">About</th>
                         <?php if ($users_view_type == 'Account Approval') { ?>
                             <th align="left" style="padding: 5px">Request Date</th>
                         <?php } ?>
@@ -60,14 +59,6 @@
                         ?>
                         <td style="padding: 5px"><?= ($listedUser->institution_id != null) ? h($listedUser->institution->name) : '' ?></td>
                         <td style="padding: 5px"><?= h($listedUser->university) ?></td>
-                        <?php
-                        if (strlen($listedUser->about) >= 150) {
-                            $about = substr($listedUser->about, 0, 145) . '.....';
-                        } else {
-                            $about = $listedUser->about;
-                        }
-                        ?>
-                        <td style="padding: 5px"><?= h($about) ?></td>
                         <?php if ($users_view_type == 'Account Approval') { ?>
                             <td style="padding: 5px"><?= $listedUser->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
                         <?php } ?>

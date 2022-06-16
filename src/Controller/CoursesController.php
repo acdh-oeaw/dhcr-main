@@ -188,9 +188,6 @@ class CoursesController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($course);
         if ($this->request->is(['patch', 'post', 'put'])) {
-
-            // debug($this->request);
-            
             $course = $this->Courses->patchEntity($course, $this->request->getData());
             // set updated
             $course->set('updated', date("Y-m-d H:i:s"));
@@ -225,19 +222,19 @@ class CoursesController extends AppController
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $results = $this->Courses->CoursesDisciplines->find('all')->where(['course_id' => $course->id]);
         $selectedDisciplines = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $selectedDisciplines[] = $result->discipline_id;
         }
         $tadirah_techniques = $this->Courses->TadirahTechniques->find('list', ['order' => 'TadirahTechniques.name asc']);
         $results = $this->Courses->CoursesTadirahTechniques->find('all')->where(['course_id' => $course->id]);
         $selectedTadirahTechniques = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $selectedTadirahTechniques[] = $result->tadirah_technique_id;
         }
         $tadirah_objects = $this->Courses->TadirahObjects->find('list', ['order' => 'TadirahObjects.name asc']);
         $results = $this->Courses->CoursesTadirahObjects->find('all')->where(['course_id' => $course->id]);
         $selectedTadirahObjects = [];
-        foreach($results as $result) {
+        foreach ($results as $result) {
             $selectedTadirahObjects[] = $result->tadirah_object_id;
         }
         // required for changing map to location of selected institution
@@ -556,5 +553,49 @@ class CoursesController extends AppController
         $this->set('course_icon', 'education');
         $this->set('course_view_type', 'Course Approval');
         $this->render('courses-list');
+    }
+
+    public function transfer($id = null)
+    {
+        $this->loadModel('DhcrCore.Courses');
+        $course = $this->Courses->get($id, ['contain' => ['Users']]);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($course);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $course = $this->Courses->patchEntity($course, $this->request->getData());
+            if ($this->Courses->save($course)) {
+                $this->Flash->success(__('The course has been transferred.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+            }
+            $this->Flash->error(__('The course could not be transferred. Please, try again.'));
+        }
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'Transfer Course';
+        $breadcrumControllers[1] = 'Courses';
+        $breadcrumActions[1] = 'transfer';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if ($user->is_admin) {
+            $results = $this->Courses->Users->find('all', ['order' => 'Users.last_name asc'])->where([
+                'approved' => 1,
+                'active' => 1,
+            ]);
+        } elseif ($user->user_role_id == 2) {
+            $results = $this->Courses->Users->find('all', ['order' => 'Users.last_name asc'])
+                ->where([
+                    'Users.country_id' => $user->country_id,
+                    'approved' => 1,
+                    'active' => 1,
+                ]);
+        }
+        $usersList = [];
+        foreach ($results as $result) {
+            $usersList[$result->id] = ucfirst($result->last_name) . ', ' . ucfirst($result->academic_title) . ' ' . ucfirst($result->first_name) . ' -- ' . $result->email;
+        }
+        $this->set(compact('user', 'usersList')); // required for contributors menu
+        $this->set(compact('course'));
     }
 }
