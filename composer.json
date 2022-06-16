@@ -42,6 +42,7 @@
     },
     "scripts": {
         "pre-install-cmd": [
+            "git submodule update --init --recursive",
             "cp composer.phar api/v1/",
             "cp composer.phar api/v2/",
             "cd api/v1/ && php composer.phar update",
