@@ -74,12 +74,12 @@ jobs:
           COPY . /tmp/app
           ENV USER=herokuishuser
           EOF
-      - name: Build and push
+      - name: Build
         uses: docker/build-push-action@v3
         with:
           context: .
           platforms: linux/amd64
-          push: true
+          push: false
           tags: |
               ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test
       - name: Create test services network
