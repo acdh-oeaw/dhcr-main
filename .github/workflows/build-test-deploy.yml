@@ -164,14 +164,14 @@ jobs:
           cat >> auto-deploy-app-values.yaml <<EOF
           livenessProbe:
             path: "${{ secrets.APP_ROOT }}"
-            initialDelaySeconds: 15
-            timeoutSeconds: 15
+            initialDelaySeconds: 25
+            timeoutSeconds: 30
             scheme: "HTTP"
             probeType: "httpGet"
           readinessProbe:
             path: "${{ secrets.APP_ROOT }}"
-            initialDelaySeconds: 5
-            timeoutSeconds: 3
+            initialDelaySeconds: 15
+            timeoutSeconds: 30
             scheme: "HTTP"
             probeType: "httpGet"
           EOF
