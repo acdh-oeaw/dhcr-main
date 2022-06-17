@@ -39,7 +39,7 @@ This is a major release which contains a lot of big changes. The complete login 
         - Edit user
             - Assign user to other institution
     - All users
-- Category list
+- Category lists
     - Easy add or change related data
         - Cities, Institutions, Languages, Translations
 
