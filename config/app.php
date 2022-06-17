@@ -226,8 +226,8 @@ return [
             'host' => env('MAIL_SMTP_HOST', '__SMTP_HOST__'),
             'port' => env('MAIL_SMTP_PORT', 25),
             'timeout' => 30,
-            'username' => null,
-            'password' => null,
+            'username' => env('MAIL_SMTP_USER', null),
+            'password' => env('MAIL_SMTP_PASS', null),
             'client' => null,
             'tls' => null,
             'log' => false,        // enabling this will print the full messages into the log
