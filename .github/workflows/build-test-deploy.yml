@@ -74,7 +74,7 @@ jobs:
           COPY . /tmp/app
           ENV USER=herokuishuser
           EOF
-      - name: Build 
+      - name: Build Docker image
         uses: docker/build-push-action@v3
         with:
           context: .
