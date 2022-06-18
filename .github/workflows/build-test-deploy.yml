@@ -2,12 +2,9 @@ name: Build test and deploy
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
-  push:
-  pull_request:
-    branches:
-      - test
-      - dev
-      - prod
+  push: {}
+  repository_dispatch:
+    types: [run]
 jobs:
   build:
     name: Build Docker image from the branch ${{ github.ref_name }}
