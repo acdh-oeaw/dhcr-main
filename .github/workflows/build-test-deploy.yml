@@ -3,6 +3,8 @@ env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
   push: {}
+  repository_dispatch:
+    types: [run]
 
 jobs:
   build:
