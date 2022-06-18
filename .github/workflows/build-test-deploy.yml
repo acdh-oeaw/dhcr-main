@@ -1,4 +1,4 @@
-name: Build test and deploy DHCR 
+name: Build test and deploy 
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
@@ -79,6 +79,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
+          push: false
           tags: |
               ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test
       - name: Create test services network
