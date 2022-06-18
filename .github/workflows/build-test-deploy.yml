@@ -79,7 +79,6 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
-          push: false
           tags: |
               ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test
       - name: Create test services network
