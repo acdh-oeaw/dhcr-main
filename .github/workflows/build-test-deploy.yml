@@ -1,11 +1,10 @@
-name: Build test and deploy
+name: Build test and deploy DHCR
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
   push: {}
   repository_dispatch:
     types: [run]
-
 jobs:
   build:
     name: Build Docker image from the branch ${{ github.ref_name }}
@@ -80,6 +79,7 @@ jobs:
         with:
           context: .
           platforms: linux/amd64
+          push: false
           tags: |
               ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test
       - name: Create test services network
