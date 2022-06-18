@@ -3,7 +3,8 @@ env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
   push: {}
-
+  repository_dispatch:
+    types: [run]
 jobs:
   build:
     name: Build Docker image from the branch ${{ github.ref_name }}
