@@ -1,4 +1,4 @@
-name: Build test and deploy DHCR 
+name: Build test and deploy 
 env:
   DOCKER_TAG: ${{ secrets.DOCKER_TAG }}
 on:
