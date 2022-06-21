@@ -226,6 +226,11 @@
                     echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
                     echo '</li>';
                 }
+                if ($user->user_role_id == 2 || $user->is_admin) {
+                    echo '<li>';
+                    echo $this->Html->link('Processes explanation', ['controller' => 'Help', 'action' => 'processesExplanation']);
+                    echo '</li>';
+                }
                 ?>
             </ul>
         </li>

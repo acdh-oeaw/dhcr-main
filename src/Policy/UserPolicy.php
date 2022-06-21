@@ -73,4 +73,13 @@ class UserPolicy
         }
         return false;
     }
+
+    public function canProcessesExplanation(IdentityInterface $user, IdentityInterface $viewedUser)
+    {
+        // only for mod and admin
+        if ($user->user_role_id == 2 || $user->is_admin) {
+            return true;
+        }
+        return false;
+    }
 }
