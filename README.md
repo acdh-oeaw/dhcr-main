@@ -1,5 +1,5 @@
 # The Digital Humanities Course Registry - DHCR
-The applications currently consists of three sub-apps. 
+The applications currently consists of three sub-apps.___
 This is the DHCR Front-End and the site's main entry point, which resembles all publicly available parts of the DHCR. 
 The administrative back-end (contributors, moderators and admins) is plugged in as a submodule in the directory `ops` (operations), while the JSON-API is made available `api/v1` (eventually incompatible new API versions will get their own directory, while maintaining the legacy version). 
 The back-end app holds CakePhp 2.x legacy code, that in future will be migrated to CakePhp 3.x and integrated into the DHCR front-end main app. 
