@@ -1,5 +1,8 @@
 # Release notes
 
+## Next release
+Text here
+
 ## Version 2022-05
 This is a major release which contains a lot of big changes. The complete login area is new implemented as well as several backend processes. Also new features were added.
 
