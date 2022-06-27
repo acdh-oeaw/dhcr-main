@@ -82,4 +82,13 @@ class UserPolicy
         }
         return false;
     }
+
+    public function canPendingInvitations(IdentityInterface $user)
+    {
+        // both mod and admin can see their list
+        if ($user->user_role_id == 2 || $user->is_admin) {
+            return true;
+        }
+        return false;
+    }
 }

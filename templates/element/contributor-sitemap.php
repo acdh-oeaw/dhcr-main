@@ -99,6 +99,12 @@
                         ) ?>
                     </li>
                     <li>
+                        <?= $this->Html->link(
+                            'Pending Invitations',
+                            ['controller' => 'Users', 'action' => 'pendingInvitations']
+                        ) ?>
+                    </li>
+                    <li>
                         <?php
                         if ($user->user_role_id == 2) {
                             echo $this->Html->link(

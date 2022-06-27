@@ -15,6 +15,19 @@
             'escape' => false
         ]
     );
+    echo $this->Html->link(
+        '<p></p><span class="glyphicon glyphicon-option-horizontal"></span><br>
+        Pending Invitations<p></p>',
+        [
+            'controller' => 'users',
+            'action' => 'pendingInvitations'
+        ],
+        [
+            'class' => 'blue button',
+            'title' => 'Pending Invitations',
+            'escape' => false
+        ]
+    );
     if ($user->user_role_id == 2) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-user"></span><br>

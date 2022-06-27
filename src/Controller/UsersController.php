@@ -860,4 +860,62 @@ class UsersController extends AppController
         $this->set('users_view_type', 'All Users');
         $this->render('users-list');
     }
+
+    public function pendingInvitations()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Pending Invitations';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'pendingInvitations';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if ($user->user_role_id == 2) {
+            $users =  $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 1,
+                    'active' => 1,
+                    'email_verified' => 1,
+                    'password_token' => NULL,
+                    'Users.country_id' => $user->country_id
+                ]),
+                [
+                    'order' => ['created' => 'desc'],
+                    'contain' => ['Institutions']
+                ]
+            );
+            $usersCount = $this->Users->find()->where([
+                'approved' => 1, 'active' => 1,
+                'email_verified' => 1,
+                'password_token' => NULL,
+                'Users.country_id' => $user->country_id
+            ])->count();
+        } elseif ($user->is_admin) {
+            $users =  $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 1,
+                    'active' => 1,
+                    'email_verified' => 1,
+                ]),
+                [
+                    'order' => ['created' => 'desc'],
+                    'contain' => ['Institutions']
+                ]
+            );
+            $usersCount = $this->Users->find()->where([
+                'approved' => 1, 'active' => 1,
+                'email_verified' => 1,
+            ])->count();    // TODO add: 'password_token' => NULL,
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'option-horizontal');
+        $this->set('users_view_type', 'Pending Invitations');
+        $this->render('users-list');
+    }
 }
