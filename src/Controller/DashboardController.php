@@ -178,6 +178,10 @@ class DashboardController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'contributorNetwork';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        if ((!$user->is_admin && !($user->user_role_id == 2))) {
+            $this->Flash->error(__('Not authorized to contributor network'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
         if ($user->user_role_id == 2) {
             $moderatedUsersCount = $this->Users->find()->where([
                 'approved' => 1,
@@ -185,20 +189,31 @@ class DashboardController extends AppController
                 'country_id' => $user->country_id
             ])
                 ->count();
+            $pendingInvitationsCount = $this->Users->find()->where([
+                'approved' => 1,
+                'active' => 1,
+                'email_verified' => 1,
+                'password IS NULL',
+                'password_token IS NOT NULL',
+                'Users.country_id' => $user->country_id,
+            ])->count();
         } else {
             $moderatedUsersCount = 0;
         }
         if ($user->is_admin) {
             $allUsersCount = $this->Users->find()->count();
+            $pendingInvitationsCount = $this->Users->find()->where([
+                'approved' => 1,
+                'active' => 1,
+                'email_verified' => 1,
+                'password IS NULL',
+                'password_token IS NOT NULL',
+            ])->count();
         } else {
             $allUsersCount = 0;
         }
-        if ((!$user->is_admin && !($user->user_role_id == 2))) {
-            $this->Flash->error(__('Not authorized to contributor network'));
-            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
-        }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('moderatedUsersCount', 'allUsersCount'));
+        $this->set(compact('moderatedUsersCount', 'allUsersCount', 'pendingInvitationsCount'));
     }
 
     public function categoryLists()

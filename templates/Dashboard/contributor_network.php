@@ -17,7 +17,8 @@
     );
     echo $this->Html->link(
         '<p></p><span class="glyphicon glyphicon-option-horizontal"></span><br>
-        Pending Invitations<p></p>',
+        Pending Invitations<br>
+        <font color="#81d41a">(&nbsp;' . $pendingInvitationsCount . '&nbsp;)</font><p></p>',
         [
             'controller' => 'users',
             'action' => 'pendingInvitations'

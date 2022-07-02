@@ -880,8 +880,9 @@ class UsersController extends AppController
                     'approved' => 1,
                     'active' => 1,
                     'email_verified' => 1,
-                    'password_token' => NULL,
-                    'Users.country_id' => $user->country_id
+                    'password IS NULL',
+                    'password_token IS NOT NULL',
+                    'Users.country_id' => $user->country_id,
                 ]),
                 [
                     'order' => ['created' => 'desc'],
@@ -889,17 +890,21 @@ class UsersController extends AppController
                 ]
             );
             $usersCount = $this->Users->find()->where([
-                'approved' => 1, 'active' => 1,
+                'approved' => 1,
+                'active' => 1,
                 'email_verified' => 1,
-                'password_token' => NULL,
-                'Users.country_id' => $user->country_id
+                'password IS NULL',
+                'password_token IS NOT NULL',
+                'Users.country_id' => $user->country_id,
             ])->count();
         } elseif ($user->is_admin) {
-            $users =  $users = $this->paginate(
+            $users = $this->paginate(
                 $this->Users->find()->where([
                     'approved' => 1,
                     'active' => 1,
                     'email_verified' => 1,
+                    'password IS NULL',
+                    'password_token IS NOT NULL',
                 ]),
                 [
                     'order' => ['created' => 'desc'],
@@ -907,9 +912,12 @@ class UsersController extends AppController
                 ]
             );
             $usersCount = $this->Users->find()->where([
-                'approved' => 1, 'active' => 1,
+                'approved' => 1,
+                'active' => 1,
                 'email_verified' => 1,
-            ])->count();    // TODO add: 'password_token' => NULL,
+                'password IS NULL',
+                'password_token IS NOT NULL',
+            ])->count();
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('users', 'usersCount'));

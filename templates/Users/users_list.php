@@ -40,9 +40,9 @@
                             if ($users_view_type == 'Account Approval') {
                                 echo $this->Html->link(__('Approve'), ['action' => 'approve', $listedUser->id]) . '<br>';
                             }
-                            if ($users_view_type == 'Pending Invitations') {
-                                echo $this->Html->link(__('Reinvite'), ['action' => 'reinvite', $listedUser->id]) . '<br>';
-                            }
+                            // if ($users_view_type == 'Pending Invitations') {
+                            //     echo $this->Html->link(__('Reinvite'), ['action' => 'reinvite', $listedUser->id]) . '<br>';
+                            // }
                             echo $this->Html->link(__('View'), ['action' => 'view', $listedUser->id]) . '<br>';
                             echo $this->Html->link(__('Edit'), ['action' => 'edit', $listedUser->id]) . '<br>';
                             ?>
