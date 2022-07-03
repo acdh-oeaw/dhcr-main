@@ -66,6 +66,12 @@
         <h2><span>Imprint</span></h2>
         <div class="item-content" id="imprint-content"></div>
     </div>
+    <div class="accordeon-item" id="version">
+        <h2><span>Version</span></h2>
+        <div class="item-content" id="version">
+            <?= $this->Element('info/version'); ?>
+        </div>
+    </div>
 </div>
 <?php $this->Html->script(['accordeon', 'hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>

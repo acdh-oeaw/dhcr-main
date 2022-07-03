@@ -1,0 +1,1 @@
+/home/patrick/develop/dhcr/dhcr-main/VERSION.txt
