@@ -748,7 +748,7 @@ class UsersController extends AppController
             // set password token
             $invitedUser->setAccess('*', true);
             $invitedUser = $this->Users->patchEntity($invitedUser, [
-                'password_token_expires' => new FrozenTime('+ 2 days'),
+                'password_token_expires' => new FrozenTime('+ 1 days'),
                 'password_token' => $this->Users->generateToken('password_token')
             ]);
             // set password link
