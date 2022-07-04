@@ -729,7 +729,7 @@ class UsersController extends AppController
         $invitedUser = $this->Users->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($invitedUser);
-        if ($this->request->is('post')) {
+        if ($this->request->is(['patch', 'post', 'put'])) {
             $invitedUser = $this->Users->patchEntity($invitedUser, $this->request->getData());
             // check if an institution is selected
             if (!$invitedUser->institution_id) {
@@ -795,6 +795,67 @@ class UsersController extends AppController
         }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('invitedUser', 'institutions', 'inviteTranslations', 'languageList'));
+    }
+
+    public function reinvite($id = null)
+    {
+        $this->loadModel('InviteTranslations');
+        $invitedUser = $this->Users->get($id, ['contain' => ['Institutions']]);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($invitedUser);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            // set invite_message
+            $inviteTranslationId = $this->request->getData('inviteTranslation');
+            $inviteMessage = $this->InviteTranslations->find()->where(['id' => $inviteTranslationId])->first();
+            // set password token
+            $invitedUser->setAccess('*', true);
+            $invitedUser = $this->Users->patchEntity($invitedUser, [
+                'password_token_expires' => new FrozenTime('+ 1 days'),
+                'password_token' => $this->Users->generateToken('password_token')
+            ]);
+            // set password link
+            $passwordLink = env('DHCR_BASE_URL') . 'users/reset_password/' . $invitedUser->password_token;
+            //  personalize message
+            $messageBody = $inviteMessage->messageBody;
+            if ($user->academic_title != null) {
+                $fullName = h(ucfirst($user->academic_title)) . ' ';
+            } else {
+                $fullName = '';
+            }
+            $fullName = $fullName . h(ucfirst($user->first_name)) . ' ' . h(ucfirst($user->last_name));
+            $messageBody = str_replace('-fullname-', $fullName, $messageBody);
+            $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
+            if ($this->Users->save($invitedUser)) {
+                $mailer = new Mailer('default');
+                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                    ->setTo($invitedUser->email)
+                    ->setCc(env('APP_MAIL_DEFAULT_CC'))
+                    ->setBcc($user->email)
+                    ->setReplyTo($user->email)
+                    ->setSubject($inviteMessage->subject)
+                    ->deliver($messageBody);
+                $this->Flash->success(__('The invitation has been sent.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+            }
+            $this->Flash->error(__('The invitation could not be sent. Please, try again.'));
+        }
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'ReInvite User';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'ReInvite';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $inviteTranslations = $this->InviteTranslations->find('all', ['order' => 'sortOrder asc', 'contain' => 'Languages'])
+            ->where(['active ' => true]);
+        $languageList = [];
+        foreach ($inviteTranslations as $inviteTranslation) {
+            $languageList += [$inviteTranslation->id => $inviteTranslation->language->name];
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('invitedUser', 'languageList'));
     }
 
     public function moderated()

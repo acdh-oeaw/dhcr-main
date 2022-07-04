@@ -65,6 +65,19 @@ class UserPolicy
         return false;
     }
 
+    public function canReInvite(IdentityInterface $user, IdentityInterface $inviteUser)
+    {
+        // moderator can reinvite in own country
+        if ($user->user_role_id == 2 && ($inviteUser->country_id == $user->country_id)) {
+            return true;
+        }
+        // admin can reinvite all
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
     public function canModeratorFaq(IdentityInterface $user, IdentityInterface $viewedUser)
     {
         // only for mod and admin
@@ -91,4 +104,6 @@ class UserPolicy
         }
         return false;
     }
+
+    
 }
