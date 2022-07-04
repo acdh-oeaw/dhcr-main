@@ -737,7 +737,7 @@ class UsersController extends AppController
                 return $this->redirect(['action' => 'invite']);
             }
             // set country_id
-            $country_id = $this->Institutions->find()->where(['id' => $user->institution_id])->first()->country_id;
+            $country_id = $this->Institutions->find()->where(['id' => $invitedUser->institution_id])->first()->country_id;
             $invitedUser->set('country_id', $country_id);
             // set approved and email verified, since the mod checked this
             $invitedUser->set('approved', 1);
