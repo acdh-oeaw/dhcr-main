@@ -66,7 +66,7 @@
                             ?>
                             <td style="padding: 5px"><?= ($listedUser->institution_id != null) ? h($listedUser->institution->name) : '' ?></td>
                             <?php if ($users_view_type == 'Pending Invitations') { ?>
-                                <td style="padding: 5px"><?= $listedUser->password_token_expires->i18nFormat('yyyy-MM-dd HH:mm:ss') ?> UTC</td>
+                                <td style="padding: 5px"><?= $listedUser->password_token_expires->i18nFormat('yyyy-MM-dd HH:mm') ?> UTC</td>
                             <?php } else { ?>
                                 <td style="padding: 5px"><?= h($listedUser->university) ?></td>
                             <?php } ?>
