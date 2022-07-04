@@ -1,27 +1,17 @@
 <div class="help content">
     <p></p>
     <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
-    <p>Version: 21-06-2022</p>
+    <p>Version: 04-07-2022</p>
     <strong><u>Contents</u></strong>
     <ol>
-        <li><a href="#ch1">What is the DHCR?</a></li>
-        <li><a href="#ch2">User roles</a></li>
-        <li><a href="#ch3">Account creation</a></li>
-        <li><a href="#ch4">Course reminder mails / expiry process</a></li>
-        <li><a href="#ch5">Emails sent by the application</a></li>
+        <li><a href="#user_roles">User roles</a></li>
+        <li><a href="#account_creation">Account creation</a></li>
+        <li><a href="#course_expiry">Course expiry process</a></li>
+        <li><a href="#emails_from_application">Emails sent by the application</a></li>
     </ol>
     <p>&nbsp;</p>
     <ol>
-        <h3 id="ch1">
-            <li>What is the DHCR?</li>
-        </h3>
-        <h4>
-            <p>The Digital Humanities Course Registry contains an up-to-date overview of courses in the field of digital humanities worldwide.
-                More info can be found at <a href="https://dhcr.clarin-dariah.eu/info">https://dhcr.clarin-dariah.eu/info</a>
-            </p>
-        </h4>
-        <p>&nbsp;</p>
-        <h3 id="ch2">
+        <h3 id="user_roles">
             <li>User roles</li>
         </h3>
         <u>Public access</u>
@@ -46,12 +36,12 @@
             <p>Countries without moderator are managed by the administrators.</p>
         </h4>
         <p>&nbsp;</p>
-        <h3 id="ch3">
+        <h3 id="account_creation">
             <li>Account creation</li>
         </h3>
         <h4>
             <p>There are two ways to create an account:</p>
-            <u>3.1 Registration form</u>
+            <u>Registration form</u>
             <p>Lecturers can register for an account at <a href="https://dhcr.clarin-dariah.eu/users/register">
                     https://dhcr.clarin-dariah.eu/users/register</a>. After submitting the registration form, the following steps need to be completed:
             <ul>
@@ -60,7 +50,7 @@
                 <li>(Wait for) account approval by moderator</li>
             </ul>
             </p>
-            <u>3.2 Invitation by moderator</u>
+            <u>Invitation by moderator</u>
             <p>Moderators can invite users through the application. In this case the lecturer receives an email with an invitation.
                 The sender of this mail is the moderator and as well a bcc of the mail is sent to the moderator.<br>
                 Also fewer following steps are required for the lecturer.
@@ -75,13 +65,13 @@
             </p>
         </h4>
         <p>&nbsp;</p>
-        <h3 id="ch4">
-            <li>Course reminder mails / expiry process</li>
+        <h3 id="course_expiry">
+            <li>Course expiry process</li>
         </h3>
         <h4>
             <p>As a way to keep the course meta data up to date, reminder emails are sent and there is a traffic-light color which
                 indicates when the course was last updated.<br>
-            --To be updated below:-
+                --To be updated below:-
             <ul>
                 <li>When a course is entered it is shown in green.</li>
                 <li>After 300 days (ca. 10 months) the course owner receives emails with the request to update the course. The course stays
@@ -94,19 +84,19 @@
             </p>
         </h4>
         <p>&nbsp;</p>
-        <h3 id="ch5">
+        <h3 id="emails_from_application">
             <li>Emails sent by the application</li>
         </h3>
         <h4>
-            <u>5.1 Invitation</u><br>
+            <u>Invitation</u><br>
             <p>To be added</p>
-            <u>5.2 Reminder</u><br>
+            <u>Reminder</u><br>
             <p>To be added</p>
-            <u>5.3 Contact form</u><br>
+            <u>Contact form</u><br>
             <p>To be added</p>
-            <u>5.4 Subscriptions</u><br>
+            <u>Subscriptions</u><br>
             <p>To be added</p>
-            <u>5.5 Contributor mailing list</u><br>
+            <u>Contributor mailing list</u><br>
             <p>To be added</p>
     </ol>
     </p>
