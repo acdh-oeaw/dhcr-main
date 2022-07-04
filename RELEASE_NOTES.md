@@ -4,15 +4,20 @@
 
 ### New features
 - Transfer Course
-    - Provides the moderator the possibility to transfer a course to another user, in case somebody else will be teaching the course in the future.
+    - Transfer a course to another user, in case somebody else will be teaching the course in the future
 - Pending Invitations
-    - Overview of invitations which has been sent to new users
-- FAQ : Frequently Asked Questions for:
+    - Overview of invitations which has been sent to new users, including expiry time
+    - Reinvite: possibility to send the invitation again, f.e. when the link has been expired
+- FAQ: Frequently Asked Questions, for:
     - Contributors
     - Moderators
 - Explanation of processes for Moderators and Administrators
+    - User roles
+    - Account creation
+    - Course reminder mails / expiry process
+    - Emails sent by the application
 - Introduced release notes
-- Introduced version number display in user interface
+- Version number display in user interface
 
 ### Bug fixes
 - Various text corrections / updates
