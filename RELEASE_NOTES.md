@@ -14,7 +14,7 @@
 - Introduced release notes
 - Introduced version number display in user interface
 
-## Bug fixes
+### Bug fixes
 - Various text corrections / updates
 - Removed duplicated social media links at info#publications
 
