@@ -1,6 +1,6 @@
 <div class="help content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-retweet"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
+    <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
     <p>Version: 21-06-2022</p>
     <strong><u>Contents</u></strong>
     <ol>
