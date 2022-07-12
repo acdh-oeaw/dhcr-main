@@ -8,6 +8,7 @@
                 <legend><?= __('Edit Translation') ?></legend>
                 <?php
                 echo $this->Form->control('language_id', ['options' => $languages]);
+                echo 'The prefix [DH Course Registry] will be automatically added to the subject:<p>';
                 echo $this->Form->control('subject');
                 echo '<p>The following words are required in the message:<br>
                         <strong><i><u>-fullname-</u></i></strong><br>

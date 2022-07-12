@@ -6,7 +6,7 @@
             <h3><?= h($inviteTranslation->language->name) ?></h3>
             <p></p>
             <b><u>Subject</u></b></br>
-            <?= h($inviteTranslation->subject) ?>
+            [DH Course Registry] <?= h($inviteTranslation->subject) ?>
             <p></p>
             <b><u>Message</u></b></br>
             <?php

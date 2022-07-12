@@ -21,6 +21,7 @@
 - Removed duplicated social media links at info#publications
 - Added timezone to password reset mail, to avoid confusion about expiry time
 - Converted course expiry periods to months, to have the same unit everywhere in the application
+- Added default email subject prefix to invite and reinvite emails
 
 
 ## Version 2022-05

@@ -763,6 +763,7 @@ class UsersController extends AppController
             $fullName = $fullName . h(ucfirst($user->first_name)) . ' ' . h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
+            $messageSubject = '[DH Course Registry] ' . $inviteMessage->subject;
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
@@ -770,7 +771,7 @@ class UsersController extends AppController
                     ->setCc(env('APP_MAIL_DEFAULT_CC'))
                     ->setBcc($user->email)
                     ->setReplyTo($user->email)
-                    ->setSubject($inviteMessage->subject)
+                    ->setSubject($messageSubject)
                     ->deliver($messageBody);
                 $this->Flash->success(__('The invitation has been sent.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
@@ -825,6 +826,7 @@ class UsersController extends AppController
             $fullName = $fullName . h(ucfirst($user->first_name)) . ' ' . h(ucfirst($user->last_name));
             $messageBody = str_replace('-fullname-', $fullName, $messageBody);
             $messageBody = str_replace('-passwordlink-', $passwordLink, $messageBody);
+            $messageSubject = '[DH Course Registry] ' . $inviteMessage->subject;
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
                 $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
@@ -832,7 +834,7 @@ class UsersController extends AppController
                     ->setCc(env('APP_MAIL_DEFAULT_CC'))
                     ->setBcc($user->email)
                     ->setReplyTo($user->email)
-                    ->setSubject($inviteMessage->subject)
+                    ->setSubject($messageSubject)
                     ->deliver($messageBody);
                 $this->Flash->success(__('The invitation has been sent.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
