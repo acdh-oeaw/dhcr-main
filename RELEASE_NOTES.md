@@ -12,17 +12,16 @@
     - Contributors
     - Moderators
 - Explanation of processes for Moderators and Administrators
-    - User roles
-    - Account creation
-    - Course reminder mails / expiry process
-    - Emails sent by the application
+    - Topics: User roles, Account creation, Course expiry process, Emails sent by the application
 - Introduced release notes
 - Version number display in user interface
 
-### Bug fixes
+### Bug fixes / small changes
 - Various text corrections / updates
 - Removed duplicated social media links at info#publications
 - Added timezone to password reset mail, to avoid confusion about expiry time
+- Converted course expiry periods to months, to have the same unit everywhere in the application
+
 
 ## Version 2022-05
 This is a major release which contains a lot of big changes. The complete login area is new implemented as well as several backend processes. Also new features were added.

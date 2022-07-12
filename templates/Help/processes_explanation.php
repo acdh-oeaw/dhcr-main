@@ -1,7 +1,7 @@
 <div class="help content">
     <p></p>
     <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
-    <p>Version: 04-07-2022</p>
+    <p>Version: 12-07-2022</p>
     <strong><u>Contents</u></strong>
     <ol>
         <li><a href="#user_roles">User roles</a></li>
@@ -18,7 +18,7 @@
         <h4>
             <p>The registry is public available to everyone, without login or account.</p>
 
-            <u>Contributors</u>
+            <u>Contributors / lecturers</u>
             <p>For lecturers it's possible to create an account and add courses to the registry.
             <ul>
                 <li>After registering for an account, this needs to be approved by the moderator or one of the administrators.
@@ -44,24 +44,24 @@
             <u>Registration form</u>
             <p>Lecturers can register for an account at <a href="https://dhcr.clarin-dariah.eu/users/register">
                     https://dhcr.clarin-dariah.eu/users/register</a>. After submitting the registration form, the following steps need to be completed:
-            <ul>
-                <li>Confirm email address</li>
-                <li>Set password</li>
+            <ol>
+                <li>Confirm the email address</li>
+                <li>Set a password</li>
                 <li>(Wait for) account approval by moderator</li>
-            </ul>
+            </ol>
             </p>
-            <u>Invitation by moderator</u>
+            <u>Invitation by a moderator</u>
             <p>Moderators can invite users through the application. In this case the lecturer receives an email with an invitation.
-                The sender of this mail is the moderator and as well a bcc of the mail is sent to the moderator.<br>
-                Also fewer following steps are required for the lecturer.
-            <ul>
-                <li>As moderator visit <a href="https://dhcr.clarin-dariah.eu/users/invite">https://dhcr.clarin-dariah.eu/users/invite</a>
+                The sender of this email is the moderator and as well a bcc of the email is sent to the moderator.<br>
+                The advantage: fewer steps are required for the lecturer.
+            <ol>
+                <li>As a moderator visit <a href="https://dhcr.clarin-dariah.eu/users/invite">https://dhcr.clarin-dariah.eu/users/invite</a>
                     (maybe you need to login)</li>
-                <li>Fill out the form and choose a localization. The email address of the lecturer is also entered in this step.</li>
+                <li>Fill out the form and choose a localization. (The email address of the lecturer is also entered in this step.)</li>
                 <li>The lecturer receives an email with a link to set a password. This link is valid for 24 hours.</li>
-                <li>Not needed: confirmation of email address (already provided by moderator)</li>
-                <li>Not needed: account approval (sending the invitation includes "instant approval")</li>
-            </ul>
+                <li><i>Not needed:</i> Confirmation of email address (already provided by the moderator)</li>
+                <li><i>Not needed:</i> Account approval (sending the invitation email includes "instant approval")</li>
+            </ol>
             </p>
         </h4>
         <p>&nbsp;</p>
@@ -69,18 +69,21 @@
             <li>Course expiry process</li>
         </h3>
         <h4>
-            <p>As a way to keep the course meta data up to date, reminder emails are sent and there is a traffic-light color which
-                indicates when the course was last updated.<br>
-                --To be updated below:-
-            <ul>
-                <li>When a course is entered it is shown in green.</li>
-                <li>After 300 days (ca. 10 months) the course owner receives emails with the request to update the course. The course stays
-                    green in the list.</li>
-                <li>After 331 days (ca 11 months) the course is shown yellow in the list.</li>
-                <li>When 60 days have been gone since the first reminder mail was set to the course owner (The course haven't updated for 360 days),
-                    the moderator will be on cc of the reminder mails.</li>
-                <li>Course is shown red, when ... more to be added</li>
-            </ul>
+            <p>To keep the course meta data up to date, reminder emails are sent and there is a traffic-light color
+                displayed in the course lists, which indicates when a course was last updated:
+            <ol>
+                <li>When a course is entered, it's shown <font color="green">green</font> in the list.</li>
+                <li>After <u>10 months</u> the course owner receives emails with the request to update the course. The course
+                    stays <font color="green">green</font> in the list.
+                </li>
+                <li>After <u>12 months</u> the moderator will be on the CC of the reminder emails. The course is shown
+                    <font color="orange">orange</font> in the list.
+                </li>
+                <li>After <u>16 months</u>, the course is shown <font color="red">red</font> in the list.</li>
+                <li>After <u>18 months</u>, the course is not shown in the public registry, but is still available in the backend.</li>
+                <li>After <u>24 months</u>, the course is archived: it's not visible in the public registry or accessible through the
+                    backend. To keep the history available, the course is still available through the API.</li>
+            </ol>
             </p>
         </h4>
         <p>&nbsp;</p>
