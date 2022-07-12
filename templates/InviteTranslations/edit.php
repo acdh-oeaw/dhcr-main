@@ -17,7 +17,7 @@
                         *Please do not change or translate those words.<br>
                         *Take a look at the English translation as an example of how to use it.<br>
                         *Recommended: Use the text from the message textfield on the edit page, to avoid double signatures.</p>';
-                echo $this->Form->control('messageBody', ['label' => 'Message']);
+                echo $this->Form->control('messageBody', ['label' => 'Message', 'rows' => '50']);
                 echo $this->Form->control('active', ['label' => 'Publish']);
                 ?>
             </fieldset>
