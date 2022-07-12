@@ -22,6 +22,7 @@
 ### Bug fixes
 - Various text corrections / updates
 - Removed duplicated social media links at info#publications
+- Added timezone to password reset mail, to avoid confusion about expiry time
 
 ## Version 2022-05
 This is a major release which contains a lot of big changes. The complete login area is new implemented as well as several backend processes. Also new features were added.
