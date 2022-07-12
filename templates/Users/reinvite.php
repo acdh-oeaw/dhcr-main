@@ -2,7 +2,8 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-retweet"></span>&nbsp;&nbsp;&nbsp;Reinvite User</h2>
     <div class="column-responsive column-80">
-        The user will receive a <i><strong><u>new</u></strong></i> email to set their password and join the DH-Courseregistry.
+        The user will receive a <i><strong><u>new</u></strong></i> email to set their password and join the DH-Courseregistry.<br>
+        You will receive a BCC of this email.
         <p>&nbsp;</p>
         <div class="courses form content">
             <?= $this->Form->create($invitedUser) ?>
