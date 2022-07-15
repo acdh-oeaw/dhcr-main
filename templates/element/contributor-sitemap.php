@@ -171,6 +171,16 @@
                         }
                         ?>
                     </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'Log Entries',
+                                ['controller' => 'Logentries', 'action' => 'index']
+                            );
+                        }
+                        ?>
+                    </li>
                 </ul>
             </li>
         <?php

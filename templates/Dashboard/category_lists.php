@@ -62,5 +62,20 @@
             ]
         );
     }
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-folder-open"></span><br>
+            Log Entries<p></p>',
+            [
+                'controller' => 'Logentries',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Log Entries',
+                'escape' => false
+            ]
+        );
+    }
     ?>
 </div>

@@ -87,11 +87,12 @@ Router::scope('/', function (RouteBuilder $routes) {
     //$routes->connect('/register', ['controller' => 'Users', 'action' => 'register']);
 
     // Added routes for the new backend
+    $routes->connect('/dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
     $routes->connect('/cities', ['controller' => 'Cities', 'action' => 'index']);
     $routes->connect('/institutions', ['controller' => 'Institutions', 'action' => 'index']);
     $routes->connect('/languages', ['controller' => 'Languages', 'action' => 'index']);
-    $routes->connect('/dashboard', ['controller' => 'Dashboard', 'action' => 'index']);
     $routes->connect('/invite-translations', ['controller' => 'inviteTranslations', 'action' => 'index']);
+    $routes->connect('/logentries', ['controller' => 'Logentries', 'action' => 'index']);
 
     /**
      * Connect catchall routes for all controllers.
