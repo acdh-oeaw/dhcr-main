@@ -13,6 +13,7 @@
     - Moderators
 - Explanation of processes for Moderators and Administrators
     - Topics: User roles, Account creation, Course expiry process, Emails sent by the application
+- Added basic logging in database and user interface
 - Introduced release notes
 - Version number display in user interface
 
