@@ -52,7 +52,7 @@ class LogentriesTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 200)
+            ->maxLength('description', 500)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 

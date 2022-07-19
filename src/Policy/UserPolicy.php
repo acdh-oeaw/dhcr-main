@@ -104,6 +104,4 @@ class UserPolicy
         }
         return false;
     }
-
-    
 }
