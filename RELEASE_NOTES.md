@@ -1,5 +1,8 @@
 # Release notes
 
+## Version 2022-dev
+- To be added
+
 ## Version 2022-test
 
 ### New features
