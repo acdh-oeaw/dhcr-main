@@ -16,7 +16,6 @@ class Logentry extends Entity
         'description' => true,
         'cleared' => true,
         'created' => true,
-        'updated' => true,
         'logentry_code' => true,
         'user' => true,
     ];

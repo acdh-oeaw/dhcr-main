@@ -40,25 +40,24 @@ class LogentriesTable extends Table
 
         $validator
             ->scalar('source_name')
-            ->maxLength('source_name', 30)
+            ->maxLength('source_name', 25)
             ->requirePresence('source_name', 'create')
             ->notEmptyString('source_name');
 
         $validator
             ->scalar('subject')
-            ->maxLength('subject', 50)
+            ->maxLength('subject', 25)
             ->requirePresence('subject', 'create')
             ->notEmptyString('subject');
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 500)
+            ->maxLength('description', 150)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
         $validator
             ->boolean('cleared')
-            ->requirePresence('cleared', 'create')
             ->notEmptyString('cleared');
 
         return $validator;
@@ -71,5 +70,18 @@ class LogentriesTable extends Table
         $rules->add($rules->existsIn(['user_id'], 'Users'), ['errorField' => 'user_id']);
 
         return $rules;
+    }
+
+    public function createLogEntry($logentryCode, $logUserId, $logSource, $logSubject, $logDescription)
+    {
+        $logentry = $this->newEmptyEntity();
+        $logentry->set('logentry_code_id', $logentryCode);
+        $logentry->set('user_id', $logUserId);
+        $logentry->set('source_name',  substr($logSource, 0, 25));
+        $logentry->set('subject', substr($logSubject, 0, 25));
+        $logentry->set('description', substr($logDescription, 0, 150));
+        if (!$this->save($logentry)) {
+            die("ERROR: Could not save log entry. Program aborted.\n");
+        }
     }
 }
