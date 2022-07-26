@@ -13,9 +13,10 @@
     - Moderators
 - Explanation of processes for Moderators and Administrators
     - Topics: User roles, Account creation, Course expiry process, Emails sent by the application
-- New user interface item to view log
+- Reimplemented sending reminder mails for expired courses, incl. logging of activities
+- Added new user interface item to view log
 - Introduced release notes
-- Version number display in user interface
+- Version number display in user interface (at Info)
 
 ### Bug fixes / small changes
 - Various text corrections / updates
