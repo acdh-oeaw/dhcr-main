@@ -31,7 +31,7 @@
                     [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
                     The course will disappear from the list after the last one-off date has expired.</p>
                 <?php
-                echo $this->Form->control('start_date', ['label' => 'Start Date*']);
+                echo $this->Form->control('start_date', ['label' => 'Start Date*', 'placeholder' => 'YYYY-MM-DD multiple dates separated by ";"']);
                 echo $this->Form->control('recurring', ['label' => 'Recurring']);
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
@@ -68,8 +68,8 @@
                 echo '<i>You can select more than one item.</i><p></p>';
                 echo '<p></p>';
                 echo $this->Form->control('tadirah_objects._ids', [
-                    'label' => 'TaDiRAH Objects*', 
-                    'options' => $tadirah_objects, 
+                    'label' => 'TaDiRAH Objects*',
+                    'options' => $tadirah_objects,
                     'multiple' => 'multiple',
                     'val' => $selectedTadirahObjects
                 ]);
