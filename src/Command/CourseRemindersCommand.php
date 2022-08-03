@@ -54,7 +54,7 @@ class CourseRemindersCommand extends Command
         return $outdatedCourses;
     }
 
-    private function createReminderItems($outdatedCourses, ConsoleIo $io)
+    private function createReminderItems($outdatedCourses)
     {
         foreach ($outdatedCourses as $outdatedCourse) {
             $email = $outdatedCourse->user->email;
