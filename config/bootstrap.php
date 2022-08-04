@@ -221,7 +221,7 @@ Configure::write('courseModWarnDate', new FrozenTime('-12 Months'));
 Configure::write('courseRedDate', new FrozenTime('-16 Months'));
 
 //  After this date, the course is not shown in the public registry, but still shown in the backend.
-Configure::write('courseHideDate', new FrozenTime('-18 Months'));
+//  See plugins/DhcrCore/config/bootstrap.php
 
 //  After this date, the course is not shown in the backend so it can't be updated. The course is archived.
 Configure::write('courseArchiveDate', new FrozenTime('-24 Months'));
