@@ -1,7 +1,7 @@
 <div class="help content">
     <p></p>
     <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
-    <p>Version: 12-07-2022</p>
+    <p>Version: 04-08-2022</p>
     <strong><u>Contents</u></strong>
     <ol>
         <li><a href="#user_roles">User roles</a></li>
@@ -79,9 +79,9 @@
                 <li>After <u>12 months</u> the moderator will be on the CC of the reminder emails. The course is shown
                     <font color="orange">orange</font> in the list.
                 </li>
-                <li>After <u>16 months</u>, the course is shown <font color="red">red</font> in the list.</li>
-                <li>After <u>18 months</u>, the course is not shown in the public registry, but is still available in the backend.</li>
-                <li>After <u>24 months</u>, the course is archived: it's not visible in the public registry or accessible through the
+                <li>After <u>16 months</u>, the course is not shown in the public registry, but is still available in the
+                    backend. The course is shown <font color="red">red</font> in the list.</li>
+                <li>After <u>24 months</u>, the course is archived: it's not visible in the public registry or accessible in the
                     backend. To keep the history available, the course is still available through the API.</li>
             </ol>
             </p>
