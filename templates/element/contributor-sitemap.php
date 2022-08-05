@@ -230,18 +230,20 @@
                 ) ?>
             </p>
             <ul class="profile">
-                <li>
-                    <?= $this->Html->link(
-                        'Contributor FAQ',
-                        ['controller' => 'Help', 'action' => 'contributorFaq']
-                    ) ?>
-                </li>
                 <?php
-                if ($user->user_role_id == 2 || $user->is_admin) {
-                    echo '<li>';
-                    echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
-                    echo '</li>';
-                }
+                // <li>
+                //     <?= $this->Html->link(
+                //         'Contributor FAQ',
+                //         ['controller' => 'Help', 'action' => 'contributorFaq']
+                //     ) ?> <?php
+                // </li>
+                ?>
+                <?php
+                // if ($user->user_role_id == 2 || $user->is_admin) {
+                //     echo '<li>';
+                //     echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
+                //     echo '</li>';
+                // }
                 if ($user->user_role_id == 2 || $user->is_admin) {
                     echo '<li>';
                     echo $this->Html->link('Processes explanation', ['controller' => 'Help', 'action' => 'processesExplanation']);
