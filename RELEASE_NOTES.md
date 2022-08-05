@@ -1,7 +1,9 @@
 # Release notes
 
 ## Version 2022-dev
-- To be added
+- FAQ: Frequently Asked Questions, for:
+    - Contributors
+    - Moderators
 
 ## Version 2022-test
 
@@ -11,9 +13,6 @@
 - Pending Invitations
     - Overview of invitations which has been sent to new users, including expiry time
     - Reinvite: possibility to send the invitation again, f.e. when the link has been expired
-- FAQ: Frequently Asked Questions, for:
-    - Contributors
-    - Moderators
 - Explanation of processes for Moderators and Administrators
     - Topics: User roles, Account creation, Course expiry process, Emails sent by the application
 - Course expiry reminders
