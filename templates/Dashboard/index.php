@@ -12,7 +12,11 @@
             echo ' and ';
         }
         if ($user->user_role_id == 2) {
-            echo ' as <strong><font color="60a845"> moderator</font></strong> of <strong><font color="60a845">' . $user->country->name . '</font></strong>';
+            echo ' as <strong><font color="60a845"> moderator</font></strong> of <strong><font color="60a845">';
+            if($user->country->name == 'Netherlands') { // fix for country name "the Netherlands"
+                echo 'the ';
+            }
+            echo $user->country->name . '</font></strong>';
         }
         echo '.</p>';
         // *** start of notification area ***
