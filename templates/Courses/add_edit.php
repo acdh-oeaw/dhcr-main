@@ -24,15 +24,16 @@
                 echo $this->Form->control('description', ['label' => 'Description', 'placeholder' => 'Please provide the course description in English']);
                 echo $this->Form->control('access_requirements', ['label' => 'Entry Requirements', 'placeholder' => 'For instance: if you want to enroll in this MA module, you need to hold a BA degree in X, Y, Z']);
                 ?>
-                <p>&nbsp;</p>
-                <p>For <strong><u>recurring start dates</u></strong>, please enter all dates over one full year, when students can start the course.
-                    These dates only consist of [month]-[day] and are meant to be valid in subsequent years.</p>
-                <p><strong><u>One-off start dates</u></strong> consist of a full date
-                    [year]-[month]-[day] and invalidate the course entry after their expiry. Multiple dates can be separated by semicolon.<br>
-                    The course will disappear from the list after the last one-off date has expired.</p>
+                <p id="start_date">&nbsp;</p><!-- internal url -->
+                <strong><u>Start Date</u></strong><br>
+                <p>For <strong><u>recurring start dates</u></strong>, please enter all dates over one full year and check the box "Recurring".</p>
+                <p><strong><u>One-off start dates</u></strong> invalidate the course entry after their expiry. Multiple dates can be entered.
+                    The course will disappear from the public registry after the last one-off date has expired.</p>
+                <p></p>
                 <?php
-                echo $this->Form->control('start_date', ['label' => 'Start Date*', 'placeholder' => 'YYYY-MM-DD multiple dates separated by ";"']);
-                echo $this->Form->control('recurring', ['label' => 'Recurring']);
+                echo $this->Form->control('start_date', ['label' => 'Start Date*', 'onclick' => 'openForm()', 'placeholder' => 'YYYY-MM-DD']);
+                echo $this->Form->control('recurring', ['label' => 'Recurring (Does the course start on the same date(s) next year)?', 'default' => false]);
+                echo '<p>&nbsp;</p>';
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
@@ -90,3 +91,143 @@
         </div>
     </div>
 </div>
+
+<!-- Startdate popup begin -->
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .startdatePopup {
+        position: relative;
+        text-align: center;
+        width: 100%;
+    }
+
+    .formPopup {
+        display: none;
+        position: fixed;
+        left: 45%;
+        top: 5%;
+        transform: translate(-50%, 5%);
+        border: 3px solid #999999;
+        z-index: 9;
+    }
+
+    .formContainer {
+        min-width: 310px;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .formContainer .btn {
+        padding: 12px 20px;
+        border: none;
+        background-color: #1E6BA3;
+        color: #fff;
+        cursor: pointer;
+        width: 100%;
+        margin-bottom: 15px;
+        opacity: 0.8;
+    }
+
+    .formContainer .cancel {
+        background-color: #cc0000;
+    }
+
+
+    .formContainer .btn:hover {
+        opacity: 1;
+    }
+</style>
+<div class="startdatePopup">
+    <div class="formPopup" id="popupForm">
+        <form class="formContainer">
+            <h2>Start date</h2>
+            <span class="glyphicon glyphicon-plus"></span>&nbsp;<a href="#start_date" onclick="addDate()">Add date</a>
+            <div id="datepicker" hidden="true">
+                <p></p>
+            </div>
+            <p></p>
+            <p id="dateList"></p>
+            <p></p>
+            <button type="button" class="btn cancel" onclick="closeForm()">Cancel</button>
+            <button type="button" class="btn" onclick="save()">Finish</button>
+        </form>
+    </div>
+</div>
+<script>
+    var startdates = [];
+
+    function updateDateListHtml(startdates) {
+        var dateList = '';
+        id = 0;
+        for (startdate of startdates) {
+            dateList += startdate + '&nbsp;&nbsp;&nbsp;<a href="#start_date" onclick="removeDate(' + id + ')">Remove</a><br>';
+            id++;
+        }
+        document.getElementById("dateList").innerHTML = dateList;
+    }
+
+    function openForm() {
+        var startdateField = document.getElementById("start-date").value;
+        if (startdateField.length > 0) {
+            startdates = startdateField.split(';')
+            startdates.sort();
+        }
+        updateDateListHtml(startdates);
+        document.getElementById("popupForm").style.display = "block";
+    }
+
+    function addDate() {
+        document.getElementById('datepicker').hidden = false;
+    }
+
+    function removeDate(id) {
+        startdates.splice(id, 1);
+        updateDateListHtml(startdates);
+    }
+
+    function closeForm() {
+        document.getElementById("popupForm").style.display = "none";
+    }
+
+    function save() {
+        var startdateField = '';
+        var isFirst = true;
+        for (startdate of startdates) {
+            if (isFirst) {
+                isFirst = false;
+            } else {
+                startdateField += ';';
+            }
+            startdateField += startdate;
+        }
+        document.getElementById("start-date").value = startdateField;
+        closeForm();
+    }
+</script>
+<!-- Startdate popup end -->
+
+<!-- Datepicker begin -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+<script>
+    var $j = jQuery.noConflict();
+    $j(function() {
+        $j("#datepicker").datepicker({
+            showWeek: true,
+            firstDay: 1,
+            yearRange: "2022:2030",
+            dateFormat: "yy-mm-dd",
+            onSelect: function(dateText, inst) {
+                startdates.push(dateText);
+                startdates.sort();
+                updateDateListHtml(startdates);
+                document.getElementById('datepicker').hidden = true;
+            }
+        });
+    });
+</script>
+<!-- Datepicker end -->

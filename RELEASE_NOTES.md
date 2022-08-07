@@ -20,6 +20,7 @@
 - Added new user interface item to view log
 - Introduced release notes
 - Version number display in user interface (at Info)
+- Added date picker / input validation for start dates (at Add Course)
 
 ### Bug fixes / small changes
 - Various text corrections / updates
