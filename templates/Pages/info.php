@@ -66,18 +66,21 @@
         <h2><span>Imprint</span></h2>
         <div class="item-content" id="imprint-content"></div>
     </div>
-    <div class="accordeon-item" id="release-notes">
-        <h2><span>Release Notes</span></h2>
-        <div class="item-content" id="release-notes">
-            <?= $this->Element('info/release-notes'); ?>
-        </div>
-    </div>
     <div class="accordeon-item" id="version">
         <h2><span>Version</span></h2>
         <div class="item-content" id="version">
             <?= $this->Element('info/version'); ?>
         </div>
     </div>
+    <?php
+    // <div class="accordeon-item" id="release-notes">
+    //     <h2><span>Release Notes</span></h2>
+    //     <div class="item-content" id="release-notes">
+    //         <?= $this->Element('info/release-notes'); ?> <?php
+    //     </div>
+    // </div>
+    ?>
+
 </div>
 <?php $this->Html->script(['accordeon', 'hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>
