@@ -219,7 +219,6 @@
         $j("#datepicker").datepicker({
             showWeek: true,
             firstDay: 1,
-            yearRange: "2022:2030",
             dateFormat: "yy-mm-dd",
             onSelect: function(dateText, inst) {
                 startdates.push(dateText);
