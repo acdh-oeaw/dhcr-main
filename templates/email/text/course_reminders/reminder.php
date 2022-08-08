@@ -8,13 +8,12 @@ if (sizeof($reminderItem) > 2) {
 Dear <?= $reminderItem['name'] ?>,
 
 The following <?= $courseWord ?> in the Digital Humanities Course Registry <?= (sizeof($reminderItem) > 2) ? 'have ' : 'has '; ?>
-not been updated for a longer time.
+not been updated for a long while.
 
-To prevent the registry from showing outdated information, please review the <?= $courseWord ?> below. Otherwise, your
-course information will soon disappear from the DHCR.
+To prevent the registry from showing outdated information, please review the <?= $courseWord ?> below. Please note, that you 
+must click "Update Course", even if the information did not change. This will update the 'last-modification-date' of your course.
 
-Please note, that you must click "Update Course", even if the information did not change.
-This will update the 'last-modification-date' of your record.
+In case your course or programme does not take place anymore, please uncheck the box "Show course in the registry".
 
 <?php
 foreach ($reminderItem as $key => $course) {
