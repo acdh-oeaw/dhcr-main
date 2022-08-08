@@ -33,26 +33,32 @@ $o = array('target' => '_blank');
     <div class="flex-item narrow">
         <h3>Coordination</h3>
         <p>
-            DARIAH-EU Working Group.
+            DARIAH-EU Working Group.<br>
             <a href="https://www.dariah.eu/activities/working-groups/dh-course-registry/" target="_blank">Website</a>
         </p>
+        <p>
+            CLARIN ERIC Training and Education.<br>
+            <a href="https://www.clarin.eu/content/dh-course-registry " target="_blank">Website</a>
+        </p>
         <p class="coordinator">
-            Tanja Wissik
+            Anna Woldrich & Iulianna van der Lek
         </p>
         <p>
-            Administrative co-chair of the working group.<br />
-            General coordination, user management, dissemination and acquisition of
-            third party funding
-            (<?= $this->Html->link('list of projects', '/files/DHCR-third-party-funding.pdf') ?>).
-            <a href="https://www.oeaw.ac.at/acdh/team/current-team/tanja-wissik/" target="_blank">Website</a>
+            Administrative co-chairs of the working group.<br />
+            General coordination, user management, dissemination.
         </p>
         <p class="coordinator">
-            Hendrik Schmeer
+            Patrick Akkermans
         </p>
         <p>
             Technical co-chair of the working group. <br />
             Coordination of software development, user support and maintenance of the platform.
-            <a href="http://hendrikschmeer.de" target="_blank">Website</a>
+        </p>
+        <p class="coordinator">
+            Former chairs
+        </p>
+        <p>
+            Tanja Wissik, Leon Wessels, Hendrik Schmeer
         </p>
 
         <h3>Screen Design</h3>
