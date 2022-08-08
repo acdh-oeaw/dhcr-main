@@ -104,7 +104,7 @@ jobs:
     env:
       SECRETS_CONTEXT: ${{ toJson(secrets) }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v3.0.2
         name: Checkout
       - name: Kubernetes credentials
         run: |
@@ -120,7 +120,7 @@ jobs:
           kubectl get pod
       - name: Create tags based on git data
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v4.0.1
         with:
           images: |
             ${{ env.DOCKER_TAG }}/${{ github.ref_name }}
