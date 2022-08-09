@@ -1,7 +1,7 @@
 {{- if and (.Values.service.enabled) (or (.Values.ingress.enabled) (not (hasKey .Values.ingress "enabled"))) -}}
 {{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress" }}
 apiVersion: networking.k8s.io/v1
-{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress"}}
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/Ingress" }}
 apiVersion: networking.k8s.io/v1beta1
 {{ else }}
 apiVersion: extensions/v1beta1
@@ -12,37 +12,12 @@ metadata:
   labels:
 {{ include "sharedlabels" . | indent 4 }}
   annotations:
-{{- if .Values.ingress.annotations }}
-{{ toYaml .Values.ingress.annotations | indent 4 }}
-{{- end }}
-{{- if .Values.ingress.tls.enabled }}
-    kubernetes.io/tls-acme: {{ .Values.ingress.tls.acme | quote }}
-{{- end }}
-{{- if eq .Values.application.track "canary" }}
-    nginx.ingress.kubernetes.io/canary: "true"
-    nginx.ingress.kubernetes.io/canary-by-header: "canary"
-{{- if .Values.ingress.canary.weight }}
-    nginx.ingress.kubernetes.io/canary-weight: {{ .Values.ingress.canary.weight | quote }}
-{{- end }}
-{{- end }}
-{{- with .Values.ingress.modSecurity }}
-{{- if .enabled }}
-    nginx.ingress.kubernetes.io/modsecurity-transaction-id: "$server_name-$request_id"
-    nginx.ingress.kubernetes.io/modsecurity-snippet: |
-      SecRuleEngine {{ .secRuleEngine | default "DetectionOnly" | title }}
-{{- range $rule := .secRules }}
-{{ (include "secrule" $rule) | indent 6 }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- if .Values.prometheus.metrics }}
-    nginx.ingress.kubernetes.io/server-snippet: |-
-      location /metrics {
-          deny all;
-      }
-
-{{- end }}
+{{ include "ingress.annotations" . | indent 4 }}
 spec:
+{{/* We don't set a default value because old ingress controllers may not provide an IngressClass, causing deployments to fail */}}
+{{- if and .Values.ingress.className (.Capabilities.APIVersions.Has "networking.k8s.io/v1/Ingress") }}
+  ingressClassName: {{ .Values.ingress.className | quote }}
+{{- end }}
 {{- if .Values.ingress.tls.enabled }}
   tls:
   - hosts:

@@ -13,9 +13,10 @@ import (
 )
 
 func TestServiceAccountTemplate(t *testing.T) {
+	release := "production"
+
 	for _, tc := range []struct {
 		CaseName string
-		Release  string
 		Values   map[string]string
 
 		ExpectedErrorRegexp *regexp.Regexp
@@ -25,7 +26,6 @@ func TestServiceAccountTemplate(t *testing.T) {
 	}{
 		{
 			CaseName: "not created by default",
-			Release:  "production",
 			Values:   map[string]string{},
 			ExpectedErrorRegexp: regexp.MustCompile(
 				"Error: could not find template templates/service-account.yaml in chart",
@@ -33,7 +33,6 @@ func TestServiceAccountTemplate(t *testing.T) {
 		},
 		{
 			CaseName: "not created if createNew is set to false",
-			Release:  "production",
 			Values: map[string]string{
 				"serviceAccount.createNew": "false",
 			},
@@ -43,7 +42,6 @@ func TestServiceAccountTemplate(t *testing.T) {
 		},
 		{
 			CaseName: "no annotations",
-			Release:  "production",
 			Values: map[string]string{
 				"serviceAccount.createNew": "true",
 				"serviceAccount.name":      "anAccountName",
@@ -53,7 +51,6 @@ func TestServiceAccountTemplate(t *testing.T) {
 		},
 		{
 			CaseName: "with annotations",
-			Release:  "production",
 			Values: map[string]string{
 				"serviceAccount.createNew":        "true",
 				"serviceAccount.name":             "anAccountName",
@@ -86,7 +83,7 @@ func TestServiceAccountTemplate(t *testing.T) {
 				t,
 				options,
 				helmChartPath,
-				tc.Release,
+				release,
 				[]string{"templates/service-account.yaml"},
 			)
 

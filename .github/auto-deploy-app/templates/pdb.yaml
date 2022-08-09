@@ -16,4 +16,6 @@ spec:
     matchLabels:
       app: {{ template "appname" . }}
       release: {{ .Release.Name }}
+      tier: {{ .Values.application.tier }}
+      track: {{ .Values.application.track }}
 {{- end }}

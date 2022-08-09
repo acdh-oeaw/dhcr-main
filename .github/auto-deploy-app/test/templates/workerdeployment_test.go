@@ -12,6 +12,7 @@ import (
 	appsV1 "k8s.io/api/apps/v1"
 	coreV1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 func TestWorkerDeploymentTemplate(t *testing.T) {
@@ -760,6 +761,203 @@ func TestWorkerDeploymentTemplate(t *testing.T) {
 				require.Equal(t, expectedDeployment.ExpectedCmd, deployment.Spec.Template.Spec.Containers[0].Command)
 				require.Equal(t, expectedDeployment.ExpectedLivenessProbe, deployment.Spec.Template.Spec.Containers[0].LivenessProbe)
 				require.Equal(t, expectedDeployment.ExpectedReadinessProbe, deployment.Spec.Template.Spec.Containers[0].ReadinessProbe)
+			}
+		})
+	}
+
+	// worker resources tests
+	for _, tc := range []struct {
+		CaseName string
+		Values   map[string]string
+		Release  string
+
+		ExpectedDeployments []workerDeploymentTestCase
+	}{
+		{
+			CaseName: "default workers resources",
+			Release:  "production",
+			Values: map[string]string{
+				"workers.worker1.command[0]": "echo",
+				"workers.worker1.command[1]": "worker1",
+				"workers.worker2.command[0]": "echo",
+				"workers.worker2.command[1]": "worker2",
+			},
+			ExpectedDeployments: []workerDeploymentTestCase{
+				{
+					ExpectedName:           "production-worker1",
+					ExpectedCmd:            []string{"echo", "worker1"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Requests: coreV1.ResourceList{},
+					},
+				},
+				{
+					ExpectedName:           "production-worker2",
+					ExpectedCmd:            []string{"echo", "worker2"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Requests: coreV1.ResourceList{},
+					},
+				},
+			},
+		},
+		{
+			CaseName: "override workers requests resources",
+			Release:  "production",
+			Values: map[string]string{
+				"workers.worker1.command[0]":                "echo",
+				"workers.worker1.command[1]":                "worker1",
+				"workers.worker1.resources.requests.memory": "250M",
+				"workers.worker2.command[0]":                "echo",
+				"workers.worker2.command[1]":                "worker2",
+			},
+			ExpectedDeployments: []workerDeploymentTestCase{
+				{
+					ExpectedName:           "production-worker1",
+					ExpectedCmd:            []string{"echo", "worker1"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Requests: coreV1.ResourceList{
+							"memory": resource.MustParse("250M"),
+						},
+					},
+				},
+				{
+					ExpectedName:           "production-worker2",
+					ExpectedCmd:            []string{"echo", "worker2"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Requests: coreV1.ResourceList{},
+					},
+				},
+			},
+		},
+		{
+			CaseName: "override workers limits resources",
+			Release:  "production",
+			Values: map[string]string{
+				"workers.worker1.command[0]":                "echo",
+				"workers.worker1.command[1]":                "worker1",
+				"workers.worker1.resources.limits.memory":   "500m",
+				"workers.worker1.resources.limits.storage":  "8Gi",
+				"workers.worker2.command[0]":                "echo",
+				"workers.worker2.command[1]":                "worker2",
+				"workers.worker2.resources.limits.storage":  "16Gi",
+			},
+			ExpectedDeployments: []workerDeploymentTestCase{
+				{
+					ExpectedName:           "production-worker1",
+					ExpectedCmd:            []string{"echo", "worker1"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Limits: coreV1.ResourceList{
+							"memory": resource.MustParse("500m"),
+							"storage": resource.MustParse("8Gi"),
+						},
+					},
+				},
+				{
+					ExpectedName:           "production-worker2",
+					ExpectedCmd:            []string{"echo", "worker2"},
+					ExpectedResources:  	coreV1.ResourceRequirements{
+						Limits: coreV1.ResourceList{
+							"storage": resource.MustParse("16Gi"),
+						},
+					},
+				},
+			},
+		},
+	} {
+		t.Run(tc.CaseName, func(t *testing.T) {
+			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
+
+			values := map[string]string{
+				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
+				"gitlab.env": "prod",
+			}
+
+			mergeStringMap(values, tc.Values)
+
+			options := &helm.Options{
+				SetValues:      values,
+				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+			}
+
+			output := helm.RenderTemplate(t, options, helmChartPath, tc.Release, []string{"templates/worker-deployment.yaml"})
+
+			var deployments deploymentAppsV1List
+			helm.UnmarshalK8SYaml(t, output, &deployments)
+
+			require.Len(t, deployments.Items, len(tc.ExpectedDeployments))
+
+			for i, expectedDeployment := range tc.ExpectedDeployments {
+				deployment := deployments.Items[i]
+				require.Equal(t, expectedDeployment.ExpectedName, deployment.Name)
+				require.Len(t, deployment.Spec.Template.Spec.Containers, 1)
+				require.Equal(t, expectedDeployment.ExpectedCmd, deployment.Spec.Template.Spec.Containers[0].Command)
+				require.Equal(t, expectedDeployment.ExpectedResources, deployment.Spec.Template.Spec.Containers[0].Resources)
+			}
+		})
+	}
+}
+
+func TestWorkerDatabaseUrlEnvironmentVariable(t *testing.T) {
+	releaseName := "worker-application-database-url-test"
+
+	tcs := []struct {
+		CaseName            string
+		Values              map[string]string
+		ExpectedDatabaseUrl string
+		Template            string
+	}{
+		{
+			CaseName: "present-worker",
+			Values: map[string]string{
+				"application.database_url":   "PRESENT",
+				"workers.worker1.command[0]": "echo",
+				"workers.worker1.command[1]": "worker1",
+			},
+			ExpectedDatabaseUrl: "PRESENT",
+			Template:            "templates/worker-deployment.yaml",
+		},
+		{
+			CaseName: "missing-db-migrate",
+			Values: map[string]string{
+				"workers.worker1.command[0]": "echo",
+				"workers.worker1.command[1]": "worker1",
+			},
+			Template: "templates/worker-deployment.yaml",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.CaseName, func(t *testing.T) {
+
+			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
+
+			values := map[string]string{
+				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
+				"gitlab.env": "prod",
+			}
+
+			mergeStringMap(values, tc.Values)
+
+			options := &helm.Options{
+				SetValues:      values,
+				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+			}
+
+			output, err := helm.RenderTemplateE(t, options, helmChartPath, releaseName, []string{tc.Template})
+
+			if err != nil {
+				t.Error(err)
+				return
+			}
+
+			var deployments deploymentAppsV1List
+			helm.UnmarshalK8SYaml(t, output, &deployments)
+
+			if tc.ExpectedDatabaseUrl != "" {
+				require.Contains(t, deployments.Items[0].Spec.Template.Spec.Containers[0].Env, coreV1.EnvVar{Name: "DATABASE_URL", Value: tc.ExpectedDatabaseUrl})
+			} else {
+				for _, envVar := range deployments.Items[0].Spec.Template.Spec.Containers[0].Env {
+					require.NotEqual(t, "DATABASE_URL", envVar.Name)
+				}
 			}
 		})
 	}

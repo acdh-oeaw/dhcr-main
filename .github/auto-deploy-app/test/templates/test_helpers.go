@@ -74,6 +74,7 @@ type workerDeploymentTestCase struct {
 	ExpectedTolerations    []coreV1.Toleration
 	ExpectedInitContainers []coreV1.Container
 	ExpectedAffinity       *coreV1.Affinity
+	ExpectedResources      coreV1.ResourceRequirements
 }
 
 type workerDeploymentSelectorTestCase struct {

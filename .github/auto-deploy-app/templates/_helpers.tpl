@@ -49,6 +49,13 @@ Get SecRule's arguments with unescaped single&double quotes
 {{- printf "SecRule %s %s %s" .variable $operator $action -}}
 {{- end -}}
 
+{{/*
+Generate a name for a Persistent Volume Claim
+*/}}
+{{- define "pvcName" -}}
+{{- printf "%s-%s" (include "fullname" .context) .name | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{- define "sharedlabels" -}}
 app: {{ template "appname" . }}
 chart: "{{ .Chart.Name }}-{{ .Chart.Version| replace "+" "_" }}"
@@ -61,4 +68,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Values.extraLabels }}
 {{ toYaml $.Values.extraLabels }}
 {{- end }}
+{{- end -}}
+
+{{- define "ingress.annotations" -}}
+{{- $defaults := include (print $.Template.BasePath "/_ingress-annotations.yaml") . | fromYaml -}}
+{{- $custom := .Values.ingress.annotations | default dict -}}
+{{- $merged := deepCopy $custom | mergeOverwrite $defaults -}}
+{{- $merged | toYaml -}}
 {{- end -}}

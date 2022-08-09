@@ -18,12 +18,23 @@ lifecycle: {}
 #     command: ["/bin/sh", "-c", "sleep 10"]
 podAnnotations: {}
 nodeSelector: {}
+dnsPolicy: {}
+dnsConfig: {}
+#    nameservers:
+#      - 8.8.8.8
+#    searches:
+#      - svc.cluster.local
+#      - cluster.local
+#    options:
+#      - name: ndots
+#        value: "1"
 affinity: {}
 tolerations: []
 initContainers: []
 # - name: init-myservice
 #   image: busybox
 #   command: ['sh', '-c', 'until nslookup myservice; do echo waiting for myservice to start; sleep 1; done;']
+topologySpreadConstraints: []
 application:
   track: stable
   tier: web
@@ -31,6 +42,9 @@ application:
   initializeCommand:
   secretName:
   secretChecksum:
+  # You can omit `DATABASE_URL` variable injection into your deployment containers,
+  # if you explicitly set `database_url` to `null`.
+  # database_url: null
 hpa:
   enabled: false
   minReplicas: 1
@@ -66,6 +80,8 @@ service:
   commonName:
   externalPort: 5000
   internalPort: 5000
+  # nodePort: 30001
+  extraPorts: []
 ingress:
   enabled: true
   path: "/"
@@ -74,8 +90,7 @@ ingress:
     acme: true
     secretName: ""
     useDefaultSecret: false
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
+  # className: nginx
   modSecurity:
     enabled: false
     secRuleEngine: "DetectionOnly"
@@ -99,6 +114,22 @@ readinessProbe:
   timeoutSeconds: 3
   scheme: "HTTP"
   probeType: "httpGet"
+startupProbe:
+  enabled: false
+  path: "/"
+  initialDelaySeconds: 5
+  timeoutSeconds: 3
+  failureThreshold: 30
+  periodSeconds: 10
+  scheme: "HTTP"
+  probeType: "httpGet"
+
+#hostAliases:
+#- ip: X.X.X.X
+#  hostnames:
+#  - dns1.DOMAIN1
+#  - dns2.DOMAIN2
+
 postgresql:
   managed: false
   managedClassSelector:
@@ -153,10 +184,33 @@ serviceAccount:
   annotations: {}
   createNew: false
 
+persistence:
+  enabled: false
+  volumes:
+    - name: data
+      mount:
+        path: "/pvc-mount"
+        # subPath: "/pvc-mount/config.txt"
+      claim:
+        accessMode: ReadWriteOnce
+        size: 8Gi
+        # If you want to use a custom storage class, you can specify `storageClass`. In this case, you need to create a storage class at first.
+        # If `storageClass` is not specified, the behavior will vary per Kubernetes provider.
+        # For example, GKE automatically chooses a default storage class and allocate a physical storage.
+        # See https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes for more information.
+        # storageClass: "myStorage"
+
 workers: {}
   # worker:
   #   replicaCount: 1
   #   terminationGracePeriodSeconds: 60
+  #   hostAliases:
+  #   - ip: X.X.X.X
+  #     hostnames:
+  #     - dns1.DOMAIN1
+  #     - dns2.DOMAIN2
+  #   labels:
+  #     worker-type: worker
   #   command:
   #   - /bin/herokuish
   #   - procfile
