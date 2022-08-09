@@ -71,10 +71,10 @@ func TestHPA_AutoscalingV2beta2(t *testing.T) {
 		name   string
 		values string
 
-		expectedName        string
-		expectedMinReplicas int32
-		expectedMaxReplicas int32
-		expectedAverageUtilization   int32
+		expectedName               string
+		expectedMinReplicas        int32
+		expectedMaxReplicas        int32
+		expectedAverageUtilization int32
 
 		expectedErrorRegexp *regexp.Regexp
 	}{
@@ -83,7 +83,7 @@ func TestHPA_AutoscalingV2beta2(t *testing.T) {
 			expectedErrorRegexp: regexp.MustCompile("Error: could not find template templates/hpa.yaml in chart"),
 		},
 		{
-			name:                "with hpa enabled, and both metrics and requests defined",
+			name: "with hpa enabled, and both metrics and requests defined",
 			values: `
 hpa:
   enabled: true
@@ -98,10 +98,10 @@ resources:
   requests:
     cpu: 500
 `,
-			expectedName:        "hpa-test-auto-deploy",
-			expectedMinReplicas: 1,
-			expectedMaxReplicas: 5,
-			expectedAverageUtilization:   80,
+			expectedName:               "hpa-test-auto-deploy",
+			expectedMinReplicas:        1,
+			expectedMaxReplicas:        5,
+			expectedAverageUtilization: 80,
 		},
 	}
 
@@ -112,7 +112,7 @@ resources:
 			require.NoError(t, err)
 			f.WriteString(tc.values)
 
-			opts := &helm.Options{ValuesFiles: []string{ f.Name() }}
+			opts := &helm.Options{ValuesFiles: []string{f.Name()}}
 			output, err := helm.RenderTemplateE(t, opts, helmChartPath, releaseName, templates)
 
 			if tc.expectedErrorRegexp != nil {
@@ -127,7 +127,6 @@ resources:
 				t.Error(err)
 				return
 			}
-
 
 			hpa := new(autoscalingV2Beta2.HorizontalPodAutoscaler)
 			helm.UnmarshalK8SYaml(t, output, hpa)

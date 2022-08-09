@@ -172,6 +172,59 @@ func TestDeploymentTemplate(t *testing.T) {
 		})
 	}
 
+	for _, tc := range []struct {
+		CaseName        string
+		Release         string
+		Values          map[string]string
+		ExpectedCommand []string
+		ExpectedArgs    []string
+	}{
+		{
+			CaseName: "application-command",
+			Release:  "production",
+			Values: map[string]string{
+				"application.command[0]": "foo",
+				"application.command[1]": "bar",
+				"application.command[2]": "baz",
+			},
+			ExpectedCommand: []string{"foo", "bar", "baz"},
+		},
+		{
+			CaseName: "application-args",
+			Release:  "production",
+			Values: map[string]string{
+				"application.args[0]": "foo",
+				"application.args[1]": "bar",
+				"application.args[2]": "baz",
+			},
+			ExpectedArgs: []string{"foo", "bar", "baz"},
+		},
+	} {
+		t.Run(tc.CaseName, func(t *testing.T) {
+			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
+
+			values := map[string]string{
+				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
+				"gitlab.env": "prod",
+			}
+
+			mergeStringMap(values, tc.Values)
+
+			options := &helm.Options{
+				SetValues:      values,
+				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+			}
+
+			output := helm.RenderTemplate(t, options, helmChartPath, tc.Release, []string{"templates/deployment.yaml"})
+
+			var deployment appsV1.Deployment
+			helm.UnmarshalK8SYaml(t, output, &deployment)
+
+			require.Equal(t, tc.ExpectedCommand, deployment.Spec.Template.Spec.Containers[0].Command)
+			require.Equal(t, tc.ExpectedArgs, deployment.Spec.Template.Spec.Containers[0].Args)
+		})
+	}
+
 	// serviceAccountName
 	for _, tc := range []struct {
 		CaseName                   string
@@ -343,7 +396,7 @@ func TestDeploymentTemplate(t *testing.T) {
 		})
 	}
 
-	// deployment livenessProbe, and readinessProbe tests
+	// deployment livenessProbe, readinessProbe, and startupProbe tests
 	for _, tc := range []struct {
 		CaseName string
 		Release  string
@@ -351,12 +404,14 @@ func TestDeploymentTemplate(t *testing.T) {
 
 		ExpectedLivenessProbe  *coreV1.Probe
 		ExpectedReadinessProbe *coreV1.Probe
+		ExpectedStartupProbe *coreV1.Probe
 	}{
 		{
 			CaseName:               "defaults",
 			Release:                "production",
 			ExpectedLivenessProbe:  defaultLivenessProbe(),
 			ExpectedReadinessProbe: defaultReadinessProbe(),
+			ExpectedStartupProbe: nil,
 		},
 		{
 			CaseName: "custom liveness probe",
@@ -376,6 +431,7 @@ func TestDeploymentTemplate(t *testing.T) {
 				TimeoutSeconds:      15,
 			},
 			ExpectedReadinessProbe: defaultReadinessProbe(),
+			ExpectedStartupProbe: nil,
 		},
 		{
 			CaseName: "custom readiness probe",
@@ -394,6 +450,30 @@ func TestDeploymentTemplate(t *testing.T) {
 				},
 				InitialDelaySeconds: 5,
 				TimeoutSeconds:      3,
+			},
+			ExpectedStartupProbe: nil,
+		},
+		{
+			CaseName: "custom startup probe",
+			Release:  "production",
+			Values: map[string]string{
+				"startupProbe.enabled": "true",
+				"startupProbe.port": "2345",
+			},
+			ExpectedLivenessProbe: defaultLivenessProbe(),
+			ExpectedReadinessProbe: defaultReadinessProbe(),
+			ExpectedStartupProbe: &coreV1.Probe{
+				Handler: coreV1.Handler{
+					HTTPGet: &coreV1.HTTPGetAction{
+						Path:   "/",
+						Port:   intstr.FromInt(2345),
+						Scheme: coreV1.URISchemeHTTP,
+					},
+				},
+				InitialDelaySeconds: 5,
+				TimeoutSeconds:      3,
+				FailureThreshold:    30,
+				PeriodSeconds:       10,
 			},
 		},
 	} {
@@ -419,6 +499,67 @@ func TestDeploymentTemplate(t *testing.T) {
 
 			require.Equal(t, tc.ExpectedLivenessProbe, deployment.Spec.Template.Spec.Containers[0].LivenessProbe)
 			require.Equal(t, tc.ExpectedReadinessProbe, deployment.Spec.Template.Spec.Containers[0].ReadinessProbe)
+			require.Equal(t, tc.ExpectedStartupProbe, deployment.Spec.Template.Spec.Containers[0].StartupProbe)
+		})
+	}
+
+	// deployment hostAliases
+	for _, tc := range []struct {
+		CaseName string
+		Release  string
+		Values   map[string]string
+
+		ExpectedHostAliases []coreV1.HostAlias
+	}{
+		{
+			CaseName:            "default hostAliases",
+			Release:             "production",
+			ExpectedHostAliases: nil,
+		},
+		{
+			CaseName: "hostAliases for two IP addresses",
+			Release:  "production",
+			Values: map[string]string{
+				"hostAliases[0].ip":           "1.2.3.4",
+				"hostAliases[0].hostnames[0]": "host1.example1.com",
+				"hostAliases[1].ip":           "5.6.7.8",
+				"hostAliases[1].hostnames[0]": "host1.example2.com",
+				"hostAliases[1].hostnames[1]": "host2.example2.com",
+			},
+
+			ExpectedHostAliases: []coreV1.HostAlias{
+				{
+					IP:        "1.2.3.4",
+					Hostnames: []string{"host1.example1.com"},
+				},
+				{
+					IP:        "5.6.7.8",
+					Hostnames: []string{"host1.example2.com", "host2.example2.com"},
+				},
+			},
+		},
+	} {
+		t.Run(tc.CaseName, func(t *testing.T) {
+			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
+
+			values := map[string]string{
+				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
+				"gitlab.env": "prod",
+			}
+
+			mergeStringMap(values, tc.Values)
+
+			options := &helm.Options{
+				SetValues:      values,
+				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+			}
+
+			output := helm.RenderTemplate(t, options, helmChartPath, tc.Release, []string{"templates/deployment.yaml"})
+
+			var deployment appsV1.Deployment
+			helm.UnmarshalK8SYaml(t, output, &deployment)
+
+			require.Equal(t, tc.ExpectedHostAliases, deployment.Spec.Template.Spec.HostAliases)
 		})
 	}
 
@@ -428,13 +569,14 @@ func TestDeploymentTemplate(t *testing.T) {
 		Release  string
 		Values   map[string]string
 
-		ExpectedName           string
-		ExpectedRelease        string
-		ExpectedSelector       *metav1.LabelSelector
-		ExpectedNodeSelector   map[string]string
-		ExpectedTolerations    []coreV1.Toleration
-		ExpectedInitContainers []coreV1.Container
-		ExpectedAffinity       *coreV1.Affinity
+		ExpectedName                      string
+		ExpectedRelease                   string
+		ExpectedSelector                  *metav1.LabelSelector
+		ExpectedNodeSelector              map[string]string
+		ExpectedTolerations               []coreV1.Toleration
+		ExpectedInitContainers            []coreV1.Container
+		ExpectedAffinity                  *coreV1.Affinity
+		ExpectedTopologySpreadConstraints []coreV1.TopologySpreadConstraint
 	}{
 		{
 			CaseName:        "selector",
@@ -561,6 +703,48 @@ func TestDeploymentTemplate(t *testing.T) {
 				},
 			},
 		},
+		{
+			CaseName: "topologySpreadConstraints",
+			Release:  "production",
+			Values: map[string]string{
+				"topologySpreadConstraints[0].maxSkew":                                     "1",
+				"topologySpreadConstraints[0].topologyKey":                                 "zone",
+				"topologySpreadConstraints[0].whenUnsatisfiable":                           "DoNotSchedule",
+				"topologySpreadConstraints[0].labelSelector.matchLabels.foo":               "bar",
+				"topologySpreadConstraints[0].labelSelector.matchExpressions[0].key":       "key1",
+				"topologySpreadConstraints[0].labelSelector.matchExpressions[0].operator":  "DoesNotExist",
+				"topologySpreadConstraints[0].labelSelector.matchExpressions[0].values[0]": "value1",
+			},
+			ExpectedName:    "production",
+			ExpectedRelease: "production",
+			ExpectedSelector: &metav1.LabelSelector{
+				MatchLabels: map[string]string{
+					"app":     "production",
+					"release": "production",
+					"tier":    "web",
+					"track":   "stable",
+				},
+			},
+			ExpectedTopologySpreadConstraints: []coreV1.TopologySpreadConstraint{
+				{
+					MaxSkew:           1,
+					TopologyKey:       "zone",
+					WhenUnsatisfiable: "DoNotSchedule",
+					LabelSelector: &metav1.LabelSelector{
+						MatchLabels: map[string]string{
+							"foo": "bar",
+						},
+						MatchExpressions: []metav1.LabelSelectorRequirement{
+							{
+								Key:      "key1",
+								Operator: "DoesNotExist",
+								Values:   []string{"value1"},
+							},
+						},
+					},
+				},
+			},
+		},
 	} {
 		t.Run(tc.CaseName, func(t *testing.T) {
 			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
@@ -615,6 +799,193 @@ func TestDeploymentTemplate(t *testing.T) {
 			require.Equal(t, tc.ExpectedTolerations, deployment.Spec.Template.Spec.Tolerations)
 			require.Equal(t, tc.ExpectedInitContainers, deployment.Spec.Template.Spec.InitContainers)
 			require.Equal(t, tc.ExpectedAffinity, deployment.Spec.Template.Spec.Affinity)
+			require.Equal(t, tc.ExpectedTopologySpreadConstraints, deployment.Spec.Template.Spec.TopologySpreadConstraints)
+		})
+	}
+}
+
+func TestServiceExtraPortServicePortDefinition(t *testing.T) {
+	releaseName := "deployment-extra-ports-service-port-definition-test"
+	templates := []string{"templates/deployment.yaml"}
+
+	tcs := []struct {
+		name                string
+		values              map[string]string
+		valueFiles          []string
+		expectedPorts       []coreV1.ContainerPort
+		expectedErrorRegexp *regexp.Regexp
+	}{
+		{
+			name:       "with extra ports service port",
+			valueFiles: []string{"../testdata/service-definition.yaml"},
+			expectedPorts: []coreV1.ContainerPort{
+				coreV1.ContainerPort{
+					Name:          "web",
+					ContainerPort: 5000,
+				},
+				coreV1.ContainerPort{
+					Name:          "port-443",
+					ContainerPort: 443,
+					Protocol:      "TCP",
+				},
+			},
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			opts := &helm.Options{
+				ValuesFiles: tc.valueFiles,
+				SetValues:   tc.values,
+			}
+			output, err := helm.RenderTemplateE(t, opts, helmChartPath, releaseName, templates)
+
+			if err != nil {
+				t.Error(err)
+				return
+			}
+
+			deployment := new(appsV1.Deployment)
+			helm.UnmarshalK8SYaml(t, output, deployment)
+			require.Equal(t, tc.expectedPorts, deployment.Spec.Template.Spec.Containers[0].Ports)
+		})
+	}
+}
+
+func TestDeploymentTemplateWithVolumeMounts(t *testing.T) {
+	releaseName := "deployment-with-volume-mounts-test"
+	templates := []string{"templates/deployment.yaml"}
+
+	tcs := []struct {
+		name                 string
+		values               map[string]string
+		valueFiles           []string
+		expectedVolumes      []coreV1.Volume
+		expectedVolumeMounts []coreV1.VolumeMount
+		expectedErrorRegexp  *regexp.Regexp
+	}{
+		{
+			name:       "with volume mounts",
+			valueFiles: []string{"../testdata/volume-mounts.yaml"},
+			expectedVolumes: []coreV1.Volume{
+				coreV1.Volume{
+					Name: "log-dir",
+					VolumeSource: coreV1.VolumeSource{
+						PersistentVolumeClaim: &coreV1.PersistentVolumeClaimVolumeSource{
+							ClaimName: "deployment-with-volume-mounts-test-auto-deploy-log-dir",
+						},
+					},
+				},
+				coreV1.Volume{
+					Name: "config",
+					VolumeSource: coreV1.VolumeSource{
+						PersistentVolumeClaim: &coreV1.PersistentVolumeClaimVolumeSource{
+							ClaimName: "deployment-with-volume-mounts-test-auto-deploy-config",
+						},
+					},
+				},
+			},
+			expectedVolumeMounts: []coreV1.VolumeMount{
+				coreV1.VolumeMount{
+					Name:      "log-dir",
+					MountPath: "/log",
+				},
+				coreV1.VolumeMount{
+					Name:      "config",
+					MountPath: "/app-config",
+					SubPath:   "config.txt",
+				},
+			},
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.name, func(t *testing.T) {
+			opts := &helm.Options{
+				ValuesFiles: tc.valueFiles,
+				SetValues:   tc.values,
+			}
+			output, err := helm.RenderTemplateE(t, opts, helmChartPath, releaseName, templates)
+
+			if err != nil {
+				t.Error(err)
+				return
+			}
+
+			deployment := new(appsV1.Deployment)
+			helm.UnmarshalK8SYaml(t, output, deployment)
+
+			for i, expectedVolume := range tc.expectedVolumes {
+				require.Equal(t, expectedVolume.Name, deployment.Spec.Template.Spec.Volumes[i].Name)
+				require.Equal(t, expectedVolume.PersistentVolumeClaim.ClaimName, deployment.Spec.Template.Spec.Volumes[i].PersistentVolumeClaim.ClaimName)
+			}
+
+			for i, expectedVolumeMount := range tc.expectedVolumeMounts {
+				require.Equal(t, expectedVolumeMount.Name, deployment.Spec.Template.Spec.Containers[0].VolumeMounts[i].Name)
+				require.Equal(t, expectedVolumeMount.MountPath, deployment.Spec.Template.Spec.Containers[0].VolumeMounts[i].MountPath)
+				require.Equal(t, expectedVolumeMount.SubPath, deployment.Spec.Template.Spec.Containers[0].VolumeMounts[i].SubPath)
+			}
+		})
+	}
+}
+
+func TestDeploymentDatabaseUrlEnvironmentVariable(t *testing.T) {
+	releaseName := "deployment-application-database-url-test"
+
+	tcs := []struct {
+		CaseName            string
+		Values              map[string]string
+		ExpectedDatabaseUrl string
+		Template            string
+	}{
+		{
+			CaseName: "present-deployment",
+			Values: map[string]string{
+				"application.database_url": "PRESENT",
+			},
+			ExpectedDatabaseUrl: "PRESENT",
+			Template:            "templates/deployment.yaml",
+		},
+		{
+			CaseName: "missing-deployment",
+			Template: "templates/deployment.yaml",
+		},
+	}
+
+	for _, tc := range tcs {
+		t.Run(tc.CaseName, func(t *testing.T) {
+
+			namespaceName := "minimal-ruby-app-" + strings.ToLower(random.UniqueId())
+
+			values := map[string]string{
+				"gitlab.app": "auto-devops-examples/minimal-ruby-app",
+				"gitlab.env": "prod",
+			}
+
+			mergeStringMap(values, tc.Values)
+
+			options := &helm.Options{
+				SetValues:      values,
+				KubectlOptions: k8s.NewKubectlOptions("", "", namespaceName),
+			}
+
+			output, err := helm.RenderTemplateE(t, options, helmChartPath, releaseName, []string{tc.Template})
+
+			if err != nil {
+				t.Error(err)
+				return
+			}
+
+			deployment := new(appsV1.Deployment)
+			helm.UnmarshalK8SYaml(t, output, &deployment)
+
+			if tc.ExpectedDatabaseUrl != "" {
+				require.Contains(t, deployment.Spec.Template.Spec.Containers[0].Env, coreV1.EnvVar{Name: "DATABASE_URL", Value: tc.ExpectedDatabaseUrl})
+			} else {
+				for _, envVar := range deployment.Spec.Template.Spec.Containers[0].Env {
+					require.NotEqual(t, "DATABASE_URL", envVar.Name)
+				}
+			}
 		})
 	}
 }

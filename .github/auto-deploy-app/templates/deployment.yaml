@@ -45,6 +45,13 @@ spec:
       nodeSelector:
 {{ toYaml .Values.nodeSelector | indent 8 }}
 {{- end }}
+{{- if .Values.dnsPolicy }}
+      dnsPolicy: {{ .Values.dnsPolicy }}
+{{- end }}
+{{- if .Values.dnsConfig }}
+      dnsConfig:
+{{ toYaml .Values.dnsConfig | indent 8 }}
+{{- end }}
 {{- if .Values.tolerations }}
       tolerations:
 {{ toYaml .Values.tolerations | indent 8 }}
@@ -57,11 +64,37 @@ spec:
       initContainers:
 {{ toYaml .Values.initContainers | indent 8 }}
 {{- end }}
+{{- if and (semverCompare ">= 1.19.x" .Capabilities.KubeVersion.Version) (.Values.topologySpreadConstraints) }}
+      topologySpreadConstraints:
+{{ toYaml .Values.topologySpreadConstraints | indent 8 }}
+{{- end }}
+{{- if .Values.persistence.enabled }}
+{{- $context := . }}
+      volumes:
+{{- range $volume := .Values.persistence.volumes }}
+        - name: {{ $volume.name | quote }}
+          persistentVolumeClaim:
+            {{ $args := dict "context" $context "name" $volume.name }}
+            claimName: {{ template "pvcName" $args }}
+{{- end }}
+{{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+{{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+{{- end }}
       containers:
       - name: {{ .Chart.Name }}
         image: {{ template "imagename" . }}
         imagePullPolicy: {{ .Values.image.pullPolicy }}
+{{- if .Values.application.command }}
+        command:
+{{ toYaml .Values.application.command | indent 8 }}
+{{- end }}
+{{- if .Values.application.args }}
+        args:
+{{ toYaml .Values.application.args | indent 8 }}
+{{- end }}
         {{- if .Values.application.secretName }}
         envFrom:
         - secretRef:
@@ -85,8 +118,10 @@ spec:
               name: app-postgres
               key: privateIP
 {{- end }}
+{{- if .Values.application.database_url }}
         - name: DATABASE_URL
           value: {{ .Values.application.database_url | quote }}
+{{- end }}
         - name: GITLAB_ENVIRONMENT_NAME
           value: {{ .Values.gitlab.envName | quote }}
         - name: GITLAB_ENVIRONMENT_URL
@@ -98,6 +133,15 @@ spec:
         ports:
         - name: "{{ .Values.service.name }}"
           containerPort: {{ .Values.service.internalPort }}
+{{- if .Values.service.extraPorts }}
+{{- range $servicePort := .Values.service.extraPorts }}
+        - name: {{ $servicePort.name }}
+          containerPort: {{ $servicePort.targetPort }}
+          {{- if $servicePort.protocol }}
+          protocol: {{ $servicePort.protocol }}
+          {{- end }}
+{{- end }}
+{{- end }}
         livenessProbe:
 {{- if eq .Values.livenessProbe.probeType "httpGet" }}
           httpGet:
@@ -130,6 +174,36 @@ spec:
 {{- end }}
           initialDelaySeconds: {{ .Values.readinessProbe.initialDelaySeconds }}
           timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
+{{- if .Values.startupProbe.enabled }}
+        startupProbe:
+{{- if eq .Values.startupProbe.probeType "httpGet" }}
+          httpGet:
+            path: {{ .Values.startupProbe.path }}
+            scheme: {{ .Values.startupProbe.scheme }}
+            port: {{ .Values.startupProbe.port | default .Values.service.internalPort }}
+{{- else if eq .Values.startupProbe.probeType "tcpSocket" }}
+          tcpSocket:
+            port: {{ .Values.startupProbe.port | default .Values.service.internalPort }}
+{{- else if eq .Values.startupProbe.probeType "exec" }}
+          exec:
+            command:
+{{ toYaml .Values.startupProbe.command | indent 14 }}
+{{- end }}
+          initialDelaySeconds: {{ .Values.startupProbe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.startupProbe.timeoutSeconds }}
+          failureThreshold: {{ .Values.startupProbe.failureThreshold }}
+          periodSeconds: {{ .Values.startupProbe.periodSeconds }}
+{{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+{{- if .Values.persistence.enabled }}
+        volumeMounts:
+{{- range $volume := .Values.persistence.volumes }}
+          - name: {{ $volume.name | quote }}
+            mountPath: {{ $volume.mount.path | quote }}
+            {{- if $volume.mount.subPath }}
+            subPath: {{ $volume.mount.subPath | quote }}
+            {{- end }}
+{{- end }}
+{{- end }}
 {{- end -}}
