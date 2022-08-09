@@ -1,5 +1,11 @@
 # Release notes
 
+## Version 2022-dev
+- FAQ: Frequently Asked Questions, for:
+    - Contributors
+    - Moderators
+- Moderator Profiles
+
 ## Version 2022-test
 
 ### New features
