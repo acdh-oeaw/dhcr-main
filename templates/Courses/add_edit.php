@@ -23,15 +23,13 @@
                 echo $this->Form->control('contact_mail', ['label' => 'Lecturer E-Mail']);
                 echo $this->Form->control('description', ['label' => 'Description', 'placeholder' => 'Please provide the course description in English']);
                 echo $this->Form->control('access_requirements', ['label' => 'Entry Requirements', 'placeholder' => 'For instance: if you want to enroll in this MA module, you need to hold a BA degree in X, Y, Z']);
-                ?>
-                <p id="start_date">&nbsp;</p><!-- internal url -->
-                <strong><u>Start Date</u></strong><br>
-                <p>For <strong><u>recurring start dates</u></strong>, please enter all dates over one full year and check the box "Recurring".</p>
-                <p><strong><u>One-off start dates</u></strong> invalidate the course entry after their expiry. Multiple dates can be entered.
-                    The course will disappear from the public registry after the last one-off date has expired.</p>
-                <p></p>
-                <?php
+                echo '<p id="start_date">&nbsp;</p>';   // internal url
                 echo $this->Form->control('start_date', ['label' => 'Start Date*', 'onclick' => 'openForm()', 'placeholder' => 'YYYY-MM-DD']);
+                ?>
+                <p>For <strong><u>recurring</u></strong> start dates, please enter all dates over one full year and check the box "Recurring".</p>
+                <p>A <strong><u>non-recurring</u></strong> course will be removed from the public list 16 months after the last date has
+                been expired. Multiple dates can be entered.</p>
+                <?php
                 echo $this->Form->control('recurring', ['label' => 'Recurring (Does the course start on the same date(s) next year)?', 'default' => false]);
                 echo '<p>&nbsp;</p>';
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
