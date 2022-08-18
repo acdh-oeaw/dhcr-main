@@ -104,4 +104,13 @@ class UserPolicy
         }
         return false;
     }
+
+    public function canSummaryStatistics(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
 }
