@@ -86,9 +86,9 @@
             <ol>
                 <li>When new course metadata is entered into the registry, its status is <font color="green"><strong>green
                         </strong></font> on the list.</li>
-                <li>After <u>10 months</u> the course owner receives emails to update the course metadata. The course status
+                <li>After <u>10 months</u>, the course owner receives emails to update the course metadata. The course status
                     stays <font color="green"><strong>green</strong></font> on the list.</li>
-                <li>After <u>12 months</u> the moderator will be on the CC of the reminder emails. The course status is
+                <li>After <u>12 months</u>, the moderator will be on the CC of the reminder emails. The course status is
                     <font color="orange"><strong>orange</strong></font>.
                 </li>
                 <li>After <u>16 months</u>, the course is not shown in the public registry anymore, but it is still available
