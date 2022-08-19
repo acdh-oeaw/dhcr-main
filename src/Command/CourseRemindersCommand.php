@@ -139,6 +139,12 @@ class CourseRemindersCommand extends Command
                 $logDescription .= "Cc: No, owner is also mod\n";
             }
 
+            // startup period: don't send CCs until fixed date 19-09-2022
+            if ($sendCc && (new FrozenTime('Now') < new FrozenTime('2022-09-19 00:00:00'))) {
+                $sendCc = false;
+                $logDescription .= "Cc: disabled until 19-09-22\n";
+            }
+
             if ($sendCc) {
                 $logDescription .= 'Cc: ';
                 foreach ($cc as $c) {
