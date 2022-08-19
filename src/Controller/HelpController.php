@@ -51,7 +51,7 @@ class HelpController extends AppController
         $breadcrumTitles[0] = 'Help';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'help';
-        $breadcrumTitles[1] = 'Processes explanation';
+        $breadcrumTitles[1] = 'Users, Access and Workflows';
         $breadcrumControllers[1] = 'Help';
         $breadcrumActions[1] = 'processesExplanation';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));

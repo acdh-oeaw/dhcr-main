@@ -33,14 +33,14 @@
     if ($user->user_role_id == 2 || $user->is_admin) {
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-wrench"></span><br>
-            Processes explanation<p>&nbsp;</p>',
+            Users, Access and Workflows<p>&nbsp;</p>',
             [
                 'controller' => 'help',
                 'action' => 'processesExplanation'
             ],
             [
                 'class' => 'blue button',
-                'title' => 'Processes explanation',
+                'title' => 'Users, Access and Workflows',
                 'escape' => false
             ]
         );

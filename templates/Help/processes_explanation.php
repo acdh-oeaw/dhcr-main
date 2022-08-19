@@ -1,92 +1,103 @@
 <div class="help content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Processes explanation</h2>
-    <p>Version: 04-08-2022</p>
+    <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Users, Access and Workflows</h2>
+    <p>For moderators & admins</p>
+    <p>Version: 19-08-2022</p>
     <strong><u>Contents</u></strong>
     <ol>
-        <li><a href="#user_roles">User roles</a></li>
-        <li><a href="#account_creation">Account creation</a></li>
+        <li><a href="#user_roles">Access and User Roles</a></li>
+        <li><a href="#account_creation">How to Create an Account</a></li>
         <li><a href="#course_expiry">Course expiry process</a></li>
-        <li><a href="#emails_from_application">Emails sent by the application</a></li>
+        <!-- <li><a href="#emails_from_application">Emails sent by the application</a></li> -->
     </ol>
     <p>&nbsp;</p>
     <ol>
         <h3 id="user_roles">
-            <li>User roles</li>
+            <li>Access and User Roles</li>
         </h3>
-        <u>Public access</u>
         <h4>
-            <p>The registry is public available to everyone, without login or account.</p>
-
-            <u>Contributors / lecturers</u>
-            <p>For lecturers it's possible to create an account and add courses to the registry.
-            <ul>
-                <li>After registering for an account, this needs to be approved by the moderator or one of the administrators.
-                    The account can't be used until it is approved.</li>
-                <li>After adding a course, this needs to be approved by the moderator or one of the administrators. The course won't be
-                    shown in the registry until it is approved.</li>
-            </ul>
-            </p>
-
-            <u>Moderators</u>
-            <p>For most countries there is a moderator which curates the country and can approve courses and users in this country.
-                There are several features available to manage the courses and users in the country.</p>
-
-            <u>Administrators</u>
-            <p>Countries without moderator are managed by the administrators.</p>
+            <p>The registry is publicly available to everyone. Users can browse the registry and view the course metadata
+                without creating an account. Watch this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">video tutorial</a>
+                to learn how to browse or filter the courses in the registry.</p>
+            <p>The users who either contribute with new courses to the registry or are involved in the curation or
+                administration process need to create an account first. See more information below.</p>
+            <p>We distinguish between three types of users:</p>
+            <ol type="a">
+                <li><u>Contributor:</u> any user who adds course metadata to the registry.</li>
+                <li><u>Moderator:</u> a user from a specific country that moderates the DH registry users from that respective
+                    country and curates the submitted course metadata.</li>
+                <li><u>Administrator:</u> any user who manages the technical infrastructure and the DH Course Registry network.
+                    Administrators may also moderate the DH courses submitted from those countries which do not have a
+                    national moderator.</li>
+            </ol>
         </h4>
         <p>&nbsp;</p>
         <h3 id="account_creation">
-            <li>Account creation</li>
+            <li>How to Create an Account</li>
         </h3>
         <h4>
-            <p>There are two ways to create an account:</p>
-            <u>Registration form</u>
-            <p>Lecturers can register for an account at <a href="https://dhcr.clarin-dariah.eu/users/register">
-                    https://dhcr.clarin-dariah.eu/users/register</a>. After submitting the registration form, the following steps need to be completed:
+            <p>There are two ways to create an account on the DH Course Registry website:</p>
+            <p><strong><u>Option 1: Fill in the Registration Form</u></strong><br>
+                Contributors, e.g. lecturers and programme administrators, who would like to add their DH-related activities
+                to the registry need to proceed as follows:
             <ol>
-                <li>Confirm the email address</li>
-                <li>Set a password</li>
-                <li>(Wait for) account approval by moderator</li>
+                <li>Create an account by filling in the
+                    <?= $this->Html->link('User Registration form', ['controller' => 'Users', 'action' => 'register']) ?>.</li>
+                <li>After submitting the registration form, you need to:
+                    <ol type="a">
+                        <li>Confirm the email address</li>
+                        <li>Set a password</li>
+                        <li>Wait for account approval by the moderator</li>
+                    </ol>
+                <li>Once the moderator has approved your account, you can add a new course to the registry by going to
+                    <strong>Dashboard > Administrate Courses > Add Course</strong>.
+                </li>
             </ol>
-            </p>
-            <u>Invitation by a moderator</u>
-            <p>Moderators can invite users through the application. In this case the lecturer receives an email with an invitation.
-                The sender of this email is the moderator and as well a bcc of the email is sent to the moderator.<br>
-                The advantage: fewer steps are required for the lecturer.
+            <p><strong><u>Option 2: By invitation</u></strong><br>
+                Moderators can invite new users to contribute to the registry directly through the application.
             <ol>
-                <li>As a moderator visit <a href="https://dhcr.clarin-dariah.eu/users/invite">https://dhcr.clarin-dariah.eu/users/invite</a>
-                    (maybe you need to login)</li>
-                <li>Fill out the form and choose a localization. (The email address of the lecturer is also entered in this step.)</li>
-                <li>The lecturer receives an email with a link to set a password. This link is valid for 24 hours.</li>
-                <li><i>Not needed:</i> Confirmation of email address (already provided by the moderator)</li>
-                <li><i>Not needed:</i> Account approval (sending the invitation email includes "instant approval")</li>
+                <li>As a moderator, log in to the DH Course Registry.</li>
+                <li>Go to the Contributor Network and click on
+                    <?= $this->Html->link('Invite User', ['controller' => 'Users', 'action' => 'invite']) ?> to fill in the
+                    invitation form:
+                    <ol type="a">
+                        <li>Select the institution of the new user</li>
+                        <li>Enter the details of the user</li>
+                        <li>If available, select the email invitation template in the local language of the invited user. Otherwise,
+                            use the English.</li>
+                        <ul>
+                            <li>Moderators can translate the English version of the email template and send it to the administrators.</li>
+                            <li>Administrators can add the translation by going to <strong>Category Lists > Translations</strong>. </li>
+                        </ul>
+                        <li>Send the invitation to the new user.</li>
+                    </ol>
+                <li>The invited user receives an email with a link to set a password. This link is valid for 24 hours.</li>
             </ol>
-            </p>
         </h4>
         <p>&nbsp;</p>
         <h3 id="course_expiry">
             <li>Course expiry process</li>
         </h3>
         <h4>
-            <p>To keep the course meta data up to date, reminder emails are sent and there is a traffic-light color
-                displayed in the course lists, which indicates when a course was last updated:
-            <ol>
-                <li>When a course is entered, it's shown <font color="green">green</font> in the list.</li>
-                <li>After <u>10 months</u> the course owner receives emails with the request to update the course. The course
-                    stays <font color="green">green</font> in the list.
-                </li>
-                <li>After <u>12 months</u> the moderator will be on the CC of the reminder emails. The course is shown
-                    <font color="orange">orange</font> in the list.
-                </li>
-                <li>After <u>16 months</u>, the course is not shown in the public registry, but is still available in the
-                    backend. The course is shown <font color="red">red</font> in the list.</li>
-                <li>After <u>24 months</u>, the course is archived: it's not visible in the public registry or accessible in the
-                    backend. To keep the history available, the course is still available through the API.</li>
-            </ol>
+            <p>To help the course maintainers, a traffic-light colour is used in the list of courses to indicate their status:
+                <i>actively maintained</i>, <i>needs to be updated</i> or <i>is not shown in the registry</i>. Reminder emails
+                are sent to the course owners regularly to update the metadata of their courses.
             </p>
+            <ol>
+                <li>When new course metadata is entered into the registry, its status is <font color="green"><strong>green
+                        </strong></font> on the list.</li>
+                <li>After <u>10 months</u> the course owner receives emails to update the course metadata. The course status
+                    stays <font color="green"><strong>green</strong></font> on the list.</li>
+                <li>After <u>12 months</u> the moderator will be on the CC of the reminder emails. The course status is
+                    <font color="orange"><strong>orange</strong></font>.
+                </li>
+                <li>After <u>16 months</u>, the course is not shown in the public registry anymore, but it is still available
+                    in the backend. The course status turns <font color="red"><strong>red</strong></font> in the list.</li>
+                <li>After <u>24 months</u>, the course is archived: it is not visible in the public registry or accessible in
+                    the backend. The course is still available through the API to keep the history available.</li>
+            </ol>
         </h4>
-        <p>&nbsp;</p>
+        <!-- <p>&nbsp;</p>
         <h3 id="emails_from_application">
             <li>Emails sent by the application</li>
         </h3>
@@ -100,9 +111,6 @@
             <u>Subscriptions</u><br>
             <p>To be added</p>
             <u>Contributor mailing list</u><br>
-            <p>To be added</p>
-    </ol>
-    </p>
-    </h4>
+            <p>To be added</p> -->
     </ol>
 </div>
