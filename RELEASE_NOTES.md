@@ -1,12 +1,10 @@
 # Release notes
 
-## Version 2022-dev
-- FAQ: Frequently Asked Questions, for:
-    - Contributors
-    - Moderators
-- Moderator Profiles
+## Version 2022-09
+To be added.
 
-## Version 2022-test
+
+## Version 2022-08
 
 ### New features
 - Transfer Course
@@ -14,13 +12,15 @@
 - Pending Invitations
     - Overview of invitations which has been sent to new users, including expiry time
     - Reinvite: possibility to send the invitation again, f.e. when the link has been expired
-- Explanation of processes for Moderators and Administrators
-    - Topics: User roles, Account creation, Course expiry process, Emails sent by the application
+- Explanation for Moderators and Administrators
+    - Topics:
+      - Access and User Roles
+      - How to Create an Account
+      - Course expiry process
 - Course expiry reminders
     - Reimplemented sending reminder mails for expired courses, incl. logging
 - Added new user interface item to view log
 - Introduced release notes
-- Version number display in user interface (at Info)
 - Added date picker / input validation for start dates (at Add Course)
 
 ### Bug fixes / small changes
