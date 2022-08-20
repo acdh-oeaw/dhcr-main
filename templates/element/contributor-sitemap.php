@@ -253,6 +253,24 @@
         <li>
             <p>
                 <?= $this->Html->link(
+                    '<span class="glyphicon glyphicon-stats"></span>Statistics',
+                    ['controller' => 'Dashboard', 'action' => 'statistics'],
+                    ['escape' => false]
+                ) ?>
+            </p>
+            <ul class="profile">
+                <?php
+                if ($user->is_admin) {
+                    echo '<li>';
+                    echo $this->Html->link('Summary Statistics', ['controller' => 'Statistics', 'action' => 'summaryStatistics']);
+                    echo '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
+            <p>
+                <?= $this->Html->link(
                     '<span class="glyphicon glyphicon-log-out"></span>Logout',
                     ['controller' => 'Users', 'action' => 'logout'],
                     ['escape' => false]

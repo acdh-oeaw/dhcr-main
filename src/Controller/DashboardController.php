@@ -266,4 +266,19 @@ class DashboardController extends AppController
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
     }
+
+    public function statistics()
+    {
+        $user = $this->Authentication->getIdentity();
+        if (!($user->is_admin)) {
+            $this->Flash->error(__('Not authorized to statistics'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Statistics';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'Statistics';
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
+    }
 }
