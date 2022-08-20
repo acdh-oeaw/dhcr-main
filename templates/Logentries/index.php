@@ -19,11 +19,11 @@
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('id') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('logentry_code_id', 'Type') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('user_id') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('source_name', 'Source') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('source_name', 'Application Source') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('subject', 'Action') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('description', 'Details') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('cleared') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('created') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('created', ['label' => 'Date & Time']) ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,7 @@
                         <td align="left" style="padding: 5px"><?= h($logentry->subject) ?></td>
                         <td align="left" style="padding: 5px"><?= $this->Text->autoParagraph($logentry->description) ?></td>
                         <td align="left" style="padding: 5px"><?= ($logentry->cleared ? "Yes" : "No") ?></td>
-                        <td align="left" style="padding: 5px"><?= h($logentry->created->i18nFormat('yyyy-MM-dd HH:mm')) ?> UTC</td>
+                        <td align="left" style="padding: 5px"><?= h($logentry->created->i18nFormat('dd-MM-yyyy HH:mm')) ?> UTC</td>
                     </tr>
                     <tr>
                         <td colspan="8">
