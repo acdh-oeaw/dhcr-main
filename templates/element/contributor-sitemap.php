@@ -181,6 +181,16 @@
                         }
                         ?>
                     </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'FAQ Questions',
+                                ['controller' => 'FaqQuestions', 'action' => 'index']
+                            );
+                        }
+                        ?>
+                    </li>
                 </ul>
             </li>
         <?php

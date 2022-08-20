@@ -77,5 +77,21 @@
             ]
         );
     }
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-question-sign"></span><br>
+            FAQ Questions<br>
+            <font color="#81d41a">(&nbsp;' . '99' . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'FaqQuestions',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'FAQ Questions',
+                'escape' => false
+            ]
+        );
+    }
     ?>
 </div>
