@@ -93,6 +93,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/languages', ['controller' => 'Languages', 'action' => 'index']);
     $routes->connect('/invite-translations', ['controller' => 'inviteTranslations', 'action' => 'index']);
     $routes->connect('/logentries', ['controller' => 'Logentries', 'action' => 'index']);
+    $routes->connect('/faq-questions', ['controller' => 'FaqQuestions', 'action' => 'index']);
 
     /**
      * Connect catchall routes for all controllers.
