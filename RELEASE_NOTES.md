@@ -79,3 +79,4 @@ This is a major release which contains a lot of big changes. The complete login 
     - Change password
     - Subscribe to mailing list
     - Edit profile
+
