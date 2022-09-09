@@ -27,7 +27,7 @@ use Cake\I18n\FrozenTime;
         Public visible: <?= $coursesPublic ?><br>
         Public as part of backend: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%
     </p>
-    <h3>Updated within the last x months</h3>
+    <h3>Total updated courses per months ago</h3>
     <p>
         <?php
         foreach ($updatedCourseCounts as $key => $updatedCourseCounts) {
