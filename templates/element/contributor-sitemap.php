@@ -186,7 +186,7 @@
                         if ($user->is_admin) {
                             echo $this->Html->link(
                                 'FAQ Questions',
-                                ['controller' => 'FaqQuestions', 'action' => 'index']
+                                ['controller' => 'Dashboard', 'action' => 'faqQuestions']
                             );
                         }
                         ?>

@@ -7,7 +7,7 @@
             <fieldset>
                 <legend><?= __('Add FAQ Question') ?></legend>
                 <?php
-                echo $this->Form->control('faq_category_id', ['label' => 'Category', 'options' => $faqCategories]);
+                echo $this->Form->control('faq_category_id', ['label' => 'Login Type', 'options' => $faqCategories]);
                 // TODO determined by controller, remove the field below
                 echo $this->Form->control('sort_order');
                 echo $this->Form->control('question');

@@ -26,13 +26,13 @@ class FaqQuestionsController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $breadcrumTitles[1] = 'FAQ Questions';
-        $breadcrumControllers[1] = 'FaqQuestions';
-        $breadcrumActions[1] = 'index';
+        $breadcrumControllers[1] = 'Dashboard';
+        $breadcrumActions[1] = 'faqQuestions';
+        $breadcrumTitles[2] = 'Param';
+        $breadcrumControllers[2] = 'FaqQuestions';
+        $breadcrumActions[2] = 'index?paprm';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-
         $this->set(compact('user')); // required for contributors menu
-
-
         $this->paginate = [
             'contain' => ['FaqCategories'],
         ];  // order by sortOrder ASC
@@ -52,8 +52,8 @@ class FaqQuestionsController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $breadcrumTitles[1] = 'FAQ Questions';
-        $breadcrumControllers[1] = 'FaqQuestions';
-        $breadcrumActions[1] = 'index';
+        $breadcrumControllers[1] = 'Dashboard';
+        $breadcrumActions[1] = 'faqQuestions';
         $breadcrumTitles[2] = 'View FAQ Question';
         $breadcrumControllers[2] = 'FaqQuestions';
         $breadcrumActions[2] = 'view';
@@ -81,8 +81,8 @@ class FaqQuestionsController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $breadcrumTitles[1] = 'FAQ Questions';
-        $breadcrumControllers[1] = 'FaqQuestions';
-        $breadcrumActions[1] = 'index';
+        $breadcrumControllers[1] = 'Dashboard';
+        $breadcrumActions[1] = 'faqQuestions';
         $breadcrumTitles[2] = 'Add FAQ Question';
         $breadcrumControllers[2] = 'FaqQuestions';
         $breadcrumActions[2] = 'add';
@@ -113,8 +113,8 @@ class FaqQuestionsController extends AppController
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'categoryLists';
         $breadcrumTitles[1] = 'FAQ Questions';
-        $breadcrumControllers[1] = 'FaqQuestions';
-        $breadcrumActions[1] = 'index';
+        $breadcrumControllers[1] = 'Dashboard';
+        $breadcrumActions[1] = 'faqQuestions';
         $breadcrumTitles[2] = 'Edit FAQ Question';
         $breadcrumControllers[2] = 'FaqQuestions';
         $breadcrumActions[2] = 'edit';

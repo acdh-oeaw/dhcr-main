@@ -223,6 +223,7 @@ class DashboardController extends AppController
         $this->loadModel('Institutions');
         $this->loadModel('Languages');
         $this->loadModel('InviteTranslations');
+        $this->loadModel('FaqQuestions');
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -237,12 +238,20 @@ class DashboardController extends AppController
         if ($user->is_admin) {
             $totalLanguages = $this->Languages->find()->count();
             $totalInviteTranslations = $this->InviteTranslations->find()->count();
+            $totalFaqQuestions = $this->FaqQuestions->find()->count();
         } else {
             $totalLanguages = 0;
             $totalInviteTranslations = 0;
+            $totalFaqQuestions = 0;
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('totalCities', 'totalInstitutions', 'totalLanguages', 'totalInviteTranslations'));
+        $this->set(compact(
+            'totalCities',
+            'totalInstitutions',
+            'totalLanguages',
+            'totalInviteTranslations',
+            'totalFaqQuestions'
+        ));
     }
 
     public function profileSettings()
@@ -277,8 +286,31 @@ class DashboardController extends AppController
         // Set breadcrums
         $breadcrumTitles[0] = 'Statistics';
         $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'Statistics';
+        $breadcrumActions[0] = 'statistics';
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
+    }
+
+    public function faqQuestions()
+    {
+        $user = $this->Authentication->getIdentity();
+        if (!($user->is_admin)) {
+            $this->Flash->error(__('Not authorized to faqQuestions'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
+        $this->loadModel('FaqQuestions');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'FAQ Questions';
+        $breadcrumControllers[1] = 'Dashboard';
+        $breadcrumActions[1] = 'faqQuestions';
+        $this->set(compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions'));
+        $publicQuestions = $this->FaqQuestions->find()->where(['faq_category_id' => 1])->count();
+        $contributorQuestions = $this->FaqQuestions->find()->where(['faq_category_id' => 2])->count();
+        $moderatorQuestions = $this->FaqQuestions->find()->where(['faq_category_id' => 3])->count();
+        $this->set(compact('publicQuestions', 'contributorQuestions', 'moderatorQuestions'));
+        $this->set(compact('user')); // required for contributors menu
     }
 }

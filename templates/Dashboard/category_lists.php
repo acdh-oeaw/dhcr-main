@@ -81,10 +81,10 @@
         echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-question-sign"></span><br>
             FAQ Questions<br>
-            <font color="#81d41a">(&nbsp;' . '99' . '&nbsp;)</font><p></p>',
+            <font color="#81d41a">(&nbsp;' . $totalFaqQuestions . '&nbsp;)</font><p></p>',
             [
-                'controller' => 'FaqQuestions',
-                'action' => 'index'
+                'controller' => 'Dashboard',
+                'action' => 'faqQuestions'
             ],
             [
                 'class' => 'blue button',
