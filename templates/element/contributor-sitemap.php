@@ -260,24 +260,30 @@
                 ?>
             </ul>
         </li>
-        <li>
-            <p>
-                <?= $this->Html->link(
-                    '<span class="glyphicon glyphicon-stats"></span>Statistics',
-                    ['controller' => 'Dashboard', 'action' => 'statistics'],
-                    ['escape' => false]
-                ) ?>
-            </p>
-            <ul class="profile">
-                <?php
-                if ($user->is_admin) {
-                    echo '<li>';
-                    echo $this->Html->link('Summary Statistics', ['controller' => 'Statistics', 'action' => 'summaryStatistics']);
-                    echo '</li>';
-                }
-                ?>
-            </ul>
-        </li>
+        <?php
+        if ($user->is_admin) {
+        ?>
+            <li>
+                <p>
+                    <?= $this->Html->link(
+                        '<span class="glyphicon glyphicon-stats"></span>Statistics',
+                        ['controller' => 'Dashboard', 'action' => 'statistics'],
+                        ['escape' => false]
+                    ) ?>
+                </p>
+                <ul class="profile">
+                    <li>
+                        <?= $this->Html->link('Summary Statistics', ['controller' => 'Statistics', 'action' => 'summaryStatistics']) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('Course Statistics', ['controller' => 'Statistics', 'action' => 'courseStatistics']) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('User Statistics', ['controller' => 'Statistics', 'action' => 'userStatistics']) ?>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
         <li>
             <p>
                 <?= $this->Html->link(

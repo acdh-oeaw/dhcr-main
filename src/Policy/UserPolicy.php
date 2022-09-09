@@ -113,4 +113,22 @@ class UserPolicy
         }
         return false;
     }
+    
+    public function canCourseStatistics(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
+    public function canUserStatistics(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
 }

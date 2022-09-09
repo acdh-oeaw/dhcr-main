@@ -16,38 +16,10 @@ class StatisticsController extends AppController
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    public function summaryStatistics()
+    private function getCoursesKeyData()
     {
-        $user = $this->Authentication->getIdentity();
-        $this->Authorization->authorize($user);
-        // set breadcrums
-        $breadcrumTitles[0] = 'Statistics';
-        $breadcrumControllers[0] = 'Dashboard';
-        $breadcrumActions[0] = 'Statistics';
-        $breadcrumTitles[1] = 'Summary Statistics';
-        $breadcrumControllers[1] = 'Statistics';
-        $breadcrumActions[1] = 'summaryStatistics';
-        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        // load models
-        $this->loadModel('DhcrCore.Courses');
-        $this->loadModel('Users');
-        $this->loadModel('Institutions');
-        $this->loadModel('InviteTranslations');
-        // get statistic data
-        //  courses
         $coursesTotal = $this->Courses->find()->count();
-        $coursesAvailable = $this->Courses->find()->where([
-            'active' => 1,
-            'deleted' => 0,
-        ])
-            ->count();
-        $coursesShortArchived = $this->Courses->find()->where([
-            'active' => 1,
-            'deleted' => 0,
-            'updated >' => new FrozenTime('-30 Months'),
-        ])
-            ->count();
-        $coursesInBackend = $this->Courses->find()->where([
+        $coursesBackend = $this->Courses->find()->where([
             'active' => 1,
             'deleted' => 0,
             'updated >' => Configure::read('courseArchiveDate'),
@@ -59,58 +31,283 @@ class StatisticsController extends AppController
             'updated >' => new FrozenTime('-489 Days'),
         ])
             ->count();  // ca. 16 Months
-        //  users
+        return [$coursesTotal, $coursesBackend, $coursesPublic];
+    }
+
+    private function getUpdatedCourseCounts($periods)
+    {
+        $updatedCourseCounts = [];
+        foreach ($periods as $key => $period) {
+            // if ($key == 0) {
+            //     $previousPeriod = 0;
+            // } else {
+            //     $previousPeriod = $periods[$key - 1];
+            // }
+            $count = $this->Courses->find()->where([
+                'active' => 1,
+                'deleted' => 0,
+                'updated >=' => new FrozenTime('-' . $period . ' Months'),
+            ])
+                ->count();
+            $updatedCourseCounts[$period] = $count;
+        }
+        return $updatedCourseCounts;
+    }
+
+    private function getUsersKeyData()
+    {
         $usersTotal = $this->Users->find()->count();
+        $usersSubscribed = $this->Users->find()->where([
+            'mail_list' => 1,
+        ])->count();
         $usersAvailable = $this->Users->find()->where([
             'email_verified' => 1,
             'password IS NOT NULL',
             'approved' => 1,
             'active' => 1,
         ])->count();
-        $users2Years = $this->Users->find()->where([
+        $usersAvailableSubscribed = $this->Users->find()->where([
             'email_verified' => 1,
             'password IS NOT NULL',
             'approved' => 1,
             'active' => 1,
-            'last_login >' => new FrozenTime('-2 Years')
+            'mail_list' => 1,
         ])->count();
-        $users1Year = $this->Users->find()->where([
+        $moderators = $this->Users->find()->where([
+            'user_role_id' => 2,
+        ])->count();
+        $moderatorsSubscribed = $this->Users->find()->where([
+            'user_role_id' => 2,
+            'mail_list' => 1,
+        ])->count();
+        return [
+            $usersTotal, $usersSubscribed,
+            $usersAvailable, $usersAvailableSubscribed,
+            $moderators, $moderatorsSubscribed
+        ];
+    }
+
+    private function getLoggedinUserCounts($periods)
+    {
+        $loggedinUserCounts = [];
+        foreach ($periods as $key => $period) {
+            // if ($key == 0) {
+            //     $previousPeriod = 0;
+            // } else {
+            //     $previousPeriod = $periods[$key - 1];
+            // }
+            $count = $this->Users->find()->where([
+                'email_verified' => 1,
+                'password IS NOT NULL',
+                'approved' => 1,
+                'active' => 1,
+                'last_login >=' => new FrozenTime('-' . $period . ' Months'),
+            ])->count();
+            $loggedinUserCounts[$period] = $count;
+        }
+        return $loggedinUserCounts;
+    }
+
+    private function getLoggedinModeratorCounts($periods)
+    {
+        $loggedinModeratorCounts = [];
+        foreach ($periods as $key => $period) {
+            // if ($key == 0) {
+            //     $previousPeriod = 0;
+            // } else {
+            //     $previousPeriod = $periods[$key - 1];
+            // }
+            $count = $this->Users->find()->where([
+                'email_verified' => 1,
+                'password IS NOT NULL',
+                'approved' => 1,
+                'active' => 1,
+                'last_login >=' => new FrozenTime('-' . $period . ' Months'),
+                'user_role_id' => 2,
+            ])->count();
+            $loggedinModeratorCounts[$period] = $count;
+        }
+        return $loggedinModeratorCounts;
+    }
+
+    public function courseStatistics()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        $this->loadModel('DhcrCore.Courses');
+        // set breadcrums
+        $breadcrumTitles[0] = 'Statistics';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'Statistics';
+        $breadcrumTitles[1] = 'Course Statistics';
+        $breadcrumControllers[1] = 'Statistics';
+        $breadcrumActions[1] = 'courseStatistics';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
+        $updatedCoursePeriods = range(1, 30);    // periods in months
+        $updatedCourseCounts = $this->getUpdatedCourseCounts($updatedCoursePeriods);
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
+        $this->set(compact('updatedCourseCounts'));
+    }
+
+    public function userStatistics()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        $this->loadModel('Users');
+        // set breadcrums
+        $breadcrumTitles[0] = 'Statistics';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'Statistics';
+        $breadcrumTitles[1] = 'User Statistics';
+        $breadcrumControllers[1] = 'Statistics';
+        $breadcrumActions[1] = 'userStatistics';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        [
+            $usersTotal, $usersSubscribed,
+            $usersAvailable, $usersAvailableSubscribed,
+            $moderators, $moderatorsSubscribed
+        ] = $this->getUsersKeyData();
+        $loggedinPeriods = range(1, 24);    // periods in months
+        $loggedinUserCounts = $this->getLoggedinUserCounts($loggedinPeriods);
+        $loggedinModeratorCounts = $this->getLoggedinModeratorCounts($loggedinPeriods);
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact(
+            'usersTotal',
+            'usersAvailable',
+            'usersSubscribed',
+            'usersAvailableSubscribed',
+            'moderators',
+            'moderatorsSubscribed'
+        ));
+        $this->set(compact('loggedinUserCounts', 'loggedinModeratorCounts'));
+    }
+
+    public function summaryStatistics()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        $this->loadModel('DhcrCore.Courses');
+        $this->loadModel('Users');
+        $this->loadModel('FaqQuestions');
+        $this->loadModel('InviteTranslations');
+        // set breadcrums
+        $breadcrumTitles[0] = 'Statistics';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'Statistics';
+        $breadcrumTitles[1] = 'Summary Statistics';
+        $breadcrumControllers[1] = 'Statistics';
+        $breadcrumActions[1] = 'summaryStatistics';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        // courses
+        [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
+        $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
+        // users
+        [
+            $usersTotal, $usersSubscribed,
+            $usersAvailable, $usersAvailableSubscribed,
+            $moderators, $moderatorsSubscribed
+        ] = $this->getUsersKeyData();
+        $this->set(compact(
+            'usersTotal',
+            'usersAvailable',
+            'usersSubscribed',
+            'usersAvailableSubscribed',
+            'moderators',
+            'moderatorsSubscribed'
+        ));
+        // institutions
+        $institutionsTotal = $this->Courses->Institutions->find('all')->count();
+        $institutionsCourses = $this->Courses->find()->group('institution_id')->count();
+        $institutionsBackend = $this->Courses->find()->where([
+            'active' => 1,
+            'deleted' => 0,
+            'updated >' => Configure::read('courseArchiveDate'),
+        ])
+            ->group('institution_id')
+            ->count();
+        $institutionsPublic = $this->Courses->find()->where([
+            'active' => 1,
+            'deleted' => 0,
+            'updated >' => new FrozenTime('-489 Days'),
+        ])
+            ->group('institution_id')
+            ->count();
+        $this->set(compact('institutionsTotal', 'institutionsCourses', 'institutionsBackend', 'institutionsPublic'));
+        // countries
+        $countriesUsersAvailable = $this->Users->find()->where([
             'email_verified' => 1,
             'password IS NOT NULL',
             'approved' => 1,
             'active' => 1,
-            'last_login >' => new FrozenTime('-1 Year')
-        ])->count();
-        $users6Months = $this->Users->find()->where([
-            'email_verified' => 1,
-            'password IS NOT NULL',
-            'approved' => 1,
+        ])
+            ->group('country_id')
+            ->count();
+        $countriesCourses = $this->Courses->find()->group('country_id')->count();
+        $countriesCoursesBackend = $this->Courses->find()->where([
             'active' => 1,
-            'last_login >' => new FrozenTime('-6 Months')
-        ])->count();
-        $users2Months = $this->Users->find()->where([
-            'email_verified' => 1,
-            'password IS NOT NULL',
-            'approved' => 1,
+            'deleted' => 0,
+            'updated >' => Configure::read('courseArchiveDate'),
+        ])
+            ->group('country_id')
+            ->count();
+        $countriesCoursesPublic = $this->Courses->find()->where([
             'active' => 1,
-            'last_login >' => new FrozenTime('-2 Months')
-        ])->count();
-        $users1Month = $this->Users->find()->where([
-            'email_verified' => 1,
-            'password IS NOT NULL',
-            'approved' => 1,
+            'deleted' => 0,
+            'updated >' => new FrozenTime('-489 Days'),
+        ])
+            ->group('country_id')
+            ->count();
+
+        $this->set(compact('countriesUsersAvailable', 'countriesCourses', 'countriesCoursesBackend', 'countriesCoursesPublic'));
+        // cities
+        $citiesTotal = $this->Courses->Cities->find()->count();
+        $citiesCourses = $this->Courses->find()->group('city_id')->count();
+        $citiesCoursesBackend = $this->Courses->find()->where([
             'active' => 1,
-            'last_login >' => new FrozenTime('-1 Months')
+            'deleted' => 0,
+            'updated >' => Configure::read('courseArchiveDate'),
+        ])
+            ->group('city_id')
+            ->count();
+        $citiesCoursesPublic = $this->Courses->find()->where([
+            'active' => 1,
+            'deleted' => 0,
+            'updated >' => new FrozenTime('-489 Days'),
+        ])
+            ->group('city_id')
+            ->count();
+        $this->set(compact('citiesTotal', 'citiesCourses', 'citiesCoursesBackend', 'citiesCoursesPublic'));
+        // faq questions
+        $faqQuestionsTotal = $this->FaqQuestions->find()->count();
+        $faqQuestionsPublished = $this->FaqQuestions->find()->where(['published' => 1])->count();
+        $faqQuestionsPublishedPublic = $this->FaqQuestions->find()->where([
+            'published' => 1,
+            'faq_category_id' => 1,
         ])->count();
-        //  institutions
-        $institutionsTotal = $this->Institutions->find('all')->count();
+        $faqQuestionsPublishedContributor = $this->FaqQuestions->find()->where([
+            'published' => 1,
+            'faq_category_id' => 2,
+        ])->count();
+        $faqQuestionsPublishedModerator = $this->FaqQuestions->find()->where([
+            'published' => 1,
+            'faq_category_id' => 3,
+        ])->count();
+        $this->set(compact(
+            'faqQuestionsTotal',
+            'faqQuestionsPublished',
+            'faqQuestionsPublishedPublic',
+            'faqQuestionsPublishedContributor',
+            'faqQuestionsPublishedModerator'
+        ));
+
         // translations
         $inviteTranslationsTotal = $this->InviteTranslations->find('all')->count();
-        $inviteTranslationsActive = $this->InviteTranslations->find('all')->where(['active ' => true])->count();
+        $inviteTranslationsPublished = $this->InviteTranslations->find('all')->where(['active ' => true])->count();
+        $this->set(compact('inviteTranslationsTotal', 'inviteTranslationsPublished'));
+
+
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('coursesTotal', 'coursesAvailable', 'coursesShortArchived', 'coursesInBackend', 'coursesPublic'));
-        $this->set(compact('usersTotal', 'usersAvailable', 'users2Years', 'users1Year', 'users6Months', 'users2Months', 'users1Month'));
-        $this->set(compact('institutionsTotal'));
-        $this->set(compact('inviteTranslationsTotal', 'inviteTranslationsActive'));
     }
 }
