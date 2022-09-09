@@ -32,23 +32,11 @@ use Cake\I18n\FrozenTime;
         Moderators: <?= $moderators ?><br>
         Moderators subscribed to mailing list: <?= $moderatorsSubscribed ?>
     </p>
-    <h3>Logged in users within the last x months</h3>
-    <p>
-        <?php
-        foreach ($loggedinUserCounts as $key => $loggedinUserCount) {
-            echo '' . $key . ' months ago: ' . $loggedinUserCount . '<br>';
-        }
-        ?>
-    </p>
+    <h3>Logged in users until months ago</h3>
+    <div id="chart_users"></div>
+    <p></p>
     <h3>Logged in moderators per months ago</h3>
-    <p>
-        <?php
-        foreach ($loggedinModeratorCounts as $key => $loggedinModeratorCount) {
-            echo '' . $key . ' months ago: ' . $loggedinModeratorCount . '<br>';
-        }
-        ?>
-    </p>
-    <hr>
+    <div id="chart_moderators"></div>
     *Available users meet the following criteria:
     <ol>
         <li>Email verified</li>
@@ -58,3 +46,58 @@ use Cake\I18n\FrozenTime;
     </ol>
     <p><i>Note: These statistics can change at any time.</i></p>
 </div>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', {
+        packages: ['corechart', 'bar']
+    });
+    google.charts.setOnLoadCallback(drawChartUsers);
+    google.charts.setOnLoadCallback(drawChartModerators);
+
+    function drawChartUsers() {
+        var data1 = google.visualization.arrayToDataTable(<?php echo json_encode($loggedinUserCounts) ?>);
+        var options1 = {
+            hAxis: {
+                title: 'Until months ago',
+                viewWindow: {
+                    min: [7, 30, 0],
+                    max: [17, 30, 0]
+                },
+            },
+            vAxis: {
+                title: 'Logged in users',
+                maxValue: <?= $usersAvailable ?>,
+            },
+            legend: {
+                position: "none"
+            },
+        };
+        var chart1 = new google.visualization.ColumnChart(
+            document.getElementById('chart_users'));
+        chart1.draw(data1, options1);
+    }
+
+    function drawChartModerators() {
+        var data2 = google.visualization.arrayToDataTable(<?php echo json_encode($loggedinModeratorCounts) ?>);
+        var options2 = {
+            hAxis: {
+                title: 'Until months ago',
+                viewWindow: {
+                    min: [7, 30, 0],
+                    max: [17, 30, 0]
+                }
+            },
+            vAxis: {
+                title: 'Logged in moderators',
+                maxValue: <?= $moderators ?>,
+            },
+            legend: {
+                position: "none"
+            },
+        };
+        var chart2 = new google.visualization.ColumnChart(
+            document.getElementById('chart_moderators'));
+        chart2.draw(data2, options2);
+    }
+</script>

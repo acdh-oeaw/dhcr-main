@@ -36,7 +36,7 @@ class StatisticsController extends AppController
 
     private function getUpdatedCourseCounts($periods)
     {
-        $updatedCourseCounts = [];
+        $updatedCourseCounts[] = ['Months ago', 'Updated courses'];
         foreach ($periods as $key => $period) {
             // if ($key == 0) {
             //     $previousPeriod = 0;
@@ -49,7 +49,7 @@ class StatisticsController extends AppController
                 'updated >=' => new FrozenTime('-' . $period . ' Months'),
             ])
                 ->count();
-            $updatedCourseCounts[$period] = $count;
+            $updatedCourseCounts[] = [$period, $count];
         }
         return $updatedCourseCounts;
     }
@@ -89,7 +89,7 @@ class StatisticsController extends AppController
 
     private function getLoggedinUserCounts($periods)
     {
-        $loggedinUserCounts = [];
+        $loggedinUserCounts[] = ['Months ago', 'Logged in users'];
         foreach ($periods as $key => $period) {
             // if ($key == 0) {
             //     $previousPeriod = 0;
@@ -103,14 +103,14 @@ class StatisticsController extends AppController
                 'active' => 1,
                 'last_login >=' => new FrozenTime('-' . $period . ' Months'),
             ])->count();
-            $loggedinUserCounts[$period] = $count;
+            $loggedinUserCounts[] = [$period, $count];
         }
         return $loggedinUserCounts;
     }
 
     private function getLoggedinModeratorCounts($periods)
     {
-        $loggedinModeratorCounts = [];
+        $loggedinModeratorCounts[] = ['Months ago', 'Logged in moderators'];
         foreach ($periods as $key => $period) {
             // if ($key == 0) {
             //     $previousPeriod = 0;
@@ -125,7 +125,7 @@ class StatisticsController extends AppController
                 'last_login >=' => new FrozenTime('-' . $period . ' Months'),
                 'user_role_id' => 2,
             ])->count();
-            $loggedinModeratorCounts[$period] = $count;
+            $loggedinModeratorCounts[] = [$period, $count];
         }
         return $loggedinModeratorCounts;
     }
@@ -144,7 +144,7 @@ class StatisticsController extends AppController
         $breadcrumActions[1] = 'courseStatistics';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
-        $updatedCoursePeriods = range(1, 30);    // periods in months
+        $updatedCoursePeriods = range(1, 24);    // periods in months
         $updatedCourseCounts = $this->getUpdatedCourseCounts($updatedCoursePeriods);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
