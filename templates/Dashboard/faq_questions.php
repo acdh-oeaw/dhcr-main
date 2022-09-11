@@ -21,7 +21,7 @@
             <font color="#81d41a">(&nbsp;' . $contributorQuestions . '&nbsp;)</font><p></p>',
         [
             'controller' => 'FaqQuestions',
-            'action' => 'index'
+            'action' => 'index', 2
         ],
         [
             'class' => 'blue button',
@@ -35,7 +35,7 @@
             <font color="#81d41a">(&nbsp;' . $publicQuestions . '&nbsp;)</font><p></p>',
         [
             'controller' => 'FaqQuestions',
-            'action' => 'index'
+            'action' => 'index', 1
         ],
         [
             'class' => 'blue button',
@@ -49,7 +49,7 @@
             <font color="#81d41a">(&nbsp;' . $moderatorQuestions . '&nbsp;)</font><p></p>',
         [
             'controller' => 'FaqQuestions',
-            'action' => 'index'
+            'action' => 'index', 3
         ],
         [
             'class' => 'blue button',

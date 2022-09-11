@@ -14,13 +14,15 @@ class FaqQuestionsController extends AppController
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    public function index()
+    public function index($categoryId)
     {
         $user = $this->Authentication->getIdentity();
         if (!$user->is_admin) {
             $this->Flash->error(__('Not authorized to FAQ Questions index'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
+        $categoryName = $this->FaqQuestions->FaqCategories->find()->where(['id' => $categoryId])->first()->name;
+        $this->set((compact('categoryId', 'categoryName')));
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -28,25 +30,23 @@ class FaqQuestionsController extends AppController
         $breadcrumTitles[1] = 'FAQ Questions';
         $breadcrumControllers[1] = 'Dashboard';
         $breadcrumActions[1] = 'faqQuestions';
-        $breadcrumTitles[2] = 'Param';
+        $breadcrumTitles[2] = $categoryName . ' Questions';
         $breadcrumControllers[2] = 'FaqQuestions';
-        $breadcrumActions[2] = 'index?paprm';
+        $breadcrumActions[2] = 'index/' . $categoryId;
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $this->set(compact('user')); // required for contributors menu
-        $this->paginate = [
-            'contain' => ['FaqCategories'],
-        ];  // order by sortOrder ASC
-        $faqQuestions = $this->paginate($this->FaqQuestions);
+        $faqQuestions = $this->paginate(
+            $this->FaqQuestions->find()->where(['faq_category_id' => $categoryId,]),
+            ['order' => ['sort_order' => 'asc']]
+        );
         $this->set(compact('faqQuestions'));
     }
 
     public function view($id = null)
     {
-        $faqQuestion = $this->FaqQuestions->get($id, [
-            'contain' => ['FaqCategories'],
-        ]);
+        $faqQuestion = $this->FaqQuestions->get($id, ['contain' => ['FaqCategories']]);
         $user = $this->Authentication->getIdentity();
-        // $this->Authorization->authorize($faqQuestion);
+        $this->Authorization->authorize($user);
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
         $breadcrumControllers[0] = 'Dashboard';
@@ -66,13 +66,15 @@ class FaqQuestionsController extends AppController
     {
         $faqQuestion = $this->FaqQuestions->newEmptyEntity();
         $user = $this->Authentication->getIdentity();
-        // $this->Authorization->authorize($faqQuestion);
+        $this->Authorization->authorize($faqQuestion);
         if ($this->request->is('post')) {
             $faqQuestion = $this->FaqQuestions->patchEntity($faqQuestion, $this->request->getData());
+            $query = $this->FaqQuestions->find()->where(['faq_category_id =' => $faqQuestion->faq_category_id]);
+            $nextSortOrder = $query->select(['sortOrder' => $query->func()->max('sort_order')])->first()->sortOrder + 1;
+            $faqQuestion->sort_order = $nextSortOrder;
             if ($this->FaqQuestions->save($faqQuestion)) {
                 $this->Flash->success(__('The faq question has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
             }
             $this->Flash->error(__('The faq question could not be saved. Please, try again.'));
         }
@@ -94,19 +96,27 @@ class FaqQuestionsController extends AppController
 
     public function edit($id = null)
     {
-        $faqQuestion = $this->FaqQuestions->get($id, [
-            'contain' => [],
-        ]);
+        $faqQuestion = $this->FaqQuestions->get($id);
         $user = $this->Authentication->getIdentity();
-        // $this->Authorization->authorize($faqQuestion);
+        $this->Authorization->authorize($faqQuestion);
         if ($this->request->is(['patch', 'post', 'put'])) {
+            // assign new sortOrder is category has changed
+            $oldCategory = $faqQuestion->faq_category_id;
+            $newCategory = $this->request->getData('faq_category_id');
             $faqQuestion = $this->FaqQuestions->patchEntity($faqQuestion, $this->request->getData());
-            if ($this->FaqQuestions->save($faqQuestion)) {
-                $this->Flash->success(__('The faq question has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
+            if ($newCategory != $oldCategory) {
+                $maxSortOrder = $this->FaqQuestions->find('all', ['order' => ['sort_order' => 'DESC']])
+                    ->where(['faq_category_id =' => $this->request->getData('faq_category_id')])
+                    ->first()
+                    ->sort_order;
+                $faqQuestion->sort_order = $maxSortOrder + 1;
             }
-            $this->Flash->error(__('The faq question could not be saved. Please, try again.'));
+            if ($this->FaqQuestions->save($faqQuestion)) {
+                $this->Flash->success(__('The faq question has been updated.'));
+
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
+            }
+            $this->Flash->error(__('The faq question could not be updated. Please, try again.'));
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Category Lists';
@@ -122,5 +132,59 @@ class FaqQuestionsController extends AppController
         $this->set(compact('user')); // required for contributors menu
         $faqCategories = $this->FaqQuestions->FaqCategories->find('list', ['limit' => 200]);
         $this->set(compact('faqQuestion', 'faqCategories'));
+    }
+
+    public function moveUp($id)
+    {
+        $faqQuestion = $this->FaqQuestions->get($id);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($faqQuestion);
+        $firstId = $this->FaqQuestions->find('all', ['order' => ['sort_order' => 'ASC']])
+            ->where(['faq_category_id =' => $faqQuestion->faq_category_id])
+            ->first()
+            ->id;
+        if ($faqQuestion->id == $firstId) {
+            $this->Flash->error('Can not move up. Already on top.');
+            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+        }
+        $prevFaqQuestion = $this->FaqQuestions->find()->where([
+            'faq_category_id =' => $faqQuestion->faq_category_id,
+            'sort_order' => $faqQuestion->sort_order - 1,
+        ])->first();
+        $tempSortOrder = $prevFaqQuestion->sort_order;
+        $prevFaqQuestion->sort_order = $faqQuestion->sort_order;
+        $faqQuestion->sort_order = $tempSortOrder;
+        if ($this->FaqQuestions->save($prevFaqQuestion) && $this->FaqQuestions->save($faqQuestion)) {
+            $this->Flash->success(__('Moved up.'));
+            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+        }
+        $this->Flash->error(__('Error moving up.'));
+    }
+
+    public function moveDown($id)
+    {
+        $faqQuestion = $this->FaqQuestions->get($id);
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($faqQuestion);
+        $lastId = $this->FaqQuestions->find('all', ['order' => ['sort_order' => 'DESC']])
+            ->where(['faq_category_id =' => $faqQuestion->faq_category_id])
+            ->first()
+            ->id;
+        if ($faqQuestion->id == $lastId) {
+            $this->Flash->error('Can not move down. Already on bottom.');
+            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+        }
+        $nextFaqQuestion = $this->FaqQuestions->find()->where([
+            'faq_category_id =' => $faqQuestion->faq_category_id,
+            'sort_order' => $faqQuestion->sort_order + 1,
+        ])->first();
+        $tempSortOrder = $nextFaqQuestion->sort_order;
+        $nextFaqQuestion->sort_order = $faqQuestion->sort_order;
+        $faqQuestion->sort_order = $tempSortOrder;
+        if ($this->FaqQuestions->save($nextFaqQuestion) && $this->FaqQuestions->save($faqQuestion)) {
+            $this->Flash->success(__('Moved down.'));
+            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+        }
+        $this->Flash->error(__('Error moving down.'));
     }
 }

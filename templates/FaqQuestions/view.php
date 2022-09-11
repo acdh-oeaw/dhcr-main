@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                     <th align="left" style="padding: 5px">Published</th>
-                    <td style="padding: 5px"><?= $faqQuestion->published ? 'Yes' : 'No'; ?></td>
+                    <td style="padding: 5px"><span class="glyphicon glyphicon-<?= ($faqQuestion->published) ? 'ok' : 'remove' ?>"></span></td>
                 </tr>
                 <tr>
                     <td colspan="2">&nbsp;</td>

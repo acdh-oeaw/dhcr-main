@@ -34,8 +34,7 @@ class FaqQuestionsTable extends Table
         $validator
             ->integer('sort_order')
             ->requirePresence('sort_order', 'create')
-            ->notEmptyString('sort_order')
-            ->add('sort_order', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
+            ->notEmptyString('sort_order');
 
         $validator
             ->scalar('question')
@@ -58,7 +57,6 @@ class FaqQuestionsTable extends Table
 
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['sort_order']), ['errorField' => 'sort_order']);
         $rules->add($rules->existsIn(['faq_category_id'], 'FaqCategories'), ['errorField' => 'faq_category_id']);
 
         return $rules;
