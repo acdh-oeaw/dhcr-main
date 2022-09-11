@@ -8,8 +8,10 @@
                 <legend><?= __('Add FAQ Question') ?></legend>
                 <?php
                 echo $this->Form->control('faq_category_id', ['label' => 'Login Type', 'options' => $faqCategories]);
-                echo $this->Form->control('question');
-                echo $this->Form->control('answer');
+                echo $this->Form->control('question', ['label' => 'Question*']);
+                echo $this->Form->control('answer', ['label' => 'Answer*']);
+                echo $this->Form->control('link_title');
+                echo $this->Form->control('link_url');
                 echo $this->Form->control('published', ['default' => true]);
                 ?>
             </fieldset>

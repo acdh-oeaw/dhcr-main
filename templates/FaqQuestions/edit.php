@@ -10,6 +10,8 @@
                 echo $this->Form->control('faq_category_id', ['options' => $faqCategories, 'label' => 'Login Type']);
                 echo $this->Form->control('question');
                 echo $this->Form->control('answer');
+                echo $this->Form->control('link_title');
+                echo $this->Form->control('link_url');
                 echo $this->Form->control('published');
                 ?>
             </fieldset>

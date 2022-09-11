@@ -48,6 +48,16 @@ class FaqQuestionsTable extends Table
             ->notEmptyString('answer');
 
         $validator
+            ->scalar('link_title')
+            ->maxLength('link_title', 100)
+            ->allowEmptyString('link_title');
+
+        $validator
+            ->scalar('link_url')
+            ->maxLength('link_url', 255)
+            ->allowEmptyString('link_url');
+            
+        $validator
             ->boolean('published')
             ->requirePresence('published', 'create')
             ->notEmptyString('published');

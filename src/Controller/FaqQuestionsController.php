@@ -113,8 +113,7 @@ class FaqQuestionsController extends AppController
             }
             if ($this->FaqQuestions->save($faqQuestion)) {
                 $this->Flash->success(__('The faq question has been updated.'));
-
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
+                return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
             }
             $this->Flash->error(__('The faq question could not be updated. Please, try again.'));
         }

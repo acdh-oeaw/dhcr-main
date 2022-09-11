@@ -13,6 +13,8 @@ class FaqQuestion extends Entity
         'sort_order' => true,
         'question' => true,
         'answer' => true,
+        'link_title' => true,
+        'link_url' => true,
         'published' => true,
         'faq_category' => true,
     ];

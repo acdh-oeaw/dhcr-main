@@ -16,7 +16,7 @@ switch ($categoryId) {
 <div class="faqQuestions index content">
     <p></p>
     <h2><span class="glyphicon glyphicon-<?= $icon ?>"></span>&nbsp;&nbsp;&nbsp;<?= $categoryName ?> Questions</h2>
-    <?= $this->Html->link(__('Add FAQ Question'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <!-- <?= $this->Html->link(__('Add FAQ Question'), ['action' => 'add'], ['class' => 'button float-right']) ?> -->
     <p></p>
     <div class="table-responsive">
         <table width="100%">
