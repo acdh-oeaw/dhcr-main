@@ -98,6 +98,11 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'FaqQuestions', 'action' => 'index'],
         ["pass" => ["categoryId"], "categoryId" => "[1-3]"]
     );
+    $routes->connect(
+        '/faq/{categoryName}',
+        ['controller' => 'FaqQuestions', 'action' => 'faqList'],
+        ["pass" => ["categoryName"]],
+    );
 
     /**
      * Connect catchall routes for all controllers.

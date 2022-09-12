@@ -27,6 +27,15 @@
                         </blockquote>
                     </td>
                 </tr>
+                <tr>
+                    <th align="left" style="padding: 5px">Link</th>
+                    <td style="padding: 5px"><?php
+                                                if (strlen($faqQuestion->link_url) < 1) {
+                                                    echo '-';
+                                                } else {
+                                                    echo $this->Html->link($faqQuestion->link_title, $faqQuestion->link_url);
+                                                } ?></td>
+                </tr>
             </table>
         </div>
     </div>

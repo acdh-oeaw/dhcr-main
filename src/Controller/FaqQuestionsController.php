@@ -186,4 +186,31 @@ class FaqQuestionsController extends AppController
         }
         $this->Flash->error(__('Error moving down.'));
     }
+
+    public function faqList($categoryName)
+    {
+
+        // decide about layout
+        // $this->Authorization->authorize($faqQuestion);
+        $user = $this->Authentication->getIdentity();
+        // $this->Authorization->authorize($faqQuestion);
+
+        $categoryId = $this->FaqQuestions->FaqCategories->find()->where(['name' => $categoryName])->first()->id;
+
+        $this->set((compact('categoryId', 'categoryName')));
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Help';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'help';
+        $breadcrumTitles[1] = ucfirst($categoryName) . ' FAQ';
+        $breadcrumControllers[1] = 'FaqQuestions';
+        $breadcrumActions[1] = 'faq/' . $categoryName;
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $this->set(compact('user')); // required for contributors menu
+        $faqQuestions = $this->paginate(
+            $this->FaqQuestions->find()->where(['faq_category_id' => $categoryId,]),
+            ['order' => ['sort_order' => 'asc']]
+        );
+        $this->set(compact('faqQuestions'));
+    }
 }

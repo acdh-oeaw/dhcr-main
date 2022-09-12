@@ -243,13 +243,16 @@
                 <li>
                     <?= $this->Html->link(
                         'Contributor FAQ',
-                        ['controller' => 'Help', 'action' => 'contributorFaq']
+                        ['controller' => 'faqQuestions', 'action' => 'faqList', 'contributor']
                     ) ?>
                 </li>
                 <?php
                 if ($user->user_role_id == 2 || $user->is_admin) {
                     echo '<li>';
-                    echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
+                    echo $this->Html->link(
+                        'Moderator FAQ',
+                        ['controller' => 'faqQuestions', 'action' => 'faqList', 'moderator']
+                    );
                     echo '</li>';
                 }
                 if ($user->user_role_id == 2 || $user->is_admin) {
