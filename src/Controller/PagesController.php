@@ -43,8 +43,6 @@ class PagesController extends AppController
         $this->Authorization->skipAuthorization();
     }
 
-
-
     public function follow()
     {
         $this->loadModel('DhcrCore.Countries');
@@ -55,8 +53,6 @@ class PagesController extends AppController
         ]);
         $this->set(compact('subscription', 'countries'));
     }
-
-
 
     public function info()
     {
@@ -113,7 +109,6 @@ class PagesController extends AppController
             ->toArray();
         $this->set(compact('countries', 'moderators', 'userAdmins', 'email'));
     }
-
 
     /**
      * Displays a view
