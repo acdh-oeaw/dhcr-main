@@ -33,7 +33,7 @@ use Cake\I18n\FrozenTime;
         Moderators subscribed to mailing list: <?= $moderatorsSubscribed ?><br>
         &nbsp;<br>
         Administrators: <?= $administrators ?><br>
-        Administrators shown on contact page (userAdmin): <?= $userAdmins ?>
+        Administrators shown on contact page: <?= $userAdmins ?>
     </p>
     <h3>Logged in users until months ago</h3>
     <div id="chart_users"></div>
