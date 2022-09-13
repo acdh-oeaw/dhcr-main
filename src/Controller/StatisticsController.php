@@ -29,6 +29,7 @@ class StatisticsController extends AppController
             'active' => 1,
             'deleted' => 0,
             'updated >' => new FrozenTime('-489 Days'),
+            'approved' => 1,
         ])
             ->count();  // ca. 16 Months
         return [$coursesTotal, $coursesBackend, $coursesPublic];
