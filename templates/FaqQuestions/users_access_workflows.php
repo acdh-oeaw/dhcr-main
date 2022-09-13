@@ -1,4 +1,4 @@
-<div class="help content">
+<div class="faq content">
     <p></p>
     <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Users, Access and Workflows</h2>
     <p>For moderators & admins</p>

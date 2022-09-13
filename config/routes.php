@@ -103,7 +103,7 @@ Router::scope('/', function (RouteBuilder $routes) {
         ['controller' => 'FaqQuestions', 'action' => 'faqList'],
         ["pass" => ["categoryName"]],
     );
-
+    $routes->connect('/help/users-access-workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);
     /**
      * Connect catchall routes for all controllers.
      *

@@ -201,8 +201,7 @@ class FaqQuestionsController extends AppController
         if ($categoryName != 'Public') {
             $user = $this->Authentication->getIdentity();
             $this->Authorization->authorize($faqQuestions->first());
-        }
-        else {
+        } else {
             $user = '';
         }
         $this->set((compact('categoryId', 'categoryName')));
@@ -214,6 +213,21 @@ class FaqQuestionsController extends AppController
         $breadcrumTitles[1] = ucfirst($categoryName) . ' FAQ';
         $breadcrumControllers[1] = 'FaqQuestions';
         $breadcrumActions[1] = 'faq/' . $categoryName;
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $this->set(compact('user')); // required for contributors menu
+    }
+
+    public function usersAccessWorkflows()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Help';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'help';
+        $breadcrumTitles[1] = 'Users, Access and Workflows';
+        $breadcrumControllers[1] = 'Help';
+        $breadcrumActions[1] = 'processesExplanation';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $this->set(compact('user')); // required for contributors menu
     }

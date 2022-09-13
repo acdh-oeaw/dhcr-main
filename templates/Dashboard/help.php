@@ -6,7 +6,7 @@
         '<p></p><span class="glyphicon glyphicon-education"></span><br>
         Contributor FAQ<p>&nbsp;</p>',
         [
-            'controller' => 'faqQuestions',
+            'controller' => 'FaqQuestions',
             'action' => 'faqList', 'contributor'
         ],
         [
@@ -20,7 +20,7 @@
             '<p></p><span class="glyphicon glyphicon-list-alt"></span><br>
             Moderator FAQ<p>&nbsp;</p>',
             [
-                'controller' => 'faqQuestions',
+                'controller' => 'FaqQuestions',
                 'action' => 'faqList', 'moderator'
             ],
             [
@@ -35,8 +35,8 @@
             '<p></p><span class="glyphicon glyphicon-wrench"></span><br>
             Users, Access and Workflows<p></p>',
             [
-                'controller' => 'help',
-                'action' => 'processesExplanation'
+                'controller' => 'FaqQuestions',
+                'action' => 'usersAccessWorkflows'
             ],
             [
                 'class' => 'blue button',
