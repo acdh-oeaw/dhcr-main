@@ -16,7 +16,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button('Add FAQ Question') ?>
+            <?= $this->Form->button('Save FAQ Question') ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
