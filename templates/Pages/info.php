@@ -62,6 +62,12 @@
             <?= $this->Element('info/clarin-dariah') ?>
         </div>
     </div>
+    <div class="accordeon-item" id="social-media">
+        <h2><span>Social Media</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/social-media') ?>
+        </div>
+    </div>
     <div class="accordeon-item" id="faq-public">
         <h2><span>FAQ</span></h2>
         <div class="item-content">
