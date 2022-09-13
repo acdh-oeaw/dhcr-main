@@ -4,17 +4,36 @@
 
 ### New features
 - FAQ Questions
-    - List of Questions & Answer for: ..
-    - Add, edit, sort
+    - Displays a list of questions & answers pairs, based on login type, for:
+      - Public (no login)
+      - Contributor
+      - Moderator
+    - Features in the backend for admins: 
+      - Add/edit
+      - If necessary, add link title and url
+      - Publish/Unpublish
+      - Change order in which the items are shown
+      - Move items between the lists for different login types
+    - Everybody can read the public FAQ, without login
+    - Contributors and Moderators can find their FAQs in the Help Dashboard, based on their user role.
+      - Moderators can also access the Contributors FAQ
+      - Administrators can access all FAQs
 - Statistics
-  - Summary
-  - Detailed course statistics
-  - Detailed user statistics
+  - Summary Statistics, with numbers about:
+    - Courses
+    - Users
+    - Institutions
+    - Countries
+    - Cities
+    - FAQ Questions
+    - Translations for the invite mail
+  - Statistics about courses
+  - Statistics about the number of users, moderators and admins
 
 ### Bug fixes / small changes
+- Added social media section to menu
 - Added link to release notes in UI
-- Updated icons and button texts
-- Added social media section in menu
+- Updated icons and button texts to be consistent
 
 
 ## Version 2022-08
