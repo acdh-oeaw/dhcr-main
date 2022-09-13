@@ -147,7 +147,7 @@ class FaqQuestionsController extends AppController
             ->id;
         if ($faqQuestion->id == $firstId) {
             $this->Flash->error('Can not move up. Already on top.');
-            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
         }
         $prevFaqQuestion = $this->FaqQuestions->find()->where([
             'faq_category_id =' => $faqQuestion->faq_category_id,
@@ -158,7 +158,7 @@ class FaqQuestionsController extends AppController
         $faqQuestion->sort_order = $tempSortOrder;
         if ($this->FaqQuestions->save($prevFaqQuestion) && $this->FaqQuestions->save($faqQuestion)) {
             $this->Flash->success(__('Moved up.'));
-            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
         }
         $this->Flash->error(__('Error moving up.'));
     }
@@ -174,7 +174,7 @@ class FaqQuestionsController extends AppController
             ->id;
         if ($faqQuestion->id == $lastId) {
             $this->Flash->error('Can not move down. Already on bottom.');
-            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
         }
         $nextFaqQuestion = $this->FaqQuestions->find()->where([
             'faq_category_id =' => $faqQuestion->faq_category_id,
@@ -185,7 +185,7 @@ class FaqQuestionsController extends AppController
         $faqQuestion->sort_order = $tempSortOrder;
         if ($this->FaqQuestions->save($nextFaqQuestion) && $this->FaqQuestions->save($faqQuestion)) {
             $this->Flash->success(__('Moved down.'));
-            return $this->redirect(['controller' => 'FaqQuestions', 'action' => 'index', $faqQuestion->faq_category_id]);
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'faqQuestions']);
         }
         $this->Flash->error(__('Error moving down.'));
     }
