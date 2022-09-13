@@ -80,10 +80,18 @@ class StatisticsController extends AppController
             'user_role_id' => 2,
             'mail_list' => 1,
         ])->count();
+        $administrators = $this->Users->find()->where([
+            'is_admin' => 1,
+        ])->count();
+        $userAdmins = $this->Users->find()->where([
+            'user_admin' => 1,
+        ])->count();
+
         return [
             $usersTotal, $usersSubscribed,
             $usersAvailable, $usersAvailableSubscribed,
-            $moderators, $moderatorsSubscribed
+            $moderators, $moderatorsSubscribed,
+            $administrators, $userAdmins
         ];
     }
 
@@ -167,7 +175,8 @@ class StatisticsController extends AppController
         [
             $usersTotal, $usersSubscribed,
             $usersAvailable, $usersAvailableSubscribed,
-            $moderators, $moderatorsSubscribed
+            $moderators, $moderatorsSubscribed,
+            $administrators, $userAdmins
         ] = $this->getUsersKeyData();
         $loggedinPeriods = range(1, 24);    // periods in months
         $loggedinUserCounts = $this->getLoggedinUserCounts($loggedinPeriods);
@@ -179,7 +188,9 @@ class StatisticsController extends AppController
             'usersSubscribed',
             'usersAvailableSubscribed',
             'moderators',
-            'moderatorsSubscribed'
+            'moderatorsSubscribed',
+            'administrators',
+            'userAdmins'
         ));
         $this->set(compact('loggedinUserCounts', 'loggedinModeratorCounts'));
     }

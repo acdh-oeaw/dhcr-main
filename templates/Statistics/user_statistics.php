@@ -30,7 +30,10 @@ use Cake\I18n\FrozenTime;
         Available & subcribed as part of available: <?= (int) ($usersAvailableSubscribed / $usersAvailable * 100) ?>%<br>
         &nbsp;<br>
         Moderators: <?= $moderators ?><br>
-        Moderators subscribed to mailing list: <?= $moderatorsSubscribed ?>
+        Moderators subscribed to mailing list: <?= $moderatorsSubscribed ?><br>
+        &nbsp;<br>
+        Administrators: <?= $administrators ?><br>
+        Administrators shown on contact page (userAdmin): <?= $userAdmins ?>
     </p>
     <h3>Logged in users until months ago</h3>
     <div id="chart_users"></div>
