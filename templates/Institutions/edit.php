@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Edit Institution</h2>
+    <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Edit Institution</h2>
     <div class="column-responsive column-80">
         <div class="institutions form content">
             <?= $this->Form->create($institution) ?>
@@ -26,7 +26,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Edit Institution')) ?>
+            <?= $this->Form->button(__('Update Institution')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

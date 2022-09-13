@@ -177,7 +177,7 @@ class CoursesController extends AppController
         // "customize" view
         $this->set('course_icon', 'plus');
         $this->set('course_action', 'Add Course');
-        $this->set('course_submit_label', 'Add Course');
+        $this->set('course_submit_label', 'Save Course');
         $this->render('add_edit');
     }
 

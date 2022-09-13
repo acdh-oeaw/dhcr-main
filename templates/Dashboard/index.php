@@ -13,7 +13,7 @@
         }
         if ($user->user_role_id == 2) {
             echo ' as <strong><font color="60a845"> moderator</font></strong> of <strong><font color="60a845">';
-            if($user->country->name == 'Netherlands') { // fix for country name "the Netherlands"
+            if ($user->country->name == 'Netherlands') { // fix for country name "the Netherlands"
                 echo 'the ';
             }
             echo $user->country->name . '</font></strong>';
@@ -145,5 +145,19 @@
             'escape' => false
         ]
     );
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-stats"></span><br>Statistics<p>&nbsp;</p>',
+            [
+                'controller' => 'Dashboard',
+                'action' => 'statistics'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Statistics',
+                'escape' => false
+            ]
+        );
+    }
     ?>
 </div>

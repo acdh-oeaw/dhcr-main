@@ -15,7 +15,7 @@
                     Approved: <font color=" <?= ($editUser->approved) ? 'green">Yes</font>' : 'red">No</font>' ?><br>
                 <?php
                 if ($user->is_admin) {   // only admin can disable user
-                    echo $this->Form->control('active');
+                    echo $this->Form->control('active', ['label' => 'User account enabled (uncheck only if the user should not be able to login)']);
                 } else {
                     echo '<p></p>';
                 }

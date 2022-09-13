@@ -39,7 +39,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Reinvite User')) ?>
+            <?= $this->Form->button(__('Send New Invitation')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

@@ -1,5 +1,41 @@
 # Release notes
 
+## Version 2022-09
+
+### New features
+- FAQ Questions
+    - Displays a list of questions & answers pairs, based on login type, for:
+      - Public (no login)
+      - Contributor
+      - Moderator
+    - Features in the backend for admins: 
+      - Add/edit
+      - If necessary, add link title and url
+      - Publish/Unpublish
+      - Change order in which the items are shown
+      - Move items between the lists for different login types
+    - Everybody can read the public FAQ, without login
+    - Contributors and Moderators can find their FAQs in the Help Dashboard, based on their user role.
+      - Moderators can also access the Contributors FAQ
+      - Administrators can access all FAQs
+- Statistics
+  - Summary Statistics, with numbers about:
+    - Courses
+    - Users
+    - Institutions
+    - Countries
+    - Cities
+    - FAQ Questions
+    - Translations for the invite mail
+  - Statistics about courses
+  - Statistics about the number of users, moderators and admins
+
+### Bug fixes / small changes
+- Added social media section to menu
+- Added link to release notes in UI
+- Updated icons and button texts to be consistent
+
+
 ## Version 2022-08
 
 ### New features
@@ -40,7 +76,6 @@ This is a major release which contains a lot of big changes. The complete login 
     3. Breadcrumbs
 - Depending on the user role, additional options are available in the user interface (contributor -> moderator -> administrator)
 - Revised texts and instructions for users
-
 
 ### New features
 - A user can be administrator ***and*** moderator with the same account

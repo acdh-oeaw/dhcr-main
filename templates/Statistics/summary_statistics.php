@@ -4,7 +4,7 @@ use Cake\I18n\FrozenTime;
 ?>
 <div class="statistics content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-scale"></span>&nbsp;&nbsp;&nbsp;Summary Statistics</h2>
+    <h2><span class="glyphicon glyphicon-stats"></span>&nbsp;&nbsp;&nbsp;Summary Statistics</h2>
     <?php
     // guard against providing not accurate data
     if (env('DHCR_BASE_URL') != 'https://dhcr.clarin-dariah.eu/') {
@@ -28,44 +28,39 @@ use Cake\I18n\FrozenTime;
         </tr>
         <tr>
             <td style="vertical-align:top" width="33%">
-                <h3><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;Courses</h3>
+                <h3><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;
+                    <?= $this->Html->link('Courses', ['controller' => 'Statistics', 'action' => 'courseStatistics']) ?>
+                </h3>
                 <p></p>
                 <ul>
                     <li>Total: <?= $coursesTotal ?></li>
-                    <li>Total, published, not deleted: <?= $coursesAvailable ?></li>
-                    <ul>
-                        <li>(Archived until 30 months: <?= $coursesShortArchived ?>)</li>
-                        <li>Shown in backend: <?= $coursesInBackend ?></li>
-                        <li>Shown in public registry: <?= $coursesPublic ?></li>
-                    </ul>
+                    <li>In backend & published: <?= $coursesBackend ?></li>
+                    <li>Public visible: <?= $coursesPublic ?><br></li>
+                    <li>Public as part of backend: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%</li>
+
                 </ul>
             </td>
             <td style="vertical-align:top" width="33%">
-                <h3><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Users</h3>
+                <h3><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;
+                    <?= $this->Html->link('Users', ['controller' => 'Statistics', 'action' => 'userStatistics']) ?>
+                </h3>
                 <p></p>
                 <ul>
                     <li>Total: <?= $usersTotal ?></li>
-                    <li>Total with conditions*: <?= $usersAvailable ?></li>
-                    <ul>
-                        <li>Logged in, in the last</li>
-                        <ul>
-                            <li>2 years: <?= $users2Years ?></li>
-                            <li>1 year: <?= $users1Year ?></li>
-                            <li>6 months: <?= $users6Months ?></li>
-                            <li>2 months: <?= $users2Months ?></li>
-                            <li>1 month: <?= $users1Month ?></li>
-                        </ul>
-                    </ul>
+                    <li>Total available*: <?= $usersAvailable ?></li>
+                    <li>Available & subcribed mailing list: <?= $usersAvailableSubscribed ?></li>
+                    <li>Moderators: <?= $moderators ?></li>
                 </ul>
             </td>
             <td style="vertical-align:top" width="33%">
                 <h3><span class="glyphicon glyphicon-book"></span>&nbsp;&nbsp;&nbsp;Institutions</h3>
                 <p></p>
-                <p>
-                    Total: <?= $institutionsTotal ?><br>
-                    With courses in backend: ?<br>
-                    With courses in registry: ?<br>
-                </p>
+                <ul>
+                    <li>Total: <?= $institutionsTotal ?></li>
+                    <li>With courses: <?= $institutionsCourses ?></li>
+                    <li>With courses in backend: <?= $institutionsBackend ?></li>
+                    <li>With courses public visible: <?= $institutionsPublic ?></li>
+                </ul>
             </td>
         </tr>
         <tr>
@@ -73,39 +68,75 @@ use Cake\I18n\FrozenTime;
                 <hr><br>
             </td>
         </tr>
-        <td style="vertical-align:top">
-            <h3><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Countries</h3>
-            <p></p>
-            <p>
-                With courses in backend: ?<br>
-                With courses in registry: ?<br>
-            </p>
-        </td>
-        <td style="vertical-align:top">
-            <h3><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Translations</h3>
-            <p></p>
-            <p>
-                Total: <?= $inviteTranslationsTotal ?><br>
-                Published: <?= $inviteTranslationsActive ?><br>
-            </p>
-        </td>
-        <td style="vertical-align:top">
-            <!-- <h3><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;FAQ Questions</h3>
-            <p>
-                Total: ?<br>
-                Published: ?<br>
-                Public: ?<br>
-                Contibutor: ?<br>
-                Moderator: ?<br>
-            </p> -->
-        </td>
+        <tr>
+            <td style="vertical-align:top">
+                <h3><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Countries</h3>
+                <p></p>
+                <ul>
+                    <li>With available users: <?= $countriesUsersAvailable ?></li>
+                    <li>With courses: <?= $countriesCourses ?></li>
+                    <li>With courses in backend: <?= $countriesCoursesBackend ?></li>
+                    <li>With courses in registry: <?= $countriesCoursesPublic ?></li>
+
+                </ul>
+            </td>
+            <td style="vertical-align:top">
+                <h3><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;&nbsp;Cities</h3>
+                <p></p>
+                <ul>
+                    <li>Total: <?= $citiesTotal ?></li>
+                    <li>With courses: <?= $citiesCourses ?></li>
+                    <li>With courses in backend: <?= $citiesCoursesBackend ?></li>
+                    <li>With courses in registry: <?= $citiesCoursesPublic ?></li>
+
+                </ul>
+            </td>
+            <td style="vertical-align:top">
+                <h3><span class="glyphicon glyphicon-question-sign"></span>&nbsp;&nbsp;&nbsp;FAQ Questions</h3>
+                <p></p>
+                <ul>
+                    <li>Total: <?= $faqQuestionsTotal ?></li>
+                    <li>Published: <?= $faqQuestionsPublished ?></li>
+                    <ul>
+                        <li>Public: <?= $faqQuestionsPublishedPublic ?></li>
+                        <li>Contributor: <?= $faqQuestionsPublishedContributor ?></li>
+                        <li>Moderator: <?= $faqQuestionsPublishedModerator ?></li>
+                    </ul>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <hr><br>
+            </td>
+        </tr>
+        <tr>
+            <td style="vertical-align:top">
+                <h3><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Translations (invite mail)</h3>
+                <p></p>
+                <ul>
+                    <li>Total: <?= $inviteTranslationsTotal ?></li>
+                    <li>Published: <?= $inviteTranslationsPublished ?></li>
+                </ul>
+            </td>
+            <td style="vertical-align:top">
+            </td>
+            <td style="vertical-align:top">
+            </td>
+        </tr>
         <tr>
             <td colspan="3">
                 <hr><br>
             </td>
         </tr>
     </table>
-    <p>*Conditions for Users: email verified, password set, approved by moderator, account not disabled.</p>
+    *Available users meet the following criteria:
+    <ol>
+        <li>Email verified</li>
+        <li>Password set</li>
+        <li>Approved (by moderator)</li>
+        <li>Account not disabled</li>
+    </ol>
     <p><i>Note: These statistics can change at any time. For example when a user makes changes to a course or when a certain
             expiration period has exceeded.</i></p>
 </div>

@@ -181,6 +181,16 @@
                         }
                         ?>
                     </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'FAQ Questions',
+                                ['controller' => 'Dashboard', 'action' => 'faqQuestions']
+                            );
+                        }
+                        ?>
+                    </li>
                 </ul>
             </li>
         <?php
@@ -230,28 +240,53 @@
                 ) ?>
             </p>
             <ul class="profile">
+                <li>
+                    <?= $this->Html->link(
+                        'Contributor FAQ',
+                        ['controller' => 'faqQuestions', 'action' => 'faqList', 'contributor']
+                    ) ?>
+                </li>
                 <?php
-                // <li>
-                //     <?= $this->Html->link(
-                //         'Contributor FAQ',
-                //         ['controller' => 'Help', 'action' => 'contributorFaq']
-                //     ) ?> <?php
-                // </li>
-                ?>
-                <?php
-                // if ($user->user_role_id == 2 || $user->is_admin) {
-                //     echo '<li>';
-                //     echo $this->Html->link('Moderator FAQ', ['controller' => 'Help', 'action' => 'moderatorFaq']);
-                //     echo '</li>';
-                // }
                 if ($user->user_role_id == 2 || $user->is_admin) {
                     echo '<li>';
-                    echo $this->Html->link('Users, Access and Workflows', ['controller' => 'Help', 'action' => 'processesExplanation']);
+                    echo $this->Html->link(
+                        'Moderator FAQ',
+                        ['controller' => 'faqQuestions', 'action' => 'faqList', 'moderator']
+                    );
+                    echo '</li>';
+                }
+                if ($user->user_role_id == 2 || $user->is_admin) {
+                    echo '<li>';
+                    echo $this->Html->link('Users, Access and Workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);
                     echo '</li>';
                 }
                 ?>
             </ul>
         </li>
+        <?php
+        if ($user->is_admin) {
+        ?>
+            <li>
+                <p>
+                    <?= $this->Html->link(
+                        '<span class="glyphicon glyphicon-stats"></span>Statistics',
+                        ['controller' => 'Dashboard', 'action' => 'statistics'],
+                        ['escape' => false]
+                    ) ?>
+                </p>
+                <ul class="profile">
+                    <li>
+                        <?= $this->Html->link('Summary Statistics', ['controller' => 'Statistics', 'action' => 'summaryStatistics']) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('Course Statistics', ['controller' => 'Statistics', 'action' => 'courseStatistics']) ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link('User Statistics', ['controller' => 'Statistics', 'action' => 'userStatistics']) ?>
+                    </li>
+                </ul>
+            </li>
+        <?php } ?>
         <li>
             <p>
                 <?= $this->Html->link(
