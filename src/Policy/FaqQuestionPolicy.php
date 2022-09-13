@@ -48,4 +48,17 @@ class FaqQuestionPolicy
         }
         return false;
     }
+
+    public function canFaqList(IdentityInterface $user, FaqQuestion $faqQuestion)
+    {
+        // admin and moderator can access all
+        if ($user->is_admin || $user->user_role_id == 2) {
+            return true;
+        }
+        // contributor can only access contributor-faq
+        if ($user->user_role_id == 3 && $faqQuestion->faq_category_id == 2) {
+            return true;
+        }
+        return false;
+    }
 }

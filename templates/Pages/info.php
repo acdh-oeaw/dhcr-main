@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="accordeon-item" id="contact">
-        <h2><span>Join Our Network</span></h2>
+        <h2><span>Contact Us</span></h2>
         <div class="item-content">
             <?= $this->Element('info/contact'); ?>
         </div>
@@ -60,6 +60,12 @@
         <h2><span>CLARIN and DARIAH</span></h2>
         <div class="item-content">
             <?= $this->Element('info/clarin-dariah') ?>
+        </div>
+    </div>
+    <div class="accordeon-item" id="faq-public">
+        <h2><span>FAQ</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/faq-public') ?>
         </div>
     </div>
     <div class="accordeon-item" id="credits">

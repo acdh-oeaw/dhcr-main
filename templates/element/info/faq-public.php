@@ -1,0 +1,1 @@
+The FAQ can be found <?= $this->Html->link('here', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>.

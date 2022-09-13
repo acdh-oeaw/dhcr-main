@@ -4,14 +4,17 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use Cake\Event\EventInterface;
-
 class FaqQuestionsController extends AppController
 {
-    public function beforeRender(EventInterface $event)
+    public function initialize(): void
     {
-        parent::beforeRender($event);
-        $this->viewBuilder()->setLayout('contributors');
+        parent::initialize();
+        if ($this->request->getParam('action') == 'faqList' && $this->request->getParam('categoryName')  == 'public') {
+            $this->Authentication->allowUnauthenticated(['faqList']);
+            $this->Authorization->skipAuthorization();
+        } else {
+            $this->viewBuilder()->setLayout('contributors');
+        }
     }
 
     public function index($categoryId)
@@ -136,7 +139,7 @@ class FaqQuestionsController extends AppController
     public function moveUp($id)
     {
         $faqQuestion = $this->FaqQuestions->get($id);
-        $user = $this->Authentication->getIdentity();
+        $this->Authentication->getIdentity();
         $this->Authorization->authorize($faqQuestion);
         $firstId = $this->FaqQuestions->find('all', ['order' => ['sort_order' => 'ASC']])
             ->where(['faq_category_id =' => $faqQuestion->faq_category_id])
@@ -163,7 +166,7 @@ class FaqQuestionsController extends AppController
     public function moveDown($id)
     {
         $faqQuestion = $this->FaqQuestions->get($id);
-        $user = $this->Authentication->getIdentity();
+        $this->Authentication->getIdentity();
         $this->Authorization->authorize($faqQuestion);
         $lastId = $this->FaqQuestions->find('all', ['order' => ['sort_order' => 'DESC']])
             ->where(['faq_category_id =' => $faqQuestion->faq_category_id])
@@ -189,15 +192,21 @@ class FaqQuestionsController extends AppController
 
     public function faqList($categoryName)
     {
-
-        // decide about layout
-        // $this->Authorization->authorize($faqQuestion);
-        $user = $this->Authentication->getIdentity();
-        // $this->Authorization->authorize($faqQuestion);
-
+        $categoryName = ucfirst($categoryName);
         $categoryId = $this->FaqQuestions->FaqCategories->find()->where(['name' => $categoryName])->first()->id;
-
+        $faqQuestions = $this->paginate(
+            $this->FaqQuestions->find()->where(['faq_category_id' => $categoryId,]),
+            ['order' => ['sort_order' => 'asc']]
+        );
+        if ($categoryName != 'Public') {
+            $user = $this->Authentication->getIdentity();
+            $this->Authorization->authorize($faqQuestions->first());
+        }
+        else {
+            $user = '';
+        }
         $this->set((compact('categoryId', 'categoryName')));
+        $this->set(compact('faqQuestions'));
         // Set breadcrums
         $breadcrumTitles[0] = 'Help';
         $breadcrumControllers[0] = 'Dashboard';
@@ -207,10 +216,5 @@ class FaqQuestionsController extends AppController
         $breadcrumActions[1] = 'faq/' . $categoryName;
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $this->set(compact('user')); // required for contributors menu
-        $faqQuestions = $this->paginate(
-            $this->FaqQuestions->find()->where(['faq_category_id' => $categoryId,]),
-            ['order' => ['sort_order' => 'asc']]
-        );
-        $this->set(compact('faqQuestions'));
     }
 }

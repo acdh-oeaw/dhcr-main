@@ -56,6 +56,12 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
+                        'FAQ',
+                        ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
                         'Credits',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'credits']
                     ) ?>

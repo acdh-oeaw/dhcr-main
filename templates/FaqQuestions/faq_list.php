@@ -1,8 +1,5 @@
 <?php
 switch ($categoryId) {
-    case 1:
-        $icon = 'eye-open';
-        break;
     case 2:
         $icon = 'education';
         break;
@@ -12,10 +9,14 @@ switch ($categoryId) {
     default:
         $icon = 'question-sign';
 }
+if ($categoryName == 'Public') {
+    echo '<div class="title intent">';
+}
 ?>
 <div class="faq content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-<?= $icon ?>"></span>&nbsp;&nbsp;&nbsp;<?= ucfirst($categoryName) ?> FAQ</h2>
+    <h2><span class="glyphicon glyphicon-<?= $icon ?>"></span>&nbsp;&nbsp;&nbsp;
+        <?= ($categoryName != 'Public') ? $categoryName . ' ' : '' ?>FAQ</h2>
     <?php
     if (sizeof($faqQuestions) > 0) {
         echo '<strong><u>Contents</u></strong>';
@@ -41,3 +42,8 @@ switch ($categoryId) {
     }
     ?>
 </div>
+<?php
+if ($categoryName == 'Public') {
+    echo '</div>';
+}
+?>
