@@ -26,16 +26,28 @@
                 if ($user->is_admin) {   // only admin can change email
                     echo $this->Form->control('email');
                 }
-                echo $this->Form->control('mail_list', ['label' => 'Contributor Mailing List']);
+                echo $this->Form->control('mail_list', ['label' => 'Contributor Mailing List Subscription']);
                 echo $this->Form->control('institution_id', ['options' => $institutions]);
                 echo $this->Form->control('about');
-                if ($user->is_admin) {   // only admin can change user roles
+                if ($user->is_admin) {   // only admin can change user roles and moderator profile settings
                     echo '<h3>User roles</h3><p>';
                     echo $this->Form->control('user_role_id', ['label' => 'Moderator', 'options' => [1 => 'Old value - please change', 2 => 'Yes', 3 => 'No']]);
                     echo 'Moderated country: ';
                     echo ($editUser->user_role_id == 2) ? h($editUser->country->name) : '-';
                     echo $this->Form->control('is_admin', ['label' => 'Administrator']);
                     echo $this->Form->control('user_admin', ['label' => 'Show as admin on contact page']);
+                    echo '<h3>Moderator Profile Settings</h3><p>';
+                    echo $this->Form->control('mod_profile', ['label' => 'Show in Moderator Profiles']);
+                    echo '<h4>Profile photo:</h4>';
+                    if ($editUser->photo_url) {
+                        echo $this->Html->image($editUser->photo_url, array('height' => '170', 'width' => '132'));
+                        echo '<br>Delete photo';
+                    } else {
+                        echo '<span class="glyphicon glyphicon-remove"></span>';
+                        echo '<br>Add photo.';
+                    }
+                    
+                    // echo $this->Form->control('photo_url', ['label' => 'Profile photo']);
                 }
                 ?>
             </fieldset>

@@ -66,7 +66,7 @@
                     <td style="padding: 5px"><?= h($viewedUser->email) ?></td>
                 </tr>
                 <tr>
-                    <th align="left" style="padding: 5px">Contributor Mailing List:</th>
+                    <th align="left" style="padding: 5px">Contributor Mailing List Subscription:</th>
                     <td style="padding: 5px"><?= ($viewedUser->mail_list) ? 'Yes' : 'No'; ?></td>
                 </tr>
                 <tr>
@@ -78,9 +78,9 @@
                     <td style="padding: 5px"><?= $this->Text->autoParagraph(h($viewedUser->about)) ?></td>
                 </tr>
             </table>
-            <p></p>
             <?php if ($user->is_admin) { // only admin can see user roles 
             ?>
+                <p></p>
                 <strong><u>User roles</u></strong>
                 <table>
                     <tr>
@@ -98,6 +98,30 @@
                     <tr>
                         <th align="left" style="padding: 5px">Show as admin on contact page:</th>
                         <td style="padding: 5px"><?= ($viewedUser->user_admin == 2) ? 'Yes' : 'No'; ?></td>
+                    </tr>
+                </table>
+            <?php } ?>
+            <?php if ($user->is_admin) { // only admin can see moderator profile settings
+            ?>
+                <p></p>
+                <strong><u>Moderator Profile Settings</u></strong>
+                <table>
+                    <tr>
+                        <th align="left" style="padding: 5px" colspan="2">The following fields are used: x, y, z</th>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding: 5px">Show in Moderator Profiles:</th>
+                        <td style="padding: 5px"><span class="glyphicon glyphicon-<?= ($viewedUser->mod_profile) ? 'ok' : 'remove' ?>"></span></td>
+                    </tr>
+                    <tr>
+                        <th align="left" style="padding: 5px">Profile photo:</th>
+                        <td style="padding: 5px"><?php
+                                                    if ($viewedUser->photo_url) {
+                                                        echo $this->Html->image($viewedUser->photo_url, array('height' => '170', 'width' => '132'));
+                                                    } else {
+                                                        echo '<span class="glyphicon glyphicon-remove"></span>';
+                                                    }
+                                                    ?>
                     </tr>
                 </table>
             <?php } ?>

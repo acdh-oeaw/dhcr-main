@@ -107,7 +107,15 @@ class PagesController extends AppController
             ->order(['Countries.name ASC'])
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
-        $this->set(compact('countries', 'moderators', 'userAdmins', 'email'));
+
+        $moderatorProfiles = $this->Users->find('all', [
+            'contain' => ['Countries', 'Institutions'],
+            'order' => ['Countries.name' => 'ASC']
+        ])->where([
+            'user_role_id' => 2,
+            'mod_profile' => 1,
+        ]);
+        $this->set(compact('countries', 'moderators', 'userAdmins', 'email', 'moderatorProfiles'));
     }
 
     /**
