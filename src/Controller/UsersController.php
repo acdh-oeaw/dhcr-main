@@ -989,4 +989,30 @@ class UsersController extends AppController
         $this->set('users_view_type', 'Pending Invitations');
         $this->render('users-list');
     }
+
+    public function moderators()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        $this->viewBuilder()->setLayout('contributors');
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Contributor Network';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'contributorNetwork';
+        $breadcrumTitles[1] = 'Moderators';
+        $breadcrumControllers[1] = 'Users';
+        $breadcrumActions[1] = 'moderators';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $users = $this->paginate(
+            $this->Users->find()->where(['user_role_id' => 2]),
+            ['order' => ['last_name' => 'asc'], 'contain' => ['Institutions'],]
+        );
+        $usersCount = $this->Users->find()->where(['user_role_id' => 2])->count();
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('users', 'usersCount'));
+        // "customize" view
+        $this->set('users_icon', 'asterisk');
+        $this->set('users_view_type', 'Moderators');
+        $this->render('users-list');
+    }
 }
