@@ -1,5 +1,17 @@
 # Release notes
 
+
+## Version 2022-dev
+
+### New features
+- 1
+- 2
+
+### Bug fixes / small changes
+- 1
+- 2
+
+
 ## Version 2022-09
 
 ### New features
