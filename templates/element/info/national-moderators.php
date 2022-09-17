@@ -49,7 +49,7 @@ foreach ($moderatorProfiles as $moderatorProfile) {
                             <table>
                                 <tr>
                                     <td style="padding: 15px">
-                                        <?= $this->Html->image($moderatorProfile->photo_url, array('height' => '170', 'width' => '132')) ?>
+                                        <?= $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132')) ?>
                                     </td>
                                     <td>
                                         <h2><?= $moderatorProfile->first_name, ' ', $moderatorProfile->last_name ?></h2>

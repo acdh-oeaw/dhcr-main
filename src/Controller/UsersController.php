@@ -533,11 +533,19 @@ class UsersController extends AppController
         $this->set(compact('viewedUser'));
     }
 
-    public function edit($id = null)
+    public function edit($id = null, $photo_action = null)
     {
         $editUser = $this->Users->get($id, ['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($editUser);
+        if ($photo_action == 'delete_photo' && $user->is_admin) {
+            // TODO try to remove file
+            $editUser->photo_url = NULL;
+            if (!$this->Users->save($editUser)) {
+                $this->Flash->error(__('The photo could not be removed.'));
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+            }
+        }
         if ($this->request->is(['patch', 'post', 'put'])) {
             if ($user->is_admin) {
                 $editUser->setAccess('user_role_id', true);
@@ -545,7 +553,23 @@ class UsersController extends AppController
                 $editUser->setAccess('user_admin', true);
                 $editUser->setAccess('active', true);
             }
+            if ($this->request->getData('photo')->getClientFilename() != NULL) {
+                // user submitted photo
+                $timestamp = new FrozenTime();
+                $timestamp = $timestamp->i18nFormat('yyyyMMdd-HH_mm_ss');
+                $photoObject = $this->request->getData('photo');
+                // TODOs: check image type
+
+                // check image size
+
+                // check if souce folder exists
+
+                // check length of filename
+                $destination = 'img/user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();               
+                $photoObject->moveTo($destination);
+            }
             $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
+            $editUser->photo_url = $destination;
             // set country_id
             $country_id = $this->Users->Institutions->find()->where(['id' => $editUser->institution_id])->first()->country_id;
             $editUser->set('country_id', $country_id);
