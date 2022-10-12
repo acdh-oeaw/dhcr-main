@@ -44,6 +44,8 @@ class UsersFixture extends TestFixture
         'created' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'modified' => ['type' => 'datetime', 'length' => null, 'null' => true, 'default' => null, 'comment' => '', 'precision' => null],
         'mail_list' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
+        'mod_profile ' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null],
+        'photo_url' => ['type' => 'string', 'length' => 150, 'null' => true, 'default' => null, 'collate' => 'utf8_unicode_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
             'email' => ['type' => 'index', 'columns' => ['email'], 'length' => []],
             'email_reset_token' => ['type' => 'index', 'columns' => ['email_token'], 'length' => []],
@@ -104,6 +106,8 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
+                'mod_profile' => 0,
+                'photo_url' => NULL,
             ],
             // banned
             [
@@ -135,6 +139,8 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
+                'mod_profile' => 0,
+                'photo_url' => NULL,
             ],
             // not verified, not enabled
             [
@@ -166,6 +172,8 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
+                'mod_profile' => 0,
+                'photo_url' => NULL,
             ],
             // not enabled
             [
@@ -197,6 +205,8 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
+                'mod_profile' => 0,
+                'photo_url' => NULL,
             ],
             // not connected identity
             [
@@ -228,6 +238,8 @@ class UsersFixture extends TestFixture
                 'created' => '2021-05-04 16:19:43',
                 'modified' => '2021-05-04 16:19:43',
                 'mail_list' => 1,
+                'mod_profile' => 0,
+                'photo_url' => NULL,
             ]
         ];
         parent::init();
