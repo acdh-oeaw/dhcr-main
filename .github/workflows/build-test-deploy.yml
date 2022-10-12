@@ -12,9 +12,9 @@ jobs:
     environment: ${{ github.ref_name }}
     steps:
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Pack Build
-        uses: dfreilich/pack-action@v2.0.0
+        uses: dfreilich/pack-action@v2.1.1
         with:
           args: 'build tmp-cnb-image --builder heroku/buildpacks:20'
       - name: Suggest default port 5000 within image
