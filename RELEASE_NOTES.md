@@ -3,7 +3,7 @@
 ## Version 2022-09
 
 ### New features
-- FAQ Questions - (Currently not visible for non-login users)
+- FAQ Questions (the lists with questions are currently hidden, until content is added)
     - Displays a list of questions & answers pairs, based on login type, for:
       - Public (no login)
       - Contributor
