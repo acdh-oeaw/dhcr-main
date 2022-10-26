@@ -6,7 +6,7 @@
         <p class="imprint">
             <?= $this->Html->link('Imprint', '/pages/info/#imprint') ?>
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <?= $this->Html->link('FAQ', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>
+            <?php // <?= $this->Html->link('FAQ', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>
         </p>
         <p class="license">
             <?= $this->Html->link('CC-BY 4.0', 'https://creativecommons.org/licenses/by/4.0/', ['target' => '_blank']) ?>

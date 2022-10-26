@@ -72,12 +72,16 @@
             <?= $this->Element('info/social-media') ?>
         </div>
     </div>
+    <?php
+    /*
     <div class="accordeon-item" id="faq-public">
         <h2><span>FAQ</span></h2>
         <div class="item-content">
             <?= $this->Element('info/faq-public') ?>
         </div>
     </div>
+    */
+    ?>
     <div class="accordeon-item" id="credits">
         <h2><span>Credits</span></h2>
         <div class="item-content">
