@@ -22,7 +22,7 @@
                             <th align="left" style="padding: 5px"><?= $this->Paginator->sort('email') ?></th>
                             <?php
                             if ($user->is_admin) {
-                                echo '<th align="left" style="padding: 5px">' . $this->Paginator->sort('active') . '</th>';
+                                echo '<th align="left" style="padding: 5px">' . $this->Paginator->sort('active', ['label' => 'Account enabled']) . '</th>';
                             } ?>
                             <th align="left" style="padding: 5px">Institution</th>
                             <?php if ($users_view_type == 'Pending Invitations') { ?>

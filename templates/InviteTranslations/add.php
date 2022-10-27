@@ -1,6 +1,6 @@
 <div class="row">
     <p></p>
-    <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Add Translation</h2>
+    <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add Translation</h2>
     <div class="column-responsive column-80">
         <div class="inviteTranslations form content">
             <?= $this->Form->create($inviteTranslation) ?>
@@ -23,7 +23,7 @@
                 ?>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__('Add Translation')) ?>
+            <?= $this->Form->button(__('Save Translation')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

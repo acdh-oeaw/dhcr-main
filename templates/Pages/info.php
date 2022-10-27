@@ -33,11 +33,21 @@
         </div>
     </div>
     <div class="accordeon-item" id="contact">
-        <h2><span>Join Our Network</span></h2>
+        <h2><span>Contact Us</span></h2>
         <div class="item-content">
             <?= $this->Element('info/contact'); ?>
         </div>
     </div>
+    <?php
+    /*
+    <div class="accordeon-item" id="national-moderators">
+        <h2><span>National Moderators</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/national-moderators'); ?>
+        </div>
+    </div>
+    */
+    ?>
     <div class="accordeon-item" id="publications">
         <h2><span>Dissemination and Impact</span></h2>
         <div class="item-content">
@@ -56,6 +66,22 @@
             <?= $this->Element('info/clarin-dariah') ?>
         </div>
     </div>
+    <div class="accordeon-item" id="social-media">
+        <h2><span>Social Media</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/social-media') ?>
+        </div>
+    </div>
+    <?php
+    /*
+    <div class="accordeon-item" id="faq-public">
+        <h2><span>FAQ</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/faq-public') ?>
+        </div>
+    </div>
+    */
+    ?>
     <div class="accordeon-item" id="credits">
         <h2><span>Credits</span></h2>
         <div class="item-content">
@@ -66,21 +92,18 @@
         <h2><span>Imprint</span></h2>
         <div class="item-content" id="imprint-content"></div>
     </div>
+    <div class="accordeon-item" id="release-notes">
+        <h2><span>Release Notes</span></h2>
+        <div class="item-content" id="release-notes">
+            <?= $this->Element('info/release-notes'); ?>
+        </div>
+    </div>
     <div class="accordeon-item" id="version">
         <h2><span>Version</span></h2>
         <div class="item-content" id="version">
             <?= $this->Element('info/version'); ?>
         </div>
     </div>
-    <?php
-    // <div class="accordeon-item" id="release-notes">
-    //     <h2><span>Release Notes</span></h2>
-    //     <div class="item-content" id="release-notes">
-    //         <?= $this->Element('info/release-notes'); ?> <?php
-    //     </div>
-    // </div>
-    ?>
-
 </div>
 <?php $this->Html->script(['accordeon', 'hash'], ['block' => true]); ?>
 <?php $this->Html->scriptStart(['block' => true]); ?>

@@ -93,7 +93,17 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/languages', ['controller' => 'Languages', 'action' => 'index']);
     $routes->connect('/invite-translations', ['controller' => 'inviteTranslations', 'action' => 'index']);
     $routes->connect('/logentries', ['controller' => 'Logentries', 'action' => 'index']);
-
+    $routes->connect(
+        '/faq-questions/{categoryId}',
+        ['controller' => 'FaqQuestions', 'action' => 'index'],
+        ["pass" => ["categoryId"], "categoryId" => "[1-3]"]
+    );
+    $routes->connect(
+        '/faq/{categoryName}',
+        ['controller' => 'FaqQuestions', 'action' => 'faqList'],
+        ["pass" => ["categoryName"]],
+    );
+    $routes->connect('/help/users-access-workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);
     /**
      * Connect catchall routes for all controllers.
      *

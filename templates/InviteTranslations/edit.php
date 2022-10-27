@@ -1,7 +1,7 @@
 <div class="row">
     <div class="column-responsive column-80">
         <p></p>
-        <h2><span class="glyphicon glyphicon-text-color"></span>&nbsp;&nbsp;&nbsp;Edit Translation</h2>
+        <h2><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;&nbsp;Edit Translation</h2>
         <div class="inviteTranslations form content">
             <?= $this->Form->create($inviteTranslation) ?>
             <fieldset>

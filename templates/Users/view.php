@@ -46,7 +46,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th align="left" style="padding: 5px">Active:</th>
+                    <th align="left" style="padding: 5px">User account enabled:</th>
                     <td style="padding: 5px">
                         <?php
                         if ($viewedUser->active) {

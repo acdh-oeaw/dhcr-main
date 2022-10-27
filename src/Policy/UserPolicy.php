@@ -87,7 +87,7 @@ class UserPolicy
         return false;
     }
 
-    public function canProcessesExplanation(IdentityInterface $user, IdentityInterface $viewedUser)
+    public function canUsersAccessWorkflows(IdentityInterface $user, IdentityInterface $viewedUser)
     {
         // only for mod and admin
         if ($user->user_role_id == 2 || $user->is_admin) {
@@ -106,6 +106,24 @@ class UserPolicy
     }
 
     public function canSummaryStatistics(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
+    public function canCourseStatistics(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
+    public function canUserStatistics(IdentityInterface $user)
     {
         // only for admin
         if ($user->is_admin) {

@@ -231,6 +231,7 @@ class CourseRemindersCommand extends Command
             $logDescription
         );
 
+        $io->out('Mails sent: ' . $totalMails);
         $io->out('~~~ Finished Course Reminders ~~~');
     }
 }
