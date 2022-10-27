@@ -30,12 +30,16 @@
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']
                     ) ?>
                 </li>
+                <?php
+                /*
                 <li>
                     <?= $this->Html->link(
                         'National Moderators',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'national-moderators']
                     ) ?>
                 </li>
+                */
+                ?>
                 <li>
                     <?= $this->Html->link(
                         'Dissemination and Impact',
