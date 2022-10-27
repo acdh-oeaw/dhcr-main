@@ -1,16 +1,14 @@
 # Release notes
 
 
-## Version 2022-dev
+## Version 2022-10
 
 ### New features
-- 1
-- 2
+- Added list of moderators to the Contributor Network Dashboard (for admins only).
 
 ### Bug fixes / small changes
-- 1
-- 2
-
+- Fix: Course duration units handling for add course
+- Fix: Not approved courses are public visible #21
 
 
 ## Version 2022-09
