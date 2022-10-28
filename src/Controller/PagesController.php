@@ -74,7 +74,7 @@ class PagesController extends AppController
                         $this->getMailer('User')->send('contactForm', [$data, $admin->email]);
                     }
                     $this->Flash->set('Your message has been sent.');
-                    return $this->redirect(['controller' => 'Pages', 'action' => 'info']);
+                    return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
                 }
             } else {
                 $this->Flash->set('We are missing required data to send email.');
