@@ -101,6 +101,8 @@
                     </tr>
                 </table>
             <?php } ?>
+            <?php
+            /*
             <?php if ($user->is_admin) { // only admin can see moderator profile settings
             ?>
                 <p></p>
@@ -125,6 +127,8 @@
                     </tr>
                 </table>
             <?php } ?>
+            */
+            ?>
         </div>
     </div>
 </div>
