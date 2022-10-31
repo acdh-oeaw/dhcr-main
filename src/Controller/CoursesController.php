@@ -145,7 +145,7 @@ class CoursesController extends AppController
         $mapInit = ['lon' => $userInstitution->lon, 'lat' => $userInstitution->lat];
         $languages = $this->Courses->Languages->find('list', ['order' => 'Languages.name asc']);
         $course_types = $this->Courses->CourseTypes->find('list', ['order' => 'id asc']);
-        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc'])->toList();
+        $course_duration_units = $this->Courses->CourseDurationUnits->find('list', ['order' => 'id asc']);
         $institutions = $this->Courses->Institutions->find('list', ['order' => 'Institutions.name asc']);
         $disciplines = $this->Courses->Disciplines->find('list', ['order' => 'Disciplines.name asc']);
         $selectedDisciplines = [];

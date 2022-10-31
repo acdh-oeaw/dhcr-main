@@ -26,6 +26,8 @@ class User extends Entity implements AuthorizationIdentity, AuthenticationIdenti
         'about' => true,
         'consent' => true,
         'mail_list' => true,
+        'mod_profile' => true,
+        'photo_url' => true,
         '*' => false
     ];
 

@@ -1,5 +1,17 @@
 # Release notes
 
+
+## Version 2022-10
+
+### New features
+- Added list of moderators to the Contributor Network Dashboard (for admins only).
+
+### Bug fixes / small changes
+- Fix: Course duration units handling for add course
+- Fix: Not approved courses are public visible #21
+- Fix: Need to clear the contact form after succesful a sending message
+
+
 ## Version 2022-09
 
 ### New features

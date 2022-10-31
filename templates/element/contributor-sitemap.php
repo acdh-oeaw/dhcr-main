@@ -99,12 +99,6 @@
                         ) ?>
                     </li>
                     <li>
-                        <?= $this->Html->link(
-                            'Pending Invitations',
-                            ['controller' => 'Users', 'action' => 'pendingInvitations']
-                        ) ?>
-                    </li>
-                    <li>
                         <?php
                         if ($user->user_role_id == 2) {
                             echo $this->Html->link(
@@ -120,6 +114,22 @@
                             echo $this->Html->link(
                                 'All Users',
                                 ['controller' => 'Users', 'action' => 'all']
+                            );
+                        }
+                        ?>
+                    </li>
+                    <li>
+                        <?= $this->Html->link(
+                            'Pending Invitations',
+                            ['controller' => 'Users', 'action' => 'pendingInvitations']
+                        ) ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'Moderators',
+                                ['controller' => 'Users', 'action' => 'moderators']
                             );
                         }
                         ?>

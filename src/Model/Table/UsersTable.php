@@ -104,6 +104,11 @@ class UsersTable extends Table
             ->maxLength('academic_title', 255, 'Your academic title is too long (> 255 characters). We beg your pardon, that our database cannot take on all your wisdom.')
             ->allowEmptyString('academic_title');
 
+        $validator
+            ->scalar('photo_url')
+            ->maxLength('photo_url', 150, 'Filename for photo too long.')
+            ->allowEmptyString('photo_url');
+
         return $validator;
     }
 

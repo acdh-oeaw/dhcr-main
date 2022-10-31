@@ -74,6 +74,7 @@ class PagesController extends AppController
                         $this->getMailer('User')->send('contactForm', [$data, $admin->email]);
                     }
                     $this->Flash->set('Your message has been sent.');
+                    return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
                 }
             } else {
                 $this->Flash->set('We are missing required data to send email.');
@@ -107,7 +108,15 @@ class PagesController extends AppController
             ->order(['Countries.name ASC'])
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
-        $this->set(compact('countries', 'moderators', 'userAdmins', 'email'));
+
+        $moderatorProfiles = $this->Users->find('all', [
+            'contain' => ['Countries', 'Institutions'],
+            'order' => ['Countries.name' => 'ASC']
+        ])->where([
+            'user_role_id' => 2,
+            'mod_profile' => 1,
+        ]);
+        $this->set(compact('countries', 'moderators', 'userAdmins', 'email', 'moderatorProfiles'));
     }
 
     /**

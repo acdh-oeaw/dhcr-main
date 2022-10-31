@@ -61,5 +61,21 @@
             ]
         );
     }
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-asterisk"></span><br>
+            Moderators<br>
+            <font color="#81d41a">(&nbsp;' . $moderatorsCount . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'users',
+                'action' => 'moderators'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Moderators',
+                'escape' => false
+            ]
+        );
+    }
     ?>
 </div>

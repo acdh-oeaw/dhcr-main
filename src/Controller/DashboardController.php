@@ -209,11 +209,15 @@ class DashboardController extends AppController
                 'password IS NULL',
                 'password_token IS NOT NULL',
             ])->count();
+            $moderatorsCount = $this->Users->find()->where([
+                'user_role_id' => 2,
+            ])->count();
         } else {
             $allUsersCount = 0;
+            $moderatorsCount = 0;
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('moderatedUsersCount', 'allUsersCount', 'pendingInvitationsCount'));
+        $this->set(compact('moderatedUsersCount', 'allUsersCount', 'pendingInvitationsCount', 'moderatorsCount'));
     }
 
     public function categoryLists()
