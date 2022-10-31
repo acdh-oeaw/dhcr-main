@@ -30,51 +30,46 @@
         font-weight: 200;
     }
 </style>
+<p>The DHCR maintains a system of national moderators, who review newly entered courses, help with registration issues and are encouraged
+    to disseminate the DHCR initiative among institutions of their countries.</p>
 
-<p>The DHCR maintains a system of national moderators, who review newly entered courses, help with registration issues and are encouraged 
-to disseminate the DHCR initiative among institutions of their countries.</p>
-
-<div class="container">
-    <div class="profile card">
-        <div class="profile-body">
-            <div class="profile-bio">
-                <h3>Country1</h3>
-                <div class="row">
-                    <div class="col-md-5 text-center">
-                        <img class="img-thumbnail md-margin-bottom-10" src="img/map_mobil.png" height="200" alt="">
-                    </div>
-                    <div class="col-md-7">
-                        <h2>Firstname Lastname</h2>
-                        <p><strong>Institution</strong><br>
-                        <strong>mail at domain.ext</strong></p>
-                        <hr>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut tristique et egestas quis ipsum suspendisse ultrices. Cursus turpis massa tincidunt dui ut ornare lectus. Sed risus pretium quam vulputate. Non curabitur gravida arcu ac tortor dignissim convallis. Suscipit adipiscing bibendum est ultricies integer quis auctor elit. Porta non pulvinar neque laoreet suspendisse interdum consectetur. Sit amet aliquam id diam maecenas. Non pulvinar neque laoreet suspendisse interdum. Sed cras ornare arcu dui vivamus arcu. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Lobortis feugiat vivamus at augue eget arcu dictum varius. Laoreet suspendisse interdum consectetur libero id faucibus nisl. Eros in cursus turpis massa. Tortor condimentum lacinia quis vel eros donec ac odio.</p>
+<?php
+foreach ($moderatorProfiles as $moderatorProfile) {
+    $displayEmail = $moderatorProfile->email;
+    $displayEmail = str_replace('@', ' (at) ', $displayEmail);
+    $displayEmail = str_replace('.', ' dot ', $displayEmail);
+?>
+    <div class="container">
+        <div class="profile card">
+            <div class="profile-body">
+                <div class="profile-bio">
+                    <h3><?= $moderatorProfile->country->name ?></h3>
+                    <div class="row">
+                        <div class="col-md-5 text-center">
+                            <table>
+                                <tr>
+                                    <td style="padding: 15px">
+                                        <?= $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132')) ?>
+                                    </td>
+                                    <td>
+                                        <h2><?= $moderatorProfile->first_name, ' ', $moderatorProfile->last_name ?></h2>
+                                        <p></p>
+                                        <p><strong><?= $moderatorProfile->institution->name ?></strong><br>
+                                            <strong><?= $displayEmail ?></strong>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                            <?= $this->Text->autoParagraph(h($moderatorProfile->about)) ?>
+                        </div>
+                        <div class="col-md-7">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<p>&nbsp;</p>
-<div class="container">
-    <div class="profile card">
-        <div class="profile-body">
-            <div class="profile-bio">
-                <h3>Country2</h3>
-                <div class="row">
-                    <div class="col-md-5 text-center">
-                        <img class="img-thumbnail md-margin-bottom-10" src="img/map_mobil.png" height="200" alt="">
-                    </div>
-                    <div class="col-md-7">
-                        <h2>Firstname Lastname</h2>
-                        <p><strong>Institution</strong><br>
-                        <strong>mail at domain.ext</strong></p>
-                        <hr>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut tristique et egestas quis ipsum suspendisse ultrices. Cursus turpis massa tincidunt dui ut ornare lectus. Sed risus pretium quam vulputate. Non curabitur gravida arcu ac tortor dignissim convallis. Suscipit adipiscing bibendum est ultricies integer quis auctor elit. Porta non pulvinar neque laoreet suspendisse interdum consectetur. Sit amet aliquam id diam maecenas. Non pulvinar neque laoreet suspendisse interdum. Sed cras ornare arcu dui vivamus arcu. Amet mattis vulputate enim nulla aliquet porttitor lacus luctus accumsan. Lobortis feugiat vivamus at augue eget arcu dictum varius. Laoreet suspendisse interdum consectetur libero id faucibus nisl. Eros in cursus turpis massa. Tortor condimentum lacinia quis vel eros donec ac odio.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<p>&nbsp;</p>
+    <p>&nbsp;</p>
+<?php
+}
+?>
