@@ -41,7 +41,7 @@ func TestDeploymentTemplate(t *testing.T) {
 			CaseName: "long release name",
 			Release:  strings.Repeat("r", 80),
 
-			ExpectedErrorRegexp: regexp.MustCompile("Error: release name .* exceeds max length of 53"),
+			ExpectedErrorRegexp: regexp.MustCompile("Error: release name .* length must not be longer than 53"),
 		},
 		{
 			CaseName: "strategyType",
@@ -364,7 +364,7 @@ func TestDeploymentTemplate(t *testing.T) {
 				"lifecycle.preStop.exec.command[2]": "sleep 10",
 			},
 			ExpectedLifecycle: &coreV1.Lifecycle{
-				PreStop: &coreV1.Handler{
+				PreStop: &coreV1.LifecycleHandler{
 					Exec: &coreV1.ExecAction{
 						Command: []string{"/bin/sh", "-c", "sleep 10"},
 					},
@@ -404,48 +404,64 @@ func TestDeploymentTemplate(t *testing.T) {
 
 		ExpectedLivenessProbe  *coreV1.Probe
 		ExpectedReadinessProbe *coreV1.Probe
-		ExpectedStartupProbe *coreV1.Probe
+		ExpectedStartupProbe   *coreV1.Probe
 	}{
 		{
 			CaseName:               "defaults",
 			Release:                "production",
 			ExpectedLivenessProbe:  defaultLivenessProbe(),
 			ExpectedReadinessProbe: defaultReadinessProbe(),
-			ExpectedStartupProbe: nil,
+			ExpectedStartupProbe:   nil,
 		},
 		{
 			CaseName: "custom liveness probe",
 			Release:  "production",
 			Values: map[string]string{
-				"livenessProbe.port": "1234",
+				"livenessProbe.port":                 "1234",
+				"livenessProbe.httpHeaders[0].name":  "custom-header",
+				"livenessProbe.httpHeaders[0].value": "awesome",
 			},
 			ExpectedLivenessProbe: &coreV1.Probe{
-				Handler: coreV1.Handler{
+				ProbeHandler: coreV1.ProbeHandler{
 					HTTPGet: &coreV1.HTTPGetAction{
 						Path:   "/",
 						Port:   intstr.FromInt(1234),
 						Scheme: coreV1.URISchemeHTTP,
+						HTTPHeaders: []coreV1.HTTPHeader{
+							coreV1.HTTPHeader{
+								Name:  "custom-header",
+								Value: "awesome",
+							},
+						},
 					},
 				},
 				InitialDelaySeconds: 15,
 				TimeoutSeconds:      15,
 			},
 			ExpectedReadinessProbe: defaultReadinessProbe(),
-			ExpectedStartupProbe: nil,
+			ExpectedStartupProbe:   nil,
 		},
 		{
 			CaseName: "custom readiness probe",
 			Release:  "production",
 			Values: map[string]string{
-				"readinessProbe.port": "2345",
+				"readinessProbe.port":                 "2345",
+				"readinessProbe.httpHeaders[0].name":  "custom-header",
+				"readinessProbe.httpHeaders[0].value": "awesome",
 			},
 			ExpectedLivenessProbe: defaultLivenessProbe(),
 			ExpectedReadinessProbe: &coreV1.Probe{
-				Handler: coreV1.Handler{
+				ProbeHandler: coreV1.ProbeHandler{
 					HTTPGet: &coreV1.HTTPGetAction{
 						Path:   "/",
 						Port:   intstr.FromInt(2345),
 						Scheme: coreV1.URISchemeHTTP,
+						HTTPHeaders: []coreV1.HTTPHeader{
+							coreV1.HTTPHeader{
+								Name:  "custom-header",
+								Value: "awesome",
+							},
+						},
 					},
 				},
 				InitialDelaySeconds: 5,
@@ -457,17 +473,25 @@ func TestDeploymentTemplate(t *testing.T) {
 			CaseName: "custom startup probe",
 			Release:  "production",
 			Values: map[string]string{
-				"startupProbe.enabled": "true",
-				"startupProbe.port": "2345",
+				"startupProbe.enabled":              "true",
+				"startupProbe.port":                 "2345",
+				"startupProbe.httpHeaders[0].name":  "custom-header",
+				"startupProbe.httpHeaders[0].value": "awesome",
 			},
-			ExpectedLivenessProbe: defaultLivenessProbe(),
+			ExpectedLivenessProbe:  defaultLivenessProbe(),
 			ExpectedReadinessProbe: defaultReadinessProbe(),
 			ExpectedStartupProbe: &coreV1.Probe{
-				Handler: coreV1.Handler{
+				ProbeHandler: coreV1.ProbeHandler{
 					HTTPGet: &coreV1.HTTPGetAction{
 						Path:   "/",
 						Port:   intstr.FromInt(2345),
 						Scheme: coreV1.URISchemeHTTP,
+						HTTPHeaders: []coreV1.HTTPHeader{
+							coreV1.HTTPHeader{
+								Name:  "custom-header",
+								Value: "awesome",
+							},
+						},
 					},
 				},
 				InitialDelaySeconds: 5,
@@ -856,6 +880,10 @@ func TestDeploymentTemplateWithVolumeMounts(t *testing.T) {
 	releaseName := "deployment-with-volume-mounts-test"
 	templates := []string{"templates/deployment.yaml"}
 
+	hostPathDirectoryType := coreV1.HostPathDirectory
+	configMapOptional := false
+	configMapDefaultMode := coreV1.ConfigMapVolumeSourceDefaultMode
+
 	tcs := []struct {
 		name                 string
 		values               map[string]string
@@ -897,6 +925,97 @@ func TestDeploymentTemplateWithVolumeMounts(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:       "with extra volume mounts",
+			valueFiles: []string{"../testdata/extra-volume-mounts.yaml"},
+			expectedVolumes: []coreV1.Volume{
+				coreV1.Volume{
+					Name: "config-volume",
+					VolumeSource: coreV1.VolumeSource{
+						ConfigMap: &coreV1.ConfigMapVolumeSource{
+							coreV1.LocalObjectReference{
+								Name: "test-config",
+							},
+							[]coreV1.KeyToPath{},
+							&configMapDefaultMode,
+							&configMapOptional,
+						},
+					},
+				},
+				coreV1.Volume{
+					Name: "test-host-path",
+					VolumeSource: coreV1.VolumeSource{
+						HostPath: &coreV1.HostPathVolumeSource{
+							Path: "/etc/ssl/certs/",
+							Type: &hostPathDirectoryType,
+						},
+					},
+				},
+				coreV1.Volume{
+					Name: "secret-volume",
+					VolumeSource: coreV1.VolumeSource{
+						Secret: &coreV1.SecretVolumeSource{
+							SecretName: "mysecret",
+						},
+					},
+				},
+			},
+			expectedVolumeMounts: []coreV1.VolumeMount{
+				coreV1.VolumeMount{
+					Name:      "config-volume",
+					MountPath: "/app/config.yaml",
+					SubPath:   "config.yaml",
+				},
+				coreV1.VolumeMount{
+					Name:      "test-host-path",
+					MountPath: "/etc/ssl/certs/",
+					ReadOnly: true,
+				},
+				coreV1.VolumeMount{
+					Name:      "secret-volume",
+					MountPath: "/etc/specialSecret",
+					ReadOnly: true,
+				},
+			},
+		},
+		{
+			name:       "with extra volume mounts and persistence",
+			valueFiles: []string{"../testdata/mix-volume-mounts.yaml"},
+			expectedVolumes: []coreV1.Volume{
+				coreV1.Volume{
+					Name: "log-dir",
+					VolumeSource: coreV1.VolumeSource{
+						PersistentVolumeClaim: &coreV1.PersistentVolumeClaimVolumeSource{
+							ClaimName: "deployment-with-volume-mounts-test-auto-deploy-log-dir",
+						},
+					},
+				},
+				coreV1.Volume{
+					Name: "config-volume",
+					VolumeSource: coreV1.VolumeSource{
+						ConfigMap: &coreV1.ConfigMapVolumeSource{
+							coreV1.LocalObjectReference{
+								Name: "test-config",
+							},
+							[]coreV1.KeyToPath{},
+							&configMapDefaultMode,
+							&configMapOptional,
+						},
+					},
+				},
+			},
+			expectedVolumeMounts: []coreV1.VolumeMount{
+				coreV1.VolumeMount{
+					Name:      "log-dir",
+					MountPath: "/log",
+				},
+				coreV1.VolumeMount{
+					Name:      "config-volume",
+					MountPath: "/app/config.yaml",
+					SubPath:   "config.yaml",
+				},
+			},
+		},
 	}
 
 	for _, tc := range tcs {
@@ -917,7 +1036,19 @@ func TestDeploymentTemplateWithVolumeMounts(t *testing.T) {
 
 			for i, expectedVolume := range tc.expectedVolumes {
 				require.Equal(t, expectedVolume.Name, deployment.Spec.Template.Spec.Volumes[i].Name)
-				require.Equal(t, expectedVolume.PersistentVolumeClaim.ClaimName, deployment.Spec.Template.Spec.Volumes[i].PersistentVolumeClaim.ClaimName)
+				if deployment.Spec.Template.Spec.Volumes[i].PersistentVolumeClaim != nil {
+					require.Equal(t, expectedVolume.PersistentVolumeClaim.ClaimName, deployment.Spec.Template.Spec.Volumes[i].PersistentVolumeClaim.ClaimName)
+				}
+				if deployment.Spec.Template.Spec.Volumes[i].ConfigMap != nil {
+					require.Equal(t, expectedVolume.ConfigMap.Name, deployment.Spec.Template.Spec.Volumes[i].ConfigMap.Name)
+				}
+				if deployment.Spec.Template.Spec.Volumes[i].HostPath != nil {
+					require.Equal(t, expectedVolume.HostPath.Path, deployment.Spec.Template.Spec.Volumes[i].HostPath.Path)
+					require.Equal(t, expectedVolume.HostPath.Type, deployment.Spec.Template.Spec.Volumes[i].HostPath.Type)
+				}
+				if deployment.Spec.Template.Spec.Volumes[i].Secret != nil {
+					require.Equal(t, expectedVolume.Secret.SecretName, deployment.Spec.Template.Spec.Volumes[i].Secret.SecretName)
+				}
 			}
 
 			for i, expectedVolumeMount := range tc.expectedVolumeMounts {

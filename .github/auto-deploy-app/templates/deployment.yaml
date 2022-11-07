@@ -64,13 +64,14 @@ spec:
       initContainers:
 {{ toYaml .Values.initContainers | indent 8 }}
 {{- end }}
-{{- if and (semverCompare ">= 1.19.x" .Capabilities.KubeVersion.Version) (.Values.topologySpreadConstraints) }}
+{{- if .Values.topologySpreadConstraints }}
       topologySpreadConstraints:
 {{ toYaml .Values.topologySpreadConstraints | indent 8 }}
 {{- end }}
+{{- if or (.Values.persistence.enabled) (.Values.extraVolumes) }}
+      volumes:
 {{- if .Values.persistence.enabled }}
 {{- $context := . }}
-      volumes:
 {{- range $volume := .Values.persistence.volumes }}
         - name: {{ $volume.name | quote }}
           persistentVolumeClaim:
@@ -78,10 +79,17 @@ spec:
             claimName: {{ template "pvcName" $args }}
 {{- end }}
 {{- end }}
+{{- if .Values.extraVolumes }}
+{{ toYaml .Values.extraVolumes | indent 8 }}
+{{- end }}
+{{- end }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
 {{- if .Values.hostAliases }}
       hostAliases:
 {{ toYaml .Values.hostAliases | indent 8 }}
+{{- end }}
+{{- if .Values.priorityClassName }}
+      priorityClassName: {{ .Values.priorityClassName }}
 {{- end }}
       containers:
       - name: {{ .Chart.Name }}
@@ -148,6 +156,13 @@ spec:
             path: {{ .Values.livenessProbe.path }}
             scheme: {{ .Values.livenessProbe.scheme }}
             port: {{ .Values.livenessProbe.port | default .Values.service.internalPort }}
+{{- if .Values.livenessProbe.httpHeaders }}
+            httpHeaders:
+{{- range $httpHeader := .Values.livenessProbe.httpHeaders }}
+            - name: {{ $httpHeader.name }}
+              value: {{ $httpHeader.value }}
+{{- end }}
+{{- end }}
 {{- else if eq .Values.livenessProbe.probeType "tcpSocket" }}
           tcpSocket:
             port: {{ .Values.livenessProbe.port | default .Values.service.internalPort }}
@@ -164,6 +179,13 @@ spec:
             path: {{ .Values.readinessProbe.path }}
             scheme: {{ .Values.readinessProbe.scheme }}
             port: {{ .Values.readinessProbe.port | default .Values.service.internalPort }}
+{{- if .Values.readinessProbe.httpHeaders }}
+            httpHeaders:
+{{- range $httpHeader := .Values.readinessProbe.httpHeaders }}            
+            - name: {{ $httpHeader.name }}
+              value: {{ $httpHeader.value }}
+{{- end }}
+{{- end }}
 {{- else if eq .Values.readinessProbe.probeType "tcpSocket" }}
           tcpSocket:
             port: {{ .Values.readinessProbe.port | default .Values.service.internalPort }}
@@ -181,7 +203,14 @@ spec:
             path: {{ .Values.startupProbe.path }}
             scheme: {{ .Values.startupProbe.scheme }}
             port: {{ .Values.startupProbe.port | default .Values.service.internalPort }}
-{{- else if eq .Values.startupProbe.probeType "tcpSocket" }}
+{{- if .Values.startupProbe.httpHeaders }}
+            httpHeaders:
+{{- range $httpHeader := .Values.startupProbe.httpHeaders }}
+            - name: {{ $httpHeader.name }}
+              value: {{ $httpHeader.value }}
+{{- end }}
+{{- end }}
+{{- else if eq .Values.readinessProbe.probeType "tcpSocket" }}
           tcpSocket:
             port: {{ .Values.startupProbe.port | default .Values.service.internalPort }}
 {{- else if eq .Values.startupProbe.probeType "exec" }}
@@ -196,14 +225,19 @@ spec:
 {{- end }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
-{{- if .Values.persistence.enabled }}
+{{- if or (.Values.persistence.enabled) (.Values.extraVolumeMounts) }}
         volumeMounts:
+{{- if .Values.persistence.enabled }}        
 {{- range $volume := .Values.persistence.volumes }}
           - name: {{ $volume.name | quote }}
             mountPath: {{ $volume.mount.path | quote }}
             {{- if $volume.mount.subPath }}
             subPath: {{ $volume.mount.subPath | quote }}
             {{- end }}
+{{- end }}
+{{- end }}
+{{- if .Values.extraVolumeMounts }}
+{{ toYaml .Values.extraVolumeMounts | indent 10 }}           
 {{- end }}
 {{- end }}
 {{- end -}}

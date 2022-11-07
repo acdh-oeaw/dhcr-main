@@ -1,0 +1,20 @@
+extraVolumeMounts:
+- name: config-volume
+  mountPath: /app/config.yaml
+  subPath: config.yaml 
+
+extraVolumes:
+- name: config-volume
+  configMap:
+    name: test-config
+       
+persistence:
+  enabled: true
+  volumes:
+    - name: log-dir
+      mount:
+        path: "/log"
+      claim:
+        accessMode: ReadWriteOnce
+        size: 20Gi
+        storageClass: ""       

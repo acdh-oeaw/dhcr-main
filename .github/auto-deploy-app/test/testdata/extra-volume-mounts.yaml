@@ -1,0 +1,74 @@
+extraVolumeMounts:
+- name: config-volume
+  mountPath: /app/config.yaml
+  subPath: config.yaml
+- name: test-host-path
+  mountPath: /etc/ssl/certs/
+  readOnly: true
+- name: secret-volume
+  mountPath: "/etc/specialSecret"
+  readOnly: true  
+
+extraVolumes:
+- name: config-volume
+  configMap:
+    name: test-config
+- name: test-host-path
+  hostPath:
+    path: /etc/ssl/certs/
+    type: Directory
+- name: secret-volume
+  secret:
+    secretName: mysecret
+
+cronjobs:
+  job1:
+    extraVolumeMounts:
+    - name: config-volume
+      mountPath: /app/config.yaml
+      subPath: config.yaml
+    - name: test-host-path
+      mountPath: /etc/ssl/certs/
+      readOnly: true
+    - name: secret-volume
+      mountPath: "/etc/specialSecret"
+      readOnly: true  
+
+    extraVolumes:
+    - name: config-volume
+      configMap:
+        name: test-config
+    - name: test-host-path
+      hostPath:
+        path: /etc/ssl/certs/
+        type: Directory
+    - name: secret-volume
+      secret:
+        secretName: mysecret     
+
+workers:
+  worker1:
+    command:
+    - test
+    extraVolumeMounts:
+    - name: config-volume
+      mountPath: /app/config.yaml
+      subPath: config.yaml
+    - name: test-host-path
+      mountPath: /etc/ssl/certs/
+      readOnly: true
+    - name: secret-volume
+      mountPath: "/etc/specialSecret"
+      readOnly: true  
+
+    extraVolumes:
+    - name: config-volume
+      configMap:
+        name: test-config
+    - name: test-host-path
+      hostPath:
+        path: /etc/ssl/certs/
+        type: Directory
+    - name: secret-volume
+      secret:
+        secretName: mysecret        
