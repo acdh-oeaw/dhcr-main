@@ -58,16 +58,12 @@
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'clarin-dariah']
                     ) ?>
                 </li>
-                <?php
-                /*
                 <li>
                     <?= $this->Html->link(
                         'FAQ',
                         ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']
                     ) ?>
                 </li>
-                */
-                ?>
                 <li>
                     <?= $this->Html->link(
                         'Credits',
