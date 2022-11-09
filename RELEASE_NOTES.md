@@ -1,5 +1,10 @@
 # Release notes
 
+## Version 2022-11/1
+
+### New features
+- FAQs questions and answers are added and shown for public, contributors and moderators
+
 
 ## Version 2022-10
 
