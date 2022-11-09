@@ -1,5 +1,10 @@
 # Release notes
 
+## Version 2022-11/1
+
+### New features
+- FAQs questions and answers are added and shown for public, contributors and moderators
+
 
 ## Version 2022-10
 
@@ -15,7 +20,7 @@
 ## Version 2022-09
 
 ### New features
-- FAQ Questions
+- FAQ Questions (the lists with questions are currently hidden, until content is added)
     - Displays a list of questions & answers pairs, based on login type, for:
       - Public (no login)
       - Contributor
