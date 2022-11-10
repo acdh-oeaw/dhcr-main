@@ -28,7 +28,10 @@ use Cake\I18n\FrozenTime;
         Public as part of backend: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%
     </p>
     <h3>Total updated courses until months ago</h3>
-    <div id="chart_div"></div>
+    <div id="chart_updated_courses"></div>
+    <p></p>
+    <h3>Amount of courses that will be archived soon</h3>
+    <div id="chart_archived_soon_courses"></div>
     <p></p>
     <p><i>Note: These statistics can change at any time. For example when a user makes changes to a course or when a certain
             expiration period has exceeded.</i></p>
@@ -39,13 +42,14 @@ use Cake\I18n\FrozenTime;
     google.charts.load('current', {
         packages: ['corechart', 'bar']
     });
-    google.charts.setOnLoadCallback(drawChart);
+    google.charts.setOnLoadCallback(drawChartUpdatedCourses);
+    google.charts.setOnLoadCallback(drawChartArchivedSoonCourses);
 
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable(<?php echo json_encode($updatedCourseCounts) ?>);
-        var options = {
+    function drawChartUpdatedCourses() {
+        var data1 = google.visualization.arrayToDataTable(<?php echo json_encode($updatedCourseCounts) ?>);
+        var options1 = {
             hAxis: {
-                title: 'Until months ago',
+                title: 'Months ago',
                 viewWindow: {
                     min: [7, 30, 0],
                     max: [17, 30, 0]
@@ -59,8 +63,31 @@ use Cake\I18n\FrozenTime;
                 position: "none"
             },
         };
-        var chart = new google.visualization.ColumnChart(
-            document.getElementById('chart_div'));
-        chart.draw(data, options);
+        var chart1 = new google.visualization.ColumnChart(
+            document.getElementById('chart_updated_courses'));
+        chart1.draw(data1, options1);
+    }
+
+    function drawChartArchivedSoonCourses() {
+        var data2 = google.visualization.arrayToDataTable(<?php echo json_encode($archivedSoonCourseCounts) ?>);
+        var options2 = {
+            hAxis: {
+                title: 'Months from now',
+                viewWindow: {
+                    min: [7, 30, 0],
+                    max: [17, 30, 0]
+                }
+            },
+            vAxis: {
+                title: 'Number of courses',
+                minValue: 0,
+            },
+            legend: {
+                position: "none"
+            },
+        };
+        var chart2 = new google.visualization.ColumnChart(
+            document.getElementById('chart_archived_soon_courses'));
+        chart2.draw(data2, options2);
     }
 </script>

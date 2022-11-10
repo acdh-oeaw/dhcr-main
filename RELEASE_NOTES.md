@@ -7,6 +7,7 @@
 - 
 
 ### Bug fixes / small changes
+- Added graph to show how many courses will be archived soon
 - Fix: Show all pending invitations when admin is also mod
 
 

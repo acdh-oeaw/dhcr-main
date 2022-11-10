@@ -39,7 +39,7 @@ class StatisticsController extends AppController
     private function getUpdatedCourseCounts($periods)
     {
         $updatedCourseCounts[] = ['Months ago', 'Updated courses'];
-        foreach ($periods as $key => $period) {
+        foreach ($periods as $period) {
             $count = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
@@ -50,6 +50,23 @@ class StatisticsController extends AppController
             $updatedCourseCounts[] = [$period, $count];
         }
         return $updatedCourseCounts;
+    }
+
+    private function getArchivedSoonCourseCounts($periods)
+    {
+        $archivedSoonCourseCounts[] = ['Months from now', 'Archived in this month'];
+        foreach ($periods as $period) {
+            $count = $this->Courses->find()->where([
+                'active' => 1,
+                'deleted' => 0,
+                'updated >=' => new FrozenTime('-' . (24 - ($period - 1)) . ' Months'),
+                'updated <' => new FrozenTime('-' . (24 - $period) . ' Months'),
+                'approved' => 1,
+            ])
+                ->count();
+            $archivedSoonCourseCounts[] = [$period, $count];
+        }
+        return $archivedSoonCourseCounts;
     }
 
     private function getUsersKeyData()
@@ -96,7 +113,7 @@ class StatisticsController extends AppController
     private function getLoggedinUserCounts($periods)
     {
         $loggedinUserCounts[] = ['Months ago', 'Logged in users'];
-        foreach ($periods as $key => $period) {
+        foreach ($periods as $period) {
             $count = $this->Users->find()->where([
                 'email_verified' => 1,
                 'password IS NOT NULL',
@@ -112,7 +129,7 @@ class StatisticsController extends AppController
     private function getLoggedinModeratorCounts($periods)
     {
         $loggedinModeratorCounts[] = ['Months ago', 'Logged in moderators'];
-        foreach ($periods as $key => $period) {
+        foreach ($periods as $period) {
             $count = $this->Users->find()->where([
                 'email_verified' => 1,
                 'password IS NOT NULL',
@@ -140,11 +157,11 @@ class StatisticsController extends AppController
         $breadcrumActions[1] = 'courseStatistics';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
-        $updatedCoursePeriods = range(1, 24);    // periods in months
-        $updatedCourseCounts = $this->getUpdatedCourseCounts($updatedCoursePeriods);
+        $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));     // parameter is period in months
+        $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));   // parameter is period in months
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
-        $this->set(compact('updatedCourseCounts'));
+        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts'));
     }
 
     public function userStatistics()
