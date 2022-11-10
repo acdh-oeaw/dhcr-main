@@ -7,7 +7,7 @@
 - 
 
 ### Bug fixes / small changes
-- 
+- Fix: Show all pending invitations when admin is also mod
 
 
 ## Version 2022-11/1
