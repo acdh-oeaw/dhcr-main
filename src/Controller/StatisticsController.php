@@ -40,11 +40,6 @@ class StatisticsController extends AppController
     {
         $updatedCourseCounts[] = ['Months ago', 'Updated courses'];
         foreach ($periods as $key => $period) {
-            // if ($key == 0) {
-            //     $previousPeriod = 0;
-            // } else {
-            //     $previousPeriod = $periods[$key - 1];
-            // }
             $count = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
@@ -102,11 +97,6 @@ class StatisticsController extends AppController
     {
         $loggedinUserCounts[] = ['Months ago', 'Logged in users'];
         foreach ($periods as $key => $period) {
-            // if ($key == 0) {
-            //     $previousPeriod = 0;
-            // } else {
-            //     $previousPeriod = $periods[$key - 1];
-            // }
             $count = $this->Users->find()->where([
                 'email_verified' => 1,
                 'password IS NOT NULL',
@@ -123,11 +113,6 @@ class StatisticsController extends AppController
     {
         $loggedinModeratorCounts[] = ['Months ago', 'Logged in moderators'];
         foreach ($periods as $key => $period) {
-            // if ($key == 0) {
-            //     $previousPeriod = 0;
-            // } else {
-            //     $previousPeriod = $periods[$key - 1];
-            // }
             $count = $this->Users->find()->where([
                 'email_verified' => 1,
                 'password IS NOT NULL',
