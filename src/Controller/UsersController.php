@@ -565,7 +565,7 @@ class UsersController extends AppController
                 // check if souce folder exists
 
                 // check length of filename
-                $destination = 'img/user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();               
+                $destination = 'img/user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();
                 $photoObject->moveTo($destination);
             }
             $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
@@ -961,7 +961,28 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'pendingInvitations';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if ($user->user_role_id == 2) {
+        if ($user->is_admin) {
+            $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 1,
+                    'active' => 1,
+                    'email_verified' => 1,
+                    'password IS NULL',
+                    'password_token IS NOT NULL',
+                ]),
+                [
+                    'order' => ['created' => 'desc'],
+                    'contain' => ['Institutions']
+                ]
+            );
+            $usersCount = $this->Users->find()->where([
+                'approved' => 1,
+                'active' => 1,
+                'email_verified' => 1,
+                'password IS NULL',
+                'password_token IS NOT NULL',
+            ])->count();
+        } elseif ($user->user_role_id == 2) {
             $users =  $users = $this->paginate(
                 $this->Users->find()->where([
                     'approved' => 1,
@@ -983,27 +1004,6 @@ class UsersController extends AppController
                 'password IS NULL',
                 'password_token IS NOT NULL',
                 'Users.country_id' => $user->country_id,
-            ])->count();
-        } elseif ($user->is_admin) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
-                    'approved' => 1,
-                    'active' => 1,
-                    'email_verified' => 1,
-                    'password IS NULL',
-                    'password_token IS NOT NULL',
-                ]),
-                [
-                    'order' => ['created' => 'desc'],
-                    'contain' => ['Institutions']
-                ]
-            );
-            $usersCount = $this->Users->find()->where([
-                'approved' => 1,
-                'active' => 1,
-                'email_verified' => 1,
-                'password IS NULL',
-                'password_token IS NOT NULL',
             ])->count();
         }
         $this->set(compact('user')); // required for contributors menu
