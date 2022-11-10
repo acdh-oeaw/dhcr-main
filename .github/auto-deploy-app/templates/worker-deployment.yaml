@@ -89,6 +89,10 @@ items:
         hostAliases:
 {{ $workerConfig.hostAliases | indent 10 }}
 {{- end }}
+{{- if $workerConfig.extraVolumes }}
+        volumes:
+{{ toYaml $workerConfig.extraVolumes | indent 10 }}
+{{- end }}
         containers:
         - name: {{ $.Chart.Name }}-{{ $workerName }}
           image: {{ template "imagename" $ }}
@@ -117,6 +121,13 @@ items:
               path: {{ $livenessProbeConfig.path }}
               scheme: {{ $livenessProbeConfig.scheme }}
               port: {{ $livenessProbeConfig.port | default $.Values.service.internalPort }}
+{{- if $livenessProbeConfig.httpHeaders }}
+              httpHeaders:
+{{- range $httpHeader := $livenessProbeConfig.httpHeaders }}
+              - name: {{ $httpHeader.name }}
+                value: {{ $httpHeader.value }}
+{{- end }}
+{{- end }}
 {{- else if eq $livenessProbeConfig.probeType "tcpSocket" }}
             tcpSocket:
               port: {{ $livenessProbeConfig.port | default $.Values.service.internalPort }}
@@ -137,6 +148,13 @@ items:
               path: {{ $readinessProbeConfig.path }}
               scheme: {{ $readinessProbeConfig.scheme }}
               port: {{ $readinessProbeConfig.port | default $.Values.service.internalPort }}
+{{- if $readinessProbeConfig.httpHeaders }}
+              httpHeaders:
+{{- range $httpHeader := $readinessProbeConfig.httpHeaders }}
+              - name: {{ $httpHeader.name }}
+                value: {{ $httpHeader.value }}
+{{- end }}
+{{- end }}
 {{- else if eq $readinessProbeConfig.probeType "tcpSocket" }}
             tcpSocket:
               port: {{ $readinessProbeConfig.port | default $.Values.service.internalPort }}
@@ -163,5 +181,9 @@ items:
           {{- end }}
           resources:
 {{ $workerConfig.resources | default $.Values.resources | toYaml | indent 12 }}
+{{- if $workerConfig.extraVolumeMounts }}
+          volumeMounts:
+{{ toYaml $workerConfig.extraVolumeMounts | indent 12 }}         
+{{- end }}
 {{- end -}}
 {{- end -}}

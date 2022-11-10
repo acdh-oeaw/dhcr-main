@@ -250,8 +250,6 @@
                 ) ?>
             </p>
             <ul class="profile">
-                <?php
-                /*
                 <li>
                     <?= $this->Html->link(
                         'Contributor FAQ',
@@ -267,7 +265,6 @@
                     );
                     echo '</li>';
                 }
-                */
                 if ($user->user_role_id == 2 || $user->is_admin) {
                     echo '<li>';
                     echo $this->Html->link('Users, Access and Workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);

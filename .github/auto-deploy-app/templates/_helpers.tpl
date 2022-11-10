@@ -34,6 +34,20 @@ We truncate at 63 chars because some Kubernetes name fields are limited to this 
 {{- end -}}
 
 {{/*
+Templates for cronjob
+*/}}
+
+{{- define "cronjobimagename" -}}
+{{- if hasKey .job "image" -}}
+{{-   if and (hasKey .job.image "repository") (hasKey .job.image "tag") -}}
+{{- printf "%s:%s" .job.image.repository .job.image.tag -}}
+{{-   end -}}
+{{- else -}}
+{{- printf "%s:%s" .glob.image.repository .glob.image.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
 Get a hostname from URL
 */}}
 {{- define "hostname" -}}
