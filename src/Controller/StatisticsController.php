@@ -23,6 +23,7 @@ class StatisticsController extends AppController
             'active' => 1,
             'deleted' => 0,
             'updated >' => Configure::read('courseArchiveDate'),
+            'approved' => 1,
         ])
             ->count();
         $coursesPublic = $this->Courses->find()->where([
@@ -48,6 +49,7 @@ class StatisticsController extends AppController
                 'active' => 1,
                 'deleted' => 0,
                 'updated >=' => new FrozenTime('-' . $period . ' Months'),
+                'approved' => 1,
             ])
                 ->count();
             $updatedCourseCounts[] = [$period, $count];
