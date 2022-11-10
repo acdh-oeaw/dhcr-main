@@ -89,6 +89,49 @@ use Cake\I18n\FrozenTime;
     <h3>Amount of courses that will be archived soon</h3>
     <div id="chart_archived_soon_courses"></div>
     <p></p>
-    <p><i>Note: These statistics can change at any time. For example when a user makes changes to a course or when a certain
+    <p><i>Note: All statistics can change at any time. For example when a user makes changes to a course or when a certain
             expiration period has exceeded.</i></p>
+    <p></p>
+    <h3>New added courses - Top 15</h3>
+    <p><i>Sorted by date added, descending</i></p>
+    <table>
+        <thead>
+            <tr>
+                <th align="left" style="padding: 5px">ID</th>
+                <th align="left" style="padding: 5px">Created</th>
+                <th align="left" style="padding: 5px">Published</th>
+                <th align="left" style="padding: 5px">Course Name</th>
+                <th align="left" style="padding: 5px">Institution</th>
+                <th align="left" style="padding: 5px">Country</th>
+                <th align="left" style="padding: 5px">Course Owner</th>
+                <th align="left" style="padding: 5px">Approved</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($newAddedCourses as $newAddedCourse) : ?>
+                <tr>
+                    <td style="padding: 5px"><?= $newAddedCourse->id ?></td>
+                    <td style="padding: 5px"><?= $newAddedCourse->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
+                    <td style="padding: 5px">
+                        <strong>
+                            <font color="<?= ($newAddedCourse->active) ? 'green">Yes' : 'red">No' ?></font></strong>
+                    </td>
+                    <td style=" padding: 5px"><?= $newAddedCourse->name ?>
+                    </td>
+                    <td style="padding: 5px"><?= $newAddedCourse->institution->name ?></td>
+                    <td style="padding: 5px"><?= $newAddedCourse->country->name ?></td>
+                    <td style="padding: 5px"><?= ucfirst($newAddedCourse->user->academic_title) . ' ' . ucfirst($newAddedCourse->user->first_name)
+                                                    . ' ' . ucfirst($newAddedCourse->user->last_name)  ?></td>
+                    <td style="padding: 5px">
+                        <strong>
+                            <font color="<?= ($newAddedCourse->approved) ? 'green">Yes' : 'red">No' ?></font></strong></td>
+                </tr>
+                <tr>
+                    <td colspan=8>
+                        <hr>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 </div>

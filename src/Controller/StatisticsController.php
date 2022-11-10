@@ -38,6 +38,7 @@ class StatisticsController extends AppController
 
     private function getUpdatedCourseCounts($periods)
     {
+        // @PARAM $periods array, containing the number of months
         $updatedCourseCounts[] = ['Months ago', 'Updated courses'];
         foreach ($periods as $period) {
             $count = $this->Courses->find()->where([
@@ -54,6 +55,7 @@ class StatisticsController extends AppController
 
     private function getArchivedSoonCourseCounts($periods)
     {
+        // @PARAM $periods array, containing the number of months
         $archivedSoonCourseCounts[] = ['Months from now', 'Archived in this month'];
         foreach ($periods as $period) {
             $count = $this->Courses->find()->where([
@@ -67,6 +69,17 @@ class StatisticsController extends AppController
             $archivedSoonCourseCounts[] = [$period, $count];
         }
         return $archivedSoonCourseCounts;
+    }
+
+    private function getNewAddedCourses($amount)
+    {
+        // @PARAM $amount integer, amount of course objects that are returned
+        $newAddedCourses = $this->Courses->find()
+            ->where(['deleted' => 0])
+            ->contain(['Institutions', 'Countries', 'Users'])
+            ->order(['Courses.created' => 'desc'])
+            ->limit($amount);   // this shows also unpublished and not (yet) approved courses!
+        return $newAddedCourses;
     }
 
     private function getUsersKeyData()
@@ -157,11 +170,12 @@ class StatisticsController extends AppController
         $breadcrumActions[1] = 'courseStatistics';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
-        $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));     // parameter is period in months
-        $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));   // parameter is period in months
+        $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));
+        $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));
+        $newAddedCourses = $this->getNewAddedCourses(15);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
-        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts'));
+        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts', 'newAddedCourses'));
     }
 
     public function userStatistics()
