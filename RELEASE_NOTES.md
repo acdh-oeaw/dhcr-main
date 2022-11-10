@@ -3,7 +3,10 @@
 ## Version 2022-11/1
 
 ### New features
-- FAQs questions and answers are added and shown for public, contributors and moderators
+- FAQ questions and answers are added and shown for public, contributors and moderators
+
+### Bug fixes / small changes
+- Updated path for course reminders command to match new environment
 
 
 ## Version 2022-10
