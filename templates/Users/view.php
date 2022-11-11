@@ -101,16 +101,13 @@
                     </tr>
                 </table>
             <?php } ?>
-            <?php if ($user->is_admin) { // only admin can see moderator profile settings
+            <?php if ($user->is_admin && $viewedUser->user_role_id == 2) { // only admin can see moderator profile settings
             ?>
                 <p></p>
-                <strong><u>Moderator Profile Settings</u></strong>
+                <strong><u>National Moderators List</u></strong>
                 <table>
                     <tr>
-                        <th align="left" style="padding: 5px" colspan="2">The following fields are used: x, y, z</th>
-                    </tr>
-                    <tr>
-                        <th align="left" style="padding: 5px">Show in Moderator Profiles:</th>
+                        <th align="left" style="padding: 5px">Show in National Moderators List:</th>
                         <td style="padding: 5px"><span class="glyphicon glyphicon-<?= ($viewedUser->mod_profile) ? 'ok' : 'remove' ?>"></span></td>
                     </tr>
                     <tr>

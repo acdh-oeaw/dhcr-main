@@ -48,8 +48,12 @@ foreach ($moderatorProfiles as $moderatorProfile) {
                         <div class="col-md-5 text-center">
                             <table>
                                 <tr>
-                                    <td style="padding: 15px">
-                                        <?= $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132')) ?>
+                                    <td style="padding: 15px" width="150px">
+                                        <?php
+                                        if ($moderatorProfile->photo_url != NULL) {
+                                            echo $this->Html->Image($moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
+                                        }
+                                        ?>
                                     </td>
                                     <td>
                                         <h2><?= $moderatorProfile->first_name, ' ', $moderatorProfile->last_name ?></h2>
