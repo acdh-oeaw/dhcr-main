@@ -37,7 +37,6 @@
                     echo $this->Form->control('is_admin', ['label' => 'Administrator']);
                     echo $this->Form->control('user_admin', ['label' => 'Show as admin on contact page']);
                 }
-                /*
                 if ($user->is_admin && $editUser->user_role_id == 2) {   // only admin can change moderator profile AND only when user is a moderator
                     echo '<p>&nbsp;</p><h3>Moderator Profile Settings</h3><p>';
                     echo 'The following fields (see above) are also shown in the moderator profile:<br>';
@@ -57,7 +56,6 @@
                         echo '<p></p>After adding a photo, click on "Update User", to save the photo.';
                     }
                 }
-                */
                 ?>
                 <p></p>
             </fieldset>
