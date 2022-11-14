@@ -6,7 +6,7 @@
 - 
 
 ### Bug fixes / small changes
-- 
+- Hidden filter buttons for Objects and Techniques
 
 
 ## Version 2022-11/2
