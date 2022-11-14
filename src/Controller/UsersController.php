@@ -538,14 +538,26 @@ class UsersController extends AppController
         $editUser = $this->Users->get($id, ['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($editUser);
+        $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
+
         if ($photo_action == 'delete_photo' && $user->is_admin) {
-            // TODO try to remove file
+            $errorMessage = false;
+            if (!unlink('img/' . $editUser->photo_url)) {
+                $errorMessage = 'Unable to delete photo';
+            }
             $editUser->photo_url = NULL;
             if (!$this->Users->save($editUser)) {
-                $this->Flash->error(__('The photo could not be removed.'));
+                $errorMessage = 'Unable to remove photo filename';
+            }
+            if ($errorMessage) {
+                $this->Flash->error($errorMessage);
+                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+            } else {
+                $this->Flash->success(__('Photo removed.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
             }
         }
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             if ($user->is_admin) {
                 $editUser->setAccess('user_role_id', true);
@@ -553,23 +565,38 @@ class UsersController extends AppController
                 $editUser->setAccess('user_admin', true);
                 $editUser->setAccess('active', true);
             }
-            if ($this->request->getData('photo')->getClientFilename() != NULL) {
-                // user submitted photo
-                $timestamp = new FrozenTime();
-                $timestamp = $timestamp->i18nFormat('yyyyMMdd-HH_mm_ss');
+
+            if ($this->request->getData('photo')->getClientFilename() != '') {
                 $photoObject = $this->request->getData('photo');
-                // TODOs: check image type
-
-                // check image size
-
-                // check if souce folder exists
-
-                // check length of filename
-                $destination = 'img/user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();               
-                $photoObject->moveTo($destination);
+                $fileType = $photoObject->getClientMediaType();
+                $errorMessage = false;
+                if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                    $size = getimagesize($photoObject->getStream()->getMetadata('uri'));
+                    $width = $size[0];
+                    $height = $size[1];
+                    if ($width == 132 && $height == 170) {
+                        $directory = 'img/user_photos';
+                        if (!file_exists($directory)) {
+                            mkdir($directory, 0775, true);
+                        }
+                        $timestamp = new FrozenTime();
+                        $timestamp = $timestamp->i18nFormat('yyyy-MM-dd_HH-mm-ss');
+                        $photoUrl = 'user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();
+                        $photoUrl = substr($photoUrl, 0, 150);  // truncate too long filenames
+                        $photoObject->moveTo('img/' . $photoUrl);
+                        $editUser->photo_url = $photoUrl;
+                    } else {
+                        $errorMessage = "Wrong file dimensions";
+                    }
+                } else {
+                    $errorMessage = 'Wrong filetype';
+                }
+                if ($errorMessage) {
+                    $this->Flash->error($errorMessage);
+                    return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+                }
             }
-            $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
-            $editUser->photo_url = $destination;
+
             // set country_id
             $country_id = $this->Users->Institutions->find()->where(['id' => $editUser->institution_id])->first()->country_id;
             $editUser->set('country_id', $country_id);
@@ -961,7 +988,28 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'pendingInvitations';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        if ($user->user_role_id == 2) {
+        if ($user->is_admin) {
+            $users = $this->paginate(
+                $this->Users->find()->where([
+                    'approved' => 1,
+                    'active' => 1,
+                    'email_verified' => 1,
+                    'password IS NULL',
+                    'password_token IS NOT NULL',
+                ]),
+                [
+                    'order' => ['created' => 'desc'],
+                    'contain' => ['Institutions']
+                ]
+            );
+            $usersCount = $this->Users->find()->where([
+                'approved' => 1,
+                'active' => 1,
+                'email_verified' => 1,
+                'password IS NULL',
+                'password_token IS NOT NULL',
+            ])->count();
+        } elseif ($user->user_role_id == 2) {
             $users =  $users = $this->paginate(
                 $this->Users->find()->where([
                     'approved' => 1,
@@ -983,27 +1031,6 @@ class UsersController extends AppController
                 'password IS NULL',
                 'password_token IS NOT NULL',
                 'Users.country_id' => $user->country_id,
-            ])->count();
-        } elseif ($user->is_admin) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
-                    'approved' => 1,
-                    'active' => 1,
-                    'email_verified' => 1,
-                    'password IS NULL',
-                    'password_token IS NOT NULL',
-                ]),
-                [
-                    'order' => ['created' => 'desc'],
-                    'contain' => ['Institutions']
-                ]
-            );
-            $usersCount = $this->Users->find()->where([
-                'approved' => 1,
-                'active' => 1,
-                'email_verified' => 1,
-                'password IS NULL',
-                'password_token IS NOT NULL',
             ])->count();
         }
         $this->set(compact('user')); // required for contributors menu

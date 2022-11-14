@@ -1,5 +1,19 @@
 # Release notes
 
+
+## Version 2022-11/2
+
+### New features
+- National Moderators List
+  - New public section, at the Info page, which shows information and photo of the moderators
+  - New options in the backend (at user view/edit) where admins can upload a photo and enable public display
+
+### Bug fixes / small changes
+- Added graph to show how many courses will be archived soon
+- Added list of 15 latest added courses to course statistics page
+- Fix: Show all pending invitations when admin is also mod
+
+
 ## Version 2022-11/1
 
 ### New features

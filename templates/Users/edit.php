@@ -24,7 +24,7 @@
                 echo $this->Form->control('first_name');
                 echo $this->Form->control('last_name');
                 if ($user->is_admin) {   // only admin can change email
-                    echo $this->Form->control('email');
+                    echo $this->Form->control('email', ['label' => 'Email Address']);
                 }
                 echo $this->Form->control('mail_list', ['label' => 'Contributor Mailing List Subscription']);
                 echo $this->Form->control('institution_id', ['options' => $institutions]);
@@ -37,27 +37,26 @@
                     echo $this->Form->control('is_admin', ['label' => 'Administrator']);
                     echo $this->Form->control('user_admin', ['label' => 'Show as admin on contact page']);
                 }
-                /*
                 if ($user->is_admin && $editUser->user_role_id == 2) {   // only admin can change moderator profile AND only when user is a moderator
-                    echo '<p>&nbsp;</p><h3>Moderator Profile Settings</h3><p>';
-                    echo 'The following fields (see above) are also shown in the moderator profile:<br>';
-                    echo 'First name, Last name, Email, Institution, Country(based on institution), About.';
-                    echo $this->Form->control('mod_profile', ['label' => 'Show this user in the National Moderators list']);
+                    echo '<p>&nbsp;</p><h3>National Moderator List</h3><p></p>';
+                    echo 'Below you can select if a moderator should be shown in the list of National Moderators. You can also upload a picture, 
+                    which is optional. As well, the information from the following fields (which can be edited above) are shown in the list of 
+                    National Moderators: First Name, Last Name, Email Address, Institution, Country (based on institution), About.<p>';
+                    echo $this->Form->control('mod_profile', ['label' => 'Show this user in the National Moderators List']);
                     echo '<h4>Profile photo</h4><p></p>';
                     if (strlen($editUser->photo_url) > 0) {
                         // photo is present. show picture and delete option
-                        echo $this->Html->Image('/' . $editUser->photo_url, array('height' => '170', 'width' => '132'));
+                        echo $this->Html->Image($editUser->photo_url, array('height' => '170', 'width' => '132'));
                         echo '<p></p>';
                         echo $this->Html->Link('Delete photo', ['action' => 'edit', $editUser->id, 'delete_photo']);
                     } else {
-                        // photo not present. show add option; file selector
-                        echo 'Add photo:<br>';
-                        echo '<u>The size should be: height 170 px, width 132 px. Please resize the image on your device, before uploading.</u><p></p>';
+                        // photo not present. show add option with file selector
+                        echo '<u>Add photo</u><br>';
+                        echo '<i>The size should be: height 170 px, width 132 px. <br>Please resize the image on your device, before uploading.</i><p></p>';
                         echo $this->Form->input('photo', ['type' => 'file', 'class' => 'form-control']);
-                        echo '<p></p>After adding a photo, click on "Update User", to save the photo.';
+                        echo '<p></p><i>After adding a photo, click on "Update User", to save the photo.</i>';
                     }
                 }
-                */
                 ?>
                 <p></p>
             </fieldset>
