@@ -109,7 +109,7 @@ jobs:
       - name: Kubernetes credentials
         run: |
           mkdir ${HOME}/.kube
-          echo ${{ secrets.ACDH_KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
+          echo ${{ secrets.C2_KUBE_CONFIG }} | base64 --decode > ${HOME}/.kube/config
           chmod 0600 ${HOME}/.kube/config
           KUBE_NAMESPACE="${{ secrets.KUBE_NAMESPACE }}"
           if [ "$KUBE_NAMESPACE"x == 'x' ]
