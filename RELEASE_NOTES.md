@@ -1,13 +1,5 @@
 # Release notes
 
-## Version 2022-11/3
-
-### New features
-- 
-
-### Bug fixes / small changes
-- Hidden filter buttons for Objects and Techniques
-
 
 ## Version 2022-11/2
 
@@ -19,6 +11,7 @@
 ### Bug fixes / small changes
 - Added graph to show how many courses will be archived soon
 - Added list of 15 latest added courses to course statistics page
+- Hidden filter buttons for Objects and Techniques
 - Fix: Show all pending invitations when admin is also mod
 
 
