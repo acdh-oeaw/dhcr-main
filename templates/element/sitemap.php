@@ -26,7 +26,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Contact Us',
+                        'Contact Us (old)',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']
                     ) ?>
                 </li>
