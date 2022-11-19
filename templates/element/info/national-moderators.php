@@ -37,7 +37,7 @@
 foreach ($moderatorProfiles as $moderatorProfile) {
     $displayEmail = $moderatorProfile->email;
     $displayEmail = str_replace('@', '(at)', $displayEmail);
-    ?>
+?>
     <div class="container">
         <div class="profile card">
             <div class="profile-body">
@@ -50,7 +50,7 @@ foreach ($moderatorProfiles as $moderatorProfile) {
                                     <td style="padding: 15px" width="150px">
                                         <?php
                                         if ($moderatorProfile->photo_url != NULL) {
-                                            echo $this->Html->Image($moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
+                                            echo $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
                                         }
                                         ?>
                                     </td>

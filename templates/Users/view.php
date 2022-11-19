@@ -114,7 +114,7 @@
                         <th align="left" style="padding: 5px">Profile photo:</th>
                         <td style="padding: 5px"><?php
                                                     if ($viewedUser->photo_url) {
-                                                        echo $this->Html->image($viewedUser->photo_url, array('height' => '170', 'width' => '132'));
+                                                        echo $this->Html->image('/' . $viewedUser->photo_url, array('height' => '170', 'width' => '132'));
                                                     } else {
                                                         echo '<span class="glyphicon glyphicon-remove"></span>';
                                                     }

@@ -542,7 +542,7 @@ class UsersController extends AppController
 
         if ($photo_action == 'delete_photo' && $user->is_admin) {
             $errorMessage = false;
-            if (!unlink('img/' . $editUser->photo_url)) {
+            if (!unlink($editUser->photo_url)) {
                 $errorMessage = 'Unable to delete photo';
             }
             $editUser->photo_url = NULL;
@@ -575,15 +575,15 @@ class UsersController extends AppController
                     $width = $size[0];
                     $height = $size[1];
                     if ($width == 132 && $height == 170) {
-                        $directory = 'img/user_photos';
+                        $directory = 'uploads/user_photos/';
                         if (!file_exists($directory)) {
                             mkdir($directory, 0775, true);
                         }
                         $timestamp = new FrozenTime();
                         $timestamp = $timestamp->i18nFormat('yyyy-MM-dd_HH-mm-ss');
-                        $photoUrl = 'user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();
+                        $photoUrl = $directory . $timestamp . '-' . $photoObject->getClientFilename();
                         $photoUrl = substr($photoUrl, 0, 150);  // truncate too long filenames
-                        $photoObject->moveTo('img/' . $photoUrl);
+                        $photoObject->moveTo($photoUrl);
                         $editUser->photo_url = $photoUrl;
                     } else {
                         $errorMessage = "Wrong file dimensions";
