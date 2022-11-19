@@ -2,9 +2,7 @@
 
 namespace App\Controller;
 
-use Cake\Core\Configure;
 use Cake\Http\Response;
-use Cake\Mailer\Mailer;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
