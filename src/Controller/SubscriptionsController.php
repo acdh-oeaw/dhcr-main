@@ -5,18 +5,9 @@ namespace App\Controller;
 use Cake\Http\Response;
 use Cake\Mailer\MailerAwareTrait;
 
-/**
- * Subscriptions Controller
- *
- * @property \App\Model\Table\SubscriptionsTable $Subscriptions
- *
- * @method \App\Model\Entity\Subscription[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class SubscriptionsController extends AppController
 {
-
     use MailerAwareTrait;
-
 
     public function initialize(): void
     {
@@ -25,11 +16,6 @@ class SubscriptionsController extends AppController
         $this->Authorization->skipAuthorization();
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
     /* TODO: implement as an admin method
     public function index() {
         $subscriptions = $this->paginate($this->Subscriptions);
@@ -37,13 +23,6 @@ class SubscriptionsController extends AppController
     }
     */
 
-    /**
-     * View method
-     *
-     * @param string|null $id Subscription id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     /*
     public function view($key = null)
     {
@@ -52,11 +31,6 @@ class SubscriptionsController extends AppController
     }
     */
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
     public function add(): Response
     {
         $subscription = $this->Subscriptions->newEmptyEntity();
@@ -90,13 +64,6 @@ class SubscriptionsController extends AppController
         $this->set(compact('subscription', 'countries'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $key Subscription id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function edit(string $key = null): Response
     {
         $subscription = $this->Subscriptions->find('all', [
@@ -157,13 +124,6 @@ class SubscriptionsController extends AppController
         ));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Subscription id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete(string $key = null): void
     {
         $subscription = $this->Subscriptions->findByConfirmationKey($key)->first();
