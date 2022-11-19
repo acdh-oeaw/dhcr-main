@@ -50,7 +50,7 @@ foreach ($moderatorProfiles as $moderatorProfile) {
                                     <td style="padding: 15px" width="150px">
                                         <?php
                                         if ($moderatorProfile->photo_url != NULL) {
-                                            echo $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
+                                            echo $this->Html->Image('/uploads/user_photos/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
                                         }
                                         ?>
                                     </td>

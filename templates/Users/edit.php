@@ -46,7 +46,7 @@
                     echo '<h4>Profile photo</h4><p></p>';
                     if (strlen($editUser->photo_url) > 0) {
                         // photo is present. show picture and delete option
-                        echo $this->Html->Image('/' . $editUser->photo_url, array('height' => '170', 'width' => '132'));
+                        echo $this->Html->Image('/uploads/user_photos/' . $editUser->photo_url, array('height' => '170', 'width' => '132'));
                         echo '<p></p>';
                         echo $this->Html->Link('Delete photo', ['action' => 'edit', $editUser->id, 'delete_photo']);
                     } else {
