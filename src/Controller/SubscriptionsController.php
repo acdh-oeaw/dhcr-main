@@ -59,7 +59,7 @@ class SubscriptionsController extends AppController
         $this->set(compact('subscription', 'countries'));
     }
 
-    public function edit(string $key = null): Response
+    public function edit(string $key = null)
     {
         $subscription = $this->Subscriptions->find('all', [
             'conditions' => ['Subscriptions.confirmation_key' => $key],
