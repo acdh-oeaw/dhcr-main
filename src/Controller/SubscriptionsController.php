@@ -31,7 +31,7 @@ class SubscriptionsController extends AppController
     }
     */
 
-    public function add(): Response
+    public function add()
     {
         $subscription = $this->Subscriptions->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -42,25 +42,20 @@ class SubscriptionsController extends AppController
             ])->first();
             if (!empty($subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox to access your settings.'));
-                $this->getMailer('Subscription')
-                    ->send('access', ['subscription' => $subscription, 'isNew' => false]);
+                $this->getMailer('Subscription')->send('access', [$subscription]);
                 return $this->redirect('/');
             } else {
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
                 $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
                     $this->Flash->success(__('Your subscription has been saved, please check your inbox to confirm your subscription.'));
-                    $this->getMailer('Subscription')
-                        ->send('confirm', ['subscription' => $subscription]);
+                    $this->getMailer('Subscription')->send('confirm', [$subscription]);
                     return $this->redirect('/');
                 }
             }
-
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
         }
-        $countries = $this->Subscriptions->Countries->find('list', [
-            'order' => ['Countries.name' => 'ASC']
-        ]);
+        $countries = $this->Subscriptions->Countries->find('list', ['order' => ['Countries.name' => 'ASC']]);
         $this->set(compact('subscription', 'countries'));
     }
 
