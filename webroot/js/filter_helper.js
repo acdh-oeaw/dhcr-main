@@ -246,8 +246,8 @@ class FilterHelper {
         form.append(this.createSelector('languages'));
         form.append('<hr />');
         form.append(this.createSelector('disciplines'));
-        form.append(this.createSelector('techniques'));
-        form.append(this.createSelector('objects'));
+        // form.append(this.createSelector('techniques'));
+        // form.append(this.createSelector('objects'));
         form.append(this.createSelector('types'));
         form.append('<hr />');
         form.append(this.createPresenceTypeSelector());

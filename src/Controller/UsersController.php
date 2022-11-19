@@ -542,12 +542,12 @@ class UsersController extends AppController
 
         if ($photo_action == 'delete_photo' && $user->is_admin) {
             $errorMessage = false;
-            if (!unlink('img/' . $editUser->photo_url)) {
+            if (!unlink('uploads/user_photos/' . $editUser->photo_url)) {
                 $errorMessage = 'Unable to delete photo';
             }
             $editUser->photo_url = NULL;
             if (!$this->Users->save($editUser)) {
-                $errorMessage = 'Unable to remove photo filename';
+                $errorMessage = 'Unable to remove photo file';
             }
             if ($errorMessage) {
                 $this->Flash->error($errorMessage);
@@ -575,15 +575,25 @@ class UsersController extends AppController
                     $width = $size[0];
                     $height = $size[1];
                     if ($width == 132 && $height == 170) {
-                        $directory = 'img/user_photos';
-                        if (!file_exists($directory)) {
-                            mkdir($directory, 0775, true);
+                        if (!file_exists('uploads/user_photos/')) {
+                            mkdir('uploads/user_photos/', 0775, true);
                         }
                         $timestamp = new FrozenTime();
                         $timestamp = $timestamp->i18nFormat('yyyy-MM-dd_HH-mm-ss');
-                        $photoUrl = 'user_photos/' . $timestamp . '-' . $photoObject->getClientFilename();
-                        $photoUrl = substr($photoUrl, 0, 150);  // truncate too long filenames
-                        $photoObject->moveTo('img/' . $photoUrl);
+                        $photoUrl = $timestamp . '-' . $photoObject->getClientFilename();
+                        // truncate long filenames
+                        if (strlen($photoUrl)  > 100) {
+                            $dotPos = strrpos($photoUrl, '.');
+                            if ($dotPos == FALSE) {
+                                $this->Flash->error('File extention missing');
+                                return $this->redirect(['controller' => 'Dashboard', 'action' => 'contributorNetwork']);
+                            }
+                            $ext = substr($photoUrl, $dotPos, 5);
+                            $photoUrl = substr($photoUrl, 0, $dotPos);  // remove extention
+                            $photoUrl = substr($photoUrl, 0, 95);  // truncate
+                            $photoUrl = $photoUrl . $ext;
+                        }
+                        $photoObject->moveTo('uploads/user_photos/' . $photoUrl);
                         $editUser->photo_url = $photoUrl;
                     } else {
                         $errorMessage = "Wrong file dimensions";

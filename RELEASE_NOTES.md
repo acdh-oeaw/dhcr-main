@@ -2,7 +2,7 @@
 
 
 ## Version 2022-11/2
-
+ 
 ### New features
 - National Moderators List
   - New public section, at the Info page, which shows information and photo of the moderators
@@ -11,6 +11,7 @@
 ### Bug fixes / small changes
 - Added graph to show how many courses will be archived soon
 - Added list of 15 latest added courses to course statistics page
+- Hidden filter buttons for Objects and Techniques
 - Fix: Show all pending invitations when admin is also mod
 
 

@@ -4,37 +4,6 @@ use Cake\Core\Configure;
 ?>
 <div class="flex-columns">
     <div class="flex-item">
-        <h3>National Moderators</h3>
-        <p>
-            The DHCR maintains a system of national moderators, who review newly entered courses,
-            help with registration issues
-            and are encouraged to disseminate the DHCR initiative among institutions of their countries.
-        </p>
-        <div class="css-columns moderators">
-            <?php
-            $last_country = null;
-            if (!empty($moderators)) foreach ($moderators as $i => $mod) {
-                if (empty($mod['country_id'])) continue;
-                if ($mod['country_id'] == $last_country) {
-                    echo ',<br />';
-                } else {
-                    if ($i > 0) echo '</p></div>';
-                    echo '<div class="item">';
-                    echo '<p class="country">' . $mod['country']['name'] . '</p>';
-                    echo '<p class="moderators">';
-                }
-                $last_country = $mod['country_id'];
-
-                echo $this->Html->link(
-                    $mod['first_name'] . ' ' . $mod['last_name'],
-                    'mailto:' . $mod['email']
-                );
-            }
-            echo '</div>';
-            ?>
-        </div>
-    </div>
-    <div class="flex-item">
         <h3>Administrators</h3>
         <p>
             For technical questions or yet not moderated countries, please seek contact to the administration board:
