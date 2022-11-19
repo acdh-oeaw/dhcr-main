@@ -23,7 +23,7 @@ class SubscriptionsController extends AppController
     public function initialize(): void
     {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['*']);
+        $this->Authentication->allowUnauthenticated(['add', 'edit', 'delete']);
         $this->Authorization->skipAuthorization();
     }
 
