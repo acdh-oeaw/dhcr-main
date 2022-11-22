@@ -1,4 +1,3 @@
-<?php $this->start('page_head'); ?>
 <div class="title">
     <?php
     if ($isNew) {
@@ -22,7 +21,6 @@
         ) ?>
     </p>
 </div>
-<?php $this->end(); ?>
 <div class="subscriptions-form">
     <?= $this->Form->create($subscription) ?>
     <fieldset class="invisible">
