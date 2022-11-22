@@ -7,8 +7,9 @@
         echo '<ul><li>Setting no filters will keep your informed about all new courses. You still have to submit the form.</li>';
         echo '<li>You can manage your course alert at any time by accessing this page again.</li></ul></p>';
     } else {
-        echo '<h2>Edit your Course Alert.</h2>';
-        echo '<p>Update your course alert settings to stay informed about new DH courses of your interest.</p>';
+        echo '<h2>Edit your Course Alert</h2>';
+        echo '<p>Update your course alert settings to stay informed about new DH courses of your interest.';
+        echo '<ul><li>Setting no filters will keep your informed about all new courses.</li></ul></p>';
     }
     ?>
     <p>
@@ -52,7 +53,7 @@
         ?>
     </fieldset>
     <p>
-    <?= $this->Form->submit('Submit Preferences', array(
+    <?= $this->Form->submit('Set Course Alert', array(
         'class' => 'small blue button',
     )) ?>
     <?= $this->Form->end() ?>
