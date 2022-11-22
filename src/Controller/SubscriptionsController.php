@@ -96,7 +96,7 @@ class SubscriptionsController extends AppController
                         . 'You will receieve e-mail notifications, as soon new courses match your filters.'));
                 else $this->Flash->success(__('Your subscription settings have been updated.'));
                 $this->getMailer('Subscription')
-                    ->send('access', ['subscription' => $subscription, 'isNew' => $isNew]);
+                    ->send('access', [$subscription]);
                 return $this->redirect('/');
             }
             $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));

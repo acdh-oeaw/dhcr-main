@@ -4,7 +4,7 @@ use Cake\Core\Configure;
 ?>
 Dear Subscriber,
 
-your subscription is <?php if ($isNew) echo 'now '; ?>active and you
+your subscription is active and you
 can manage your subscription by clicking on the links below.
 
 Click here to edit the filter settings of your subscription:

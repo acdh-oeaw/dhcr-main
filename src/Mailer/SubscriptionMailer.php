@@ -14,7 +14,7 @@ class SubscriptionMailer extends AppMailer
         $this
             ->setTo($subscription['email'])
             ->setSubject('Your Subscription')
-            ->setViewVars(['subscription' => $subscription, 'isNew' => false])
+            ->setViewVars(['subscription' => $subscription])
             ->viewBuilder()->setTemplate('subscription/access');
     }
 
