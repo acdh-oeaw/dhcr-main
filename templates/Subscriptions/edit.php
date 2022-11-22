@@ -13,13 +13,14 @@
     }
     ?>
     <p>
-        To completely revoke your course alert, please click here: 
+        To completely revoke your course alert, please click here:
         <?= $this->Html->link(
             'Delete my course alert',
             '/subscriptions/delete/' . $subscription->confirmation_key,
             ['confirm' => 'Are you sure to delete your course alert?']
         ) ?>
-    </p><p>&nbsp;</p>
+    </p>
+    <p>&nbsp;</p>
 </div>
 <div class="subscriptions-form">
     <?= $this->Form->create($subscription) ?>
@@ -53,8 +54,15 @@
         ?>
     </fieldset>
     <p>
-    <?= $this->Form->submit('Set Course Alert', array(
-        'class' => 'small blue button',
-    )) ?>
-    <?= $this->Form->end() ?>
+        <?php
+        if ($subscription['confirmed'] == 0) {
+            $submitText = 'Set Course Alert';
+        } else {
+            $submitText = 'Update Course Alert';
+        }
+        ?>
+        <?= $this->Form->submit($submitText, array(
+            'class' => 'small blue button',
+        )) ?>
+        <?= $this->Form->end() ?>
 </div>
