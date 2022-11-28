@@ -32,7 +32,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Admin & Bug Report',
+                        'Contact: Admin & Bug Report',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']
                     ) ?>
                 </li>
