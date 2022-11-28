@@ -32,6 +32,7 @@
 </style>
 <p>The DHCR maintains a system of national moderators, who review newly entered courses, help with registration issues and are encouraged
     to disseminate the DHCR initiative among institutions of their countries.</p>
+<p>For not moderated countries, please contact the administrators (listed below).</p>
 
 <?php
 foreach ($moderatorProfiles as $moderatorProfile) {
