@@ -78,6 +78,7 @@ foreach ($adminProfiles as $adminProfile) {
 <?php
 }
 ?>
+<?php /*
 <div class="css-columns admins">
     <p>
         <?php
@@ -91,6 +92,7 @@ foreach ($adminProfiles as $adminProfile) {
         ?>
     </p>
 </div>
+*/ ?>
 <h3>Bug Report</h3>
 <p>
     In case you find a bug, please file a report here:
