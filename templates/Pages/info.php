@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="accordeon-item" id="contact">
-        <h2><span>Contact Us (old)</span></h2>
+        <h2><span>Admin & Bug Report</span></h2>
         <div class="item-content">
             <?= $this->Element('info/contact'); ?>
         </div>
