@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="accordeon-item" id="national-moderators">
-        <h2><span>National Moderators - Contact us</span></h2>
+        <h2><span>National Moderators</span></h2>
         <div class="item-content">
             <?= $this->Element('info/national-moderators'); ?>
         </div>
