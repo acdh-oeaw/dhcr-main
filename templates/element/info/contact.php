@@ -5,9 +5,10 @@ use Cake\Core\Configure;
 <div class="flex-columns">
     <div class="flex-item">
         <h3>Administrators</h3>
-        <p>
-            For technical questions or yet not moderated countries, please seek contact to the administration board:
-        </p>
+        <p>For technical questions or yet not moderated countries, please seek contact to the administration board.</p>
+        <p>Before you contact us, please check the
+            <?= $this->Html->link('FAQ page', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>
+            to see if your enquiry has already been answered.</p>
         <div class="css-columns admins">
             <p>
                 <?php
