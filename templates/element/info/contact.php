@@ -1,7 +1,3 @@
-<?php
-
-use Cake\Core\Configure;
-?>
 <div class="flex-columns">
     <div class="flex-item">
         <h3>Administrators</h3>
