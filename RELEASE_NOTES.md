@@ -1,6 +1,6 @@
 # Release notes
 
- 
+   
 ## Version 2022-11/2
  
 ### New features
