@@ -35,7 +35,9 @@
 <p>Before you contact us, please check the
     <?= $this->Html->link('FAQ page', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>
     to see if your enquiry has already been answered.</p>
+<?php /*
 <?php
+/*
 foreach ($adminProfiles as $adminProfile) {
     $displayEmail = $adminProfile->email;
     $displayEmail = str_replace('@', '(at)', $displayEmail);
@@ -78,7 +80,7 @@ foreach ($adminProfiles as $adminProfile) {
 <?php
 }
 ?>
-<?php /*
+*/ ?>
 <div class="css-columns admins">
     <p>
         <?php
@@ -92,7 +94,7 @@ foreach ($adminProfiles as $adminProfile) {
         ?>
     </p>
 </div>
-*/ ?>
+
 <h3>Bug Report</h3>
 <p>
     In case you find a bug, please file a report here:
