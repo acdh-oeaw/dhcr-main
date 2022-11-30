@@ -1,13 +1,13 @@
 # Release notes
 
- 
-## Version 2022-11/3
+
+## Version 2022-12
  
 ### New features
-- 
+- New Course Alerts are available and working #15
 
 ### Bug fixes / small changes
-- 
+- Added statistics for amount of outdated courses per country
 
 
 ## Version 2022-11/2
