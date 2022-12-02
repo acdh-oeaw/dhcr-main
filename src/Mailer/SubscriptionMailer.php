@@ -3,8 +3,6 @@
 namespace App\Mailer;
 
 use App\Model\Entity\Subscription;
-use Cake\Core\Configure;
-use Cake\Mailer\Transport\DebugTransport;
 
 class SubscriptionMailer extends AppMailer
 {
