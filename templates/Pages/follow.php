@@ -6,7 +6,9 @@
     <div class="accordeon-item" id="course-alert">
         <h2><span>Course Alert</span></h2>
         <div class="item-content">
-            <p>Enter your e-mail address here to subscribe for new course alerts.</p>
+            <p>Enter your e-mail address here to subscribe for new course alerts. You can set detailed preferences
+                after confirming your email address.
+            </p>
             <?= $this->Element('follow/subscription') ?>
         </div>
     </div>
