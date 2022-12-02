@@ -7,7 +7,7 @@ Dear Subscriber,
 your Course Alert is active and you can manage this by clicking on the links below.
 
 Click here to edit the filter settings of your Course Alert:
-<?php echo Configure::read("dhcr.baseUrl") . "subscriptions/edit/" . $subscription->confirmation_key; ?>
+<?php echo Configure::read("dhcr.baseUrl") . "subscriptions/edit/" . $subscription->confirmation_key . '\n'; ?>
 
 Delete your Course Alert:
 <?php echo Configure::read("dhcr.baseUrl") . "subscriptions/delete/" . $subscription->confirmation_key; ?>
