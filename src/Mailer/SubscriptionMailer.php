@@ -9,15 +9,6 @@ use Cake\Mailer\Transport\DebugTransport;
 class SubscriptionMailer extends AppMailer
 {
 
-    public function access(Subscription $subscription)
-    {
-        $this
-            ->setTo($subscription['email'])
-            ->setSubject('Your Subscription')
-            ->setViewVars(['subscription' => $subscription])
-            ->viewBuilder()->setTemplate('subscription/access');
-    }
-
     public function confirm(Subscription $subscription)
     {
         $this
@@ -26,6 +17,15 @@ class SubscriptionMailer extends AppMailer
             ->setEmailFormat('text')
             ->setViewVars(['subscription' => $subscription])
             ->viewBuilder()->setTemplate('subscription/confirmation');
+    }
+
+    public function access(Subscription $subscription)
+    {
+        $this
+            ->setTo($subscription['email'])
+            ->setSubject('Your Subscription')
+            ->setViewVars(['subscription' => $subscription])
+            ->viewBuilder()->setTemplate('subscription/access');
     }
 
     public function notification(Subscription $subscription, $courses = [])
