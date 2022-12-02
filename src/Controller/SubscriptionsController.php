@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use Cake\Http\Response;
 use Cake\Mailer\MailerAwareTrait;
 
 class SubscriptionsController extends AppController
