@@ -22,7 +22,7 @@ class SubscriptionMailer extends AppMailer
     {
         $this
             ->setTo($subscription['email'])
-            ->setSubject('Subscription Confirmation')
+            ->setSubject('Confirm your subscription')
             ->setEmailFormat('text')
             ->setViewVars(['subscription' => $subscription])
             ->viewBuilder()->setTemplate('subscription/confirmation');
