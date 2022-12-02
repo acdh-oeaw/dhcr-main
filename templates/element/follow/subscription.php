@@ -2,6 +2,9 @@
 
 use Cake\Core\Configure;
 ?>
+<p>Enter your e-mail address here to subscribe for new course alerts. You can set detailed preferences
+    after confirming your email address.
+</p>
 <div class="subscriptions-form optionals headspace">
     <?= $this->Form->create($subscription, [
         'novalidate' => false,
