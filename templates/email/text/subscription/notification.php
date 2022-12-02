@@ -5,7 +5,7 @@ use Cake\Core\Configure;
 Dear Subscriber,
 
 we proudly inform you about the following new course<?php if (count($courses) > 1) echo "s"; ?>,
-that match<?php if (count($courses) == 1) echo "es"; ?> the filter criteria you saved along with your subscription:
+that match<?php if (count($courses) == 1) echo "es"; ?> the filter criteria for your Course Alert:
 
 <?php
 foreach ($courses as $course) {
@@ -77,8 +77,8 @@ if ($subscription->tadirah_objects) {
 ?>
 --
 
-You can review the filter settings for your subscription here:
+You can review the filter settings for your Course Alert here:
 <?php echo Configure::read('dhcr.baseUrl') . 'subscriptions/edit/' . $subscription->confirmation_key; ?>
 
-To completely revoke your subscription, please click here:
+To completely revoke your Course Alert, please click here:
 <?php echo Configure::read('dhcr.baseUrl') . 'subscriptions/delete/' . $subscription->confirmation_key; ?>

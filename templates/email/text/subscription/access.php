@@ -4,13 +4,12 @@ use Cake\Core\Configure;
 ?>
 Dear Subscriber,
 
-your subscription is active and you
-can manage your subscription by clicking on the links below.
+your Course Alert is active and you can manage this by clicking on the links below.
 
-Click here to edit the filter settings of your subscription:
+Click here to edit the filter settings of your Course Alert:
 <?php echo Configure::read("dhcr.baseUrl") . "subscriptions/edit/" . $subscription->confirmation_key; ?>
 
-Delete your subscription:
+Delete your Course Alert:
 <?php echo Configure::read("dhcr.baseUrl") . "subscriptions/delete/" . $subscription->confirmation_key; ?>
 
 --
