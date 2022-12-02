@@ -15,21 +15,6 @@ class SubscriptionsController extends AppController
         $this->Authorization->skipAuthorization();
     }
 
-    /* TODO: implement as an admin method
-    public function index() {
-        $subscriptions = $this->paginate($this->Subscriptions);
-        $this->set(compact('subscriptions'));
-    }
-    */
-
-    /*
-    public function view($key = null)
-    {
-        $subscription = $this->Subscriptions->findByConfirmationKey($key);
-        $this->set('subscription', $subscription);
-    }
-    */
-
     public function add()
     {
         $subscription = $this->Subscriptions->newEmptyEntity();
