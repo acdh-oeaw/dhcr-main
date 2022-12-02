@@ -11,7 +11,7 @@ class SubscriptionMailer extends AppMailer
     {
         $this
             ->setTo($subscription['email'])
-            ->setSubject('Confirm your subscription')
+            ->setSubject('Confirm your Course Alert')
             ->setEmailFormat('text')
             ->setViewVars(['subscription' => $subscription])
             ->viewBuilder()->setTemplate('subscription/confirmation');
@@ -21,7 +21,7 @@ class SubscriptionMailer extends AppMailer
     {
         $this
             ->setTo($subscription['email'])
-            ->setSubject('Your Subscription')
+            ->setSubject('Your Course Alert')
             ->setViewVars(['subscription' => $subscription])
             ->viewBuilder()->setTemplate('subscription/access');
     }
