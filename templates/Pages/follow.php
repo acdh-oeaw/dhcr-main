@@ -1,5 +1,5 @@
 <div class="title">
-    <h2>Follow the DH Course Registry</h2>
+    <h2>Follow Us</h2>
     <p>Check the options below to learn how you can stay informed about new courses or the latest technical enhancements.</p>
 </div>
 <div id="accordeon">
@@ -9,8 +9,8 @@
             <?= $this->Element('follow/subscription') ?>
         </div>
     </div>
-    <div class="accordeon-item" id="news">
-        <h2><span>News on Social Media</span></h2>
+    <div class="accordeon-item" id="social-media">
+        <h2><span>Social Media</span></h2>
         <div class="item-content">
             <?= $this->Element('follow/social_media'); ?>
         </div>

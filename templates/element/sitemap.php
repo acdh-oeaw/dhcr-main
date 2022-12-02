@@ -114,7 +114,7 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Contributor Newsletter',
+                        'Contributor Mailing List',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']
                     ) ?>
                 </li>
