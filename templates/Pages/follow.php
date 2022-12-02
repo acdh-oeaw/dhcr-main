@@ -6,7 +6,7 @@
     <div class="accordeon-item" id="course-alert">
         <h2><span>Course Alert</span></h2>
         <div class="item-content">
-            <?= $this->Element('follow/subscription') ?>
+            <?= $this->Element('../Subscriptions/add') ?>
         </div>
     </div>
     <div class="accordeon-item" id="social-media">
