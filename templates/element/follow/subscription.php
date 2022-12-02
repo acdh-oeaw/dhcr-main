@@ -2,9 +2,12 @@
 
 use Cake\Core\Configure;
 ?>
-<p>Enter your e-mail address here to subscribe for new course alerts. You can set detailed preferences
-    after confirming your email address.
-</p>
+<ul>
+    <li>Enter your e-mail address here to subscribe for alerts of new courses.</li>
+    <li>After confirmation of your e-mail address, you can set filters to stay informed about courses in
+        disciplines, languages or countries you are interested in.</li>
+    <li>In case you already did subscribe, you can request the confirmation mail here again to edit your existing subscription.</li>
+</ul>
 <div class="subscriptions-form optionals headspace">
     <?= $this->Form->create($subscription, [
         'novalidate' => false,
