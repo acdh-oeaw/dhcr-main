@@ -32,12 +32,12 @@ class SubscriptionsController extends AppController
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
                 $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
-                    $this->Flash->success(__('Your subscription has been saved, please check your inbox to confirm your subscription.'));
+                    $this->Flash->success(__('Your Course Alert has been saved, please check your inbox to confirm.'));
                     $this->getMailer('Subscription')->send('confirm', [$subscription]);
                     return $this->redirect('/');
                 }
             }
-            $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be saved. Please, try again.'));
         }
         $countries = $this->Subscriptions->Countries->find('list', ['order' => ['Countries.name' => 'ASC']]);
         $this->set(compact('subscription', 'countries'));
@@ -51,7 +51,7 @@ class SubscriptionsController extends AppController
         ])->first();
 
         if (!$subscription) {
-            $this->Flash->set('Your subscription could not be found, please add one!');
+            $this->Flash->set('Your Course Alert could not be found, please add one!');
             return $this->redirect('/subscriptions/add');
         }
 
@@ -76,14 +76,14 @@ class SubscriptionsController extends AppController
             ]);
             if ($this->Subscriptions->save($subscription)) {
                 if ($isNew)
-                    $this->Flash->success(__('Your subscription is now complete and confirmed.'
-                        . 'You will receieve e-mail notifications, as soon new courses match your filters.'));
-                else $this->Flash->success(__('Your subscription settings have been updated.'));
+                    $this->Flash->success(__('Your Course Alert is now complete and confirmed.'
+                        . 'You will receive e-mail notifications, as soon new courses match your filters.'));
+                else $this->Flash->success(__('Your Course Alert settings have been updated.'));
                 $this->getMailer('Subscription')
                     ->send('access', [$subscription]);
                 return $this->redirect('/');
             }
-            $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be saved. Please, try again.'));
         }
         $disciplines = $this->Subscriptions->Disciplines->find('list', ['order' => ['Disciplines.name' => 'ASC']]);
         $languages = $this->Subscriptions->Languages->find('list', ['order' => ['Languages.name' => 'ASC']]);
@@ -109,11 +109,11 @@ class SubscriptionsController extends AppController
 
         if ($subscription and $this->Subscriptions->delete($subscription)) {
             $this->Subscriptions->delete($subscription);
-            $this->Flash->success(__('Your subscription has been deleted.'));
+            $this->Flash->success(__('Your Course Alert has been deleted.'));
         } elseif (!$subscription) {
-            $this->Flash->error(__('Your subscription could not be found on the database any more'));
+            $this->Flash->error(__('Your Course Alert could not be found in the database any more'));
         } else {
-            $this->Flash->error(__('Your subscription could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be deleted. Please, try again.'));
         }
 
         $this->redirect('/');
