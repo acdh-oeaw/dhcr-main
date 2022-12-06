@@ -20,7 +20,7 @@ use Cake\I18n\FrozenTime;
     $now = new FrozenTime('now');
     echo '<p><u>Data updated at: ' . $now->i18nFormat('dd-MM-yyyy HH:mm') . ' UTC</u></p>';
     ?>
-    <h3>Key data</h3>
+    <h3><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Key data</h3>
     <p>
         Total: <?= $usersTotal ?><br>
         Subcribed to mailing list: <?= $usersSubscribed ?><br>
@@ -35,11 +35,46 @@ use Cake\I18n\FrozenTime;
         Administrators: <?= $administrators ?><br>
         Administrators shown on contact page: <?= $userAdmins ?>
     </p>
-    <h3>Logged in users until months ago</h3>
+    <h3><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;&nbsp;Logged in users until months ago</h3>
     <div id="chart_users"></div>
     <p></p>
-    <h3>Logged in moderators per months ago</h3>
+    <h3><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;&nbsp;Logged in moderators until months ago</h3>
     <div id="chart_moderators"></div>
+    <p></p>
+    <h3><span class="glyphicon glyphicon-equalizer"></span>&nbsp;&nbsp;&nbsp;Moderator participation</h3>
+    <p></p>
+    <h4>Amount of moderators that logged in within the last 4 months</h4>
+    <p></p>
+    <?php
+
+    // percentage of mods that logedin in the last 4 months
+    $moderatorParticipation = $loggedinModeratorCounts[4][1] / $moderators;
+    if ($moderatorParticipation > 0.7) {
+        $imageName = "traffic_light_green.png";
+    } elseif ($moderatorParticipation > 0.5) {
+        $imageName = "traffic_light_yellow.png";
+    } else {
+        $imageName = "traffic_light_red.png";
+    }
+    ?>
+
+    <table>
+        <tr>
+            <td style="padding: 10px">
+                <?php
+                echo $this->Html->Image($imageName);    // , array('height' => '170', 'width' => '132')
+                ?></td>
+            <td>
+
+                Green: More than 70%<br>
+                Yellow: More than 50%<br>
+                Red: 50% or less<br>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <hr>
+    <p></p>
     *Available users meet the following criteria:
     <ol>
         <li>Email verified</li>

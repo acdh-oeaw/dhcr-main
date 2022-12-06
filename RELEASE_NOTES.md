@@ -4,14 +4,15 @@
 ## Version 2022-12
  
 ### New features
-- New Course Alerts are available and working #15
+- Course Alerts for new courses are available and working #15
 
 ### Bug fixes / small changes
-- Added statistics for amount of outdated courses per country
+- Added statistics for amount of outdated courses per country to course statistics
+- Added traffic light for moderator participation to users statistics
 
 
 ## Version 2022-11/2
- 
+
 ### New features
 - National Moderators List
   - New public section, at the Info page, which shows information and photo of the moderators
