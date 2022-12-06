@@ -39,7 +39,7 @@ class PagesController extends AppController
     {
         parent::initialize();
 
-        $this->Authentication->allowUnauthenticated(['info', 'follow', 'display']);
+        $this->Authentication->allowUnauthenticated(['info', 'follow', 'display', 'nationalModerators']);
         $this->Authorization->skipAuthorization();
     }
 
