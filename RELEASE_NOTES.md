@@ -3,7 +3,8 @@
 ## Version 2022-11/3
 
 ### Bug fixes
-- Fix: Adding moderator to list without file upload
+- Fix: Adding moderator to list, without photo upload
+- Fix: Move moderator list to separate page, to avoid acordeon problem with a huge amount of content
 
 
 ## Version 2022-11/2

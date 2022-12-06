@@ -109,14 +109,6 @@ class PagesController extends AppController
             ->where(['Countries.id IN' => $country_ids])
             ->toArray();
 
-        $moderatorProfiles = $this->Users->find('all', [
-            'contain' => ['Countries', 'Institutions'],
-            'order' => ['Countries.name' => 'ASC']
-        ])->where([
-            'user_role_id' => 2,
-            'mod_profile' => 1,
-        ]);
-
         $adminProfiles = $this->Users->find('all', [
             'contain' => ['Countries', 'Institutions'],
             'order' => ['Countries.name' => 'ASC']
@@ -124,7 +116,20 @@ class PagesController extends AppController
             'user_admin' => 1,
         ]);
 
-        $this->set(compact('countries', 'moderators', 'userAdmins', 'email', 'moderatorProfiles', 'adminProfiles'));
+        $this->set(compact('countries', 'moderators', 'userAdmins', 'email', 'adminProfiles'));
+    }
+
+    public function nationalModerators()
+    {
+        $this->loadModel('Users');
+        $moderatorProfiles = $this->Users->find('all', [
+            'contain' => ['Countries', 'Institutions'],
+            'order' => ['Countries.name' => 'ASC']
+        ])->where([
+            'user_role_id' => 2,
+            'mod_profile' => 1,
+        ]);
+        $this->set(compact('moderatorProfiles'));
     }
 
     /**
