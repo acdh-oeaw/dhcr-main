@@ -101,34 +101,33 @@
                     </tr>
                 </table>
             <?php } ?>
-            <?php
-            /*
-            <?php if ($user->is_admin) { // only admin can see moderator profile settings
+            <?php if ($user->is_admin && $viewedUser->user_role_id == 2) { // only admin can see moderator profile settings
             ?>
                 <p></p>
-                <strong><u>Moderator Profile Settings</u></strong>
+                <strong><u>National Moderators List</u></strong>
                 <table>
                     <tr>
-                        <th align="left" style="padding: 5px" colspan="2">The following fields are used: x, y, z</th>
-                    </tr>
-                    <tr>
-                        <th align="left" style="padding: 5px">Show in Moderator Profiles:</th>
+                        <th align="left" style="padding: 5px">Show in National Moderators List:</th>
                         <td style="padding: 5px"><span class="glyphicon glyphicon-<?= ($viewedUser->mod_profile) ? 'ok' : 'remove' ?>"></span></td>
                     </tr>
+                </table>
+            <?php } ?>
+            <?php if ($user->is_admin && ($viewedUser->user_role_id == 2 || $viewedUser->user_admin)) { // only admin can see moderator profile settings
+            ?>
+                <table>
                     <tr>
                         <th align="left" style="padding: 5px">Profile photo:</th>
                         <td style="padding: 5px"><?php
                                                     if ($viewedUser->photo_url) {
-                                                        echo $this->Html->image($viewedUser->photo_url, array('height' => '170', 'width' => '132'));
+                                                        echo $this->Html->image('/uploads/user_photos/' . $viewedUser->photo_url, array('height' => '170', 'width' => '132'));
                                                     } else {
                                                         echo '<span class="glyphicon glyphicon-remove"></span>';
                                                     }
                                                     ?>
                     </tr>
+
                 </table>
             <?php } ?>
-            */
-            ?>
         </div>
     </div>
 </div>

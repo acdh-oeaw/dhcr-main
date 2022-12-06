@@ -30,14 +30,21 @@
         font-weight: 200;
     }
 </style>
-<p>The DHCR maintains a system of national moderators, who review newly entered courses, help with registration issues and are encouraged
-    to disseminate the DHCR initiative among institutions of their countries.</p>
+<p>
+    The course entries in the DH registry are moderated by a group of national moderators who review and approve
+    newly entered courses, provide assistance with registration issues and disseminate the DHCR activities among
+    the institutions of their countries.
+</p>
+<p>
+    In case there is no moderator listed for your country, please contact one of
+    <?= $this->Html->link('the administrators', ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
+    if you have any questions.
+</p>
 
 <?php
 foreach ($moderatorProfiles as $moderatorProfile) {
     $displayEmail = $moderatorProfile->email;
-    $displayEmail = str_replace('@', ' (at) ', $displayEmail);
-    $displayEmail = str_replace('.', ' dot ', $displayEmail);
+    $displayEmail = str_replace('@', '(at)', $displayEmail);
 ?>
     <div class="container">
         <div class="profile card">
@@ -48,8 +55,12 @@ foreach ($moderatorProfiles as $moderatorProfile) {
                         <div class="col-md-5 text-center">
                             <table>
                                 <tr>
-                                    <td style="padding: 15px">
-                                        <?= $this->Html->Image('/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132')) ?>
+                                    <td style="padding: 15px" width="150px">
+                                        <?php
+                                        if ($moderatorProfile->photo_url != NULL) {
+                                            echo $this->Html->Image('/uploads/user_photos/' . $moderatorProfile->photo_url, array('height' => '170', 'width' => '132'));
+                                        }
+                                        ?>
                                     </td>
                                     <td>
                                         <h2><?= $moderatorProfile->first_name, ' ', $moderatorProfile->last_name ?></h2>

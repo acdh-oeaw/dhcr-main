@@ -32,22 +32,18 @@
             <?= $this->Element('info/purpose') ?>
         </div>
     </div>
-    <div class="accordeon-item" id="contact">
-        <h2><span>Contact Us</span></h2>
-        <div class="item-content">
-            <?= $this->Element('info/contact'); ?>
-        </div>
-    </div>
-    <?php
-    /*
     <div class="accordeon-item" id="national-moderators">
         <h2><span>National Moderators</span></h2>
         <div class="item-content">
             <?= $this->Element('info/national-moderators'); ?>
         </div>
     </div>
-    */
-    ?>
+    <div class="accordeon-item" id="contact">
+        <h2><span>Contact Us</span></h2>
+        <div class="item-content">
+            <?= $this->Element('info/contact'); ?>
+        </div>
+    </div>
     <div class="accordeon-item" id="publications">
         <h2><span>Dissemination and Impact</span></h2>
         <div class="item-content">
