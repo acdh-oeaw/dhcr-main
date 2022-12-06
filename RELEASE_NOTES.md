@@ -1,6 +1,11 @@
 # Release notes
 
-     
+## Version 2022-11/3
+
+### Bug fixes
+- Fix: Adding moderator to list without file upload
+
+
 ## Version 2022-11/2
  
 ### New features
