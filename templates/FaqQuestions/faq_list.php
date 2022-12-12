@@ -33,11 +33,10 @@ if ($categoryName == 'Public') {
     <?php
     foreach ($faqQuestions as $faqQuestion) {
         echo '<h3 id="question' . $faqQuestion->id . '">' . $faqQuestion->question . '</h3>';
-        echo '<h4>' . $this->Text->autoParagraph(h($faqQuestion->answer));
+        echo $this->Text->autoParagraph(h($faqQuestion->answer));
         if (strlen($faqQuestion->link_url) > 0) {
             echo 'Link: ' . $this->Html->link($faqQuestion->link_title, $faqQuestion->link_url);
         }
-        echo '</h4>';
         echo '<p>&nbsp;</p>';
     }
     ?>
