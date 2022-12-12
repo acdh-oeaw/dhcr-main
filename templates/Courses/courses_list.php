@@ -92,7 +92,7 @@ use Cake\Core\Configure;
                             ?>
                         ">
                             <strong>
-                                <font color="<?= $textColor ?>"><?= $course->updated->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></font>
+                                <font color="<?= $textColor ?>"><?= $course->updated->timeAgoInWords(['format' => 'yyyy-MM-dd', 'end' => '+1 year']) ?></font>
                             </strong>
                         </td>
                         <td style="padding: 5px">

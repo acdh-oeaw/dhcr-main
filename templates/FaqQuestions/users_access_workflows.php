@@ -2,7 +2,7 @@
     <p></p>
     <h2><span class="glyphicon glyphicon-wrench"></span>&nbsp;&nbsp;&nbsp;Users, Access and Workflows</h2>
     <p>For moderators & admins</p>
-    <p>Version: 19-08-2022</p>
+    <p>Version: 2022-08-19</p>
     <strong><u>Contents</u></strong>
     <ol>
         <li><a href="#user_roles">Access and User Roles</a></li>

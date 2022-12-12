@@ -75,7 +75,7 @@ use Cake\I18n\FrozenTime;
         echo '</strong></font><br>';
     }
     $now = new FrozenTime('now');
-    echo '<p><u>Data updated at: ' . $now->i18nFormat('dd-MM-yyyy HH:mm') . ' UTC</u></p>';
+    echo '<p><u>Data updated at: ' . $now->i18nFormat('yyyy-MM-dd HH:mm') . ' UTC</u></p>';
     ?>
 
     <h3><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Key data</h3>
@@ -136,7 +136,7 @@ use Cake\I18n\FrozenTime;
             <?php foreach ($newAddedCourses as $newAddedCourse) : ?>
                 <tr>
                     <td style="padding: 5px"><?= $newAddedCourse->id ?></td>
-                    <td style="padding: 5px"><?= $newAddedCourse->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
+                    <td style="padding: 5px"><?= $newAddedCourse->created->timeAgoInWords(['format' => 'yyyy-MM-dd', 'end' => '+1 year']) ?></td>
                     <td style="padding: 5px">
                         <strong>
                             <font color="<?= ($newAddedCourse->active) ? 'green">Yes' : 'red">No' ?></font></strong>
