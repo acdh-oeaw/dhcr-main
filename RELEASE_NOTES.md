@@ -9,6 +9,7 @@
 ### Bug fixes / small changes
 - Added statistics for amount of outdated courses per country to course statistics
 - Added traffic light for moderator participation to users statistics
+- Updated date to ISO-Format in views
 
 
 ## Version 2022-11/2
