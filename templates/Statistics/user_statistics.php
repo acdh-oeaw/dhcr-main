@@ -62,7 +62,7 @@ use Cake\I18n\FrozenTime;
         <tr>
             <td style="padding: 10px">
                 <?php
-                echo $this->Html->Image($imageName);    // , array('height' => '170', 'width' => '132')
+                echo $this->Html->Image($imageName);
                 ?></td>
             <td>
 
