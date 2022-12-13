@@ -44,7 +44,12 @@ class InstitutionsTable extends Table
             ->scalar('name')
             ->maxLength('name', 255)
             ->requirePresence('name', 'create')
-            ->notEmptyString('name');
+            ->notEmptyString('name')
+            ->add('name', 'unique', [
+                'rule' => 'validateUnique',
+                'provider' => 'table',
+                'message' => 'The institution already exists.'
+            ]);
 
         $validator
             ->scalar('description')
@@ -68,6 +73,7 @@ class InstitutionsTable extends Table
 
     public function buildRules(RulesChecker $rules): RulesChecker
     {
+        $rules->add($rules->isUnique(['name']), ['errorField' => 'name']);
         $rules->add($rules->existsIn(['city_id'], 'Cities'), ['errorField' => 'city_id']);
         $rules->add($rules->existsIn(['country_id'], 'Countries'), ['errorField' => 'country_id']);
 
