@@ -30,6 +30,8 @@
         font-weight: 200;
     }
 </style>
+<h1>National Moderators</h1>
+<p></p>
 <p>
     The course entries in the DH registry are moderated by a group of national moderators who review and approve
     newly entered courses, provide assistance with registration issues and disseminate the DHCR activities among
@@ -51,6 +53,7 @@ foreach ($moderatorProfiles as $moderatorProfile) {
             <div class="profile-body">
                 <div class="profile-bio">
                     <h3><?= $moderatorProfile->country->name ?></h3>
+                    <p></p>
                     <div class="row">
                         <div class="col-md-5 text-center">
                             <table>

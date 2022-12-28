@@ -27,7 +27,7 @@
                 <li>
                     <?= $this->Html->link(
                         'National Moderators',
-                        ['controller' => 'Pages', 'action' => 'info', '#' => 'national-moderators']
+                        ['controller' => 'Pages', 'action' => 'nationalModerators']
                     ) ?>
                 </li>
                 <li>
