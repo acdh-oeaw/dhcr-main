@@ -3,14 +3,15 @@
 
 ## Version 2022-12
  
-### New features
-- Course Alerts for new courses are available and working #15
-
-### Bug fixes / small changes
+### Small changes
+- Updated date to ISO-format in views
+- Show newest log entry on top
 - Added statistics for amount of outdated courses per country to course statistics
 - Added traffic light for moderator participation to users statistics
-- Updated date to ISO-Format in views
 
+### Bug fixes
+- Fixed subscribing for course alerts and editing preferences
+- Added unique for institution name; allow only one institution with the same name
 
 ## Version 2022-11/2
 
