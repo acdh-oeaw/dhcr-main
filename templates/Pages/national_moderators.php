@@ -30,8 +30,18 @@
         font-weight: 200;
     }
 </style>
-<p>The DHCR maintains a system of national moderators, who review newly entered courses, help with registration issues and are encouraged
-    to disseminate the DHCR initiative among institutions of their countries.</p>
+<h1>National Moderators</h1>
+<p></p>
+<p>
+    The course entries in the DH registry are moderated by a group of national moderators who review and approve
+    newly entered courses, provide assistance with registration issues and disseminate the DHCR activities among
+    the institutions of their countries.
+</p>
+<p>
+    In case there is no moderator listed for your country, please contact one of
+    <?= $this->Html->link('the administrators', ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
+    if you have any questions.
+</p>
 
 <?php
 foreach ($moderatorProfiles as $moderatorProfile) {
@@ -43,6 +53,7 @@ foreach ($moderatorProfiles as $moderatorProfile) {
             <div class="profile-body">
                 <div class="profile-bio">
                     <h3><?= $moderatorProfile->country->name ?></h3>
+                    <p></p>
                     <div class="row">
                         <div class="col-md-5 text-center">
                             <table>

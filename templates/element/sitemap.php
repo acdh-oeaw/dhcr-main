@@ -27,12 +27,12 @@
                 <li>
                     <?= $this->Html->link(
                         'National Moderators',
-                        ['controller' => 'Pages', 'action' => 'info', '#' => 'national-moderators']
+                        ['controller' => 'Pages', 'action' => 'nationalModerators']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Contact Us (old)',
+                        'Contact Us',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']
                     ) ?>
                 </li>

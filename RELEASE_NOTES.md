@@ -13,6 +13,14 @@
 - Fixed subscribing for course alerts and editing preferences
 - Added unique for institution name; allow only one institution with the same name
 
+
+## Version 2022-11/3
+
+### Bug fixes
+- Fix: Adding moderator to list, without photo upload
+- Fix: Move moderator list to separate page, to avoid acordeon problem with a huge amount of content
+
+
 ## Version 2022-11/2
 
 ### New features

@@ -110,6 +110,11 @@
                         <th align="left" style="padding: 5px">Show in National Moderators List:</th>
                         <td style="padding: 5px"><span class="glyphicon glyphicon-<?= ($viewedUser->mod_profile) ? 'ok' : 'remove' ?>"></span></td>
                     </tr>
+                </table>
+            <?php } ?>
+            <?php if ($user->is_admin && ($viewedUser->user_role_id == 2 || $viewedUser->user_admin)) { // only admin can see moderator profile settings
+            ?>
+                <table>
                     <tr>
                         <th align="left" style="padding: 5px">Profile photo:</th>
                         <td style="padding: 5px"><?php
@@ -120,6 +125,7 @@
                                                     }
                                                     ?>
                     </tr>
+
                 </table>
             <?php } ?>
         </div>

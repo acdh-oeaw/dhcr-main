@@ -566,7 +566,8 @@ class UsersController extends AppController
                 $editUser->setAccess('active', true);
             }
 
-            if ($this->request->getData('photo')->getClientFilename() != '') {
+            $upload = $this->request->getUploadedFile('photo');
+            if ($upload !== null && $upload->getError() !== \UPLOAD_ERR_NO_FILE) {
                 $photoObject = $this->request->getData('photo');
                 $fileType = $photoObject->getClientMediaType();
                 $errorMessage = false;

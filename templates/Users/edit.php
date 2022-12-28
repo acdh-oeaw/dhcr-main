@@ -43,7 +43,9 @@
                     which is optional. As well, the information from the following fields (which can be edited above) are shown in the list of 
                     National Moderators: First Name, Last Name, Email Address, Institution, Country (based on institution), About.<p>';
                     echo $this->Form->control('mod_profile', ['label' => 'Show this user in the National Moderators List']);
-                    echo '<h4>Profile photo</h4><p></p>';
+                }
+                if ($user->is_admin && ($editUser->user_role_id == 2 || $editUser->user_admin)) {   // only admin can change moderator profile AND only when user is a moderator OR user_admin
+                    echo '<h3>Profile photo</h3><p></p>';
                     if (strlen($editUser->photo_url) > 0) {
                         // photo is present. show picture and delete option
                         echo $this->Html->Image('/uploads/user_photos/' . $editUser->photo_url, array('height' => '170', 'width' => '132'));
