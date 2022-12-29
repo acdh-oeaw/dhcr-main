@@ -71,7 +71,7 @@
                                 <td style="padding: 5px"><?= h($listedUser->university) ?></td>
                             <?php } ?>
                             <?php if ($users_view_type == 'Account Approval') { ?>
-                                <td style="padding: 5px"><?= $listedUser->created->timeAgoInWords(['format' => 'MMM d, YYY', 'end' => '+1 year']) ?></td>
+                                <td style="padding: 5px"><?= $listedUser->created->timeAgoInWords(['format' => 'yyyy-MM-dd', 'end' => '+1 year']) ?></td>
                             <?php } ?>
                         </tr>
                     <?php endforeach; ?>

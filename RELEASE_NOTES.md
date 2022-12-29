@@ -1,5 +1,19 @@
 # Release notes
 
+
+## Version 2022-12
+ 
+### Small changes
+- Updated date to ISO-format in views
+- Show newest log entry on top
+- Added statistics for amount of outdated courses per country to course statistics
+- Added traffic light for moderator participation to users statistics
+
+### Bug fixes
+- Fixed subscribing for course alerts and editing preferences
+- Added unique for institution name; allow only one institution with the same name
+
+
 ## Version 2022-11/3
 
 ### Bug fixes
@@ -8,7 +22,7 @@
 
 
 ## Version 2022-11/2
- 
+
 ### New features
 - National Moderators List
   - New public section, at the Info page, which shows information and photo of the moderators

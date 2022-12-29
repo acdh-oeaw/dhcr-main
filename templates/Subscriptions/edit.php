@@ -1,28 +1,27 @@
-<?php $this->start('page_head'); ?>
 <div class="title">
     <?php
     if ($isNew) {
-        echo '<h2>Complete your Subscription</h2>';
-        echo '<p>Please complete your subscription and submit the form below
-        to set up filters. Stay informed about new DH courses of your special interest.
-        Setting no filters will keep your informed about all new courses.';
-        echo '<br>';
-        echo 'You can manage your subscription at any time by accessing this page again.</p>';
+        echo '<h2>Complete your Course Alert</h2>';
+        echo '<p>Please complete your course alert and submit the form below to set up filters. Stay informed about 
+        new DH courses of your interest.';
+        echo '<ul><li>Setting no filters will keep your informed about all new courses. You still have to submit the form.</li>';
+        echo '<li>You can manage your course alert at any time by accessing this page again.</li></ul></p>';
     } else {
-        echo '<h2>Edit your Subscription.</h2>';
-        echo '<p>Update your subscription settings to stay informed about new DH courses of your interest.</p>';
+        echo '<h2>Edit your Course Alert</h2>';
+        echo '<p>Update your course alert settings to stay informed about new DH courses of your interest.';
+        echo '<ul><li>Setting no filters will keep your informed about all new courses.</li></ul></p>';
     }
     ?>
     <p>
-        To completely revoke your subscription, please click here:<br>
+        To completely revoke your course alert, please click here:
         <?= $this->Html->link(
-            'Delete my subscription',
+            'Delete my course alert',
             '/subscriptions/delete/' . $subscription->confirmation_key,
-            ['confirm' => 'Are you sure to delete your subscription?']
+            ['confirm' => 'Are you sure to delete your course alert?']
         ) ?>
     </p>
+    <p>&nbsp;</p>
 </div>
-<?php $this->end(); ?>
 <div class="subscriptions-form">
     <?= $this->Form->create($subscription) ?>
     <fieldset class="invisible">
@@ -54,8 +53,16 @@
         echo $this->element('dropdown_checkbox', ['fieldname' => 'tadirah_techniques._ids', 'label' => 'Techniques']);
         ?>
     </fieldset>
-    <?= $this->Form->submit('Submit', array(
-        'class' => 'small blue button right',
-    )) ?>
-    <?= $this->Form->end() ?>
+    <p>
+        <?php
+        if ($subscription['confirmed'] == 0) {
+            $submitText = 'Set Course Alert';
+        } else {
+            $submitText = 'Update Course Alert';
+        }
+        ?>
+        <?= $this->Form->submit($submitText, array(
+            'class' => 'small blue button',
+        )) ?>
+        <?= $this->Form->end() ?>
 </div>

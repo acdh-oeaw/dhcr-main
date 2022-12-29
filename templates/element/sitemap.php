@@ -102,19 +102,19 @@
             <ul class="follow">
                 <li>
                     <?= $this->Html->link(
+                        'Course Alert',
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']
+                    ) ?>
+                </li>
+                <li>
+                    <?= $this->Html->link(
                         'Social Media',
                         ['controller' => 'Pages', 'action' => 'news', '#' => 'social-media']
                     ) ?>
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'New Course Alert',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'Contributor Newsletter',
+                        'Contributor Mailing List',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'newsletter']
                     ) ?>
                 </li>

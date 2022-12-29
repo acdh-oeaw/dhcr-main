@@ -18,7 +18,7 @@ use Cake\I18n\FrozenTime;
         echo '</strong></font><br>';
     }
     $now = new FrozenTime('now');
-    echo '<p><u>Data updated at: ' . $now->i18nFormat('dd-MM-yyyy HH:mm') . ' UTC</u></p>';
+    echo '<p><u>Data updated at: ' . $now->i18nFormat('yyyy-MM-dd HH:mm') . ' UTC</u></p>';
     ?>
     <table width="100%">
         <tr>

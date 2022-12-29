@@ -40,7 +40,7 @@
                         <td align="left" style="padding: 5px"><?= h($logentry->subject) ?></td>
                         <td align="left" style="padding: 5px"><?= $this->Text->autoParagraph($logentry->description) ?></td>
                         <td align="left" style="padding: 5px"><?= ($logentry->cleared ? "Yes" : "No") ?></td>
-                        <td align="left" style="padding: 5px"><?= h($logentry->created->i18nFormat('dd-MM-yyyy HH:mm')) ?> UTC</td>
+                        <td align="left" style="padding: 5px"><?= h($logentry->created->i18nFormat('yyyy-MM-dd HH:mm')) ?> UTC</td>
                     </tr>
                     <tr>
                         <td colspan="8">

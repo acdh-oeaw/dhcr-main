@@ -1,17 +1,16 @@
 <div class="title">
-    <h2>Follow the DH Course Registry</h2>
+    <h2>Follow Us</h2>
     <p>Check the options below to learn how you can stay informed about new courses or the latest technical enhancements.</p>
 </div>
 <div id="accordeon">
     <div class="accordeon-item" id="course-alert">
         <h2><span>Course Alert</span></h2>
         <div class="item-content">
-            <p>Enter your e-mail address here to subscribe for new course alerts.</p>
-            <?= $this->Element('follow/subscription') ?>
+            <?= $this->Element('../Subscriptions/add') ?>
         </div>
     </div>
-    <div class="accordeon-item" id="news">
-        <h2><span>News on Social Media</span></h2>
+    <div class="accordeon-item" id="social-media">
+        <h2><span>Social Media</span></h2>
         <div class="item-content">
             <?= $this->Element('follow/social_media'); ?>
         </div>

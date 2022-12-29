@@ -2,64 +2,20 @@
 
 namespace App\Controller;
 
-use Cake\Core\Configure;
-use Cake\Http\Response;
-use Cake\Mailer\Mailer;
 use Cake\Mailer\MailerAwareTrait;
 
-/**
- * Subscriptions Controller
- *
- * @property \App\Model\Table\SubscriptionsTable $Subscriptions
- *
- * @method \App\Model\Entity\Subscription[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class SubscriptionsController extends AppController
 {
-
     use MailerAwareTrait;
-
 
     public function initialize(): void
     {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['*']);
+        $this->Authentication->allowUnauthenticated(['add', 'edit', 'delete']);
         $this->Authorization->skipAuthorization();
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null
-     */
-    /* TODO: implement as an admin method
-    public function index() {
-        $subscriptions = $this->paginate($this->Subscriptions);
-        $this->set(compact('subscriptions'));
-    }
-    */
-
-    /**
-     * View method
-     *
-     * @param string|null $id Subscription id.
-     * @return \Cake\Http\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    /*
-    public function view($key = null)
-    {
-        $subscription = $this->Subscriptions->findByConfirmationKey($key);
-        $this->set('subscription', $subscription);
-    }
-    */
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add(): Response
+    public function add()
     {
         $subscription = $this->Subscriptions->newEmptyEntity();
         if ($this->request->is('post')) {
@@ -70,36 +26,24 @@ class SubscriptionsController extends AppController
             ])->first();
             if (!empty($subscription)) {
                 $this->Flash->success(__('You already subscribed using this e-mail address. Please check your inbox to access your settings.'));
-                $this->getMailer('Subscription')
-                    ->send('access', ['subscription' => $subscription, 'isNew' => false]);
+                $this->getMailer('Subscription')->send('access', [$subscription]);
                 return $this->redirect('/');
             } else {
                 $data['confirmation_key'] = $this->Subscriptions->generateToken();
                 $subscription = $this->Subscriptions->newEntity($data);
                 if ($this->Subscriptions->save($subscription)) {
-                    $this->Flash->success(__('Your subscription has been saved, please check your inbox to confirm your subscription.'));
-                    $this->getMailer('Subscription')
-                        ->send('confirm', ['subscription' => $subscription]);
+                    $this->Flash->success(__('Your Course Alert has been saved, please check your inbox to confirm.'));
+                    $this->getMailer('Subscription')->send('confirm', [$subscription]);
                     return $this->redirect('/');
                 }
             }
-
-            $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be saved. Please, try again.'));
         }
-        $countries = $this->Subscriptions->Countries->find('list', [
-            'order' => ['Countries.name' => 'ASC']
-        ]);
+        $countries = $this->Subscriptions->Countries->find('list', ['order' => ['Countries.name' => 'ASC']]);
         $this->set(compact('subscription', 'countries'));
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $key Subscription id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit(string $key = null): Response
+    public function edit(string $key = null)
     {
         $subscription = $this->Subscriptions->find('all', [
             'conditions' => ['Subscriptions.confirmation_key' => $key],
@@ -107,7 +51,7 @@ class SubscriptionsController extends AppController
         ])->first();
 
         if (!$subscription) {
-            $this->Flash->set('Your subscription could not be found, please add one!');
+            $this->Flash->set('Your Course Alert could not be found, please add one!');
             return $this->redirect('/subscriptions/add');
         }
 
@@ -132,14 +76,14 @@ class SubscriptionsController extends AppController
             ]);
             if ($this->Subscriptions->save($subscription)) {
                 if ($isNew)
-                    $this->Flash->success(__('Your subscription is now complete and confirmed.'
-                        . 'You will receieve e-mail notifications, as soon new courses match your filters.'));
-                else $this->Flash->success(__('Your subscription settings have been updated.'));
+                    $this->Flash->success(__('Your Course Alert is now complete and confirmed.'
+                        . 'You will receive e-mail notifications, as soon new courses match your filters.'));
+                else $this->Flash->success(__('Your Course Alert settings have been updated.'));
                 $this->getMailer('Subscription')
-                    ->send('access', ['subscription' => $subscription, 'isNew' => $isNew]);
+                    ->send('access', [$subscription]);
                 return $this->redirect('/');
             }
-            $this->Flash->error(__('Your subscription could not be saved. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be saved. Please, try again.'));
         }
         $disciplines = $this->Subscriptions->Disciplines->find('list', ['order' => ['Disciplines.name' => 'ASC']]);
         $languages = $this->Subscriptions->Languages->find('list', ['order' => ['Languages.name' => 'ASC']]);
@@ -159,24 +103,17 @@ class SubscriptionsController extends AppController
         ));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Subscription id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete(string $key = null): void
     {
         $subscription = $this->Subscriptions->findByConfirmationKey($key)->first();
 
         if ($subscription and $this->Subscriptions->delete($subscription)) {
             $this->Subscriptions->delete($subscription);
-            $this->Flash->success(__('Your subscription has been deleted.'));
+            $this->Flash->success(__('Your Course Alert has been deleted.'));
         } elseif (!$subscription) {
-            $this->Flash->error(__('Your subscription could not be found on the database any more'));
+            $this->Flash->error(__('Your Course Alert could not be found in the database any more'));
         } else {
-            $this->Flash->error(__('Your subscription could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Your Course Alert could not be deleted. Please, try again.'));
         }
 
         $this->redirect('/');

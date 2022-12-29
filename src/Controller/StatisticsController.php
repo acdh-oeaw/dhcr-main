@@ -71,6 +71,36 @@ class StatisticsController extends AppController
         return $archivedSoonCourseCounts;
     }
 
+    private function getOutdatedCoursesPerCountries()
+    {
+        $items = $this->Courses->find()
+            ->where([
+                'active' => 1,
+                'deleted' => 0,
+                'updated >=' => new FrozenTime('-24 Months'),
+                'updated <' => new FrozenTime('-16 Months'),
+                'approved' => 1
+            ])
+            ->group('country_id')
+            ->contain(['Countries'])
+            ->order(['Countries.name' => 'asc']);
+        $OutdatedCoursesPerCountries = [];
+        foreach ($items as $item) {
+            $result = $this->Courses->find()
+                ->where([
+                    'country_id' => $item->country_id,
+                    'active' => 1,
+                    'deleted' => 0,
+                    'updated >=' => new FrozenTime('-24 Months'),
+                    'updated <' => new FrozenTime('-16 Months'),
+                    'approved' => 1
+                ])
+                ->count();
+            $OutdatedCoursesPerCountries[$item->country->name] = $result;
+        }
+        return $OutdatedCoursesPerCountries;
+    }
+
     private function getNewAddedCourses($amount)
     {
         // @PARAM $amount integer, amount of course objects that are returned
@@ -172,10 +202,11 @@ class StatisticsController extends AppController
         [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
         $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));
         $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));
+        $outdatedCoursesPerCountries = $this->getOutdatedCoursesPerCountries();
         $newAddedCourses = $this->getNewAddedCourses(15);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
-        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts', 'newAddedCourses'));
+        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts', 'outdatedCoursesPerCountries', 'newAddedCourses'));
     }
 
     public function userStatistics()

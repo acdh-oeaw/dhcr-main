@@ -175,6 +175,13 @@ jobs:
             scheme: "HTTP"
             probeType: "httpGet"
           EOF
+      - name: 'Save config for debugging'
+        uses: actions/upload-artifact@v3
+        with:
+          name: auto-deploy-yamls
+          path: |
+            auto-deploy-app-values.yaml
+          retention-days: 5
       - name: Set environment variables
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}     
