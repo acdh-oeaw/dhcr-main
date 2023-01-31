@@ -41,5 +41,18 @@
             'escape' => false
         ]
     );
+    echo $this->Html->link(
+        '<p></p><span class="glyphicon glyphicon-wrench"></span><br>
+            App Info<p>&nbsp;</p>',
+        [
+            'controller' => 'statistics',
+            'action' => 'appInfo'
+        ],
+        [
+            'class' => 'blue button',
+            'title' => 'App Info',
+            'escape' => false
+        ]
+    );
     ?>
 </div>

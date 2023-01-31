@@ -371,4 +371,19 @@ class StatisticsController extends AppController
 
         $this->set(compact('user')); // required for contributors menu
     }
+
+    public function appInfo()
+    {
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($user);
+        // set breadcrums
+        $breadcrumTitles[0] = 'Statistics';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'Statistics';
+        $breadcrumTitles[1] = 'App Info';
+        $breadcrumControllers[1] = 'Statistics';
+        $breadcrumActions[1] = 'appInfo';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $this->set(compact('user')); // required for contributors menu
+    }
 }

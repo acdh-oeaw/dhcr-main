@@ -294,6 +294,9 @@
                     <li>
                         <?= $this->Html->link('User Statistics', ['controller' => 'Statistics', 'action' => 'userStatistics']) ?>
                     </li>
+                    <li>
+                        <?= $this->Html->link('App Info', ['controller' => 'Statistics', 'action' => 'appInfo']) ?>
+                    </li>
                 </ul>
             </li>
         <?php } ?>

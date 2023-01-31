@@ -132,6 +132,16 @@ class UserPolicy
         return false;
     }
 
+    public function canAppInfo(IdentityInterface $user)
+    {
+        // only for admin
+        if ($user->is_admin) {
+            return true;
+        }
+        return false;
+    }
+
+
     public function canModerators(IdentityInterface $user)
     {
         // only for admin
