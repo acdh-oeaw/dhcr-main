@@ -1,5 +1,13 @@
 # Release notes
 
+## Version 2023-dev
+ 
+### Small changes
+- ...
+
+### Bug fixes
+- ...
+
 
 ## Version 2022-12
  
