@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2023-dev
+## Version 2023-02
 
 ### Small changes
 - Added App Info section to statistics dashboard
