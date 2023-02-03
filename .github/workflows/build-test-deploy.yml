@@ -104,7 +104,7 @@ jobs:
     env:
       SECRETS_CONTEXT: ${{ toJson(secrets) }}
     steps:
-      - uses: actions/checkout@v3.0.2
+      - uses: actions/checkout@v3
         name: Checkout
       - name: Kubernetes credentials
         run: |
@@ -120,7 +120,7 @@ jobs:
           kubectl get pod
       - name: Create tags based on git data
         id: meta
-        uses: docker/metadata-action@v4.0.1
+        uses: docker/metadata-action@v4
         with:
           images: |
             ${{ env.DOCKER_TAG }}/${{ github.ref_name }}
@@ -209,3 +209,7 @@ jobs:
             --values auto-deploy-app-values.yaml --install --atomic --wait \
             --set application.secretName="${{ secrets.APP_NAME }}-${{ github.ref_name }}" ${{ secrets.HELM_UPGRADE_EXTRA_ARGS }} \
           .github/auto-deploy-app
+      - name: Clear cache
+        uses: MyAlbum/purge-cache@v1
+        with:
+          max-age: 180
