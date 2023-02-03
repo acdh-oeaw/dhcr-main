@@ -385,5 +385,10 @@ class StatisticsController extends AppController
         $breadcrumActions[1] = 'appInfo';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $this->set(compact('user')); // required for contributors menu
+
+        // generate error
+        if ($this->request->getData('photo')->getClientFilename() != '') {
+            $x = 'x';
+        }
     }
 }
