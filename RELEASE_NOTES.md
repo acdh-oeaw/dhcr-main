@@ -4,6 +4,7 @@
 
 ### Small changes
 - Added App Info section to statistics dashboard
+- Optimized sorting in Pending Invitations
 
 ### Bug fixes
 - ...
