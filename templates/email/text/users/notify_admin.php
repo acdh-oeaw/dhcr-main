@@ -26,5 +26,5 @@ User Overview
 
 
 Click here to start the approval process,
-(valid 7 days until <?= $user->approval_token_expires->i18nFormat('yyyy-MMM-dd'); ?>):
+(valid 7 days until <?= $user->approval_token_expires->i18nFormat('yyyy-MM-dd'); ?>):
 <?= Configure::read('dhcr.baseUrl') . 'users/approve/' . $user->approval_token ?>
