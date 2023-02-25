@@ -4,9 +4,12 @@ namespace App\Controller;
 
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Core\Configure;
+use Cake\Mailer\MailerAwareTrait;
 
 class CoursesController extends AppController
 {
+    use MailerAwareTrait;
+
     public $modelClass = 'DhcrCore.Courses';
     public $Courses = null;
     public const SKIP_AUTHORIZATION = [
@@ -127,6 +130,16 @@ class CoursesController extends AppController
             $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
             $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
             if ($this->Courses->save($course)) {
+                // notify moderator to approve new course
+                $this->loadModel('Users');
+                $courseData = $this->Courses->find()
+                    ->where(['Courses.id' => $course->id])
+                    ->contain(['Institutions', 'CourseTypes'])
+                    ->first();
+                $admins = $this->Users->getModerators(null, true);
+                foreach ($admins as $admin) {
+                    $this->getMailer('Course')->send('notifyAdmin', [$courseData, $admin->email]);
+                }
                 $this->Flash->success(__('The course has been added.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }

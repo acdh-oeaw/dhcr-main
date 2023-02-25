@@ -2,18 +2,17 @@
 
 ## Version 2023-02
 
-### Small changes
+### Changes
+- Implemented notification mail for moderators when a new course is added #54 
 - Added App Info section to statistics dashboard
 - Optimized sorting in Pending Invitations
-
-### Bug fixes
-- ...
+- Changed date format in user approval mail to ISO format
 
 
 ## Version 2022-12
  
 ### Small changes
-- Updated date to ISO-format in views
+- Updated date to ISO format in views
 - Show newest log entry on top
 - Added statistics for amount of outdated courses per country to course statistics
 - Added traffic light for moderator participation to users statistics
