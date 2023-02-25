@@ -7,7 +7,8 @@
 - Added App Info section to statistics dashboard
 - Optimized sorting in Pending Invitations
 - Changed date format in user approval mail to ISO format
-
+- Migrated framework to the latest version (4.4)
+- Migrated application to PHP 8.1
 
 ## Version 2022-12
  
