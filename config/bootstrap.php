@@ -186,14 +186,19 @@ ServerRequest::addDetector('tablet', function ($request) {
  * locale specific date formats. For details see
  * @link https://book.cakephp.org/3.0/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
  */
-Type::build('time')
-    ->useImmutable();
-Type::build('date')
-    ->useImmutable();
-Type::build('datetime')
-    ->useImmutable();
-Type::build('timestamp')
-    ->useImmutable();
+
+/*  PA 25-02-2023: Disabled the use of immutable
+*   Configuring immutable or mutable classes is deprecated and immutable classes will be the permanent configuration in 5.0. 
+*   Calling `useImmutable()` is unnecessary.
+*/
+// Type::build('time')
+//     ->useImmutable();
+// Type::build('date')
+//     ->useImmutable();
+// Type::build('datetime')
+//     ->useImmutable();
+// Type::build('timestamp')
+//     ->useImmutable();
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
