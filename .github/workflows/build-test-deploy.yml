@@ -212,4 +212,4 @@ jobs:
       - name: Clear cache
         uses: MyAlbum/purge-cache@v1
         with:
-          max-age: 180
+          max-age: 60
