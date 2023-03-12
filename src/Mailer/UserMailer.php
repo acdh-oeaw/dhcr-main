@@ -41,7 +41,7 @@ class UserMailer extends AppMailer
     {
         $this
             ->setTo($this->preventMailbombing($adminAddress))
-            ->setCc(env('APP_MAIL_DEFAULT_CC'))
+            ->setCc(getenv('APP_MAIL_DEFAULT_CC'))
             ->setSubject('New Account Request')
             ->setViewVars(['user' => $user])
             ->viewBuilder()->setTemplate('users/notify_admin');
