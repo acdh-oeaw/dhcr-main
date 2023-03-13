@@ -15,6 +15,7 @@
 - Added App Info section to statistics dashboard
 - Changed "active" to "published" in all course lists
 - Enabled debug mode for dev branche
+- Added cc for notification mail of new user account
 
 
 ## Version 2022-12
