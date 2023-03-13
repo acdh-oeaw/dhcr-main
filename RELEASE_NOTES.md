@@ -3,12 +3,18 @@
 ## Version 2023-02
 
 ### Changes
+- Migrated API v1 to the latest version of the framework (4.4)
+- Migrated API v2 to the latest version of the framework (4.4)
+- Migrated main application to the latest version of the framework (4.4)
+- Migrated all parts of the application to PHP 8.1
 - Implemented notification mail for moderators when a new course is added #54 
-- Added App Info section to statistics dashboard
-- Optimized sorting in Pending Invitations
+
+### Small changes
 - Changed date format in user approval mail to ISO format
-- Migrated framework to the latest version (4.4)
-- Migrated application to PHP 8.1
+- Optimized sorting in Pending Invitations
+- Added App Info section to statistics dashboard
+- Changed "active" to "published" in all course lists
+
 
 ## Version 2022-12
  
