@@ -14,6 +14,7 @@
 - Optimized sorting in Pending Invitations
 - Added App Info section to statistics dashboard
 - Changed "active" to "published" in all course lists
+- Enabled debug mode for dev branche
 
 
 ## Version 2022-12
