@@ -4,7 +4,7 @@ use Cake\Core\Configure;
 ?>
 Hello Admin,
 
-a new course has been entered in the DHCR and is waiting for approval!
+A new course has been entered in the DHCR and is waiting for approval!
 
 Course Overview
 • Course Name: <?= $course->name ?>
