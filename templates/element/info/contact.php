@@ -35,52 +35,7 @@
 <p>Before you contact us, please check the
     <?= $this->Html->link('FAQ page', ['controller' => 'faqQuestions', 'action' => 'faqList', 'public']) ?>
     to see if your enquiry has already been answered.</p>
-<?php /*
-<?php
-/*
-foreach ($adminProfiles as $adminProfile) {
-    $displayEmail = $adminProfile->email;
-    $displayEmail = str_replace('@', '(at)', $displayEmail);
-?>
-    <div class="container">
-        <div class="profile card">
-            <div class="profile-body">
-                <div class="profile-bio">
-                    <h3><?= $adminProfile->country->name ?></h3>
-                    <div class="row">
-                        <div class="col-md-5 text-center">
-                            <table>
-                                <tr>
-                                    <td style="padding: 15px" width="150px">
-                                        <?php
-                                        if ($adminProfile->photo_url != NULL) {
-                                            echo $this->Html->Image('/uploads/user_photos/' . $adminProfile->photo_url, array('height' => '170', 'width' => '132'));
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <h2><?= $adminProfile->first_name, ' ', $adminProfile->last_name ?></h2>
-                                        <p></p>
-                                        <p><strong><?= $adminProfile->institution->name ?></strong><br>
-                                            <strong><?= $displayEmail ?></strong>
-                                        </p>
-                                    </td>
-                                </tr>
-                            </table>
-                            <?= $this->Text->autoParagraph(h($adminProfile->about)) ?>
-                        </div>
-                        <div class="col-md-7">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <p>&nbsp;</p>
-<?php
-}
-?>
-*/ ?>
+
 <div class="css-columns admins">
     <p>
         <?php
