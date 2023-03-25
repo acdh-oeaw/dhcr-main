@@ -21,7 +21,6 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Mailer\MailerAwareTrait;
 use Cake\View\Exception\MissingTemplateException;
-use Cake\Mailer\Mailer;
 
 /**
  * Static content controller
