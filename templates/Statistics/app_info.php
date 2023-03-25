@@ -10,6 +10,8 @@ use Cake\Core\Configure;
     <p><?php include('../VERSION.txt'); ?></p>
     <h3>PHP Version</h3>
     <p><?= phpversion() ?></p>
+    <h3>CakePHP Framework Version</h3>
+    <p><?= Configure::version() ?></p>
     <h3>Debug Mode</h3>
     <p>
         <?php
