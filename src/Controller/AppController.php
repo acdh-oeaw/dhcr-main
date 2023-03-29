@@ -27,19 +27,16 @@ use Cake\ORM\TableRegistry;
  * Add your application-wide methods in the class below, your controllers
  * will inherit them.
  *
- * @link https://book.cakephp.org/3.0/en/controllers.html#the-app-controller
+ * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
  */
 class AppController extends Controller
 {
-
-
-
     /**
      * Initialization hook method.
      *
      * Use this method to add common initialization code like loading components.
      *
-     * e.g. `$this->loadComponent('Security');`
+     * e.g. `$this->loadComponent('FormProtection');`
      *
      * @return void
      */
@@ -60,8 +57,6 @@ class AppController extends Controller
         ]);
     }
 
-
-
     public function beforeFilter(EventInterface $event)
     {
         $result = $this->Authentication->getResult();
@@ -80,7 +75,6 @@ class AppController extends Controller
         // we must RETURN the Response object here for the redirect to take effect
         return parent::beforeFilter($event);
     }
-
 
     protected function _checkCaptcha(&$errors = array()): bool
     {
@@ -112,7 +106,6 @@ class AppController extends Controller
         if (!empty($result['success'])) return true;
         return false;
     }
-
 
     /** Renew Auth session on pageload due to possible status or profile changes.
      * We might configure the Session Authenticator ['identify' => true] in App\Application,
