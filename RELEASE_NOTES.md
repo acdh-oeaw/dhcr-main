@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2023-02 
+## Version 2023-02
 
 ### Changes
 - Migrated API v1 to the latest version of the framework (4.4)
