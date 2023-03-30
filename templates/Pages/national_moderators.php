@@ -38,9 +38,9 @@
     the institutions of their countries.
 </p>
 <p>
-    In case there is no moderator listed for your country, please contact one of
-    <?= $this->Html->link('the administrators', ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
-    if you have any questions.
+    In case there is no moderator listed for your country, please check the
+    <?= $this->Html->link('contact us', ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']) ?>
+    section.
 </p>
 
 <?php

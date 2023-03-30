@@ -6,6 +6,7 @@
 - x
 
 ### Small changes
+- Updated explanation at contact us and national moderators to point to the new helpdesk email address
 - Added explanation at add/edit course for the case an institution is not in the list
 
 ### Bug fixes
