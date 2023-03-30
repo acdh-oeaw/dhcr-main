@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2023-02 
+## Version 2023-02
 
 ### Changes
 - Implemented notification mail for moderators when a new course is waiting for approval #54 
