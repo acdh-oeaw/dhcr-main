@@ -28,13 +28,15 @@
                 ?>
                 <p>For <strong><u>recurring</u></strong> start dates, please enter all dates over one full year and check the box "Recurring".</p>
                 <p>A <strong><u>non-recurring</u></strong> course will be removed from the public list 16 months after the last date has
-                been expired. Multiple dates can be entered.</p>
+                    been expired. Multiple dates can be entered.</p>
                 <?php
                 echo $this->Form->control('recurring', ['label' => 'Recurring (Does the course start on the same date(s) next year)?', 'default' => false]);
                 echo '<p>&nbsp;</p>';
                 echo $this->Form->control('duration', ['label' => 'Duration*']);
                 echo $this->Form->control('course_duration_unit_id', ['label' => 'Duration type*', 'options' => $course_duration_units, 'empty' => true]);
                 echo $this->Form->control('institution_id', ['label' => 'Institution*', 'options' => $institutions, 'default' => $user->institution_id]);
+                echo '<p>If your institution is not listed, please contact your '
+                    . $this->Html->link('national moderator', ['controller' => 'Pages', 'action' => 'nationalModerators']) . '.</p>';
                 echo $this->Form->control('department', ['label' => 'Department*']);
                 echo $this->Form->hidden('lon', ['id' => 'lon', 'default' => $mapInit['lon']]);
                 echo $this->Form->hidden('lat', ['id' => 'lat', 'default' => $mapInit['lat']]);
