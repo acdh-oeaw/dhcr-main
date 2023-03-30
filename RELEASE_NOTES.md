@@ -3,19 +3,24 @@
 ## Version 2023-02 
 
 ### Changes
-- Migrated API v1 to the latest version of the framework (4.4)
-- Migrated API v2 to the latest version of the framework (4.4)
-- Migrated main application to the latest version of the framework (4.4)
-- Migrated all parts of the application to PHP 8.1
-- Implemented notification mail for moderators when a new course is added #54 
+- Implemented notification mail for moderators when a new course is waiting for approval #54 
+- Migrated API v1
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
+- Migrated API v2
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
+- Migrated the main application [dhcr-main]
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
 
 ### Small changes
 - Changed date format in user approval mail to ISO format
+- Added App Info section (shows version numbers of dependencies) to statistics dashboard
+- Added CC (legacy logging) for user approval mail
+- Enabled debug mode for dev instance
+- Changed column name "active" to "published" in all the course lists in the admin area
 - Optimized sorting in Pending Invitations
-- Added App Info section to statistics dashboard
-- Changed "active" to "published" in all course lists
-- Enabled debug mode for dev branche
-- Added cc for notification mail of new user account
 - Added release dates for all previous versions to release notes
 
 
