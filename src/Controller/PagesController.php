@@ -51,12 +51,7 @@ class PagesController extends AppController
 
     public function info()
     {
-        $this->loadModel('Users');
-        $userAdmins = $this->Users->find('all', array(
-            'contain' => array(),
-            'conditions' => array('Users.user_admin' => 1)
-        ));
-        $this->set(compact('userAdmins'));
+        // empty
     }
 
     public function nationalModerators()
