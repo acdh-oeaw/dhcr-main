@@ -16,9 +16,11 @@
 - Changed "active" to "published" in all course lists
 - Enabled debug mode for dev branche
 - Added cc for notification mail of new user account
+- Added release dates for all previous versions to release notes
 
 
 ## Version 2022-12
+*Release date: 2022-12-29*
  
 ### Small changes
 - Updated date to ISO format in views
@@ -32,6 +34,7 @@
 
 
 ## Version 2022-11/3
+*Release date: 2022-12-28*
 
 ### Bug fixes
 - Fix: Adding moderator to list, without photo upload
@@ -39,6 +42,7 @@
 
 
 ## Version 2022-11/2
+*Release date: 2022-12-06*
 
 ### New features
 - National Moderators List
@@ -53,6 +57,7 @@
 
 
 ## Version 2022-11/1
+*Release date: 2022-11-10*
 
 ### New features
 - FAQ questions and answers are added and shown for public, contributors and moderators
@@ -62,6 +67,7 @@
 
 
 ## Version 2022-10
+*Release date: 2022-10-31*
 
 ### New features
 - Added list of moderators to the Contributor Network Dashboard (for admins only).
@@ -73,6 +79,7 @@
 
 
 ## Version 2022-09
+*Release date: 2022-10-27*
 
 ### New features
 - FAQ Questions (the lists with questions are currently hidden, until content is added)
@@ -109,6 +116,7 @@
 
 
 ## Version 2022-08
+*Release date: 2022-08-22*
 
 ### New features
 - Transfer Course
@@ -136,6 +144,8 @@
 
 
 ## Version 2022-05
+*Release date: 2022-05-27*
+
 This is a major release which contains a lot of big changes. The complete login area is new implemented as well as several backend processes. Also new features were added.
 
 ### Key points
