@@ -32,13 +32,6 @@
             <?= $this->Element('info/purpose') ?>
         </div>
     </div>
-    <div class="accordeon-item" id="national-moderators">
-        <h2><span>National Moderators</span></h2>
-        <div class="item-content">
-            You can find the National Moderator List
-            <?= $this->Html->link('here', ['controller' => 'Pages', 'action' => 'nationalModerators']) ?>.
-        </div>
-    </div>
     <div class="accordeon-item" id="contact">
         <h2><span>Contact Us</span></h2>
         <div class="item-content">
