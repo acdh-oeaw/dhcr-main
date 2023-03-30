@@ -538,6 +538,12 @@ class UsersController extends AppController
         $editUser = $this->Users->get($id, ['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($editUser);
+        if ($user->is_admin) {
+            $editUser->setAccess('user_role_id', true);
+            $editUser->setAccess('is_admin', true);
+            $editUser->setAccess('user_admin', true);
+            $editUser->setAccess('active', true);
+        }
         $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
 
         if ($photo_action == 'delete_photo' && $user->is_admin) {
@@ -559,13 +565,6 @@ class UsersController extends AppController
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($user->is_admin) {
-                $editUser->setAccess('user_role_id', true);
-                $editUser->setAccess('is_admin', true);
-                $editUser->setAccess('user_admin', true);
-                $editUser->setAccess('active', true);
-            }
-
             $upload = $this->request->getUploadedFile('photo');
             if ($upload !== null && $upload->getError() !== \UPLOAD_ERR_NO_FILE) {
                 $photoObject = $this->request->getData('photo');

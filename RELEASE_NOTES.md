@@ -8,6 +8,8 @@
 ### Small changes
 - Added explanation at add/edit course for the case an institution is not in the list
 
+### Bug fixes
+- Fix: User edit page does not save data when changing user roles #60 
 
 
 ## Version 2023-02
