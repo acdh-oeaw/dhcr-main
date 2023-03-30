@@ -440,8 +440,8 @@ class UsersController extends AppController
             ])
                 ->first();
             if (!$approvingUser) {
-                $this->Flash->set('Token invalid. Please check your dashboard.');
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'approve']);
+                $this->Flash->set('Token invalid. Maybe the user is already approved?');
+                return $this->redirect(['controller' => 'Users', 'action' => 'approve']);
             }
         }
         if (isset($approvingUser)) {    // the specified user exists

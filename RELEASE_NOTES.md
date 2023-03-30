@@ -10,7 +10,8 @@
 - Added explanation at add/edit course for the case an institution is not in the list
 
 ### Bug fixes
-- Fix: User edit page does not save data when changing user roles #60 
+- Fix: User edit page does not save data when changing user roles #60
+- Fix: Confusing UI response on instant new user account approval #64 
 
 
 ## Version 2023-02
