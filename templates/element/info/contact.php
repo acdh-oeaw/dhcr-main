@@ -1,3 +1,8 @@
+<h3>National Moderators</h3>
+<p>Click
+    <?= $this->Html->link('here', ['controller' => 'Pages', 'action' => 'nationalModerators']) ?>
+    for an overview of all national moderators.
+</p>
 <h3>Administrators</h3>
 <p>For technical questions or yet not moderated countries, please seek contact to the administration board.</p>
 <p>Before you contact us, please check the
