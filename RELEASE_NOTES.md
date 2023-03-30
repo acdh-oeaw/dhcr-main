@@ -6,7 +6,7 @@
 - x
 
 ### Small changes
-- y
+- Added explanation at add/edit course for the case an institution is not in the list
 
 
 
