@@ -6,11 +6,13 @@
 - x
 
 ### Small changes
-- Updated explanation at contact us and national moderators to point to the new helpdesk email address
-- Added explanation at add/edit course for the case an institution is not in the list
+- Updated explanation at contact us and national moderators to point to the new helpdesk email address #42
+- Added explanation at add/edit course for the case an institution is not in the list #58
+- Changed from and cc email addresses to new stucture #42
+- Introduced "reply to" email address #42
 
 ### Bug fixes
-- Fix: User edit page does not save data when changing user roles #60
+- Fix: User edit page does not save data when changing user role #60
 - Fix: Confusing UI response on instant new user account approval #64 
 
 
