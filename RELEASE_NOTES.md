@@ -10,6 +10,7 @@
 - Added explanation at add/edit course for the case an institution is not in the list #58
 - Changed from and cc email addresses to new stucture #42
 - Introduced "reply to" email address #42
+- Upgraded dependencies to recent versions
 
 ### Bug fixes
 - Fix: User edit page does not save data when changing user role #60
