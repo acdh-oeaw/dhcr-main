@@ -891,7 +891,8 @@ class UsersController extends AppController
             $messageSubject = '[DH Course Registry] ' . $inviteMessage->subject;
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
-                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                $mailer->setFrom(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setReplyTo([env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setCc(env('APP_MAIL_DEFAULT_CC'))
                     ->setBcc($user->email)
