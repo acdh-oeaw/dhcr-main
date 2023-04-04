@@ -347,11 +347,13 @@ class UsersController extends AppController
             }
         }
         if ($token) {
-            $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
+            // the emailtemplate, used below needs the institution name to be available
+            $user = $this->Users->find()->where(['email_token' => $token])->contain(['Institutions'])->first();
             if ($user) {
                 // handle new users
-                if (!$user->email_verified)
+                if (!$user->email_verified) {
                     $this->Users->notifyAdmins($user);
+                }
                 $user->email = $user->new_email;
                 $user->new_email = null;
                 $user->email_token = null;

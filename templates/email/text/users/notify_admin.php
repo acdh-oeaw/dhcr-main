@@ -21,12 +21,10 @@ User Overview
 • Email: <?= $user->email ?>
 
 • About: <?= $user->about ?>
-
 <?php
-// The institution object is not available here
-// if (!empty($user->institution_id)) {
-//     echo '• Affiliation:  ' . $user->institution->name;
-// }
+if (!empty($user->institution_id)) {
+    echo '• Affiliation:  ' . $user->institution->name;
+}
 ?>
 
 Click here to start the approval process,
