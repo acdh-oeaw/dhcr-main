@@ -249,9 +249,7 @@ return [
             'from' => env('APP_MAIL_DEFAULT_FROM'),
             'replyTo' => [env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'],
             'headerCharset' => 'utf-8',
-            // TODO: put a team email address here
             'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
-            // what about default cC?
             'emailFormat' => 'text',
             'template' => 'default',
             'layout' => 'default'
