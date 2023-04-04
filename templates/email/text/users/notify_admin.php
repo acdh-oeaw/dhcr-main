@@ -7,8 +7,8 @@ Hello Admin,
 a new user has registered at the DHCR and is waiting for approval of the new account!
 In first place, you should now check the user's eligibility.
 
-<?php if (empty($user->institution)) : ?>
-    The user could not find their organisation on our list and therefore indicated the following to be added:
+<?php if (empty($user->institution_id)) : ?>
+    The user could not find their organisation on the list and therefore indicated the following to be added:
     `<?= $user->university ?>`
 
     Please add the city record first, if it does not exist.
@@ -22,7 +22,7 @@ User Overview
 
 • About: <?= $user->about ?>
 
-<?php if (!empty($user->institution)) echo '• Affiliation:  ' . $user->institution->name; ?>
+<?php if (!empty($user->institution_id)) echo '• Affiliation:  ' . $user->institution->name; ?>
 
 
 Click here to start the approval process,

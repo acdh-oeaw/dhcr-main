@@ -13,7 +13,8 @@
 
 ### Bug fixes
 - Fix: User edit page does not save data when changing user role #60
-- Fix: Confusing UI response on instant new user account approval #64 
+- Fix: Confusing UI response on instant new user account approval #64
+- Fix: Don't show alternative field in new user account approval mail, when user selected an institution
 
 
 ## Version 2023-02
