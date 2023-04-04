@@ -43,7 +43,8 @@ $('#password').attr('type', 'password');
         'type' => 'textarea',
         'placeholder' => 'If you cannot find your affiliation in the dropdown list above, we need the country, city and name of your organisation provided here instead.'
     ]);
-    echo $this->Form->control('email', ['placeholder' => 'Preferably, use your institutional address']);
+    echo $this->Form->control('email', [
+        'label' => 'Institutional Email Address*']);
     $this->Form->setTemplates([
         'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>
         <i class="far fa-eye" id="togglePassword">reveal password</i>'
