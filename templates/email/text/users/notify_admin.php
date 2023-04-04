@@ -22,8 +22,12 @@ User Overview
 
 • About: <?= $user->about ?>
 
-<?php if (!empty($user->institution_id)) echo '• Affiliation:  ' . $user->institution->name; ?>
-
+<?php
+// The institution object is not available here
+// if (!empty($user->institution_id)) {
+//     echo '• Affiliation:  ' . $user->institution->name;
+// }
+?>
 
 Click here to start the approval process,
 (valid 7 days until <?= $user->approval_token_expires->i18nFormat('yyyy-MM-dd'); ?>):
