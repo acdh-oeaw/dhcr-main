@@ -24,7 +24,7 @@ User Overview
 
 <?php
 if (!empty($user->institution_id)) {
-    echo "\n• Affiliation:  " .$user->institution->name ."\n\n";
+    echo "• Affiliation:  " .$user->institution->name ."\n\n";
 }
 ?>
 
