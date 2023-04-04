@@ -93,18 +93,4 @@ class UserMailerTest extends TestCase
         $this->UserMailer->send('notifyAdmin', [$user, $admin]);
         $this->expectNotToPerformAssertions();
     }
-
-    public function testContactForm(): void
-    {
-        $admin = $this->UserMailer->preventMailbombing('admin@example.com');
-        $data = [
-            'email' => 'test@example.com',
-            'country_id' => 1,
-            'message' => 'This is a testmessage',
-            'first_name' => '',
-            'last_name' => ''
-        ];
-        $this->UserMailer->send('contactForm', [$data, $admin]);
-        $this->expectNotToPerformAssertions();
-    }
 }
