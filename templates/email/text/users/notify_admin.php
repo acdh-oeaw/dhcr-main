@@ -21,9 +21,10 @@ User Overview
 • Email: <?= $user->email ?>
 
 • About: <?= $user->about ?>
+
 <?php
 if (!empty($user->institution_id)) {
-    echo '• Affiliation:  ' . $user->institution->name;
+    echo "\n• Affiliation:  " .$user->institution->name ."\n\n";
 }
 ?>
 
