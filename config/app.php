@@ -242,7 +242,7 @@ return [
             'from' => env('APP_MAIL_DEFAULT_FROM'),
             'replyTo' => [env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'],
             'headerCharset' => 'utf-8',
-            'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
+            'returnPath' => env('APP_MAIL_DEFAULT_CC'),
             'emailFormat' => 'text',
             'template' => 'default',
             'layout' => 'default'
