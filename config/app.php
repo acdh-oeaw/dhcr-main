@@ -7,18 +7,11 @@ return [
     'api' => [
         'baseUrl' => env('API_BASE_URL', '__API_BASE_URL__')
     ],
-    'ops' => [
-        'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
-    ],
     'map' => [
         'apiKey'    => env('MAP_API_KEY', '__MAP_API_KEY__')
     ],
-
     'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),
     'reCaptchaPrivateKey' => env('RECAPTCHA_PRIVATE_KEY', '__RECAPTCHA_PRIVATE_KEY__'),
-
-
-
 
     /**
      * Debug Level:
