@@ -64,8 +64,6 @@ class SubscriptionMailerTest extends TestCase
         return $table->getSubscriptionCourses($subscription);
     }
 
-
-
     /**
      * Test access method
      *
