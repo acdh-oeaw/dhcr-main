@@ -49,17 +49,6 @@ class PagesControllerTest extends TestCase
     {
         $this->get('/info');
         $this->assertResponseOk();
-
-        $this->enableCsrfToken();
-        $this->enableRetainFlashMessages();
-        $this->post('/info', [
-            'email' => 'test@example.com',
-            'country_id' => 1,
-            'message' => 'This is a testmessage',
-            'first_name' => '',
-            'last_name' => ''
-        ]);
-        $this->assertFlashMessage('Your message has been sent.');
     }
 
     /**

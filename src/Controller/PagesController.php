@@ -21,7 +21,6 @@ use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
 use Cake\Mailer\MailerAwareTrait;
 use Cake\View\Exception\MissingTemplateException;
-use Cake\Mailer\Mailer;
 
 /**
  * Static content controller
@@ -57,66 +56,11 @@ class PagesController extends AppController
     public function info()
     {
         $this->loadModel('Users');
-        $this->loadModel('DhcrCore.Countries');
-        $this->loadModel('Emails');
-
-        $data = $this->request->getData();
-        if (!empty($data) and $this->_checkCaptcha()) {
-
-            $email = $this->Emails->newEntity($data);   // illegal values (country = admins) are being ignored from entity :)
-            if (!$email->getErrors()) {
-                //$this->Emails->save($email);
-                // try fetching the moderator in charge of the user's country
-                $country_id = ($data['country_id'] == 'administrators') ? null : $data['country_id'];
-                $admins = $this->Users->getModerators($country_id, $user_admin = true);
-                if ($admins) {
-                    foreach ($admins as $admin) {
-                        $this->getMailer('User')->send('contactForm', [$data, $admin->email]);
-                    }
-                    $this->Flash->set('Your message has been sent.');
-                    return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
-                }
-            } else {
-                $this->Flash->set('We are missing required data to send email.');
-            }
-        } elseif (!empty($data) and !$this->_checkCaptcha()) {
-            // repopulate the email form
-            $data = $this->request->getData();
-            $email = $this->Emails->newEntity($data);
-            $this->Flash->set('You did not succeed the CAPTCHA test. Please make sure you are human and try again.');
-        } else {
-            // init email form
-            $email = $this->Emails->newEmptyEntity();
-        }
-
-        $moderators = $this->Users->find('all', array(
-            'contain' => array('Countries'),
-            'conditions' => array('Users.user_role_id' => 2),
-            'order' => array('Countries.name' => 'asc')
-        ))->toList();
-
         $userAdmins = $this->Users->find('all', array(
             'contain' => array(),
             'conditions' => array('Users.user_admin' => 1)
         ));
-        $country_ids = array();
-        if ($moderators) foreach ($moderators as $mod) {
-            if (!empty($mod['country_id']) and !in_array($mod['country_id'], $country_ids))
-                $country_ids[] = $mod['country_id'];
-        }
-        $countries = $this->Countries->find('list')
-            ->order(['Countries.name ASC'])
-            ->where(['Countries.id IN' => $country_ids])
-            ->toArray();
-
-        $adminProfiles = $this->Users->find('all', [
-            'contain' => ['Countries', 'Institutions'],
-            'order' => ['Countries.name' => 'ASC']
-        ])->where([
-            'user_admin' => 1,
-        ]);
-
-        $this->set(compact('countries', 'moderators', 'userAdmins', 'email', 'adminProfiles'));
+        $this->set(compact('userAdmins'));
     }
 
     public function nationalModerators()

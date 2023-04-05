@@ -93,7 +93,7 @@ jobs:
 # This is a bit more elaborate so the container has access to the internet via the host
 # and in addition to the test services network which is isolated from the internet
         run: |
-          cid=$(docker create -t -e TEST_DB_HOST=${{ secrets.TEST_DB_HOST }} -e TEST_DB_NAME=${{ secrets.TEST_DB_NAME }} -e DB_USER=${{ secrets.TEST_DB_USER }} -e DB_PASS=${{ secrets.TEST_DB_PASS }} -e MAIL_SMTP_HOST=${{ secrets.TEST_MAIL_SMTP_HOST }} -e MAIL_SMTP_PORT=${{ secrets.TEST_MAIL_SMTP_PORT }} -e MAIL_SMTP_USER=${{ secrets.TEST_MAIL_SMTP_USER }} -e MAIL_SMTP_PASS=${{ secrets.TEST_MAIL_SMTP_PASS }} -e APP_MAIL_DEFAULT_FROM=${{ secrets.K8S_SECRET_APP_MAIL_DEFAULT_FROM }} -e DEBUG_MAIL_TO=${{ secrets.K8S_SECRET_DEBUG_MAIL_TO }}  ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test /bin/herokuish buildpack test)
+          cid=$(docker create -t -e TEST_DB_HOST=${{ secrets.TEST_DB_HOST }} -e TEST_DB_NAME=${{ secrets.TEST_DB_NAME }} -e DB_USER=${{ secrets.TEST_DB_USER }} -e DB_PASS=${{ secrets.TEST_DB_PASS }} -e MAIL_SMTP_HOST=${{ secrets.TEST_MAIL_SMTP_HOST }} -e MAIL_SMTP_PORT=${{ secrets.TEST_MAIL_SMTP_PORT }} -e MAIL_SMTP_USER=${{ secrets.TEST_MAIL_SMTP_USER }} -e MAIL_SMTP_PASS=${{ secrets.TEST_MAIL_SMTP_PASS }} -e APP_MAIL_DEFAULT_FROM=${{ secrets.K8S_SECRET_APP_MAIL_DEFAULT_FROM }} -e APP_MAIL_DEFAULT_CC=${{ secrets.K8S_SECRET_APP_MAIL_DEFAULT_CC }} -e DEBUG_MAIL_TO=${{ secrets.K8S_SECRET_DEBUG_MAIL_TO }}  ${{ env.DOCKER_TAG }}:${{ github.ref_name }}-${{ github.sha }}-test /bin/herokuish buildpack test)
           docker network connect test-services $cid
           docker start -i $cid
   deploy:
@@ -104,7 +104,7 @@ jobs:
     env:
       SECRETS_CONTEXT: ${{ toJson(secrets) }}
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3
         name: Checkout
       - name: Kubernetes credentials
         run: |
@@ -120,7 +120,7 @@ jobs:
           kubectl get pod
       - name: Create tags based on git data
         id: meta
-        uses: docker/metadata-action@v4.3.0
+        uses: docker/metadata-action@v4
         with:
           images: |
             ${{ env.DOCKER_TAG }}/${{ github.ref_name }}
@@ -209,3 +209,7 @@ jobs:
             --values auto-deploy-app-values.yaml --install --atomic --wait \
             --set application.secretName="${{ secrets.APP_NAME }}-${{ github.ref_name }}" ${{ secrets.HELM_UPGRADE_EXTRA_ARGS }} \
           .github/auto-deploy-app
+      - name: Clear cache
+        uses: MyAlbum/purge-cache@v1
+        with:
+          max-age: 70

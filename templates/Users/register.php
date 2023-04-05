@@ -71,7 +71,7 @@ $('#password').attr('type', 'password');
     <div class="input info">
         <label for="newsletter-info">Contributor Mailing List</label>
         <div class="info" id="newsletter-info">
-            If you contribute courses to the DHRC, it is recommended to sign up for our Contributor Mailing List to stay informed about recent
+            If you contribute courses to the DHCR, it is recommended to sign up for our Contributor Mailing List to stay informed about recent
             technical developments, staff updates and much more.
         </div>
         <?= $this->Form->control('mail_list', [

@@ -1,10 +1,34 @@
 # Release notes
 
+## Version 2023-02
+
+### Changes
+- Implemented notification mail for moderators when a new course is waiting for approval #54 
+- Migrated API v1
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
+- Migrated API v2
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
+- Migrated the main application [dhcr-main]
+    - to the latest version of the framework (4.4)
+    - to PHP 8.1
+
+### Small changes
+- Changed date format in user approval mail to ISO format
+- Added App Info section (shows version numbers of dependencies) to statistics dashboard
+- Added CC (legacy logging) for user approval mail
+- Enabled debug mode for dev instance
+- Changed column name "active" to "published" in all the course lists in the admin area
+- Optimized sorting in Pending Invitations
+- Added release dates for all previous versions to release notes
+
 
 ## Version 2022-12
+*Release date: 2022-12-29*
  
 ### Small changes
-- Updated date to ISO-format in views
+- Updated date to ISO format in views
 - Show newest log entry on top
 - Added statistics for amount of outdated courses per country to course statistics
 - Added traffic light for moderator participation to users statistics
@@ -15,6 +39,7 @@
 
 
 ## Version 2022-11/3
+*Release date: 2022-12-28*
 
 ### Bug fixes
 - Fix: Adding moderator to list, without photo upload
@@ -22,6 +47,7 @@
 
 
 ## Version 2022-11/2
+*Release date: 2022-12-06*
 
 ### New features
 - National Moderators List
@@ -36,6 +62,7 @@
 
 
 ## Version 2022-11/1
+*Release date: 2022-11-10*
 
 ### New features
 - FAQ questions and answers are added and shown for public, contributors and moderators
@@ -45,6 +72,7 @@
 
 
 ## Version 2022-10
+*Release date: 2022-10-31*
 
 ### New features
 - Added list of moderators to the Contributor Network Dashboard (for admins only).
@@ -56,6 +84,7 @@
 
 
 ## Version 2022-09
+*Release date: 2022-10-27*
 
 ### New features
 - FAQ Questions (the lists with questions are currently hidden, until content is added)
@@ -92,6 +121,7 @@
 
 
 ## Version 2022-08
+*Release date: 2022-08-22*
 
 ### New features
 - Transfer Course
@@ -119,6 +149,8 @@
 
 
 ## Version 2022-05
+*Release date: 2022-05-27*
+
 This is a major release which contains a lot of big changes. The complete login area is new implemented as well as several backend processes. Also new features were added.
 
 ### Key points

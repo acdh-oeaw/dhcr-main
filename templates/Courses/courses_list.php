@@ -51,7 +51,7 @@ use Cake\Core\Configure;
                     <tr>
                         <th align="center" style="padding: 5px">Actions</th>
                         <th align="left" style="padding: 5px"><?= $this->Paginator->sort('updated') ?></th>
-                        <th align="left" style="padding: 5px"><?= $this->Paginator->sort('active') ?></th>
+                        <th align="left" style="padding: 5px"><?= $this->Paginator->sort('active', ['label' => 'Published']) ?></th>
                         <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name', ['label' => 'Course Name']) ?></th>
                         <th align="left" style="padding: 5px">Education Type</th>
                         <th align="left" style="padding: 5px">Institution</th>

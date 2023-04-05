@@ -1009,7 +1009,7 @@ class UsersController extends AppController
                     'password_token IS NOT NULL',
                 ]),
                 [
-                    'order' => ['created' => 'desc'],
+                    'order' => ['password_token_expires' => 'desc'],
                     'contain' => ['Institutions']
                 ]
             );
@@ -1031,7 +1031,7 @@ class UsersController extends AppController
                     'Users.country_id' => $user->country_id,
                 ]),
                 [
-                    'order' => ['created' => 'desc'],
+                    'order' => ['password_token_expires' => 'desc'],
                     'contain' => ['Institutions']
                 ]
             );
