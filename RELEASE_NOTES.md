@@ -1,5 +1,16 @@
 # Release notes
 
+## Version 2023-04
+
+### Changes
+- x
+
+### Small changes
+- y
+
+### Bug fixes
+- z
+
 ## Version 2023-03
 
 ### Changes
