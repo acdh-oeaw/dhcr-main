@@ -20,6 +20,7 @@
 
 
 ## Version 2023-02
+*Release date: 2023-04-05*
 
 ### Changes
 - Implemented notification mail for moderators when a new course is waiting for approval #54 
