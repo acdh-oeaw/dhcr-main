@@ -14,13 +14,14 @@ class CoursesController extends AppController
     public $Courses = null;
     public const SKIP_AUTHORIZATION = [
         'index',
-        'view'
+        'view',
+        'search'
     ];
 
     public function initialize(): void
     {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['index', 'view']);
+        $this->Authentication->allowUnauthenticated(['index', 'view', 'search']);
         if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
             $this->Authorization->skipAuthorization();
         }
@@ -108,6 +109,31 @@ class CoursesController extends AppController
         }
         $this->set('course', $course);
         $this->render('index');
+    }
+
+    public function search($courseName, $institutionName)
+    {
+        $this->loadModel('DhcrCore.Courses');
+        $institutionName = urldecode(($institutionName));
+        $institutionId = $this->Courses->Institutions->find()->where(['name' => $institutionName])->first()->id;
+        $courseName = urldecode($courseName);
+        $courses = $this->Courses->find()->where([
+            'name' => $courseName,
+            'institution_id' => $institutionId
+        ]);
+        if ($courses->count() < 1) {
+            // set flash message
+            // redirect to index
+            echo ('No results found. Please select a course from the list.');
+            die();
+        } elseif ($courses->count() > 1) {
+            // set flash message
+            // redirect to index
+            echo ('Too much results found. Please report this as a bug.');
+            die();
+        }
+        $courseId = $courses->first()->id;
+        return $this->redirect(['controller' => 'Courses', 'action' => 'view', $courseId]);
     }
 
     public function add()

@@ -45,3 +45,4 @@ upgrade
 *.cache
 
 webroot/js/idp_select/DiscoFeed\.json
+webroot/search_list.json

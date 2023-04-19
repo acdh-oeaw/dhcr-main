@@ -3,14 +3,12 @@
 ## Version 2023-04
 
 ### New feature
-- x
+- Search for a course by name or institution directly (searchbar / typahead) #62
 
 ### Small changes
 - Removed redundant social media links and usage of external file resource content.js #68
 - Introduce generic email address notation and avoid direct mailto links #67
 
-### Bug fixes
-- z
 
 ## Version 2023-03
 
