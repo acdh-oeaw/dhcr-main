@@ -46,7 +46,7 @@
 <?php
 foreach ($moderatorProfiles as $moderatorProfile) {
     $displayEmail = $moderatorProfile->email;
-    $displayEmail = str_replace('@', '(at)', $displayEmail);
+    $displayEmail = str_replace('@', ' /at/ ', $displayEmail);
 ?>
     <div class="container">
         <div class="profile card">
