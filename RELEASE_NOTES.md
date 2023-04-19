@@ -28,6 +28,7 @@
 - Fix: Confusing UI response on instant new user account approval #64
 - Fix: Don't show alternative field in new user account approval mail, when user selected an institution
 - Fix: Make institution name available in new user account approval mail
+- Fix: Number of courses: API vs. DHCR Statistics #63 
 
 
 ## Version 2023-02
