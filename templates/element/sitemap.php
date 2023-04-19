@@ -109,7 +109,7 @@
                 <li>
                     <?= $this->Html->link(
                         'Social Media',
-                        ['controller' => 'Pages', 'action' => 'news', '#' => 'social-media']
+                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'social-media']
                     ) ?>
                 </li>
                 <li>

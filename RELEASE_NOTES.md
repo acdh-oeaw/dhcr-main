@@ -2,11 +2,11 @@
 
 ## Version 2023-04
 
-### Changes
+### New feature
 - x
 
 ### Small changes
-- y
+- Removed redundant social media links and usage of external file resource content.js #68
 
 ### Bug fixes
 - z
