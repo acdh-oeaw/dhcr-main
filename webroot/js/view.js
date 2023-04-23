@@ -88,6 +88,7 @@ class View {
                 var institutionName = searchKey.slice(institutionPos + 1).trim();
                 window.location.href = "/courses/search/" + encodeURIComponent(courseName) + '/' + encodeURIComponent(institutionName);
             });
+            $('#searchField').focus();
         });
     }
 
