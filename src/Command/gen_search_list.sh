@@ -7,4 +7,4 @@ export PATH="/app/.heroku/php/bin:${PATH}"
 
 ### CAKE COMMANDS ###
 
-bin/cake gen_search_list 2>&1
+cd $CAKE_PATH && bin/cake gen_search_list 2>&1
