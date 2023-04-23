@@ -8,6 +8,7 @@
 ### Small changes
 - Removed redundant social media links and usage of external file resource content.js #68
 - Introduce generic email address notation and avoid direct mailto links #67
+- Upgraded jQuery to 3.6.4
 
 
 ## Version 2023-03

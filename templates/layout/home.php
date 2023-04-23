@@ -38,7 +38,7 @@ use Cake\Core\Configure;
     <div id="container">
         <?= $this->fetch('content') ?>
     </div>
-    <?= $this->Html->script('jquery-3.4.1.min.js') ?>
+    <?= $this->Html->script('jquery-3.6.4.min.js') ?>
     <?= $this->Html->script('typeahead.bundle.js') ?>
     <style>
         .bs-example {

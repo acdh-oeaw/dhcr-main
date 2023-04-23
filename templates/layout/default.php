@@ -55,7 +55,7 @@ use Cake\Core\Configure;
         <?= $this->element('default_footer') ?>
     </div>
     <?= $this->Flash->render('flash') ?>
-    <?= $this->Html->script('jquery-3.4.1.min.js') ?>
+    <?= $this->Html->script('jquery-3.6.4.min.js') ?>
     <?= $this->Html->script(['modal', 'sitemap']) ?>
     <script type="application/javascript">
         var BASE_URL = '<?= Router::url('/', true) ?>';
