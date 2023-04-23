@@ -20,6 +20,7 @@ jobs:
       - name: Suggest default port 5000 within image
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
+          /app/src/Command/gen_search_list.sh   # Generate JSON file required for searchbar
           cat >> Dockerfile <<EOF  
           FROM tmp-cnb-image
           ENV PORT=5000
