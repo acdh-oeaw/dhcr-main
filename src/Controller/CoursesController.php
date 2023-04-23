@@ -15,13 +15,13 @@ class CoursesController extends AppController
     public const SKIP_AUTHORIZATION = [
         'index',
         'view',
-        'search'
+        'find'
     ];
 
     public function initialize(): void
     {
         parent::initialize();
-        $this->Authentication->allowUnauthenticated(['index', 'view', 'search']);
+        $this->Authentication->allowUnauthenticated(['index', 'view', 'find']);
         if (in_array($this->request->getParam('action'), self::SKIP_AUTHORIZATION)) {
             $this->Authorization->skipAuthorization();
         }
@@ -111,9 +111,14 @@ class CoursesController extends AppController
         $this->render('index');
     }
 
-    public function search($courseName = NULL, $institutionName = NULL)
+    /*  Find a course by institution name AND course name.
+     *  Both parameters are required and should be supplied by the searchbar or urlencoded and be the exact db fields.
+     *  Result:
+     *      Succesfull:         Redirect to course detail page.
+     *      Not successfull:    Redirect to index with error message.
+    */
+    public function find($institutionName = NULL, $courseName = NULL)
     {
-
         $institutionName = urldecode(($institutionName));
         $courseName = urldecode($courseName);
         if ($institutionName == NULL || is_numeric($institutionName || $courseName == NULL || is_numeric($courseName))) {

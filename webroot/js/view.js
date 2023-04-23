@@ -86,7 +86,7 @@ class View {
                 var institutionPos = searchKey.lastIndexOf("-");
                 var courseName = searchKey.slice(0, institutionPos).trim();
                 var institutionName = searchKey.slice(institutionPos + 1).trim();
-                window.location.href = "/courses/search/" + encodeURIComponent(courseName) + '/' + encodeURIComponent(institutionName);
+                window.location.href = "/courses/find/" + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseName);
             });
             $('#searchField').focus();
         });
