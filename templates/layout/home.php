@@ -41,12 +41,6 @@ use Cake\Core\Configure;
     <?= $this->Html->script('jquery-3.6.4.min.js') ?>
     <?= $this->Html->script('typeahead.bundle.js') ?>
     <style>
-        .bs-example {
-            font-family: sans-serif;
-            position: relative;
-            margin: 100px;
-        }
-
         .typeahead,
         .tt-query,
         .tt-hint {
@@ -63,10 +57,6 @@ use Cake\Core\Configure;
 
         .typeahead {
             background-color: #FFFFFF;
-        }
-
-        .typeahead:focus {
-            border: 2px solid #0097CF;
         }
 
         .tt-query {
@@ -95,7 +85,7 @@ use Cake\Core\Configure;
 
         .tt-suggestion:hover {
             cursor: pointer;
-            background-color: #0097CF;
+            background-color: #1e6ba3;
             color: #FFFFFF;
         }
 
