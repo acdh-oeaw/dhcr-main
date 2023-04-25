@@ -19,7 +19,6 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Http\Exception\ForbiddenException;
 use Cake\Http\Exception\NotFoundException;
-use Cake\Mailer\MailerAwareTrait;
 use Cake\View\Exception\MissingTemplateException;
 
 /**
@@ -31,9 +30,6 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
-
-    use MailerAwareTrait;
-
     public function initialize(): void
     {
         parent::initialize();
@@ -55,12 +51,7 @@ class PagesController extends AppController
 
     public function info()
     {
-        $this->loadModel('Users');
-        $userAdmins = $this->Users->find('all', array(
-            'contain' => array(),
-            'conditions' => array('Users.user_admin' => 1)
-        ));
-        $this->set(compact('userAdmins'));
+        // empty
     }
 
     public function nationalModerators()

@@ -41,25 +41,9 @@ class UserMailer extends AppMailer
     {
         $this
             ->setTo($this->preventMailbombing($adminAddress))
-            ->setCc(env('APP_MAIL_DEFAULT_CC'))
+            ->setCc($this->preventMailbombing(env('APP_MAIL_DEFAULT_CC')))
             ->setSubject('New Account Request')
             ->setViewVars(['user' => $user])
             ->viewBuilder()->setTemplate('users/notify_admin');
-    }
-
-    public function contactForm($data, $adminAddress)
-    {
-        $this
-            ->setTo($this->preventMailbombing($adminAddress))
-            ->setCc($data['email'])
-            ->setReplyTo($data['email'])
-            ->setSender($data['email'], trim(
-                $data['first_name'] . ' '
-                    . $data['last_name']
-            ))
-            ->setSubject('New Question')
-            ->setViewVars('content', $data['message'])
-            ->viewBuilder()
-            ->setTemplate('default');
     }
 }

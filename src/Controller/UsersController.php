@@ -347,11 +347,13 @@ class UsersController extends AppController
             }
         }
         if ($token) {
-            $user = $this->Users->find()->where(['email_token' => $token])->contain([])->first();
+            // the emailtemplate, used below needs the institution name to be available
+            $user = $this->Users->find()->where(['email_token' => $token])->contain(['Institutions'])->first();
             if ($user) {
                 // handle new users
-                if (!$user->email_verified)
+                if (!$user->email_verified) {
                     $this->Users->notifyAdmins($user);
+                }
                 $user->email = $user->new_email;
                 $user->new_email = null;
                 $user->email_token = null;
@@ -440,8 +442,8 @@ class UsersController extends AppController
             ])
                 ->first();
             if (!$approvingUser) {
-                $this->Flash->set('Token invalid. Please check your dashboard.');
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'approve']);
+                $this->Flash->set('Token invalid. Maybe the user is already approved?');
+                return $this->redirect(['controller' => 'Users', 'action' => 'approve']);
             }
         }
         if (isset($approvingUser)) {    // the specified user exists
@@ -538,6 +540,12 @@ class UsersController extends AppController
         $editUser = $this->Users->get($id, ['contain' => ['Countries']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($editUser);
+        if ($user->is_admin) {
+            $editUser->setAccess('user_role_id', true);
+            $editUser->setAccess('is_admin', true);
+            $editUser->setAccess('user_admin', true);
+            $editUser->setAccess('active', true);
+        }
         $editUser = $this->Users->patchEntity($editUser, $this->request->getData());
 
         if ($photo_action == 'delete_photo' && $user->is_admin) {
@@ -559,13 +567,6 @@ class UsersController extends AppController
         }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            if ($user->is_admin) {
-                $editUser->setAccess('user_role_id', true);
-                $editUser->setAccess('is_admin', true);
-                $editUser->setAccess('user_admin', true);
-                $editUser->setAccess('active', true);
-            }
-
             $upload = $this->request->getUploadedFile('photo');
             if ($upload !== null && $upload->getError() !== \UPLOAD_ERR_NO_FILE) {
                 $photoObject = $this->request->getData('photo');
@@ -828,7 +829,8 @@ class UsersController extends AppController
             $messageSubject = '[DH Course Registry] ' . $inviteMessage->subject;
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
-                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                $mailer->setFrom(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setReplyTo([env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setCc(env('APP_MAIL_DEFAULT_CC'))
                     ->setBcc($user->email)
@@ -891,7 +893,8 @@ class UsersController extends AppController
             $messageSubject = '[DH Course Registry] ' . $inviteMessage->subject;
             if ($this->Users->save($invitedUser)) {
                 $mailer = new Mailer('default');
-                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                $mailer->setFrom(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setReplyTo([env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'])
                     ->setTo($invitedUser->email)
                     ->setCc(env('APP_MAIL_DEFAULT_CC'))
                     ->setBcc($user->email)

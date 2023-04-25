@@ -192,9 +192,9 @@ class CourseRemindersCommand extends Command
                 if ($sendCc) {
                     $mailer->setCc($cc);
                 }
-                $mailer->setFrom([env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'])
+                $mailer->setFrom(env('APP_MAIL_DEFAULT_FROM'))
                     ->setTo($to)
-                    ->setReplyTo(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setReplyTo([env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'])
                     ->setSubject($subject)
                     ->setViewVars('reminderItem', $reminderItem)
                     ->viewBuilder()->setTemplate('course_reminders/reminder');

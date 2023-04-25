@@ -1,6 +1,29 @@
 # Release notes
 
+## Version 2023-03
+*Release date: 2023-04-25*
+
+### Changes
+- Introduced new DHCR Helpdesk email address in UI and application logic
+    - Updated explanation at contact us and national moderators to point to the new helpdesk email address #42
+    - Changed "from" and "cc" email addresses to new stucture #42
+    - Introduced "reply to" email address and "from" as no-reply@ #42
+
+### Small changes
+- Added explanation at add/edit course for the situation an institution is not in the list #58
+- Upgraded dependencies to recent versions
+- Upgraded composer to 2.5.5
+
+### Bug fixes
+- Fix: User edit page does not save data when changing user role #60
+- Fix: Confusing UI response on instant new user account approval #64
+- Fix: Don't show alternative field in new user account approval mail, when user selected an institution
+- Fix: Make institution name available in new user account approval mail
+- Fix: Number of courses: API vs. DHCR Statistics #63 
+
+
 ## Version 2023-02
+*Release date: 2023-04-05*
 
 ### Changes
 - Implemented notification mail for moderators when a new course is waiting for approval #54 

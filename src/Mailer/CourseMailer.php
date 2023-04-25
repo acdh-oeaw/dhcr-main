@@ -11,7 +11,7 @@ class CourseMailer extends AppMailer
     {
         $this
             ->setTo($this->preventMailbombing($adminAddress))
-            ->setCc(env('APP_MAIL_DEFAULT_CC'))
+            ->setCc($this->preventMailbombing(env('APP_MAIL_DEFAULT_CC')))
             ->setSubject('New Course waiting for approval')
             ->setViewVars(['course' => $course])
             ->viewBuilder()->setTemplate('courses/notify_admin');

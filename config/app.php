@@ -7,18 +7,11 @@ return [
     'api' => [
         'baseUrl' => env('API_BASE_URL', '__API_BASE_URL__')
     ],
-    'ops' => [
-        'baseUrl' => env('OPS_BASE_URL', '__OPS_BASE_URL__')
-    ],
     'map' => [
         'apiKey'    => env('MAP_API_KEY', '__MAP_API_KEY__')
     ],
-
     'reCaptchaPublicKey' => env('RECAPTCHA_PUBLIC_KEY', '__RECAPTCHA_PUB_KEY__'),
     'reCaptchaPrivateKey' => env('RECAPTCHA_PRIVATE_KEY', '__RECAPTCHA_PRIVATE_KEY__'),
-
-
-
 
     /**
      * Debug Level:
@@ -189,7 +182,7 @@ return [
      *   breathing room to complete logging or error handling.
      */
     'Error' => [
-        'errorLevel' => E_ALL,
+        'errorLevel' => E_ALL ^ E_DEPRECATED,
         'exceptionRenderer' => 'Cake\Error\ExceptionRenderer',
         'skipLog' => [],
         'log' => true,
@@ -246,11 +239,10 @@ return [
     'Email' => [
         'default' => [
             'transport' => 'default',
-            'from' => [env('APP_MAIL_DEFAULT_FROM') => 'DH Course Registry'],
+            'from' => env('APP_MAIL_DEFAULT_FROM'),
+            'replyTo' => [env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'],
             'headerCharset' => 'utf-8',
-            // TODO: put a team email address here
-            'returnPath' => env('APP_MAIL_DEFAULT_FROM'),
-            // what about default cC?
+            'returnPath' => env('APP_MAIL_DEFAULT_CC'),
             'emailFormat' => 'text',
             'template' => 'default',
             'layout' => 'default'
