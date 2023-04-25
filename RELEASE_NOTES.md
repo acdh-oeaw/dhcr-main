@@ -1,6 +1,7 @@
 # Release notes
 
 ## Version 2023-03
+*Release date: 2023-04-25*
 
 ### Changes
 - Introduced new DHCR Helpdesk email address in UI and application logic
