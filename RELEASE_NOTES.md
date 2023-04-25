@@ -10,7 +10,7 @@
 - Introduced generic email address notation and avoid direct mailto links #67
 - Replaced sitemap wording by logo in menu's
 - Upgraded jQuery to 3.6.4
-- Upgraded to CakePHP 4.4.13
+- Upgraded CakePHP to 4.4.13
 
 
 ## Version 2023-03
