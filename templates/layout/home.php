@@ -40,59 +40,6 @@ use Cake\Core\Configure;
     </div>
     <?= $this->Html->script('jquery-3.6.4.min.js') ?>
     <?= $this->Html->script('typeahead.bundle.js') ?>
-    <style>
-        .typeahead,
-        .tt-query,
-        .tt-hint {
-            border: 2px solid #CCCCCC;
-            border-radius: 8px;
-            font-size: 14px;
-            /* Set input font size */
-            height: 30px;
-            line-height: 30px;
-            outline: medium none;
-            padding: 8px 12px;
-            width: 422px;
-        }
-
-        .typeahead {
-            background-color: #FFFFFF;
-        }
-
-        .tt-query {
-            box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
-        }
-
-        .tt-hint {
-            color: #999999;
-        }
-
-        .tt-menu {
-            background-color: #FFFFFF;
-            border: 1px solid rgba(0, 0, 0, 0.2);
-            border-radius: 8px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            margin-top: 12px;
-            padding: 8px 0;
-            width: 422px;
-        }
-
-        .tt-suggestion {
-            font-size: 14px;
-            /* Set suggestion dropdown font size */
-            padding: 3px 20px;
-        }
-
-        .tt-suggestion:hover {
-            cursor: pointer;
-            background-color: #1e6ba3;
-            color: #FFFFFF;
-        }
-
-        .tt-suggestion p {
-            margin: 0;
-        }
-    </style>
     <?= $this->Flash->render('flash') ?>
     <?= $this->Html->script('/leaflet/leaflet') ?>
     <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
