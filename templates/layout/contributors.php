@@ -79,7 +79,7 @@ $bodyClasses = (!empty($bodyClasses))
         <?= $this->element('default_footer') ?>
     </div>
     <?= $this->Flash->render('flash') ?>
-    <?= $this->Html->script('jquery-3.4.1.min.js') ?>
+    <?= $this->Html->script('jquery-3.6.4.min.js') ?>
     <?= $this->Html->script('/leaflet/leaflet') ?>
     <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
     <?= $this->Html->script(['modal', 'sitemap', 'accordeon']) ?>

@@ -76,8 +76,9 @@ return static function (RouteBuilder $routes) {
         $builder->connect('/follow', ['controller' => 'Pages', 'action' => 'follow']);
         $builder->connect('/national-moderators', ['controller' => 'Pages', 'action' => 'nationalModerators']);
 
-        // $builder->connect('/:arg', ['controller' => 'Pages', 'action' => 'display'])->setPass(['arg'])->setPatterns(['news']);
-        //$routes->connect('/pages/news', ['controller' => 'Pages', 'action' => 'news']);
+        /*  PA 2023-04-19: The following route is for backwards compatibility with published link and should not be removed.
+            The old link was: /pages/news#social-media  */
+        $builder->connect('/pages/news', ['controller' => 'Pages', 'action' => 'follow', 'social-media']);
 
         $builder->connect('/pages/*', 'Pages::display');
 

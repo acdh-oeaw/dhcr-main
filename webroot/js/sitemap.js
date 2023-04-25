@@ -5,8 +5,7 @@ class Sitemap extends Modal {
 
 
     constructor() {
-        super('Sitemap', 'sitemap', null);
-        this.add($('<hr>'));
+        super('<img src="/img/logo-300.png" width="50%">', 'sitemap', null);
         this.add($('#sitemap').html());
     }
 
