@@ -11,6 +11,7 @@
 - Replaced sitemap wording by logo in menu's
 - Upgraded jQuery to 3.6.4
 - Upgraded CakePHP to 4.4.13
+- Changed date to ISO format in course detail page
 
 
 ## Version 2023-03
