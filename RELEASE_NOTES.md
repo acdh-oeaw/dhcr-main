@@ -3,7 +3,7 @@
 ## Version 2023-04
 
 ### New feature
-- Search for a course by name or institution directly (searchbar / typahead) #62
+- Searchbar: Find a course directly by name or institution #62
 
 ### Small changes
 - Removed redundant social media links and usage of external file resource content.js #68
