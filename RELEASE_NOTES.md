@@ -1,9 +1,13 @@
 # Release notes
 
 ## Version 2023-04
+*Release date: ...*
  
 ### New feature
 - Searchbar: Find a course directly by name or institution #62
+
+### Changes
+- Implemented requirement that combination of course name and institution has to be unique #59
 
 ### Small changes
 - Removed redundant social media links and usage of external file resource content.js #68
