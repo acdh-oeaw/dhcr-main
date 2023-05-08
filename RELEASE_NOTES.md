@@ -1,9 +1,9 @@
 # Release notes
 
 ## Version 2023-04
-
+ 
 ### New feature
-- Search for a course by name or institution directly (searchbar / typahead) #62
+- Searchbar: Find a course directly by name or institution #62
 
 ### Small changes
 - Removed redundant social media links and usage of external file resource content.js #68
@@ -11,6 +11,7 @@
 - Replaced sitemap wording by logo in menu's
 - Upgraded jQuery to 3.6.4
 - Upgraded CakePHP to 4.4.13
+- Changed date to ISO format in course detail page
 
 
 ## Version 2023-03

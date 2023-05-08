@@ -813,6 +813,22 @@ body.index #container #table table th:last-child, body.view #container #table ta
 body.index #container #table table th .desc, body.index #container #table table th .asc, body.view #container #table table th .desc, body.view #container #table table th .asc { width: 10px; height: 10px; display: inline-block; position: relative; left: 5px; bottom: 11px; transform: rotate(-135deg); border: 2px solid #1E6BA3; border-top: none; border-left: none; line-height: 0; font-size: 0; color: transparent; }
 body.index #container #table table th .asc, body.view #container #table table th .asc { transform: rotate(45deg); bottom: 14px; }
 
+.typeahead, .tt-query, .tt-hint { border: 2px solid #CCCCCC; border-radius: 8px; font-size: 14px; /* Set input font size */ height: 30px; line-height: 30px; outline: medium none; padding: 8px 12px; width: 422px; }
+
+.typeahead { background-color: #FFFFFF; }
+
+.tt-query { box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset; }
+
+.tt-hint { color: #999999; }
+
+.tt-menu { background-color: #FFFFFF; border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 8px; box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); margin-top: 12px; padding: 8px 0; width: 422px; }
+
+.tt-suggestion { font-size: 14px; /* Set suggestion dropdown font size */ padding: 3px 20px; }
+
+.tt-suggestion:hover { cursor: pointer; background-color: #1e6ba3; color: #FFFFFF; }
+
+.tt-suggestion p { margin: 0; }
+
 /* MarkerCluster.css - Spider */
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow { -webkit-transition: -webkit-transform 0.3s ease-out, opacity 0.3s ease-in; -moz-transition: -moz-transform 0.3s ease-out, opacity 0.3s ease-in; -o-transition: -o-transform 0.3s ease-out, opacity 0.3s ease-in; transition: transform 0.3s ease-out, opacity 0.3s ease-in; }
 
