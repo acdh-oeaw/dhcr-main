@@ -1,5 +1,15 @@
 # Release notes
 
+## Version 2023-05
+*Release date: ...*
+ 
+### New feature
+ - A
+
+### Small changes
+ - B
+
+
 ## Version 2023-04
 *Release date: ...*
  
