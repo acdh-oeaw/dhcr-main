@@ -17,6 +17,7 @@
 
 <h3>Bug Report</h3>
 <p>
-    In case you find a bug, please file a report here:
+    Click the button below to create a new issue and file a bug report. You'll need a GitHub account to do this.
+    In case you don't have a GitHub account, you can create one.  Alternatively, you can contact us via dhcr-helpdesk /at/ clarin-dariah.eu.
 </p>
-<a class="small blue button right" href="https://github.com/hashmich/DHCR-Frontend/issues" target="_blank">Bug Report</a>
+<a class="small blue button right" href="https://github.com/acdh-oeaw/dhcr-main/issues/new" target="_blank">Report Bug</a>

@@ -4,10 +4,11 @@
 *Release date: ...*
  
 ### New feature
- - A
+ - Mailing list
 
 ### Small changes
- - B
+ - Recaptcha
+ - Implemented new bug reporting process #41
 
 
 ## Version 2023-04
