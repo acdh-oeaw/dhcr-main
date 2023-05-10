@@ -781,7 +781,7 @@ class UsersController extends AppController
                 }
                 $requestUrl .= $user->email . '&adminpw=' . env('LIST_ADMIN_PWD');
                 $html = file_get_contents($requestUrl);
-                if (stripos($html, $responseText) > 0) {    // mailman accepted action
+                if (stripos($html, $responseText) > 0) {    // mailman processed action
                     $user = $this->Users->patchEntity($user, $this->request->getData());
                     if ($this->Users->save($user)) {
                         $this->Flash->success($responseText);
