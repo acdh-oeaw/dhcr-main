@@ -765,12 +765,33 @@ class UsersController extends AppController
     {
         $user = $this->Users->get($this->Authentication->getIdentity()->id);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('Contributor Mailing List subscription updated.'));
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
-            } else {
-                $this->Flash->error(__('Contributor Mailing List subscription could not be updated. Please, try again.'));
+            $subscriptionStatusNew = $this->request->getData()['mail_list'];
+            if ($subscriptionStatusNew != $user->mail_list) {   // user changed subscription status
+                if (env('DHCR_BASE_URL') == 'https://dhcr.clarin-dariah.eu/') { // guard against changes to mailman from test or dev
+                    // TODO: change to !=
+                    $this->Flash->error('Error: Changes to subscription can only be made in production.');
+                    return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+                }
+                if ($subscriptionStatusNew == 1) {
+                    $requestUrl = env('LIST_SUBSCRIBE_URL');
+                    $responseText = 'Successfully subscribed';      // response contains "Successfully subscribed:"
+                } else {
+                    $requestUrl = env('LIST_UNSUBSCRIBE_URL');
+                    $responseText = 'Successfully unsubscribed';    // response contains "Successfully Unsubscribed:"
+                }
+                $requestUrl .= $user->email . '&adminpw=' . env('LIST_ADMIN_PWD');
+                $html = file_get_contents($requestUrl);
+                if (stripos($html, $responseText) > 0) {    // mailman accepted action
+                    $user = $this->Users->patchEntity($user, $this->request->getData());
+                    if ($this->Users->save($user)) {
+                        $this->Flash->success($responseText);
+                        return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
+                    } else {
+                        $this->Flash->error('Error: Subscription status not saved in DB.');
+                    }
+                } else {    // invalid response from mailman
+                    $this->Flash->error('Error: Subscription change not processed external.');
+                }
             }
         }
         $this->viewBuilder()->setLayout('contributors');

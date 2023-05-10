@@ -4,7 +4,7 @@
 *Release date: ...*
  
 ### New feature
- - Mailing list
+ -  Integrate contributor mailing list into application #51
 
 ### Small changes
  - Recaptcha
