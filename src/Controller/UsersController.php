@@ -767,8 +767,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subscriptionStatusNew = $this->request->getData()['mail_list'];
             if ($subscriptionStatusNew != $user->mail_list) {   // user changed subscription status
-                if (env('DHCR_BASE_URL') == 'https://dhcr.clarin-dariah.eu/') { // guard against changes to mailman from test or dev
-                    // TODO: change to !=
+                if (env('DHCR_BASE_URL') != 'https://dhcr.clarin-dariah.eu/') { // guard against changes to mailman from not production
                     $this->Flash->error('Error: Changes to subscription can only be made in production.');
                     return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
                 }
