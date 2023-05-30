@@ -458,16 +458,13 @@ class UsersController extends AppController
                 $this->getMailer('User')->send('welcome', [$approvingUser]);
                 $this->Flash->set('The account has been approved successfully.');
                 // check if user has subscribed for newsletter AND in production
-                if ($approvingUser->mail_list == 1 && (env('DHCR_BASE_URL') == 'https://dhcr.clarin-dariah.eu/')) {
+                if ($approvingUser->mail_list && (env('DHCR_BASE_URL') == 'https://dhcr.clarin-dariah.eu/')) {
                     // sync setting with mailman
                     $requestUrl = env('LIST_SUBSCRIBE_URL');
-                    $responseText = 'Successfully subscribed';      // response contains "Successfully subscribed:"
                     $requestUrl .= $approvingUser->email . '&adminpw=' . env('LIST_ADMIN_PWD');
                     $html = file_get_contents($requestUrl);
-                    if (stripos($html, $responseText) < 0) {
-                        //  subscribing with mailman didn't work. unsubscribe in DB, then the user will see a reminder to subscribe in the main dashboard.
-                        $approvingUser->mail_list = 0;
-                        $this->Users->save($approvingUser);
+                    // response is not processed here. it's more important to finish the approval process here.
+                    // in case the sync with mailman didn't work, the approved user will see a reminder to subscribe in the main dashboard.
                 }
             } else {
                 $this->Flash->set('Approval failed.');
