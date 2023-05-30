@@ -468,6 +468,7 @@ class UsersController extends AppController
                         //  subscribing with mailman didn't work. unsubscribe in DB, then the user will see a reminder to subscribe in the main dashboard.
                         $approvingUser->mail_list = 0;
                         $this->Users->save($approvingUser);
+                    }
                 }
             } else {
                 $this->Flash->set('Approval failed.');
