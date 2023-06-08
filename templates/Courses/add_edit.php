@@ -21,7 +21,7 @@
                 echo $this->Form->control('info_url', ['label' => 'Course URL*', 'placeholder' => 'The public web address of the course description and syllabus']);
                 echo $this->Form->control('contact_name', ['label' => 'Lecturer Name']);
                 echo $this->Form->control('contact_mail', ['label' => 'Lecturer E-Mail']);
-                echo $this->Form->control('description', ['label' => 'Description *', 'placeholder' => 'Please provide the course description in English']);
+                echo $this->Form->control('description', ['label' => 'Description *', 'placeholder' => 'Please add in English the general aims of the course/programme and the learning outcomes.']);
                 echo $this->Form->control('access_requirements', ['label' => 'Entry Requirements', 'placeholder' => 'For instance: if you want to enroll in this MA module, you need to hold a BA degree in X, Y, Z']);
                 echo '<p id="start_date">&nbsp;</p>';   // internal url
                 echo $this->Form->control('start_date', ['label' => 'Start Date*', 'onclick' => 'openForm()', 'placeholder' => 'YYYY-MM-DD']);
