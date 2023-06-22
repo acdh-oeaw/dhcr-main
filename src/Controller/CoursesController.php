@@ -111,30 +111,38 @@ class CoursesController extends AppController
         $this->render('index');
     }
 
-    /*  Find a course by institution name AND course name.
-     *  Both parameters are required and should be supplied by the searchbar or urlencoded and be the exact db fields.
+    /*  Find a course by course name AND institution name AND course type name.
+     *  All parameters are required and should be supplied by the searchbar or urlencoded. And match the exact db fields.
      *  Result:
      *      Succesfull:         Redirect to course detail page.
-     *      Not successfull:    Redirect to index with error message.
+     *      Not successfull:    Redirect to index page with error message.
     */
-    public function find($institutionName = NULL, $courseName = NULL)
+    public function find($courseName = NULL, $institutionName = NULL, $courseType = NULL)
     {
-        $institutionName = urldecode(($institutionName));
         $courseName = urldecode($courseName);
-        if ($institutionName == NULL || is_numeric($institutionName || $courseName == NULL || is_numeric($courseName))) {
+        $institutionName = urldecode(($institutionName));
+        $courseTypeName = urldecode($courseType);
+        if ($courseName == NULL || is_numeric($courseName) || $institutionName == NULL || is_numeric($institutionName) || $courseTypeName == NULL || is_numeric($courseTypeName)) {
             $this->Flash->error('Invalid or missing parameter. Please select a course from the list.');
             return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
         }
         $this->loadModel('DhcrCore.Courses');
+        $courseType = $this->Courses->CourseTypes->find()->where(['name' => $courseTypeName])->first();
+        if ($courseType == NULL) {
+            $this->Flash->error('Course Type not found. Please select a course from the list.');
+            return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
+        }
         $institution = $this->Courses->Institutions->find()->where(['name' => $institutionName])->first();
         if ($institution == NULL) {
             $this->Flash->error('Institution not found. Please select a course from the list.');
             return $this->redirect(['controller' => 'Courses', 'action' => 'index']);
         }
+        $courseTypeId = $courseType->id;
         $institutionId = $institution->id;
         $courses = $this->Courses->find()->where([
             'name' => $courseName,
-            'institution_id' => $institutionId
+            'institution_id' => $institutionId,
+            'course_type_id' => $courseTypeId,
         ]);
         if ($courses->count() < 1) {
             $this->Flash->error('No course found. Please select a course from the list.');

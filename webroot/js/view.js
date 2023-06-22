@@ -83,10 +83,14 @@ class View {
                 limit: 15               /* Specify maximum number of suggestions to be displayed */
             });
             $('#searchField').on('typeahead:selected', function (e, searchKey) {
-                var institutionPos = searchKey.lastIndexOf("-");
-                var courseName = searchKey.slice(0, institutionPos).trim();
-                var institutionName = searchKey.slice(institutionPos + 1).trim();
-                window.location.href = "/courses/find/" + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseName);
+                var courseTypePos = searchKey.lastIndexOf("-");
+                var courseType = searchKey.slice(courseTypePos+1).trim();
+                var remainingKey = searchKey.slice(0, courseTypePos-1).trim();
+                var institutionPos = remainingKey.lastIndexOf("-");
+                var institutionName = remainingKey.slice(institutionPos + 1).trim();
+                var courseName = remainingKey.slice(0, institutionPos-1).trim();
+                
+                window.location.href = "/courses/find/" + encodeURIComponent(courseName) + '/' + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseType);
             });
             $('#searchField').focus();
         });

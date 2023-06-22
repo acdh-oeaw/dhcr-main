@@ -20,7 +20,7 @@ class GenSearchListCommand extends Command
         $io->out('~~~ Started: Generate Search List ~~~');
 
         $courses = $this->Courses->find('all',  [
-            'contain' => ['Institutions'],
+            'contain' => ['Institutions', 'CourseTypes'],
             'order' => ['Courses.name' => 'asc']
         ])->where(
             [
@@ -32,7 +32,7 @@ class GenSearchListCommand extends Command
         );
         $searchList = [];
         foreach ($courses as $course) {
-            $searchList[] = trim($course->name) . ' - ' . trim($course->institution->name);
+            $searchList[] = trim($course->name) . ' - ' . trim($course->institution->name) . ' - ' . trim($course->course_type->name);
         }
 
         $file = fopen('webroot/search_list.json', 'w');
