@@ -3,12 +3,14 @@
 ## Version 2023-05
 *Release date: ....*
  
-### New feature
- -  Integrate contributor mailing list into application #51
+### New features
+ -  Integrated contributor mailing list into application #51
+ -  Implemented sitemap generator for all public shown courses and static pages #55
 
 ### Small changes
- - Recaptcha
+ - Changed Google Recaptcha keys to organisation keys #29
  - Implemented new bug reporting process #41
+ - Changed course description to required field #74
 
 
 ## Version 2023-04
