@@ -32,7 +32,7 @@ class GenSearchListCommand extends Command
         );
         $searchList = [];
         foreach ($courses as $course) {
-            $searchList[] = trim($course->name) . ' - ' . trim($course->institution->name) . ' - ' . trim($course->course_type->name);
+            $searchList[] = trim($course->name) . '  -  ' . trim($course->institution->name) . '  -  ' . trim($course->course_type->name);
         }
 
         $file = fopen('webroot/search_list.json', 'w');
