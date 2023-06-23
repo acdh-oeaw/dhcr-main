@@ -707,7 +707,7 @@ form .input.select:not(.checkbox) select::-ms-expand { display: none; }
 form .input.select:not(.checkbox) select:focus::-ms-value { background-color: transparent; }
 form .checkbox { margin-left: 0; padding: 0; }
 form .checkbox label { display: inline; }
-form .checkbox input[type=checkbox] { width: 10px; margin-right: 10px; display: inline; vertical-align: middle; }
+form .checkbox input[type=checkbox] { width: 70px; margin-right: 0px; display: inline; vertical-align: middle; }
 form .input, form .input.select:not(.checkbox) { display: grid; grid-template-columns: 1fr 2fr; grid-template-areas: 'label input'; grid-column-gap: 1em; grid-row-gap: 0.5em; justify-items: start; align-items: start; justify-content: stretch; grid-auto-flow: row; grid-auto-rows: auto; margin-bottom: 1em; }
 @media only screen and (max-width: 750px) { form .input, form .input.select:not(.checkbox) { grid-column-gap: 1em; } }
 form .input label, form .input.select:not(.checkbox) label { grid-area: label; margin-bottom: 0.5em; min-width: 88px; }
