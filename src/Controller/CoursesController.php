@@ -166,6 +166,8 @@ class CoursesController extends AppController
             // set course_parent_type
             $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
             $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
+            // remove trailing and leading spaces
+            $course->set('name', trim($course->name));
             if ($this->Courses->save($course)) {
                 // notify moderator to approve new course
                 $this->loadModel('Users');
@@ -180,7 +182,7 @@ class CoursesController extends AppController
                 $this->Flash->success(__('The course has been added.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }
-            $this->Flash->error(__('The course could not be added. Please, try again.'));
+            $this->Flash->error(__('The course could not be added. Please, contact the helpdesk.'));
         }
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
@@ -249,11 +251,13 @@ class CoursesController extends AppController
             // set course_parent_type
             $query = $this->Courses->CourseTypes->find('all')->where(['id' => $course->course_type_id]);
             $course->set('course_parent_type_id', $query->first()->course_parent_type->id);
+            // remove trailing and leading spaces
+            $course->set('name', trim($course->name));
             if ($this->Courses->save($course)) {
                 $this->Flash->success(__('The course has been updated.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }
-            $this->Flash->error(__('The course could not be updated. Please, try again.'));
+            $this->Flash->error(__('The course could not be updated. Please, contact the helpdesk.'));
         }
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
