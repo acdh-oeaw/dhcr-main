@@ -1,5 +1,15 @@
 # Release notes
 
+## Version 2023-08
+*Release date: ...*
+ 
+### New features
+- Implemented sitemap generator for all public shown courses and static links #55
+
+### Small changes
+- //
+
+
 ## Version 2023-05
 *Release date: 2023-06-27*
  
