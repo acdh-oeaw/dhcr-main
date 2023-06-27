@@ -5,12 +5,14 @@
  
 ### New features
  -  Integrated contributor mailing list into application #51
- -  Implemented sitemap generator for all public shown courses and static pages #55
 
 ### Small changes
  - Changed Google Recaptcha keys to organisation keys #29
  - Implemented new bug reporting process #41
  - Changed course description to required field #74
+ - Changed from email address to helpdesk instead of no-reply #69
+ - Automatically remove leading and trailing spaces from course name #73
+ - Increased size of checkboxes #37
 
 
 ## Version 2023-04
