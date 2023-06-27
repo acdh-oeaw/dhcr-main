@@ -3,7 +3,7 @@
 ## Version 2023-05
 *Release date: 2023-06-27*
  
-### New features
+### New feature
  -  Integrated contributor mailing list into application #51
 
 ### Small changes
@@ -21,7 +21,7 @@
 ### New feature
 - Searchbar: Find a course directly by name or institution #62
 
-### Changes
+### Change
 - Implemented requirement that combination of course name, institution and education type has to be unique #59
 
 ### Small changes
