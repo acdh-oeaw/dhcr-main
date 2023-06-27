@@ -83,10 +83,14 @@ class View {
                 limit: 15               /* Specify maximum number of suggestions to be displayed */
             });
             $('#searchField').on('typeahead:selected', function (e, searchKey) {
-                var institutionPos = searchKey.lastIndexOf("-");
-                var courseName = searchKey.slice(0, institutionPos).trim();
-                var institutionName = searchKey.slice(institutionPos + 1).trim();
-                window.location.href = "/courses/find/" + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseName);
+                var courseTypePos = searchKey.lastIndexOf("  -  ");
+                var courseType = searchKey.slice(courseTypePos + 4).trim();
+                var remainingKey = searchKey.slice(0, courseTypePos).trim();
+                var institutionPos = remainingKey.lastIndexOf("  -  ");
+                var institutionName = remainingKey.slice(institutionPos + 4).trim();
+                var courseName = remainingKey.slice(0, institutionPos).trim();
+
+                window.location.href = "/courses/find/" + encodeURIComponent(courseName) + '/' + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseType);
             });
             $('#searchField').focus();
         });
@@ -241,7 +245,7 @@ class View {
         helper.createTermData('Last Revised', course, 'updated').createGridItem();
 
         helper.createTermData('Record Id', course, 'id').createGridItem();
-        
+
         if (course.info_url.length > 0 && course.info_url != 'null') {
             helper.createTermData('Source URL', course, 'info_url').createGridItem('single-col');
         }
