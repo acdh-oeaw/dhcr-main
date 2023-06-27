@@ -52,15 +52,12 @@ class ViewHelper {
         if (value === false) value = empty;
         if (key == 'updated') {
             let date = new Date(data.updated);
-            value = date.getFullYear() + ', ' + ViewHelper.months(date.getMonth()) + ' ' + date.getDate() + '.'
+            value = date.toISOString();
+            let timePos = value.indexOf("T");
+            value = value.slice(0, timePos);
         }
-        if (key == 'contact_name') {
-            let name = ViewHelper.getValue(data, 'contact_name');
-            let mail = ViewHelper.getValue(data, 'contact_mail');
-            if (name !== false) value = name;
-            if (mail !== false && name === false) name = mail;
-            if (mail !== false)
-                value = ViewHelper.createLink('mailto:' + mail, name, false);
+        if (key == 'contact_mail') {
+            value = value.replace("@", " /at/ ");
         }
         if (key == 'info_url') {
             value = ViewHelper.createLink(value);

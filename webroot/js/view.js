@@ -58,12 +58,42 @@ class View {
     createFilterPanel() {
         let buttons = $('<div id="filter-buttons"></div>');
         buttons.append($('<button>Filter</button>').addClass('blue x-small show_filter_options'));
-        buttons.append($('<button>Sorting</button>').addClass('blue x-small show_sort_options'));
+        buttons.append($('<button>Sort</button>').addClass('blue x-small show_sort_options'));
         if (!this.app.filter.isEmpty() || this.app.filter.selected.sort.length > 0) {
             buttons.append($('<a>Clear All</a>').addClass('x-small blue clear button')
                 .attr('href', BASE_URL).attr('id', 'reset'));
         }
+        buttons.append('&nbsp;&nbsp;&nbsp;');
+        buttons.append('<input type="text" id="searchField" placeholder="Find a course directly by name or university" class="typeahead tt-query" autocomplete="off" spellcheck="false">');
         $(this.element).append(buttons);
+        $(document).ready(function () {
+            var courses = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                prefetch: 'search_list.json'
+            });
+            $('.typeahead').typeahead(
+                {
+                    hint: false,
+                    highlight: true,    /* Enable substring highlighting */
+                    minLength: 1        /* Specify minimum characters required for showing result */
+                }, {
+                name: 'courses',
+                source: courses,
+                limit: 15               /* Specify maximum number of suggestions to be displayed */
+            });
+            $('#searchField').on('typeahead:selected', function (e, searchKey) {
+                var courseTypePos = searchKey.lastIndexOf("  -  ");
+                var courseType = searchKey.slice(courseTypePos + 4).trim();
+                var remainingKey = searchKey.slice(0, courseTypePos).trim();
+                var institutionPos = remainingKey.lastIndexOf("  -  ");
+                var institutionName = remainingKey.slice(institutionPos + 4).trim();
+                var courseName = remainingKey.slice(0, institutionPos).trim();
+
+                window.location.href = "/courses/find/" + encodeURIComponent(courseName) + '/' + encodeURIComponent(institutionName) + '/' + encodeURIComponent(courseType);
+            });
+            $('#searchField').focus();
+        });
     }
 
     createTable() {
@@ -79,7 +109,6 @@ class View {
         let table = $('<table></table>');
         let headrow = $('<tr></tr>');
         table.append(headrow);
-
 
         let name = $('<th class="name show_sort_options"></th>');
         name.html('Name' + this.app.filter.helper.getSortIndicator('Courses.name'));
@@ -209,11 +238,13 @@ class View {
         helper.createTermData('Lecturer', course, 'contact_name').createGridItem();
         helper.createTermData('Credits (ECTS)', course, 'ects').createGridItem();
 
-        helper.createTermData('Language', course, 'language.name').createGridItem();
+        helper.createTermData('Contact', course, 'contact_mail').createGridItem();
         helper.createTermData('Presence', course, 'online_course').createGridItem();
 
-        helper.createTermData('Record Id', course, 'id').createGridItem();
+        helper.createTermData('Language', course, 'language.name').createGridItem();
         helper.createTermData('Last Revised', course, 'updated').createGridItem();
+
+        helper.createTermData('Record Id', course, 'id').createGridItem();
 
         if (course.info_url.length > 0 && course.info_url != 'null') {
             helper.createTermData('Source URL', course, 'info_url').createGridItem('single-col');

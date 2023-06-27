@@ -38,8 +38,9 @@ use Cake\Core\Configure;
     <div id="container">
         <?= $this->fetch('content') ?>
     </div>
+    <?= $this->Html->script('jquery-3.6.4.min.js') ?>
+    <?= $this->Html->script('typeahead.bundle.js') ?>
     <?= $this->Flash->render('flash') ?>
-    <?= $this->Html->script('jquery-3.4.1.min.js') ?>
     <?= $this->Html->script('/leaflet/leaflet') ?>
     <?= $this->Html->script('/leaflet/leaflet.markercluster') ?>
     <?= $this->Html->script([
