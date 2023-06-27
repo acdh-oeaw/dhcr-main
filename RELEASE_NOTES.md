@@ -1,12 +1,27 @@
 # Release notes
 
+## Version 2023-05
+*Release date: 2023-06-27*
+ 
+### New feature
+ -  Integrated contributor mailing list into application #51
+
+### Small changes
+ - Changed Google Recaptcha keys to organisation keys #29
+ - Implemented new bug reporting process #41
+ - Changed course description to required field #74
+ - Changed from email address to helpdesk instead of no-reply #69
+ - Automatically remove leading and trailing spaces from course name #73
+ - Increased size of checkboxes #37
+
+
 ## Version 2023-04
 *Release date: 2023-06-27*
  
 ### New feature
 - Searchbar: Find a course directly by name or institution #62
 
-### Changes
+### Change
 - Implemented requirement that combination of course name, institution and education type has to be unique #59
 
 ### Small changes
