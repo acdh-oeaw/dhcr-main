@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-05
-*Release date: ....*
+*Release date: 2023-06-27*
  
 ### New features
  -  Integrated contributor mailing list into application #51
