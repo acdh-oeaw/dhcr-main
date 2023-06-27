@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-04
-*Release date: .....*
+*Release date: 2023-06-27*
  
 ### New feature
 - Searchbar: Find a course directly by name or institution #62
