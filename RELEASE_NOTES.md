@@ -9,6 +9,7 @@
 ### Small changes
 - Upgraded CakePHP to 4.4.14
 - Upgraded PhpUnit to 9.6.9
+- Upgraded Composer to 2.5.8
 
 
 ## Version 2023-05
