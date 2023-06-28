@@ -7,7 +7,8 @@
 - Implemented sitemap generator for all public shown courses and static links #55
 
 ### Small changes
-- //
+- Upgraded CakePHP to 4.4.14
+- Upgraded PhpUnit to 9.6.9
 
 
 ## Version 2023-05
