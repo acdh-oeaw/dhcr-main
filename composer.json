@@ -17,7 +17,7 @@
     },
     "require-dev": {
         "cakephp/bake": "^2.6",
-        "cakephp/cakephp-codesniffer": "^4.5",
+        "cakephp/cakephp-codesniffer": "4.*",
         "cakephp/debug_kit": "^4.5",
         "josegonzalez/dotenv": "^3.2",
         "phpunit/phpunit": "~8.5.0 || ^9.3",
@@ -69,7 +69,7 @@
         "sort-packages": true,
         "allow-plugins": {
             "cakephp/plugin-installer": true,
-            "dealerdirect/phpcodesniffer-composer-installer": false
+            "dealerdirect/phpcodesniffer-composer-installer": true
         }
     }
 }
