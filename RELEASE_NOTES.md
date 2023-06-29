@@ -4,7 +4,7 @@
 *Release date: ...*
  
 ### New features
-- Implemented sitemap generator for all public shown courses and static links #55
+- Implemented sitemap for all public shown courses and static links #55
 
 ### Small changes
 - Upgraded CakePHP to 4.4.14
