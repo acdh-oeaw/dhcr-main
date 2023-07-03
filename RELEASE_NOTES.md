@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-08
-*Release date: ...*
+*Release date: ....*
  
 ### New features
 - Implemented sitemap for all public shown courses and static links #55
