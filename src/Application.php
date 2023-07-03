@@ -126,7 +126,11 @@ implements
             'token' => 'shib_eppn'
         ]);
         // Kinda ugly hack! Making the loaded authenticator available for further checks in UsersController.
-        $service->envAuthenticator = $envAuthenticator;
+        // Creation of dynamic property is deprecated in PHP 8.2. 
+        // Disabled since sibboleth login is not working yet. It can be refactored when this is tested/implemented
+        //$service->envAuthenticator = $envAuthenticator;   
+
+
         // Load identifiers
         $service->loadIdentifier('Authentication.Password', [
             'fields' => $fields,
