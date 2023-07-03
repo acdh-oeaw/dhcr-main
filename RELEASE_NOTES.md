@@ -6,6 +6,9 @@
 ### New features
 - Implemented sitemap for all public shown courses and static links #55
 
+### Changes
+- Migrated application to PHP 8.2 #65
+
 ### Small changes
 - Upgraded CakePHP to 4.4.14
 - Upgraded PhpUnit to 9.6.9
