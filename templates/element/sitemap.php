@@ -26,12 +26,6 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'National Moderators',
-                        ['controller' => 'Pages', 'action' => 'nationalModerators']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
                         'Contact Us',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'contact']
                     ) ?>
