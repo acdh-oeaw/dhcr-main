@@ -5,7 +5,7 @@
     "type": "project",
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.2",
         "ext-curl": "*",
         "cakephp/authentication": "^2.0",
         "cakephp/authorization": "^2.0",
