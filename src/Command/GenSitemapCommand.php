@@ -38,7 +38,6 @@ class GenSitemapCommand extends Command
             'https://dhcr.clarin-dariah.eu',
             'https://dhcr.clarin-dariah.eu/info',
             'https://dhcr.clarin-dariah.eu/info#purpose',
-            'https://dhcr.clarin-dariah.eu/national-moderators',
             'https://dhcr.clarin-dariah.eu/info#publications',
             'https://dhcr.clarin-dariah.eu/info#data',
             'https://dhcr.clarin-dariah.eu/info#clarin-dariah',
