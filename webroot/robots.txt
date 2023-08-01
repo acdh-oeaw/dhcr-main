@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /users/
+Disallow: /info#contact/
+Disallow: /national-moderators/
+
+Sitemap: https://dhcr.clarin-dariah.eu/sitemap.xml

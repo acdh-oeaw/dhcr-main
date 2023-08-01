@@ -20,14 +20,8 @@
             <ul class="info">
                 <li>
                     <?= $this->Html->link(
-                        'Purpose and Audience',
+                        'How to Use DHCR',
                         ['controller' => 'Pages', 'action' => 'info', '#' => 'purpose']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
-                        'National Moderators',
-                        ['controller' => 'Pages', 'action' => 'nationalModerators']
                     ) ?>
                 </li>
                 <li>
@@ -68,8 +62,8 @@
                 </li>
                 <li>
                     <?= $this->Html->link(
-                        'Imprint',
-                        ['controller' => 'Pages', 'action' => 'info', '#' => 'imprint']
+                        'Version & Release Notes',
+                        ['controller' => 'Pages', 'action' => 'info', '#' => 'release-notes']
                     ) ?>
                 </li>
             </ul>

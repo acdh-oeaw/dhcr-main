@@ -120,7 +120,7 @@ class CoursesController extends AppController
     public function find($courseName = NULL, $institutionName = NULL, $courseType = NULL)
     {
         $courseName = urldecode($courseName);
-        $institutionName = urldecode(($institutionName));
+        $institutionName = urldecode($institutionName);
         $courseTypeName = urldecode($courseType);
         if ($courseName == NULL || is_numeric($courseName) || $institutionName == NULL || is_numeric($institutionName) || $courseTypeName == NULL || is_numeric($courseTypeName)) {
             $this->Flash->error('Invalid or missing parameter. Please select a course from the list.');

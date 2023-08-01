@@ -23,8 +23,8 @@ User Overview
 • About: <?= $user->about ?>
 
 <?php
-if (!empty($user->institution_id)) {
-    echo "• Affiliation:  " .$user->institution->name ."\n\n";
+if ($user->institution != NULL) {
+    echo "• Affiliation:  " . $user->institution->name . "\n\n";
 }
 ?>
 

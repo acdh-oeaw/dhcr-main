@@ -1,5 +1,23 @@
 # Release notes
 
+## Version 2023-08
+*Release date: 2023-08-01*
+ 
+### New features
+- Implemented sitemap for all public shown courses and static links #55
+
+### Changes
+- Migrated application to PHP 8.2 #65
+
+### Small changes
+- Upgraded CakePHP to 4.4.15
+- Upgraded PhpUnit to 9.6.9
+- Upgraded Composer to 2.5.8
+- Upgraded CakePHP CodeSniffer to 4.7.0
+- Info page - Content restructuring #23 - partitially
+- Added focus to email field at login page
+
+
 ## Version 2023-05
 *Release date: 2023-06-27*
  
