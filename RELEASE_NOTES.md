@@ -1,5 +1,11 @@
 # Release notes
 
+## Version 2023-08/2
+*Release date: ...*
+ 
+### ...
+- ...
+
 ## Version 2023-08
 *Release date: 2023-08-01*
  
