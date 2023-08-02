@@ -193,6 +193,8 @@ class CourseRemindersCommand extends Command
                     $mailer->setCc($cc);
                 }
                 $mailer->setFrom(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setSender(env('APP_MAIL_DEFAULT_FROM'))
+                    ->setReturnPath(env('APP_MAIL_DEFAULT_FROM'))
                     ->setTo($to)
                     ->setReplyTo([env('APP_MAIL_DEFAULT_REPLY_TO') => 'DH Course Registry'])
                     ->setSubject($subject)
