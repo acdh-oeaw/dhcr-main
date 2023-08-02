@@ -1,18 +1,19 @@
 # Release notes
 
 ## Version 2023-08/2
-*Release date: ...*
+*Release date: 2023-08-02*
  
-### ...
-- ...
+### Bug fix
+- Added Sender and ReturnPath to course reminder mails #69
+
 
 ## Version 2023-08
 *Release date: 2023-08-01*
  
-### New features
+### New feature
 - Implemented sitemap for all public shown courses and static links #55
 
-### Changes
+### Change
 - Migrated application to PHP 8.2 #65
 
 ### Small changes
