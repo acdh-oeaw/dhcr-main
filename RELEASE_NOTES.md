@@ -10,7 +10,7 @@
 - ...
 
 ### Small changes
-- ...
+- Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
 
 
 ## Version 2023-08/2
