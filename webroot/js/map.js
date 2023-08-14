@@ -41,10 +41,9 @@ class Map {
             maxBoundsViscosity: 1
         });
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '© OpenStreetMap'
-        }).addTo(this.map);
+        L.tileLayer('https://api.mapbox.com/styles/v1/'
+            + 'hashmich/ciqhed3uq001ae6niop4onov3/tiles/256/{z}/{x}/{y}?access_token='
+            + this.apiKey).addTo(this.map);
 
         window.addEventListener('resize', function () {
             this.map.invalidateSize();
