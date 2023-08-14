@@ -41,8 +41,7 @@ class Map {
             maxBoundsViscosity: 1
         });
 
-        L.tileLayer('https://api.mapbox.com/styles/v1/'
-            + 'hashmich/ciqhed3uq001ae6niop4onov3/tiles/256/{z}/{x}/{y}?access_token='
+        L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/streets-v12/tiles/256/{z}/{x}/{y}?access_token='
             + this.apiKey).addTo(this.map);
 
         window.addEventListener('resize', function () {
