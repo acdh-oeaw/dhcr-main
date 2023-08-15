@@ -4,13 +4,15 @@
 *Release date: ...*
  
 ### New features
-- ...  
+- ...
 
 ### Changes
-- ...
+- Changed map API keys to developer independent keys #28
+- Added (Mapbox) attribution to map on main page #78
 
 ### Small changes
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
+- Reduced amount of text which is logged when generating search list (GenSearchListCommand)
 
 
 ## Version 2023-08/2
