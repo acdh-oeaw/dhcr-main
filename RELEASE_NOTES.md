@@ -2,17 +2,19 @@
 
 ## Version 2023-09
 *Release date: ...*
- 
-### New features
-- ...
+
+### New feature
+- (Course alerts)
 
 ### Changes
-- Changed map API keys to developer independent keys #28
+- Changed Mapbox API keys to developer independent keys #28
 - Added (Mapbox) attribution to map on main page #78
 
 ### Small changes
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
 - Reduced amount of text which is logged when generating search list (GenSearchListCommand)
+
+### Bug fix
 - Fixed deprecation warning: passing null into ucfirst at users view
 
 
