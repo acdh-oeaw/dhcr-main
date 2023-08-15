@@ -13,6 +13,7 @@
 ### Small changes
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
 - Reduced amount of text which is logged when generating search list (GenSearchListCommand)
+- Fixed deprecation warning: passing null into ucfirst at users view
 
 
 ## Version 2023-08/2
