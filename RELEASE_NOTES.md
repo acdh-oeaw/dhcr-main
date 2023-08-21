@@ -4,7 +4,7 @@
 *Release date: 2023-08-02*
  
 ### Bug fix
-- Added Sender and ReturnPath to course reminder mails #69
+- Added Sender and ReturnPath to course reminder mails #69 
 
 
 ## Version 2023-08
