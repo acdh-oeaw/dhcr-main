@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "ext-intl": "*",
         "ext-curl": "*",
         "cakephp/authentication": "^2.0",
         "cakephp/authorization": "^2.0",
