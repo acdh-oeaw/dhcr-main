@@ -10,7 +10,7 @@
 ### Small changes
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
 - Reduced amount of text which is logged when generating search list (GenSearchListCommand)
-- Upgraded CakePHP to 4.4.16
+- Upgraded CakePHP to 4.4.17
 
 ### Bug fix
 - Fixed deprecation warning: passing null into ucfirst at users view
