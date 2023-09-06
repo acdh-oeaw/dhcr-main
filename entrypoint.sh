@@ -1,7 +1,7 @@
 #!/bin/bash
 
-sed -i 's|;extension=intl|extension=intl.so|g' /layers/heroku_php/platform/etc/php/php.ini
-#sed -i 's|;user_ini.filename|user_ini.filename|g' /layers/heroku_php/platform/etc/php/php.ini
+#sed -i 's|;extension=intl|extension=intl.so|g' /layers/heroku_php/platform/etc/php/php.ini
+sed -i 's|;user_ini.filename|user_ini.filename|g' /layers/heroku_php/platform/etc/php/php.ini
 
 export PATH="/layers/heroku_php/platform/bin:${PATH}"
 
