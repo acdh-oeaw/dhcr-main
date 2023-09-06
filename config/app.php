@@ -221,7 +221,7 @@ return [
             'username' => env('MAIL_SMTP_USER', null),
             'password' => env('MAIL_SMTP_PASS', null),
             'client' => null,
-            'tls' => null,
+            'tls' => false,
             'log' => false,        // enabling this will print the full messages into the log
             'charset' => 'utf-8',
         ]
