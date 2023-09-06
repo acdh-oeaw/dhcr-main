@@ -6,6 +6,7 @@
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
 - Added (Mapbox) attribution to map on main page #78
+- Migrated to Heroku 22 (Ubuntu 22.04 LTS)
 
 ### Small changes
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
