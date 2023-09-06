@@ -2,7 +2,7 @@
 
 ## Version 2023-09
 *Release date: ...* 
-  
+   
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
 - Added (Mapbox) attribution to map on main page #78
