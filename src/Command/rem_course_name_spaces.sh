@@ -2,7 +2,8 @@
 
 ### ENV ###
 CAKE_PATH='/app'
-export PATH="/app/.heroku/php/bin:${PATH}"
+# Set PHP path
+/app/src/Command/set_php_path.sh
 
 ### CAKE COMMANDS ###
 bin/cake rem_course_name_spaces
