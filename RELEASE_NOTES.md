@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-09
-*Release date: 2023-09-* 
+*Release date: 2023-09-...* 
    
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
@@ -14,6 +14,7 @@
 - Upgraded CakePHP to 4.4.17
 - Upgraded Composer to 2.6.3
 - Composer update for both API's
+- Centralized PHP path setting for cli scripts
 
 ### Bug fix
 - Fixed deprecation warning: passing null into ucfirst at users view
