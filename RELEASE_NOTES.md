@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-09
-*Release date: ...* 
+*Release date: 2023-09-* 
    
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
@@ -12,7 +12,8 @@
 - Upgraded course add-edit map (institution location view/selector) to Mapbox 2.9.1
 - Reduced amount of text which is logged when generating search list (GenSearchListCommand)
 - Upgraded CakePHP to 4.4.17
-- Upgraded Composer to 2.6.2
+- Upgraded Composer to 2.6.3
+- Composer update for both API's
 
 ### Bug fix
 - Fixed deprecation warning: passing null into ucfirst at users view
@@ -39,7 +40,7 @@
 - Upgraded PhpUnit to 9.6.9
 - Upgraded Composer to 2.5.8
 - Upgraded CakePHP CodeSniffer to 4.7.0
-- Info page - Content restructuring #23 - partitially
+- Info page - Content restructuring #23
 - Added focus to email field at login page
 
 
