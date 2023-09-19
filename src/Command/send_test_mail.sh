@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 ### ENV ###
-CAKE_PATH='/app'
-export PATH="/layers/heroku_php/platform/bin:${PATH}"   # add PHP path
+# Set PHP path
+source /app/src/Command/set_php_path.sh
 
 ### CAKE COMMANDS ###
 bin/cake send_test_mail
