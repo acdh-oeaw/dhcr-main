@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-09
-*Release date: 2023-09-...* 
+*Release date: 2023-09-19* 
    
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
@@ -16,8 +16,9 @@
 - Composer update for both API's
 - Centralized PHP path setting for cli scripts
 
-### Bug fix
+### Bug fixes
 - Fixed deprecation warning: passing null into ucfirst at users view
+- Fixed: Emails from the application are rejected by Gmail #69 
 
 
 ## Version 2023-08/2
