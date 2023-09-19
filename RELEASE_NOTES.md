@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-09
-*Release date: 2023-09-19*
+*Release date: 2023-09-19* 
    
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
