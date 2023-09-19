@@ -8,7 +8,7 @@ use Cake\Console\ConsoleIo;
 use Cake\I18n\FrozenTime;
 
 /*  This file should be run on build to create the JSON file for the seach bar
-    As well it should be run automatically on regular basis */
+    As well it should be run automatically on regular basis (hourly) */
 
 class GenSearchListCommand extends Command
 {
@@ -32,22 +32,30 @@ class GenSearchListCommand extends Command
         );
         $searchList = [];
         foreach ($courses as $course) {
-            $searchList[] = trim($course->name) . '  -  ' . trim($course->institution->name) . '  -  ' . trim($course->course_type->name);
+            $searchList[] = trim($course->name) . '  -  ' . trim($course->institution->name)
+                . '  -  ' . trim($course->course_type->name);
         }
 
         $file = fopen('webroot/search_list.json', 'w');
         fwrite($file, json_encode($searchList));
         fclose($file);
 
+        $logType = 10;  // notification
+        $logUser = 586; // dhcr application user id
+        $logSource = basename(__FILE__, '.php');    // name of this script
+        $logSource = str_replace('Command', '', $logSource);    // store less characters in db
+        $logAction = 'Generated list';
+        $logDetails = 'Total courses: ' . sizeof($searchList);
+
         $this->Logentries->createLogEntry(
-            '10',
-            '586',
-            basename(__FILE__, '.php'),
-            'Generated Search List.',
-            'Total Courses: ' . sizeof($searchList)
+            $logType,
+            $logUser,
+            $logSource,
+            $logAction,
+            $logDetails
         );
 
-        $io->out('Total courses: ' . sizeof($searchList));
+        $io->out($logDetails);
         $io->out('~~~ Finished: Generate Search List ~~~');
     }
 }

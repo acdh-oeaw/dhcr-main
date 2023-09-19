@@ -2,8 +2,8 @@
 
 use Cake\Core\Configure;
 
-echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.js');
-echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.8.0/mapbox-gl.css');
+echo $this->Html->script('https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js');
+echo $this->Html->css('https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css');
 ?>
 <div id='map' style='width: 600px; height: 450px;'></div>
 <script>
