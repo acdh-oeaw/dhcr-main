@@ -1,8 +1,15 @@
 # Release notes
 
+## Version 2023-11
+*Release date: ...*
+
+### Changes
+- xyz
+
+
 ## Version 2023-09
-*Release date: 2023-09-19*  
-   
+*Release date: 2023-09-19*
+
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
 - Added (Mapbox) attribution to map on main page #78
@@ -23,7 +30,7 @@
 
 ## Version 2023-08/2
 *Release date: 2023-08-02*
- 
+
 ### Bug fix
 - Added Sender and ReturnPath to course reminder mails #69
 
