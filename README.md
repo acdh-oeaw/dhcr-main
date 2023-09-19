@@ -3,6 +3,7 @@
 ## Release notes
 Release notes of the latest version can be found here: [RELEASE_NOTES.md](RELEASE_NOTES.md)
 
+
 ## Old content
 The text below is outdated and needs to be updated:
 
