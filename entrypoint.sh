@@ -8,7 +8,7 @@ cp .user.ini /app/.heroku/php/etc/php/conf.d/
 chown -R 1000:1000 /app/.heroku
 
 # Set PHP path
-/app/src/Command/set_php_path.sh
+source /app/src/Command/set_php_path.sh
 
 # Generate JSON file required for searchbar
 bin/cake gen_search_list
