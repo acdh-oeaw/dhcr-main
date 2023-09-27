@@ -117,7 +117,7 @@ use Cake\I18n\FrozenTime;
     </table>
     <p></p>
 
-    <h3><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;New added courses - Top 15</h3>
+    <h3><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;New added courses - Top 25</h3>
     <p><i>Sorted by date added, descending</i></p>
     <table>
         <thead>
