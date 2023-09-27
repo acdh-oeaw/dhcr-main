@@ -141,7 +141,10 @@ use Cake\I18n\FrozenTime;
                         <strong>
                             <font color="<?= ($newAddedCourse->active) ? 'green">Yes' : 'red">No' ?></font></strong>
                     </td>
-                    <td style=" padding: 5px"><?= $newAddedCourse->name ?>
+                    <td style=" padding: 5px"><?= $this->Html->link(
+                                                    $newAddedCourse->name,
+                                                    ['controller' => 'Courses', 'action' => 'view', $newAddedCourse->id]
+                                                ) ?>
                     </td>
                     <td style="padding: 5px"><?= $newAddedCourse->institution->name ?></td>
                     <td style="padding: 5px"><?= $newAddedCourse->country->name ?></td>
