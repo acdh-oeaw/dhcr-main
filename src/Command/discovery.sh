@@ -3,7 +3,7 @@
 ### ENV ###
 CAKE_PATH='/app'
 # Set PHP path
-source /app/src/Command/set_php_path.sh
+export PATH="/layers/heroku_php/platform/bin:${PATH}"
 
 ### CAKE COMMANDS ###
 cd $CAKE_PATH && bin/cake discovery 2>&1;
