@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 ### ENV ###
 # Set PHP path
