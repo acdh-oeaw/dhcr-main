@@ -1,5 +1,12 @@
 # Release notes
 
+## Version 2023-10
+*Release date: 2023-10-04*
+   
+### Bug fix
+- Fix: cron jobs for search bar, sitemap and course reminders don't work #93
+
+
 ## Version 2023-09
 *Release date: 2023-09-19*
    
