@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Set PHP path
-export PATH="/layers/heroku_php/platform/bin:${PATH}"
+# PHP bootstrap
+source ./src/Command/php_bootstrap.sh
 
 # Generate JSON file required for searchbar
 bin/cake gen_search_list
