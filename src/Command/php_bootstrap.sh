@@ -11,5 +11,5 @@ chown -R 1000:1000 /app/.heroku
 export PATH="/layers/heroku_php/platform/bin:${PATH}"
 
 # Set flag
-export PHP_BTSTR="done"
+touch src/Command/php_btstr.log
 # TODO: remove
