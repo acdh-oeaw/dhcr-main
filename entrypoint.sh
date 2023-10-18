@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# PHP bootstrap
-source ./src/Command/php_bootstrap.sh
+source ./src/Command/includes.sh
+prepare_php
 
 # Generate JSON file required for searchbar
 bin/cake gen_search_list
