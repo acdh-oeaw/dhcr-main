@@ -30,22 +30,23 @@
                 echo $this->Form->control('institution_id', ['options' => $institutions]);
                 echo $this->Form->control('about');
                 if ($user->is_admin) {   // only admin can change user roles
-                    echo '<p>&nbsp;</p><h3>User roles</h3><p>';
-                    echo $this->Form->control('user_role_id', ['label' => 'Moderator', 'options' => [1 => 'Old value - please change', 2 => 'Yes', 3 => 'No']]);
+                    echo '<p>&nbsp;</p><h3>Administrator options</h3><p>';
+                    echo '<p><font color="red"><b>Note: Please always check or uncheck <u>both</u> options.</b></font></p>';
+                    echo $this->Form->control('is_admin', ['label' => 'Administrator rights']);
+                    echo $this->Form->control('user_admin', ['label' => 'User admin']);
+                    echo '<p>&nbsp;</p><h3>Moderator options</h3><p>';
+                    echo $this->Form->control('user_role_id', ['label' => 'Moderator rights', 'options' => [1 => 'Old value - please change', 2 => 'Yes', 3 => 'No']]);
                     echo 'Moderated country: ';
                     echo ($editUser->user_role_id == 2) ? h($editUser->country->name) : '-';
-                    echo $this->Form->control('is_admin', ['label' => 'Administrator']);
-                    echo $this->Form->control('user_admin', ['label' => 'Show as admin on contact page']);
                 }
-                if ($user->is_admin && $editUser->user_role_id == 2) {   // only admin can change moderator profile AND only when user is a moderator
-                    echo '<p>&nbsp;</p><h3>National Moderator List</h3><p></p>';
-                    echo 'Below you can select if a moderator should be shown in the list of National Moderators. You can also upload a picture, 
-                    which is optional. As well, the information from the following fields (which can be edited above) are shown in the list of 
-                    National Moderators: First Name, Last Name, Email Address, Institution, Country (based on institution), About.<p>';
+                if ($user->is_admin && $editUser->user_role_id == 2) {   // only admin can change moderator profile AND only when the edited profile is a moderator
+                    echo '<p><h4>National Moderator List</h4>';
+                    echo '<p><font color="red"><b>Note: Please first check/update the following fields: First Name, Last Name, Email Address, 
+                    Institution, Country (based on institution), About, Profile Photo. And then also check the box below when assigning moderator rights.</b></font></p>';
                     echo $this->Form->control('mod_profile', ['label' => 'Show this user in the National Moderators List']);
                 }
                 if ($user->is_admin && ($editUser->user_role_id == 2 || $editUser->user_admin)) {   // only admin can change moderator profile AND only when user is a moderator OR user_admin
-                    echo '<h3>Profile photo</h3><p></p>';
+                    echo '<h4>Profile photo</h4><p></p>';
                     if (strlen($editUser->photo_url) > 0) {
                         // photo is present. show picture and delete option
                         echo $this->Html->Image('/uploads/user_photos/' . $editUser->photo_url, array('height' => '170', 'width' => '132'));
@@ -53,7 +54,7 @@
                         echo $this->Html->Link('Delete photo', ['action' => 'edit', $editUser->id, 'delete_photo']);
                     } else {
                         // photo not present. show add option with file selector
-                        echo '<u>Add photo</u><br>';
+                        echo '<u>No photo available, please add one.</u><br>';
                         echo '<i>The size should be: height 170 px, width 132 px. <br>Please resize the image on your device, before uploading.</i><p></p>';
                         echo $this->Form->input('photo', ['type' => 'file', 'class' => 'form-control']);
                         echo '<p></p><i>After adding a photo, click on "Update User", to save the photo.</i>';
