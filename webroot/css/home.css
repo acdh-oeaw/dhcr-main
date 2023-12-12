@@ -676,12 +676,12 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 @media only screen and (max-width: 750px) { #page-head { margin: 13px; width: calc(100% - 50px); padding: 0 3px 13px 3px; border-bottom: 2px solid #1E6BA3; } }
 #page-head #logo { flex-shrink: 0; white-space: nowrap; overflow: hidden; }
 #page-head #logo a { display: block; line-height: 0; }
-#page-head #logo a img { width: 300px; height: auto; }
+#page-head #logo a img { width: 700px; height: auto; }
 @media only screen and (max-width: 750px) { #page-head #logo a img { width: 40vw; min-width: 180px; } }
 
 body.users #page-head #logo { overflow: initial; transition: all 0.3s; }
 body.users #page-head #logo a { display: block; float: left; margin-right: 5px; }
-body.users #page-head #logo a img { width: auto; height: 46px; }
+body.users #page-head #logo a img { width: auto; height: 76px; }
 body.users #page-head #logo .blue.button.users { width: 48px; padding-left: 12px; color: transparent; border-bottom-right-radius: 0; border-top-right-radius: 0; line-height: initial; }
 body.users #page-head #logo .blue.button.users:hover, body.users #page-head #logo .blue.button.users.animate, body.users #page-head #logo .blue.button.users.focus { transform: none; }
 body.users #page-head #logo .blue.button.users .glyphicon { color: #fff; }
