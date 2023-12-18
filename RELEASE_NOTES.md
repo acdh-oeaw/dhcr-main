@@ -1,5 +1,15 @@
 # Release notes
 
+## Version 2023-12
+*Release date: ...*
+
+### Bug fixes
+- ...
+
+### Small changes
+- ...
+
+
 ## Version 2023-11
 *Release date: 2023-12-18*
 
