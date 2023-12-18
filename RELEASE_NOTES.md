@@ -1,15 +1,17 @@
 # Release notes
 
 ## Version 2023-11
-*Release date: ...*
+*Release date: 2023-12-18*
 
-### Changes
-- xyz 
+### Small changes
+- Clearify user roles at User, Edit #79
+- Course Statistics: Added link on title #89
+- Course Statistics: Show top 25 new courses instead of 15 courses #89
 
 
 ## Version 2023-10
 *Release date: 2023-10-04*
-   
+
 ### Bug fix
 - Fix: cron jobs for search bar, sitemap and course reminders don't work #93
 
