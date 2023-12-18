@@ -203,7 +203,7 @@ class StatisticsController extends AppController
         $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));
         $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));
         $outdatedCoursesPerCountries = $this->getOutdatedCoursesPerCountries();
-        $newAddedCourses = $this->getNewAddedCourses(15);
+        $newAddedCourses = $this->getNewAddedCourses(25);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
         $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts', 'outdatedCoursesPerCountries', 'newAddedCourses'));

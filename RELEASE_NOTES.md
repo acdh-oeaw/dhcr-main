@@ -1,15 +1,22 @@
 # Release notes
 
+## Version 2023-11
+*Release date: 2023-12-18*
+
+### Small change
+- Clearify user roles at User, Edit #79
+
+
 ## Version 2023-10
 *Release date: 2023-10-04*
-   
+
 ### Bug fix
 - Fix: cron jobs for search bar, sitemap and course reminders don't work #93
 
 
 ## Version 2023-09
 *Release date: 2023-09-19*
-   
+
 ### Changes
 - Changed Mapbox API keys to developer independent keys #28
 - Added (Mapbox) attribution to map on main page #78
@@ -30,7 +37,7 @@
 
 ## Version 2023-08/2
 *Release date: 2023-08-02*
- 
+
 ### Bug fix
 - Added Sender and ReturnPath to course reminder mails #69
  
