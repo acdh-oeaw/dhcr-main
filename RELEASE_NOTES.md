@@ -3,7 +3,7 @@
 ## Version 2023-11
 *Release date: 2023-12-18*
 
-### Changes
+### Small change
 - Clearify user roles at User, Edit #79
 
 
