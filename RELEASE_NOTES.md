@@ -7,7 +7,10 @@
 - ...
 
 ### Small changes
-- ...
+- Updated dependencies
+- Upgraded CakePHP to 4.5.2
+- Upgraded Composer to 2.6.6
+- Updated dependencies for API v1 and v2
 
 
 ## Version 2023-11
