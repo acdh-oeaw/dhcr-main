@@ -1,15 +1,15 @@
 # Release notes
 
 ## Version 2023-11
-*Release date: ...*
+*Release date: 2023-12-18*
 
 ### Changes
-- xyz 
+- Clearify user roles at User, Edit #79
 
 
 ## Version 2023-10
 *Release date: 2023-10-04*
-   
+
 ### Bug fix
 - Fix: cron jobs for search bar, sitemap and course reminders don't work #93
 
