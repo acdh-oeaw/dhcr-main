@@ -71,8 +71,8 @@ class CourseRemindersCommand extends Command
         $this->loadModel('Logentries');
         $waitPeriod = new FrozenTime('-7 Days');    // no mail will be sent within $waitPeriod days after previous mail
 
-        // clean up all old log entries
-        $oldEntries = $this->Logentries->find()->where(['created <' => new FrozenTime('-6 Months')]);
+        // clean up old log entries after 3 months
+        $oldEntries = $this->Logentries->find()->where(['created <' => new FrozenTime('-3 Months')]);
         $io->out('Cleaned up old log entries: ' . $oldEntries->count());
         $this->Logentries->deleteManyOrFail($oldEntries);
 
