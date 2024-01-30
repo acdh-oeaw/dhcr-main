@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-### ENV ###
-# Set PHP path
-export PATH="/layers/heroku_php/platform/bin:${PATH}"
+# Enable PHP intl and set path
+source /app/src/Command/includes.sh
+prepare_php
 
-### CAKE COMMANDS ###
-bin/cake course_reminders 2>&1
+# Send course reminders
+bin/cake course_reminders
