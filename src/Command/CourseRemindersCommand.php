@@ -69,7 +69,7 @@ class CourseRemindersCommand extends Command
         $this->loadModel('DhcrCore.Courses');
         $this->loadModel('Users');
         $this->loadModel('Logentries');
-        $waitPeriod = new FrozenTime('-7 Days');    // no mail will be sent within $waitPeriod days after previous mail
+        $waitPeriod = new FrozenTime('-10 Days');    // no mail will be sent within $waitPeriod days after previous mail
 
         // clean up old log entries after 3 months
         $oldEntries = $this->Logentries->find()->where(['created <' => new FrozenTime('-3 Months')]);
