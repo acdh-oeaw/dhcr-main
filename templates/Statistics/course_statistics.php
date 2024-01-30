@@ -10,6 +10,7 @@ use Cake\I18n\FrozenTime;
     });
     google.charts.setOnLoadCallback(drawChartUpdatedCourses);
     google.charts.setOnLoadCallback(drawChartArchivedSoonCourses);
+    google.charts.setOnLoadCallback(drawChartNewCourses);
 
     function drawChartUpdatedCourses() {
         var data1 = google.visualization.arrayToDataTable(<?php echo json_encode($updatedCourseCounts) ?>);
@@ -55,6 +56,24 @@ use Cake\I18n\FrozenTime;
         var chart2 = new google.visualization.ColumnChart(
             document.getElementById('chart_archived_soon_courses'));
         chart2.draw(data2, options2);
+    }
+
+    function drawChartNewCourses() {
+        var data3 = google.visualization.arrayToDataTable(<?php echo json_encode($newCourseCounts) ?>);
+        var options3 = {
+            hAxis: {
+                title: 'Months ago',
+            },
+            vAxis: {
+                title: 'New courses',
+            },
+            legend: {
+                position: "none"
+            },
+        };
+        var chart3 = new google.visualization.ColumnChart(
+            document.getElementById('chart_new_courses'));
+        chart3.draw(data3, options3);
     }
 </script>
 
@@ -115,6 +134,11 @@ use Cake\I18n\FrozenTime;
             <?php endforeach; ?>
         </tbody>
     </table>
+    <p></p>
+
+    <h3><span class="glyphicon glyphicon-signal"></span>&nbsp;&nbsp;&nbsp;New added courses in the last 1,5 year</h3>
+    <p><i>Includes not published or unpublished courses.</i></p>
+    <div id="chart_new_courses"></div>
     <p></p>
 
     <h3><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;New added courses - Top 25</h3>
