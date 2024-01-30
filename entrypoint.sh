@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Enable PHP intl and set path
 source ./src/Command/includes.sh
 prepare_php
 
