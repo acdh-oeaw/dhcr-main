@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-### ENV ###
-# Set PHP path
-export PATH="/layers/heroku_php/platform/bin:${PATH}"
+# Enable PHP intl and set path
+source /app/src/Command/includes.sh
+prepare_php
 
-### CAKE COMMANDS ###
+# Generate JSON file required for searchbar
 bin/cake gen_search_list
