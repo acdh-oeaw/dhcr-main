@@ -15,10 +15,7 @@ use Cake\Core\Configure;
 <body class="dhcr-home <?= $this->request->getParam('action') ?>">
     <div id="page-head">
         <div id="logo">
-            <?= $this->Html->image('header_logo.png', [
-                'url' => '/',
-                'alt' => 'Digital Humanities Course Registry (logo)'
-            ]); ?>
+            <?= $this->Html->image('header_logo.png', ['alt' => 'Digital Humanities Course Registry (logo)']); ?>
         </div>
         <div id="menu">
             <?= $this->Html->link('Info', '/info', ['class' => 'blue button', 'id' => 'info-button']) ?>
