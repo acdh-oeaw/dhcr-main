@@ -9,6 +9,7 @@
 ### Changes
 - Added CLARIN and DARIAH logo's on the main page #87
 - Course Statistics: Added chart of new courses per month #89
+- Include additional information in course reminders #95
 
 ### Small changes
 - Updated dependencies
