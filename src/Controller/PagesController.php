@@ -23,10 +23,7 @@ use Cake\View\Exception\MissingTemplateException;
 
 /**
  * Static content controller
- *
  * This controller will render views from Template/Pages/
- *
- * @link https://book.cakephp.org/3.0/en/controllers/pages-controller.html
  */
 class PagesController extends AppController
 {
@@ -40,13 +37,7 @@ class PagesController extends AppController
 
     public function follow()
     {
-        $this->loadModel('DhcrCore.Countries');
-        $this->loadModel('Subscriptions');
-        $subscription = $this->Subscriptions->newEmptyEntity();
-        $countries = $this->Subscriptions->Countries->find('list', [
-            'order' => ['Countries.name' => 'ASC']
-        ]);
-        $this->set(compact('subscription', 'countries'));
+        // empty
     }
 
     public function info()
