@@ -58,6 +58,12 @@ class PagesController extends AppController
         $this->set(compact('moderatorProfiles'));
     }
 
+    public function latestApi()
+    {
+        # Redirect requests from old API versions to main page of latest version
+        return $this->redirect('/api/v2');
+    }
+
     /**
      * Displays a view
      *
