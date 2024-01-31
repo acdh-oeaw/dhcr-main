@@ -105,7 +105,7 @@ return static function (RouteBuilder $routes) {
             ["pass" => ["categoryName"]],
         );
         $builder->connect('/help/users-access-workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);
-        $builder->connect('/api/v1', ['controller' => 'Pages', 'action' => 'latestApi']);
+        $builder->redirect('/api/v1/*', '/api/v2/', ['status' => 301]);
         /*
          * Connect catchall routes for all controllers.
          *
