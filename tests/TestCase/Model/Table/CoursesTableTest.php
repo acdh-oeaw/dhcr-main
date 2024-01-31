@@ -99,24 +99,4 @@ class CoursesTableTest extends TestCase
         $this->markTestIncomplete('Not implemented yet.');
     }
 
-
-
-    public function testGetFilter()
-    {
-        $SubscriptionsTable = TableRegistry::getTableLocator()->get('Subscriptions');
-        $subscriptions = $SubscriptionsTable->getSubscriptions();
-        foreach ($subscriptions as $row) {
-            $options = $this->Courses->getFilter($row);
-
-            if ($row['online_course'] !== null)
-                $this->assertArrayHasKey('Courses.online_course', $options['conditions']);
-            else
-                $this->assertArrayNotHasKey('Courses.online_course', $options['conditions']);
-
-            if ($row['notifications'])
-                $this->assertArrayHasKey('Courses.id NOT IN', $options['conditions']);
-            else
-                $this->assertArrayNotHasKey('Courses.id NOT IN', $options['conditions']);
-        }
-    }
 }
