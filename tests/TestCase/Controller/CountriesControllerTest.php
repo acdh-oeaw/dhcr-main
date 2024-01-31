@@ -27,9 +27,7 @@ class CountriesControllerTest extends TestCase
         'app.Cities',
         'app.Courses',
         'app.Institutions',
-        'app.Subscriptions',
         'app.Users',
-        'app.CountriesSubscriptions',
     ];
 
     /**
