@@ -28,7 +28,6 @@ class CourseTypesTableTest extends TestCase
         'app.CourseTypes',
         'app.CourseParentTypes',
         'app.Courses',
-        'app.Subscriptions',
     ];
 
     /**
