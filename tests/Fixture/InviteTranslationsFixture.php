@@ -24,7 +24,7 @@ class InviteTranslationsFixture extends TestFixture
         'subject' => ['type' => 'string', 'length' => 150, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_unicode_ci', 'comment' => '', 'precision' => null],
         'messageBody' => ['type' => 'text', 'length' => null, 'null' => false, 'default' => null, 'collate' => 'utf8mb4_unicode_ci', 'comment' => '', 'precision' => null],
         'created' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => null, 'comment' => ''],
-        'updated' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => '0000-00-00 00:00:00', 'comment' => ''],
+        'updated' => ['type' => 'datetime', 'length' => null, 'precision' => null, 'null' => false, 'default' => '2000-01-01 00:00:00', 'comment' => ''],
         'active' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         '_indexes' => [
             'fk_language' => ['type' => 'index', 'columns' => ['language_id'], 'length' => []],
