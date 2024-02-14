@@ -107,13 +107,18 @@ class ReviewRemindersCommand extends Command
             if ($issuesAmount > 0) {
                 $this->sendReviewReminders($issuesAmount, $issuesUrl);
             } else {
-                $io->out('No issues open');
+                $action = 'Result:';
+                $details = 'No issues open';
+                $io->out($details);
+
+                $scriptName = basename(__FILE__, '.php');
+                $scriptName = str_replace('Command', '', $scriptName);
                 $this->Logentries->createLogEntry(
                     '30',
                     '586',
-                    basename(__FILE__, '.php'),
-                    'Result:',
-                    'No issues open.'
+                    $scriptName,
+                    $action,
+                    $details
                 );
             }
         } else {
