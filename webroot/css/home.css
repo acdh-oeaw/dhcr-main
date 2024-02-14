@@ -575,7 +575,7 @@ img { outline: none; }
 
 em { font-size: 0.9em; font-weight: bold; letter-spacing: 0.08em; font-style: normal; white-space: nowrap; }
 
-a { color: #1E6BA3; text-decoration: none; }
+a { color: #0273cb; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 button, .button { height: 46px; outline: none; display: inline-block; position: relative; border-radius: 23px; border: solid 2px #1E6BA3; background-color: #fff; font-family: Bebas, sans-serif; font-size: 24px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; text-align: center; text-decoration: none; color: #1E6BA3; text-transform: uppercase; padding: 2px 20px 0; cursor: pointer; transition: all 0.3s; }
@@ -787,7 +787,7 @@ body.index #container #table table th:hover, body.index #container #table table 
 @media only screen and (max-width: 750px) { body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university { display: none; } }
 body.index #container #table table tr, body.view #container #table table tr { font-family: Metropolis, sans-serif; letter-spacing: 0.0074em; }
 body.index #container #table table tr.course-row, body.view #container #table table tr.course-row { cursor: pointer; }
-body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover { color: #1E6BA3; font-weight: bold; letter-spacing: 0; }
+body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover { color: #0273cb; font-weight: bold; letter-spacing: 0; }
 body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button { margin-right: 0.8em; }
 body.index #container #table table tr.expansion-row button:last-child, body.index #container #table table tr.expansion-row .button:last-child, body.view #container #table table tr.expansion-row button:last-child, body.view #container #table table tr.expansion-row .button:last-child { margin-right: 0; }
 body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover { transform-origin: left center; }

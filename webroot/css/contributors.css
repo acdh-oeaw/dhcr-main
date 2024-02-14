@@ -590,7 +590,7 @@ img { outline: none; }
 
 em { font-size: 0.9em; font-weight: bold; letter-spacing: 0.08em; font-style: normal; white-space: nowrap; }
 
-a { color: #1E6BA3; text-decoration: none; }
+a { color: #0273cb; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 button, .button { height: 46px; outline: none; display: inline-block; position: relative; border-radius: 23px; border: solid 2px #1E6BA3; background-color: #fff; font-family: Bebas, sans-serif; font-size: 24px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; text-align: center; text-decoration: none; color: #1E6BA3; text-transform: uppercase; padding: 2px 20px 0; cursor: pointer; transition: all 0.3s; }
