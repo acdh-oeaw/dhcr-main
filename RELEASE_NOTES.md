@@ -18,7 +18,7 @@
 ### Small changes
 - Updated dependencies
 - Upgraded CakePHP to 4.5.2
-- Upgraded Composer to 2.6.6
+- Upgraded Composer to 2.7.1
 - Updated dependencies for API
 - Updated README and removed old ops text #40
 
