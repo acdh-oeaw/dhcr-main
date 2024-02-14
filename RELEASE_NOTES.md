@@ -4,21 +4,22 @@
 *Release date: ...*
 
 ### Bug fixes
-- ...
+- Restructured php paths, intl module and cron jobs #93
+- Removed course alerts #100
 
 ### Changes
 - Added CLARIN and DARIAH logo's on the main page #87
 - Course Statistics: Added chart of new courses per month #89
 - Include additional information in course reminders #95
-- Restructured php paths, intl module and cron jobs #93
-- Removed course alerts #100
 - Removed API v1 #83
+- Added review reminders
 
 ### Small changes
 - Updated dependencies
 - Upgraded CakePHP to 4.5.2
 - Upgraded Composer to 2.6.6
 - Updated dependencies for API
+- Updated README and removed old ops text #40
 
 
 ## Version 2023-11
