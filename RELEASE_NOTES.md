@@ -13,6 +13,7 @@
 - Include additional information in course reminders #95
 - Removed API v1 #83
 - Added review reminders
+- Changed the colour of hyperlinks embedded in the text #94
 
 ### Small changes
 - Updated dependencies
