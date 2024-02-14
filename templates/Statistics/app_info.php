@@ -13,7 +13,7 @@ use Cake\Core\Configure;
     <h3>CakePHP Framework Version</h3>
     <p>
         <?= Configure::version() ?><br>
-        <i>Note: This is the version of the main application [dhcr-main]. Both of the API's could each be using a different version. This should be checked separately.</i>
+        <i>Note: This is the version of the main application [dhcr-main]. The API could be using a different version. This should be checked separately.</i>
     </p>
     <h3>Debug Mode</h3>
     <p>
