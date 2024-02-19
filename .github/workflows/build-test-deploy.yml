@@ -209,7 +209,3 @@ jobs:
             --values auto-deploy-app-values.yaml --install --atomic --wait \
             --set application.secretName="${{ secrets.APP_NAME }}-${{ github.ref_name }}" ${{ secrets.HELM_UPGRADE_EXTRA_ARGS }} \
           .github/auto-deploy-app
-      - name: Clear cache
-        uses: MyAlbum/purge-cache@v2
-        with:
-          max-age: 70
