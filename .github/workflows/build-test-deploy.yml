@@ -12,9 +12,9 @@ jobs:
     environment: ${{ github.ref_name }}
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Pack Build
-        uses: dfreilich/pack-action@v2.1.1
+        uses: dfreilich/pack-action@v2
         with:
           args: 'build tmp-cnb-image --builder heroku/builder:22'
       - name: Suggest default port 5000 within image
@@ -60,7 +60,7 @@ jobs:
     environment: ${{ github.ref_name }}
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3 
         with:
