@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-12
-*Release date: ...* 
+*Release date: 2024-02-27* 
 
 ### Bug fixes
 - Restructured php paths, intl module and cron jobs #93
@@ -10,7 +10,7 @@
 ### Changes
 - Added CLARIN and DARIAH logo's on the main page #87
 - Course Statistics: Added chart of new courses per month #89
-- Include additional information in course reminders #95
+- Include unsubscribe information in course reminders #95
 - Removed API v1 #83
 - Added review reminders
 - Changed the colour of hyperlinks embedded in the text #94
@@ -21,6 +21,7 @@
 - Upgraded Composer to 2.7.1
 - Updated dependencies for API
 - Updated README and removed old ops text #40
+- Updated Node.js 16 actions #99
 
 
 ## Version 2023-11
