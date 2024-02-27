@@ -105,6 +105,10 @@ return static function (RouteBuilder $routes) {
             ["pass" => ["categoryName"]],
         );
         $builder->connect('/help/users-access-workflows', ['controller' => 'FaqQuestions', 'action' => 'usersAccessWorkflows']);
+
+        # "Legacy support" for API v1. Redirect v1 landing page to v2 landing page. Other v1 calls result in 404.
+        $builder->redirect('/api/v1/', '/api/v2/', ['status' => 301]);
+
         /*
          * Connect catchall routes for all controllers.
          *

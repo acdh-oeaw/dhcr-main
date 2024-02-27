@@ -35,7 +35,7 @@
 #content .title h2, #content .intent h2 { margin-bottom: 1em; }
 #content .title p, #content .intent p { font-size: 18px; line-height: 1.5; color: #1E6BA3; }
 @media only screen and (max-width: 580px) { #content .title p, #content .intent p { font-size: 16px; } }
-#content .title p a, #content .intent p a { font-weight: bold; color: #1E6BA3; }
+#content .title p a, #content .intent p a { font-weight: bold; color: #0273cb; }
 #content .title p a:hover, #content .intent p a:hover { text-decoration: underline; }
 #content #accordeon { grid-area: content; }
 

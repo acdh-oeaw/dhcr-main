@@ -15,8 +15,8 @@ use Cake\Core\Configure;
 <body class="dhcr-home <?= $this->request->getParam('action') ?>">
     <div id="page-head">
         <div id="logo">
-            <?= $this->Html->image('logo-300.png', [
-                'url' => '/',
+            <?= $this->Html->image('header_logo.png', [
+                'url' => '/info#clarin-dariah',
                 'alt' => 'Digital Humanities Course Registry (logo)'
             ]); ?>
         </div>

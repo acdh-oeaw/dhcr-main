@@ -1,22 +1,17 @@
-
-
 /* Color schema */
 $clarin_blue	: #07426e;  //2387aa
 $dariah_blue	: #1E6BA3;
 $blue			: $dariah_blue;
+$link_blue      : #0273cb;
 $green			: #61A845;
 $red            : #020000;
 $gray           : #6d7278;
 $light-gray     : #d8d8d8;
 
-
-
-
 /* general text formatting */
 $text-color     : $gray;
 $em-color       : #333;
 $line-height    : 1.7em;
-
 
 /* base layout & responsive sizing */
 
@@ -24,8 +19,6 @@ $line-height    : 1.7em;
 $max_width  : 90rem;    // 1440px
 $break_point: 750px;
 $whitespace : 15px;      // relative to height, so padding does not change on resize
-
-
 
 @font-face {
     font-family: Bebas;
@@ -73,7 +66,6 @@ $whitespace : 15px;      // relative to height, so padding does not change on re
         @media only screen and (min-width: 1040px) { @content; }
     }
 }
-
 
 // mixin to suppress default styles for select-boxes
 @mixin reset-select {

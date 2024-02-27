@@ -2,10 +2,6 @@
 	path = plugins/DhcrCore
 	url = ../dhcr-core-plugin.git
 	branch = master
-[submodule "api/v1"]
-	path = api/v1
-	url = ../dhcr-api.git
-	branch = API_v1
 [submodule "api/v2"]
 	path = api/v2
 	url = ../dhcr-api.git

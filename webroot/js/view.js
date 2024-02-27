@@ -53,10 +53,15 @@ class View {
         $(document).on('click', '.show_filter_options', function (e) {
             this.app.filter.helper.createFilterModal();
         }.bind(this));
+
+        $(document).on('click', '.home_button', function (e) {
+            $(location).attr('href', '/');
+        }.bind(this));
     }
 
     createFilterPanel() {
         let buttons = $('<div id="filter-buttons"></div>');
+        buttons.append($('<button><span class="glyphicon glyphicon-home"></span></button>').addClass('blue x-small home_button'));
         buttons.append($('<button>Filter</button>').addClass('blue x-small show_filter_options'));
         buttons.append($('<button>Sort</button>').addClass('blue x-small show_sort_options'));
         if (!this.app.filter.isEmpty() || this.app.filter.selected.sort.length > 0) {

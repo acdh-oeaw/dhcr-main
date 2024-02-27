@@ -3,12 +3,6 @@
     <p>Check the options below to learn how you can stay informed about new courses or the latest technical enhancements.</p>
 </div>
 <div id="accordeon">
-    <div class="accordeon-item" id="course-alert">
-        <h2><span>Course Alert</span></h2>
-        <div class="item-content">
-            <?= $this->Element('../Subscriptions/add') ?>
-        </div>
-    </div>
     <div class="accordeon-item" id="social-media">
         <h2><span>Social Media</span></h2>
         <div class="item-content">

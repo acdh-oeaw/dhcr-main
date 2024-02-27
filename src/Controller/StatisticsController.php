@@ -101,6 +101,22 @@ class StatisticsController extends AppController
         return $OutdatedCoursesPerCountries;
     }
 
+    private function getNewCourseCounts($periods)
+    {
+        // @PARAM $periods array, containing the number of months
+        $newCourseCounts[] = ['Months ago', 'New courses'];
+        foreach ($periods as $period) {
+            $count = $this->Courses->find()->where([
+                'deleted' => 0,
+                'created <=' => new FrozenTime('-' . $period - 1 . ' Months'),
+                'created >' => new FrozenTime('-' . $period . ' Months'),
+            ])
+                ->count();
+            $newCourseCounts[] = [$period, $count];
+        }
+        return $newCourseCounts;
+    }
+
     private function getNewAddedCourses($amount)
     {
         // @PARAM $amount integer, amount of course objects that are returned
@@ -203,10 +219,17 @@ class StatisticsController extends AppController
         $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));
         $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));
         $outdatedCoursesPerCountries = $this->getOutdatedCoursesPerCountries();
+        $newCourseCounts = $this->getNewCourseCounts(range(1, 18));
         $newAddedCourses = $this->getNewAddedCourses(25);
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
-        $this->set(compact('updatedCourseCounts', 'archivedSoonCourseCounts', 'outdatedCoursesPerCountries', 'newAddedCourses'));
+        $this->set(compact(
+            'updatedCourseCounts',
+            'archivedSoonCourseCounts',
+            'outdatedCoursesPerCountries',
+            'newCourseCounts',
+            'newAddedCourses'
+        ));
     }
 
     public function userStatistics()

@@ -25,8 +25,6 @@ class LanguagesControllerTest extends TestCase
     protected $fixtures = [
         'app.Languages',
         'app.Courses',
-        'app.Subscriptions',
-        'app.LanguagesSubscriptions',
     ];
 
     /**

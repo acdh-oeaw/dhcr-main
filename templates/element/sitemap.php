@@ -96,12 +96,6 @@
             <ul class="follow">
                 <li>
                     <?= $this->Html->link(
-                        'Course Alert',
-                        ['controller' => 'Pages', 'action' => 'follow', '#' => 'course-alert']
-                    ) ?>
-                </li>
-                <li>
-                    <?= $this->Html->link(
                         'Social Media',
                         ['controller' => 'Pages', 'action' => 'follow', '#' => 'social-media']
                     ) ?>

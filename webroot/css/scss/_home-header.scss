@@ -25,13 +25,13 @@
         a {
             display: block;
             line-height: 0;
-            img {
-                width: 300px;
-                height: auto;
-                @include respond-to(handhelds) {
-                    width: 40vw;
-                    min-width: 180px;
-                }
+        }
+        img {
+            width: 550px;
+            height: auto;
+            @include respond-to(handhelds) {
+                width: 40vw;
+                min-width: 180px;
             }
         }
     }
@@ -46,7 +46,7 @@ body.users #page-head {
             margin-right: 5px;
             img {
                 width: auto;
-                height: 46px;
+                height: 76px;
             }
         }
         .blue.button.users {

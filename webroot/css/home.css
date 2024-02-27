@@ -575,7 +575,7 @@ img { outline: none; }
 
 em { font-size: 0.9em; font-weight: bold; letter-spacing: 0.08em; font-style: normal; white-space: nowrap; }
 
-a { color: #1E6BA3; text-decoration: none; }
+a { color: #0273cb; text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 button, .button { height: 46px; outline: none; display: inline-block; position: relative; border-radius: 23px; border: solid 2px #1E6BA3; background-color: #fff; font-family: Bebas, sans-serif; font-size: 24px; font-weight: normal; font-style: normal; font-stretch: normal; line-height: normal; letter-spacing: normal; text-align: center; text-decoration: none; color: #1E6BA3; text-transform: uppercase; padding: 2px 20px 0; cursor: pointer; transition: all 0.3s; }
@@ -676,12 +676,12 @@ table .recurring { color: transparent; height: 15px; width: 15px; display: inlin
 @media only screen and (max-width: 750px) { #page-head { margin: 13px; width: calc(100% - 50px); padding: 0 3px 13px 3px; border-bottom: 2px solid #1E6BA3; } }
 #page-head #logo { flex-shrink: 0; white-space: nowrap; overflow: hidden; }
 #page-head #logo a { display: block; line-height: 0; }
-#page-head #logo a img { width: 300px; height: auto; }
-@media only screen and (max-width: 750px) { #page-head #logo a img { width: 40vw; min-width: 180px; } }
+#page-head #logo img { width: 550px; height: auto; }
+@media only screen and (max-width: 750px) { #page-head #logo img { width: 40vw; min-width: 180px; } }
 
 body.users #page-head #logo { overflow: initial; transition: all 0.3s; }
 body.users #page-head #logo a { display: block; float: left; margin-right: 5px; }
-body.users #page-head #logo a img { width: auto; height: 46px; }
+body.users #page-head #logo a img { width: auto; height: 76px; }
 body.users #page-head #logo .blue.button.users { width: 48px; padding-left: 12px; color: transparent; border-bottom-right-radius: 0; border-top-right-radius: 0; line-height: initial; }
 body.users #page-head #logo .blue.button.users:hover, body.users #page-head #logo .blue.button.users.animate, body.users #page-head #logo .blue.button.users.focus { transform: none; }
 body.users #page-head #logo .blue.button.users .glyphicon { color: #fff; }
@@ -787,7 +787,7 @@ body.index #container #table table th:hover, body.index #container #table table 
 @media only screen and (max-width: 750px) { body.index #container #table table th.university, body.index #container #table table td.university, body.view #container #table table th.university, body.view #container #table table td.university { display: none; } }
 body.index #container #table table tr, body.view #container #table table tr { font-family: Metropolis, sans-serif; letter-spacing: 0.0074em; }
 body.index #container #table table tr.course-row, body.view #container #table table tr.course-row { cursor: pointer; }
-body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover { color: #1E6BA3; font-weight: bold; letter-spacing: 0; }
+body.index #container #table table tr.course-row:hover, body.view #container #table table tr.course-row:hover { color: #0273cb; font-weight: bold; letter-spacing: 0; }
 body.index #container #table table tr.expansion-row button, body.index #container #table table tr.expansion-row .button, body.view #container #table table tr.expansion-row button, body.view #container #table table tr.expansion-row .button { margin-right: 0.8em; }
 body.index #container #table table tr.expansion-row button:last-child, body.index #container #table table tr.expansion-row .button:last-child, body.view #container #table table tr.expansion-row button:last-child, body.view #container #table table tr.expansion-row .button:last-child { margin-right: 0; }
 body.index #container #table table tr.expansion-row button:hover, body.index #container #table table tr.expansion-row .button:hover, body.view #container #table table tr.expansion-row button:hover, body.view #container #table table tr.expansion-row .button:hover { transform-origin: left center; }

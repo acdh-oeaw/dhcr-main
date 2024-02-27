@@ -116,12 +116,12 @@
                 background-color: $light-gray;
             }
             a:not(.button) {
-                color: $blue;
+                color: $link_blue;
                 text-decoration: none;
                 font-size: inherit;
                 &:hover {
                     text-decoration: underline;
-                    color: $blue;
+                    color: $link_blue;
                 }
             }
 

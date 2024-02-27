@@ -15,8 +15,17 @@ use Cake\Core\Configure;
                 'width' => 150,
                 'height' => 67
             ]);
-            echo '<p>Please help promote the DH course registry by sharing your courses on social media or placing the DHCR-featured 
-            badge on institutional websites.</p>';
+        ?>
+            <p>Please help promote the DH course registry by sharing your courses on social media or placing the DHCR-featured
+                badge on institutional websites.</p>
+            <font color="red"><strong>
+                    <p>
+                        If the course does not take place anymore, please unpublish it (Click Edit -> Uncheck publish).
+                    </p>
+                    <p>If the course is still running but you wish to transfer the course ownership to a fellow lecturer, please 
+                        <a href="/info#contact">contact us</a>.</p>
+                </strong></font>
+        <?php
         }
         if ($course_view_type != 'Course Approval' && $coursesCount > 0) {
         ?>
