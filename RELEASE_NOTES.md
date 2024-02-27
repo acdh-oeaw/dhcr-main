@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2023-12
-*Release date: ...*
+*Release date: ...* 
 
 ### Bug fixes
 - Restructured php paths, intl module and cron jobs #93
