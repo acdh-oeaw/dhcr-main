@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### Bug fixes
-- a
+-  Moderator does not receive notification of new course #97 
 
 ### Changes
 - b

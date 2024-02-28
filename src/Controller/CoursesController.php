@@ -183,7 +183,7 @@ class CoursesController extends AppController
                     ->where(['Courses.id' => $course->id])
                     ->contain(['Institutions', 'CourseTypes'])
                     ->first();
-                $admins = $this->Users->getModerators(null, true);
+                $admins = $this->Users->getModerators($courseData->country_id, true);
                 foreach ($admins as $admin) {
                     $this->getMailer('Course')->send('notifyAdmin', [$courseData, $admin->email]);
                 }
