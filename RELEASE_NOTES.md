@@ -10,7 +10,10 @@
 - b
 
 ### Small changes
-- c
+- Removed 5 cc_config tables (remainder of removed ops module) #none
+- Removed empty and unused table emails #none
+- Removed column cakeclient_prefix (remainder of ops module) from user_roles #none
+- Removed 8 tables (remainder of course reminders) #100
 
 
 ## Version 2023-12
