@@ -44,7 +44,7 @@ class ReviewRemindersCommand extends Command
     private function sendReviewReminders($issuesAmount, $issuesUrl)
     {
         $useradmins = $this->getUseradmins();
-        $subject = "[DH Course Registry] - Your Attention Needed on $issuesAmount GitHub Issues";
+        $subject = "[DH Course Registry] Your Attention Needed on $issuesAmount GitHub Issues";
         $oneliner = $this->generateOneliner();
         $totalMails = 0;
         foreach ($useradmins as $useradmin) {
