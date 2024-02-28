@@ -1,7 +1,20 @@
 # Release notes
 
+## Version 2024-02
+*Release date: ...*
+
+### Bug fixes
+- a
+
+### Changes
+- b
+
+### Small changes
+- c
+
+
 ## Version 2023-12
-*Release date: 2024-02-27* 
+*Release date: 2024-02-27*
 
 ### Bug fixes
 - Restructured php paths, intl module and cron jobs #93
@@ -25,7 +38,7 @@
 
 
 ## Version 2023-11
-*Release date: 2023-12-18* 
+*Release date: 2023-12-18*
 
 ### Small changes
 - Clearify user roles at User, Edit #79
