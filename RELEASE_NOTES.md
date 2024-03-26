@@ -1,5 +1,18 @@
 # Release notes
 
+## Version 2024-04
+*Release date: ...*
+
+### Bug fixes
+- a
+
+### Changes
+- b
+
+### Small changes
+- c
+
+
 ## Version 2024-02
 *Release date: 2024-03-26*
 
