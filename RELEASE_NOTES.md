@@ -10,7 +10,7 @@
 - b
 
 ### Small changes
-- c
+- Updated Composer to 2.7.2
 
 
 ## Version 2024-02
