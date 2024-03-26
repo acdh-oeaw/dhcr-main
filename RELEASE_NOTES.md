@@ -1,19 +1,17 @@
 # Release notes
 
 ## Version 2024-02
-*Release date: ...*
+*Release date: 2024-03-26*
 
 ### Bug fixes
 -  Moderator does not receive notification of new course #97 
-
-### Changes
-- b
 
 ### Small changes
 - Removed 5 cc_config tables (remainder of removed ops module) #none
 - Removed empty and unused table emails #none
 - Removed column cakeclient_prefix (remainder of ops module) from user_roles #none
 - Removed 8 tables (remainder of course reminders) #100
+- Updated dependencies
 
 
 ## Version 2023-12
