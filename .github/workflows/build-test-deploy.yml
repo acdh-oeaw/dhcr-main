@@ -146,8 +146,6 @@ jobs:
             enabled: true
             name: ${{ secrets.APP_NAME }}-${{ github.ref_name }}
             url: ${{ secrets.PUBLIC_URL }}
-            additionalHosts:
-              - ${{ secrets.APP_NAME }}-${{ github.ref_name }}.acdh-cluster-2.arz.oeaw.ac.at
             type: ClusterIP
             externalPort: 5000
             internalPort: 5000
