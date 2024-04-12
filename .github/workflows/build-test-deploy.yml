@@ -155,6 +155,7 @@ jobs:
             enabled: true
             path: "/"
             annotations:
+              cert-manager.io/cluster-issuer: letsencrypt-prod
               kubernetes.io/ingress.class: "nginx"
               kubernetes.io/proxy-read-timeout: "3600"
           EOF
