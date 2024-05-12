@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2024-04
+## Version 2024-dev
 *Release date: ...*
 
 ### Bug fixes
