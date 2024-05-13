@@ -1,5 +1,19 @@
 # Release notes
 
+## Version ...
+*Release date: ...*
+
+### New feature
+- Add ability to manage countries in the login area #92
+
+### Changes
+- ...
+
+### Small changes
+- Updated Composer to 2.7.6
+- Created initial migration of db scheme
+
+
 ## Version 2024-02
 *Release date: 2024-03-26*
 

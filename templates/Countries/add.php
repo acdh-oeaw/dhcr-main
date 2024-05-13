@@ -1,10 +1,6 @@
 <div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('List Countries'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-        </div>
-    </aside>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Add Country</h2>
     <div class="column-responsive column-80">
         <div class="countries form content">
             <?= $this->Form->create($country) ?>
@@ -12,13 +8,10 @@
                 <legend><?= __('Add Country') ?></legend>
                 <?php
                 echo $this->Form->control('name');
-                echo $this->Form->control('domain_name');
-                echo $this->Form->control('alpha_3');
-                echo $this->Form->control('stop_words');
-                echo $this->Form->control('subscriptions._ids', ['options' => $subscriptions]);
                 ?>
             </fieldset>
-            <?= $this->Form->button(__('Submit')) ?>
+            <p>&nbsp;</p>
+            <?= $this->Form->button(__('Save Country')) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>
