@@ -6,15 +6,8 @@ namespace App\Controller;
 
 use Cake\Event\EventInterface;
 
-/**
- * Countries Controller
- *
- * @property \App\Model\Table\CountriesTable $Countries
- * @method \App\Model\Entity\Country[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
 class CountriesController extends AppController
 {
-
     public $modelClass = 'DhcrCore.Countries';
 
     public function beforeRender(EventInterface $event)
@@ -26,93 +19,69 @@ class CountriesController extends AppController
         $this->viewBuilder()->setLayout('contributors');
     }
 
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
     public function index()
     {
+        $user = $this->Authentication->getIdentity();
+        if (!$user->is_admin) {
+            $this->Flash->error(__('Not authorized to countries index'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Countries';
+        $breadcrumControllers[1] = 'Countries';
+        $breadcrumActions[1] = 'index';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $countries = $this->paginate($this->Countries);
-
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('countries'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Country id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $country = $this->Countries->getCountry($id);
-        $this->set(compact('country'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $country = $this->Countries->newEmptyEntity();
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($country);
         if ($this->request->is('post')) {
             $country = $this->Countries->patchEntity($country, $this->request->getData());
             if ($this->Countries->save($country)) {
-                $this->Flash->success(__('The country has been saved.'));
-
+                $this->Flash->success('The country has been saved.');
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The country could not be saved. Please, try again.'));
+            $this->Flash->error('The country could not be saved. Please, try again.');
         }
-        $subscriptions = $this->Countries->Subscriptions->find('list', ['limit' => 200]);
-        $this->set(compact('country', 'subscriptions'));
-    }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id Country id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $country = $this->Countries->get($id, [
-            'contain' => ['Subscriptions'],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $country = $this->Countries->patchEntity($country, $this->request->getData());
-            if ($this->Countries->save($country)) {
-                $this->Flash->success(__('The country has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The country could not be saved. Please, try again.'));
-        }
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Category Lists';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'categoryLists';
+        $breadcrumTitles[1] = 'Countries';
+        $breadcrumControllers[1] = 'Countries';
+        $breadcrumActions[1] = 'index';
+        $breadcrumTitles[2] = 'Add Country';
+        $breadcrumControllers[2] = 'Countries';
+        $breadcrumActions[2] = 'add';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $this->set(compact('user')); // required for contributors menu
         $this->set(compact('country'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Country id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
+    public function edit($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
         $country = $this->Countries->get($id);
-        if ($this->Countries->delete($country)) {
-            $this->Flash->success(__('The country has been deleted.'));
-        } else {
-            $this->Flash->error(__('The country could not be deleted. Please, try again.'));
-        }
+        $user = $this->Authentication->getIdentity();
+        $this->Authorization->authorize($country);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $country = $this->Countries->patchEntity($country, $this->request->getData());
+            if ($this->Countries->save($country)) {
+                $this->Flash->success('The country has been saved.');
 
-        return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error('The country could not be saved. Please, try again.');
+        }
+        $this->set(compact('user')); // required for contributors menu
+        $this->set(compact('country'));
     }
 }

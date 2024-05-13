@@ -48,6 +48,22 @@
     );
     if ($user->is_admin) {
         echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-flag"></span><br>
+            Countries<br>
+            <font color="#81d41a">(&nbsp;' . $totalCountries . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'Countries',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Countries',
+                'escape' => false
+            ]
+        );
+    }
+    if ($user->is_admin) {
+        echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-text-color"></span><br>
             Translations<br>
             <font color="#81d41a">(&nbsp;' . $totalInviteTranslations . '&nbsp;)</font><p></p>',
@@ -64,21 +80,6 @@
     }
     if ($user->is_admin) {
         echo $this->Html->link(
-            '<p></p><span class="glyphicon glyphicon-folder-open"></span><br>
-            Log Entries<p></p>',
-            [
-                'controller' => 'Logentries',
-                'action' => 'index'
-            ],
-            [
-                'class' => 'blue button',
-                'title' => 'Log Entries',
-                'escape' => false
-            ]
-        );
-    }
-    if ($user->is_admin) {
-        echo $this->Html->link(
             '<p></p><span class="glyphicon glyphicon-question-sign"></span><br>
             FAQ Questions<br>
             <font color="#81d41a">(&nbsp;' . $totalFaqQuestions . '&nbsp;)</font><p></p>',
@@ -89,6 +90,21 @@
             [
                 'class' => 'blue button',
                 'title' => 'FAQ Questions',
+                'escape' => false
+            ]
+        );
+    }
+    if ($user->is_admin) {
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon-folder-open"></span><br>
+            Log Entries<p></p>',
+            [
+                'controller' => 'Logentries',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'Log Entries',
                 'escape' => false
             ]
         );

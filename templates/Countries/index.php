@@ -1,30 +1,24 @@
 <div class="countries index content">
-    <?= $this->Html->link(__('New Country'), ['action' => 'add'], ['class' => 'button float-right']) ?>
-    <h3><?= __('Countries') ?></h3>
+    <p></p>
+    <h2><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Countries</h2>
+    <?= $this->Html->link('Add Country', ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <p></p>
     <div class="table-responsive">
         <table>
             <thead>
                 <tr>
-                    <th><?= $this->Paginator->sort('id') ?></th>
-                    <th><?= $this->Paginator->sort('name') ?></th>
-                    <th><?= $this->Paginator->sort('domain_name') ?></th>
-                    <th><?= $this->Paginator->sort('alpha_3') ?></th>
-                    <th><?= $this->Paginator->sort('stop_words') ?></th>
-                    <th class="actions"><?= __('Actions') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('id') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('name') ?></th>
+                    <th class="actions" align="left" style="padding: 5px">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($countries as $country) : ?>
                     <tr>
-                        <td><?= $this->Number->format($country->id) ?></td>
-                        <td><?= h($country->name) ?></td>
-                        <td><?= h($country->domain_name) ?></td>
-                        <td><?= h($country->alpha_3) ?></td>
-                        <td><?= h($country->stop_words) ?></td>
-                        <td class="actions">
-                            <?= $this->Html->link(__('View'), ['action' => 'view', $country->id]) ?>
-                            <?= $this->Html->link(__('Edit'), ['action' => 'edit', $country->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $country->id], ['confirm' => __('Are you sure you want to delete # {0}?', $country->id)]) ?>
+                        <td style="padding: 5px"><?= h($country->id) ?></td>
+                        <td style="padding: 5px"><?= h($country->name) ?></td>
+                        <td class="actions" style="padding: 5px">
+                            <?= $this->Html->link('Edit', ['action' => 'edit', $country->id]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -32,13 +26,12 @@
         </table>
     </div>
     <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
+        <?= $this->Paginator->first('<< ' . __('first')) ?>
+        <?= $this->Paginator->prev('< ' . __('previous')) ?>
+        <?= $this->Paginator->numbers() ?>
+        <?= $this->Paginator->next(__('next') . ' >') ?>
+        <?= $this->Paginator->last(__('last') . ' >>') ?>
+        <p>&nbsp;</p>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
 </div>
