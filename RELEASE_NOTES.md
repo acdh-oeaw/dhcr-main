@@ -9,9 +9,14 @@
 ### Changes
 - ...
 
+### Bug fix
+- Added server-side validation of start-dates #96
+
 ### Small changes
 - Updated Composer to 2.7.6
 - Created initial migration of db scheme
+- Added explanation about new API url #104
+- Added url validation for course-info link
 
 
 ## Version 2024-02
