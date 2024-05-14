@@ -265,7 +265,7 @@ class CoursesController extends AppController
                 $this->Flash->success(__('The course has been updated.'));
                 return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
             }
-            $this->Flash->error(__('The course could not be updated. Please, contact the helpdesk.'));
+            $this->Flash->error(__('The course could not be updated. Please, check the error messages at each field.'));
         }
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
