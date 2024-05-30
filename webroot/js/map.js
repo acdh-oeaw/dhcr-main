@@ -155,14 +155,7 @@ class Map {
         this.fitBounds();
         if (this.app.status == 'index') {
             if (this.app.filter.isEmpty()) {
-                let zoom = this.map.getZoom();
-                // set default zoom and center, in case no user location access
                 this.map.setView(new L.LatLng(52.506, 12.917), 4);          
-                // locate to user location               
-                this.map.locate({ setView: true, maxZoom: zoom });
-                this.map.on('locationfound', function () {
-                    this.map.stopLocate();
-                }.bind(this));                
             }
         }
     }
