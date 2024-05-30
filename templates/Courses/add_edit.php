@@ -23,6 +23,8 @@
                 echo $this->Form->control('contact_mail', ['label' => 'Lecturer E-Mail']);
                 echo $this->Form->control('description', ['label' => 'Description *', 'placeholder' => 'Please add in English the general aims of the course/programme and the learning outcomes.']);
                 echo $this->Form->control('access_requirements', ['label' => 'Entry Requirements', 'placeholder' => 'For instance: if you want to enroll in this MA module, you need to hold a BA degree in X, Y, Z']);
+                echo $this->Form->control('training_url', ['label' => 'Training Material URL', 'placeholder' => 'Optional: The public web address of related training material']);
+                echo '<p>Make sure to enter a valid URL, preferbly use https:// alternatively use http://';
                 echo '<p id="start_date">&nbsp;</p>';   // internal url
                 echo $this->Form->control('start_date', ['label' => 'Start Date*', 'onclick' => 'openForm()', 'placeholder' => 'YYYY-MM-DD']);
                 ?>
