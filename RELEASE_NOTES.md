@@ -1,13 +1,10 @@
 # Release notes
 
-## Version ...
-*Release date: ...*
+## Version 2024-05
+*Release date: 2024-05-30* 
 
 ### New feature
-- Add ability to manage countries in the login area #92
-
-### Changes
-- ...
+- Added ability to manage countries in the login area #92
 
 ### Bug fix
 - Added server-side validation of start-dates #96
