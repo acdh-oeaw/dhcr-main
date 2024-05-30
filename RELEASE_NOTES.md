@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2024-05
-*Release date: 2024-05-30*
+*Release date: 2024-05-30* 
 
 ### New feature
 - Added ability to manage countries in the login area #92
