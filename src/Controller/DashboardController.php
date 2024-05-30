@@ -225,6 +225,7 @@ class DashboardController extends AppController
         $user = $this->Authentication->getIdentity();
         $this->loadModel('Cities');
         $this->loadModel('Institutions');
+        $this->loadModel('Countries');
         $this->loadModel('Languages');
         $this->loadModel('InviteTranslations');
         $this->loadModel('FaqQuestions');
@@ -241,10 +242,12 @@ class DashboardController extends AppController
         $totalInstitutions = $this->Institutions->find()->count();
         if ($user->is_admin) {
             $totalLanguages = $this->Languages->find()->count();
+            $totalCountries = $this->Countries->find()->count();
             $totalInviteTranslations = $this->InviteTranslations->find()->count();
             $totalFaqQuestions = $this->FaqQuestions->find()->count();
         } else {
             $totalLanguages = 0;
+            $totalCountries = 0;
             $totalInviteTranslations = 0;
             $totalFaqQuestions = 0;
         }
@@ -253,6 +256,7 @@ class DashboardController extends AppController
             'totalCities',
             'totalInstitutions',
             'totalLanguages',
+            'totalCountries',
             'totalInviteTranslations',
             'totalFaqQuestions'
         ));

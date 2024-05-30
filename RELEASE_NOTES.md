@@ -1,5 +1,21 @@
 # Release notes
 
+## Version 2024-05
+*Release date: 2024-05-30* 
+
+### New feature
+- Added ability to manage countries in the login area #92
+
+### Bug fix
+- Added server-side validation of start-dates #96
+
+### Small changes
+- Updated Composer to 2.7.6
+- Created initial migration of db scheme
+- Added explanation about new API url #104
+- Added url validation for course-info link
+
+
 ## Version 2024-02
 *Release date: 2024-03-26*
 
