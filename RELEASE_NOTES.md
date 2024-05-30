@@ -3,8 +3,8 @@
 ## Version 2024-06
 *Release date: ...*
 
-### a
-- b
+### New feature
+- Added field for link to training material #48
 
 
 ## Version 2024-05
