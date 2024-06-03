@@ -6,6 +6,9 @@
 ### New feature
 - Added field for link to training material #48
 
+### Small changes
+- Unblocked info page in robots.txt
+
 
 ## Version 2024-05
 *Release date: 2024-05-30*
