@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build Docker image from the branch ${{ github.ref_name }}
-    runs-on: ubuntu:22.04
+    runs-on: ubuntu-22.04
     environment: ${{ github.ref_name }}
     steps:
       - name: checkout
@@ -16,7 +16,7 @@ jobs:
       - name: Pack Build
         uses: dfreilich/pack-action@v2.1.1
         with:
-          args: 'build tmp-cnb-image --builder heroku/builder:22'
+          args: 'build tmp-cnb-image --builder gliderlabs/herokuish:latest-22'
       - name: Suggest default port 5000 within image
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
@@ -56,7 +56,7 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
   test:
     name: Test code from the branch ${{ github.ref_name }}
-    runs-on: ubuntu:22.04
+    runs-on: ubuntu-22.04
     environment: ${{ github.ref_name }}
     steps:
       - name: checkout
