@@ -13,10 +13,13 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: Pack Build
-        uses: dfreilich/pack-action@v2
-        with:
-          args: 'build tmp-cnb-image --builder heroku/builder:22'
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Set up pack
+        uses: buildpacks/github-actions/setup-pack@v5.4.0
+      - name: Build using heroku/buildpacks:22 CNB
+        run: |
+           pack build tmp-cnb-image --builder heroku/builder:22
       - name: Suggest default port 5000 within image
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
