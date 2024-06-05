@@ -8,6 +8,7 @@
 
 ### Small changes
 - Unblocked info page in robots.txt
+- Zoom and center map on Europe #103
 
 
 ## Version 2024-05
