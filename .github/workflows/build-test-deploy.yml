@@ -27,8 +27,8 @@ jobs:
           echo -n "$VARS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring)")|.[]' >> secrets.env
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("LC_K8S_SECRET_"))]|map("\(.key|sub("LC_K8S_SECRET_"; "")|ascii_downcase)=\(.value|tostring)")|.[]' >> secrets.env
           echo -n "$VARS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("LC_K8S_SECRET_"))]|map("\(.key|sub("LC_K8S_SECRET_"; "")|ascii_downcase)=\(.value|tostring)")|.[]' >> secrets.env
-          pack build tmp-cnb-image --env-file secrets.env --builder heroku/builder:22 \
-            --cache-image tmp-cnb-image:cache --publish          
+          pack build tmp-cnb-image/source --env-file secrets.env --builder heroku/builder:22 \
+            --cache-image tmp-cnb-imag/source:cache --publish          
           rm secrets.env
           cat > Dockerfile <<EOF
           ARG source_image
@@ -60,6 +60,9 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: .
+          build-args: |
+            default_port=5000
+            source_image=tmp-cnb-image/source
           platforms: linux/amd64
           push: true
           secret-files: |
