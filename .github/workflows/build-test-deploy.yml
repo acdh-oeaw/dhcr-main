@@ -16,7 +16,7 @@ jobs:
       - name: Pack Build
         uses: dfreilich/pack-action@v2.1.1
         with:
-          args: 'build tmp-cnb-image --builder heroku/builder:22'
+          args: 'build tmp-cnb-image --builder heroku/builder:22.v126'
       - name: Suggest default port 5000 within image
         run: |
           echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
