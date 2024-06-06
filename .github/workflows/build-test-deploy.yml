@@ -68,10 +68,10 @@ jobs:
             source_image=${{ env.DOCKER_TAG }}/${{ github.ref_name }}/source
           platforms: linux/amd64
           push: true
-          secret-files: |
-            "secrets_env=./secrets.env"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
   test:
     name: Test code from the branch ${{ github.ref_name }}
     runs-on: ubuntu-22.04
