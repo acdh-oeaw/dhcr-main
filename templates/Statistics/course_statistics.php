@@ -100,21 +100,15 @@ use Cake\I18n\FrozenTime;
     <h3><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Key data</h3>
     <p>
         Total: <?= $coursesTotal ?><br>
-        In backend & published: <?= $coursesBackend ?><br>
+        In admin area & published: <?= $coursesBackend ?><br>
         <font color="red">Needs to be updated: <?= $coursesBackend - $coursesPublic ?><br></font>
         <font color="green">Public visible: <?= $coursesPublic ?><br></font>
-        Public as part of backend: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%
+        Public as part of login area: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%
     </p>
-
-    <h3><span class="glyphicon glyphicon-equalizer"></span>&nbsp;&nbsp;&nbsp;Total updated courses until months ago</h3>
-    <div id="chart_updated_courses"></div>
-    <p></p>
-
-    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;&nbsp;Amount of courses that will be archived soon</h3>
-    <div id="chart_archived_soon_courses"></div>
-    <p></p>
-    <p><i>Note: All statistics can change at any time. For example when a user makes changes to a course or when a certain
-            expiration period has exceeded.</i></p>
+    
+    <h3><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;New added courses in the last 1,5 year</h3>
+    <p><i>Includes not published or unpublished courses.</i></p>
+    <div id="chart_new_courses"></div>
     <p></p>
 
     <h3><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Outdated Courses - By country</h3>
@@ -136,9 +130,12 @@ use Cake\I18n\FrozenTime;
     </table>
     <p></p>
 
-    <h3><span class="glyphicon glyphicon-signal"></span>&nbsp;&nbsp;&nbsp;New added courses in the last 1,5 year</h3>
-    <p><i>Includes not published or unpublished courses.</i></p>
-    <div id="chart_new_courses"></div>
+    <h3><span class="glyphicon glyphicon-equalizer"></span>&nbsp;&nbsp;&nbsp;Total updated courses until months ago</h3>
+    <div id="chart_updated_courses"></div>
+    <p></p>
+
+    <h3><span class="glyphicon glyphicon-time"></span>&nbsp;&nbsp;&nbsp;Amount of courses that will be archived soon</h3>
+    <div id="chart_archived_soon_courses"></div>
     <p></p>
 
     <h3><span class="glyphicon glyphicon-list-alt"></span>&nbsp;&nbsp;&nbsp;New added courses - Top 25</h3>
@@ -186,4 +183,7 @@ use Cake\I18n\FrozenTime;
             <?php endforeach; ?>
         </tbody>
     </table>
+    <p>&nbsp;</p>
+    <p><i>Note: All statistics can change at any time. For example when a user makes changes to a course or when a certain
+            expiration period has exceeded.</i></p>
 </div>
