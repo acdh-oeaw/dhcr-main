@@ -9,24 +9,18 @@ jobs:
   build:
     name: Build Docker image from the branch ${{ github.ref_name }}
     runs-on: ubuntu-22.04
-    environment: ${{ github.ref_name }}
+    environment: ${{ github.ref_name }} 
+    permissions:
+      packages: write
+      contents: read
     steps:
       - name: checkout
         uses: actions/checkout@v4
-      - name: Pack Build
-        uses: dfreilich/pack-action@v2.1.1
         with:
-          args: 'build tmp-cnb-image --builder gliderlabs/herokuish:latest-22'
-      - name: Suggest default port 5000 within image
-        run: |
-          echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring|@sh)")|.[]' > secrets.env 
-          cat >> Dockerfile <<EOF  
-          FROM tmp-cnb-image
-          ENV PORT=5000
-          EXPOSE 5000          
-          EOF
-      - name: login to github container registry
-        uses: docker/login-action@v3
+          fetch-depth: 10
+          submodules: "true"
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3 
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -44,16 +38,40 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
             type=raw,value=latest,enable={{is_default_branch}}
             type=raw,value={{sha}}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Set up pack
+        uses: buildpacks/github-actions/setup-pack@v5.4.0
+      - name: Build using heroku/buildpacks:22 CNB
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
+          VARS_CONTEXT: ${{ toJson(vars) }}
+        run: |
+          echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring)")|.[]' > secrets.env
+          echo -n "$VARS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("K8S_SECRET_"))]|map("\(.key|sub("K8S_SECRET_"; ""))=\(.value|tostring)")|.[]' >> secrets.env
+          echo -n "$SECRETS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("LC_K8S_SECRET_"))]|map("\(.key|sub("LC_K8S_SECRET_"; "")|ascii_downcase)=\(.value|tostring)")|.[]' >> secrets.env
+          echo -n "$VARS_CONTEXT" | jq -r '[to_entries[]|select(.key|startswith("LC_K8S_SECRET_"))]|map("\(.key|sub("LC_K8S_SECRET_"; "")|ascii_downcase)=\(.value|tostring)")|.[]' >> secrets.env
+          pack build ${{ env.DOCKER_TAG }}/${{ github.ref_name }}/source --env-file secrets.env --builder heroku/builder:22 \
+            --cache-image  ${{ env.DOCKER_TAG }}/${{ github.ref_name }}/source:cache --publish          
+          rm secrets.env
+          cat > Dockerfile <<EOF
+          FROM ${{ env.DOCKER_TAG }}/${{ github.ref_name }}/source
+          ENV PORT=5000
+          EXPOSE 5000          
+          EOF
       - name: Build and push to ghcr.io      
         uses: docker/build-push-action@v5
         with:
           context: .
+          build-args: |
+            default_port=5000
+            source_image=${{ env.DOCKER_TAG }}/${{ github.ref_name }}/source
           platforms: linux/amd64
           push: true
-          secret-files: |
-            "secrets_env=./secrets.env"
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
   test:
     name: Test code from the branch ${{ github.ref_name }}
     runs-on: ubuntu-22.04
