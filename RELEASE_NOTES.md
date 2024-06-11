@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### New feature
-- Added field for link to training material #48
+- 
 
 ### Small changes
 - Unblocked info page in robots.txt
