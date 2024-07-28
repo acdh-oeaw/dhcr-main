@@ -9,6 +9,7 @@
 ### Small changes
 - Unblocked info page in robots.txt
 - Zoom and center map on Europe #103
+- Updated Composer to 2.7.7
 
 
 ## Version 2024-05
