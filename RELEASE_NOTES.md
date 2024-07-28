@@ -1,7 +1,18 @@
 # Release notes
 
+## Version 2024-06
+*Release date: 2024-07-28*
+
+### Small changes
+- Optimized startdate validation #96
+- Zoom and center map on Europe #103
+- Unblocked info page in robots.txt
+- Updated Composer to 2.7.7
+- Updated dependencies
+
+
 ## Version 2024-05
-*Release date: 2024-05-30* 
+*Release date: 2024-05-30*
 
 ### New feature
 - Added ability to manage countries in the login area #92
