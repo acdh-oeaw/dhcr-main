@@ -1,10 +1,14 @@
 # Release notes
 
 ## Version 2024-06
-*Release date: ...*
+*Release date: 2024-07-28*
 
-### New feature
-- Added field for link to training material #48
+### Small changes
+- Optimized startdate validation #96
+- Zoom and center map on Europe #103
+- Unblocked info page in robots.txt
+- Updated Composer to 2.7.7
+- Updated dependencies
 
 
 ## Version 2024-05
