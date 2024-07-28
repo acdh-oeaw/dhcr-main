@@ -1,15 +1,14 @@
 # Release notes
 
 ## Version 2024-06
-*Release date: ...*
-
-### New feature
-- 
+*Release date: 2024-07-28*
 
 ### Small changes
-- Unblocked info page in robots.txt
+- Optimized startdate validation #96
 - Zoom and center map on Europe #103
+- Unblocked info page in robots.txt
 - Updated Composer to 2.7.7
+- Updated dependencies
 
 
 ## Version 2024-05
