@@ -11,12 +11,20 @@ class CoursesController extends AppController
     use MailerAwareTrait;
 
     public $modelClass = 'DhcrCore.Courses';
-    public $Courses = null;
     public const SKIP_AUTHORIZATION = [
         'index',
         'view',
         'find'
     ];
+    public $Courses = null;
+    public $Countries = null;
+    public $Cities = null;
+    public $Institutions = null;
+    public $Languages = null;
+    public $CourseTypes = null;
+    public $Disciplines = null;
+    public $TadirahTechniques = null;
+    public $TadirahObjects = null;
 
     public function initialize(): void
     {
