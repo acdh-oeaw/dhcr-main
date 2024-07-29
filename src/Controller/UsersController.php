@@ -14,6 +14,9 @@ class UsersController extends AppController
 {
     use MailerAwareTrait;
 
+    public $Institutions = null;
+    public $InviteTranslations = null;
+
     public const ALLOW_UNAUTHENTICATED = [
         'signIn',
         'logout',   // avoid redirecting
