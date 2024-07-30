@@ -488,33 +488,27 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'approve';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->is_admin) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
+            $query = $this->Users->find('all', ['order' => ['Users.created' => 'DESC']])
+                ->contain('Institutions')
+                ->where([
                     'approved' => 0,
                     'active' => 1
-                ]),
-                [
-                    'order' => ['Users.created' => 'desc'],
-                    'contain' => ['Institutions'],
-                ]
-            );
+                ]);
+            $this->set('users', $this->paginate($query));
             $usersCount = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1
             ])
                 ->count();
         } elseif ($user->user_role_id == 2) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
+            $query = $this->Users->find('all', ['order' => ['Users.created' => 'DESC']])
+                ->contain('Institutions')
+                ->where([
                     'approved' => 0,
                     'active' => 1,
                     'Users.country_id' => $user->country_id
-                ]),
-                [
-                    'order' => ['Users.created' => 'desc'],
-                    'contain' => ['Institutions'],
-                ]
-            );
+                ]);
+            $this->set('users', $this->paginate($query));
             $usersCount = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
@@ -525,8 +519,8 @@ class UsersController extends AppController
             $this->Flash->error(__('Not authorized to user approval'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
+        $this->set(compact('usersCount'));
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'user');
         $this->set('users_view_type', 'Account Approval');
