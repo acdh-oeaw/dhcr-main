@@ -1,5 +1,12 @@
 # Release notes
 
+## Version 2024-07
+*Release date: 2024-07-31*
+
+### Bug fix
+- Fixed missing imprint text #107
+
+
 ## Version 2024-06
 *Release date: 2024-07-28*
 
