@@ -89,7 +89,7 @@
 <?php $this->Html->scriptStart(['block' => true]); ?>
 $(document).ready( function() {
 let accordeon = new Accordeon('accordeon');
-$('#imprint-content').load('https://shared.acdh.oeaw.ac.at/acdh-common-assets/api/imprint.php?serviceID=7435');
+$('#imprint-content').load('https://imprint.acdh.oeaw.ac.at/7435');
 $('#footer .imprint').on('click', function(e) {
 e.preventDefault();
 accordeon.openHash('imprint');
