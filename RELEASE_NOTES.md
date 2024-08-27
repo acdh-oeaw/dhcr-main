@@ -9,6 +9,7 @@
 ### Small changes
 - Updated Composer to 2.7.8
 - Updated dependencies
+- Required PHP version 8.3 or later, since version 8.2 active support ends on 2024-12-31
 
 
 ## Version 2024-07
