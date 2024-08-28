@@ -6,7 +6,7 @@ use Cake\ORM\Entity;
 
 class Notification extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'course_id' => true,
         'subscription_id' => true,
         'course' => true,

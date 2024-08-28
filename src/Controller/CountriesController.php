@@ -8,7 +8,7 @@ use Cake\Event\EventInterface;
 
 class CountriesController extends AppController
 {
-    public $modelClass = 'DhcrCore.Countries';
+    public ?string $modelClass = 'DhcrCore.Countries';
 
     public function beforeRender(EventInterface $event)
     {

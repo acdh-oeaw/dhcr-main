@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class Country extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'name' => true,
         'domain_name' => true,
         'alpha_3' => true,

@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class CourseType extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'course_parent_type_id' => true,
         'name' => true,
         'course_parent_type' => true,

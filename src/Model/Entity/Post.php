@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class Post extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'title' => true,
         'external_link' => true,
         'body' => true,

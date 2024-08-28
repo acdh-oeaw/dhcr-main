@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class City extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'country_id' => true,
         'name' => true,
         'country' => true,

@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class Institution extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'city_id' => true,
         'country_id' => true,
         'name' => true,

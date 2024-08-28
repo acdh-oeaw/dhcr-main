@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class Logentry extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'logentry_code_id' => true,
         'user_id' => true,
         'source_name' => true,

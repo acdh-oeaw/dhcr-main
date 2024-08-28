@@ -13,7 +13,7 @@ use Authentication\IdentityInterface as AuthenticationIdentity;
 
 class User extends Entity implements AuthorizationIdentity, AuthenticationIdentity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'country_id' => true,
         'institution_id' => true,
         'university' => true,
@@ -36,7 +36,7 @@ class User extends Entity implements AuthorizationIdentity, AuthenticationIdenti
      *
      * @var array
      */
-    protected $_hidden = [
+    protected array $_hidden = [
         'password',
     ];
 

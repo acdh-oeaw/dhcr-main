@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class FaqQuestion extends Entity
 {
-    protected $_accessible = [
+    protected array $_accessible = [
         'faq_category_id' => true,
         'sort_order' => true,
         'question' => true,

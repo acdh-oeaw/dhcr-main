@@ -15,7 +15,7 @@ class TokenBehavior extends Behavior
      *
      * @var array
      */
-    protected $_defaultConfig = [
+    protected array $_defaultConfig = [
         'fieldname' => null
     ];
 
