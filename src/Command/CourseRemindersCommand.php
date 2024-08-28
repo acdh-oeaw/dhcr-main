@@ -6,7 +6,7 @@ use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
 use Cake\Core\Configure;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 use Cake\Mailer\Mailer;
 use Exception;
 
@@ -69,10 +69,10 @@ class CourseRemindersCommand extends Command
         $this->loadModel('DhcrCore.Courses');
         $this->loadModel('Users');
         $this->loadModel('Logentries');
-        $waitPeriod = new \Cake\I18n\DateTime('-10 Days');    // no mail will be sent within $waitPeriod days after previous mail
+        $waitPeriod = new DateTime('-10 Days');    // no mail will be sent within $waitPeriod days after previous mail
 
         // clean up old log entries after 3 months
-        $oldEntries = $this->Logentries->find()->where(['created <' => new \Cake\I18n\DateTime('-3 Months')]);
+        $oldEntries = $this->Logentries->find()->where(['created <' => new DateTime('-3 Months')]);
         $io->out('Cleaned up old log entries: ' . $oldEntries->count());
         $this->Logentries->deleteManyOrFail($oldEntries);
 
@@ -140,7 +140,7 @@ class CourseRemindersCommand extends Command
             }
 
             // startup period: don't send CCs until fixed date 19-09-2022
-            if ($sendCc && (new \Cake\I18n\DateTime('Now') < new \Cake\I18n\DateTime('2022-09-19 00:00:00'))) {
+            if ($sendCc && (new DateTime('Now') < new DateTime('2022-09-19 00:00:00'))) {
                 $sendCc = false;
                 $logDescription .= "Cc: disabled until 19-09-22\n";
             }
@@ -160,7 +160,7 @@ class CourseRemindersCommand extends Command
                     continue;
                 }
                 $logDescription .= $course['id'] . ' ';
-                $course->set('last_reminder', new \Cake\I18n\DateTime('Now'));
+                $course->set('last_reminder', new DateTime('Now'));
                 if (!$this->Courses->save($course)) {
                     $errorMessage = 'Could not update last_reminder.';
                     $this->Logentries->createLogEntry(

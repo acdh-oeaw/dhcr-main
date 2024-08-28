@@ -5,7 +5,7 @@ namespace App\Command;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\I18n\FrozenTime;
+use Cake\I18n\DateTime;
 
 /*  This file should be run daily*/
 
@@ -23,7 +23,7 @@ class GenSitemapCommand extends Command
             [
                 'active' => 1,
                 'deleted' => 0,
-                'Courses.updated >' => new \Cake\I18n\DateTime('-489 Days'),
+                'Courses.updated >' => new DateTime('-489 Days'),
                 'approved' => 1
             ]
         );
