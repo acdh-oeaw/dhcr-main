@@ -968,24 +968,19 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'moderated';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->user_role_id == 2) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
+            $query = $this->Users->find('all', ['order' => ['Users.last_name' => 'ASC']])
+                ->where([
                     'approved' => 1,
                     'active' => 1,
                     'Users.country_id' => $user->country_id,
-                ]),
-                [
-                    'order' => ['last_name' => 'asc'],
-                    'contain' => ['Institutions'],
-                ]
-            );
-            $usersCount = $this->Users->find()->where(['Users.country_id' => $user->country_id])->count();
+                ])
+                ->contain(['Institutions']);
+            $this->set('users', $this->paginate($query));
         } else {
             $this->Flash->error(__('Not authorized to moderated users'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'user');
         $this->set('users_view_type', 'Moderated Users');
@@ -1005,14 +1000,14 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'all';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->is_admin) {
-            $users = $this->paginate($this->Users, ['contain' => 'Institutions', 'order' => ['last_name' => 'asc']]);
-            $usersCount = $this->Users->find()->count();
+            $query = $this->Users->find('all', ['order' => ['Users.last_name' => 'ASC']])
+                ->contain(['Institutions']);
+            $this->set('users', $this->paginate($query));
         } else {
             $this->Flash->error(__('Not authorized to all users'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'user');
         $this->set('users_view_type', 'All Users');
@@ -1033,52 +1028,30 @@ class UsersController extends AppController
         $breadcrumActions[1] = 'pendingInvitations';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         if ($user->is_admin) {
-            $users = $this->paginate(
-                $this->Users->find()->where([
+            $query = $this->Users->find('all', ['order' => ['Users.password_token_expires' => 'DESC']])
+                ->where([
                     'approved' => 1,
                     'active' => 1,
                     'email_verified' => 1,
                     'password IS NULL',
                     'password_token IS NOT NULL',
-                ]),
-                [
-                    'order' => ['password_token_expires' => 'desc'],
-                    'contain' => ['Institutions']
-                ]
-            );
-            $usersCount = $this->Users->find()->where([
-                'approved' => 1,
-                'active' => 1,
-                'email_verified' => 1,
-                'password IS NULL',
-                'password_token IS NOT NULL',
-            ])->count();
+                ])
+                ->contain(['Institutions']);
+            $this->set('users', $this->paginate($query));
         } elseif ($user->user_role_id == 2) {
-            $users =  $users = $this->paginate(
-                $this->Users->find()->where([
+            $query = $this->Users->find('all', ['order' => ['Users.password_token_expires' => 'DESC']])
+                ->where([
                     'approved' => 1,
                     'active' => 1,
                     'email_verified' => 1,
                     'password IS NULL',
                     'password_token IS NOT NULL',
                     'Users.country_id' => $user->country_id,
-                ]),
-                [
-                    'order' => ['password_token_expires' => 'desc'],
-                    'contain' => ['Institutions']
-                ]
-            );
-            $usersCount = $this->Users->find()->where([
-                'approved' => 1,
-                'active' => 1,
-                'email_verified' => 1,
-                'password IS NULL',
-                'password_token IS NOT NULL',
-                'Users.country_id' => $user->country_id,
-            ])->count();
+                ])
+                ->contain(['Institutions']);
+            $this->set('users', $this->paginate($query));
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'option-horizontal');
         $this->set('users_view_type', 'Pending Invitations');
@@ -1098,13 +1071,13 @@ class UsersController extends AppController
         $breadcrumControllers[1] = 'Users';
         $breadcrumActions[1] = 'moderators';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $users = $this->paginate(
-            $this->Users->find()->where(['user_role_id' => 2]),
-            ['order' => ['last_name' => 'asc'], 'contain' => ['Institutions'],]
-        );
-        $usersCount = $this->Users->find()->where(['user_role_id' => 2])->count();
+        $query = $this->Users->find('all', ['order' => ['Users.last_name' => 'ASC']])
+            ->where([
+                'user_role_id' => 2
+            ])
+            ->contain(['Institutions']);
+        $this->set('users', $this->paginate($query));
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('users', 'usersCount'));
         // "customize" view
         $this->set('users_icon', 'asterisk');
         $this->set('users_view_type', 'Moderators');
