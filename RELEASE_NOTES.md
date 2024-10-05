@@ -1,5 +1,12 @@
 # Release notes
 
+## Version 2024-09
+*Release date: 2024-10-05*
+
+### Bug fix
+- First set php path in includes.sh #110
+
+
 ## Version 2024-07
 *Release date: 2024-07-31*
 
