@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2024-09
+## Version 2024-09 
 *Release date: 2024-10-05*
 
 ### Bug fix
