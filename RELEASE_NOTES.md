@@ -7,9 +7,17 @@
 - 
 
 ### Small changes
+- Added ddev config
 - Updated Composer to 2.7.8
 - Updated dependencies
 - Required PHP version 8.3 or later, since version 8.2 active support ends on 2024-12-31
+
+
+## Version 2024-09 
+*Release date: 2024-10-05*
+
+### Bug fix
+- First set php path in includes.sh #110
 
 
 ## Version 2024-07
