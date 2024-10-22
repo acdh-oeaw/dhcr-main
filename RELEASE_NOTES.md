@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### Changes
-- 
+-  
 
 ### Small changes
 - Added ddev config
