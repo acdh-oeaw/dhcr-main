@@ -5,7 +5,7 @@ namespace App\Command;
 use Cake\Command\Command;
 use Cake\Console\Arguments;
 use Cake\Console\ConsoleIo;
-use Cake\I18n\DateTime;
+use Cake\I18n\FrozenTime;
 
 /*  This file should be run on build to create the JSON file for the seach bar
     As well it should be run automatically on regular basis (hourly) */
@@ -26,7 +26,7 @@ class GenSearchListCommand extends Command
             [
                 'active' => 1,
                 'deleted' => 0,
-                'Courses.updated >' => new DateTime('-489 Days'),
+                'Courses.updated >' => new \Cake\I18n\DateTime('-489 Days'),
                 'approved' => 1
             ]
         );
