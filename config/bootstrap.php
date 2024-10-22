@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 /**
  * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
  * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
@@ -19,7 +17,7 @@ declare(strict_types=1);
 /*
  * Configure paths required to find CakePHP + general filepath constants
  */
-require __DIR__ . DIRECTORY_SEPARATOR . 'paths.php';
+require __DIR__ . '/paths.php';
 
 /*
  * Bootstrap CakePHP.
@@ -42,17 +40,11 @@ use Cake\Http\ServerRequest;
 use Cake\Log\Log;
 use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
-use Cake\Routing\Router;
 use Cake\Utility\Security;
-use Cake\I18n\DateTime;
+use Cake\I18n\FrozenTime;
+
 
 /**
- * Load global functions.
- */
-require CAKE . 'functions.php';
-
-/**
- * See https://github.com/josegonzalez/php-dotenv for API details.
  * Uncomment block of code below if you want to use `.env` file during development.
  * You should copy `config/.env.default to `config/.env` and set/modify the
  * variables as required.
@@ -134,33 +126,24 @@ if (PHP_SAPI === 'cli') {
     require __DIR__ . '/bootstrap_cli.php';
 }
 
-$fullBaseUrl = Configure::read('App.fullBaseUrl');
-if (!$fullBaseUrl) {
-    /*
-     * When using proxies or load balancers, SSL/TLS connections might
-     * get terminated before reaching the server. If you trust the proxy,
-     * you can enable `$trustProxy` to rely on the `X-Forwarded-Proto`
-     * header to determine whether to generate URLs using `https`.
-     *
-     * See also https://book.cakephp.org/5/en/controllers/request-response.html#trusting-proxy-headers
-     */
-    $trustProxy = false;
-
+/*
+ * Set the full base URL.
+ * This URL is used as the base of all absolute links.
+ *
+ * If you define fullBaseUrl in your config file you can remove this.
+ */
+if (!Configure::read('App.fullBaseUrl')) {
     $s = null;
-    if (env('HTTPS') || ($trustProxy && env('HTTP_X_FORWARDED_PROTO') === 'https')) {
+    if (env('HTTPS')) {
         $s = 's';
     }
 
     $httpHost = env('HTTP_HOST');
-    if ($httpHost) {
-        $fullBaseUrl = 'http' . $s . '://' . $httpHost;
+    if (isset($httpHost)) {
+        Configure::write('App.fullBaseUrl', 'http' . $s . '://' . $httpHost);
     }
     unset($httpHost, $s);
 }
-if ($fullBaseUrl) {
-    Router::fullBaseUrl($fullBaseUrl);
-}
-unset($fullBaseUrl);
 
 Cache::setConfig(Configure::consume('Cache'));
 ConnectionManager::setConfig(Configure::consume('Datasources'));
@@ -168,6 +151,13 @@ TransportFactory::setConfig(Configure::consume('EmailTransport'));
 Mailer::setConfig(Configure::consume('Email'));
 Log::setConfig(Configure::consume('Log'));
 Security::setSalt(Configure::consume('Security.salt'));
+
+/*
+ * The default crypto extension in 3.0 is OpenSSL.
+ * If you are migrating from 2.x uncomment this code to
+ * use a more compatible Mcrypt based implementation
+ */
+//Security::engine(new \Cake\Utility\Crypto\Mcrypt());
 
 /*
  * Setup detectors for mobile and tablet.
@@ -184,27 +174,26 @@ ServerRequest::addDetector('tablet', function ($request) {
 });
 
 /*
+ * Enable immutable time objects in the ORM.
+ *
  * You can enable default locale format parsing by adding calls
  * to `useLocaleParser()`. This enables the automatic conversion of
  * locale specific date formats. For details see
- * @link https://book.cakephp.org/5/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
+ * @link https://book.cakephp.org/3.0/en/core-libraries/internationalization-and-localization.html#parsing-localized-datetime-data
  */
-// \Cake\Database\TypeFactory::build('time')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('date')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetime')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamp')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimefractional')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestampfractional')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('datetimetimezone')
-//    ->useLocaleParser();
-// \Cake\Database\TypeFactory::build('timestamptimezone')
-//    ->useLocaleParser();
+
+/*  PA 25-02-2023: Disabled the use of immutable
+*   Configuring immutable or mutable classes is deprecated and immutable classes will be the permanent configuration in 5.0. 
+*   Calling `useImmutable()` is unnecessary.
+*/
+// Type::build('time')
+//     ->useImmutable();
+// Type::build('date')
+//     ->useImmutable();
+// Type::build('datetime')
+//     ->useImmutable();
+// Type::build('timestamp')
+//     ->useImmutable();
 
 /*
  * Custom Inflector rules, can be set to correctly pluralize or singularize
@@ -214,30 +203,25 @@ ServerRequest::addDetector('tablet', function ($request) {
 //Inflector::rules('plural', ['/^(inflect)or$/i' => '\1ables']);
 //Inflector::rules('irregular', ['red' => 'redlings']);
 //Inflector::rules('uninflected', ['dontinflectme']);
-
-// set a custom date and time format
-// see https://book.cakephp.org/5/en/core-libraries/time.html#setting-the-default-locale-and-format-string
-// and https://unicode-org.github.io/icu/userguide/format_parse/datetime/#datetime-format-syntax
-//\Cake\I18n\Date::setToStringFormat('dd.MM.yyyy');
-//\Cake\I18n\Time::setToStringFormat('dd.MM.yyyy HH:mm');
+//Inflector::rules('transliteration', ['/å/' => 'aa']);
 
 /*
  *  Define expiration dates of courses and reminder mails
  */
 //  After this date, the course owner receives emails to update the course.
-Configure::write('courseWarnDate', new DateTime('-10 Months'));
+Configure::write('courseWarnDate', new FrozenTime('-10 Months'));
 
 //  After this date, the course is shown in orange.
-Configure::write('courseYellowDate', new DateTime('-12 Months'));
+Configure::write('courseYellowDate', new FrozenTime('-12 Months'));
 
 //  After this date, the moderator is on CC of the reminder mails.
-Configure::write('courseModWarnDate', new DateTime('-12 Months'));
+Configure::write('courseModWarnDate', new FrozenTime('-12 Months'));
 
 //  After this date, the course is shown in red.
-Configure::write('courseRedDate', new DateTime('-16 Months'));
+Configure::write('courseRedDate', new FrozenTime('-16 Months'));
 
 //  After this date, the course is not shown in the public registry, but still shown in the backend.
 //  See plugins/DhcrCore/config/bootstrap.php
 
 //  After this date, the course is not shown in the backend so it can't be updated. The course is archived.
-Configure::write('courseArchiveDate', new DateTime('-24 Months'));
+Configure::write('courseArchiveDate', new FrozenTime('-24 Months'));
