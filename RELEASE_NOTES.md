@@ -1,5 +1,12 @@
 # Release notes
 
+## Version 2024-09/2
+*Release date: 2024-10-22* 
+
+### Bug fix
+- Fix: Required file missing #110 
+
+
 ## Version 2024-09 
 *Release date: 2024-10-05*
 
