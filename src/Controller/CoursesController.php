@@ -10,7 +10,7 @@ class CoursesController extends AppController
 {
     use MailerAwareTrait;
 
-    public ?string $modelClass = 'DhcrCore.Courses';
+    public $modelClass = 'DhcrCore.Courses';
     public const SKIP_AUTHORIZATION = [
         'index',
         'view',

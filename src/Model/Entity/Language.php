@@ -8,7 +8,7 @@ use Cake\ORM\Entity;
 
 class Language extends Entity
 {
-    protected array $_accessible = [
+    protected $_accessible = [
         'name' => true,
         'courses' => true,
         'subscriptions' => true,

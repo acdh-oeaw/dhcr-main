@@ -590,7 +590,7 @@ class UsersController extends AppController
                         if (!file_exists('uploads/user_photos/')) {
                             mkdir('uploads/user_photos/', 0775, true);
                         }
-                        $timestamp = new \Cake\I18n\DateTime();
+                        $timestamp = new FrozenTime();
                         $timestamp = $timestamp->i18nFormat('yyyy-MM-dd_HH-mm-ss');
                         $photoUrl = $timestamp . '-' . $photoObject->getClientFilename();
                         // truncate long filenames
@@ -841,7 +841,7 @@ class UsersController extends AppController
             // set password token
             $invitedUser->setAccess('*', true);
             $invitedUser = $this->Users->patchEntity($invitedUser, [
-                'password_token_expires' => new \Cake\I18n\DateTime('+ 1 days'),
+                'password_token_expires' => new FrozenTime('+ 1 days'),
                 'password_token' => $this->Users->generateToken('password_token')
             ]);
             // set password link
@@ -905,7 +905,7 @@ class UsersController extends AppController
             // set password token
             $invitedUser->setAccess('*', true);
             $invitedUser = $this->Users->patchEntity($invitedUser, [
-                'password_token_expires' => new \Cake\I18n\DateTime('+ 1 days'),
+                'password_token_expires' => new FrozenTime('+ 1 days'),
                 'password_token' => $this->Users->generateToken('password_token')
             ]);
             // set password link

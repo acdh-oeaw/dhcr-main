@@ -23,7 +23,7 @@ class GenSitemapCommand extends Command
             [
                 'active' => 1,
                 'deleted' => 0,
-                'Courses.updated >' => new \Cake\I18n\DateTime('-489 Days'),
+                'Courses.updated >' => new FrozenTime('-489 Days'),
                 'approved' => 1
             ]
         );

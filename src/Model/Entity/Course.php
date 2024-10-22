@@ -6,7 +6,7 @@ use Cake\ORM\Entity;
 
 class Course extends Entity
 {
-    protected array $_accessible = [
+    protected $_accessible = [
         'user_id' => true,
         'active' => true,
         'deleted' => true,

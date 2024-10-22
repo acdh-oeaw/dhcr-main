@@ -34,7 +34,7 @@ class StatisticsController extends AppController
         $coursesPublic = $this->Courses->find()->where([
             'active' => 1,
             'deleted' => 0,
-            'updated >' => new \Cake\I18n\DateTime('-489 Days'),
+            'updated >' => new FrozenTime('-489 Days'),
             'approved' => 1,
         ])
             ->count();  // ca. 16 Months
@@ -49,7 +49,7 @@ class StatisticsController extends AppController
             $count = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
-                'updated >=' => new \Cake\I18n\DateTime('-' . $period . ' Months'),
+                'updated >=' => new FrozenTime('-' . $period . ' Months'),
                 'approved' => 1,
             ])
                 ->count();
@@ -66,8 +66,8 @@ class StatisticsController extends AppController
             $count = $this->Courses->find()->where([
                 'active' => 1,
                 'deleted' => 0,
-                'updated >=' => new \Cake\I18n\DateTime('-' . (24 - ($period - 1)) . ' Months'),
-                'updated <' => new \Cake\I18n\DateTime('-' . (24 - $period) . ' Months'),
+                'updated >=' => new FrozenTime('-' . (24 - ($period - 1)) . ' Months'),
+                'updated <' => new FrozenTime('-' . (24 - $period) . ' Months'),
                 'approved' => 1,
             ])
                 ->count();
@@ -82,8 +82,8 @@ class StatisticsController extends AppController
             ->where([
                 'active' => 1,
                 'deleted' => 0,
-                'updated >=' => new \Cake\I18n\DateTime('-24 Months'),
-                'updated <' => new \Cake\I18n\DateTime('-16 Months'),
+                'updated >=' => new FrozenTime('-24 Months'),
+                'updated <' => new FrozenTime('-16 Months'),
                 'approved' => 1
             ])
             ->group('country_id')
@@ -96,8 +96,8 @@ class StatisticsController extends AppController
                     'country_id' => $item->country_id,
                     'active' => 1,
                     'deleted' => 0,
-                    'updated >=' => new \Cake\I18n\DateTime('-24 Months'),
-                    'updated <' => new \Cake\I18n\DateTime('-16 Months'),
+                    'updated >=' => new FrozenTime('-24 Months'),
+                    'updated <' => new FrozenTime('-16 Months'),
                     'approved' => 1
                 ])
                 ->count();
@@ -113,8 +113,8 @@ class StatisticsController extends AppController
         foreach ($periods as $period) {
             $count = $this->Courses->find()->where([
                 'deleted' => 0,
-                'created <=' => new \Cake\I18n\DateTime('-' . $period - 1 . ' Months'),
-                'created >' => new \Cake\I18n\DateTime('-' . $period . ' Months'),
+                'created <=' => new FrozenTime('-' . $period - 1 . ' Months'),
+                'created >' => new FrozenTime('-' . $period . ' Months'),
             ])
                 ->count();
             $newCourseCounts[] = [$period, $count];
@@ -183,7 +183,7 @@ class StatisticsController extends AppController
                 'password IS NOT NULL',
                 'approved' => 1,
                 'active' => 1,
-                'last_login >=' => new \Cake\I18n\DateTime('-' . $period . ' Months'),
+                'last_login >=' => new FrozenTime('-' . $period . ' Months'),
             ])->count();
             $loggedinUserCounts[] = [$period, $count];
         }
@@ -199,7 +199,7 @@ class StatisticsController extends AppController
                 'password IS NOT NULL',
                 'approved' => 1,
                 'active' => 1,
-                'last_login >=' => new \Cake\I18n\DateTime('-' . $period . ' Months'),
+                'last_login >=' => new FrozenTime('-' . $period . ' Months'),
                 'user_role_id' => 2,
             ])->count();
             $loggedinModeratorCounts[] = [$period, $count];
@@ -319,7 +319,7 @@ class StatisticsController extends AppController
         $institutionsPublic = $this->Courses->find()->where([
             'active' => 1,
             'deleted' => 0,
-            'updated >' => new \Cake\I18n\DateTime('-489 Days'),
+            'updated >' => new FrozenTime('-489 Days'),
         ])
             ->group('institution_id')
             ->count();
@@ -344,7 +344,7 @@ class StatisticsController extends AppController
         $countriesCoursesPublic = $this->Courses->find()->where([
             'active' => 1,
             'deleted' => 0,
-            'updated >' => new \Cake\I18n\DateTime('-489 Days'),
+            'updated >' => new FrozenTime('-489 Days'),
         ])
             ->group('country_id')
             ->count();
@@ -363,7 +363,7 @@ class StatisticsController extends AppController
         $citiesCoursesPublic = $this->Courses->find()->where([
             'active' => 1,
             'deleted' => 0,
-            'updated >' => new \Cake\I18n\DateTime('-489 Days'),
+            'updated >' => new FrozenTime('-489 Days'),
         ])
             ->group('city_id')
             ->count();

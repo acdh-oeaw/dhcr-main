@@ -6,7 +6,7 @@ use Cake\ORM\Entity;
 
 class Email extends Entity
 {
-    protected array $_accessible = [
+    protected $_accessible = [
         'country_id' => true,
         'email' => true,
         'first_name' => true,
