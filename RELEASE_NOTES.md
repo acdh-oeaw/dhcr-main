@@ -4,6 +4,7 @@
 *Release date: ...*
 
 ### Small changes
+- Updated dependencies
 - Updated composer to 2.8.6
 
 
