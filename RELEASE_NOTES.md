@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### Small changes
-- ...
+- Updated composer to 2.8.6
 
 
 ## Version 2025-02
