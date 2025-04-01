@@ -3,8 +3,11 @@
 ## Version 2025-dev
 *Release date: ...*
 
+### Changes
+- Added documentation for application installation in local development environment #33
+
 ### Small changes
-- ...
+- Updated .env.default for both main and api-v2
 
 
 ## Version 2025-03
