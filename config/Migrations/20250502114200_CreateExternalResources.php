@@ -17,6 +17,10 @@ class CreateExternalResources extends AbstractMigration
     {
         $table = $this->table('external_resources');
 
+        $table->addColumn('course_id', 'integer', [
+            'default' => null,
+            'null' => false,
+        ]);
         $table->addColumn('label', 'string', [
             'default' => null,
             'limit' => 255,
