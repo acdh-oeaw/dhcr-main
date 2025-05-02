@@ -8,6 +8,8 @@
 
 ### Small changes
 - Updated .env.default for both main and api-v2
+- Updated composer to 2.8.8
+- Updated depencencies
 
 
 ## Version 2025-03
