@@ -216,6 +216,7 @@ class View {
     }
 
     createView(course) {
+        console.log(course);
         let el = $('<div id="view"></div>');
         let helper = new ViewHelper();
         let timing = ViewHelper.getTiming(course, ', ', ', ', '<br />', true);

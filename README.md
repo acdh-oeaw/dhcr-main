@@ -74,3 +74,11 @@ ddev exec bin/cake gen_search_list
 ```
 ddev launch
 ```
+
+12. Launch API
+```
+cd $PROJECT_DIR/dhcr-api
+ddev start
+ddev composer update
+ddev launch
+```
