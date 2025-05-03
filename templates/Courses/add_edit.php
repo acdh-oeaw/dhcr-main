@@ -86,6 +86,8 @@
                     Check this box if your course is ready to be published in the registry.<br>
                     When unchecked, you will be able to complete the course description later.
                 </p>
+                <p>&nbsp;</p>
+                <p><u>Note: External resources can be added or modified after saving the course.</u></p>
             </fieldset>
             <p>&nbsp;</p>
             <?= $this->Form->button(__($course_submit_label)) ?>
