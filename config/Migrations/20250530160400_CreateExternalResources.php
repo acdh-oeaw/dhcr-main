@@ -41,6 +41,10 @@ class CreateExternalResources extends AbstractMigration
             'limit' => 100,
             'null' => true,
         ]);
+        $table->addColumn('visible', 'boolean', [
+            'default' => true,
+            'null' => false,
+        ]);
         $table->addColumn('created', 'datetime', [
             'default' => null,
             'null' => false,
