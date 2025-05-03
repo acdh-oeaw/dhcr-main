@@ -47,7 +47,7 @@ class CreateExternalResources extends AbstractMigration
         ]);
         $table->addColumn('updated', 'datetime', [
             'default' => null,
-            'null' => false,
+            'null' => true,
         ]);
         $table->create();
     }
