@@ -78,6 +78,7 @@ ddev launch
 12. Launch API
 ```
 cd $PROJECT_DIR/dhcr-api
+ddev import-db --file=dhcr.sql
 ddev start
 ddev composer update
 ddev launch
