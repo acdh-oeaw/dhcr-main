@@ -20,12 +20,11 @@ https://ddev.com/get-started/
 
 3. Clone DHCR repo's
 
-(api and core are currently not public available)
 ```
 mkdir $PROJECT_DIR && cd $PROJECT_DIR
-git clone git@github.com:acdh-oeaw/dhcr-core-plugin.git
-git clone git@github.com:acdh-oeaw/dhcr-api.git
-git clone git@github.com:acdh-oeaw/dhcr-main.git
+git clone https://github.com/acdh-oeaw/dhcr-core-plugin.git
+git clone https://github.com/acdh-oeaw/dhcr-api.git
+git clone https://github.com/acdh-oeaw/dhcr-main.git
 ```
 
 4. Install submodules
