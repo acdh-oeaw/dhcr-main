@@ -26,7 +26,7 @@
                 echo '<p id="start_date">&nbsp;</p>';   // internal url
                 echo $this->Form->control('start_date', ['label' => 'Start Date*', 'onclick' => 'openForm()', 'placeholder' => 'YYYY-MM-DD']);
                 ?>
-                <p>At least one valid date in the format YYYY-MM-DD is needed. It's possible to enter multiple dates. Preferbly use the pop-up datepicker 
+                <p>At least one valid date in the format YYYY-MM-DD is needed. It's possible to enter multiple dates. Preferbly use the pop-up datepicker
                     if your browser supports this. Otherwise you can enter the dates manually, separated by a semicolon. <br>Example: 2024-03-15;2024-06-15</p>
                 <p>For <strong><u>recurring</u></strong> start dates, please enter all dates over one full year and check the box "Recurring".</p>
                 <p>A <strong><u>non-recurring</u></strong> course will be removed from the public list 16 months after the last date has
@@ -90,7 +90,9 @@
                 <p><u>Note: External resources can be added or modified after saving the course.</u></p>
             </fieldset>
             <p>&nbsp;</p>
-            <?= $this->Form->button(__($course_submit_label)) ?>
+            <?= $this->Form->button($course_submit_label1, ['name' => 'submit1']) ?>
+            <p></p>
+            <?= $this->Form->button($course_submit_label2, ['name' => 'submit2']) ?>
             <?= $this->Form->end() ?>
         </div>
     </div>

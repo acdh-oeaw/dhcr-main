@@ -43,7 +43,8 @@
                     echo $this->Form->control('affiliation', [
                         'options' => [
                             'CLARIN' => 'CLARIN',
-                            'DARIAH' => 'DARIAH'
+                            'DARIAH' => 'DARIAH',
+                            'CLARIN & DARIAH' => 'CLARIN & DARIAH',
                         ]
                     ]);
                     echo $this->Form->control('visible', [

@@ -27,7 +27,7 @@
         if($externalResource->visible) {
             echo '<span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;Public visible';
         } else {
-            echo '<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;Public not visible';
+            echo '<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;Not visible';
         }
         ?><br>
         <?= $this->Html->link('<span class="glyphicon glyphicon-pencil"></span> Edit', ['action' => 'editExtResource', $externalResource->id], ['escape' => false]) ?>
@@ -35,5 +35,7 @@
         <hr>
         <p></p>
     <?php endforeach; ?>
+    <?= $this->Html->link('Back to Edit Course', ['controller' => 'Courses', 'action' => 'edit', $course->id], ['class' => 'button float-right']) ?>
+    <p></p>
     <?= $this->Html->link('Back to Administrate Courses', ['controller' => 'Dashboard', 'action' => 'adminCourses'], ['class' => 'button float-right']) ?>
 </div>
