@@ -1,6 +1,6 @@
 # Release notes
 
-## Version 2025-dev
+## Version 2025-dev 
 *Release date: ...* 
 
 ### Changes
