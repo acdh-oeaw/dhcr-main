@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2025-dev
-*Release date: ...*
+*Release date: ...* 
 
 ### Changes
 - Added documentation for application installation in local development environment #33
