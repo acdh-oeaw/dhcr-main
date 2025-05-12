@@ -200,7 +200,7 @@ class CoursesController extends AppController
                 if (isset($this->request->getData()['submit1'])) {
                     return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
                 } else {
-                    return $this->redirect(['controller' => 'Courses', 'action' => 'showExtResources', $course->id]);
+                    return $this->redirect(['controller' => 'ExternalResources', 'action' => 'showExtResources', $course->id]);
                 }
             }
             $this->Flash->error(__('The course could not be added. Please, contact the helpdesk.'));
@@ -280,7 +280,7 @@ class CoursesController extends AppController
                 if (isset($this->request->getData()['submit1'])) {
                     return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
                 } else {
-                    return $this->redirect(['controller' => 'Courses', 'action' => 'showExtResources', $course->id]);
+                    return $this->redirect(['controller' => 'ExternalResources', 'action' => 'showExtResources', $course->id]);
                 }
             }
             $this->Flash->error(__('The course could not be updated. Please, check the error messages at each field.'));
