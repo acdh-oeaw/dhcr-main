@@ -83,7 +83,7 @@ $coursesCount = $courses->count();
                                 echo $this->Html->link(__('Approve'), ['action' => 'approve', $course->id]) . '<br>';
                             }
                             echo $this->Html->link(__('Update'), ['action' => 'edit', $course->id]) . '<br>';
-                            echo $this->Html->link(__('Ext. Resources'), ['action' => 'showExtResources', $course->id]) . '<br>';
+                            echo $this->Html->link(__('Ext. Resources'), ['controller' => 'ExternalResources' , 'action' => 'showExtResources', $course->id]) . '<br>';
                             echo $this->Html->link(__('Share'), ['action' => 'view', $course->id]) . '<br>';
                             if ($user->user_role_id == 2 || $user->is_admin) {
                                 echo $this->Html->link(__('Transfer'), ['action' => 'transfer', $course->id]) . '<br>';
