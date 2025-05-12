@@ -14,7 +14,7 @@ class ExternalResourcesController extends AppController
         $this->loadModel('DhcrCore.Courses');
         $course = $this->Courses->get($courseId, ['contain' => ['ExternalResources']]);
         $user = $this->Authentication->getIdentity();
-        // $this->Authorization->authorize($course);
+        $this->Authorization->authorize($course);
         $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
