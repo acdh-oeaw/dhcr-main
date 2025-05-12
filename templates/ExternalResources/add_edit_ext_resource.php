@@ -29,8 +29,10 @@
                         'val' => $course->id
                     ]);
                     echo $this->Form->control('label');
+                    echo 'Start with https:// if possible, otherwise with http://';
                     echo $this->Form->control('url', [
-                        'label' => 'Url*'
+                        'label' => 'Url*',
+                        'placeholder' => 'Start with https:// if possible, otherwise with http://'
                     ]);
                     echo $this->Form->control('type', [
                         'options' => [

@@ -1,7 +1,10 @@
 # Release notes
 
-## Version 2025-dev 
-*Release date: ...* 
+## Version 2025-05
+*Release date: ...*
+
+### New feature
+- Add additional metadata for registering RI datasets / training / learning material used in a course or programme #48
 
 ### Changes
 - Added documentation for application installation in local development environment #33
