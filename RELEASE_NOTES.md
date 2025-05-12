@@ -1,5 +1,17 @@
 # Release notes
 
+## Version 2025-dev 
+*Release date: ...* 
+
+### Changes
+- Added documentation for application installation in local development environment #33
+
+### Small changes
+- Updated .env.default for both main and api-v2
+- Updated composer to 2.8.8
+- Updated depencencies
+
+
 ## Version 2025-03
 *Release date: 2025-03-30*
 

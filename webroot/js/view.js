@@ -261,7 +261,17 @@ class View {
         let location = $('<div id="locationMap"></div>');
         el.append(location);
 
-        el.append($('<hr />'));
+        if (course.external_resources.length > 0) {
+            el.append('<hr />');
+            el.append('<div class="text"><p class="strong">External Resources</p></div>');
+        }
+
+        course.external_resources.forEach(showExtRes);
+        function showExtRes(item) {
+            el.append('<div class="text">' + item.affiliation + ' ' + item.type + ': ' + item.label + '<br><a href="' + item.url + '">' + item.url + '</a></div>');
+        }
+
+        el.append('<hr />');
 
         this.clearView();
         $(this.element).append(el);
