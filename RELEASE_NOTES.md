@@ -13,7 +13,7 @@
 
 
 ## Version 2025-05
-*Release date: ...*
+*Release date: 2025-05-14*
 
 ### New feature
 - Add additional metadata for registering RI datasets / training / learning material used in a course or programme #48
