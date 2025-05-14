@@ -1,5 +1,13 @@
 # Release notes
 
+## Version 2025-05/2
+*Release date: ...*
+
+### Small changes
+- ...
+- Updated composer to 2.8.9
+- Updated depencencies
+
 ## Version 2025-05
 *Release date: ...*
 
