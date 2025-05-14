@@ -25,6 +25,7 @@ class CoursesController extends AppController
     public $Disciplines = null;
     public $TadirahTechniques = null;
     public $TadirahObjects = null;
+    public $Users = null;
 
     public function initialize(): void
     {
@@ -196,7 +197,11 @@ class CoursesController extends AppController
                     $this->getMailer('Course')->send('notifyAdmin', [$courseData, $admin->email]);
                 }
                 $this->Flash->success(__('The course has been added.'));
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+                if (isset($this->request->getData()['submit1'])) {
+                    return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+                } else {
+                    return $this->redirect(['controller' => 'ExternalResources', 'action' => 'showExtResources', $course->id]);
+                }
             }
             $this->Flash->error(__('The course could not be added. Please, contact the helpdesk.'));
         }
@@ -245,7 +250,8 @@ class CoursesController extends AppController
         // "customize" view
         $this->set('course_icon', 'plus');
         $this->set('course_action', 'Add Course');
-        $this->set('course_submit_label', 'Save Course');
+        $this->set('course_submit_label1', 'Add Course');
+        $this->set('course_submit_label2', 'Add Course & Add Resources');
         $this->render('add_edit');
     }
 
@@ -271,7 +277,11 @@ class CoursesController extends AppController
             $course->set('name', trim($course->name));
             if ($this->Courses->save($course)) {
                 $this->Flash->success(__('The course has been updated.'));
-                return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+                if (isset($this->request->getData()['submit1'])) {
+                    return $this->redirect(['controller' => 'Dashboard', 'action' => 'adminCourses']);
+                } else {
+                    return $this->redirect(['controller' => 'ExternalResources', 'action' => 'showExtResources', $course->id]);
+                }
             }
             $this->Flash->error(__('The course could not be updated. Please, check the error messages at each field.'));
         }
@@ -331,7 +341,8 @@ class CoursesController extends AppController
         // "customize" view
         $this->set('course_icon', 'pencil');
         $this->set('course_action', 'Edit Course');
-        $this->set('course_submit_label', 'Update Course');
+        $this->set('course_submit_label1', 'Update Course');
+        $this->set('course_submit_label2', 'Update Course & Add Resources');
         $this->render('add_edit');
     }
 
