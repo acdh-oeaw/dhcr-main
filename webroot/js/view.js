@@ -268,7 +268,24 @@ class View {
 
         course.external_resources.forEach(showExtRes);
         function showExtRes(item) {
-            el.append('<div class="text">' + item.affiliation + ' ' + item.type + ': ' + item.label + '<br><a href="' + item.url + '">' + item.url + '</a></div>');
+            if (!item.visible) {
+                return;
+            }
+            el.append('<div class="text">');
+            if (item.affiliation.length > 0) {
+                el.append(item.affiliation + ' ');
+            }
+            if (item.type.length > 0) {
+                el.append(item.type + ' ');
+            }
+            if ((item.affiliation.length > 0 || item.type.length > 0) && item.label.length > 0) {
+                el.append(': ');
+            }
+            el.append(item.label);
+            if ((item.affiliation.length > 0) || item.type.length > 0 || item.label.length > 0) {
+                el.append('<br>');
+            }
+            el.append('<a href="' + item.url + '">' + item.url + '</a></div>');
         }
 
         el.append('<hr />');
