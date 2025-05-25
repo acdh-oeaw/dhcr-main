@@ -8,12 +8,13 @@
 - Show semicolon only when label and one other optional field contain a value #48
 - Show this line only when at least one of the three optional items contains a value #48
 - Fix: Do not show external resource on course detail page when they are set as not visible #48
+- Implemented text changes #48
 - Updated composer to 2.8.9
 - Updated depencencies
 
 
 ## Version 2025-05
-*Release date: ...*
+*Release date: 2025-05-14*
 
 ### New feature
 - Add additional metadata for registering RI datasets / training / learning material used in a course or programme #48

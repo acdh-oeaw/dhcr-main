@@ -18,13 +18,15 @@
         </tr>
     </table>
     <p></p>
+    <p><i>As of May 2025, the course contributors can add CLARIN and DARIAH external resources they use in their course / programme / summer school.
+        An external resource can be "Dataset, Training Material, Service or Software". Course contributors can add as many resources as they need.</i></p>
     <?= $this->Html->link('Add External Resource', ['action' => 'addExtResource', $course->id], ['class' => 'button float-right']) ?>
     <p></p>
     <?php foreach ($course->external_resources as $externalResource) : ?>
         <?= h($externalResource->affiliation) ?> <?= h($externalResource->type) ?>: <?= h($externalResource->label) ?><br>
         <?= $this->Html->link($externalResource->url) ?><br>
         <?php
-        if($externalResource->visible) {
+        if ($externalResource->visible) {
             echo '<span class="glyphicon glyphicon-ok-circle"></span>&nbsp;&nbsp;Public visible';
         } else {
             echo '<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;&nbsp;Not visible';
