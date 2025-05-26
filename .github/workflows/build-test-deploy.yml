@@ -88,7 +88,7 @@ jobs:
       - name: Run tests using heroku buildpack
         run: |
           cat <<EOF > Dockerfile  
-          FROM gliderlabs/herokuish
+          FROM gliderlabs/herokuish:v0.10.3-24
           COPY . /tmp/app
           ENV USER=herokuishuser
           EOF
