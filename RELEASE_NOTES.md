@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2025-05/2
-*Release date: ...*
+*Release date: ...* 
 
 ### Small changes
 - Improved visualization on course detail page, in the case that one of the optional external resource fields (Label, Type, Affiliation) are empty. #48
