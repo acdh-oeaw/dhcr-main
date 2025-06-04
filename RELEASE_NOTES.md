@@ -6,10 +6,11 @@
 ### Small changes
 - Added total numer of results to main page #77
 - Updated text on registration page #123
+- Updated text on login page #123
 
 
 ## Version 2025-05/2
-*Release date: ...*
+*Release date: 2025-06-04*
 
 ### Small changes
 - Improved visualization on course detail page, in the case that one of the optional external resource fields (Label, Type, Affiliation) are empty. #48
