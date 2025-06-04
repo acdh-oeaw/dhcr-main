@@ -4,18 +4,47 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+
 class ExternalResourcesController extends AppController
 {
-    public $modelClass = 'DhcrCore.Courses';
+    public $modelClass = null;
     public $Courses = null;
+
+    public function beforeRender(EventInterface $event)
+    {
+        parent::beforeRender($event);
+        $this->viewBuilder()->setLayout('contributors');
+    }
+
+    public function index()
+    {
+        $modelClass = 'DhcrCore.ExternalResources';
+        $user = $this->Authentication->getIdentity();
+        if (!$user->is_admin) {
+            $this->Flash->error(__('Not authorized to externalResources index'));
+            return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
+        }
+        // Set breadcrums
+        $breadcrumTitles[0] = 'Administrate Courses';
+        $breadcrumControllers[0] = 'Dashboard';
+        $breadcrumActions[0] = 'adminCourses';
+        $breadcrumTitles[1] = 'External Resources Index';
+        $breadcrumControllers[1] = 'ExternalResources';
+        $breadcrumActions[1] = 'index';
+        $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
+        $query = $this->ExternalResources->find('all')->contain('Courses');
+        $this->set('externalResources', $this->paginate($query, ['order' => ['ExternalResources.id' => 'ASC']]));
+        $this->set(compact('user')); // required for contributors menu
+    }
 
     public function showExtResources($courseId)
     {
+        $modelClass = 'DhcrCore.Courses';
         $this->loadModel('DhcrCore.Courses');
         $course = $this->Courses->get($courseId, ['contain' => ['ExternalResources']]);
         $user = $this->Authentication->getIdentity();
         $this->Authorization->authorize($course);
-        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -30,6 +59,7 @@ class ExternalResourcesController extends AppController
 
     public function addExtResource($courseId)
     {
+        $modelClass = 'DhcrCore.Courses';
         $this->loadModel('DhcrCore.Courses');
         $course = $this->Courses->get($courseId);
         $externalResource = $this->Courses->ExternalResources->newEmptyEntity();
@@ -43,7 +73,6 @@ class ExternalResourcesController extends AppController
             }
             $this->Flash->error(__('The external resource could not be added. Please check the error message.'));
         }
-        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -63,6 +92,7 @@ class ExternalResourcesController extends AppController
 
     public function editExtResource($externalResourceId)
     {
+        $modelClass = 'DhcrCore.Courses';
         $this->loadModel('DhcrCore.Courses');
         $externalResource = $this->Courses->ExternalResources->get($externalResourceId);
         $courseId = $externalResource->course_id;
@@ -77,7 +107,6 @@ class ExternalResourcesController extends AppController
             }
             $this->Flash->error(__('The external resource could not be updated. Please check the error message.'));
         }
-        $this->viewBuilder()->setLayout('contributors');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
