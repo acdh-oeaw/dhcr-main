@@ -5,6 +5,7 @@
 
 ### Small changes
 - Added total numer of results to main page #77
+- Updated text on registration page #123
 
 
 ## Version 2025-05/2
