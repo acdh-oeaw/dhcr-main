@@ -156,7 +156,6 @@ class DashboardController extends AppController
         if ($user->user_role_id == 2) {
             $moderatedCoursesCount = $this->Courses->find()->where([
                 'approved' => 1,
-                'active' => 1,
                 'deleted' => 0,
                 'updated >' => Configure::read('courseArchiveDate'),
                 'country_id' => $user->country_id,

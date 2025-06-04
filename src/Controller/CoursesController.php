@@ -445,7 +445,6 @@ class CoursesController extends AppController
             $query = $this->Courses->find('all')
                 ->where([
                     'Courses.approved' => 1,
-                    'Courses.active' => 1,
                     'Courses.deleted' => 0,
                     'Courses.updated >' => Configure::read('courseArchiveDate'),
                     'Courses.country_id' => $user->country_id
