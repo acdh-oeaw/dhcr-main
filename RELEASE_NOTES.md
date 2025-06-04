@@ -7,6 +7,7 @@
 - Added total numer of results to main page #77
 - Updated text on registration page #123
 - Updated text on login page #123
+- Make unpublished courses visible for national moderators #125
 
 
 ## Version 2025-05/2
