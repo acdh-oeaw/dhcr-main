@@ -99,6 +99,8 @@ class View {
             });
             $('#searchField').focus();
         });
+        // Show total numer of results
+        buttons.append('<br>Result: ' + courses.length + ' courses');
     }
 
     createTable() {

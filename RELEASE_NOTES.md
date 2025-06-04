@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### Small changes
-- ...
+- Added total numer of results to main page #77
 
 
 ## Version 2025-05/2
