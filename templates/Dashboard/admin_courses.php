@@ -1,5 +1,6 @@
 <p></p>
 <h2><span class="glyphicon glyphicon-education"></span>&nbsp;&nbsp;&nbsp;Administrate Courses</h2>
+<p>Hint: Adding an external resource can be done when editing a course.</p>
 <div id="dashboard">
     <?php
     echo $this->Html->link(
@@ -57,6 +58,20 @@
             [
                 'class' => 'blue button',
                 'title' => 'All Courses',
+                'escape' => false
+            ]
+        );
+        echo $this->Html->link(
+            '<p></p><span class="glyphicon glyphicon glyphicon-th-list"></span><br>
+                External Resources<br>
+                <font color="#81d41a">(&nbsp;' . $allExternalResourcesCount . '&nbsp;)</font><p></p>',
+            [
+                'controller' => 'ExternalResources',
+                'action' => 'index'
+            ],
+            [
+                'class' => 'blue button',
+                'title' => 'External Resources',    
                 'escape' => false
             ]
         );

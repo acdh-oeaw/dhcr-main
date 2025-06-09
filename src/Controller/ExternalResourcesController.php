@@ -10,6 +10,7 @@ class ExternalResourcesController extends AppController
 {
     public $modelClass = null;
     public $Courses = null;
+    public $ExternalResources = null;
 
     public function beforeRender(EventInterface $event)
     {
@@ -20,16 +21,17 @@ class ExternalResourcesController extends AppController
     public function index()
     {
         $modelClass = 'DhcrCore.ExternalResources';
+        $this->loadModel('DhcrCore.ExternalResources');
         $user = $this->Authentication->getIdentity();
         if (!$user->is_admin) {
-            $this->Flash->error(__('Not authorized to externalResources index'));
+            $this->Flash->error(__('Not authorized to externalResources overview'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'adminCourses';
-        $breadcrumTitles[1] = 'External Resources Index';
+        $breadcrumTitles[1] = 'External Resources Overview';
         $breadcrumControllers[1] = 'ExternalResources';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
@@ -49,7 +51,7 @@ class ExternalResourcesController extends AppController
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
         $breadcrumActions[0] = 'adminCourses';
-        $breadcrumTitles[1] = 'Show External Resources';
+        $breadcrumTitles[1] = 'Show External Resources per Course';
         $breadcrumControllers[1] = 'Courses';
         $breadcrumActions[1] = 'showExtResources';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));

@@ -18,7 +18,8 @@ class DashboardController extends AppController
     public $Languages = null;
     public $InviteTranslations = null;
     public $FaqQuestions = null;
-    
+    public $ExternalResources = null;
+
     public function initialize(): void
     {
         parent::initialize();
@@ -142,6 +143,7 @@ class DashboardController extends AppController
     {
         $user = $this->Authentication->getIdentity();
         $this->loadModel('DhcrCore.Courses');
+        $this->loadModel('DhcrCore.ExternalResources');
         // Set breadcrums
         $breadcrumTitles[0] = 'Administrate Courses';
         $breadcrumControllers[0] = 'Dashboard';
@@ -170,11 +172,13 @@ class DashboardController extends AppController
                 'updated >' => Configure::read('courseArchiveDate'),
             ])
                 ->count();
+            $allExternalResourcesCount = $this->ExternalResources->find('all')->count();
         } else {
             $allCoursesCount = 0;
+            $allExternalResourcesCount = 0;
         }
         $this->set(compact('user')); // required for contributors menu
-        $this->set(compact('myCoursesCount', 'moderatedCoursesCount', 'allCoursesCount'));
+        $this->set(compact('myCoursesCount', 'moderatedCoursesCount', 'allCoursesCount', 'allExternalResourcesCount'));
     }
 
     public function contributorNetwork()
