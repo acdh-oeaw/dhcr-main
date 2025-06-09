@@ -14,7 +14,8 @@ class StatisticsController extends AppController
     public $Users = null;
     public $FaqQuestions = null;
     public $InviteTranslations = null;
-    
+    public $ExternalResources = null;
+
     public function beforeRender(EventInterface $event)
     {
         parent::beforeRender($event);
@@ -76,9 +77,9 @@ class StatisticsController extends AppController
         return $archivedSoonCourseCounts;
     }
 
-    private function getCourseCountsPerCountry($outdated=false)
+    private function getCourseCountsPerCountry($outdated = false)
     {
-        if($outdated == true) { 
+        if ($outdated == true) {
             $updatedMin = new FrozenTime('-24 Months');
             $updatedMax = new FrozenTime('-16 Months');
         } else {
@@ -204,10 +205,14 @@ class StatisticsController extends AppController
         ])->count();
 
         return [
-            $usersTotal, $usersSubscribed,
-            $usersAvailable, $usersAvailableSubscribed,
-            $moderators, $moderatorsSubscribed,
-            $administrators, $userAdmins
+            $usersTotal,
+            $usersSubscribed,
+            $usersAvailable,
+            $usersAvailableSubscribed,
+            $moderators,
+            $moderatorsSubscribed,
+            $administrators,
+            $userAdmins
         ];
     }
 
@@ -260,8 +265,8 @@ class StatisticsController extends AppController
         [$coursesTotal, $coursesBackend, $coursesPublic] = $this->getCoursesKeyData();
         $updatedCourseCounts = $this->getUpdatedCourseCounts(range(1, 24));
         $archivedSoonCourseCounts = $this->getArchivedSoonCourseCounts(range(1, 12));
-        $outdatedCoursesPerCountries = $this->getCourseCountsPerCountry($outdated=true);
-        $courseCountsPerCountry = $this->getCourseCountsPerCountry($outdated=false);
+        $outdatedCoursesPerCountries = $this->getCourseCountsPerCountry($outdated = true);
+        $courseCountsPerCountry = $this->getCourseCountsPerCountry($outdated = false);
         $this->set('courseCountsPerEducType', $this->getCourseCountsPerEducType());
         $newCourseCounts = $this->getNewCourseCounts(range(1, 18));
         $newAddedCourses = $this->getNewAddedCourses(25);
@@ -291,10 +296,14 @@ class StatisticsController extends AppController
         $breadcrumActions[1] = 'userStatistics';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         [
-            $usersTotal, $usersSubscribed,
-            $usersAvailable, $usersAvailableSubscribed,
-            $moderators, $moderatorsSubscribed,
-            $administrators, $userAdmins
+            $usersTotal,
+            $usersSubscribed,
+            $usersAvailable,
+            $usersAvailableSubscribed,
+            $moderators,
+            $moderatorsSubscribed,
+            $administrators,
+            $userAdmins
         ] = $this->getUsersKeyData();
         $loggedinPeriods = range(1, 24);    // periods in months
         $loggedinUserCounts = $this->getLoggedinUserCounts($loggedinPeriods);
@@ -321,6 +330,7 @@ class StatisticsController extends AppController
         $this->loadModel('Users');
         $this->loadModel('FaqQuestions');
         $this->loadModel('InviteTranslations');
+        $this->loadModel('ExternalResources');
         // set breadcrums
         $breadcrumTitles[0] = 'Statistics';
         $breadcrumControllers[0] = 'Dashboard';
@@ -334,9 +344,12 @@ class StatisticsController extends AppController
         $this->set(compact('coursesTotal', 'coursesBackend', 'coursesPublic'));
         // users
         [
-            $usersTotal, $usersSubscribed,
-            $usersAvailable, $usersAvailableSubscribed,
-            $moderators, $moderatorsSubscribed
+            $usersTotal,
+            $usersSubscribed,
+            $usersAvailable,
+            $usersAvailableSubscribed,
+            $moderators,
+            $moderatorsSubscribed
         ] = $this->getUsersKeyData();
         $this->set(compact(
             'usersTotal',
@@ -430,12 +443,16 @@ class StatisticsController extends AppController
             'faqQuestionsPublishedContributor',
             'faqQuestionsPublishedModerator'
         ));
-
         // translations
         $inviteTranslationsTotal = $this->InviteTranslations->find('all')->count();
         $inviteTranslationsPublished = $this->InviteTranslations->find('all')->where(['active ' => true])->count();
         $this->set(compact('inviteTranslationsTotal', 'inviteTranslationsPublished'));
-
+        // external resources
+        $externalResourcesTotal = $this->ExternalResources->find('all')->count();
+        $externalResourcesPublished = $this->ExternalResources->find('all')->where(['visible ' => true])->count();
+        $externalResourcesCourseCount = $this->ExternalResources->find('all')->where(['visible ' => true])->group('course_id')->count();
+        $externalResourcesAvgPerCourse = $externalResourcesPublished / $externalResourcesCourseCount;
+        $this->set(compact('externalResourcesTotal', 'externalResourcesPublished', 'externalResourcesCourseCount', 'externalResourcesAvgPerCourse'));
 
         $this->set(compact('user')); // required for contributors menu
     }
