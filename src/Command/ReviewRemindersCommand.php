@@ -10,6 +10,9 @@ use Exception;
 
 class ReviewRemindersCommand extends Command
 {
+    public $Users = null;
+    public $Logentries = null;
+
     private function getUseradmins()
     {
         $useradmins = $this->Users->find()->where([

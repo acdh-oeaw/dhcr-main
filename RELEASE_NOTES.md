@@ -13,6 +13,7 @@
 - Fix: Updated field is not filled with a value #48
 - Fixed deprecation warning in GenSearchListCommand
 - Fixed deprecation warning in GenSitemapCommand
+- Fixed deprecation warning in ReviewRemindersCommand
 
 
 ## Version 2025-05/2
