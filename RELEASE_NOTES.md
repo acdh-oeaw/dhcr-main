@@ -12,6 +12,7 @@
 - Added external resource counts to summary statistics dashboard #48
 - Fix: Updated field is not filled with a value #48
 - Fixed deprecation warning in GenSearchListCommand
+- Fixed deprecation warning in GenSitemapCommand
 
 
 ## Version 2025-05/2
