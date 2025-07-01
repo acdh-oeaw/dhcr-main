@@ -8,6 +8,13 @@
 - Updated text on registration page #123
 - Updated text on login page #123
 - Make unpublished courses visible for national moderators #125
+- Added external resources overview page in login area #48
+- Added external resource counts to summary statistics dashboard #48
+- Fix: Updated field is not filled with a value #48
+- Fixed deprecation warning in GenSearchListCommand
+- Fixed deprecation warning in GenSitemapCommand
+- Fixed deprecation warning in ReviewRemindersCommand
+- Updated dependencies
 
 
 ## Version 2025-05/2
@@ -27,7 +34,7 @@
 *Release date: 2025-05-14*
 
 ### New feature
-- Add additional metadata for registering RI datasets / training / learning material used in a course or programme #48
+- Add additional metadata for registering RI datasets / training / learning material used in a course or programme (External Resources) #48
 
 ### Changes
 - Added documentation for application installation in local development environment #33

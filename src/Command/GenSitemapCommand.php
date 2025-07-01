@@ -11,6 +11,9 @@ use Cake\I18n\FrozenTime;
 
 class GenSitemapCommand extends Command
 {
+    public $Courses = null;
+    public $Logentries = null;
+
     public function execute(Arguments $args, ConsoleIo $io)
     {
         $this->loadModel('DhcrCore.Courses');

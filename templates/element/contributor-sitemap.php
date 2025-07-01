@@ -76,6 +76,9 @@
                     echo '<li>';
                     echo $this->Html->link('All Courses', ['controller' => 'Courses', 'action' => 'all']);
                     echo '</li>';
+                    echo '<li>';
+                    echo $this->Html->link('External Resources', ['controller' => 'ExternalResources', 'action' => 'index']);
+                    echo '</li>';
                 }
                 ?>
             </ul>

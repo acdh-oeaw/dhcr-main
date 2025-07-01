@@ -34,9 +34,9 @@ use Cake\I18n\FrozenTime;
                 <p></p>
                 <ul>
                     <li>Total: <?= $coursesTotal ?></li>
-                    <li>In backend & published: <?= $coursesBackend ?></li>
+                    <li>In login area & published: <?= $coursesBackend ?></li>
                     <li>Public visible: <?= $coursesPublic ?><br></li>
-                    <li>Public as part of backend: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%</li>
+                    <li>Public as part of login area: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%</li>
 
                 </ul>
             </td>
@@ -58,7 +58,7 @@ use Cake\I18n\FrozenTime;
                 <ul>
                     <li>Total: <?= $institutionsTotal ?></li>
                     <li>With courses: <?= $institutionsCourses ?></li>
-                    <li>With courses in backend: <?= $institutionsBackend ?></li>
+                    <li>With courses in login area: <?= $institutionsBackend ?></li>
                     <li>With courses public visible: <?= $institutionsPublic ?></li>
                 </ul>
             </td>
@@ -75,7 +75,7 @@ use Cake\I18n\FrozenTime;
                 <ul>
                     <li>With available users: <?= $countriesUsersAvailable ?></li>
                     <li>With courses: <?= $countriesCourses ?></li>
-                    <li>With courses in backend: <?= $countriesCoursesBackend ?></li>
+                    <li>With courses in login area: <?= $countriesCoursesBackend ?></li>
                     <li>With courses in registry: <?= $countriesCoursesPublic ?></li>
 
                 </ul>
@@ -86,7 +86,7 @@ use Cake\I18n\FrozenTime;
                 <ul>
                     <li>Total: <?= $citiesTotal ?></li>
                     <li>With courses: <?= $citiesCourses ?></li>
-                    <li>With courses in backend: <?= $citiesCoursesBackend ?></li>
+                    <li>With courses in login area: <?= $citiesCoursesBackend ?></li>
                     <li>With courses in registry: <?= $citiesCoursesPublic ?></li>
 
                 </ul>
@@ -120,6 +120,14 @@ use Cake\I18n\FrozenTime;
                 </ul>
             </td>
             <td style="vertical-align:top">
+                <h3><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;&nbsp;External Resources</h3>
+                <p></p>
+                <ul>
+                    <li>Total: <?= $externalResourcesTotal ?></li>
+                    <li>Published: <?= $externalResourcesPublished ?></li>
+                    <li>Courses with at least one: <?= $externalResourcesCourseCount ?></li>
+                    <li>Avg per course when at least one: <?= $externalResourcesAvgPerCourse ?></li>
+                </ul>
             </td>
             <td style="vertical-align:top">
             </td>

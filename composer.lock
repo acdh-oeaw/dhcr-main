@@ -1437,16 +1437,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v6.4.22",
+            "version": "v6.4.23",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "7d29659bc3c9d8e9a34e2c3414ef9e9e003e6cf3"
+                "reference": "9056771b8eca08d026cd3280deeec3cfd99c4d93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/7d29659bc3c9d8e9a34e2c3414ef9e9e003e6cf3",
-                "reference": "7d29659bc3c9d8e9a34e2c3414ef9e9e003e6cf3",
+                "url": "https://api.github.com/repos/symfony/console/zipball/9056771b8eca08d026cd3280deeec3cfd99c4d93",
+                "reference": "9056771b8eca08d026cd3280deeec3cfd99c4d93",
                 "shasum": ""
             },
             "require": {
@@ -1511,7 +1511,7 @@
                 "terminal"
             ],
             "support": {
-                "source": "https://github.com/symfony/console/tree/v6.4.22"
+                "source": "https://github.com/symfony/console/tree/v6.4.23"
             },
             "funding": [
                 {
@@ -1527,7 +1527,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-07T07:05:04+00:00"
+            "time": "2025-06-27T19:37:22+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3004,28 +3004,28 @@
         },
         {
             "name": "dealerdirect/phpcodesniffer-composer-installer",
-            "version": "v1.0.0",
+            "version": "v1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/composer-installer.git",
-                "reference": "4be43904336affa5c2f70744a348312336afd0da"
+                "reference": "6e0fa428497bf560152ee73ffbb8af5c6a56b0dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/composer-installer/zipball/4be43904336affa5c2f70744a348312336afd0da",
-                "reference": "4be43904336affa5c2f70744a348312336afd0da",
+                "url": "https://api.github.com/repos/PHPCSStandards/composer-installer/zipball/6e0fa428497bf560152ee73ffbb8af5c6a56b0dd",
+                "reference": "6e0fa428497bf560152ee73ffbb8af5c6a56b0dd",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "^1.0 || ^2.0",
+                "composer-plugin-api": "^2.2",
                 "php": ">=5.4",
                 "squizlabs/php_codesniffer": "^2.0 || ^3.1.0 || ^4.0"
             },
             "require-dev": {
-                "composer/composer": "*",
+                "composer/composer": "^2.2",
                 "ext-json": "*",
                 "ext-zip": "*",
-                "php-parallel-lint/php-parallel-lint": "^1.3.1",
+                "php-parallel-lint/php-parallel-lint": "^1.4.0",
                 "phpcompatibility/php-compatibility": "^9.0",
                 "yoast/phpunit-polyfills": "^1.0"
             },
@@ -3045,9 +3045,9 @@
             "authors": [
                 {
                     "name": "Franck Nijhof",
-                    "email": "franck.nijhof@dealerdirect.com",
-                    "homepage": "http://www.frenck.nl",
-                    "role": "Developer / IT Manager"
+                    "email": "opensource@frenck.dev",
+                    "homepage": "https://frenck.dev",
+                    "role": "Open source developer"
                 },
                 {
                     "name": "Contributors",
@@ -3055,7 +3055,6 @@
                 }
             ],
             "description": "PHP_CodeSniffer Standards Composer Installer Plugin",
-            "homepage": "http://www.dealerdirect.com",
             "keywords": [
                 "PHPCodeSniffer",
                 "PHP_CodeSniffer",
@@ -3076,9 +3075,28 @@
             ],
             "support": {
                 "issues": "https://github.com/PHPCSStandards/composer-installer/issues",
+                "security": "https://github.com/PHPCSStandards/composer-installer/security/policy",
                 "source": "https://github.com/PHPCSStandards/composer-installer"
             },
-            "time": "2023-01-05T11:28:13+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/PHPCSStandards",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/jrfnl",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/php_codesniffer",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://thanks.dev/u/gh/phpcsstandards",
+                    "type": "thanks_dev"
+                }
+            ],
+            "time": "2025-06-27T17:24:01+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -4251,16 +4269,16 @@
         },
         {
             "name": "psy/psysh",
-            "version": "v0.12.8",
+            "version": "v0.12.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bobthecow/psysh.git",
-                "reference": "85057ceedee50c49d4f6ecaff73ee96adb3b3625"
+                "reference": "1b801844becfe648985372cb4b12ad6840245ace"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/85057ceedee50c49d4f6ecaff73ee96adb3b3625",
-                "reference": "85057ceedee50c49d4f6ecaff73ee96adb3b3625",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/1b801844becfe648985372cb4b12ad6840245ace",
+                "reference": "1b801844becfe648985372cb4b12ad6840245ace",
                 "shasum": ""
             },
             "require": {
@@ -4324,9 +4342,9 @@
             ],
             "support": {
                 "issues": "https://github.com/bobthecow/psysh/issues",
-                "source": "https://github.com/bobthecow/psysh/tree/v0.12.8"
+                "source": "https://github.com/bobthecow/psysh/tree/v0.12.9"
             },
-            "time": "2025-03-16T03:05:19+00:00"
+            "time": "2025-06-23T02:35:06+00:00"
         },
         {
             "name": "react/promise",
@@ -5539,16 +5557,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "8.18.1",
+            "version": "8.19.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "06b18b3f64979ab31d27c37021838439f3ed5919"
+                "reference": "458d665acd49009efebd7e0cb385d71ae9ac3220"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/06b18b3f64979ab31d27c37021838439f3ed5919",
-                "reference": "06b18b3f64979ab31d27c37021838439f3ed5919",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/458d665acd49009efebd7e0cb385d71ae9ac3220",
+                "reference": "458d665acd49009efebd7e0cb385d71ae9ac3220",
                 "shasum": ""
             },
             "require": {
@@ -5588,7 +5606,7 @@
             ],
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/8.18.1"
+                "source": "https://github.com/slevomat/coding-standard/tree/8.19.1"
             },
             "funding": [
                 {
@@ -5600,20 +5618,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-05-22T14:32:30+00:00"
+            "time": "2025-06-09T17:53:57+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.13.0",
+            "version": "3.13.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "65ff2489553b83b4597e89c3b8b721487011d186"
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/65ff2489553b83b4597e89c3b8b721487011d186",
-                "reference": "65ff2489553b83b4597e89c3b8b721487011d186",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/5b5e3821314f947dd040c70f7992a64eac89025c",
+                "reference": "5b5e3821314f947dd040c70f7992a64eac89025c",
                 "shasum": ""
             },
             "require": {
@@ -5684,7 +5702,7 @@
                     "type": "thanks_dev"
                 }
             ],
-            "time": "2025-05-11T03:36:00+00:00"
+            "time": "2025-06-17T22:17:01+00:00"
         },
         {
             "name": "symfony/finder",
@@ -6045,16 +6063,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v7.3.0",
+            "version": "v7.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "548f6760c54197b1084e1e5c71f6d9d523f2f78e"
+                "reference": "6e209fbe5f5a7b6043baba46fe5735a4b85d0d42"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/548f6760c54197b1084e1e5c71f6d9d523f2f78e",
-                "reference": "548f6760c54197b1084e1e5c71f6d9d523f2f78e",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/6e209fbe5f5a7b6043baba46fe5735a4b85d0d42",
+                "reference": "6e209fbe5f5a7b6043baba46fe5735a4b85d0d42",
                 "shasum": ""
             },
             "require": {
@@ -6109,7 +6127,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v7.3.0"
+                "source": "https://github.com/symfony/var-dumper/tree/v7.3.1"
             },
             "funding": [
                 {
@@ -6125,7 +6143,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-27T18:39:23+00:00"
+            "time": "2025-06-27T19:55:54+00:00"
         },
         {
             "name": "theseer/tokenizer",
