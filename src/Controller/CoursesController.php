@@ -172,6 +172,11 @@ class CoursesController extends AppController
         $this->Authorization->authorize($course);
         if ($this->request->is('post')) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
+            // remove spaces; clean data
+            $course->name = trim($course->name);
+            $course->description = trim($course->description);
+            $course->original_name = trim($course->original_name);
+            $course->original_description = trim($course->original_description);
             $course->set('updated', date("Y-m-d H:i:s"));
             // set user_id
             $course->set('user_id', $this->Authentication->getIdentity()->id);
@@ -263,6 +268,11 @@ class CoursesController extends AppController
         $this->Authorization->authorize($course);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $course = $this->Courses->patchEntity($course, $this->request->getData());
+            // remove spaces; clean data
+            $course->name = trim($course->name);
+            $course->description = trim($course->description);
+            $course->original_name = trim($course->original_name);
+            $course->original_description = trim($course->original_description);
             // set updated
             $course->set('updated', date("Y-m-d H:i:s"));
             // set city_id

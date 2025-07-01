@@ -1,5 +1,18 @@
 # Release notes
 
+## Version 2025-07
+*Release date: ...*
+
+### New feature
+- Added fields for course name and description in original language #131
+
+### Small changes
+- Updated dependencies
+
+### Bug fix
+- Fix: Limit "Avg external resources per course" on 1 decimal in summary statistics #48
+
+
 ## Version 2025-06
 *Release date: ...*
 
