@@ -14,6 +14,7 @@
 - Fixed deprecation warning in GenSearchListCommand
 - Fixed deprecation warning in GenSitemapCommand
 - Fixed deprecation warning in ReviewRemindersCommand
+- Updated dependencies
 
 
 ## Version 2025-05/2
