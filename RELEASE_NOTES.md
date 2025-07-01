@@ -1,5 +1,15 @@
 # Release notes
 
+## Version 2025-07
+*Release date: ...*
+
+### New feature
+- ...
+
+### Small changes
+- ...
+
+
 ## Version 2025-06
 *Release date: ...*
 
