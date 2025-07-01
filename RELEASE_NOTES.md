@@ -4,10 +4,10 @@
 *Release date: ...*
 
 ### New feature
-- ...
+- Added fields for course name and description in original language #131
 
 ### Small changes
-- ...
+- Updated dependencies
 
 ### Bug fix
 - Fix: Limit "Avg external resources per course" on 1 decimal in summary statistics #48
