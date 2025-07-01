@@ -126,7 +126,7 @@ use Cake\I18n\FrozenTime;
                     <li>Total: <?= $externalResourcesTotal ?></li>
                     <li>Published: <?= $externalResourcesPublished ?></li>
                     <li>Courses with at least one: <?= $externalResourcesCourseCount ?></li>
-                    <li>Avg per course when at least one: <?= $externalResourcesAvgPerCourse ?></li>
+                    <li>Avg per course when at least one: <?= number_format($externalResourcesAvgPerCourse, 1) ?></li>
                 </ul>
             </td>
             <td style="vertical-align:top">

@@ -9,6 +9,9 @@
 ### Small changes
 - ...
 
+### Bug fix
+- Fix: Limit "Avg external resources per course" on 1 decimal in summary statistics #48
+
 
 ## Version 2025-06
 *Release date: ...*
