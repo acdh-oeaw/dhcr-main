@@ -5,6 +5,7 @@
 
 ### Small changes
 - Updated composer to 2.8.10
+- Updated dependencies
 
 ### Bug fix
 - Fixed column modified in external resources overview #48
