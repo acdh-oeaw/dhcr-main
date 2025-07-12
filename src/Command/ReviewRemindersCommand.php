@@ -22,7 +22,8 @@ class ReviewRemindersCommand extends Command
         return $useradmins;
     }
 
-    private function generateOneliner() {
+    private function generateOneliner()
+    {
         $oneliners = [
             "Reviewing GitHub issues is like being the hero in a digital adventure – no cape required, just a willingness to make the code world a better place!",
             "Think of GitHub issues as your code's post-it notes – reviewing them is like giving your project a daily dose of sticky motivation!",
@@ -47,7 +48,7 @@ class ReviewRemindersCommand extends Command
     private function sendReviewReminders($issuesAmount, $issuesUrl)
     {
         $useradmins = $this->getUseradmins();
-        $subject = "[DH Course Registry] Your Attention Needed on $issuesAmount GitHub Issues";
+        $subject = "DHCR - Your Attention Needed on $issuesAmount GitHub Issues";
         $oneliner = $this->generateOneliner();
         $totalMails = 0;
         foreach ($useradmins as $useradmin) {
@@ -58,16 +59,18 @@ class ReviewRemindersCommand extends Command
                     ->setReturnPath(env('APP_MAIL_DEFAULT_FROM'))
                     ->setTo($useradmin->email)
                     ->setSubject($subject)
-                    ->setViewVars(['firstName' => $useradmin->first_name,
-                                    'issuesAmount' => $issuesAmount,
-                                    'issuesUrl' => $issuesUrl,
-                                    'oneliner' => $oneliner])
+                    ->setViewVars([
+                        'firstName' => $useradmin->first_name,
+                        'issuesAmount' => $issuesAmount,
+                        'issuesUrl' => $issuesUrl,
+                        'oneliner' => $oneliner
+                    ])
                     ->viewBuilder()->setTemplate('review_reminders/review_reminder');
                 $mailer->deliver();
                 $totalMails++;
             } catch (Exception $ex) {
                 $action = 'Error sending mail';
-                $details = 'Useradmin: ' .$useradmin->email;
+                $details = 'Useradmin: ' . $useradmin->email;
                 echo "$action $details \n";
                 $scriptName = basename(__FILE__, '.php');
                 $scriptName = str_replace('Command', '', $scriptName);
@@ -99,46 +102,73 @@ class ReviewRemindersCommand extends Command
     {
         $this->loadModel('Users');
         $this->loadModel('Logentries');
-        $io->out('~~~ Started Review Reminders ~~~');
-        $issuesUrl = 'https://github.com/acdh-oeaw/dhcr-main/labels/inreview';
-        $content = file_get_contents($issuesUrl);
-        $pattern = '/\b\d+\sOpen\b/i';
-        if (preg_match($pattern, $content, $lines)) {
-            preg_match('/\d+/', $lines[0], $result);
-            $issuesAmount = $result[0];
-            $io->out('Amount of open issues: ' . $issuesAmount);
-            if ($issuesAmount > 0) {
-                $this->sendReviewReminders($issuesAmount, $issuesUrl);
-            } else {
-                $action = 'Result:';
-                $details = 'No issues open';
-                $io->out($details);
+        $io->out('Started Review Reminders');
 
-                $scriptName = basename(__FILE__, '.php');
-                $scriptName = str_replace('Command', '', $scriptName);
-                $this->Logentries->createLogEntry(
-                    '30',
-                    '586',
-                    $scriptName,
-                    $action,
-                    $details
-                );
+        $issuesUrl = 'https://github.com/acdh-oeaw/dhcr-main/labels/inreview';
+        $apiUrl = 'https://api.github.com/repos/acdh-oeaw/dhcr-main/issues?labels=inreview';
+        $agent = 'Mozilla/5.0 (X11; Linux i686; rv:140.0) Gecko/20100101 Firefox/140.0';
+
+        try {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $apiUrl,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_TIMEOUT => 30,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                    "cache-control: no-cache"
+                ),
+                CURLOPT_USERAGENT => $agent,
+            ));
+            $response = curl_exec($curl);
+            $errorMessage = curl_error($curl);
+            curl_close($curl);
+            $result = json_decode($response);
+            if (is_null($result)) {
+                $message = 'Result is NULL';
+                throw new Exception();
             }
+        } catch (Exception $ex) {
+            $action = 'Error';
+            $errorMessage = 'Retrieving from API failed: ' . $errorMessage;
+            echo "$action $errorMessage \n";
+            $scriptName = basename(__FILE__, '.php');
+            $scriptName = str_replace('Command', '', $scriptName);
+            $this->Logentries->createLogEntry(
+                '90',
+                '586',
+                $scriptName,
+                $action,
+                (string) $ex
+            );
+            die();
+        }
+
+
+        $issuesAmount = sizeof($result);
+
+
+
+        $io->out('Amount of open issues: ' . $issuesAmount);
+        if ($issuesAmount > 0) {
+            echo "Mail.";
+            // $this->sendReviewReminders($issuesAmount, $issuesUrl);
         } else {
-            $action = 'Error:';
-            $details = 'Error finding amount of open issues';
+            $action = 'Result:';
+            $details = 'No issues open';
             $io->out($details);
 
             $scriptName = basename(__FILE__, '.php');
             $scriptName = str_replace('Command', '', $scriptName);
             $this->Logentries->createLogEntry(
-                '50',
+                '30',
                 '586',
                 $scriptName,
                 $action,
                 $details
             );
         }
-        $io->out('~~~ Finished Review Reminders ~~~');
+        $io->out('Finished Review Reminders');
     }
 }
