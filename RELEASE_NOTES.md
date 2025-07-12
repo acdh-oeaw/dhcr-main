@@ -1,12 +1,12 @@
 # Release notes
 
 ## Version 2025-07
-*Release date: ...*
+*Release date: 2025-07-12*
 
 ### New feature
 - Added fields for course name and description in original language #131
 
-### Small changes
+### Small change
 - Updated dependencies
 
 ### Bug fix
@@ -14,7 +14,7 @@
 
 
 ## Version 2025-06
-*Release date: ...*
+*Release date: 2025-07-12*
 
 ### Small changes
 - Added total numer of results to main page #77
