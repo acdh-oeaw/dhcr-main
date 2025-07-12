@@ -13,7 +13,7 @@
                     <th align="left" style="padding: 5px">Course name</th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('type') ?></th>
                     <th align="left" style="padding: 5px"><?= $this->Paginator->sort('created') ?></th>
-                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('updated') ?></th>
+                    <th align="left" style="padding: 5px"><?= $this->Paginator->sort('modified') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -36,7 +36,7 @@
                         </td>
                         <td style="padding: 5px"><?= h($externalResource->type) ?></td>
                         <td style="padding: 5px"><?= h($externalResource->created) ?></td>
-                        <td style="padding: 5px"><?= h($externalResource->updated) ?></td>
+                        <td style="padding: 5px"><?= h($externalResource->modified) ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

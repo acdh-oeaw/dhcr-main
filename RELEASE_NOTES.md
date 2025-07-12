@@ -6,6 +6,9 @@
 ### Small changes
 - ...
 
+### Bug fix
+- Fixed column modified in external resources overview #48
+
 
 ## Version 2025-07
 *Release date: 2025-07-12*
