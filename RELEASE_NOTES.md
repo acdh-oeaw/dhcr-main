@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### Small changes
-- ...
+- Updated composer to 2.8.10
 
 ### Bug fix
 - Fixed column modified in external resources overview #48
