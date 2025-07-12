@@ -12,7 +12,7 @@
                 echo $this->Form->control('name', ['label' => 'Course Name* [English only]', 'placeholder' => 'Please provide the course name in English']);
                 echo $this->Form->control('description', ['label' => 'Description*  [English only]', 'placeholder' => 'Please add in English the general aims of the course/programme and the learning outcomes.']);
                 echo $this->Form->control('original_name', ['label' => 'Original Course Name', 'placeholder' => 'Optional: provide the original course name if not in English']);
-                echo $this->Form->control('original_description', ['label' => 'Original Description *', 'placeholder' => 'Optional: provide the original description name if not in English']);
+                echo $this->Form->control('original_description', ['placeholder' => 'Optional: provide the original description name if not in English']);
                 echo $this->Form->control('online_course');
                 echo $this->Form->control('course_type_id', ['label' => 'Education Type*', 'options' => $course_types,  'empty' => true]);
                 echo $this->Form->control('language_id', ['label' => 'Language*', 'options' => $languages, 'empty' => true]);
