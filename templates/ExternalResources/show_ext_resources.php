@@ -1,6 +1,6 @@
 <div class="courses edit content">
     <p></p>
-    <h2><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;&nbsp;Show External Resources</h2>
+    <h2><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;&nbsp;Show External Resources per Course</h2>
     <table>
         <tr>
             <td>

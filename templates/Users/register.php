@@ -13,15 +13,13 @@ $('#password').attr('type', 'password');
 <?php $this->Html->scriptEnd(); ?>
 <h2>User Registration</h2>
 <p>
-    Lecturers, programme directors and/or national moderators who want to add or curate course metadata to the registry are invited to
-    open a DHCR account by filling in this registration form.
+    Lecturers, programme directors and national moderators who wish to add or curate course metadata in the registry are
+    invited to create a DHCR account by completing the registration form. Please note that only requests submitted with a
+    valid institutional email address will be approved.
 </p>
-<?php if (!$user->hasErrors(false)) : ?>
-    <p class="notice">
-        All other users can use the registry, without registration. See this <a href="https://www.youtube.com/embed/s-YsnpKCaUE">
-            tutorial video</a> to learn how to browse or filter the courses.
-    </p>
-<?php endif; ?>
+<p class="notice">
+    Registration is not required to view and browse the registry. See the <a href="https://www.youtube.com/embed/s-YsnpKCaUE">tutorial video</a> for more info.
+</p>
 <div class="optionals headspace">
     <?php
     echo $this->Form->create($user, ['id' => 'registration_form']);
@@ -44,7 +42,8 @@ $('#password').attr('type', 'password');
         'placeholder' => 'If you cannot find your affiliation in the dropdown list above, we need the country, city and name of your organisation provided here instead.'
     ]);
     echo $this->Form->control('email', [
-        'label' => 'Institutional Email Address*']);
+        'label' => 'Institutional Email Address*'
+    ]);
     $this->Form->setTemplates([
         'input' => '<input type="{{type}}" name="{{name}}"{{attrs}}/>
         <i class="far fa-eye" id="togglePassword">reveal password</i>'

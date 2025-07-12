@@ -12,6 +12,9 @@ use Cake\I18n\FrozenTime;
 
 class GenSearchListCommand extends Command
 {
+    public $Courses = null;
+    public $Logentries = null;
+
     public function execute(Arguments $args, ConsoleIo $io)
     {
         $this->loadModel('DhcrCore.Courses');

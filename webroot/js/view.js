@@ -99,6 +99,8 @@ class View {
             });
             $('#searchField').focus();
         });
+        // Show total numer of results
+        buttons.append('<br>Result: ' + courses.length + ' courses');
     }
 
     createTable() {
@@ -229,6 +231,11 @@ class View {
         el.append($('<p class="subtitle">' + course.course_type.name + ', ' + timing + '</p>'));
         if (course.description != null && course.description.length > 0)
             el.append($('<div class="text"><p class="strong">Description</p>' + course.description + '</div>'));
+        if (course.original_name != null && course.original_name.length > 0)
+            el.append($('<div class="text"><p class="strong">Original Name</p>' + course.original_name + '</div>'));
+        if (course.original_description != null && course.original_description.length > 0)
+            el.append($('<div class="text"><p class="strong">Original Description</p>' + course.original_description + '</div>'));
+
         if (course.access_requirements.length > 0)
             el.append($('<div class="text"><p class="strong">Access Requirements</p>' + course.access_requirements + '</div>'));
 
