@@ -3,6 +3,9 @@
 ## Version 2025-08
 *Release date: ...*
 
+### Change
+- Execute filter by GO-button #136
+
 ### Small changes
 - Updated composer to 2.8.10
 - Updated dependencies
