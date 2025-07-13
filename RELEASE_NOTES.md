@@ -3,8 +3,9 @@
 ## Version 2025-08
 *Release date: ...*
 
-### Change
+### Changes
 - Execute filter by GO-button #136
+- Add Tadirah elements to course detail page #132
 
 ### Small changes
 - Updated composer to 2.8.10
