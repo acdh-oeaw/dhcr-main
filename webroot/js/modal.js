@@ -14,9 +14,8 @@ class Modal {
         this.scrollbox = $('<div></div>').attr('id', 'modal-scroll-container');
         this.content.append(this.scrollbox);
 
-        console.dir(title);
         // decide which close button to use
-        if (title.includes('Options')) { // || title == 'Sort Options'
+        if (title.includes('Options')) {
             this.content.append('&nbsp;<a href="#" class="blue button" id="modal-go">GO</a>&nbsp;');
         } else {
             this.content.append($('<span>Close</span>').attr('id', 'modal-close'));
