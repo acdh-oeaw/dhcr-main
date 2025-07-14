@@ -11,8 +11,9 @@
 - Updated composer to 2.8.10
 - Updated dependencies
 
-### Bug fix
+### Bug fixes
 - Fixed column modified in external resources overview #48
+- Fixed ReviewReminders, now use GitHub API
 
 
 ## Version 2025-07

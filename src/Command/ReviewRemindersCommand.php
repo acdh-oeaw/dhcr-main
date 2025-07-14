@@ -51,6 +51,7 @@ class ReviewRemindersCommand extends Command
         $subject = "DHCR - Your Attention Needed on $issuesAmount GitHub Issues";
         $oneliner = $this->generateOneliner();
         $totalMails = 0;
+        echo 'Progress: ';
         foreach ($useradmins as $useradmin) {
             try {
                 $mailer = new Mailer();
@@ -87,6 +88,7 @@ class ReviewRemindersCommand extends Command
         echo "\n";      // close progress indicator        
         $action = 'Result:';
         $details = $totalMails . ' mails sent.';
+        echo "$action $details \n";
         $scriptName = basename(__FILE__, '.php');
         $scriptName = str_replace('Command', '', $scriptName);
         $this->Logentries->createLogEntry(
@@ -145,15 +147,10 @@ class ReviewRemindersCommand extends Command
             die();
         }
 
-
         $issuesAmount = sizeof($result);
-
-
-
         $io->out('Amount of open issues: ' . $issuesAmount);
         if ($issuesAmount > 0) {
-            echo "Mail.";
-            // $this->sendReviewReminders($issuesAmount, $issuesUrl);
+            $this->sendReviewReminders($issuesAmount, $issuesUrl);
         } else {
             $action = 'Result:';
             $details = 'No issues open';
