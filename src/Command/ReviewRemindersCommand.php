@@ -72,7 +72,7 @@ class ReviewRemindersCommand extends Command
             } catch (Exception $ex) {
                 $action = 'Error sending mail';
                 $details = 'Useradmin: ' . $useradmin->email;
-                echo "$action $details \n";
+                echo "$action: $details \n";
                 $scriptName = basename(__FILE__, '.php');
                 $scriptName = str_replace('Command', '', $scriptName);
                 $this->Logentries->createLogEntry(
@@ -86,9 +86,9 @@ class ReviewRemindersCommand extends Command
             echo ".";   // progress indicator
         }
         echo "\n";      // close progress indicator        
-        $action = 'Result:';
-        $details = $totalMails . ' mails sent.';
-        echo "$action $details \n";
+        $action = 'Result';
+        $details = $totalMails . ' mails sent';
+        echo "$action: $details \n";
         $scriptName = basename(__FILE__, '.php');
         $scriptName = str_replace('Command', '', $scriptName);
         $this->Logentries->createLogEntry(
@@ -128,13 +128,13 @@ class ReviewRemindersCommand extends Command
             curl_close($curl);
             $result = json_decode($response);
             if (is_null($result)) {
-                $message = 'Result is NULL';
+                $errorMessage = 'Result is NULL';
                 throw new Exception();
             }
         } catch (Exception $ex) {
             $action = 'Error';
             $errorMessage = 'Retrieving from API failed: ' . $errorMessage;
-            echo "$action $errorMessage \n";
+            echo "$action: $errorMessage \n";
             $scriptName = basename(__FILE__, '.php');
             $scriptName = str_replace('Command', '', $scriptName);
             $this->Logentries->createLogEntry(
@@ -142,7 +142,7 @@ class ReviewRemindersCommand extends Command
                 '586',
                 $scriptName,
                 $action,
-                (string) $ex
+                $errorMessage
             );
             die();
         }
@@ -152,10 +152,9 @@ class ReviewRemindersCommand extends Command
         if ($issuesAmount > 0) {
             $this->sendReviewReminders($issuesAmount, $issuesUrl);
         } else {
-            $action = 'Result:';
+            $action = 'Result';
             $details = 'No issues open';
-            $io->out($details);
-
+            echo "$action: $details \n";
             $scriptName = basename(__FILE__, '.php');
             $scriptName = str_replace('Command', '', $scriptName);
             $this->Logentries->createLogEntry(
