@@ -10,10 +10,12 @@
 ### Small changes
 - Updated composer to 2.8.10
 - Updated dependencies
+- Removed sending emails from unit tests #17
 
 ### Bug fixes
 - Fixed column modified in external resources overview #48
 - Fixed ReviewReminders, now use GitHub API
+- Fixed ExternalResourcesFixture and re-enabled unit tests #48
 
 
 ## Version 2025-07
