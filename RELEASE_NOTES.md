@@ -16,6 +16,7 @@
 - Fixed column modified in external resources overview #48
 - Fixed ReviewReminders, now use GitHub API
 - Fixed ExternalResourcesFixture and re-enabled unit tests #48
+- Fixed sitemap header #129
 
 
 ## Version 2025-07
