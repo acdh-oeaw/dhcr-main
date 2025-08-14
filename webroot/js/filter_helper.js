@@ -1,5 +1,3 @@
-
-
 'use strict';
 
 class FilterHelper {
@@ -66,7 +64,7 @@ class FilterHelper {
     createSelectOption(category, id) {
         // test if category id is a valid option - raw options may not be in sync with filter state
         if (typeof this.filter[category][id] != 'undefined' && !this.filter.selected[category].hasOwnProperty(id)) {
-            // reduce optoions for cities and institutions, if country is set
+            // reduce options for cities and institutions, if country is set
             if (category == 'cities' || category == 'institutions') {
                 if (!this.filter.isEmpty('countries')) {
                     let countryId = this.filter[category][id].country_id;
@@ -246,8 +244,8 @@ class FilterHelper {
         form.append(this.createSelector('languages'));
         form.append('<hr />');
         form.append(this.createSelector('disciplines'));
-        // form.append(this.createSelector('techniques'));
-        // form.append(this.createSelector('objects'));
+        form.append(this.createSelector('techniques'));
+        form.append(this.createSelector('objects'));
         form.append(this.createSelector('types'));
         form.append('<hr />');
         form.append(this.createPresenceTypeSelector());
