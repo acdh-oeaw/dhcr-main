@@ -3,10 +3,12 @@
 ## Version 2025-08
 *Release date: ...*
 
+### New feature
+- Reimplemented filter options for Tadirah Technique or Object #20
+
 ### Changes
 - Execute filter by GO-button #136
 - Add Tadirah elements to course detail page #132
-- Added and fixed filter possibilities for Tadirah Techniques and Objects #20
 
 ### Small changes
 - Updated composer to 2.8.10
