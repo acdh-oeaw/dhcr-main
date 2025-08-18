@@ -14,12 +14,14 @@
 - Updated composer to 2.8.10
 - Updated dependencies
 - Removed sending emails from unit tests #17
+- Improved logging for Mailman sync #80
 
 ### Bug fixes
 - Fixed column modified in external resources overview #48
 - Fixed ReviewReminders, now use GitHub API
 - Fixed ExternalResourcesFixture and re-enabled unit tests #48
 - Fixed sitemap header #129
+- Fixed number of user accounts waiting for approval in dashboards
 
 
 ## Version 2025-07

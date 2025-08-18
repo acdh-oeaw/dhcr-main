@@ -39,12 +39,14 @@ class DashboardController extends AppController
             $pendingAccountRequests = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
+                'email_verified' => 1,
             ])
                 ->count();
         } elseif ($user->user_role_id == 2) {
             $pendingAccountRequests = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
+                'email_verified' => 1,
                 'country_id' => $user->country_id,
             ])
                 ->count();
