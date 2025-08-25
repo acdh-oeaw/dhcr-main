@@ -3,15 +3,16 @@
 ## Version 2025-08
 *Release date: ...*
 
-### New feature
+### New features
 - Reimplemented filter options for Tadirah Technique or Object #20
+- Created technical documentation #33
 
 ### Changes
 - Execute filter by GO-button #136
-- Add Tadirah elements to course detail page #132
+- Added Tadirah elements to course detail page #132
 
 ### Small changes
-- Updated composer to 2.8.10
+- Updated composer to 2.8.11
 - Updated dependencies
 - Removed sending emails from unit tests #17
 - Improved logging for Mailman sync #80
