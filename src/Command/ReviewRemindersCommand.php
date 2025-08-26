@@ -48,7 +48,10 @@ class ReviewRemindersCommand extends Command
     private function sendReviewReminders($issuesAmount, $issuesUrl)
     {
         $useradmins = $this->getUseradmins();
-        $subject = "DHCR - Your Attention Needed on $issuesAmount GitHub Issues";
+        $subject = "DHCR - Your Attention Needed on $issuesAmount GitHub Issue";
+        if ($issuesAmount > 1) {
+            $subject .= 's';
+        }
         $oneliner = $this->generateOneliner();
         $totalMails = 0;
         echo 'Progress: ';

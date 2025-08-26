@@ -5,7 +5,7 @@ importance of reviewing and addressing GitHub issues that have been raised.
 These issues are crucial to the progress of the project, and your input is 
 invaluable in ensuring a smooth and efficient development process.
 
-There are currently a total of <?=$issuesAmount?> issue(s) waiting for your review.
+There are currently a total of <?=$issuesAmount?> issue<?= $issuesAmount > 1 ? 's' : ''?> waiting for your review.
 
 GitHub issues serve as a centralized platform for identifying, discussing, and 
 resolving tasks, bugs, and feature requests. Your expertise is needed to review 
