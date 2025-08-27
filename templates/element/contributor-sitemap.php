@@ -165,10 +165,14 @@
                         ) ?>
                     </li>
                     <li>
-                        <?= $this->Html->link(
-                            'Countries',
-                            ['controller' => 'Countries', 'action' => 'index']
-                        ) ?>
+                        <?php
+                        if ($user->is_admin) {
+                            echo $this->Html->link(
+                                'Countries',
+                                ['controller' => 'Countries', 'action' => 'index']
+                            );
+                        }
+                        ?>
                     </li>
                     <li>
                         <?php
