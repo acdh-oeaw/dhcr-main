@@ -29,7 +29,11 @@ class CitiesController extends AppController
         $breadcrumControllers[1] = 'Cities';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $query = $this->Cities->find('all')->contain('Countries');
+        if ($user->is_admin) {
+            $query = $this->Cities->find('all')->contain('Countries');
+        } else {
+            $query = $this->Cities->find('all')->contain('Countries')->where(['country_id' => $user->country_id]);
+        }
         $this->set('cities', $this->paginate($query, ['order' => ['Cities.id' => 'ASC']]));
         $this->set(compact('user')); // required for contributors menu
     }
@@ -58,7 +62,11 @@ class CitiesController extends AppController
         $breadcrumControllers[2] = 'Cities';
         $breadcrumActions[2] = 'add';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc']);
+        if ($user->is_admin) {
+            $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc']);
+        } else {
+            $countries = $this->Cities->Countries->find('list', ['order' => 'Countries.name asc'])->where(['Countries.id' => $user->country_id]);
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('city', 'countries'));
     }
