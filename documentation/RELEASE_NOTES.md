@@ -28,6 +28,7 @@
 - Fixed number of user accounts waiting for approval in dashboards
 - Fixed plural to singular when only 1 issue waiting in ReviewReminders
 - Fixed hide country in category lists moderator menu
+- Fixed user approval mail is sent to admin instead of moderator
 
 
 ## Version 2025-07
