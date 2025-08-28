@@ -17,6 +17,7 @@
 - Removed sending emails from unit tests #17
 - Improved logging for Mailman sync #80
 - Added count for original course name field to course statistics #131
+- Restructured Dashboard - Profile #137
 
 ### Bug fixes
 - Fixed column modified in external resources overview #48
