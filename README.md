@@ -12,4 +12,4 @@ For an overview of the latest changes, check the release notes here:
 [DEV_INSTALL.md](documentation/DEV_INSTALL.md)
 
 ## Technical documentation
-[TECH_DOC.md](documentation/TECH_DOC.md)
+Coming soon

@@ -5,7 +5,7 @@
 
 ### New features
 - Reimplemented filter options for Tadirah Technique or Object #20
-- Started with technical documentation #33
+- Created first part of technical documentation #33
 
 ### Changes
 - Execute filter by GO-button #136
