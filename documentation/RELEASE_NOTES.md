@@ -8,7 +8,7 @@
 - Created first part of technical documentation #33
 - Added Tadirah elements to course detail page #132
 
-### Changes
+### Change
 - Execute filter by GO-button #136
 
 ### Small changes
