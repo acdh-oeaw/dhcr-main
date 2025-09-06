@@ -29,7 +29,11 @@ class InstitutionsController extends AppController
         $breadcrumControllers[1] = 'Institutions';
         $breadcrumActions[1] = 'index';
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
-        $query = $this->Institutions->find('all')->contain(['Countries', 'Cities']);
+        if ($user->is_admin) {
+            $query = $this->Institutions->find('all')->contain(['Countries', 'Cities']);
+        } else {
+            $query = $this->Institutions->find('all')->contain(['Countries', 'Cities'])->where(['Institutions.country_id' => $user->country_id]);
+        }
         $this->set('institutions', $this->paginate($query, ['order' => ['Institutions.id' => 'ASC']]));
         $this->set(compact('user')); // required for contributors menu
     }
@@ -81,8 +85,13 @@ class InstitutionsController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         $userInstitution = $this->Institutions->find()->where(['id' => $user->institution_id])->first();
         $mapInit = ['lon' => $userInstitution->lon, 'lat' => $userInstitution->lat];
-        $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
-        $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
+        if ($user->is_admin) {
+            $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc']);
+            $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc']);
+        } else {
+            $cities = $this->Institutions->Cities->find('list', ['order' => 'Cities.name asc'])->where(['country_id' => $user->country_id]);
+            $countries = $this->Institutions->Countries->find('list', ['order' => 'Countries.name asc'])->where(['id' => $user->country_id]);
+        }
         $this->set(compact('user')); // required for contributors menu
         $this->set(compact('mapInit', 'institution', 'cities', 'countries'));
     }

@@ -184,8 +184,7 @@ class UsersTable extends Table
 
     public function notifyAdmins($user)
     {
-        // TODO: route this to a single team account
-        $admins = $this->getModerators(null, true);
+        $admins = $this->getModerators($user->country_id, true);
         try {
             foreach ($admins as $admin)
                 $this->getMailer('User')->send('notifyAdmin', [$user, $admin->email]);
