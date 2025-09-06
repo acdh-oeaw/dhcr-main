@@ -42,6 +42,19 @@ class StatisticsController extends AppController
         return [$coursesTotal, $coursesBackend, $coursesPublic];
     }
 
+    private function getCoursesOriginalNameCount()
+    {
+        $coursesOriginalNameCount = $this->Courses->find()->where([
+            'active' => 1,
+            'deleted' => 0,
+            'updated >' => new FrozenTime('-489 Days'),
+            'approved' => 1,
+            'original_name IS NOT NULL',
+        ])
+            ->count();  // ca. 16 Months
+        return $coursesOriginalNameCount;
+    }
+
     private function getUpdatedCourseCounts($periods)
     {
         // @PARAM $periods array, containing the number of months
@@ -280,6 +293,7 @@ class StatisticsController extends AppController
             'newCourseCounts',
             'newAddedCourses'
         ));
+        $this->set('coursesOriginalNameCount', $this->getCoursesOriginalNameCount());
     }
 
     public function userStatistics()

@@ -268,11 +268,11 @@ class View {
         let location = $('<div id="locationMap"></div>');
         el.append(location);
 
+        // show external resources
         if (course.external_resources.length > 0) {
             el.append('<hr />');
             el.append('<div class="text"><p class="strong">External Resources</p></div>');
         }
-
         course.external_resources.forEach(showExtRes);
         function showExtRes(item) {
             if (!item.visible) {
@@ -294,9 +294,41 @@ class View {
             }
             el.append('<a href="' + item.url + '">' + item.url + '</a></div>');
         }
+        el.append('<p></p>');
+
+        // shared function
+        function showItem(item) {
+            el.append(item.name + '<br>');
+        }
+
+        // show tadirah disciplines
+        if (course.disciplines.length > 0) {
+            el.append('<hr />');
+            el.append('<div class="text"><p class="strong">TaDiRAH Disciplines</p></div>');
+        }
+        el.append('<div class="text">');
+        course.disciplines.forEach(showItem);
+        el.append('<p></p></div>');
+
+        // show tadirah objects
+        if (course.tadirah_objects.length > 0) {
+            el.append('<hr />');
+            el.append('<div class="text"><p class="strong">TaDiRAH Objects</p></div>');
+        }
+        el.append('<div class="text">');
+        course.tadirah_objects.forEach(showItem);
+        el.append('<p></p></div>');
+
+        // show tadirah techniques
+        if (course.tadirah_techniques.length > 0) {
+            el.append('<hr />');
+            el.append('<div class="text"><p class="strong">TaDiRAH Techniques</p></div>');
+        }
+        el.append('<div class="text">');
+        course.tadirah_techniques.forEach(showItem);
+        el.append('<p></p></div>');
 
         el.append('<hr />');
-
         this.clearView();
         $(this.element).append(el);
 

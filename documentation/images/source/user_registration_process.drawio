@@ -1,0 +1,196 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="28.1.1">
+  <diagram name="Page-1" id="O5udvXHzS5s1k48M63Go">
+    <mxGraphModel dx="1426" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="COFEYhElbvvT8isXz_Nu-1" value="&lt;div&gt;1. User submits registration form&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="111.75" y="10" width="135" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-2" value="&lt;div&gt;User receives mail to verify mail address&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="93.61999999999999" y="120" width="171.25" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-3" value="User clicks on link in mail. Mail address is marked as verified." style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="64.5" y="210" width="229.5" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-4" value="&lt;div&gt;Mail is sent to moderator with request to approve user account.&amp;nbsp;&lt;/div&gt;&lt;div&gt;Now also visible in Dashboard -&amp;gt; Approve&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="39.88" y="290" width="278.74" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-5" value="&lt;div&gt;Moderator clicks on link in mail, needs to login as well. Then the user account is instantly approved, without clicking on &quot;approve&quot;.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="40.18" y="585" width="279.5" height="85" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-7" value="User account is active and ready to use" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="490" y="1150" width="154.99" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="COFEYhElbvvT8isXz_Nu-1" target="COFEYhElbvvT8isXz_Nu-2" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="369.25" y="410" as="sourcePoint" />
+            <mxPoint x="419.25" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="COFEYhElbvvT8isXz_Nu-14" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="COFEYhElbvvT8isXz_Nu-2" target="COFEYhElbvvT8isXz_Nu-3" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="369.25" y="410" as="sourcePoint" />
+            <mxPoint x="419.25" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="cU4gKXJcllB7DDO40QTS-4" value="&lt;div&gt;2. Moderator submits Invite User form&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="520" y="10" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="cU4gKXJcllB7DDO40QTS-7" value="&lt;div&gt;User account is set to approved and mail address is set to verified.&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="497.5" y="130" width="235" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="cU4gKXJcllB7DDO40QTS-8" value="User receives a mail with link to set a password" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="529.38" y="220" width="171.25" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="cU4gKXJcllB7DDO40QTS-9" value="&lt;div&gt;User clicks link and sets password&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="1" vertex="1">
+          <mxGeometry x="535.01" y="300" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-1" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="COFEYhElbvvT8isXz_Nu-3" target="COFEYhElbvvT8isXz_Nu-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="390" y="380" as="sourcePoint" />
+            <mxPoint x="440" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-2" value="&lt;div&gt;Moderator decides:&amp;nbsp;&lt;/div&gt;&lt;div&gt;should the user be approved?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="86.06" y="390" width="186.38" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.492;exitY=1.035;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="COFEYhElbvvT8isXz_Nu-4" target="5hPNbdYH0Wu4ACzE2BTi-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="282.13772" y="381.97999999999996" as="sourcePoint" />
+            <mxPoint x="293.9966" y="418.01000000000005" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-4" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-2" target="COFEYhElbvvT8isXz_Nu-5">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="532" as="sourcePoint" />
+            <mxPoint x="180.5125" y="585" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-5" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-6" value="Not implemented" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="330" y="430" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-2" target="5hPNbdYH0Wu4ACzE2BTi-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="111.74999999999994" y="530" as="sourcePoint" />
+            <mxPoint x="25.69" y="530" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-8" value="&lt;div&gt;No&lt;/div&gt;" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-11" value="&lt;div&gt;Did the user check&amp;nbsp;&lt;/div&gt;&lt;div&gt;&quot;subscribe to the Contributor&lt;/div&gt;&lt;div&gt;&amp;nbsp;Mailing List&quot; on the register&amp;nbsp;&lt;/div&gt;&lt;div&gt;form?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="64.5" y="720" width="230.76" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-12" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="COFEYhElbvvT8isXz_Nu-5" target="5hPNbdYH0Wu4ACzE2BTi-11">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="150" y="840" as="sourcePoint" />
+            <mxPoint x="200" y="790" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-13" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.546;entryY=-0.043;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-11" target="COFEYhElbvvT8isXz_Nu-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="870" as="sourcePoint" />
+            <mxPoint x="230" y="870" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="575" y="785" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-14" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-15" value="Subscription is submitted to Mailman and result is logged" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="94.99000000000001" y="895" width="169.88" height="65" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-16" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-11" target="5hPNbdYH0Wu4ACzE2BTi-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="130" y="890" as="sourcePoint" />
+            <mxPoint x="230" y="890" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-17" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-19" value="Was submitting successful?" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="111.75000000000001" y="990" width="140.76" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-20" value="User is unsubscribed in DB and receives notification in Main Dashboard" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="308" y="1008.75" width="192" height="72.5" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-24" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.508;exitY=1.041;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-15" target="5hPNbdYH0Wu4ACzE2BTi-19">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="110" y="1090" as="sourcePoint" />
+            <mxPoint x="160" y="1040" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-25" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-19" target="5hPNbdYH0Wu4ACzE2BTi-20">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="220" y="1040" as="sourcePoint" />
+            <mxPoint x="280" y="980" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-26" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-27" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-19" target="COFEYhElbvvT8isXz_Nu-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="190" y="1130" as="sourcePoint" />
+            <mxPoint x="280" y="1100" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="182" y="1185" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-28" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="5hPNbdYH0Wu4ACzE2BTi-27">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-33" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.317;entryY=-0.018;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-20" target="COFEYhElbvvT8isXz_Nu-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="1010" as="sourcePoint" />
+            <mxPoint x="560" y="960" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="540" y="1045" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-34" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cU4gKXJcllB7DDO40QTS-4" target="cU4gKXJcllB7DDO40QTS-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="620" y="180" as="sourcePoint" />
+            <mxPoint x="670" y="130" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-35" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cU4gKXJcllB7DDO40QTS-7" target="cU4gKXJcllB7DDO40QTS-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="620" y="280" as="sourcePoint" />
+            <mxPoint x="670" y="230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-36" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cU4gKXJcllB7DDO40QTS-8" target="cU4gKXJcllB7DDO40QTS-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="620" y="380" as="sourcePoint" />
+            <mxPoint x="670" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-40" value="Since the mailing list was not subscribed, a notification will be shown to the user in the Main Dashboard" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="520.01" y="370" width="190" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-41" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="cU4gKXJcllB7DDO40QTS-9" target="5hPNbdYH0Wu4ACzE2BTi-40">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="470" as="sourcePoint" />
+            <mxPoint x="600" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="5hPNbdYH0Wu4ACzE2BTi-42" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.807;entryY=0.043;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="5hPNbdYH0Wu4ACzE2BTi-40" target="COFEYhElbvvT8isXz_Nu-7">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="550" y="650" as="sourcePoint" />
+            <mxPoint x="600" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

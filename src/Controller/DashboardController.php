@@ -39,12 +39,14 @@ class DashboardController extends AppController
             $pendingAccountRequests = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
+                'email_verified' => 1,
             ])
                 ->count();
         } elseif ($user->user_role_id == 2) {
             $pendingAccountRequests = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
+                'email_verified' => 1,
                 'country_id' => $user->country_id,
             ])
                 ->count();
@@ -250,8 +252,16 @@ class DashboardController extends AppController
             $this->Flash->error(__('Not authorized to category lists'));
             return $this->redirect(['controller' => 'Dashboard', 'action' => 'index']);
         }
-        $totalCities = $this->Cities->find()->count();
-        $totalInstitutions = $this->Institutions->find()->count();
+        if ($user->is_admin) {
+            $totalCities = $this->Cities->find()->count();
+            $totalInstitutions = $this->Institutions->find()->count();
+        } elseif ($user->user_role_id == 2) {
+            $totalCities = $this->Cities->find()->where(['country_id' => $user->country_id])->count();
+            $totalInstitutions = $this->Institutions->find()->where(['country_id' => $user->country_id])->count();
+        } else {
+            $totalCities = 0;
+            $totalInstitutions = 0;
+        }
         if ($user->is_admin) {
             $totalLanguages = $this->Languages->find()->count();
             $totalCountries = $this->Countries->find()->count();

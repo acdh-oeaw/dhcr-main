@@ -1,0 +1,115 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64; rv:128.0) Gecko/20100101 Firefox/128.0" version="28.1.1">
+  <diagram name="Page-1" id="ezQNYb1gAp-AFj9BwZXR">
+    <mxGraphModel dx="1426" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-1" value="User logs in" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="364" y="20" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-2" value="Add course form is filled out" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="302" y="120" width="224" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-3" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-1" target="vKlpBUzPdgCQHQKA4_5R-2">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-4" value="User submits form by clicking either &quot;Add course&quot; or &quot;Add course &amp;amp; add resources&quot;" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="271" y="220" width="286" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-5" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-2" target="vKlpBUzPdgCQHQKA4_5R-4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-6" value="Course is saved in DB and mail with approval request is sent to moderator" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="286" y="320" width="256" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-7" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-4" target="vKlpBUzPdgCQHQKA4_5R-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-8" value="&lt;div&gt;Moderator decides:&amp;nbsp;&lt;/div&gt;&lt;div&gt;should the course&amp;nbsp;&lt;/div&gt;&lt;div&gt;be approved?&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="311" y="410" width="206" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-9" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-6" target="vKlpBUzPdgCQHQKA4_5R-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="440" as="sourcePoint" />
+            <mxPoint x="450" y="390" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-10" value="&lt;div&gt;Not implemented (yet), see issue&amp;nbsp; #44&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="600" y="440" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-23" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-8" target="vKlpBUzPdgCQHQKA4_5R-10">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="370" y="330" as="sourcePoint" />
+            <mxPoint x="470" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-24" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="vKlpBUzPdgCQHQKA4_5R-23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-28" value="Moderator clicks on link in mail, logs in and clicks on approve" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="306" y="590" width="216" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-29" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-8">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="340" y="640" as="sourcePoint" />
+            <mxPoint x="414" y="590" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-30" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="vKlpBUzPdgCQHQKA4_5R-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-31" value="Course is approved" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="341" y="690" width="146" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-32" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-28" target="vKlpBUzPdgCQHQKA4_5R-31">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="710" as="sourcePoint" />
+            <mxPoint x="380" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-33" value="&lt;div&gt;Was the checkbox &quot;Show&lt;/div&gt;&lt;div&gt;course in the registry&quot; on the course form checked? (default)&lt;/div&gt;" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="291" y="770" width="246" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-34" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-31" target="vKlpBUzPdgCQHQKA4_5R-33">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="990" as="sourcePoint" />
+            <mxPoint x="380" y="940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-35" value="Course is visible in the public registry" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="346" y="980" width="136" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-36" value="" style="endArrow=classic;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-33" target="vKlpBUzPdgCQHQKA4_5R-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="310" y="1010" as="sourcePoint" />
+            <mxPoint x="410" y="1010" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-37" value="Yes" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="vKlpBUzPdgCQHQKA4_5R-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-38" value="Course is *not* visible in the public registry" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.terminator;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="602.5" y="810" width="145" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-39" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="vKlpBUzPdgCQHQKA4_5R-33" target="vKlpBUzPdgCQHQKA4_5R-38">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="180" y="900" as="sourcePoint" />
+            <mxPoint x="280" y="900" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vKlpBUzPdgCQHQKA4_5R-40" value="No" style="edgeLabel;resizable=0;html=1;;align=center;verticalAlign=middle;" connectable="0" vertex="1" parent="vKlpBUzPdgCQHQKA4_5R-39">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

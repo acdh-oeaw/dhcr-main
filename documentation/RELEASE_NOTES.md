@@ -1,5 +1,36 @@
 # Release notes
 
+## Version 2025-08
+*Release date: 2025-09-06*
+
+### New features
+- Reimplemented filter options for Tadirah Technique or Object #20
+- Created first part of technical documentation #33
+- Added Tadirah elements to course detail page #132
+
+### Change
+- Execute filter by GO-button #136
+
+### Small changes
+- Updated composer to 2.8.11
+- Updated dependencies
+- Removed sending emails from unit tests #17
+- Improved logging for Mailman sync #80
+- Added count for original course name field to course statistics #131
+- Restructured Dashboard - Profile #137
+- Restrict moderator access to cities and institutions in own country #138
+
+### Bug fixes
+- Fixed column modified in external resources overview #48
+- Fixed ReviewReminders, now use GitHub API
+- Fixed ExternalResourcesFixture and re-enabled unit tests #48
+- Fixed sitemap header #129
+- Fixed number of user accounts waiting for approval in dashboards
+- Fixed plural to singular when only 1 issue waiting in ReviewReminders
+- Fixed hide country in category lists moderator menu
+- Fixed user approval mail is sent to admin instead of moderator
+
+
 ## Version 2025-07
 *Release date: 2025-07-12*
 
@@ -17,7 +48,7 @@
 *Release date: 2025-07-12*
 
 ### Small changes
-- Added total numer of results to main page #77
+- Added total number of results to main page #77
 - Updated text on registration page #123
 - Updated text on login page #123
 - Make unpublished courses visible for national moderators #125

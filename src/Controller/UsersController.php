@@ -472,7 +472,28 @@ class UsersController extends AppController
                         //  subscribing with mailman didn't work. unsubscribe in DB, then the user will see a reminder to subscribe in the main dashboard.
                         $approvingUser->mail_list = 0;
                         $this->Users->save($approvingUser);
+                        // log the failure
+                        $logCode = 50;
+                        $logMessage = 'Subscribing to mailman after user approval failed. User ID: ' . $user->id;
+                    } else {
+                        // log the success
+                        $logCode = 10;
+                        $logMessage = 'Subscribing to mailman after user approval successfull.';
                     }
+                    // save to log
+                    $this->loadModel('Logentries');
+                    $scriptName = basename(__FILE__, '.php');
+                    $logAction = 'Subcribe mailinglist';
+                    $this->Logentries->createLogEntry(
+                        $logCode,
+                        '586',
+                        $scriptName,
+                        $logAction,
+                        $logMessage
+                    );
+                    $this->Flash->set($logMessage);
+                } else {
+                    $this->Flash->set('Not in production, so not submitted to Mailman');
                 }
             } else {
                 $this->Flash->set('Approval failed.');
@@ -499,7 +520,8 @@ class UsersController extends AppController
             $this->set('users', $this->paginate($query, ['order' => ['Users.created' => 'DESC']]));
             $usersCount = $this->Users->find()->where([
                 'approved' => 0,
-                'active' => 1
+                'active' => 1,
+                'email_verified' => 1
             ])
                 ->count();
         } elseif ($user->user_role_id == 2) {
@@ -508,12 +530,14 @@ class UsersController extends AppController
                 ->where([
                     'approved' => 0,
                     'active' => 1,
+                    'email_verified' => 1,
                     'Users.country_id' => $user->country_id
                 ]);
             $this->set('users', $this->paginate($query), ['order' => ['Users.created' => 'DESC']]);
             $usersCount = $this->Users->find()->where([
                 'approved' => 0,
                 'active' => 1,
+                'email_verified' => 1,
                 'Users.country_id' => $user->country_id
             ])
                 ->count();
@@ -779,7 +803,7 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $subscriptionStatusNew = $this->request->getData()['mail_list'];
             if ($subscriptionStatusNew != $user->mail_list) {   // user changed subscription status
-                if (env('DHCR_BASE_URL') != 'https://dhcr.clarin-dariah.eu/') { // guard against changes to mailman from not production
+                if (env('DHCR_BASE_URL') != 'https://dhcr.clarin-dariah.eu/') { // guard against changes to mailman from not production 
                     $this->Flash->error('Error: Changes to subscription can only be made in production.');
                     return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
                 }
@@ -798,7 +822,7 @@ class UsersController extends AppController
                 $scriptName = basename(__FILE__, '.php');
                 // request
                 $html = file_get_contents($requestUrl);
-                if (stripos($html, $responseText) > 0) {    // mailman processed action
+                if (stripos($html, $responseText) > 0) {    // mailman processed action succesful
                     $user = $this->Users->patchEntity($user, $this->request->getData());
                     if ($this->Users->save($user)) {
                         $this->Flash->success($responseText);
@@ -812,14 +836,15 @@ class UsersController extends AppController
                         );
                         return $this->redirect(['controller' => 'Dashboard', 'action' => 'profileSettings']);
                     } else {
-                        $errorMessage = 'Subscription status not saved in DB';
+                        $errorMessage = 'Subscription change not saved in DB.';
                         $this->Flash->error('Error: ' . $errorMessage);
                     }
                 } else {    // invalid response from mailman
-                    $errorMessage = 'Subscription change not processed external';
+                    $errorMessage = 'Subscription change not processed by mailman.';
                     $this->Flash->error('Error: ' . $errorMessage);
                 }
                 // log error
+                $errorMessage .= ' User ID: ' . $user->id;
                 $this->Logentries->createLogEntry(
                     '50',
                     '586',

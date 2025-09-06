@@ -133,7 +133,8 @@ use Cake\I18n\FrozenTime;
         In admin area & published: <?= $coursesBackend ?><br>
         <font color="red">Needs to be updated: <?= $coursesBackend - $coursesPublic ?><br></font>
         <font color="green">Public visible: <?= $coursesPublic ?><br></font>
-        Public as part of login area: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%
+        Public as part of admin area: <?= (int) ($coursesPublic / $coursesBackend * 100) ?>%<br>
+        Active courses with original name field used: <?= $coursesOriginalNameCount ?>
     </p>
 
     <h3><span class="glyphicon glyphicon-flag"></span>&nbsp;&nbsp;&nbsp;Courses per country</h3>

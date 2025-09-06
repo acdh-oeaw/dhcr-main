@@ -57,7 +57,7 @@
             "@test"
         ],
         "test": [
-            ""
+            "phpunit --colors=always --configuration phpunit.xml.dist"
         ]
     },
     "prefer-stable": true,
