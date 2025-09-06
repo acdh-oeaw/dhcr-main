@@ -1,13 +1,5 @@
 # Release notes
 
-## Version 2025-09
-*Release date: ...*
-
-### Small changes
-- Updated dependencies
-- ...
-
-
 ## Version 2025-08
 *Release date: ...*
 
