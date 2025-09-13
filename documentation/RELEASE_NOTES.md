@@ -4,8 +4,8 @@
 *Release date: ...*
 
 ### Small changes
-- Updated dependencies
-- ...
+- Updated dependencies (both main and API v2)
+- Updated dev install documentation #33
 
 
 ## Version 2025-08
