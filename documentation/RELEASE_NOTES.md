@@ -6,6 +6,7 @@
 ### Small changes
 - Updated dependencies (both main and API v2)
 - Updated dev install documentation #33
+- Removed share button for Twitter and Facebook #126
 
 
 ## Version 2025-08

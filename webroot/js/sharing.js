@@ -21,11 +21,8 @@ class Sharing {
     static createSharingDialog(course) {
         let modal = new Modal('Share this course', 'sharing');
         let mail = Sharing.createMail(course);
-        let twitter = Sharing.createTwitter(course);
-        let fb = Sharing.createFaceBook(course);
         modal.add(Sharing.createCopyToClipboard(course));
-        modal.add($('<div></div>').addClass('row').append(mail, twitter));
-        modal.add($('<div></div>').addClass('row').append(fb));
+        modal.add($('<div></div>').addClass('row').append(mail));
         modal.create();
     }
 
@@ -81,59 +78,6 @@ class Sharing {
         let button = $('<a></a>').addClass('sharing-option')
             .attr('href', encodeURI(href))
             .html('<svg><use href="#email"></use></svg><span>Email</span>');
-        return button;
-    }
-
-    // function for opening sharing links in a new window/popup
-    // https://stackoverflow.com/questions/26547292/how-create-a-facebook-share-button-without-sdk-or-custom-app-id
-    static openURLInPopup(url, windowId, width, height) {
-        if (typeof (width) == "undefined") {
-            width = 800;
-            height = 600;
-        }
-        if (typeof (height) == "undefined") {
-            height = 600;
-        }
-        window.open(url, windowId || 'window' + Math.floor(Math.random() * 10000 + 1),
-            width, height, 'menubar=0,location=0,toolbar=0,status=0,scrollbars=1');
-    }
-
-    static createTwitter(course) {
-        let url = '&url=' + BASE_URL + 'courses/view/' + course.id;
-        let body = 'Look at this Course at in the Digital Humanities Course Registry:'
-            + '\nTitle: ' + course.name
-            + '\nAt: ' + course.institution.name + ', ' + course.department
-            + '\nIn: ' + course.city.name + ', ' + course.country.name;
-        let hashtags = '&hashtags=DHCR,DHCourseRegistry';
-        let href = 'https://twitter.com/intent/tweet?text=' + body + hashtags + url;
-
-        let button = $('<a></a>').addClass('sharing-option')
-            .attr('href', encodeURI(href))
-            .attr('target', '_blank')
-            .html('<svg><use href="#twitter"></use></svg></span><span>Tweet</span>');
-        button.on('click', function (e) {
-            e.preventDefault();
-            Sharing.openURLInPopup(href, '_blank');
-        });
-        return button;
-    }
-
-    static createFaceBook(course) {
-        let url = BASE_URL + 'courses/view/' + course.id;
-        let body = '&quote=Look at this Course at in the Digital Humanities Course Registry:'
-            + '\nTitle: ' + course.name
-            + '\nAt: ' + course.institution.name + ', ' + course.department
-            + '\nIn: ' + course.city.name + ', ' + course.country.name;
-        let href = 'https://www.facebook.com/sharer/sharer.php?u=' + url + body;
-
-        let button = $('<a></a>').addClass('sharing-option single')
-            .attr('href', encodeURI(href))
-            .attr('target', '_blank')
-            .html('<svg><use href="#facebook"></use></svg></span><span>Facebook</span>');
-        button.on('click', function (e) {
-            e.preventDefault();
-            Sharing.openURLInPopup(href, '_blank');
-        });
         return button;
     }
 }
