@@ -23,11 +23,11 @@ use Cake\I18n\FrozenTime;
     <h3><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;&nbsp;Key data</h3>
     <p>
         Total: <?= $usersTotal ?><br>
-        Subcribed to mailing list: <?= $usersSubscribed ?><br>
-        &nbsp;<br>
         Total available*: <?= $usersAvailable ?><br>
-        Available & subcribed to mailing list: <?= $usersAvailableSubscribed ?><br>
-        Available & subcribed as part of available: <?= (int) ($usersAvailableSubscribed / $usersAvailable * 100) ?>%<br>
+        &nbsp;<br>
+        Preference for mailing list: <?= $usersMailingListPref ?> (includes not activated and not approved accounts)<br>
+        Subcribed to mailing list: <?= $usersMailinglistSubscribed ?><br>
+        Available & subcribed as part of available: <?= (int) ($usersMailinglistSubscribed / $usersAvailable * 100) ?>%<br>
         &nbsp;<br>
         Moderators: <?= $moderators ?><br>
         Moderators subscribed to mailing list: <?= $moderatorsSubscribed ?><br>

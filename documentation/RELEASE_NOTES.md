@@ -8,6 +8,7 @@
 - Updated dev install documentation #33
 - Removed share button for Twitter and Facebook #126
 - Updated composer to 2.8.12
+- Updated mailing list texts in user and summary statistics dashboard #128
 
 
 ## Version 2025-08

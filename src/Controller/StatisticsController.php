@@ -187,7 +187,7 @@ class StatisticsController extends AppController
     private function getUsersKeyData()
     {
         $usersTotal = $this->Users->find()->count();
-        $usersSubscribed = $this->Users->find()->where([
+        $usersMailingListPref = $this->Users->find()->where([
             'mail_list' => 1,
         ])->count();
         $usersAvailable = $this->Users->find()->where([
@@ -196,9 +196,8 @@ class StatisticsController extends AppController
             'approved' => 1,
             'active' => 1,
         ])->count();
-        $usersAvailableSubscribed = $this->Users->find()->where([
+        $usersMailinglistSubscribed = $this->Users->find()->where([
             'email_verified' => 1,
-            'password IS NOT NULL',
             'approved' => 1,
             'active' => 1,
             'mail_list' => 1,
@@ -219,9 +218,9 @@ class StatisticsController extends AppController
 
         return [
             $usersTotal,
-            $usersSubscribed,
+            $usersMailingListPref,
             $usersAvailable,
-            $usersAvailableSubscribed,
+            $usersMailinglistSubscribed,
             $moderators,
             $moderatorsSubscribed,
             $administrators,
@@ -311,9 +310,9 @@ class StatisticsController extends AppController
         $this->set((compact('breadcrumTitles', 'breadcrumControllers', 'breadcrumActions')));
         [
             $usersTotal,
-            $usersSubscribed,
+            $usersMailingListPref,
             $usersAvailable,
-            $usersAvailableSubscribed,
+            $usersMailinglistSubscribed,
             $moderators,
             $moderatorsSubscribed,
             $administrators,
@@ -326,8 +325,8 @@ class StatisticsController extends AppController
         $this->set(compact(
             'usersTotal',
             'usersAvailable',
-            'usersSubscribed',
-            'usersAvailableSubscribed',
+            'usersMailingListPref',
+            'usersMailinglistSubscribed',
             'moderators',
             'moderatorsSubscribed',
             'administrators',
@@ -361,7 +360,7 @@ class StatisticsController extends AppController
             $usersTotal,
             $usersSubscribed,
             $usersAvailable,
-            $usersAvailableSubscribed,
+            $usersMailinglistSubscribed,
             $moderators,
             $moderatorsSubscribed
         ] = $this->getUsersKeyData();
@@ -369,7 +368,7 @@ class StatisticsController extends AppController
             'usersTotal',
             'usersAvailable',
             'usersSubscribed',
-            'usersAvailableSubscribed',
+            'usersMailinglistSubscribed',
             'moderators',
             'moderatorsSubscribed'
         ));
