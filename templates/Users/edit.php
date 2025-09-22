@@ -14,11 +14,7 @@
                 Password Set: <font color=" <?= ($editUser->password != null) ? 'green">Yes' : 'red">No' ?></font><br>
                     Approved: <font color=" <?= ($editUser->approved) ? 'green">Yes</font>' : 'red">No</font>' ?><br>
                 <?php
-                if ($user->is_admin) {   // only admin can disable user
-                    echo $this->Form->control('active', ['label' => 'User account enabled (uncheck only if the user should not be able to login)']);
-                } else {
-                    echo '<p></p>';
-                }
+                echo '<p></p>';
                 echo '<h3>Details</h3><p>';
                 echo $this->Form->control('academic_title');
                 echo $this->Form->control('first_name');

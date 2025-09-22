@@ -4,11 +4,16 @@
 *Release date: ...*
 
 ### Small changes
+- Removed share button for Twitter and Facebook #126
+- Updated mailing list texts in user and summary statistics dashboard #128
+- Removed disable user option #128
+- Updated composer to 2.8.12
 - Updated dependencies (both main and API v2)
 - Updated dev install documentation #33
-- Removed share button for Twitter and Facebook #126
-- Updated composer to 2.8.12
-- Updated mailing list texts in user and summary statistics dashboard #128
+
+
+### Bug fix
+- Synchronized subscribed users between application and Mailan #128
 
 
 ## Version 2025-08
