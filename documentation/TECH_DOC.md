@@ -1,7 +1,7 @@
 # DHCR Technical Documentation
 
 ## Introduction
-The Digital Humanities Course Registry (DHCR) exists since 2014 and provides an up-to-date and curated overview of courses 
+The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses 
 in the area of Digital Humanities, in Europe and beyond. <br>
 It is a responsive web application, which can be viewed on laptop, tablet and smartphone.
 
@@ -31,7 +31,7 @@ https://dhcr.clarin-dariah.eu/api/v2/
 https://app.swaggerhub.com/apis-docs/hashmich/DHCR-API
 
 ### Release notes
-#### Latest
+#### Latest (dev branche)
 [RELEASE_NOTES.md](RELEASE_NOTES.md)
 #### Production
 https://github.com/acdh-oeaw/dhcr-main/blob/prod/documentation/RELEASE_NOTES.md
