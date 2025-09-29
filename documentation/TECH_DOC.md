@@ -131,12 +131,12 @@ Administrator is the "highest" role in the application and has access to everyth
 #### Admin Main Dashboard
 ![Admin Main Dashboard](images/admin_main_dashboard.png)
 
-[Large image](`images/admin_main_dashboard-large.png)`)
+[Large image](images/admin_main_dashboard-large.png)
 
 #### Admin Category Lists
 ![Admin Main Dashboard](images/admin_category_lists.png)
 
-[Large image](`images/admin_category_lists-large.png)`)
+[Large image](images/admin_category_lists-large.png)
 
 
 ## Courses
