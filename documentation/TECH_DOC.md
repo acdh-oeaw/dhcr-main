@@ -1,7 +1,7 @@
 # DHCR Technical Documentation
 
 ## Introduction
-The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses 
+The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses
 in the area of Digital Humanities, in Europe and beyond. <br>
 It is a responsive web application, which can be viewed on laptop, tablet and smartphone.
 
@@ -12,8 +12,8 @@ Courses can be divided in two categories:
 The DHCR is there to register and present the *Activities*.<br>
 The *Digital objects* can be registered in DARIAH Campus.
 
-The curation process includes: 
-- Approval of new user accounts 
+The curation process includes:
+- Approval of new user accounts
 - Approval of new courses
 - Automated hiding of outdated courses, showing only recent updated courses
 - Sending email reminders about outdated courses
@@ -46,7 +46,7 @@ https://github.com/acdh-oeaw/dhcr-main/issues
 Everybody can view all courses as well as the course details, without an account or login.
 
 ### Course contibutor
-To enter a new course or maintain course data, it's required to create an account. The default role 
+To enter a new course or maintain course data, it's required to create an account. The default role
 is course contributor. The user account has to be approved first, before it can be used.
 
 #### Course contributors are responsible for:
@@ -131,8 +131,12 @@ Administrator is the "highest" role in the application and has access to everyth
 #### Admin Main Dashboard
 ![Admin Main Dashboard](images/admin_main_dashboard.png)
 
+[Large image](`images/admin_main_dashboard-large.png)`)
+
 #### Admin Category Lists
 ![Admin Main Dashboard](images/admin_category_lists.png)
+
+[Large image](`images/admin_category_lists-large.png)`)
 
 
 ## Courses
