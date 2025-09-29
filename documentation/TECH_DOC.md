@@ -167,14 +167,64 @@ TODO:
 ## Development process
 
 ### Instances
+
+
+Both the test and dev instance are proteced by an additional password (.htaccess) to restric access to non-tested features to a closed user group.
 - 3 instances
+
+Production instance:<br>
+https://dhcr.clarin-dariah.eu/
+
+Test instance:<br>
+https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/
+
+Dev instance:<br>
+https://dev-dhcr.clarin-dariah.eu/
 
 ### Github Issues
 
 #### Labels
+Lower case, easy writable, to be compatible with the github cli tool
+https://cli.github.com/
+
+Part of application
+frontend - Public accesible part
+admin - Everything after using the login
+
+Kind of issue
+bug - something isn't working
+featurerequest - when is does work it is not u bug and thus a feature request
+documentation - improvements or additions to documentation
+maintainance - to be used by developer to indicate maintaince tasks
+This could be tasks which don't add features, but are needed to provide reliable
+operation of the application now and in the future
+(Example: PHP or framework version upgrades)
+Optional: lowprio
+
+Status of issue
+specsmissing
+todo
+indev
+inreview
+done
+closing the issue
+blocked
+
 #### Workflow
 
+TODO: draw flow
+
 ### Cron jobs
+These can be found in /src/Command
+Scheduled times are listed below
+
+#### CourseReminders
+
+#### Generate sitemap
+
+#### Generate searchlist
+
+#### Review reminders
 
 ### Jobs executed on deployment
 
