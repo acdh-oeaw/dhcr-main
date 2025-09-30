@@ -106,7 +106,7 @@ jobs:
       - name: Set up a test database container
         run: |
            # The following service is isolated from the internet
-           docker run -d --network test-services -p 3306:3306 --name ${{ secrets.TEST_DB_HOST }} -e MARIADB_SKIP_TEST_DB=yes -e ALLOW_EMPTY_PASSWORD=yes -e MARIADB_USER=${{ secrets.TEST_DB_USER }} -e MARIADB_PASSWORD=${{ secrets.TEST_DB_PASS }} -e MARIADB_DATABASE=${{ secrets.TEST_DB_NAME }} bitnami/mariadb:latest
+           docker run -d --network test-services -p 3306:3306 --name ${{ secrets.TEST_DB_HOST }} -e MARIADB_SKIP_TEST_DB=yes -e ALLOW_EMPTY_PASSWORD=yes -e MARIADB_USER=${{ secrets.TEST_DB_USER }} -e MARIADB_PASSWORD=${{ secrets.TEST_DB_PASS }} -e MARIADB_DATABASE=${{ secrets.TEST_DB_NAME }} bitnamisecure/mariadb:latest
       - name: Run tests using herokuish and heroku buildpack (DB credentials in multiple variables)
 # This is a bit more elaborate so the container has access to the internet via the host
 # and in addition to the test services network which is isolated from the internet
