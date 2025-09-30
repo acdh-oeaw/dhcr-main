@@ -3,20 +3,20 @@
 ## Introduction
 The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses
 in the area of Digital Humanities, in Europe and beyond. <br>
-It is a responsive web application, which can be viewed on laptop, tablet and smartphone.
+It is a responsive web application, which can be used on a wide range of devices, including laptops, tablets and smartphones.
 
-Courses can be divided in two categories:
-- *Activities* (event with start and end date and a location)
-- *Digital objects* (like training materials available online)
+Courses can be divided into two categories:
+1. *Activities* (events with a start date, end date and a location)
+2. *Digital objects* (like training materials available online)
 
 The DHCR is there to register and present the *Activities*.<br>
 The *Digital objects* can be registered in DARIAH Campus.
 
 The curation process includes:
-- Approval of new user accounts
-- Approval of new courses
+- Manual approval of new user accounts
+- Manual approval of new courses
 - Automated hiding of outdated courses, showing only recent updated courses
-- Sending email reminders about outdated courses
+- Automated sending email reminders to update outdated courses
 
 
 ## Relevant resources
@@ -32,27 +32,27 @@ https://app.swaggerhub.com/apis-docs/hashmich/DHCR-API
 
 ### Release notes
 #### Latest (dev branche)
-[RELEASE_NOTES.md](RELEASE_NOTES.md)
+[RELEASE_NOTES.md - dev](RELEASE_NOTES.md)
 #### Production
-https://github.com/acdh-oeaw/dhcr-main/blob/prod/documentation/RELEASE_NOTES.md
+[RELEASE_NOTES.md - prod](https://github.com/acdh-oeaw/dhcr-main/blob/prod/documentation/RELEASE_NOTES.md)
 
-### GitHub issues
+### Open issues on GitHub
 https://github.com/acdh-oeaw/dhcr-main/issues
 
 
 ## User roles, access & processes
 
-### Non-login user
+### Public - non-login user
 Everybody can view all courses as well as the course details, without an account or login.
 
 ### Course contibutor
-To enter a new course or maintain course data, it's required to create an account. The default role
-is course contributor. The user account has to be approved first, before it can be used.
+To enter a new course or maintain course data, it's required to create an account first. The default role
+of a new user account is course contributor. Before it can be used, the user account has to be manually approved by a national moderator or administrator.
 
-#### Course contributors are responsible for:
+#### Responsibilities
 - Entering own courses and keeping this information up-to-date (reminder emails are sent)
 
-#### Course contributors can:
+#### Available options
 - Enter new courses
 - View outdated and all own courses
 - Update / edit own existing courses
@@ -65,9 +65,14 @@ is course contributor. The user account has to be approved first, before it can 
     - View dedicated Course Contributors FAQ
 
 #### User Registation Process
-##### Option 1
+The are two different paths available
+##### Option 1 - User registers
+By using:
+
 https://dhcr.clarin-dariah.eu/users/register
-##### Option 2
+##### Option 2 - Moderator invites
+By using:
+
 Dashboard / Contributor Network / Invite User<br>
 https://dhcr.clarin-dariah.eu/users/invite
 
