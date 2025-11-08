@@ -1,5 +1,21 @@
 # Release notes
 
+## Version 2025-09
+*Release date: 2025-11-08*
+
+### Small changes
+- Removed share button for Twitter and Facebook #126
+- Updated mailing list texts in user and summary statistics dashboard #128
+- Removed disable user option #128
+- Updated composer to 2.8.12
+- Updated dependencies (both main and API v2)
+- Updated dev install documentation #33
+- Removed Tadirah label from disciplines #142
+
+### Bug fix
+- Synchronized subscribed users between application and Mailman #128
+
+
 ## Version 2025-08
 *Release date: 2025-09-06*
 

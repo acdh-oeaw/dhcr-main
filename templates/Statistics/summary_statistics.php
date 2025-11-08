@@ -48,7 +48,7 @@ use Cake\I18n\FrozenTime;
                 <ul>
                     <li>Total: <?= $usersTotal ?></li>
                     <li>Total available*: <?= $usersAvailable ?></li>
-                    <li>Available & subcribed mailing list: <?= $usersAvailableSubscribed ?></li>
+                    <li>Subscribed to mailing list: <?= $usersMailinglistSubscribed ?></li>
                     <li>Moderators: <?= $moderators ?></li>
                 </ul>
             </td>

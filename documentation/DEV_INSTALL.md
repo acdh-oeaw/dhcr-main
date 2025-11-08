@@ -1,5 +1,7 @@
 ## Installation in local development environment
-The steps below have been tested with Debian Linux 12.9 (Bookworm)
+The steps below have been tested with Debian Linux,<br>
+versions 12.9 (Bookworm) and 13.1 (Trixie)
+
 1. Install Docker
 
 

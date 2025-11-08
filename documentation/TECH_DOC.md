@@ -1,22 +1,22 @@
 # DHCR Technical Documentation
 
 ## Introduction
-The Digital Humanities Course Registry (DHCR) exists since 2014 and provides an up-to-date and curated overview of courses 
+The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses
 in the area of Digital Humanities, in Europe and beyond. <br>
-It is a responsive web application, which can be viewed on laptop, tablet and smartphone.
+It is a responsive web application, which can be used on a wide range of devices, including laptops, tablets and smartphones.
 
-Courses can be divided in two categories:
-- *Activities* (event with start and end date and a location)
-- *Digital objects* (like training materials available online)
+Courses can be divided into two categories:
+1. *Activities* (events with a start date, end date and a location)
+2. *Digital objects* (like training materials available online)
 
 The DHCR is there to register and present the *Activities*.<br>
 The *Digital objects* can be registered in DARIAH Campus.
 
-The curation process includes: 
-- Approval of new user accounts 
-- Approval of new courses
+The curation process includes:
+- Manual approval of new user accounts
+- Manual approval of new courses
 - Automated hiding of outdated courses, showing only recent updated courses
-- Sending email reminders about outdated courses
+- Automated sending email reminders to update outdated courses
 
 
 ## Relevant resources
@@ -31,28 +31,28 @@ https://dhcr.clarin-dariah.eu/api/v2/
 https://app.swaggerhub.com/apis-docs/hashmich/DHCR-API
 
 ### Release notes
-#### Latest
-[RELEASE_NOTES.md](RELEASE_NOTES.md)
+#### Latest (dev branche)
+[RELEASE_NOTES.md - dev](RELEASE_NOTES.md)
 #### Production
-https://github.com/acdh-oeaw/dhcr-main/blob/prod/documentation/RELEASE_NOTES.md
+[RELEASE_NOTES.md - prod](https://github.com/acdh-oeaw/dhcr-main/blob/prod/documentation/RELEASE_NOTES.md)
 
-### GitHub issues
+### Open issues on GitHub
 https://github.com/acdh-oeaw/dhcr-main/issues
 
 
 ## User roles, access & processes
 
-### Non-login user
+### Public - non-login user
 Everybody can view all courses as well as the course details, without an account or login.
 
 ### Course contibutor
-To enter a new course or maintain course data, it's required to create an account. The default role 
-is course contributor. The user account has to be approved first, before it can be used.
+To enter a new course or maintain course data, it's required to create an account first. The default role
+of a new user account is course contributor. Before it can be used, the user account has to be manually approved by a national moderator or administrator.
 
-#### Course contributors are responsible for:
+#### Responsibilities
 - Entering own courses and keeping this information up-to-date (reminder emails are sent)
 
-#### Course contributors can:
+#### Available tools
 - Enter new courses
 - View outdated and all own courses
 - Update / edit own existing courses
@@ -65,37 +65,42 @@ is course contributor. The user account has to be approved first, before it can 
     - View dedicated Course Contributors FAQ
 
 #### User Registation Process
-##### Option 1
+The are two different paths available
+##### Option 1 - User registers
+By using:
+
 https://dhcr.clarin-dariah.eu/users/register
-##### Option 2
+##### Option 2 - Moderator invites
+By using:
+
 Dashboard / Contributor Network / Invite User<br>
 https://dhcr.clarin-dariah.eu/users/invite
 
 ![User registation process](images/user_registration_process.png)
 
 ### National Moderator
-The user account can be "upgraded" to National Moderator by changing the user role. This can be done by the Administrator. National moderators are responsible for the curation of a specific country. This country is based on the location of the institution the user is associated with. One National Moderator can moderate only one country.
-For most countries a national moderator is available. In case there isn't, an administrator need to take over.
+The user account can be "upgraded" from course contributor to national moderator by changing the user role. This can be done by an Administrator. National moderators are responsible for the curation of a specific country. This country is based on the location of the institution the user is associated with. One National Moderator can moderate only one country.
+For most countries a national moderator is available. In case there isn't, an administrator needs to take over the moderator tasks for that specific country.
 
-#### National Moderators are, in their country, responsible for:
+#### Responsibilities, specific for their country
 - Approval of new user accounts
 - Approval of new courses
-- Contacting Course Contributors when courses are outdated for a long time (reminder emails are sent)
-- Maintaining Master Data for Cities
-- Maintaining Master Data for Institutions
-- Periodically reviewing the course data
+- Contacting course contributors when courses are outdated for a long time (reminder emails are sent)
+- Maintaining master data for cities
+- Maintaining master data for institutions
+- Periodically reviewing the course data (f.e. check for outdated descriptions)
 
-#### National Moderators can:
-- The same as Course Contributors, and also specific in their country:
-    - Approve new user accounts
-    - Approve new courses
+#### Available tools
+- The same as course contributors, and also specific in their country:
+    - View and approve new user accounts
+    - View and approve new courses
     - Invite new users (shorter process & custom language, all countries)
     - View pending invitations
     - View outdated and all courses
     - Update / edit courses
     - View and edit users
-    - View, add, edit Master Data for Cities
-    - View, add, edit Master Data for Institutions
+    - View, add, edit master data for cities
+    - View, add, edit master data for institutions
     - View dedicated National Moderators FAQ
     - View DHCR process explanation: "Users, Access and Workflows" (predecessor of this document)
 
@@ -112,6 +117,7 @@ Administrator is the "highest" role in the application and has access to everyth
 - Maintain the public list of National Moderators https://dhcr.clarin-dariah.eu/national-moderators
 - Maintain the FAQs for: public, course contributor, national moderator
 
+TODO: start here
 #### Administrators can:
 - The same as National Moderators and also:
     - All National Moderator tasks, for all countries
@@ -131,8 +137,12 @@ Administrator is the "highest" role in the application and has access to everyth
 #### Admin Main Dashboard
 ![Admin Main Dashboard](images/admin_main_dashboard.png)
 
+[Large image](images/admin_main_dashboard-large.png)
+
 #### Admin Category Lists
 ![Admin Main Dashboard](images/admin_category_lists.png)
+
+[Large image](images/admin_category_lists-large.png)
 
 
 ## Courses
@@ -163,14 +173,64 @@ TODO:
 ## Development process
 
 ### Instances
+
+
+Both the test and dev instance are proteced by an additional password (.htaccess) to restric access to non-tested features to a closed user group.
 - 3 instances
+
+Production instance:<br>
+https://dhcr.clarin-dariah.eu/
+
+Test instance:<br>
+https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/
+
+Dev instance:<br>
+https://dev-dhcr.clarin-dariah.eu/
 
 ### Github Issues
 
 #### Labels
+Lower case, easy writable, to be compatible with the github cli tool
+https://cli.github.com/
+
+Part of application
+frontend - Public accesible part
+admin - Everything after using the login
+
+Kind of issue
+bug - something isn't working
+featurerequest - when is does work it is not u bug and thus a feature request
+documentation - improvements or additions to documentation
+maintainance - to be used by developer to indicate maintaince tasks
+This could be tasks which don't add features, but are needed to provide reliable
+operation of the application now and in the future
+(Example: PHP or framework version upgrades)
+Optional: lowprio
+
+Status of issue
+specsmissing
+todo
+indev
+inreview
+done
+closing the issue
+blocked
+
 #### Workflow
 
+TODO: draw flow
+
 ### Cron jobs
+These can be found in /src/Command
+Scheduled times are listed below
+
+#### CourseReminders
+
+#### Generate sitemap
+
+#### Generate searchlist
+
+#### Review reminders
 
 ### Jobs executed on deployment
 
