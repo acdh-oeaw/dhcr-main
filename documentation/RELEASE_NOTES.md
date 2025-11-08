@@ -1,5 +1,12 @@
 # Release notes
 
+## Version 2025-11
+*Release date: ...*
+
+### New feature
+- ...
+
+
 ## Version 2025-09
 *Release date: 2025-11-08*
 
