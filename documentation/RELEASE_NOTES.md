@@ -1,7 +1,7 @@
 # Release notes
 
 ## Version 2025-09
-*Release date: ...*
+*Release date: 2025-11-08*
 
 ### Small changes
 - Removed share button for Twitter and Facebook #126
@@ -10,11 +10,10 @@
 - Updated composer to 2.8.12
 - Updated dependencies (both main and API v2)
 - Updated dev install documentation #33
-- Removed tadirah label from disciplines #142
-
+- Removed Tadirah label from disciplines #142
 
 ### Bug fix
-- Synchronized subscribed users between application and Mailan #128
+- Synchronized subscribed users between application and Mailman #128
 
 
 ## Version 2025-08
