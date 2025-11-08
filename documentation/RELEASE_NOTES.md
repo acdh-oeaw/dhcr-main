@@ -10,6 +10,7 @@
 - Updated composer to 2.8.12
 - Updated dependencies (both main and API v2)
 - Updated dev install documentation #33
+- Removed tadirah label from disciplines #142
 
 
 ### Bug fix

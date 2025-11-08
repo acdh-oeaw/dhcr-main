@@ -301,10 +301,10 @@ class View {
             el.append(item.name + '<br>');
         }
 
-        // show tadirah disciplines
+        // show disciplines
         if (course.disciplines.length > 0) {
             el.append('<hr />');
-            el.append('<div class="text"><p class="strong">TaDiRAH Disciplines</p></div>');
+            el.append('<div class="text"><p class="strong">Disciplines</p></div>');
         }
         el.append('<div class="text">');
         course.disciplines.forEach(showItem);
