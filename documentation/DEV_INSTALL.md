@@ -69,6 +69,8 @@ ddev launch
 ```
 
 12. Launch API
+
+Note: this is required for the filter and other options to work properly!
 ```
 cd $PROJECT_DIR/dhcr-api
 ddev import-db --file=dhcr.sql

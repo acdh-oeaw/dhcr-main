@@ -4,7 +4,7 @@
 *Release date: ...*
 
 ### New feature
-- ...
+- Finished technical documentation #33
 
 
 ## Version 2025-09

@@ -3,9 +3,9 @@
 ## Introduction
 The Digital Humanities Course Registry (DHCR) web application exists since 2014 and provides an up-to-date and curated overview of courses
 in the area of Digital Humanities, in Europe and beyond. <br>
-It is a responsive web application, which can be used on a wide range of devices, including laptops, tablets and smartphones.
+It is a responsive web application.
 
-Courses can be divided into two categories:
+In general, courses can be divided into two categories:
 1. *Activities* (events with a start date, end date and a location)
 2. *Digital objects* (like training materials available online)
 
@@ -16,7 +16,7 @@ The curation process includes:
 - Manual approval of new user accounts
 - Manual approval of new courses
 - Automated hiding of outdated courses, showing only recent updated courses
-- Automated sending email reminders to update outdated courses
+- Automated sending of email reminders to course owners with request to update outdated courses
 
 
 ## Relevant resources
@@ -59,7 +59,7 @@ of a new user account is course contributor. Before it can be used, the user acc
 - Unpublish own courses (f.e. in case they don't take place anymore)
 - Change profile settings:
     - Email address
-    - Paswword
+    - Password
     - (Un)subscribe to the mailing list
     - Edit profile: title, first name, last name
     - View dedicated Course Contributors FAQ
@@ -109,16 +109,15 @@ For most countries a national moderator is available. In case there isn't, an ad
 
 
 ### Administrator
-Administrator is the "highest" role in the application and has access to everything.
+Administrator is the "highest" role in the application and has access to everything and for all countries.
 
-#### Administrators are responsible for:
+#### Responsibilities
 - National Moderator tasks in countries where no moderator is available
 - Assigning National Moderators to a country
 - Maintain the public list of National Moderators https://dhcr.clarin-dariah.eu/national-moderators
 - Maintain the FAQs for: public, course contributor, national moderator
 
-TODO: start here
-#### Administrators can:
+#### Available tools
 - The same as National Moderators and also:
     - All National Moderator tasks, for all countries
     - View all external resouces added to courses
@@ -131,8 +130,8 @@ TODO: start here
         - Public
         - Course contributor
         - National moderator
-    - View application log
-    - View statistics and app info (used software versions)
+    - View application log (includes error messages)
+    - View statistics (summary, course and user) and app info (software versions)
 
 #### Admin Main Dashboard
 ![Admin Main Dashboard](images/admin_main_dashboard.png)
@@ -148,10 +147,25 @@ TODO: start here
 ## Courses
 
 ### Course curation
-TODO:
-- Expiration times
-- Reminders
-- Flow chart
+The course curation process includes manual approve of user accounts and of the courses upon entry. All changes to a course afterwards, are show public immediately, without any approval.
+A moderator could check the contents of the courses in their country, and contact contributors if the content is outdated or not correct. A special list is available for this, called "Moderated courses".
+
+#### Expiration times
+To help the course maintainers, a traffic-light colour is used in the list of courses to indicate their status: 
+- Green - actively maintained
+- Orange - needs to be updated
+- Red - not shown in the registry
+
+Process:
+1. When a new course is entered into the registry, its status is green in the list.
+2. After 10 months, the course owner receives emails to update the course metadata. The course status stays green on the list.
+3. After 12 months, the moderator will be on the CC of the reminder emails. The course status is orange.
+4. After 16 months, the course is not shown in the public registry anymore, but it is still available in the login area. The course status turns red in the list.
+5. After 24 months, the course is archived: it is not visible in the public registry or accessible in the login area. The course is still available through the API to keep the history available.
+
+
+#### Reminders
+...
 
 ## Data model for course and related entities
 
