@@ -349,7 +349,11 @@ Every week at tuesday at 9:30 hours.
 All times are in UTC.
 
 ### Jobs executed on deployment
-
+They can be found in webroot/entrypoint.sh<br>
+- Enable PHP intl module (important!) and set PHP path, see includes.sh
+- Generate autocomplete list for searchbar
+- Generate sitemap
+- Start webserver
 
 ### Used technologies
 The application uses the framework CakePHP, currently version 4.6.x and uses PHP, currently 8.3.x.<br>
