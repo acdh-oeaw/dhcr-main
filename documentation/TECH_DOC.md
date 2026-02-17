@@ -148,13 +148,13 @@ Administrator is the "highest" role in the application and has access to everyth
 
 ### Course curation
 The course curation process includes manual approve of user accounts and of the courses upon entry. All changes to a course afterwards, are show public immediately, without any approval.
-A moderator could check the contents of the courses in their country, and contact contributors if the content is outdated or not correct. A special list is available for this, called "Moderated courses".
+A moderator could check the contents of the courses in their country, and contact contributors if the content is outdated or not correct. A special list is available for this, called "Moderated courses". This list is only available to moderators.
 
-#### Expiration times
+#### Course expiration times
 To help the course maintainers, a traffic-light colour is used in the list of courses to indicate their status: 
 - Green - actively maintained
 - Orange - needs to be updated
-- Red - not shown in the registry
+- Red - not shown in the public registry (only in the login area)
 
 Process:
 1. When a new course is entered into the registry, its status is green in the list.
@@ -163,43 +163,135 @@ Process:
 4. After 16 months, the course is not shown in the public registry anymore, but it is still available in the login area. The course status turns red in the list.
 5. After 24 months, the course is archived: it is not visible in the public registry or accessible in the login area. The course is still available through the API to keep the history available.
 
+#### Course expiration reminder emails
+As described above, reminder emails with the request to check and update the course data are sent. After 10 months only to the course owner, after 12 months the national moderator is included on the CC.
 
-#### Reminders
-...
+The check on outdated courses and the sending of the mails happpens 2 times a month. See the chapter cron jobs for the exact days.
+
+The content of the reminder mail can be found in:
+templates/email/text/course_reminders/reminder.php
+
+The exact process can be found in the code:
+src/Command/CourseRemindersCommand.php
+
+When this commend is executed, also the old log enties (> 3 months), are cleaned up (removed).
+
+The result of the process is logged and can be viewed in the login area (Log Entries). There is one log line for every mail sent and one final log line with the summary result.
+This way, errors or results can be traced easy.
+
 
 ## Data model for course and related entities
+The data structure can be found by logging into Phpmyadmin and viewing the tab "Structure". Most of the data fields and table names have self explaining names.
+
+The main entity of the application is a course, this consists of the following entities:
+#### 1:1
+- country
+- city
+- institution
+- course parent type
+- course type
+- language
+- course duration unit
+#### 1:N
+- external resouces
+#### N:M
+- tadirah activities
+- tadirah objects
+- tadirah techniques
+- disciplines
+
+#### Other entities are:
+- users, user_roles
+- logentries
+- invite_translations (translations of the user invite message)
+- faq_questions, faq_categories
 
 
 ## Extra features
 
 ### User invitation and translated message
+When choosing Option 2 in the chapter "User Registation Process", the moderator can select a language for the invitation message.
+There is a list of multiple languages available. This consists of static, manually translated invitation messages.
+The moderator can only select a language from the list, then the predefined text will be used.
+
+The adminstrators can also add new translations and manage existing ones.
 
 ### Public moderator list
+The public moderator list is available here:
+https://dhcr.clarin-dariah.eu/national-moderators
+
+In can be maintained by the admins, in the login area. There is a special list (Contributor Network -> Moderators). Where they can add photo's and edit the other diplayed fields.
 
 ### FAQ's
+There are three types of FAQ available, depending on login/user role: public, course contributor and national moderator.
+
+They can be found here:
+- https://dhcr.clarin-dariah.eu/faq/public
+- https://dhcr.clarin-dariah.eu/faq/contributor
+- https://dhcr.clarin-dariah.eu/faq/moderator
+
+The admins can manage the FAQ question and answer pairs. It's possible to add a link and change the order in which the questions are shown. By changing the category, the questions can be moved to a different type of FAQ.
 
 ### Review reminders
+The review reminders are meant to assist the non-technical collegues on the project, by reminding when issues are pending "in review" and are waiting for their feedback.
+
+The GitHub API is used and checked how many open issues contain the label "inreview". When there are one or more issues with this label, the mails are sent to all the useradmins.
+
+The email contains:
+- the amount of open issues in review
+- link to the overview of those issues
+- a random chosen one-liner to keep up the motivation (static coded array in the code, see below)
+- an explanation why it's important to provide feedback quickly
+
+The content of the email:
+templates/email/text/review_reminders/review_reminder.php
+
+The exact process:
+src/Command/ReviewRemindersCommand.php
+
+The frequency can be found in the chapter "Cron Jobs".
+
+The result, both in case of success or failure is logged and available at "Log Entries".
 
 ### Log entries
-- Log codes
+This is available in the login area at "Category Lists".
+
+The newer parts of the application use this for logging. Legacy parts of the application send an CC to a specific emailaddress instead of logging in the database.
+
+It's possible to view all the log enties or only errors (code >= 50).
+
+The available log codes:
+- 10 - Notification
+- 20 - Sent email (not implemented yet, should replace legacy logging)
+- 30 - Automated problem fixing (course reminders, etc.)
+- 50 - Non-fatal error
+- 90 - Fatal error
+
+Both the data structure of the table log enties as well as the minimalistic and simple view of the log enties provide possiblities for furthur development and addition of more futures.
+There was no time available to implement filters, etc. for showing the log entries.
+
+The older log enties (> 3 months), are cleaned up (removed) when the course reminders command is executed. That happens usually 2 times a month. See chapter "Cron Jons" for specific info.
 
 
 ## Development process
 
 ### Instances
 
+There are three instances running.<br>
+<br>
+Changes or new developments are committet to the dev branche and deployed in the dev instance, the test instance is used for the non techincal collegues to test/review new features or changes. And only after succesfull testing it's deployed to production.
 
 Both the test and dev instance are proteced by an additional password (.htaccess) to restric access to non-tested features to a closed user group.
-- 3 instances
-
-Production instance:<br>
+#### Production instance:<br>
 https://dhcr.clarin-dariah.eu/
 
-Test instance:<br>
-https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/https://test-dhcr.clarin-dariah.eu/
+#### Test instance:<br>
+https://test-dhcr.clarin-dariah.eu/
 
-Dev instance:<br>
+#### Dev instance:<br>
 https://dev-dhcr.clarin-dariah.eu/
+
+
 
 ### Github Issues
 
@@ -207,45 +299,61 @@ https://dev-dhcr.clarin-dariah.eu/
 Lower case, easy writable, to be compatible with the github cli tool
 https://cli.github.com/
 
-Part of application
-frontend - Public accesible part
+##### Part of application
+frontend - Public accesible part<br>
 admin - Everything after using the login
 
-Kind of issue
-bug - something isn't working
-featurerequest - when is does work it is not u bug and thus a feature request
-documentation - improvements or additions to documentation
+##### Kind of issue
+bug - something isn't working<br>
+featurerequest - when is does work it is not u bug and thus a feature request<br>
+documentation - improvements or additions to documentation<br>
 maintainance - to be used by developer to indicate maintaince tasks
 This could be tasks which don't add features, but are needed to provide reliable
-operation of the application now and in the future
-(Example: PHP or framework version upgrades)
-Optional: lowprio
+operation of the application now and in the future.<br>
+(Example: PHP or framework version upgrades)<br>
+Optional: lowprio<br>
 
-Status of issue
-specsmissing
-todo
-indev
-inreview
-done
-closing the issue
-blocked
-
-#### Workflow
-
-TODO: draw flow
+##### Status of issue
+specsmissing - non technical collegues need to specify more clearly what's needed<br>
+todo - ready to be developed<br>
+indev - current work<br>
+inreview - needs to de tested<br>
+done - flag added by non techincal collegues when issue is reviewed<br>
+closing the issue - only done by developer, after checking that all releated tasks are finished<br>
+blocked - another process is blocking the progress of the issue<br>
 
 ### Cron jobs
-These can be found in /src/Command
-Scheduled times are listed below
+The following cron jobs are running, they can be found in /src/Command under the corresponding filenames:
 
 #### CourseReminders
+Sends the emails with the course reminders, see explananion in chapter above.<br>
+Scheduled at:<br>
+Every 4th and 19th day of a month at 8:30 hours.
 
 #### Generate sitemap
+Genarates a sitemap which is also submitted to Google.
+<br>
+Scheduled at:<br>
+Every day at 3:50 hours.
 
 #### Generate searchlist
+Genarates the list needed for the autocomplete in the searchbar.<br>
+Scheduled at:<br>
+Every day, every hour at the 15th and 45th minute.
 
 #### Review reminders
+Sends reminder emails when issues are waiting to be reviewd/tested, see explananion in chapter above.<br>
+Scheduled at:<br>
+Every week at tuesday at 9:30 hours.
+
+All times are in UTC.
 
 ### Jobs executed on deployment
 
+
 ### Used technologies
+The application uses the framework CakePHP, currently version 4.6.x and uses PHP, currently 8.3.x.<br>
+The main page uses mainly JavaScript. Some pages use Jquery. The maps are displayed using Mapbox and Leaflet and the pins on the main page are shown using a plugin for leaflet.
+<br>
+<br>
+Although some items use a CDN, a lot of the libraries are "hard coded" / stored in the repo itself.
