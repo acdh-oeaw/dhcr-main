@@ -176,7 +176,7 @@ jobs:
             annotations:
               cert-manager.io/cluster-issuer: letsencrypt-prod
               nginx.ingress.kubernetes.io/proxy-connect-timeout: '600'
-              kubernetes.io/ingress.class: "nginx"
+              kubernetes.io/ingress.class: "rke2-ingress-nginx-migration"
               kubernetes.io/proxy-read-timeout: "3600"
           EOF
           if [ '${{ secrets.APP_ROOT }}x' != '/x' ]
